@@ -16,6 +16,8 @@ import AdminDashboard from './components/AdminDashboard';
 import ContentProtection from './components/ContentProtection';
 import SubjectSidebar from './components/SubjectSidebar';
 import { getSubjectConfig } from './data/sidebarNavigation';
+import StarfieldBackground from './components/StarfieldBackground';
+import GlowOrbs from './components/GlowOrbs';
 
 // Imports for Subjects...
 import AirLawDashboard from './components/AirLawDashboard';
@@ -358,6 +360,10 @@ const App: React.FC = () => {
     return (
         <ContentProtection userId={user.id}>
             <div className="min-h-screen font-sans text-slate-100 selection:bg-blue-500/30 selection:text-white bg-slate-950">
+
+                {/* Immersive Background Effects */}
+                <StarfieldBackground />
+                <GlowOrbs />
 
                 {/* Modern Floating Navbar */}
                 <div className="fixed top-0 w-full z-50 px-4 py-4 pointer-events-none">
