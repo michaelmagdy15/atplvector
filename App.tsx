@@ -90,16 +90,7 @@ import HPLCulture from './components/HPL/HPLCulture';
 import HPLRadiation from './components/HPL/HPLRadiation';
 import HPLThermal from './components/HPL/HPLThermal';
 import HPLSleepDisorders from './components/HPL/HPLSleepDisorders';
-import HPLRespiration from './components/HPL/HPLRespiration';
-import HPLCirculation from './components/HPL/HPLCirculation';
-import HPLNervousSystem from './components/HPL/HPLNervousSystem';
-import HPLMetabolism from './components/HPL/HPLMetabolism';
-import HPLErgonomics from './components/HPL/HPLErgonomics';
-import HPLBiases from './components/HPL/HPLBiases';
-import HPLCulture from './components/HPL/HPLCulture';
-import HPLRadiation from './components/HPL/HPLRadiation';
-import HPLThermal from './components/HPL/HPLThermal';
-import HPLSleepDisorders from './components/HPL/HPLSleepDisorders';
+
 import AtmosphereLayers from './components/Meteorology/AtmosphereLayers';
 import OneInSixty from './components/Nav/OneInSixty';
 import TimeZoner from './components/TimeZoner';

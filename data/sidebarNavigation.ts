@@ -172,6 +172,16 @@ const NAV_MAP: SubjectConfig[] = [
             { label: 'Automation', view: View.HPL_AUTOMATION },
             { label: 'Vestibular', view: View.HPL_VESTIBULAR },
             { label: 'Memory', view: View.HPL_MEMORY },
+            { label: 'Respiration', view: View.HPL_RESPIRATION },
+            { label: 'Circulation', view: View.HPL_CIRCULATION },
+            { label: 'Nervous System', view: View.HPL_NERVOUS },
+            { label: 'Metabolism', view: View.HPL_METABOLISM },
+            { label: 'Ergonomics', view: View.HPL_ERGONOMICS },
+            { label: 'Biases', view: View.HPL_BIASES },
+            { label: 'Culture', view: View.HPL_CULTURE },
+            { label: 'Radiation', view: View.HPL_RADIATION },
+            { label: 'Thermal', view: View.HPL_THERMAL },
+            { label: 'Sleep Disorders', view: View.HPL_SLEEP_DISORDERS },
         ]
     },
     {

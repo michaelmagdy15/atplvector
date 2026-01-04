@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Moon, Info, AlertOctagon, BedDouble } from 'lucide-react';
+import { Moon, Info, AlertOctagon, BedDouble, AlertTriangle } from 'lucide-react';
 
 const HPLSleepDisorders: React.FC = () => {
     const [tab, setTab] = useState<'apnea' | 'narcolepsy' | 'parasomnia'>('apnea');
@@ -61,8 +61,8 @@ const ApneaInfo = () => (
                         <li>• Tired (Daytime)</li>
                         <li>• Observed (Stop breathing)</li>
                         <li>• Pressure (Blood - High)</li>
-                        <li>• BMI (>35)</li>
-                        <li>• Age (>50)</li>
+                        <li>• BMI (&gt;35)</li>
+                        <li>• Age (&gt;50)</li>
                         <li>• Neck Size (Large)</li>
                         <li>• Gender (Male)</li>
                     </ul>
