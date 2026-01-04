@@ -1,0 +1,142 @@
+
+import { LearningObjective, SubjectStats, View } from '../types';
+
+export const SUBJECTS: SubjectStats[] = [
+    { id: '010', name: 'Air Law', totalLOs: 215, coveredLOs: 0 },
+    { id: '021', name: 'AGK: Airframe/Systems', totalLOs: 180, coveredLOs: 0 },
+    { id: '022', name: 'AGK: Instrumentation', totalLOs: 140, coveredLOs: 0 },
+    { id: '031', name: 'Mass & Balance', totalLOs: 80, coveredLOs: 0 },
+    { id: '032', name: 'Performance (A)', totalLOs: 120, coveredLOs: 0 },
+    { id: '033', name: 'Flight Planning', totalLOs: 95, coveredLOs: 0 },
+    { id: '040', name: 'Human Performance', totalLOs: 110, coveredLOs: 0 },
+    { id: '050', name: 'Meteorology', totalLOs: 160, coveredLOs: 0 },
+    { id: '061', name: 'General Navigation', totalLOs: 90, coveredLOs: 0 },
+    { id: '062', name: 'Radio Navigation', totalLOs: 130, coveredLOs: 0 },
+    { id: '070', name: 'Operational Proc.', totalLOs: 85, coveredLOs: 0 },
+    { id: '081', name: 'Principles of Flight', totalLOs: 150, coveredLOs: 0 },
+    { id: '090', name: 'Communications', totalLOs: 119, coveredLOs: 0 },
+];
+
+export const LEARNING_OBJECTIVES: LearningObjective[] = [
+    // --- 010 AIR LAW ---
+    { id: '010.01.00', subject: '010', text: 'International Law: Conventions & Agreements', coveredBy: View.AIR_LAW_INT_LAW },
+    { id: '010.02.00', subject: '010', text: 'Airworthiness of Aircraft (Annex 8)', coveredBy: View.AIR_LAW_AIRWORTHINESS },
+    { id: '010.03.00', subject: '010', text: 'Aircraft Nationality & Registration (Annex 7)', coveredBy: View.AIR_LAW_REGISTRATION },
+    { id: '010.04.00', subject: '010', text: 'Personnel Licensing (Annex 1)', coveredBy: View.AIR_LAW_PERSONNEL },
+    { id: '010.05.00', subject: '010', text: 'Rules of the Air (Annex 2 / SERA)', coveredBy: View.AIR_LAW_RULES_DETAILS },
+    { id: '010.05.02', subject: '010', text: 'Visual & Instrument Flight Rules', coveredBy: View.AIR_LAW_RULES_OF_AIR },
+    { id: '010.05.03', subject: '010', text: 'Interception Procedures', coveredBy: View.AIR_LAW_INTERCEPT },
+    { id: '010.05.04', subject: '010', text: 'Altimeter Setting Procedures', coveredBy: View.AIR_LAW_ALTIMETER },
+    { id: '010.05.05', subject: '010', text: 'Cruising Levels (Semi-Circular Rule)', coveredBy: View.AIR_LAW_CRUISING },
+    { id: '010.06.00', subject: '010', text: 'Aircraft Operations (Annex 6)', coveredBy: View.AIR_LAW_DOCS },
+    { id: '010.06.02', subject: '010', text: 'Operational Procedures (PANS-OPS)', coveredBy: View.AIR_LAW_PANS_OPS },
+    { id: '010.06.04', subject: '010', text: 'Instrument Approach Procedures', coveredBy: View.AIR_LAW_INSTRUMENT },
+    { id: '010.06.05', subject: '010', text: 'Holding Procedures', coveredBy: View.AIR_LAW_HOLDING },
+    { id: '010.07.00', subject: '010', text: 'Air Traffic Services (Annex 11)', coveredBy: View.AIR_LAW_LAYERS },
+    { id: '010.07.02', subject: '010', text: 'Airspace Classifications', coveredBy: View.AIR_LAW_IFR_VFR },
+    { id: '010.08.00', subject: '010', text: 'Aeronautical Information Service (Annex 15)', coveredBy: View.AIR_LAW_OPS_INFO },
+    { id: '010.09.00', subject: '010', text: 'Aerodromes (Annex 14)', coveredBy: View.AIR_LAW_REF_CODE },
+    { id: '010.09.02', subject: '010', text: 'Aerodrome Data & Dimensions', coveredBy: View.AIR_LAW_DECLARED_DIST },
+    { id: '010.09.03', subject: '010', text: 'Movement Area & Surfaces', coveredBy: View.AIR_LAW_SURFACE_CON },
+    { id: '010.09.04', subject: '010', text: 'Visual Aids: Markings', coveredBy: View.AIR_LAW_AERODROME_VIS },
+    { id: '010.09.05', subject: '010', text: 'Visual Aids: Lights', coveredBy: View.AIR_LAW_LIGHTING },
+    { id: '010.09.06', subject: '010', text: 'Visual Aids: Signs', coveredBy: View.AIR_LAW_SIGNS },
+    { id: '010.09.07', subject: '010', text: 'Visual Aids: PAPI/VASIS', coveredBy: View.AIR_LAW_TVASIS },
+    { id: '010.09.08', subject: '010', text: 'Runway Status Lights', coveredBy: View.AIR_LAW_RWSL },
+    { id: '010.10.00', subject: '010', text: 'Facilitation (Annex 9)', coveredBy: View.AIR_LAW_OPS_INFO },
+    { id: '010.11.00', subject: '010', text: 'Search and Rescue (Annex 12)', coveredBy: View.AIR_LAW_SAR },
+    { id: '010.12.00', subject: '010', text: 'Security (Annex 17)', coveredBy: View.AIR_LAW_SECURITY },
+    { id: '010.13.00', subject: '010', text: 'Accident Investigation (Annex 13)', coveredBy: View.AIR_LAW_ACCIDENT },
+    { id: '010.14.00', subject: '010', text: 'Ground Operations', coveredBy: View.AIR_LAW_GROUND_OPS },
+
+    // --- 021 AGK SYSTEMS ---
+    { id: '021.03.01', subject: '021', text: 'Hydromechanics: Principles', coveredBy: View.AGK_HYDRAULICS },
+    { id: '021.11.01', subject: '021', text: 'Gas Turbines: Basic Principles', coveredBy: View.AGK_JET_ENGINE },
+
+    // --- 040 HUMAN PERFORMANCE ---
+    { id: '040.02.01', subject: '040', text: 'Physiology: Hypoxia & Altitude', coveredBy: View.HPL_PHYSIOLOGY },
+
+    // --- 050 METEOROLOGY ---
+    { id: '050.01.01', subject: '050', text: 'The Atmosphere: Structure', coveredBy: View.MET_ATMOSPHERE },
+
+    // --- 061 GEN NAV ---
+    { id: '061.01.03', subject: '061', text: 'Navigation: 1 in 60 Rule', coveredBy: View.NAV_60_1 },
+    { id: '061.01.05', subject: '061', text: 'Time: UTC & Local', coveredBy: View.TIME_ZONER },
+
+    // --- 062 RADIO NAV ---
+    { id: '062.06.01', subject: '062', text: 'GNSS: Principles', coveredBy: View.NAV_GNSS },
+
+    // --- 081 PRINCIPLES OF FLIGHT ---
+    { id: '081.01.01', subject: '081', text: 'Subsonic Aerodynamics: Lift/Drag', coveredBy: View.POF_LIFT_DRAG },
+
+    // --- 090 COMMUNICATIONS (Comprehensive) ---
+    // 090.01 Concepts
+    { id: '090.01.01', subject: '090', text: 'Definitions & Terms', coveredBy: View.GENERAL_THEORY },
+    { id: '090.01.02', subject: '090', text: 'Abbreviations', coveredBy: View.GENERAL_THEORY },
+    { id: '090.01.03', subject: '090', text: 'Q-Codes', coveredBy: View.QCODE_CARDS },
+    { id: '090.01.04', subject: '090', text: 'Categories of Messages', coveredBy: View.PRIORITY },
+
+    // 090.02 General Operating Procedures
+    { id: '090.02.01', subject: '090', text: 'Transmission Technique', coveredBy: View.GENERAL_THEORY },
+    { id: '090.02.02', subject: '090', text: 'Callsigns & Suffixes', coveredBy: View.SUFFIX_MATCH },
+    { id: '090.02.03', subject: '090', text: 'Transmission of Numbers', coveredBy: View.ALT_SPEAK },
+    { id: '090.02.04', subject: '090', text: 'Transmission of Time', coveredBy: View.TIME_REPORT },
+    { id: '090.02.05', subject: '090', text: 'Standard Words & Phrases', coveredBy: View.WORD_MATCH },
+    { id: '090.02.06', subject: '090', text: 'Radiotelephony Call Signs', coveredBy: View.FLIGHT_RULES },
+    { id: '090.02.07', subject: '090', text: 'Readback Requirements', coveredBy: View.READBACK },
+    { id: '090.02.08', subject: '090', text: 'Test Procedures', coveredBy: View.READABILITY_SIM },
+    { id: '090.02.09', subject: '090', text: 'Transfer of Communications', coveredBy: View.FLIGHT_RULES },
+    { id: '090.02.10', subject: '090', text: 'VFR Communications', coveredBy: View.VFR_COMMS_SIM },
+    { id: '090.02.11', subject: '090', text: 'IFR Communications', coveredBy: View.PHRASEOLOGY_EXPLORER },
+    { id: '090.02.12', subject: '090', text: 'Advanced Phraseology', coveredBy: View.ADV_PHRASEOLOGY },
+
+    // 090.03 Weather
+    { id: '090.03.01', subject: '090', text: 'Aerodrome Weather (METAR)', coveredBy: View.METAR },
+    { id: '090.03.02', subject: '090', text: 'Weather Broadcasts (VOLMET/ATIS)', coveredBy: View.VOLMET_SIM },
+    { id: '090.03.03', subject: '090', text: 'Special Air Reports', coveredBy: View.AIREP_SPEC },
+
+    // 090.04 Failure
+    { id: '090.04.01', subject: '090', text: 'Communications Failure', coveredBy: View.COMM_FAIL },
+    { id: '090.04.02', subject: '090', text: 'Blind Transmission', coveredBy: View.BLIND_TX },
+
+    // 090.05 Distress
+    { id: '090.05.01', subject: '090', text: 'Distress (MAYDAY)', coveredBy: View.EMERGENCY },
+    { id: '090.05.02', subject: '090', text: 'Urgency (PAN-PAN)', coveredBy: View.EMERGENCY },
+    { id: '090.05.03', subject: '090', text: 'Emergency Operations', coveredBy: View.EMERGENCY_OPS },
+
+    // 090.06 Propagation
+    { id: '090.06.01', subject: '090', text: 'VHF Propagation', coveredBy: View.PROPAGATION_THEORY },
+    { id: '090.06.02', subject: '090', text: 'Frequency Spectrum', coveredBy: View.BAND_SPEC },
+    { id: '090.06.03', subject: '090', text: 'Range & Altitude', coveredBy: View.VHF_CALC },
+    { id: '090.06.04', subject: '090', text: 'Technical Aspects', coveredBy: View.TECH_PHYSICS },
+
+    // 090.07 Misc
+    { id: '090.07.01', subject: '090', text: 'Morse Code', coveredBy: View.MORSE },
+    { id: '090.07.02', subject: '090', text: 'Transponder Operation', coveredBy: View.TRANSPONDER },
+    { id: '090.07.03', subject: '090', text: 'Data Link (ACARS/CPDLC)', coveredBy: View.RADIO_NAV_DATA },
+];
+
+export const calculateProgress = () => {
+    const stats = SUBJECTS.map(sub => {
+        // Find mapped learning objectives for this subject
+        const mappedLOs = LEARNING_OBJECTIVES.filter(lo => lo.subject === sub.id && lo.coveredBy);
+        
+        // Count the unique modules covering this subject
+        const uniqueModules = new Set(mappedLOs.map(lo => lo.coveredBy)).size;
+
+        // Weighting Logic:
+        // We assume each interactive module covers approximately 5 official Learning Objectives (LOs).
+        // e.g., "Airspace Explorer" covers definitions, classes A-G, separation, VFR rules, etc.
+        const estimatedCoverage = uniqueModules * 5; 
+        
+        // Calculate percentage, capped at 100%
+        const percentage = Math.min(100, Math.round((estimatedCoverage / sub.totalLOs) * 100));
+        
+        return {
+            ...sub,
+            coveredLOs: estimatedCoverage, // Display estimated coverage count
+            percentage: percentage
+        };
+    });
+    return stats;
+};
