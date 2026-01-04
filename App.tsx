@@ -90,6 +90,16 @@ import HPLCulture from './components/HPL/HPLCulture';
 import HPLRadiation from './components/HPL/HPLRadiation';
 import HPLThermal from './components/HPL/HPLThermal';
 import HPLSleepDisorders from './components/HPL/HPLSleepDisorders';
+import HPLRespiration from './components/HPL/HPLRespiration';
+import HPLCirculation from './components/HPL/HPLCirculation';
+import HPLNervousSystem from './components/HPL/HPLNervousSystem';
+import HPLMetabolism from './components/HPL/HPLMetabolism';
+import HPLErgonomics from './components/HPL/HPLErgonomics';
+import HPLBiases from './components/HPL/HPLBiases';
+import HPLCulture from './components/HPL/HPLCulture';
+import HPLRadiation from './components/HPL/HPLRadiation';
+import HPLThermal from './components/HPL/HPLThermal';
+import HPLSleepDisorders from './components/HPL/HPLSleepDisorders';
 import AtmosphereLayers from './components/Meteorology/AtmosphereLayers';
 import OneInSixty from './components/Nav/OneInSixty';
 import TimeZoner from './components/TimeZoner';
@@ -634,6 +644,16 @@ const App: React.FC = () => {
                             {currentView === View.HPL_AUTOMATION && <HPLAutomation />}
                             {currentView === View.HPL_VESTIBULAR && <HPLVestibular />}
                             {currentView === View.HPL_MEMORY && <HPLMemory />}
+                            {currentView === View.HPL_RESPIRATION && <HPLRespiration />}
+                            {currentView === View.HPL_CIRCULATION && <HPLCirculation />}
+                            {currentView === View.HPL_NERVOUS && <HPLNervousSystem />}
+                            {currentView === View.HPL_METABOLISM && <HPLMetabolism />}
+                            {currentView === View.HPL_ERGONOMICS && <HPLErgonomics />}
+                            {currentView === View.HPL_BIASES && <HPLBiases />}
+                            {currentView === View.HPL_CULTURE && <HPLCulture />}
+                            {currentView === View.HPL_RADIATION && <HPLRadiation />}
+                            {currentView === View.HPL_THERMAL && <HPLThermal />}
+                            {currentView === View.HPL_SLEEP_DISORDERS && <HPLSleepDisorders />}
                             {currentView === View.HPL_RESPIRATION && <HPLRespiration />}
                             {currentView === View.HPL_CIRCULATION && <HPLCirculation />}
                             {currentView === View.HPL_NERVOUS && <HPLNervousSystem />}

@@ -1,162 +1,175 @@
-
 import React, { useState } from 'react';
-import { Radiation, Sun, Moon, AlertTriangle } from 'lucide-react';
+import { Sun, Radiation, AlertTriangle, ShieldAlert } from 'lucide-react';
 
 const HPLRadiation: React.FC = () => {
     const [tab, setTab] = useState<'types' | 'dose' | 'ozone'>('types');
 
     return (
-        <div className="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700 mt-8">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                <div>
-                    <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
-                        <Radiation className="text-yellow-400" />
-                        Radiation & Environment (040.02)
-                    </h2>
-                    <p className="text-slate-400 text-sm">Cosmic Radiation, Solar Flares, and Ozone.</p>
+        <div className="space-y-6">
+            <header className="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                <div className="flex items-center gap-3 mb-2">
+                    <div className="p-2 bg-yellow-500/20 rounded-lg">
+                        <Radiation className="w-6 h-6 text-yellow-400" />
+                    </div>
+                    <h1 className="text-2xl font-bold text-slate-100">Cosmic Radiation & Ozone</h1>
                 </div>
+                <p className="text-slate-400">
+                    Ionizing radiation at altitude and the toxic effects of ozone are significant environmental hazards for aircrew.
+                </p>
+            </header>
 
-                <div className="flex bg-slate-900 p-1 rounded-lg">
-                    <button onClick={() => setTab('types')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'types' ? 'bg-yellow-600 text-slate-900' : 'text-slate-400 hover:text-white'}`}>Types</button>
-                    <button onClick={() => setTab('dose')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'dose' ? 'bg-yellow-600 text-slate-900' : 'text-slate-400 hover:text-white'}`}>Dose Calc</button>
-                    <button onClick={() => setTab('ozone')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'ozone' ? 'bg-yellow-600 text-slate-900' : 'text-slate-400 hover:text-white'}`}>Ozone</button>
-                </div>
+            <div className="flex gap-2 bg-slate-800/50 p-1 rounded-lg">
+                <button onClick={() => setTab('types')} className={`flex-1 py-2 rounded transition-colors ${tab === 'types' ? 'bg-yellow-600 text-white' : 'text-slate-400 hover:bg-white/5'}`}>Radiation Types</button>
+                <button onClick={() => setTab('dose')} className={`flex-1 py-2 rounded transition-colors ${tab === 'dose' ? 'bg-yellow-600 text-white' : 'text-slate-400 hover:bg-white/5'}`}>Dose Calculator</button>
+                <button onClick={() => setTab('ozone')} className={`flex-1 py-2 rounded transition-colors ${tab === 'ozone' ? 'bg-yellow-600 text-white' : 'text-slate-400 hover:bg-white/5'}`}>Ozone</button>
             </div>
 
-            {tab === 'types' && <RadiationTypes />}
-            {tab === 'dose' && <DoseCalculator />}
-            {tab === 'ozone' && <OzoneToxicity />}
+            <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 min-h-[400px]">
+                {tab === 'types' && <RadiationTypes />}
+                {tab === 'dose' && <DoseCalculator />}
+                {tab === 'ozone' && <OzoneSim />}
+            </div>
         </div>
     );
 };
 
 const RadiationTypes = () => (
-    <div className="animate-in fade-in grid md:grid-cols-2 gap-8">
-        <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
-            <h3 className="font-bold text-white mb-4 flex items-center gap-2">
-                <Moon className="text-blue-300" /> Galactic Cosmic Radiation
-            </h3>
-            <p className="text-sm text-slate-300 mb-4">
-                Originates from outside the solar system (exploding stars etc.).
-            </p>
-            <ul className="text-sm text-slate-400 space-y-2 list-disc pl-4">
-                <li>Constant low-level stream.</li>
-                <li>High energy particles.</li>
-                <li><strong>Max effect:</strong> At the Poles (Magnetic field funnels them in) and High Altitude (Less atmosphere shielding).</li>
-            </ul>
+    <div className="space-y-8">
+        <h3 className="text-xl font-bold text-white">Sources of Ionizing Radiation</h3>
+
+        <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-slate-900 p-6 rounded-xl border-l-4 border-indigo-500">
+                <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-indigo-500/20 rounded-full">
+                        <Sun className="text-indigo-400" />
+                    </div>
+                    <h4 className="font-bold text-lg text-white">Galactic Cosmic Radiation</h4>
+                </div>
+                <p className="text-sm text-slate-300 mb-4">
+                    Originates from outside our solar system (supernovae, etc.). It is constant and high-energy.
+                </p>
+                <ul className="space-y-2 text-sm text-slate-400">
+                    <li>• <strong>Altitude:</strong> Intensity increases with altitude (less atmosphere to shield).</li>
+                    <li>• <strong>Latitude:</strong> Intensity increases towards poles (magnetic field funnel).</li>
+                    <li>• <strong>Solar Cycle:</strong> Actually <em>lower</em> during Solar Maximum (solar wind deflects it).</li>
+                </ul>
+            </div>
+
+            <div className="bg-slate-900 p-6 rounded-xl border-l-4 border-yellow-500">
+                <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-yellow-500/20 rounded-full">
+                        <Radiation className="text-yellow-400" />
+                    </div>
+                    <h4 className="font-bold text-lg text-white">Solar Cosmic Radiation</h4>
+                </div>
+                <p className="text-sm text-slate-300 mb-4">
+                    Originates from the sun during <strong>Solar Flares</strong> (Coronal Mass Ejections).
+                </p>
+                <ul className="space-y-2 text-sm text-slate-400">
+                    <li>• <strong>Predictability:</strong> Sporadic and unpredictable events.</li>
+                    <li>• <strong>Warning:</strong> Modern aircraft have radiation monitors.</li>
+                    <li>• <strong>Action:</strong> Descend to lower altitude (thicker atmosphere) if alarm sounds.</li>
+                </ul>
+            </div>
         </div>
 
-        <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
-            <h3 className="font-bold text-white mb-4 flex items-center gap-2">
-                <Sun className="text-orange-400" /> Solar Radiation
-            </h3>
-            <p className="text-sm text-slate-300 mb-4">
-                Originates from the Sun.
-            </p>
-            <ul className="text-sm text-slate-400 space-y-2 list-disc pl-4">
-                <li>Usually low energy (Solar Wind), blocked by magnetosphere.</li>
-                <li><strong>Solar Flares (SPE):</strong> Sudden bursts of intense radiation. Can require descent to lower altitudes to use atmosphere as shield.</li>
-                <li>Sun spot cycle: ~11 years.</li>
-            </ul>
+        <div className="bg-slate-700/30 p-4 rounded-lg text-xs text-slate-300">
+            <strong>Sievert (Sv):</strong> The unit of biological effect. <br />
+            Aircrew are classified as "occupationally exposed". The annual limit is usually 20 mSv/year (same as nuclear workers), though actual doses are much lower (~2-5 mSv).
         </div>
     </div>
 );
 
 const DoseCalculator = () => {
+    const [altitude, setAltitude] = useState(30000);
+    const [latitude, setLatitude] = useState(45);
     const [hours, setHours] = useState(500);
-    const [flightLevel, setFlightLevel] = useState(350);
 
-    // Crude approximation: 
-    // Sea level = 0.0001 mSv/hr
-    // FL300 = 0.003
-    // FL400 = 0.008
-    const doseRate = 0.0001 * Math.pow(1.15, (flightLevel / 2000));
-    const totalDose = doseRate * hours;
+    // Completely fake formula for demonstration
+    // Base dose + Altitude factor + Latitude factor
+    const dose = ((altitude / 10000) * (latitude / 90) * (hours / 1000)).toFixed(2);
 
-    // Limits
-    // Public: 1 mSv/yr
-    // Aircrew: 20 mSv/yr (EASA limit is effectively monitored >6, limit 20)
-    // Pregnant: 1 mSv for remainder of pregnancy.
+    // Risk bands
+    let risk = 'Low';
+    let color = 'text-green-500';
+    if (parseFloat(dose) > 2) { risk = 'Moderate'; color = 'text-yellow-500'; }
+    if (parseFloat(dose) > 5) { risk = 'High'; color = 'text-red-500'; }
 
     return (
-        <div className="animate-in slide-in-from-right-4">
-            <h3 className="text-xl font-bold text-white mb-6">Dose Estimator (Sieverts)</h3>
-
-            <div className="grid md:grid-cols-2 gap-8">
-                <div className="space-y-6">
-                    <div>
-                        <label className="flex justify-between text-xs text-slate-400 mb-2">
-                            Annual Flight Hours
-                            <span className="text-white font-mono">{hours} hrs</span>
-                        </label>
-                        <input type="range" min="0" max="1000" value={hours} onChange={e => setHours(Number(e.target.value))} className="w-full h-2 bg-slate-700 rounded-lg accent-yellow-500" />
-                    </div>
-
-                    <div>
-                        <label className="flex justify-between text-xs text-slate-400 mb-2">
-                            Avg Flight Level
-                            <span className="text-white font-mono">FL {flightLevel}</span>
-                        </label>
-                        <input type="range" min="0" max="500" step="10" value={flightLevel} onChange={e => setFlightLevel(Number(e.target.value))} className="w-full h-2 bg-slate-700 rounded-lg accent-yellow-500" />
-                    </div>
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+                <div>
+                    <label className="block text-slate-300 mb-2 font-medium">Cruise Altitude: <span className="text-white font-bold">{altitude} ft</span></label>
+                    <input type="range" min="0" max="60000" step="1000" value={altitude} onChange={(e) => setAltitude(parseInt(e.target.value))} className="w-full accent-yellow-500" />
+                    <p className="text-xs text-slate-500 mt-1">Dose doubles every ~2,000 meters.</p>
                 </div>
+                <div>
+                    <label className="block text-slate-300 mb-2 font-medium">Latitude: <span className="text-white font-bold">{latitude}° (N/S)</span></label>
+                    <input type="range" min="0" max="90" value={latitude} onChange={(e) => setLatitude(parseInt(e.target.value))} className="w-full accent-yellow-500" />
+                    <p className="text-xs text-slate-500 mt-1">0° (Equator) lowest, 90° (Poles) highest.</p>
+                </div>
+                <div>
+                    <label className="block text-slate-300 mb-2 font-medium">Flight Hours/Year: <span className="text-white font-bold">{hours} hrs</span></label>
+                    <input type="range" min="0" max="1000" value={hours} onChange={(e) => setHours(parseInt(e.target.value))} className="w-full accent-yellow-500" />
+                </div>
+            </div>
 
-                <div className="bg-slate-900 p-6 rounded-xl border border-slate-700 flex flex-col justify-center items-center">
-                    <p className="text-xs text-slate-500 uppercase font-bold mb-2">Annual Dose</p>
-                    <div className={`text-4xl font-black mb-2 ${totalDose > 6 ? 'text-red-500' : totalDose > 1 ? 'text-yellow-400' : 'text-emerald-400'}`}>
-                        {totalDose.toFixed(2)} mSv
-                    </div>
-                    <p className="text-xs text-center text-slate-400">
-                        {totalDose > 6
-                            ? "Classified Worker Level. Requires medical monitoring."
-                            : totalDose > 1
-                                ? "Above Public Limit (1mSv). Normal for Aircrew."
-                                : "Negligible."}
-                    </p>
+            <div className="bg-slate-900 border border-slate-700 p-8 rounded-2xl text-center">
+                <div className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Annual Dose</div>
+                <div className="text-5xl font-black text-white mb-2">{dose} <span className="text-2xl text-slate-500 font-medium">mSv</span></div>
+                <div className={`text-xl font-bold ${color}`}>{risk} Exposure</div>
 
-                    <div className="mt-4 w-full bg-slate-800 p-3 rounded text-xs">
-                        <p className="text-slate-300"><strong>Pregnant Crew:</strong> Limit is 1 mSv for remainder of gestation. (Usually grounded or ground duties).</p>
-                    </div>
+                <div className="mt-8 text-left text-xs text-slate-400 space-y-2 bg-black/20 p-4 rounded">
+                    <p><strong>Note:</strong> This relies on <em>SIEVERT (Sv)</em>, not Gray (Gy). Sievert accounts for biological damage (Quality Factor).</p>
+                    <p>Neutrons (common at altitude) have a high Quality Factor (harmful).</p>
                 </div>
             </div>
         </div>
     );
 };
 
-const OzoneToxicity = () => (
-    <div className="animate-in fade-in">
-        <h3 className="text-xl font-bold text-white mb-6">Ozone (O3)</h3>
+const OzoneSim = () => (
+    <div className="space-y-6">
+        <h3 className="text-xl font-bold text-white">Atmospheric Ozone (O3)</h3>
+        <p className="text-slate-300">
+            Ozone is a toxic gas found in the stratosphere, formed by UV radiation acting on oxygen.
+        </p>
 
-        <div className="flex gap-4 items-start bg-slate-900 p-6 rounded-xl border border-slate-700">
-            <AlertTriangle className="text-blue-400 shrink-0 mt-1" size={32} />
-            <div>
-                <h4 className="font-bold text-white mb-2">High Altitude Pollutant</h4>
-                <p className="text-sm text-slate-300 mb-4">
-                    O3 is toxic. It is found in high concentrations in the Stratosphere (Ozone Layer).
-                </p>
+        <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+                <h4 className="font-bold text-blue-300 mb-4 flex items-center gap-2">
+                    <ShieldAlert size={18} /> Location & Exposure
+                </h4>
+                <ul className="space-y-3 text-sm text-slate-300">
+                    <li className="flex items-start gap-2">
+                        <span className="text-blue-500 mt-1">●</span>
+                        <span><strong>Highest Concentration:</strong> Stratosphere (above Tropopause).</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                        <span className="text-blue-500 mt-1">●</span>
+                        <span><strong>Seasonal Peak:</strong> Spring.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                        <span className="text-blue-500 mt-1">●</span>
+                        <span><strong>Latitude:</strong> Higher concentrations near poles (lower tropopause).</span>
+                    </li>
+                </ul>
+            </div>
 
-                <div className="grid md:grid-cols-2 gap-4 text-sm bg-slate-800 p-4 rounded-lg">
+            <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+                <h4 className="font-bold text-red-300 mb-4 flex items-center gap-2">
+                    <AlertTriangle size={18} /> Effects & Protection
+                </h4>
+                <div className="space-y-4">
                     <div>
-                        <strong className="text-blue-400 block mb-1">Occurrence:</strong>
-                        <ul className="text-slate-400 list-disc pl-4 text-xs">
-                            <li>Higher Latitudes (Poles).</li>
-                            <li>Winter / Spring.</li>
-                            <li>Altitudes &gt; 40,000ft.</li>
-                        </ul>
+                        <strong className="text-white text-xs uppercase block mb-1">Symptoms</strong>
+                        <p className="text-sm text-slate-400">Irritation of eyes/throat, coughing, chest pain, difficulty breathing.</p>
                     </div>
                     <div>
-                        <strong className="text-red-400 block mb-1">Symptoms:</strong>
-                        <ul className="text-slate-400 list-disc pl-4 text-xs">
-                            <li>Chest pain / Coughing.</li>
-                            <li>Shortness of breath.</li>
-                            <li>Eye/Nose irritation.</li>
-                        </ul>
+                        <strong className="text-white text-xs uppercase block mb-1">Aircraft Systems</strong>
+                        <p className="text-sm text-slate-400">Modern jets use <strong>Catalytic Converters</strong> in the bleed air system to break O3 down into O2 before it enters the cabin.</p>
                     </div>
                 </div>
-
-                <p className="text-xs text-slate-500 mt-4">
-                    Note: Modern jets have catalytic converters in the bleed air system to break O3 down into O2.
-                </p>
             </div>
         </div>
     </div>
