@@ -240,7 +240,7 @@ const App: React.FC = () => {
 
             let subTier: any = 'CUSTOM';
             let allowedSubjects: string[] = [];
-            let status = AuthStatus.VERIFIED;
+            let status: AuthStatus = AuthStatus.VERIFIED;
 
             if (sub && sub.status === 'active') {
                 status = AuthStatus.ACTIVE;
@@ -254,15 +254,23 @@ const App: React.FC = () => {
                 // Initialize local study time from DB
                 setStudyTime(profile.study_seconds || 0);
 
+                // Check if user is approved by admin
+                const isApproved = profile.is_approved === true;
+                let finalStatus: AuthStatus = status;
+                if (!isApproved && !profile.is_admin) {
+                    finalStatus = AuthStatus.PENDING_APPROVAL;
+                }
+
                 setUser({
                     id: uid,
                     email: email,
                     fullName: profile.full_name,
-                    status: status,
+                    status: finalStatus,
                     studySeconds: profile.study_seconds || 0,
                     subscriptionTier: subTier,
                     allowedSubjects: allowedSubjects,
-                    isAdmin: profile.is_admin
+                    isAdmin: profile.is_admin,
+                    isApproved: isApproved
                 });
             } else {
                 // Fallback if profile creation failed completely
@@ -270,11 +278,12 @@ const App: React.FC = () => {
                     id: uid,
                     email: email,
                     fullName: 'Pilot',
-                    status: AuthStatus.VERIFIED,
+                    status: AuthStatus.PENDING_APPROVAL,
                     studySeconds: 0,
                     subscriptionTier: 'CUSTOM',
                     allowedSubjects: [],
-                    isAdmin: false
+                    isAdmin: false,
+                    isApproved: false
                 });
             }
         } catch (error) {
@@ -336,6 +345,36 @@ const App: React.FC = () => {
 
     if (!user) {
         return <AuthView onAuthChange={setUser} initialView={authInitialView} />;
+    }
+
+    // Show pending approval screen for unapproved users
+    if (user.status === AuthStatus.PENDING_APPROVAL) {
+        return (
+            <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6">
+                <div className="max-w-md w-full bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 text-center shadow-2xl">
+                    <div className="w-16 h-16 bg-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg className="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h1 className="text-2xl font-bold text-white mb-3">Account Pending Approval</h1>
+                    <p className="text-slate-400 mb-6">
+                        Thank you for signing up, <span className="text-white font-medium">{user.fullName || user.email}</span>!
+                        Your account is currently awaiting admin approval. You'll receive access once approved.
+                    </p>
+                    <div className="bg-slate-800/50 rounded-xl p-4 mb-6 border border-slate-700">
+                        <p className="text-sm text-slate-500">Need help? Contact us at:</p>
+                        <a href="mailto:support@atplvector.com" className="text-blue-400 hover:text-blue-300 font-medium">support@atplvector.com</a>
+                    </div>
+                    <button
+                        onClick={handleLogout}
+                        className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-medium transition-colors border border-slate-600"
+                    >
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+        );
     }
 
     const NavButton = ({ view, label, icon: Icon }: any) => (

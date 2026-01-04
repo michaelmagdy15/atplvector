@@ -14,7 +14,7 @@ interface Props {
 
 const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'LOGIN' }) => {
     const [view, setView] = useState<AuthViewMode>(initialView);
-    
+
     // Form State
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -22,13 +22,13 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
     const [fullName, setFullName] = useState('');
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    
+
     // Feedback State
     const [errorMsg, setErrorMsg] = useState('');
     const [successMsg, setSuccessMsg] = useState('');
     const [passStrength, setPassStrength] = useState(0);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    
+
     useEffect(() => {
         if (!password) { setPassStrength(0); return; }
         let score = 0;
@@ -62,7 +62,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
         e.preventDefault();
         setLoading(true);
         setErrorMsg('');
-        
+
         try {
             const { error } = await supabase.auth.signInWithPassword({
                 email,
@@ -83,7 +83,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
 
         setLoading(true);
         setErrorMsg('');
-        
+
         try {
             // Notify admin of new signup attempt
             await sendAdminNotification(`New Signup: ${email}`, {
@@ -93,20 +93,40 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                 timestamp: new Date().toISOString()
             });
 
-            const siteUrl = getSiteUrl();
-            const { error } = await supabase.auth.signUp({
+            // Create account without requiring email verification
+            const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
                 email,
                 password,
                 options: {
                     data: {
                         full_name: fullName,
                     },
-                    // Redirect to root to avoid 404s on servers without SPA rewrite rules
-                    emailRedirectTo: `${siteUrl}`,
+                    // Don't require email confirmation - user will be signed in directly
                 },
             });
-            if (error) throw error;
-            setSuccessMsg("Check your email for the confirmation link!");
+
+            if (signUpError) throw signUpError;
+
+            // Check if user was created but needs email confirmation (Supabase setting)
+            // If session exists, user is already signed in
+            if (signUpData.session) {
+                // User is automatically signed in - they will see the pending approval screen
+                setSuccessMsg("Account created! Your request is now pending admin approval. You'll see a confirmation screen once you're logged in.");
+            } else if (signUpData.user && !signUpData.session) {
+                // Supabase still requires email confirmation at the project level
+                // Try to sign in directly since we just created the account
+                const { error: signInError } = await supabase.auth.signInWithPassword({
+                    email,
+                    password,
+                });
+
+                if (signInError) {
+                    // If sign in fails, show the pending message anyway
+                    setSuccessMsg("Account created! Your request is pending admin approval. Please try logging in - if issues persist, contact support.");
+                } else {
+                    setSuccessMsg("Account created! Your account is now pending admin approval.");
+                }
+            }
         } catch (error: any) {
             setErrorMsg(error.message);
         } finally {
@@ -119,7 +139,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
         if (!email) return setErrorMsg("Please enter your email.");
         setLoading(true);
         setErrorMsg('');
-        
+
         try {
             // Notify admin of password reset request
             await sendAdminNotification(`Reset Password Request: ${email}`, {
@@ -145,7 +165,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
     const handlePasswordReset = async (e: React.FormEvent) => {
         e.preventDefault();
         if (password !== confirmPassword) return setErrorMsg("Passwords do not match.");
-        
+
         setLoading(true);
         try {
             const { error } = await supabase.auth.updateUser({ password });
@@ -173,7 +193,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
 
     return (
         <div className="min-h-screen font-sans text-slate-100 overflow-x-hidden selection:bg-blue-500/30 selection:text-white bg-slate-950">
-            
+
             {/* Nav */}
             <nav className="fixed w-full z-50 px-4 py-4 animate-in slide-in-from-top-4 duration-700">
                 <div className="max-w-7xl mx-auto glass-panel rounded-2xl h-16 px-6 flex items-center justify-between bg-slate-900/80 backdrop-blur border border-white/10 shadow-2xl">
@@ -183,7 +203,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                         </div>
                         <span className="text-xl font-black text-white tracking-tighter">ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span></span>
                     </div>
-                    
+
                     <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
                         <button onClick={() => scrollToSection('features')} className="hover:text-white transition hover:scale-105">Features</button>
                         <button onClick={() => scrollToSection('testimonials')} className="hover:text-white transition hover:scale-105">Testimonials</button>
@@ -207,7 +227,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
 
             {/* HERO SECTION */}
             <div id="hero" className="flex flex-col lg:flex-row min-h-screen pt-24 lg:pt-0 relative overflow-hidden">
-                
+
                 {/* Background FX */}
                 <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] animate-blob pointer-events-none"></div>
                 <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] animate-blob animation-delay-2000 pointer-events-none"></div>
@@ -219,14 +239,14 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                             <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> EASA 2025 Ready
                         </div>
                         <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
-                            Master <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">ATPL Theory</span><br/>Visually.
+                            Master <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">ATPL Theory</span><br />Visually.
                         </h1>
                         <p className="text-slate-400 text-lg lg:text-xl font-light animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
                             Interactive simulations, AI-driven roleplay, and immersive systems logic designed for modern pilots. Forget static PDFs.
                         </p>
                         <div className="flex gap-4 text-sm text-slate-500 font-mono animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500">
-                            <div className="flex items-center gap-2"><CheckCircle className="text-green-500 w-4 h-4"/> 14 Subjects</div>
-                            <div className="flex items-center gap-2"><CheckCircle className="text-green-500 w-4 h-4"/> 50+ Simulators</div>
+                            <div className="flex items-center gap-2"><CheckCircle className="text-green-500 w-4 h-4" /> 14 Subjects</div>
+                            <div className="flex items-center gap-2"><CheckCircle className="text-green-500 w-4 h-4" /> 50+ Simulators</div>
                         </div>
                     </div>
                 </div>
@@ -270,7 +290,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                             {view === 'RECOVER_ACCOUNT' ? (
                                 <div className="space-y-4">
                                     <div className="bg-slate-800 p-4 rounded-xl border border-slate-700 text-sm text-slate-300">
-                                        <p className="mb-2 font-bold text-white flex items-center gap-2"><HelpCircle size={16}/> Forgot your email?</p>
+                                        <p className="mb-2 font-bold text-white flex items-center gap-2"><HelpCircle size={16} /> Forgot your email?</p>
                                         <p className="mb-2">For security reasons, we cannot lookup accounts by name publicly.</p>
                                         <ul className="list-disc pl-4 space-y-1 text-slate-400">
                                             <li>Search your inboxes for "Welcome to ATPLVector".</li>
@@ -284,7 +304,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                             ) : (
                                 /* FORM FIELDS */
                                 <form onSubmit={view === 'LOGIN' ? handleLogin : view === 'SIGNUP' ? handleSignup : view === 'RESET_PASSWORD' ? handlePasswordReset : handleForgotPassword} className="space-y-5">
-                                    
+
                                     {view === 'SIGNUP' && (
                                         <div className="animate-in slide-in-from-left-4 fade-in">
                                             <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Full Name</label>
@@ -312,7 +332,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 <Lock className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
                                                 <input required type={showPassword ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-10 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600" placeholder="••••••••" />
                                                 <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-3.5 text-slate-500 hover:text-white">
-                                                    {showPassword ? <EyeOff size={18}/> : <Eye size={18}/>}
+                                                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                                                 </button>
                                             </div>
                                             {/* Strength Meter for Signup */}
@@ -337,7 +357,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                         </div>
                                     )}
 
-                                    <button 
+                                    <button
                                         type="submit"
                                         disabled={loading}
                                         className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-50 text-white py-4 rounded-xl font-bold transition-all flex items-center justify-center shadow-lg transform active:scale-[0.98] animate-in zoom-in duration-300 delay-200 hover:shadow-blue-500/25"
@@ -468,9 +488,9 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                 <span className="text-slate-500"> / subject / mo</span>
                             </div>
                             <ul className="space-y-3 mb-8 flex-1">
-                                <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-blue-500"/> Single Subject Access</li>
-                                <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-blue-500"/> Specific Simulators</li>
-                                <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-blue-500"/> Basic Support</li>
+                                <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-blue-500" /> Single Subject Access</li>
+                                <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-blue-500" /> Specific Simulators</li>
+                                <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-blue-500" /> Basic Support</li>
                             </ul>
                             <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full py-3 rounded-xl border border-slate-600 text-white font-bold hover:bg-slate-700 transition">Select Subjects</button>
                         </div>
@@ -485,10 +505,10 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                 <span className="text-slate-500"> / month</span>
                             </div>
                             <ul className="space-y-3 mb-8 flex-1">
-                                <li className="flex gap-2 text-white text-sm"><CheckCircle size={16} className="text-emerald-500"/> All 14 ATPL Subjects</li>
-                                <li className="flex gap-2 text-white text-sm"><CheckCircle size={16} className="text-emerald-500"/> All Simulators & Tools</li>
-                                <li className="flex gap-2 text-white text-sm"><CheckCircle size={16} className="text-emerald-500"/> Unlimited AI Roleplay</li>
-                                <li className="flex gap-2 text-white text-sm"><CheckCircle size={16} className="text-emerald-500"/> Priority Support</li>
+                                <li className="flex gap-2 text-white text-sm"><CheckCircle size={16} className="text-emerald-500" /> All 14 ATPL Subjects</li>
+                                <li className="flex gap-2 text-white text-sm"><CheckCircle size={16} className="text-emerald-500" /> All Simulators & Tools</li>
+                                <li className="flex gap-2 text-white text-sm"><CheckCircle size={16} className="text-emerald-500" /> Unlimited AI Roleplay</li>
+                                <li className="flex gap-2 text-white text-sm"><CheckCircle size={16} className="text-emerald-500" /> Priority Support</li>
                             </ul>
                             <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full py-3 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-500 transition shadow-lg shadow-indigo-500/25">Start Free Trial</button>
                         </div>
@@ -502,9 +522,9 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                 <span className="text-slate-500"> / year</span>
                             </div>
                             <ul className="space-y-3 mb-8 flex-1">
-                                <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-purple-500"/> 2 Months Free</li>
-                                <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-purple-500"/> All Pro Features</li>
-                                <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-purple-500"/> Offline Mode (App)</li>
+                                <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-purple-500" /> 2 Months Free</li>
+                                <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-purple-500" /> All Pro Features</li>
+                                <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-purple-500" /> Offline Mode (App)</li>
                             </ul>
                             <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full py-3 rounded-xl border border-slate-600 text-white font-bold hover:bg-slate-700 transition">Get Yearly</button>
                         </div>

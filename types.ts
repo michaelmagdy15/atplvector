@@ -206,8 +206,11 @@ export enum View {
 export enum AuthStatus {
   ANONYMOUS = 'ANONYMOUS',
   SIGNED_UP = 'SIGNED_UP', // Email not verified
+  PENDING_APPROVAL = 'PENDING_APPROVAL', // Awaiting admin approval
   VERIFIED = 'VERIFIED',   // Verified, not paid
-  ACTIVE = 'ACTIVE'        // Paid and active
+  ACTIVE = 'ACTIVE',       // Paid and active
+  SUSPENDED = 'SUSPENDED', // Temporarily suspended by admin
+  BANNED = 'BANNED'        // Permanently banned
 }
 
 export enum AirspaceClass {
@@ -243,7 +246,8 @@ export interface User {
   studySeconds: number; // New field for tracking
   subscriptionTier?: 'CUSTOM' | 'PRO_MONTHLY' | 'PRO_YEARLY';
   allowedSubjects?: string[]; // 'ALL' or array of IDs
-  isAdmin?: boolean; // New Field
+  isAdmin?: boolean;
+  isApproved?: boolean; // Manual admin approval status
 }
 
 export interface QCode {
@@ -292,6 +296,15 @@ export interface Flashcard {
   subjectId: string;
   front: string;
   back: string;
+}
+
+export interface AdminStats {
+  totalUsers: number;
+  pendingApproval: number;
+  activeSubscriptions: number;
+  proUsers: number;
+  adminCount: number;
+  recentSignups: User[];
 }
 
 // Global definition for JSX Intrinsic Elements to fix widespread errors
