@@ -522,7 +522,7 @@ const App: React.FC = () => {
                                     <div className="p-2 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg shadow-lg group-hover:shadow-blue-500/20 transition-all duration-500 group-hover:scale-105">
                                         <PlaneIcon className="w-5 h-5 text-white" />
                                     </div>
-                                    <span className="text-lg font-black tracking-tight text-white hidden sm:inline">
+                                    <span className="text-lg font-black tracking-tight text-white whitespace-nowrap">
                                         ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span>
                                     </span>
                                 </div>

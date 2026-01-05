@@ -285,8 +285,8 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
         <div className="min-h-screen font-sans text-slate-100 overflow-x-hidden selection:bg-blue-500/30 selection:text-white bg-slate-950">
 
             {/* Nav */}
-            <nav className="fixed w-full z-50 px-4 py-4 animate-in slide-in-from-top-4 duration-700">
-                <div className="max-w-7xl mx-auto glass-panel rounded-2xl h-16 px-6 flex items-center justify-between bg-slate-900/80 backdrop-blur border border-white/10 shadow-2xl">
+            <nav className="fixed w-full z-50 p-2 md:px-4 md:py-4 animate-in slide-in-from-top-4 duration-700">
+                <div className="max-w-7xl mx-auto glass-panel rounded-xl md:rounded-2xl h-14 md:h-16 px-4 md:px-6 flex items-center justify-between bg-slate-900/80 backdrop-blur border border-white/10 shadow-2xl">
                     <div className="flex items-center space-x-2 cursor-pointer group" onClick={() => scrollToSection('hero')}>
                         <div className="p-1.5 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
                             <Plane className="w-5 h-5 text-white" />
@@ -316,7 +316,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
             </nav>
 
             {/* HERO SECTION */}
-            <div id="hero" className="flex flex-col lg:flex-row min-h-screen pt-24 lg:pt-0 relative overflow-hidden">
+            <div id="hero" className="flex flex-col lg:flex-row min-h-screen pt-20 lg:pt-0 relative overflow-hidden">
 
                 {/* Background FX */}
                 <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] animate-blob pointer-events-none"></div>
@@ -328,7 +328,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wider backdrop-blur-sm animate-in fade-in slide-in-from-bottom-4 duration-700">
                             <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> EASA 2025 Ready
                         </div>
-                        <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
+                        <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
                             Master <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">ATPL Theory</span><br />Visually.
                         </h1>
                         <p className="text-slate-400 text-lg lg:text-xl font-light animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
@@ -491,11 +491,11 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                     {view === 'SIGNUP' && (
                                         <div className="animate-in slide-in-from-left-4 fade-in delay-200">
                                             <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Human Verification</label>
-                                            <div className="flex items-center gap-4">
-                                                <div className="bg-slate-800 px-4 py-3 rounded-xl border border-slate-600 text-white font-mono text-lg select-none min-w-[100px] text-center">
+                                            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+                                                <div className="bg-slate-800 px-4 py-3 rounded-xl border border-slate-600 text-white font-mono text-lg select-none w-full sm:w-auto sm:min-w-[100px] text-center shadow-inner">
                                                     {mathQuestion.num1} {mathQuestion.operator} {mathQuestion.num2} = ?
                                                 </div>
-                                                <div className="relative flex-1">
+                                                <div className="relative flex-1 w-full">
                                                     <input
                                                         required
                                                         type="number"

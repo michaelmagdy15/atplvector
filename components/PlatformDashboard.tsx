@@ -10,7 +10,7 @@ interface Props {
 }
 
 const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) => {
-    
+
     const formatTime = (seconds: number) => {
         const h = Math.floor(seconds / 3600);
         const m = Math.floor((seconds % 3600) / 60);
@@ -49,9 +49,9 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
     const SubjectCard = ({ id, code, title, desc, icon: Icon, color, onClick }: any) => {
         const locked = isLocked(code);
         const gradient = getColorStyles(color);
-        
+
         return (
-            <div 
+            <div
                 onClick={() => !locked && onClick()}
                 className={`group relative glass-card rounded-2xl p-1 overflow-hidden transition-all duration-300 ${locked ? 'opacity-80 cursor-not-allowed' : 'hover:scale-[1.01] cursor-pointer'}`}
             >
@@ -67,7 +67,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                 <div className="bg-slate-900/40 rounded-xl h-full p-6 md:p-8 relative overflow-hidden">
                     {/* Background Glow */}
                     <div className={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${gradient} rounded-full blur-[80px] opacity-20 group-hover:opacity-30 transition-opacity duration-500`}></div>
-                    
+
                     {/* Icon */}
                     <div className={`absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-12`}>
                         <Icon size={120} />
@@ -83,8 +83,8 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                             </div>
                         </div>
 
-                        <h2 className="text-2xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-all">{title}</h2>
-                        
+                        <h2 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-all">{title}</h2>
+
                         <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-grow">
                             {desc}
                         </p>
@@ -109,8 +109,8 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                     <h1 className="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">Pilot Dashboard</h1>
                     <p className="text-slate-400 text-sm md:text-base">Ready for briefing, Captain. Select a module to begin.</p>
                 </div>
-                
-                <div className="flex gap-4">
+
+                <div className="flex flex-wrap gap-4">
                     <div className="glass-panel px-5 py-3 rounded-2xl flex items-center gap-4">
                         <div className="p-2 bg-blue-500/20 rounded-lg text-blue-400">
                             <Clock size={20} />
@@ -134,98 +134,98 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
 
             {/* Subjects Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                
+
                 {/* 010 Air Law */}
-                <SubjectCard 
-                    code="010" title="Air Law" 
+                <SubjectCard
+                    code="010" title="Air Law"
                     desc="International law, conventions, agreements and organizations. Annex 2, 7, 11 and 14."
                     icon={Scale} color="red"
                     onClick={() => onChangeView(View.AIR_LAW_HOME)}
                 />
 
                 {/* 021 AGK Airframe */}
-                <SubjectCard 
-                    code="021" title="AGK: Systems" 
+                <SubjectCard
+                    code="021" title="AGK: Systems"
                     desc="Fuselage, hydraulics, landing gear, flight controls, pneumatics and electrics."
                     icon={Settings} color="orange"
                     onClick={() => onChangeView(View.AGK_SYSTEMS_HOME)}
                 />
 
                 {/* 022 AGK Instrumentation */}
-                <SubjectCard 
-                    code="022" title="AGK: Instruments" 
+                <SubjectCard
+                    code="022" title="AGK: Instruments"
                     desc="Sensors, instruments, measurement of air data, gyroscopic instruments and EFIS."
                     icon={Activity} color="amber"
                     onClick={() => onChangeView(View.AGK_INSTRUMENTS_HOME)}
                 />
 
                 {/* 031 Mass & Balance */}
-                <SubjectCard 
-                    code="031" title="Mass & Balance" 
+                <SubjectCard
+                    code="031" title="Mass & Balance"
                     desc="Center of gravity calculations, loading, weighing, and performance limitations."
                     icon={Weight} color="yellow"
                     onClick={() => onChangeView(View.MASS_BAL_HOME)}
                 />
 
                 {/* 032 Performance */}
-                <SubjectCard 
-                    code="032" title="Performance (A)" 
+                <SubjectCard
+                    code="032" title="Performance (A)"
                     desc="Take-off, climb, cruise, descent and landing performance for Class A/B aircraft."
                     icon={TrendingUp} color="lime"
                     onClick={() => onChangeView(View.PERF_HOME)}
                 />
 
                 {/* 033 Flight Planning */}
-                <SubjectCard 
-                    code="033" title="Flight Planning" 
+                <SubjectCard
+                    code="033" title="Flight Planning"
                     desc="VFR/IFR planning, fuel planning, point of equal time, and flight monitoring."
                     icon={Map} color="green"
                     onClick={() => onChangeView(View.FLIGHT_PLAN_HOME)}
                 />
 
                 {/* 040 Human Performance */}
-                <SubjectCard 
-                    code="040" title="Human Performance" 
+                <SubjectCard
+                    code="040" title="Human Performance"
                     desc="Physiology, psychology, sleep, stress, and error management in aviation."
                     icon={Users} color="emerald"
                     onClick={() => onChangeView(View.HPL_HOME)}
                 />
 
                 {/* 050 Meteorology */}
-                <SubjectCard 
-                    code="050" title="Meteorology" 
+                <SubjectCard
+                    code="050" title="Meteorology"
                     desc="Atmosphere, wind, thermodynamics, clouds, fog, precipitation and climatology."
                     icon={Cloud} color="teal"
                     onClick={() => onChangeView(View.MET_HOME)}
                 />
 
                 {/* 061 General Nav */}
-                <SubjectCard 
-                    code="061" title="General Navigation" 
+                <SubjectCard
+                    code="061" title="General Navigation"
                     desc="Basics of navigation, magnetism, charts, dead reckoning and in-flight navigation."
                     icon={Compass} color="cyan"
                     onClick={() => onChangeView(View.GEN_NAV_HOME)}
                 />
 
                 {/* 062 Radio Nav */}
-                <SubjectCard 
-                    code="062" title="Radio Navigation" 
+                <SubjectCard
+                    code="062" title="Radio Navigation"
                     desc="Radio aids, radar, GNSS, area navigation systems and self-contained nav."
                     icon={Radio} color="sky"
                     onClick={() => onChangeView(View.RAD_NAV_HOME)}
                 />
 
                 {/* 070 Operational Procedures */}
-                <SubjectCard 
-                    code="070" title="Operational Proc." 
+                <SubjectCard
+                    code="070" title="Operational Proc."
                     desc="Special operational procedures, noise abatement, fire/smoke, wind shear and icing."
                     icon={BookOpen} color="indigo"
                     onClick={() => onChangeView(View.OPS_PROC_HOME)}
                 />
 
                 {/* 081 Principles of Flight */}
-                <SubjectCard 
-                    code="081" title="Principles of Flight" 
+                <SubjectCard
+                    code="081" title="Principles of Flight"
                     desc="Subsonic aerodynamics, stability, control, lift, drag, and stalling."
                     icon={Plane} color="violet"
                     onClick={() => onChangeView(View.POF_HOME)}
@@ -233,7 +233,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
 
                 {/* 090 Communications (Featured) */}
                 <div className="md:col-span-2 xl:col-span-3">
-                    <div 
+                    <div
                         onClick={() => !commsLocked && onChangeView(View.DASHBOARD)}
                         className={`group relative glass-card rounded-2xl p-1 overflow-hidden transition-all duration-300 ${commsLocked ? 'opacity-80 cursor-not-allowed' : 'hover:scale-[1.005] cursor-pointer'}`}
                     >
@@ -249,7 +249,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                         <div className="bg-gradient-to-r from-blue-900/40 to-indigo-900/40 rounded-xl h-full p-8 relative overflow-hidden">
                             {/* Background Glow */}
                             <div className="absolute -top-32 -right-32 w-96 h-96 bg-blue-600 rounded-full blur-[100px] opacity-20 group-hover:opacity-30 transition-opacity duration-700"></div>
-                            
+
                             {/* Icon */}
                             <div className="absolute top-1/2 right-12 -translate-y-1/2 opacity-20 group-hover:opacity-30 transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-12 hidden md:block">
                                 <Navigation size={180} />

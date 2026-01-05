@@ -12,7 +12,7 @@ const PlatformProgress: React.FC = () => {
     // Since we don't have every single LO mapped in the DB yet, we project based on module count
     // Real implementation would count actual DB entries.
     // For this demo, we use the percentage calculated in data/learningObjectives
-    
+
     // Calculate overall weighted percentage
     const weightedSum = stats.reduce((acc, curr) => acc + (curr.percentage * curr.totalLOs), 0);
     const overallPercent = Math.round(weightedSum / totalLOs);
@@ -36,7 +36,7 @@ const PlatformProgress: React.FC = () => {
                 <div className="h-full bg-gradient-to-r from-sky-600 to-indigo-600 transition-all duration-1000" style={{ width: `${overallPercent}%` }}></div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 {stats.map(sub => {
                     const subPercent = sub.percentage;
                     return (
