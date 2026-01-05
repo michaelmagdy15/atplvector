@@ -222,9 +222,6 @@ const App: React.FC = () => {
                 .eq('id', uid)
                 .single();
 
-            console.log("DEBUG: Fetched Profile:", profile);
-            console.log("DEBUG: is_approved:", profile?.is_approved);
-
             // Auto-create profile if missing (Self-healing for existing users)
             if (error && (error.code === 'PGRST116' || error.message.includes('0 rows'))) {
                 console.log("Profile missing, creating new profile with trial access...");
