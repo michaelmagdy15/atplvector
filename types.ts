@@ -104,6 +104,7 @@ export enum View {
   HPL_VESTIBULAR = 'HPL_VESTIBULAR',
   HPL_MEMORY = 'HPL_MEMORY',
   HPL_LEARNING = 'HPL_LEARNING',
+  HPL_PERSONALITY = 'HPL_PERSONALITY',
   HPL_ATMOSPHERE = 'HPL_ATMOSPHERE',
   HPL_INCIDENTS = 'HPL_INCIDENTS',
   HPL_RESPIRATION = 'HPL_RESPIRATION',
@@ -116,6 +117,10 @@ export enum View {
   HPL_RADIATION = 'HPL_RADIATION',
   HPL_THERMAL = 'HPL_THERMAL',
   HPL_SLEEP_DISORDERS = 'HPL_SLEEP_DISORDERS',
+  HPL_PRESSURE = 'HPL_PRESSURE',           // Barotrauma, decompression
+  HPL_MOTION_SICKNESS = 'HPL_MOTION_SICKNESS', // Sensory conflict theory
+  HPL_PERCEPTION = 'HPL_PERCEPTION',       // Visual illusions, runway illusions
+  HPL_WORKLOAD = 'HPL_WORKLOAD',           // Workload management, Yerkes-Dodson
 
   // Meteorology (050)
   MET_HOME = 'MET_HOME',
@@ -207,6 +212,8 @@ export enum AuthStatus {
   ANONYMOUS = 'ANONYMOUS',
   SIGNED_UP = 'SIGNED_UP', // Email not verified
   PENDING_APPROVAL = 'PENDING_APPROVAL', // Awaiting admin approval
+  FREE_TRIAL = 'FREE_TRIAL', // In free trial period (1 week)
+  TRIAL_EXPIRED = 'TRIAL_EXPIRED', // Trial ended, needs subscription
   VERIFIED = 'VERIFIED',   // Verified, not paid
   ACTIVE = 'ACTIVE',       // Paid and active
   SUSPENDED = 'SUSPENDED', // Temporarily suspended by admin
@@ -248,6 +255,8 @@ export interface User {
   allowedSubjects?: string[]; // 'ALL' or array of IDs
   isAdmin?: boolean;
   isApproved?: boolean; // Manual admin approval status
+  trialStartDate?: string; // ISO date string when trial started
+  trialSubjects?: string[]; // Subjects available during trial (e.g., ['090', '040'])
 }
 
 export interface QCode {

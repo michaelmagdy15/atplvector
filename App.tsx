@@ -92,6 +92,10 @@ import HPLCulture from './components/HPL/HPLCulture';
 import HPLRadiation from './components/HPL/HPLRadiation';
 import HPLThermal from './components/HPL/HPLThermal';
 import HPLSleepDisorders from './components/HPL/HPLSleepDisorders';
+import HPLPressure from './components/HPL/HPLPressure';
+import HPLMotionSickness from './components/HPL/HPLMotionSickness';
+import HPLPerception from './components/HPL/HPLPerception';
+import HPLWorkload from './components/HPL/HPLWorkload';
 
 import AtmosphereLayers from './components/Meteorology/AtmosphereLayers';
 import OneInSixty from './components/Nav/OneInSixty';
@@ -207,6 +211,10 @@ const App: React.FC = () => {
 
     const fetchUserProfile = async (uid: string, email: string) => {
         try {
+            // Trial configuration
+            const TRIAL_DURATION_DAYS = 7;
+            const TRIAL_SUBJECTS = ['090', '040']; // Communications and Human Performance
+
             // Try to get profile
             let { data: profile, error } = await supabase
                 .from('profiles')
@@ -216,10 +224,19 @@ const App: React.FC = () => {
 
             // Auto-create profile if missing (Self-healing for existing users)
             if (error && (error.code === 'PGRST116' || error.message.includes('0 rows'))) {
-                console.log("Profile missing, creating new profile...");
+                console.log("Profile missing, creating new profile with trial access...");
+                const trialStartDate = new Date().toISOString();
                 const { data: newProfile, error: createError } = await supabase
                     .from('profiles')
-                    .insert([{ id: uid, email: email, full_name: 'Pilot', study_seconds: 0 }])
+                    .insert([{
+                        id: uid,
+                        email: email,
+                        full_name: 'Pilot',
+                        study_seconds: 0,
+                        trial_start_date: trialStartDate,
+                        trial_subjects: TRIAL_SUBJECTS,
+                        is_approved: true // Auto-approve for trial
+                    }])
                     .select()
                     .single();
 
@@ -228,7 +245,7 @@ const App: React.FC = () => {
                 } else {
                     profile = newProfile;
                     // Also ensure subscription exists
-                    await supabase.from('subscriptions').insert([{ user_id: uid, plan: 'CUSTOM', status: 'active' }]);
+                    await supabase.from('subscriptions').insert([{ user_id: uid, plan: 'CUSTOM', status: 'inactive' }]);
                 }
             }
 
@@ -242,7 +259,9 @@ const App: React.FC = () => {
             let allowedSubjects: string[] = [];
             let status: AuthStatus = AuthStatus.VERIFIED;
 
-            if (sub && sub.status === 'active') {
+            // Check subscription status first
+            const hasActiveSubscription = sub && sub.status === 'active';
+            if (hasActiveSubscription) {
                 status = AuthStatus.ACTIVE;
                 subTier = sub.plan;
                 if (sub.plan?.includes('PRO')) {
@@ -254,10 +273,36 @@ const App: React.FC = () => {
                 // Initialize local study time from DB
                 setStudyTime(profile.study_seconds || 0);
 
-                // Check if user is approved by admin
-                const isApproved = profile.is_approved === true;
+                // Check trial status if no active subscription
+                let trialStartDate = profile.trial_start_date;
+                let trialSubjects = profile.trial_subjects || TRIAL_SUBJECTS;
+                let isTrialActive = false;
+                let isTrialExpired = false;
+
+                if (trialStartDate && !hasActiveSubscription) {
+                    const trialStart = new Date(trialStartDate);
+                    const now = new Date();
+                    const daysSinceTrialStart = Math.floor((now.getTime() - trialStart.getTime()) / (1000 * 60 * 60 * 24));
+
+                    if (daysSinceTrialStart < TRIAL_DURATION_DAYS) {
+                        isTrialActive = true;
+                        allowedSubjects = trialSubjects;
+                    } else {
+                        isTrialExpired = true;
+                    }
+                }
+
+                // Determine final status
                 let finalStatus: AuthStatus = status;
-                if (!isApproved && !profile.is_admin) {
+
+                // Priority: ACTIVE (paid) > FREE_TRIAL > TRIAL_EXPIRED > PENDING_APPROVAL
+                if (hasActiveSubscription) {
+                    finalStatus = AuthStatus.ACTIVE;
+                } else if (isTrialActive) {
+                    finalStatus = AuthStatus.FREE_TRIAL;
+                } else if (isTrialExpired) {
+                    finalStatus = AuthStatus.TRIAL_EXPIRED;
+                } else if (!profile.is_approved && !profile.is_admin) {
                     finalStatus = AuthStatus.PENDING_APPROVAL;
                 }
 
@@ -270,7 +315,9 @@ const App: React.FC = () => {
                     subscriptionTier: subTier,
                     allowedSubjects: allowedSubjects,
                     isAdmin: profile.is_admin,
-                    isApproved: isApproved
+                    isApproved: profile.is_approved,
+                    trialStartDate: trialStartDate,
+                    trialSubjects: trialSubjects
                 });
             } else {
                 // Fallback if profile creation failed completely
@@ -363,6 +410,55 @@ const App: React.FC = () => {
                         Your account is currently awaiting admin approval. You'll receive access once approved.
                     </p>
                     <div className="bg-slate-800/50 rounded-xl p-4 mb-6 border border-slate-700">
+                        <p className="text-sm text-slate-500">Need help? Contact us at:</p>
+                        <a href="mailto:support@atplvector.com" className="text-blue-400 hover:text-blue-300 font-medium">support@atplvector.com</a>
+                    </div>
+                    <button
+                        onClick={handleLogout}
+                        className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-medium transition-colors border border-slate-600"
+                    >
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    // Show trial expired screen for users whose trial has ended
+    if (user.status === AuthStatus.TRIAL_EXPIRED) {
+        return (
+            <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6">
+                <div className="max-w-md w-full bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 text-center shadow-2xl">
+                    <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h1 className="text-2xl font-bold text-white mb-3">Free Trial Expired</h1>
+                    <p className="text-slate-400 mb-6">
+                        Your 7-day free trial has ended, <span className="text-white font-medium">{user.fullName || user.email}</span>!
+                        Subscribe now to continue accessing all ATPL training modules.
+                    </p>
+                    <div className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-xl p-4 mb-6 border border-blue-500/20">
+                        <p className="text-sm text-blue-300 font-medium mb-2">🎓 What you'll get:</p>
+                        <ul className="text-xs text-slate-400 space-y-1 text-left">
+                            <li>• Access to all 14 ATPL subjects</li>
+                            <li>• Interactive simulators & visualizers</li>
+                            <li>• AI-powered roleplay & quizzes</li>
+                            <li>• Progress tracking & flashcards</li>
+                        </ul>
+                    </div>
+                    <button
+                        onClick={() => {
+                            // Allow user to access subscription page
+                            setUser({ ...user, status: AuthStatus.VERIFIED });
+                            setCurrentView(View.SUBSCRIPTION_MANAGEMENT);
+                        }}
+                        className="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl font-bold transition-all shadow-lg mb-3"
+                    >
+                        View Subscription Plans
+                    </button>
+                    <div className="bg-slate-800/50 rounded-xl p-4 mb-4 border border-slate-700">
                         <p className="text-sm text-slate-500">Need help? Contact us at:</p>
                         <a href="mailto:support@atplvector.com" className="text-blue-400 hover:text-blue-300 font-medium">support@atplvector.com</a>
                     </div>
@@ -658,6 +754,10 @@ const App: React.FC = () => {
                                         { title: 'Radiation', desc: 'Cosmic, Solar, Ozone.', view: View.HPL_RADIATION },
                                         { title: 'Thermal', desc: 'Hypothermia, Heat Stroke, Reg.', view: View.HPL_THERMAL },
                                         { title: 'Sleep Disorders', desc: 'Apnea, Insomnia, Narcolepsy.', view: View.HPL_SLEEP_DISORDERS },
+                                        { title: 'Pressure Effects', desc: 'Barotrauma, Decompression, TUC.', view: View.HPL_PRESSURE },
+                                        { title: 'Motion Sickness', desc: 'Sensory Conflict, Prevention.', view: View.HPL_MOTION_SICKNESS },
+                                        { title: 'Perception', desc: 'Visual Illusions, Runway Illusions.', view: View.HPL_PERCEPTION },
+                                        { title: 'Workload', desc: 'Yerkes-Dodson, ANC, DODAR.', view: View.HPL_WORKLOAD },
                                     ]}
                                 />
                             )}
@@ -700,6 +800,10 @@ const App: React.FC = () => {
                             {currentView === View.HPL_RADIATION && <HPLRadiation />}
                             {currentView === View.HPL_THERMAL && <HPLThermal />}
                             {currentView === View.HPL_SLEEP_DISORDERS && <HPLSleepDisorders />}
+                            {currentView === View.HPL_PRESSURE && <HPLPressure />}
+                            {currentView === View.HPL_MOTION_SICKNESS && <HPLMotionSickness />}
+                            {currentView === View.HPL_PERCEPTION && <HPLPerception />}
+                            {currentView === View.HPL_WORKLOAD && <HPLWorkload />}
 
                             {/* Met */}
                             {currentView === View.MET_HOME && (

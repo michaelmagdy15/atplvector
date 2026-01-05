@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { User } from '../types';
-import { Shield, Mail, CheckCircle, Lock, ArrowRight, Plane, Zap, Menu, X, User as UserIcon, HelpCircle, Eye, EyeOff, AlertTriangle, PlayCircle, Star, Globe, BarChart3, Radio } from 'lucide-react';
+import { Shield, Mail, CheckCircle, Lock, ArrowRight, Plane, Zap, Menu, X, User as UserIcon, HelpCircle, Eye, EyeOff, AlertTriangle, PlayCircle, Star, Globe, BarChart3, Radio, RefreshCw } from 'lucide-react';
 import { supabase, getSiteUrl } from '../lib/supabase';
 
 type AuthViewMode = 'LOGIN' | 'SIGNUP' | 'FORGOT_PASS' | 'RECOVER_ACCOUNT' | 'RESET_PASSWORD';
@@ -28,6 +28,39 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
     const [successMsg, setSuccessMsg] = useState('');
     const [passStrength, setPassStrength] = useState(0);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    // Math CAPTCHA state
+    const [mathQuestion, setMathQuestion] = useState({ num1: 0, num2: 0, operator: '+', answer: 0 });
+    const [captchaInput, setCaptchaInput] = useState('');
+
+    // Generate a random math CAPTCHA question
+    const generateMathQuestion = () => {
+        const operators = ['+', '-', '×'];
+        const operator = operators[Math.floor(Math.random() * operators.length)];
+        let num1, num2, answer;
+
+        if (operator === '+') {
+            num1 = Math.floor(Math.random() * 10) + 1;
+            num2 = Math.floor(Math.random() * 10) + 1;
+            answer = num1 + num2;
+        } else if (operator === '-') {
+            num1 = Math.floor(Math.random() * 10) + 5;
+            num2 = Math.floor(Math.random() * num1) + 1;
+            answer = num1 - num2;
+        } else {
+            num1 = Math.floor(Math.random() * 5) + 1;
+            num2 = Math.floor(Math.random() * 5) + 1;
+            answer = num1 * num2;
+        }
+
+        setMathQuestion({ num1, num2, operator, answer });
+        setCaptchaInput('');
+    };
+
+    // Initialize CAPTCHA on mount
+    useEffect(() => {
+        generateMathQuestion();
+    }, []);
 
     useEffect(() => {
         if (!password) { setPassStrength(0); return; }
@@ -81,6 +114,12 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
         if (password !== confirmPassword) return setErrorMsg("Passwords do not match.");
         if (passStrength < 3) return setErrorMsg("Password is too weak. Please use a stronger password.");
 
+        // Validate CAPTCHA
+        if (parseInt(captchaInput) !== mathQuestion.answer) {
+            generateMathQuestion();
+            return setErrorMsg("Incorrect answer. Please solve the math problem correctly.");
+        }
+
         setLoading(true);
         setErrorMsg('');
 
@@ -110,8 +149,8 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
             // Check if user was created but needs email confirmation (Supabase setting)
             // If session exists, user is already signed in
             if (signUpData.session) {
-                // User is automatically signed in - they will see the pending approval screen
-                setSuccessMsg("Account created! Your request is now pending admin approval. You'll see a confirmation screen once you're logged in.");
+                // User is automatically signed in - they get free trial access
+                setSuccessMsg("Account created! 🎉 You now have 7 days of FREE access to Communications and Human Performance modules. Enjoy your trial!");
             } else if (signUpData.user && !signUpData.session) {
                 // Supabase still requires email confirmation at the project level
                 // Try to sign in directly since we just created the account
@@ -121,10 +160,10 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                 });
 
                 if (signInError) {
-                    // If sign in fails, show the pending message anyway
-                    setSuccessMsg("Account created! Your request is pending admin approval. Please try logging in - if issues persist, contact support.");
+                    // If sign in fails, show the trial message anyway
+                    setSuccessMsg("Account created! 🎉 You have 7 days of FREE trial access. Please try logging in to start exploring!");
                 } else {
-                    setSuccessMsg("Account created! Your account is now pending admin approval.");
+                    setSuccessMsg("Account created! 🎉 Your 7-day free trial is now active. Enjoy access to Communications and Human Performance modules!");
                 }
             }
         } catch (error: any) {
@@ -354,6 +393,37 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 <Lock className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
                                                 <input required type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600" placeholder="••••••••" />
                                             </div>
+                                        </div>
+                                    )}
+
+                                    {view === 'SIGNUP' && (
+                                        <div className="animate-in slide-in-from-left-4 fade-in delay-200">
+                                            <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Human Verification</label>
+                                            <div className="flex items-center gap-4">
+                                                <div className="bg-slate-800 px-4 py-3 rounded-xl border border-slate-600 text-white font-mono text-lg select-none min-w-[100px] text-center">
+                                                    {mathQuestion.num1} {mathQuestion.operator} {mathQuestion.num2} = ?
+                                                </div>
+                                                <div className="relative flex-1">
+                                                    <input
+                                                        required
+                                                        type="number"
+                                                        value={captchaInput}
+                                                        onChange={e => setCaptchaInput(e.target.value)}
+                                                        className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 px-4 text-white text-center text-lg focus:border-blue-500 outline-none transition-all placeholder-slate-600 font-mono pl-10"
+                                                        placeholder="?"
+                                                    />
+                                                    <Shield className="absolute left-3 top-3.5 text-slate-500 w-5 h-5 opacity-50" />
+                                                </div>
+                                                <button
+                                                    type="button"
+                                                    onClick={generateMathQuestion}
+                                                    className="p-3 bg-slate-800 hover:bg-slate-700 rounded-xl border border-slate-600 text-slate-400 hover:text-white transition-all transform hover:rotate-180 duration-500"
+                                                    title="New question"
+                                                >
+                                                    <RefreshCw size={18} />
+                                                </button>
+                                            </div>
+                                            <p className="text-[10px] text-slate-500 mt-2 ml-1">Solve the math problem to prove you're human.</p>
                                         </div>
                                     )}
 

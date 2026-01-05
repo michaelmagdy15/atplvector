@@ -15,7 +15,7 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
     const [plan, setPlan] = useState<'CUSTOM' | 'PRO_MONTHLY' | 'PRO_YEARLY'>(user.subscriptionTier || 'CUSTOM');
     const initialSubjects = (user.allowedSubjects || []).filter(s => s !== 'ALL');
     const [subjects, setSubjects] = useState<string[]>(initialSubjects);
-    
+
     const [loading, setLoading] = useState(false);
     const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
@@ -47,7 +47,7 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
 
         setLoading(true);
         const newAllowed = plan === 'CUSTOM' ? subjects : ['ALL'];
-        
+
         try {
             // 1. Check if subscription exists (Avoids ON CONFLICT error if DB constraint is missing)
             const { data: existingSub } = await supabase
@@ -89,7 +89,7 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                 allowedSubjects: newAllowed
             };
             onUpdateUser(updatedUser);
-            
+
             setSuccessMsg("Subscription updated successfully!");
             setTimeout(() => setSuccessMsg(null), 3000);
         } catch (error: any) {
@@ -105,7 +105,7 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
 
     return (
         <div className="max-w-5xl mx-auto p-6 md:p-8">
-            <button 
+            <button
                 onClick={onBack}
                 className="flex items-center text-slate-400 hover:text-white mb-6 font-bold text-sm transition-colors"
             >
@@ -118,21 +118,20 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
             <p className="text-slate-400 mb-8">Manage your plan, add or remove modules, and view billing details.</p>
 
             <div className="grid lg:grid-cols-3 gap-8">
-                
+
                 {/* Left Column: Plan Selection */}
                 <div className="lg:col-span-2 space-y-8">
-                    
+
                     {/* Plan Cards */}
                     <div className="bg-slate-900 rounded-xl border border-slate-700 p-6">
                         <h2 className="text-xl font-bold text-white mb-4">Select Plan</h2>
                         <div className="grid md:grid-cols-3 gap-4">
-                            <div 
+                            <div
                                 onClick={() => setPlan('CUSTOM')}
-                                className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${
-                                    plan === 'CUSTOM' 
-                                    ? 'border-blue-500 bg-blue-900/20' 
-                                    : 'border-slate-700 bg-slate-800 hover:border-slate-500'
-                                }`}
+                                className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${plan === 'CUSTOM'
+                                        ? 'border-blue-500 bg-blue-900/20'
+                                        : 'border-slate-700 bg-slate-800 hover:border-slate-500'
+                                    }`}
                             >
                                 <div className="flex justify-between items-start mb-2">
                                     <Layout className={`w-6 h-6 ${plan === 'CUSTOM' ? 'text-blue-400' : 'text-slate-500'}`} />
@@ -142,13 +141,12 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                                 <p className="text-xs text-slate-400 mt-1">Pay per subject ($19/mo)</p>
                             </div>
 
-                            <div 
+                            <div
                                 onClick={() => setPlan('PRO_MONTHLY')}
-                                className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${
-                                    plan === 'PRO_MONTHLY' 
-                                    ? 'border-emerald-500 bg-emerald-900/20' 
-                                    : 'border-slate-700 bg-slate-800 hover:border-slate-500'
-                                }`}
+                                className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${plan === 'PRO_MONTHLY'
+                                        ? 'border-emerald-500 bg-emerald-900/20'
+                                        : 'border-slate-700 bg-slate-800 hover:border-slate-500'
+                                    }`}
                             >
                                 <div className="flex justify-between items-start mb-2">
                                     <Zap className={`w-6 h-6 ${plan === 'PRO_MONTHLY' ? 'text-emerald-400' : 'text-slate-500'}`} />
@@ -158,13 +156,12 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                                 <p className="text-xs text-slate-400 mt-1">All Access ($29/mo)</p>
                             </div>
 
-                            <div 
+                            <div
                                 onClick={() => setPlan('PRO_YEARLY')}
-                                className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${
-                                    plan === 'PRO_YEARLY' 
-                                    ? 'border-purple-500 bg-purple-900/20' 
-                                    : 'border-slate-700 bg-slate-800 hover:border-slate-500'
-                                }`}
+                                className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${plan === 'PRO_YEARLY'
+                                        ? 'border-purple-500 bg-purple-900/20'
+                                        : 'border-slate-700 bg-slate-800 hover:border-slate-500'
+                                    }`}
                             >
                                 <div className="flex justify-between items-start mb-2">
                                     <Shield className={`w-6 h-6 ${plan === 'PRO_YEARLY' ? 'text-purple-400' : 'text-slate-500'}`} />
@@ -187,14 +184,13 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                                 {SUBJECTS.map(sub => {
                                     const isSelected = subjects.includes(sub.id);
                                     return (
-                                        <div 
+                                        <div
                                             key={sub.id}
                                             onClick={() => toggleSubject(sub.id)}
-                                            className={`p-3 rounded-lg border cursor-pointer transition-all flex items-center justify-between ${
-                                                isSelected 
-                                                ? 'bg-blue-600 text-white border-blue-500 shadow-md' 
-                                                : 'bg-slate-800 text-slate-400 border-slate-700 hover:border-slate-500'
-                                            }`}
+                                            className={`p-3 rounded-lg border cursor-pointer transition-all flex items-center justify-between ${isSelected
+                                                    ? 'bg-blue-600 text-white border-blue-500 shadow-md'
+                                                    : 'bg-slate-800 text-slate-400 border-slate-700 hover:border-slate-500'
+                                                }`}
                                         >
                                             <span className="text-sm font-bold truncate pr-2">{sub.id} {sub.name.split(':')[0]}</span>
                                             {isSelected && <Check size={16} />}
@@ -222,7 +218,7 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                 <div className="space-y-6">
                     <div className="bg-slate-900 rounded-xl border border-slate-700 p-6 sticky top-6">
                         <h2 className="text-lg font-bold text-white mb-6 border-b border-slate-700 pb-4">Order Summary</h2>
-                        
+
                         <div className="space-y-4 mb-8">
                             <div className="flex justify-between text-sm">
                                 <span className="text-slate-400">Plan Type</span>
@@ -231,9 +227,25 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                                 </span>
                             </div>
                             {plan === 'CUSTOM' && (
-                                <div className="flex justify-between text-sm">
-                                    <span className="text-slate-400">Subjects</span>
-                                    <span className="text-white font-bold">{subjects.length} x $19</span>
+                                <div className="mb-4">
+                                    <div className="flex justify-between text-sm mb-2">
+                                        <span className="text-slate-400">Subjects</span>
+                                        <span className="text-white font-bold">{subjects.length} x $19</span>
+                                    </div>
+                                    {subjects.length > 0 && (
+                                        <div className="flex flex-col gap-1 pl-2 mb-2">
+                                            {subjects.map(subId => {
+                                                const subInfo = SUBJECTS.find(s => s.id === subId);
+                                                if (!subInfo) return null;
+                                                return (
+                                                    <div key={subId} className="text-xs text-slate-400 flex items-center gap-2">
+                                                        <Check size={10} className="text-blue-500" />
+                                                        <span>{subInfo.name}</span>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    )}
                                 </div>
                             )}
                             <div className="border-t border-slate-700 pt-4 flex justify-between items-end">
@@ -245,12 +257,11 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                             </div>
                         </div>
 
-                        <button 
+                        <button
                             onClick={handleSave}
                             disabled={loading}
-                            className={`w-full py-4 rounded-xl font-bold text-white shadow-lg flex items-center justify-center gap-2 transition-all ${
-                                loading ? 'bg-slate-700 cursor-wait' : 'bg-blue-600 hover:bg-blue-500 hover:scale-[1.02]'
-                            }`}
+                            className={`w-full py-4 rounded-xl font-bold text-white shadow-lg flex items-center justify-center gap-2 transition-all ${loading ? 'bg-slate-700 cursor-wait' : 'bg-blue-600 hover:bg-blue-500 hover:scale-[1.02]'
+                                }`}
                         >
                             {loading ? 'Processing...' : <><Save size={18} /> Update Subscription</>}
                         </button>
@@ -278,7 +289,7 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                             </div>
                             <div className="flex justify-between">
                                 <span className="text-slate-400">Payment Method</span>
-                                <span className="text-white flex items-center gap-1"><CreditCard size={12}/> •••• 4242</span>
+                                <span className="text-white flex items-center gap-1"><CreditCard size={12} /> •••• 4242</span>
                             </div>
                         </div>
                     </div>

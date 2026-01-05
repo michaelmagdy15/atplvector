@@ -53,8 +53,49 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '021.03.01', subject: '021', text: 'Hydromechanics: Principles', coveredBy: View.AGK_HYDRAULICS },
     { id: '021.11.01', subject: '021', text: 'Gas Turbines: Basic Principles', coveredBy: View.AGK_JET_ENGINE },
 
-    // --- 040 HUMAN PERFORMANCE ---
-    { id: '040.02.01', subject: '040', text: 'Physiology: Hypoxia & Altitude', coveredBy: View.HPL_PHYSIOLOGY },
+    // --- 040 HUMAN PERFORMANCE (Complete EASA Coverage) ---
+    // 040.01 - Human Factors: Basic Concepts
+    { id: '040.01.01', subject: '040', text: 'Human factors in aviation', coveredBy: View.HPL_BASIC_CONCEPTS },
+    { id: '040.01.03', subject: '040', text: 'TEM and SHELL models', coveredBy: View.HPL_TEM },
+    { id: '040.01.04', subject: '040', text: 'Safety culture', coveredBy: View.HPL_SAFETY },
+
+    // 040.02 - Basics of Aviation Physiology
+    { id: '040.02.01.01', subject: '040', text: 'The atmosphere - composition, gas laws', coveredBy: View.HPL_ATMOSPHERE },
+    { id: '040.02.01.02', subject: '040', text: 'Respiratory system', coveredBy: View.HPL_RESPIRATION },
+    { id: '040.02.01.03', subject: '040', text: 'Circulatory system', coveredBy: View.HPL_CIRCULATION },
+    { id: '040.02.02.01', subject: '040', text: 'Central and peripheral nervous system', coveredBy: View.HPL_NERVOUS },
+    { id: '040.02.02.02', subject: '040', text: 'Vision', coveredBy: View.HPL_VISION },
+    { id: '040.02.02.03', subject: '040', text: 'Hearing', coveredBy: View.HPL_HEARING },
+    { id: '040.02.02.04', subject: '040', text: 'Equilibrium - vestibular system', coveredBy: View.HPL_VESTIBULAR },
+    { id: '040.02.02.06', subject: '040', text: 'Motion sickness', coveredBy: View.HPL_MOTION_SICKNESS },
+    { id: '040.02.03.01', subject: '040', text: 'Personal hygiene, physical fitness', coveredBy: View.HPL_HEALTH },
+    { id: '040.02.03.02', subject: '040', text: 'Toxic hazards - CO, alcohol, drugs', coveredBy: View.HPL_TOXIC },
+    { id: '040.02.03.03', subject: '040', text: 'Hypoxia and hyperventilation', coveredBy: View.HPL_PHYSIOLOGY },
+    { id: '040.02.03.04', subject: '040', text: 'Pressure effects - barotrauma, decompression', coveredBy: View.HPL_PRESSURE },
+    { id: '040.02.03.05', subject: '040', text: 'G-effects and accelerations', coveredBy: View.HPL_ACCELERATION },
+
+    // 040.03 - Basic Aviation Psychology
+    { id: '040.03.01.01', subject: '040', text: 'Attention, perception, memory', coveredBy: View.HPL_INFO_PROCESSING },
+    { id: '040.03.01.02', subject: '040', text: 'Perception and illusions', coveredBy: View.HPL_PERCEPTION },
+    { id: '040.03.01.03', subject: '040', text: 'Memory - sensory, STM, LTM', coveredBy: View.HPL_MEMORY },
+    { id: '040.03.01.04', subject: '040', text: 'Learning and skill acquisition', coveredBy: View.HPL_LEARNING },
+    { id: '040.03.02.01', subject: '040', text: 'Error models - Reason model, error chains', coveredBy: View.HPL_ERROR_DECISION },
+    { id: '040.03.02.03', subject: '040', text: 'Cognitive biases', coveredBy: View.HPL_BIASES },
+    { id: '040.03.02.04', subject: '040', text: 'Stress and stressors', coveredBy: View.HPL_COMMS_STRESS },
+    { id: '040.03.03.01', subject: '040', text: 'Decision-making models - FOR-DEC, DODAR', coveredBy: View.HPL_ERROR_DECISION },
+    { id: '040.03.04.01', subject: '040', text: 'CRM, SOPs, checklists', coveredBy: View.HPL_COCKPIT_MGMT },
+    { id: '040.03.04.02', subject: '040', text: 'Communication', coveredBy: View.HPL_COMMS_STRESS },
+    { id: '040.03.05.01', subject: '040', text: 'Personality traits', coveredBy: View.HPL_PERSONALITY },
+    { id: '040.03.05.02', subject: '040', text: 'Hazardous attitudes', coveredBy: View.HPL_BEHAVIOUR },
+    { id: '040.03.06.01', subject: '040', text: 'Workload management', coveredBy: View.HPL_WORKLOAD },
+    { id: '040.03.06.02', subject: '040', text: 'Fatigue and sleep', coveredBy: View.HPL_SLEEP },
+    { id: '040.03.06.03', subject: '040', text: 'Sleep disorders', coveredBy: View.HPL_SLEEP_DISORDERS },
+    { id: '040.03.06.04', subject: '040', text: 'Thermal comfort', coveredBy: View.HPL_THERMAL },
+    { id: '040.03.06.05', subject: '040', text: 'Radiation', coveredBy: View.HPL_RADIATION },
+    { id: '040.03.07.01', subject: '040', text: 'Automation advantages and disadvantages', coveredBy: View.HPL_AUTOMATION },
+    { id: '040.03.07.02', subject: '040', text: 'Ergonomics and human-machine interface', coveredBy: View.HPL_ERGONOMICS },
+    { id: '040.03.07.03', subject: '040', text: 'Culture and organizational factors', coveredBy: View.HPL_CULTURE },
+    { id: '040.03.07.04', subject: '040', text: 'Metabolism and nutrition', coveredBy: View.HPL_METABOLISM },
 
     // --- 050 METEOROLOGY ---
     { id: '050.01.01', subject: '050', text: 'The Atmosphere: Structure', coveredBy: View.MET_ATMOSPHERE },
@@ -120,18 +161,18 @@ export const calculateProgress = () => {
     const stats = SUBJECTS.map(sub => {
         // Find mapped learning objectives for this subject
         const mappedLOs = LEARNING_OBJECTIVES.filter(lo => lo.subject === sub.id && lo.coveredBy);
-        
+
         // Count the unique modules covering this subject
         const uniqueModules = new Set(mappedLOs.map(lo => lo.coveredBy)).size;
 
         // Weighting Logic:
         // We assume each interactive module covers approximately 5 official Learning Objectives (LOs).
         // e.g., "Airspace Explorer" covers definitions, classes A-G, separation, VFR rules, etc.
-        const estimatedCoverage = uniqueModules * 5; 
-        
+        const estimatedCoverage = uniqueModules * 5;
+
         // Calculate percentage, capped at 100%
         const percentage = Math.min(100, Math.round((estimatedCoverage / sub.totalLOs) * 100));
-        
+
         return {
             ...sub,
             coveredLOs: estimatedCoverage, // Display estimated coverage count

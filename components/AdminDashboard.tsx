@@ -308,6 +308,8 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
     const getStatusColor = (status: AuthStatus) => {
         switch (status) {
             case AuthStatus.ACTIVE: return 'bg-emerald-500/20 text-emerald-400 border-emerald-500/50';
+            case AuthStatus.FREE_TRIAL: return 'bg-indigo-500/20 text-indigo-400 border-indigo-500/50';
+            case AuthStatus.TRIAL_EXPIRED: return 'bg-pink-500/20 text-pink-400 border-pink-500/50';
             case AuthStatus.VERIFIED: return 'bg-blue-500/20 text-blue-400 border-blue-500/50';
             case AuthStatus.PENDING_APPROVAL: return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/50';
             case AuthStatus.SUSPENDED: return 'bg-orange-500/20 text-orange-400 border-orange-500/50';
@@ -319,6 +321,8 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
     const getStatusLabel = (status: AuthStatus) => {
         switch (status) {
             case AuthStatus.ACTIVE: return 'Active';
+            case AuthStatus.FREE_TRIAL: return 'Free Trial';
+            case AuthStatus.TRIAL_EXPIRED: return 'Trial Expired';
             case AuthStatus.VERIFIED: return 'Verified';
             case AuthStatus.PENDING_APPROVAL: return 'Pending';
             case AuthStatus.SUSPENDED: return 'Suspended';
@@ -469,6 +473,8 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                         >
                             <option value="ALL">All Status</option>
                             <option value={AuthStatus.PENDING_APPROVAL}>Pending</option>
+                            <option value={AuthStatus.FREE_TRIAL}>Free Trial</option>
+                            <option value={AuthStatus.TRIAL_EXPIRED}>Trial Expired</option>
                             <option value={AuthStatus.VERIFIED}>Verified</option>
                             <option value={AuthStatus.ACTIVE}>Active</option>
                             <option value={AuthStatus.SUSPENDED}>Suspended</option>
@@ -580,6 +586,11 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                                             <span className={`px-2 py-1 rounded text-[10px] font-bold border ${getStatusColor(user.status)}`}>
                                                 {getStatusLabel(user.status)}
                                             </span>
+                                            {user.status === AuthStatus.FREE_TRIAL && user.trialStartDate && (
+                                                <div className="text-[10px] text-slate-500 mt-1">
+                                                    Started: {new Date(user.trialStartDate).toLocaleDateString()}
+                                                </div>
+                                            )}
                                         </td>
                                         <td className="px-4 py-4">
                                             <div className="flex items-center gap-2">
@@ -719,8 +730,8 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                                     </td>
                                     <td className="px-6 py-4">
                                         <span className={`px-3 py-1 rounded-full text-xs font-bold ${user.subscriptionTier?.includes('PRO')
-                                                ? 'bg-purple-500/20 text-purple-400'
-                                                : 'bg-blue-500/20 text-blue-400'
+                                            ? 'bg-purple-500/20 text-purple-400'
+                                            : 'bg-blue-500/20 text-blue-400'
                                             }`}>
                                             {user.subscriptionTier?.replace('_', ' ')}
                                         </span>
@@ -872,8 +883,8 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={`flex items-center gap-2 px-4 py-3 font-bold text-sm transition-all border-b-2 whitespace-nowrap ${activeTab === tab.id
-                                    ? 'text-white border-red-500'
-                                    : 'text-slate-400 border-transparent hover:text-white hover:border-slate-600'
+                                ? 'text-white border-red-500'
+                                : 'text-slate-400 border-transparent hover:text-white hover:border-slate-600'
                                 }`}
                         >
                             <tab.icon size={18} />
@@ -923,6 +934,8 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                                     className="w-full bg-slate-800 border border-slate-600 rounded-lg p-2.5 text-white"
                                 >
                                     <option value={AuthStatus.PENDING_APPROVAL}>Pending Approval</option>
+                                    <option value={AuthStatus.FREE_TRIAL}>Free Trial</option>
+                                    <option value={AuthStatus.TRIAL_EXPIRED}>Trial Expired</option>
                                     <option value={AuthStatus.VERIFIED}>Verified</option>
                                     <option value={AuthStatus.ACTIVE}>Active</option>
                                     <option value={AuthStatus.SUSPENDED}>Suspended</option>
