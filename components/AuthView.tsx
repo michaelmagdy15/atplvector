@@ -1,10 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { User } from '../types';
-import { Shield, Mail, CheckCircle, Lock, ArrowRight, Plane, Zap, Menu, X, User as UserIcon, HelpCircle, Eye, EyeOff, AlertTriangle, PlayCircle, Star, Globe, BarChart3, Radio, RefreshCw } from 'lucide-react';
+import { Shield, Mail, CheckCircle, Lock, ArrowRight, Plane, Zap, Menu, X, User as UserIcon, HelpCircle, Eye, EyeOff, AlertTriangle, PlayCircle, Star, Globe, BarChart3, Radio, RefreshCw, KeyRound } from 'lucide-react';
 import { supabase, getSiteUrl } from '../lib/supabase';
 
-type AuthViewMode = 'LOGIN' | 'SIGNUP' | 'FORGOT_PASS' | 'RECOVER_ACCOUNT' | 'RESET_PASSWORD';
+type AuthViewMode = 'LOGIN' | 'SIGNUP' | 'FORGOT_PASS' | 'RECOVER_ACCOUNT' | 'RESET_PASSWORD' | 'VERIFY_EMAIL';
 
 interface Props {
     onAuthChange: (user: User) => void;
@@ -28,6 +28,13 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
     const [successMsg, setSuccessMsg] = useState('');
     const [passStrength, setPassStrength] = useState(0);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    // Resend Confirmation State
+    const [showResend, setShowResend] = useState(false);
+    const [resendLoading, setResendLoading] = useState(false);
+
+    // OTP Verification State
+    const [otpCode, setOtpCode] = useState('');
 
     // Math CAPTCHA state
     const [mathQuestion, setMathQuestion] = useState({ num1: 0, num2: 0, operator: '+', answer: 0 });
@@ -95,6 +102,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
         e.preventDefault();
         setLoading(true);
         setErrorMsg('');
+        setShowResend(false);
 
         try {
             const { error } = await supabase.auth.signInWithPassword({
@@ -103,8 +111,64 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
             });
             if (error) throw error;
         } catch (error: any) {
-            setErrorMsg(error.message);
             setLoading(false);
+            if (error.message && (error.message.includes("Email not confirmed") || error.message.includes("Email not verified"))) {
+                setErrorMsg("Email not verified. Please check your inbox for the code.");
+                setShowResend(true);
+            } else {
+                setErrorMsg(error.message);
+            }
+        }
+    };
+
+    const handleVerifyOtp = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        setErrorMsg('');
+
+        try {
+            const { data, error } = await supabase.auth.verifyOtp({
+                email,
+                token: otpCode,
+                type: 'signup'
+            });
+
+            if (error) throw error;
+
+            if (data.session) {
+                setSuccessMsg("Email verified successfully! 🎉 You now have 7 days of FREE access.");
+                setTimeout(() => {
+                    onAuthChange(data.user as any); // Or just trigger a re-render/fetch
+                }, 1500);
+            } else {
+                // Should technically have session, but just in case
+                setSuccessMsg("Email verified! Please log in.");
+                setView('LOGIN');
+            }
+
+        } catch (error: any) {
+            setErrorMsg(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleResendConfirmation = async () => {
+        if (!email) return;
+        setResendLoading(true);
+        try {
+            const { error } = await supabase.auth.resend({
+                type: 'signup',
+                email: email,
+            });
+            if (error) throw error;
+            setSuccessMsg("Confirmation email resent! Please check your inbox.");
+            setErrorMsg('');
+            setShowResend(false);
+        } catch (error: any) {
+            setErrorMsg(error.message);
+        } finally {
+            setResendLoading(false);
         }
     };
 
@@ -132,7 +196,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                 timestamp: new Date().toISOString()
             });
 
-            // Create account without requiring email verification
+            // Create account 
             const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
                 email,
                 password,
@@ -140,31 +204,18 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                     data: {
                         full_name: fullName,
                     },
-                    // Don't require email confirmation - user will be signed in directly
                 },
             });
 
             if (signUpError) throw signUpError;
 
-            // Check if user was created but needs email confirmation (Supabase setting)
-            // If session exists, user is already signed in
+            // If we have a session, we are logged in (email confirm disabled)
             if (signUpData.session) {
-                // User is automatically signed in - they get free trial access
-                setSuccessMsg("Account created! 🎉 You now have 7 days of FREE access to Communications and Human Performance modules. Enjoy your trial!");
-            } else if (signUpData.user && !signUpData.session) {
-                // Supabase still requires email confirmation at the project level
-                // Try to sign in directly since we just created the account
-                const { error: signInError } = await supabase.auth.signInWithPassword({
-                    email,
-                    password,
-                });
-
-                if (signInError) {
-                    // If sign in fails, show the trial message anyway
-                    setSuccessMsg("Account created! 🎉 You have 7 days of FREE trial access. Please try logging in to start exploring!");
-                } else {
-                    setSuccessMsg("Account created! 🎉 Your 7-day free trial is now active. Enjoy access to Communications and Human Performance modules!");
-                }
+                setSuccessMsg("Account created! 🎉 You now have 7 days of FREE access.");
+            } else {
+                // Email confirmation required - redirect to OTP entry
+                setSuccessMsg("Account created! Please enter the code sent to your email.");
+                setView('VERIFY_EMAIL');
             }
         } catch (error: any) {
             setErrorMsg(error.message);
@@ -301,6 +352,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                     {view === 'FORGOT_PASS' && 'Reset Password'}
                                     {view === 'RECOVER_ACCOUNT' && 'Account Recovery'}
                                     {view === 'RESET_PASSWORD' && 'Set New Password'}
+                                    {view === 'VERIFY_EMAIL' && 'Verify Email'}
                                 </h2>
                                 <p className="text-slate-400">
                                     {view === 'LOGIN' && 'Enter your details to access the cockpit.'}
@@ -308,13 +360,36 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                     {view === 'FORGOT_PASS' && 'We\'ll email you a secure reset link.'}
                                     {view === 'RECOVER_ACCOUNT' && 'Lost access to your email?'}
                                     {view === 'RESET_PASSWORD' && 'Enter your new password below.'}
+                                    {view === 'VERIFY_EMAIL' && 'Enter the 6-digit code sent to your email.'}
                                 </p>
                             </div>
 
                             {errorMsg && (
-                                <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-200 text-sm font-medium flex items-start gap-3 animate-in slide-in-from-top-2">
-                                    <AlertTriangle size={16} className="mt-0.5 text-red-400 shrink-0" />
-                                    <span>{errorMsg}</span>
+                                <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-200 text-sm font-medium flex flex-col gap-3 animate-in slide-in-from-top-2">
+                                    <div className="flex items-start gap-3">
+                                        <AlertTriangle size={16} className="mt-0.5 text-red-400 shrink-0" />
+                                        <span>{errorMsg}</span>
+                                    </div>
+                                    {showResend && (
+                                        <div className="flex gap-2">
+                                            <button
+                                                type="button"
+                                                onClick={handleResendConfirmation}
+                                                disabled={resendLoading}
+                                                className="ml-7 text-xs bg-red-500/20 hover:bg-red-500/30 text-red-100 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-2 w-fit"
+                                            >
+                                                {resendLoading ? <RefreshCw className="animate-spin w-3 h-3" /> : <Mail className="w-3 h-3" />}
+                                                Resend Confirmation Code
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => setView('VERIFY_EMAIL')}
+                                                className="text-xs bg-blue-500/20 hover:bg-blue-500/30 text-blue-100 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-2 w-fit"
+                                            >
+                                                Enter Code
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
                             )}
 
@@ -342,7 +417,24 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                 </div>
                             ) : (
                                 /* FORM FIELDS */
-                                <form onSubmit={view === 'LOGIN' ? handleLogin : view === 'SIGNUP' ? handleSignup : view === 'RESET_PASSWORD' ? handlePasswordReset : handleForgotPassword} className="space-y-5">
+                                <form onSubmit={
+                                    view === 'LOGIN' ? handleLogin :
+                                        view === 'SIGNUP' ? handleSignup :
+                                            view === 'RESET_PASSWORD' ? handlePasswordReset :
+                                                view === 'VERIFY_EMAIL' ? handleVerifyOtp :
+                                                    handleForgotPassword
+                                } className="space-y-5">
+
+                                    {view === 'VERIFY_EMAIL' && (
+                                        <div className="animate-in slide-in-from-left-4 fade-in">
+                                            <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Verification Code</label>
+                                            <div className="relative">
+                                                <KeyRound className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
+                                                <input required type="text" value={otpCode} onChange={e => setOtpCode(e.target.value)} className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600 tracking-[0.5em] text-center font-mono text-lg" placeholder="123456" maxLength={6} />
+                                            </div>
+                                            <p className="text-xs text-slate-500 mt-2 text-center">Enter the 6-digit code sent to <strong>{email}</strong></p>
+                                        </div>
+                                    )}
 
                                     {view === 'SIGNUP' && (
                                         <div className="animate-in slide-in-from-left-4 fade-in">
@@ -354,7 +446,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                         </div>
                                     )}
 
-                                    {view !== 'RESET_PASSWORD' && (
+                                    {view !== 'RESET_PASSWORD' && view !== 'VERIFY_EMAIL' && (
                                         <div className="animate-in slide-in-from-left-4 fade-in delay-75">
                                             <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Email Address</label>
                                             <div className="relative">
@@ -364,7 +456,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                         </div>
                                     )}
 
-                                    {view !== 'FORGOT_PASS' && (
+                                    {view !== 'FORGOT_PASS' && view !== 'VERIFY_EMAIL' && (
                                         <div className="animate-in slide-in-from-left-4 fade-in delay-100">
                                             <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Password</label>
                                             <div className="relative">
@@ -433,7 +525,11 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                         className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-50 text-white py-4 rounded-xl font-bold transition-all flex items-center justify-center shadow-lg transform active:scale-[0.98] animate-in zoom-in duration-300 delay-200 hover:shadow-blue-500/25"
                                     >
                                         {loading ? <Zap className="animate-spin w-5 h-5" /> : (
-                                            view === 'LOGIN' ? 'Sign In' : view === 'SIGNUP' ? 'Create Account' : view === 'RESET_PASSWORD' ? 'Set New Password' : 'Send Reset Link'
+                                            view === 'LOGIN' ? 'Sign In' :
+                                                view === 'SIGNUP' ? 'Create Account' :
+                                                    view === 'RESET_PASSWORD' ? 'Set New Password' :
+                                                        view === 'VERIFY_EMAIL' ? 'Verify Code' :
+                                                            'Send Reset Link'
                                         )}
                                         {!loading && <ArrowRight className="ml-2 w-5 h-5" />}
                                     </button>
