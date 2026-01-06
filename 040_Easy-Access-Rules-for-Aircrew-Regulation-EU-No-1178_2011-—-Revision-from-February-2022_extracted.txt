@@ -1,0 +1,1826 @@
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 533 of 1885| Feb 2022 
+ 
+SUBJECT 040 – HUMAN PERFORMANCE AND LIMITATIONS 
+ED Decision 2020/018/R 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+040 00 00 00  HUMAN PERFORMANCE AND LIMITATIONS           
+040 01 00 00  HUMAN FACTORS: BASIC CONCEPTS           
+040 01 01 00  Human factors in aviation           
+040 01 01 01  Becoming a competent pilot           
+(01)  State that competence is based on knowledge, skills 
+and attitudes of the individual pilot, and list the 
+ICAO eight core competencies: 
+— application of procedures; 
+— communication; 
+— aircraft flight path management, automation; 
+— aircraft flight path management, manual 
+control; 
+— leadership and teamwork;  
+— problem-solving and decision-making; 
+— situation awareness; 
+— workload management. 
+X X X X X X     
+040 01 02 00  Intentionally left blank           
+040 01 03 00  Flight safety concepts           
+040 01 03 01  Threat and error management (TEM) model and 
+SHELL model 
+          
+(01)  Explain the three components of the TEM model. X X X X X X X    
+(02)  Explain and give examples of latent threats. X X X X X X X 1   
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 534 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(03)  Explain and give examples of environmental 
+threats. 
+X X X X X X X 1   
+(04)  Explain and give examples of organisational threats. X X X X X X X 1   
+(05)  Explain and give a definition of ‘error’ according to 
+the TEM model of ICAO Doc 9683 (Part II, 
+Chapter 2). 
+X X X X X X X 1   
+(06)  Give examples of different countermeasures which 
+may be used in order to manage threats, errors, 
+and undesired aircraft states. 
+X X X X X X X 1   
+(07)  Explain and give examples of procedural error, 
+communication errors, and aircraft handling errors. 
+X X X X X X X 1   
+(08)  Explain and give examples of ‘undesired aircraft 
+states’. 
+X X X X X X     
+(09)  State the components of the SHELL model. X X X X X X     
+(10)  State the relevance of the SHELL model to the work 
+in the cockpit. 
+X X X X X X     
+040 01 04 00  Safety culture           
+040 01 04 01  Safety culture and safety management           
+(01)  Distinguish between ‘open cultures’ and ‘closed 
+cultures’. 
+X X X X X X X  1  
+(02)  Illustrate how safety culture is reflected in national 
+culture. 
+X X X X X X X  1  
+(03)  Discuss the established expression ‘safety first’ in a 
+commercial entity. 
+X X X X X X     
+(04)  Explain James Reason’s ‘Swiss Cheese Model’. X X X X X X X 1   
+(05)  State the important factors that promote a good 
+safety culture. 
+X X X X X X X  1  
+(06)  Distinguish between ‘just culture’ and ‘non-punitive 
+culture’. 
+X X X X X X X  1  
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 535 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(07)  Name the five components which form safety 
+culture (according to James Reason: informed 
+culture, reporting culture, learning culture, just 
+culture, flexible culture). 
+X X X X X X X  1  
+(08)   Name the basic concepts of safety management 
+system (SMS) (including hazard identification and 
+risk management) and its relationship with safety 
+culture in order to: 
+— define how the organisation is set up to 
+manage risks; 
+— identify workplace risk and implement 
+suitable controls;  
+— implement effective communication across 
+all levels of the organisation. 
+X X X X X X X    
+040 02 00 00   BASICS OF AVIATION PHYSIOLOGY AND HEALTH 
+MAINTENANCE 
+          
+040 02 01 00  Basics of flight physiology           
+040 02 01 01  The atmosphere           
+(01)  State that the volume percentage of the gases in 
+ambient air will remain constant at all altitudes at 
+which conventional aircraft operate. 
+X X X X X X     
+040 02 01 02  Respiratory and circulatory system           
+(01)  List the main components of the respiratory system 
+and their function. 
+X X X X X X     
+(02)  Identify the different volumes of air in the lungs and 
+state the normal respiratory rate. 
+X X X X X X   1  
+(03)  Explain the role of carbon dioxide in the control and 
+regulation of respiration. 
+X X X X X X   1  
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 536 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(04)  Describe the basic processes of external respiration 
+and internal respiration. 
+X X X X X X     
+(05)  List the factors that determine pulse rate. X X X X X X     
+(06)  Name the major components of the circulatory 
+system and describe their function. 
+X X X X X X     
+(07)  State the values for a normal pulse rate and the 
+average cardiac output (heart rate × stroke volume) 
+of an adult at rest. 
+X X X X X X     
+(08)  Define ‘systolic’ and ‘diastolic’ blood pressure. X X X X X X     
+(09)  State the normal blood pressure ranges and units of 
+measurement. 
+X X X X X X     
+(10)  List the main constituents of blood and describe 
+their functions. 
+X X X X X X     
+(11)  Stress the function of haemoglobin in the 
+circulatory system. 
+X X X X X X     
+(12)  Define ‘anaemia’ and state its common causes. X X X X X X     
+(13)  Indicate the effect of increasing altitude on 
+haemoglobin oxygen saturation. 
+X X X X X X   1  
+  Hypertension and hypotension           
+(14)  Define ‘hypertension’ and ‘hypotension’. X X X X X X     
+(15)  List the effects that high and low blood pressure will 
+have on some normal functions of the human body. 
+X X X X X X     
+(16)  State that both hypotension and hypertension may 
+disqualify a pilot from obtaining medical clearance 
+to fly. 
+X X X X X X     
+(17)  List the factors which can lead to hypertension for 
+an individual. 
+X X X X X X     
+(18)  State the corrective actions that may be taken to 
+reduce high blood pressure. 
+X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 537 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(19)  Stress that hypertension is the major factor of 
+strokes in the general population. 
+X X X X X X     
+  Coronary artery disease           
+(20)  Differentiate between ‘angina’ and ‘heart attack’. X X X X X X     
+(21)  Explain the major risk factors for coronary disease. X X X X X X     
+(22)  State the role physical exercise plays in reducing the 
+chances of developing coronary disease. 
+X X X X X X     
+  Hypoxia           
+(23)  Define the two major forms of hypoxia (hypoxic and 
+anaemic), and the common causes of both. 
+X X X X X X     
+(24)  State the symptoms of hypoxia. X X X X X X   1  
+(25)  State that healthy people are able to compensate 
+for altitudes up to approximately 10 000–12 000 ft. 
+X X X X X X     
+(26)  Name the three physiological thresholds and 
+allocate the corresponding altitudes for each of 
+them: 
+— reaction threshold (7 000 ft);  
+— disturbance threshold (10–12 000 ft); and  
+— critical threshold (22 000 ft). 
+X X X X X X     
+(27)  State the altitude at which short-term memory 
+begins to be affected by hypoxia. 
+X X X X X X   1  
+(28)  Define the terms ‘time of useful consciousness’ 
+(TUC) and ‘effective performance time’ (EPT).  
+X X X X X X     
+(29)  State that TUC varies among individuals, but the 
+approximate values for a person seated (at rest) 
+are: 
+— 20 000 ft  30 min 
+— 30 000 ft  1–2 min 
+X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 538 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+— 35 000 ft  30–90 s 
+— 40 000 ft  15–20 s 
+(30)  List the factors that determine the severity of 
+hypoxia. 
+X X X X X X     
+(31)  State the equivalent altitudes when breathing 
+ambient air and 100 % oxygen at mean sea level 
+(MSL) and at approximately 10 000, 30 000 and 
+40 000 ft. 
+X X X X X X     
+  Hyperventilation           
+(32)  Describe the role of carbon dioxide in 
+hyperventilation. 
+X X X X X X     
+(33)  Define the term ‘hyperventilation’. X X X X X X     
+(34)  List the factors that cause hyperventilation. X X X X X X     
+(35)  State that hyperventilation may be caused by 
+psychological or physiological reasons. 
+X X X X X X     
+(36)  List the signs and symptoms of hyperventilation. X X X X X X     
+(37)  List the measures which may be taken to 
+counteract hyperventilation: breath slowly, close 
+one opening of the nose, speak loudly, place a 
+paper bag over nose and mouth. 
+X X X X X X     
+  Decompression sickness/illness           
+(38)  State the normal range of cabin pressure altitude in 
+pressurised commercial air transport aircraft and 
+describe its protective function for aircrew and 
+passengers. 
+X X X X X X     
+(39)  List the vital actions the crew has to perform when 
+cabin pressurisation is lost (oxygen mask on, 
+emergency descent, land as soon as possible, and 
+no further flight for the next minimum 24 hours). 
+X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 539 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+State that decompression sickness symptoms can 
+occur up to 24 hours later. 
+(40)  Identify the causes of decompression sickness in 
+flight operation. 
+X X X X X X     
+(41)  State how decompression sickness can be 
+prevented. 
+X X X X X X     
+(42)  List the symptoms of decompression sickness 
+(bends, creeps, chokes, staggers). 
+X X X X X X     
+(43)  Indicate how decompression sickness may be 
+treated. 
+X X X X X X     
+(44)  Define the hazards of diving and flying, and give the 
+recommendations associated with these activities. 
+X X X X X X   1  
+  Acceleration           
+(45)  Define ‘linear acceleration’ and ‘angular 
+acceleration’. 
+X X X X X X X 1   
+(46)  Describe the effects of z-acceleration on the 
+circulation and blood volume distribution. 
+X X X X X X  1   
+(47)  List magnitude, duration and onset as factors that 
+determine the effects of acceleration on the human 
+body. 
+X X X X X X X 1   
+(48)  List the effects of positive acceleration with respect 
+to type, sequence and corresponding G-load. 
+X X X X X X  1   
+  Carbon monoxide           
+(49)  State how carbon monoxide is produced. X X X X X X  1   
+(50)  State how the presence of carbon monoxide in the 
+blood affects the distribution of oxygen. 
+X X X X X X     
+(51)  List the signs and symptoms of carbon-monoxide 
+poisoning. 
+X X X X X X  1   
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 540 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(52)  Explain immediate countermeasures on suspicion of 
+carbon-monoxide poisoning and how poisoning can 
+be treated later on the ground. 
+X X X X X X  1   
+040 02 01 03  High-altitude environment           
+(01)  State how an increase in altitude may change the 
+proportion of ozone in the atmosphere and that 
+aircraft can be equipped with special ozone 
+removers. 
+X          
+  Radiation           
+(02)  State the sources of radiation at high altitude. X          
+(03)  List the effects of excessive exposure to radiation. X          
+  Humidity           
+(04)  List the factors that affect the relative humidity of 
+both the atmosphere and cabin air. 
+X          
+(05)  List the effects of low humidity on human body to 
+be spurious thirst, dry eyes, skin and mucous 
+membranes, and indicate measures that can be 
+taken: drinking water, using eye drops and aqueous 
+creams. 
+X          
+040 02 02 00  People and the environment: the sensory system           
+040 02 02 01  The different senses           
+(01)  List the different senses. X X X X X X X  1  
+040 02 02 02  Central, peripheral and autonomic nervous system           
+(01)  Define the term ‘sensory threshold’. X X X X X X     
+(02)  Define the term ‘sensitivity’, especially in the 
+context of vision. 
+X X X X X X     
+(03)  Give examples of sensory adaptation. X X X X X X     
+(04)  Define the term ‘habituation’ and state its 
+implication for flight safety. 
+X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 541 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+040 02 02 03  Vision           
+  Functional anatomy           
+(01)  Name the most important parts of the eye and the 
+pathway to the visual cortex. 
+X X X X X      
+(02)  State the basic functions of the parts of the eye. X X X X X X  1   
+(03)  Define ‘accommodation’. X X X X X X     
+(04)  Distinguish between the functions of the rod and 
+cone cells. 
+X X X X X X     
+(05)  Describe the distribution of rod and cone cells in 
+the retina and explain their relevance to vision. 
+X X X X X X     
+  The fovea (fovea centralis) and peripheral vision           
+(06)  Explain the terms ‘visual acuity’, ‘visual field’, 
+‘central vision’, ‘peripheral vision’ and ‘the fovea’, 
+and explain their function in the process of vision. 
+X X X X X X     
+(07)  List the factors that may degrade visual acuity and 
+the importance of ‘lookout’. 
+X X X X X X     
+(08)  State the limitations of night vision and the 
+different scanning techniques at both night and 
+day. 
+X X X X X X     
+(09)  State the time necessary for the eye to adapt both 
+to bright light and the dark. 
+X X X X X X  1   
+(10)  State the effect of hypoxia, smoking and altitude in 
+excess of 5 000 ft on night vision. 
+X X X X X X     
+(11)  Explain the nature of colour blindness.  X X X X X X     
+  Binocular and monocular vision           
+(12)  Distinguish between monocular and binocular 
+vision. 
+X X X X X X     
+(13)  Explain the basis of depth perception and its 
+relevance to flight performance. 
+X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 542 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(14)  List the possible monocular cues for depth 
+perception. 
+X X X X X X     
+(15)  State that for high-energy blue light and UV rays, 
+sunglasses can prevent damage to the retina. 
+X X X X X X     
+  Defective vision           
+(16)  Explain long-sightedness, short-sightedness and 
+astigmatism.  
+X X X X X X     
+(17)  List the causes of and the precautions that may be 
+taken to reduce the probability of vision loss due to: 
+— presbyopia; 
+— cataract; 
+— glaucoma. 
+X X X X X X     
+(18)  List the types of sunglasses that could cause 
+perceptional problems in flight. 
+X X X X X X     
+(19)  List the measures that may be taken to protect 
+oneself from flash blindness. 
+X X X X X X     
+(20)  State the possible problems associated with contact 
+lenses. 
+X X X X X X     
+(21)  State the current rules/regulations governing the 
+wearing of corrective spectacles and contact lenses 
+when operating as a pilot. 
+X X X X X X     
+(22)  Explain the significance of the ‘blind spot’ on the 
+retina in detecting other traffic in flight. 
+X X X X X X     
+040 02 02 04  Hearing           
+  Descriptive and functional anatomy           
+(01)  State the basic parts and functions of the outer, the 
+middle and the inner ear.  
+X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 543 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(02)  Differentiate between the functions of the 
+vestibular apparatus and the cochlea in the inner 
+ear. 
+X X X X X X     
+  Hearing loss           
+(03)  Define the main causes of the following hearing 
+defects/loss: 
+— ‘conductive deafness’; 
+— ‘noise-induced hearing loss’ (NIHL); 
+— ‘presbycusis’. 
+X X X X X X     
+(04)  Summarise the effects of environmental noise on 
+hearing. 
+X X X X X X     
+(05)  State the decibel level of received noise that will 
+cause NIHL. 
+X X X X X X     
+(06)  Identify the potential occupational risks that may 
+cause hearing loss. 
+X X X X X X     
+(07)  List the main sources of hearing loss in the flying 
+environment. 
+X X X X X X     
+(08)  List the precautions that may be taken to reduce 
+the probability of onset of hearing loss. 
+X X X X X X     
+040 02 02 05  Equilibrium           
+  Functional anatomy           
+(01)  List the main elements of the vestibular apparatus. X X X X X X  1   
+(02)  State the functions of the vestibular apparatus on 
+the ground and in flight. 
+X X X X X X  1   
+(03)  Distinguish between the component parts of the 
+vestibular apparatus in the detection of linear and 
+angular acceleration as well as on gravity. 
+X X X X X X  1   
+(04)  Explain how the semicircular canals are stimulated. X X X X X X   1  
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 544 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+  Motion sickness           
+(05)  Describe air sickness and its accompanying 
+symptoms. 
+X X X X X X X 1   
+(06)  List the causes of air sickness. X X X X X X X 1   
+(07)  Describe the necessary actions to be taken to 
+counteract the symptoms of air sickness. 
+X X X X X X  1   
+040 02 02 06  Integration of sensory inputs           
+(01)  State the interaction between vision, equilibrium, 
+proprioception and hearing to obtain spatial 
+orientation in flight. 
+X X X X X X X 1   
+(02)  Define the term ‘illusion’. X X X X X X X 1   
+(03)  Give examples of visual illusions based on shape 
+constancy, size constancy, aerial perspective, 
+atmospheric perspective, the absence of focal or 
+ambient cues, autokinesis, vectional false horizons, 
+field myopia, and surface planes. 
+X X X X X X X 1   
+(04)  Relate these illusions to problems that may be 
+experienced in flight and identify the danger 
+attached to them. 
+X X X X X X X 1   
+(05)  List approach and landing illusions for slope of the 
+runway, black-hole approach, and terrain around 
+runway, and state the danger involved with 
+recommendations to avoid or counteract the 
+problems with high or low approach or flare at the 
+wrong time. 
+X X X X X X X 1   
+(06)  State the problems associated with flickering lights 
+(strobe lights, anti-collision lights, propellers and 
+rotors under certain light conditions, etc.). 
+X X X X X X X 1   
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 545 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(07)  Describe vestibular illusions caused by the angular 
+accelerations (the Leans, Coriolis) and linear 
+accelerations (somatogravic, G-effect). 
+X X X X X X X 1   
+(08)  Relate the above-mentioned vestibular illusions to 
+problems encountered in flight and state the 
+dangers involved. 
+X X X X X X X 1   
+(09)  State that the ‘seat-of-the-pants’ sense is 
+completely unreliable when visual contact with the 
+ground is lost or when flying in instrument 
+meteorological conditions (IMC) or with a poor 
+visual horizon. 
+X X X X X X X 1   
+(10)  Differentiate between vertigo, Coriolis effect, and 
+spatial disorientation. 
+X X X X X X X 1   
+(11)  List the measures to prevent or overcome spatial 
+disorientation. 
+X X X X X X X 1   
+040 02 03 00  Health and hygiene           
+040 02 03 01  Intentionally left blank           
+040 02 03 02  Body rhythm and sleep           
+(01)  Name some internal body rhythms and their 
+relevance to sleep. Explain that the most important 
+of which is body temperature. 
+X X X X       
+(02)  Explain the term ‘circadian rhythm’.  X X X X X      
+(03)  State the approximate duration of a ‘free-running’ 
+rhythm. 
+X X X X X      
+(04)  Explain the significance of the ‘internal clock’ in 
+regulating the normal circadian rhythm. 
+X X X X X      
+(05)  State the effect of the circadian rhythm of body 
+temperature on an individual’s performance 
+standard and on an individual’s sleep patterns. 
+X X X X X      
+(06)  List and describe the stages of a sleep cycle. X X X X X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 546 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(07)  Differentiate between rapid eye movement (REM) 
+and non-REM sleep. 
+X X X X X      
+(08)  Explain the function of sleep and describe the 
+effects of insufficient sleep on performance. 
+X X X X X      
+(09)  Explain the simple calculations for the sleep/wake 
+credit/debit situation. 
+X X X X X      
+(10)  Explain how sleep debit can become cumulative. X X X X X      
+(11)  State the time formula for the adjustment of body 
+rhythms to the new local time scale after crossing 
+time zones. 
+X X X X X      
+(12)  State the problems caused by circadian disrhythmia 
+(jet lag) with regard to an individual’s performance 
+and sleep. 
+X X X X X      
+(13)  Differentiate between the effects of westbound and 
+eastbound travel. 
+X X X X X      
+(14)  Explain the interactive effects of circadian rhythm 
+and vigilance on a pilot’s performance during flight 
+as the duty day elapses. 
+X X X X X      
+(15)  Describe the main effects of lack of sleep on an 
+individual’s performance. 
+X X X X X      
+(16)  List the possible strategies to cope with jet lag. X X X X X      
+040 02 03 03  Problem areas for pilots           
+  Common minor ailments           
+(01)  State the role of the Eustachian tube in equalising 
+pressure between the middle ear and the 
+environment. 
+X X X X X X     
+(02)  State that the in-flight environment may increase 
+the severity of symptoms which may be minor 
+while on the ground. 
+X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 547 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(03)  List the negative effects of suffering from colds or 
+flu on flight operations especially with regard to the 
+middle ear, the sinuses, and the teeth. 
+X X X X X X     
+(04)  State when a pilot should seek medical advice from 
+an aeromedical examiner (AME) or aeromedical 
+centre (AeMC). 
+X X X X X X     
+(05)  Describe the measures to prevent or clear problems 
+due to pressure changes during flight. 
+X X X X X X     
+  Entrapped gases and barotrauma           
+(06)  Define ‘barotrauma’. X X X X X X     
+(07)  Differentiate between otic, sinus, gastrointestinal 
+and aerodontalgia (of the teeth) barotraumas and 
+explain avoidance strategies. 
+X X X X X X     
+(08)  Explain why the effects of otic barotrauma can be 
+worse in the descent. 
+X X X X X X     
+  Gastrointestinal upsets            
+(09)  State the effects of gastrointestinal upsets that may 
+occur during flight.  
+X X X X X X     
+(10)  List the precautions that should be observed to 
+reduce the occurrence of gastrointestinal upsets.  
+X X X X X X     
+(11)  Indicate the major sources of gastrointestinal 
+upsets. 
+X X X X X X     
+  Obesity           
+(12)  Define ‘obesity’. X X X X X X     
+(13)  State the following harmful effects obesity can 
+cause: 
+— possibility of developing coronary problems; 
+— increased chances of developing diabetes; 
+— reduced ability to withstand G-forces; 
+X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 548 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+— development of problems with the joints of 
+the limbs; 
+— general circulatory problems; 
+— reduced ability to cope with hypoxia or 
+decompression sickness; 
+— sleep apnoea. 
+(14)  Describe the problems associated with Type 2 
+(mostly adult) diabetes: 
+— risk factors; 
+— insulin resistance; 
+— complications (vascular, neurological) and 
+the consequences for the medical licence; 
+— pilots are not protected from Type 2 
+diabetes more than other people. 
+X X X X X X     
+(15)  Describe the typical back problems (unspecific back 
+pain, slipped disc) that pilots have. Explain also the 
+ways of preventing and treating these problems:  
+— good sitting posture;  
+— lumbar support; 
+— good physical condition; 
+— in-flight exercise, if possible; 
+— physiotherapy. 
+X X X X X X     
+  Food hygiene           
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 549 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(16)  Stress the importance of and methods to be 
+adopted by aircrew, especially when travelling 
+abroad, to avoid contaminated food and liquids. 
+X X X X X X     
+(17)  List the major contaminating sources in foodstuffs. X X X X X X     
+(18)  State the major constituents of a healthy diet. X X X X X X     
+(19)  State the measure to avoid hypoglycaemia. X X X X X X     
+(20)  State the importance of adequate hydration. X X X X X X     
+  Tropical climates           
+(21)  List the problems associated with operating in 
+tropical climates. 
+X X X X X      
+(22)  State the possible causes/sources of incapacitation 
+in tropical countries with reference to: 
+— standards of hygiene; 
+— quality of water supply; 
+— insect-borne diseases; 
+— parasitic worms; 
+— rabies or other diseases that may be spread 
+through contact with animals; 
+— sexually transmitted diseases. 
+X X X X X      
+(23)  State the precautions to be taken to reduce the 
+risks of developing problems in tropical areas. 
+X X X X X      
+  Infectious diseases           
+(24)  State the major infectious diseases that may 
+severely incapacitate or kill individuals.  
+X X X X X X     
+(25)  State the precautions that must be taken to ensure 
+that disease-carrying insects are not transported 
+between areas. 
+X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 550 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+040 02 03 04  Intoxication           
+  Tobacco           
+(01)  State the harmful effects of tobacco on: 
+— the respiratory system; 
+— the cardiovascular system; 
+— the ability to resist hypoxia; 
+— the ability to withstand G-forces; 
+— night vision. 
+X X X X X X   1  
+  Caffeine           
+(02)  Indicate the level of caffeine dosage at which 
+performance is degraded. 
+X X X X X X     
+(03)  Besides coffee, indicate other beverages containing 
+caffeine. 
+X X X X X X     
+  Alcohol           
+(04)  State the maximum acceptable limit of alcohol for 
+flight crew according to the applicable regulations. 
+X X X X X X     
+(05)  State the effects of alcohol consumption on: 
+— the ability to reason; 
+— inhibitions and self-control; 
+— vision; 
+— the sense of balance and sensory illusions; 
+— sleep patterns; 
+— hypoxia. 
+X X X X X X     
+(06)  State the effects alcohol may have if consumed 
+together with other drugs. 
+X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 551 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(07)  List the signs and symptoms of alcoholism.  X X X X X X     
+(08)  List the factors that may be associated with the 
+development of alcoholism. 
+X X X X X X     
+(09)  Define the ‘unit’ of alcohol and state the 
+approximate elimination rate from the blood. 
+X X X X X X     
+(10)  State the maximum daily and weekly intake of units 
+of alcohol which may be consumed without causing 
+damage to the organs and systems of the human 
+body. 
+X X X X X X     
+(11)  Discuss the actions that might be taken if a crew 
+member is suspected of being an alcoholic. 
+X  X X       
+  Prescription and non-prescription drugs and 
+self-medication 
+          
+(12)  State the dangers associated with the use of 
+non-prescription drugs. 
+X X X X X X   1  
+(13)  State the side effects of common non-prescription 
+drugs used to treat colds, flu, hay fever and other 
+allergies, especially medicines containing 
+antihistamine preparations. 
+X X X X X X   1  
+(14)  Interpret the rules relevant to using (prescription or 
+non-prescription) drugs that the pilot has not used 
+before. 
+X X X X X X   1  
+(15)  Interpret the general rule that ‘if a pilot is so unwell 
+that they require any medication, then they should 
+consider themselves unfit to fly’. 
+X X X X X X   1  
+  Toxic materials           
+(16)  List those materials present in an aircraft which 
+may, when uncontained, cause severe health 
+problems. 
+X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 552 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(17)  List those aircraft-component parts which if burnt 
+may give off toxic fumes. 
+X X X X X X     
+(18)   Describe a fume event and the possible 
+incapacitating effects on those exposed to it. 
+X X X X X X     
+040 02 03 05  Incapacitation in flight           
+(01)  State that incapacitation is most dangerous when 
+its onset is insidious. 
+X X X X X X     
+(02)  List the major causes of in-flight incapacitation. X X X X X X     
+(03)  State the importance of crew to be able to 
+recognise and promptly react upon incapacitation 
+of other crew members, should it occur in flight. 
+X  X X       
+(04)  Explain methods and procedures to cope with 
+incapacitation in flight. 
+X X X X X X     
+040 03 00 00  BASIC AVIATION PSYCHOLOGY           
+040 03 01 00  Human information processing           
+040 03 01 01  Attention and vigilance           
+(01)  Differentiate between ‘attention’ and ‘vigilance’. X X X X X X     
+(02)  Differentiate between ‘selective’ and ‘divided’ 
+attention. 
+X X X X X X     
+(03)  Define ‘hypovigilance’. X X X X X X     
+(04)  Identify the factors that may affect the state of 
+vigilance. 
+X X X X X X     
+(05)  List the factors that may forestall hypovigilance 
+during flight. 
+X X X X X X     
+(06)  Indicate the signs of reduced vigilance. X X X X X X     
+(07)  List the factors that affect a person’s level of 
+attention. 
+X X X X X X     
+040 03 01 02  Perception           
+(01)  Name the basis of the perceptual process.  X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 553 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(02)  Describe the mechanism of perception 
+(‘bottom-up’/‘top-down’ process). 
+X X X X X X     
+(03)  Illustrate why perception is subjective and state the 
+relevant factors that influence interpretation of 
+perceived information. 
+X X X X X X     
+(04)  Describe some basic perceptual illusions. X X X X X X     
+(05)  Illustrate some basic perceptual concepts. X X X X X X     
+(06)  Give examples where perception plays a decisive 
+role in flight safety. 
+X X X X X X     
+(07)  Stress how persuasive and believable mistaken 
+perception can manifest itself both for an individual 
+and a group. 
+X X X X X X     
+040 03 01 03  Memory           
+(01)  Explain the link between the types of memory (to 
+include sensory, working/short-term and long-term 
+memory). 
+X X X X X X     
+(02)  Describe the differences between the types of 
+memory in terms of capacity and retention time. 
+X X X X X X     
+(03)  Justify the importance of sensory-store memories in 
+processing information. 
+X X X X X X     
+(04)  State the average maximum number of separate 
+items that may be held in working memory (5 ± 2). 
+X X X X X X     
+(05)  Stress how interruption can affect 
+short-term/working memory. 
+X X X X X X     
+(06)  Give examples of items that are important for pilots 
+to hold in working memory during flight. 
+X X X X X X     
+(07)  Describe how the capacity of the working-memory 
+store may be increased. 
+X X X X X X     
+(08)  State the subdivisions of long-term memory and 
+give examples of their content. 
+X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 554 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(09)  Explain that skills are kept primarily in the long-
+term memory. 
+X X X X X X     
+(10)  Describe amnesia and how it affects memory. X X X X X X     
+(11)  Name the common problems with both the long- 
+and short-term memories and the best methods to 
+try to counteract them. 
+X X X X X X     
+040 03 01 04  Response selection           
+  Learning principles and techniques           
+(01)  Explain and distinguish between the following basic 
+forms of learning:  
+— classic and operant conditioning 
+(behaviouristic approach); 
+— learning by insight (cognitive approach); 
+— learning by imitating (modelling). 
+X X X X X X     
+(02)  Recognise pilot-related examples as behaviouristic, 
+cognitive or modelling forms of learning. 
+X X X X X X     
+(03)  State the factors that are necessary for and 
+promote the quality of learning: 
+— intrinsic motivation; 
+— good mental health; 
+— rehearsals for improvement of memory; 
+— consciousness; 
+— vigilance; 
+— application in practical exercises. 
+X X X X X X     
+(04)  Explain ways to facilitate the memorisation of 
+information with the following learning techniques: 
+X X X X X X   1  
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 555 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+— mnemonics; 
+— mental training. 
+(05)  Describe the advantage of planning and anticipation 
+of future actions: 
+— define the term ‘skills’; 
+— state the three phases of learning a skill 
+(Anderson: cognitive, associative and 
+autonomous phase). 
+X X X X X X   1  
+(06)  Explain the term ‘motor programme’ or ‘mental 
+schema’. 
+X X X X X X     
+(07)  Describe the advantages and disadvantages of 
+mental schemas. 
+X X X X X X     
+(08)  Explain the Rasmussen model which describes the 
+guidance of a pilot’s behaviour in different 
+situations. 
+X X X X X X     
+(09)  State the possible problems or risks associated with 
+skill-, rule- and knowledge-based behaviour. 
+X X X X X X     
+  Motivation           
+(10)  Define ‘motivation’. X X X X X X     
+(11)  Explain the relationship between motivation and 
+learning. 
+X X X X X X     
+(12)  Explain the problems of over-motivation, especially 
+in the context of the extreme need to achieve. 
+X X X X X X     
+040 03 02 00  Human error and reliability           
+040 03 02 01  Reliability of human behaviour           
+(01)  Name and explain the factors that influence human 
+reliability. 
+X X X X X X     
+040 03 02 02  Mental models and situation awareness           
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 556 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(01)  Define the term ‘situation awareness’.  X X X X X X X  1  
+(02)  List the cues that indicate loss of situation 
+awareness and name the steps to regain it. 
+X X X X X X X 1   
+(03)  List the factors that influence one’s situation 
+awareness both positively and negatively, and 
+stress the importance of situation awareness in the 
+context of flight safety. 
+X X X X X X X 1   
+(04)  Define the term ‘mental model’ in relation to a 
+surrounding complex situation. 
+X X X X X X X 1   
+(05)  Describe the advantages/disadvantages of mental 
+models. 
+X X X X X X X 1   
+(06)  Explain the relationship between personal ‘mental 
+models’ and the creation of cognitive illusions. 
+X X X X X X X 1   
+040 03 02 03  Theory and model of human error           
+(01)  Explain the concept of the ‘error chain’. X X X X X X X 1   
+(02)  Differentiate between an isolated error and an 
+error chain. 
+X X X X X X X 1   
+(03)  Distinguish between the main forms/types of errors 
+(i.e. slips, faults, omissions and violations).  
+X X X X X X X 1   
+(04)  Discuss the above errors and their relevance in 
+flight. 
+X X X X X X X 1   
+(05)  Distinguish between an active and a latent error, 
+and give examples. 
+X X X X X X X 1   
+040 03 02 04  Error generation           
+(01)  Distinguish between internal and external factors in 
+error generation. 
+X X X X X X X 1   
+(02)  Identify possible sources of internal error 
+generation. 
+X X X X X X X 1   
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 557 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(03)  Define and discuss the two errors associated with 
+motor programmes (action slip and environmental 
+capture). 
+X X X X X X X 1   
+(04)  List the three main sources of external error 
+generation in the flight crew compartment. 
+X X X X X X X 1   
+(05)  Give examples to illustrate the following factors in 
+external error generation in the flight crew 
+compartment: 
+— ergonomics; 
+— economics; 
+— social environment. 
+X X X X X X X 1   
+(06)  Name the major goals in the design of 
+human-centred human–machine interfaces. 
+X X X X X X X 1   
+(07)  Define the term ‘error tolerance’.  X X X X X X X 1   
+(08)  List and describe the strategies that are used to 
+reduce human error. 
+X X X X X X X 1   
+(09)  Describe the advantage of planning and the 
+anticipation of future actions. 
+X X X X X X X    
+040 03 03 00  Decision-making           
+040 03 03 01  Decision-making concepts           
+(01)  Define the terms ‘deciding’ and ‘decision-making’. X X X X X X X  1  
+(02)  Describe the major factors on which decision-
+making should be based during the course of a 
+flight. 
+X X X X X X X  1  
+(03)  Describe the main human attributes with regard to 
+decision-making. 
+X X X X X X X  1  
+(04)  Discuss the nature of bias and its influence on the 
+decision-making process. 
+X X X X X X X  1  
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 558 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(05)  Describe the main error sources and limits in an 
+individual’s decision-making mechanism. 
+X X X X X X X  1  
+(06)  State the factors upon which an individual’s risk 
+assessment is based. 
+X X X X X X X  1  
+(07)  Explain the relationship between risk assessment, 
+commitment and pressure of time in 
+decision-making strategies. 
+X X X X X X X  1  
+(08)  Explain the risks associated with dispersion or 
+channelised attention during the application of 
+procedures requiring a high workload within a short 
+time frame (e.g. a go-around). 
+X X X X X X   1  
+(09)  Describe the positive and negative influences 
+exerted by other group members on an individual’s 
+decision-making process (risky shift). 
+X X X X X X X  1  
+(10)  Explain the general idea behind the creation of a 
+model for decision-making based upon: 
+— definition of the aim; 
+— collection of information; 
+— risk assessment; 
+— development of options; 
+— evaluation of options; 
+— decision; 
+— implementation; 
+— consequences; 
+— review and feedback. 
+X X X X X X X  1  
+040 03 04 00  Avoiding and managing errors: cockpit 
+management 
+          
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 559 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+040 03 04 01  Safety awareness           
+(01)  Justify the need for being aware of not only one’s 
+own performance but that of others before and 
+during a flight and the possible consequences or 
+risks.  
+X X X X X X X 1   
+040 03 04 02  Coordination (multi-crew concepts)           
+(01)  Name the objectives of the multi-crew concept.  X  X X       
+(02)  State and explain the elements of multi-crew 
+concepts. 
+X  X X       
+(03)  Describe the concepts of ‘standard operating 
+procedures’ (SOPs), checklists and crew briefings. 
+X X X X X      
+(04)  Describe the purpose of and procedure for crew 
+briefings. 
+X  X X       
+(05)  Describe the purpose of and procedure for 
+checklists. 
+X X X X X      
+(06)  Describe the function of communication in a 
+coordinated team. 
+X  X X       
+(07)   Explain the advantages of SOPs. X X X X X      
+(08)   Explain how SOPs contribute to avoiding, reducing 
+and managing threats and errors. 
+X X X X X      
+(09)  Explain potential threats of SOPs, for example 
+during company or type conversion (e.g. motor 
+programmes, company culture, hazardous 
+attitudes, developed habits). 
+X X X X X      
+040 03 04 03  Cooperation           
+(01)  Distinguish between cooperation and coaction. X X X X X      
+(02)  Define the term ‘group’. X X X X X      
+(03)  Illustrate the influence of interdependence in a 
+group. 
+X X X X X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 560 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(04)  List the advantages and disadvantages of 
+teamwork. 
+X X X X X      
+(05)  Explain the term ‘synergy’. X X X X X      
+(06)  Define the term ‘cohesion’. X X X X X      
+(07)  Define the term ‘groupthink’. X X X X X      
+(08)  State the essential conditions for good teamwork.  X X X X X      
+(09)  Explain the function of role and norm in a group. X X X X X      
+(10)  Name the different role patterns which occur in a 
+group situation. 
+X X X X X      
+(11)  Explain how behaviour can be affected by the 
+following factors: 
+— persuasion; 
+— conformity; 
+— compliance; 
+— obedience. 
+X X X X X      
+(12)  Distinguish between status and role. X X X X X      
+(13)  Stress the inherent dangers of a situation where 
+there is a mix of role and status within the flight 
+crew compartment. 
+X X X X X      
+(14)  Explain the terms ‘leadership’ and ‘followership’. X X X X X      
+(15)  Describe the trans-cockpit authority gradient and its 
+affiliated leadership styles (i.e. autocratic, 
+laissez-faire and synergistic). 
+X X X X X      
+(16)  Name the most important attributes of a positive 
+leadership style. 
+X X X X X      
+040 03 04 04  Communication           
+(01)  Define the term ‘communication’. X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 561 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(02)  List the most basic components of interpersonal 
+communication.  
+X X X X X X     
+(03)  Explain the advantages of in-person two-way 
+communication as opposed to one-way 
+communication. 
+X X X X X X     
+(04)  Intentionally left blank           
+(05)  Name the importance of non-verbal 
+communication. 
+X X X X X X     
+(06)  Describe the general aspects of non-verbal 
+communication. 
+X X X X X X     
+(07)  Describe the advantages/disadvantages of implicit 
+and explicit communication. 
+X X X X X X     
+(08)  Describe the advantages and possible problems of 
+using ‘social’ and ‘professional’ language in 
+high-and low-workload situations. 
+X X X X X X     
+(09)  Name and explain the major obstacles to effective 
+communication. 
+X X X X X X     
+(10)  Explain the difference between intrapersonal and 
+interpersonal conflict. 
+X X X X X X     
+(11)  Describe the escalation process in human conflict. X X X X X X     
+(12)  List the typical consequences of conflicts between 
+crew members. 
+X X X X X X     
+(13)  Explain the following terms as part of the 
+communication practice with regard to preventing 
+or resolving conflicts: 
+— inquiry; 
+— active listening; 
+— advocacy; 
+X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 562 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+— feedback; 
+— metacommunication; 
+— negotiation. 
+(14)  Describe the limitations of communication in 
+situations of high workload in the flight crew 
+compartment in view of listening, verbal, 
+non-verbal and visual effects.  
+X X X X X X     
+040 03 05 00  Human behaviour           
+040 03 05 01  Personality, attitude and behaviour           
+(01)  Describe the factors that determine an individual’s 
+behaviour. 
+X X X X X X     
+(02)  Define and distinguish between ‘personality’, 
+‘attitude’ and ‘behaviour’. 
+X X X X X X     
+(03)  State the origin of personality and attitude. X X X X X X     
+(04)  State that with behaviour good and bad habits can 
+be formed. 
+X X X X X X     
+(05)  Explain how behaviour is generally a product of 
+personality, attitude and the environment to which 
+one was exposed at significant moments 
+(childhood, schooling and training). 
+X X X X X X     
+(06)  State that personality differences and selfish 
+attitude may have effects on flight crew 
+performance. 
+X X X X X X     
+040 03 05 02  Individual differences in personality and 
+motivation 
+          
+(01)  Describe the individual differences in personality by 
+means of a common trait model (e.g. Eysenck’s 
+personality factors) and use it to describe today’s 
+ideal pilot. 
+X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 563 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+  Self-concept           
+(02)  Define the term ‘self-concept’ and the role it plays 
+in any change of personality. 
+X X X X X X     
+(03)  Explain how a self-concept of under-confidence 
+may lead to an outward show of aggression and 
+self- assertiveness. 
+X X X X X X     
+  Self-discipline           
+(04)  Define ‘self-discipline’ and justify its importance for 
+flight safety. 
+X X X X X X     
+040 03 05 03  Identification of hazardous attitudes (error 
+proneness) 
+          
+(01)  Explain dangerous attitudes in aviation: 
+— anti-authority; 
+— macho;  
+— impulsivity;  
+— invulnerability;  
+— complacency; 
+— resignation.  
+X X X X X    1  
+(02)  Describe the personality, attitude and behaviour 
+patterns of an ideal crew member. 
+X X X X X      
+(03)  Summarise how a person’s attitude influences their 
+work in the flight crew compartment. 
+X X X X X      
+040 03 06 00  Human overload and underload           
+040 03 06 01  Arousal           
+(01)  Explain the term ‘arousal’. X X X X X X     
+(02)  Describe the relationship between arousal and 
+performance. 
+X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 564 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(03)  Explain the circumstances under which underload 
+may occur and its possible dangers. 
+X X X X X X   1  
+040 03 06 02  Stress           
+(01)  Explain the term ‘stress’ and why stress is a natural 
+human reaction. 
+X X X X X X     
+(02)  State that the physiological response to stress is 
+generated by the ‘fight or flight’ response. 
+X X X X X X     
+(03)  Describe the function of the autonomic nervous 
+system (ANS) in stress response. 
+X X X X X X     
+(04)  Explain the relationship between arousal and stress. X X X X X X     
+(05)  State the relationship between stress and 
+performance. 
+X X X X X X X    
+(06)  State the basic categories of stressors. X X X X X X X    
+(07)  List and discuss the major environmental sources of 
+stress in the flight crew compartment. 
+X X X X X X X  1  
+(08)  Discuss the concept of ‘break point’ with regard to 
+stress, overload and performance. 
+X X X X X X X  1  
+(09)  Name the principal causes of domestic stress. X X X X X X     
+(10)  State that the stress experienced as a result of 
+particular demands varies among individuals. 
+X X X X X X     
+(11)  Explain the factors that lead to differences in the 
+levels of stress experienced by individuals.  
+X X X X X X X    
+(12)  List the factors that influence the tolerance of 
+stressors. 
+X X X X X X   1  
+(13)  State that stress is a result of perceived demands 
+and perceived ability. 
+X X X X X X     
+(14)  Explain the relationship between stress and anxiety. X X X X X X X    
+(15)  Describe the effects of anxiety on human 
+performance. 
+X X X X X X X    
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 565 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(16)  State the general effect of acute stress on people. X X X X X X X    
+(17)  Describe the relationship between stress, arousal 
+and vigilance. 
+X X X X X X     
+(18)  State the general effect of chronic stress and the 
+biological reaction by means of the three stages of 
+the general adaptation syndrome (Selye): alarm, 
+resistance, and exhaustion. 
+X X X X X X     
+(19)  Explain the differences between psychological, 
+psychosomatic and somatic stress reactions. 
+X X X X X X     
+(20)  Name the typical common physiological and 
+psychological symptoms of human overload.  
+X X X X X X     
+(21)  Describe the effects of stress on human behaviour. X X X X X X     
+(22)  Explain how stress is cumulative and how stress 
+from one situation can be transferred to a different 
+situation. 
+X X X X X X X 1   
+(23)  Explain how successful completion of a stressful 
+task will reduce the amount of stress experienced 
+when a similar situation arises in the future. 
+X X X X X X X 1   
+(24)  Describe the effect of human underload/overload 
+on effectiveness in the flight crew compartment. 
+X X X X X X X 1   
+(25)  List sources and symptoms of human underload. X X X X X X X 1   
+040 03 06 03  Intentionally left blank           
+040 03 06 04  Intentionally left blank           
+040 03 06 05  Fatigue and stress management           
+(01)  Explain the term ‘fatigue’ and differentiate between 
+the two types of fatigue (short-term and chronic 
+fatigue).  
+X X X X X X     
+(02)  Name the causes of short-term and chronic fatigue. X X X X X X     
+(03)  Identify the symptoms and describe the effects of 
+fatigue. 
+X X X X X X   1  
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 566 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(04)  List the strategies that prevent or delay the onset of 
+fatigue and hypovigilance. 
+X X X X X X     
+(05)  List and describe strategies for coping with stress 
+factors and stress reactions. 
+X X X X X X     
+(06)  Distinguish between short-term and long-term 
+methods of stress management. 
+X X X X X X     
+(07)  Give examples of short-term methods of stress 
+management. 
+X X X X X X     
+(08)  Give examples of long-term methods of coping with 
+stress. 
+X X X X X X     
+(09)   Describe the fatigue risk management system 
+(FRMS) as follows: a data-driven means of 
+continuously monitoring and managing 
+fatigue-related safety risks, based upon scientific 
+principles and knowledge as well as operational 
+experience that aims to ensure relevant personnel 
+are performing at adequate levels of alertness. 
+X X X X X X     
+040 03 07 00  Advanced cockpit automation           
+040 03 07 01  Advantages and disadvantages            
+(01)  Compare the two basic concepts of automation: 
+— as per Boeing, where the pilot remains the 
+last operator; 
+— and as per Airbus, where automated systems 
+can correct erroneous pilot action. 
+X X X X X X X 1   
+(02)  Explain the fundamental restrictions of autoflight 
+systems to be lack of creativity in unknown 
+situations, and lack of personal motivation with 
+regard to safety.  
+X X X X X X X 1   
+(03)  List the principal strengths and weaknesses of pilot 
+versus autopilot systems to be creativity, 
+X X X X X X X 1   
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 567 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+decision-making, prioritisation of tasks, safety 
+attitude versus precision, reliability. 
+(04)  Explain the ‘ironies of automation’: designers’ 
+errors due to wrong interpretation of the data, 
+leaving tasks to the pilot that are too complex to 
+automate, loss of manual and cognitive skills of the 
+pilot.  
+State the necessity for regular training flights as one 
+possible countermeasure. 
+X X X X X X X 1   
+(05)  Describe methods to overcome the drawbacks of 
+autoflight systems to be loss of manual flying 
+capabilities, additional workload through 
+programming, risk of slips during programming, and 
+hypovigilance during cruise. 
+X X X X X X X 1   
+040 03 07 02  Automation complacency           
+(01)  State the main weaknesses in the monitoring of 
+automatic systems to be hypovigilance during flight, 
+and loss of flying skills. 
+X X X X X X X    
+(02)  Explain some basic flight crew errors and terms that 
+arise with the introduction of automation: 
+— passive monitoring; 
+— blinkered concentration; 
+— confusion; 
+— mode awareness. 
+X X X X X X X 1   
+(03)  Explain how the method of call-outs counteracts 
+ineffective monitoring of automatic systems. 
+X X X X X X X 1   
+(04)  Define ‘complacency’. X X X X X X X 1   
+040 03 07 03  Working concepts           
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 568 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(01)  Explain that the potential disadvantages of 
+automation on crew communication are loss of 
+awareness of input errors, flight modes, failure 
+detection, failure comprehension, status of the 
+aircraft and aircraft position.  
+X  X X       
+(02)  Explain how the negative effects of automation on 
+pilots may be alleviated by degrading to a lower 
+level of automation to recover comprehension of 
+the flight status from VNAV/LNAV to ALT/HDG or 
+even to manual flying. 
+X X X X X X X 1   
+(03)  Interpret the role of automation with respect to 
+flight safety regarding the basic principle of the use 
+of manual versus autoflight in normal operations, 
+frequent changes in the flight profile, and in 
+abnormal situations. 
+X X X X X X X 1   

@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { calculateProgress } from '../data/learningObjectives';
 import { CheckCircle, Circle, BarChart3 } from 'lucide-react';
