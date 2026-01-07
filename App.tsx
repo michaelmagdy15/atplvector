@@ -123,6 +123,15 @@ import SbasAbas from './components/RadioNav/SbasAbas';
 import RnavPbn from './components/RadioNav/RnavPbn';
 import FMSTrainer from './components/RadioNav/FMSTrainer';
 import LiftDrag from './components/PoF/LiftDrag';
+import AtmosphereProp from './components/PoF/AtmosphereProp';
+import AirflowBasics from './components/PoF/AirflowBasics';
+import AerofoilGeom from './components/PoF/AerofoilGeom';
+import WingGeom from './components/PoF/WingGeom';
+import LiftDragCoeff from './components/PoF/LiftDragCoeff';
+import ThreeDAirflow from './components/PoF/ThreeDAirflow';
+import TotalDrag from './components/PoF/TotalDrag';
+import GroundEffect from './components/PoF/GroundEffect';
+import HighLiftDevices from './components/PoF/HighLiftDevices';
 
 import CommsDashboard from './components/Comms/CommsDashboard';
 import GeneralTheory from './components/GeneralTheory';
@@ -143,6 +152,9 @@ import ReadbackChallenge from './components/ReadbackChallenge';
 import MetarDecoder from './components/MetarDecoder';
 import VolmetSimulator from './components/Comms/VolmetSimulator';
 import AirepSpec from './components/AirepSpec';
+import GenNavDashboard from './components/GenNav/GenNavDashboard';
+import EarthGeometry from './components/GenNav/EarthGeometry';
+import WindTriangle from './components/GenNav/WindTriangle';
 import NavDataLink from './components/NavDataLink';
 import EmergencyBuilder from './components/EmergencyBuilder';
 import EmergencyOps from './components/EmergencyOps';
@@ -181,7 +193,7 @@ import InterceptTrainer from './components/InterceptTrainer';
 import GenericSubjectDashboard from './components/GenericSubjectDashboard';
 import {
     Plane as PlaneIcon, Menu, X, BookOpen, Settings, Weight,
-    Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog
+    Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog, Wind
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -844,16 +856,14 @@ const App: React.FC = () => {
                             {currentView === View.MET_ATMOSPHERE && <AtmosphereLayers />}
 
                             {/* Gen Nav */}
+                            {/* General Navigation */}
                             {currentView === View.GEN_NAV_HOME && (
-                                <GenericSubjectDashboard
-                                    subjectCode="061" subjectName="General Navigation" color="cyan"
-                                    description="Basics of navigation, magnetism, charts, dead reckoning."
-                                    icon={Compass} onChangeView={setCurrentView}
-                                    modules={[
-                                        { title: '1 in 60 Rule', desc: 'Track error correction calculator.', view: View.NAV_60_1 },
-                                        { title: 'Time', desc: 'UTC, LMT, Standard Time, Date Line.', view: View.NAV_TIME }, // Maps to TimeZoner
-                                    ]}
-                                />
+                                <GenNavDashboard currentView={currentView} setCurrentView={setCurrentView} />
+                            )}
+                            {currentView === View.GEN_NAV_EARTH && <EarthGeometry onNavigate={setCurrentView} />}
+                            {currentView === View.GEN_NAV_WIND_TRIANGLE && <WindTriangle onNavigate={setCurrentView} />}
+                            {currentView === View.NAV_HOME && (
+                                <GenNavDashboard currentView={View.GEN_NAV_HOME} setCurrentView={setCurrentView} />
                             )}
                             {currentView === View.NAV_60_1 && <OneInSixty />}
                             {currentView === View.NAV_TIME && <TimeZoner />}
@@ -915,12 +925,29 @@ const App: React.FC = () => {
                                     description="Subsonic aerodynamics, stability, control, lift, drag."
                                     icon={PlaneIcon} onChangeView={setCurrentView}
                                     modules={[
+                                        { title: 'Atmosphere', desc: 'ISA properties: Temperature, Pressure, Density.', view: View.POF_ATMOSPHERE },
+                                        { title: 'Airflow Basics', desc: 'Streamlines, Bernoulli, and Continuity.', view: View.POF_AIRFLOW },
+                                        { title: 'Aerofoil Geometry', desc: 'Camber, Chord, Thickness, Angle of Attack.', view: View.POF_AEROFOIL },
+                                        { title: 'Wing Geometry', desc: 'Aspect Ratio, Taper, Sweep, Planform.', view: View.POF_WING_GEOM },
                                         { title: 'Lift & Drag', desc: 'Coefficient curves, polar diagrams.', view: View.POF_LIFT_DRAG },
-                                        { title: 'Stability', desc: 'Static vs Dynamic, Longitudinal/Lateral.', isLocked: true },
+                                        { title: '3D Airflow', desc: 'Wingtip vortices, Downwash, Induced Drag.', view: View.POF_3D_AIRFLOW },
+                                        { title: 'Total Drag', desc: 'Parasite vs Induced Drag curves.', view: View.POF_DRAG },
+                                        { title: 'Ground Effect', desc: 'Cushioning effect near surface.', view: View.POF_GROUND_EFFECT },
+                                        { title: 'High Lift Devices', desc: 'Flaps and Slats performance.', view: View.POF_HIGH_LIFT },
+                                        { title: 'Stall', desc: 'Stalling characteristics and recovery.', isLocked: true },
+                                        { title: 'Stability', desc: 'Static and Dynamic stability.', isLocked: true },
                                     ]}
                                 />
                             )}
-                            {currentView === View.POF_LIFT_DRAG && <LiftDrag />}
+                            {currentView === View.POF_ATMOSPHERE && <AtmosphereProp />}
+                            {currentView === View.POF_AIRFLOW && <AirflowBasics />}
+                            {currentView === View.POF_AEROFOIL && <AerofoilGeom />}
+                            {currentView === View.POF_WING_GEOM && <WingGeom />}
+                            {currentView === View.POF_LIFT_DRAG && <LiftDragCoeff />}
+                            {currentView === View.POF_3D_AIRFLOW && <ThreeDAirflow />}
+                            {currentView === View.POF_DRAG && <TotalDrag />}
+                            {currentView === View.POF_GROUND_EFFECT && <GroundEffect />}
+                            {currentView === View.POF_HIGH_LIFT && <HighLiftDevices />}
 
                             {/* Communications (090) */}
                             {currentView === View.DASHBOARD && <CommsDashboard onChangeView={setCurrentView} />}

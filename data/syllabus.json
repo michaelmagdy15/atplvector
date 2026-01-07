@@ -4630,5 +4630,52 @@
       }
     ],
     "los": []
+  },
+  {
+    "code": "081 00 00 00",
+    "title": "PRINCIPLES OF FLIGHT",
+    "children": [
+      {
+        "code": "081 01 00 00",
+        "title": "SUBSONIC AERODYNAMICS",
+        "children": [
+          {
+            "code": "081 01 01 00",
+            "title": "Basics, laws and definitions",
+            "children": [],
+            "los": [
+              {
+                "id": "01",
+                "text": "Define dynamic pressure, static pressure and total pressure.",
+                "details": "Define dynamic pressure, static pressure and total pressure."
+              },
+              {
+                "id": "02",
+                "text": "Bernoulli's theorem",
+                "details": "Describe the relationship between dynamic pressure, static pressure and total pressure."
+              },
+              {
+                "id": "03",
+                "text": "Equation of continuity",
+                "details": "Describe the relationship between velocity and cross-sectional area of flow."
+              }
+            ]
+          },
+          {
+            "code": "081 01 02 00",
+            "title": "The two-dimensional airflow about an aerofoil",
+            "children": [],
+            "los": [
+              {
+                "id": "01",
+                "text": "Define aerofoil section, chord line, camber line, thickness/chord ratio.",
+                "details": "Geometrical definitions"
+              }
+            ]
+          }
+        ],
+        "los": []
+      }
+    ]
   }
 ]

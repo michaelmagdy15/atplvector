@@ -229,7 +229,15 @@ const NAV_MAP: SubjectConfig[] = [
         dashboardView: View.POF_HOME,
         items: [
             { label: 'Dashboard', view: View.POF_HOME, icon: Plane },
-            { label: 'Lift & Drag', view: View.POF_LIFT_DRAG },
+            { label: 'Atmosphere (ISA)', view: View.POF_ATMOSPHERE },
+            { label: 'Airflow Basics', view: View.POF_AIRFLOW },
+            { label: 'Aerofoil Geom', view: View.POF_AEROFOIL },
+            { label: 'Wing Geom', view: View.POF_WING_GEOM },
+            { label: 'Lift & Drag Coeff', view: View.POF_LIFT_DRAG }, // Using existing/new shared view if appropriate, or mapped to Coeff
+            { label: '3D Airflow', view: View.POF_3D_AIRFLOW },
+            { label: 'Total Drag', view: View.POF_DRAG },
+            { label: 'Ground Effect', view: View.POF_GROUND_EFFECT },
+            { label: 'High Lift Devices', view: View.POF_HIGH_LIFT },
         ]
     },
     {
