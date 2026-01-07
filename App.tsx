@@ -14,6 +14,7 @@ import FlashcardSystem from './components/FlashcardSystem';
 import SubscriptionManagement from './components/SubscriptionManagement';
 import AdminDashboard from './components/AdminDashboard';
 import ContentProtection from './components/ContentProtection';
+import StudyGuide from './components/StudyGuide';
 import SubjectSidebar from './components/SubjectSidebar';
 import { getSubjectConfig } from './data/sidebarNavigation';
 import StarfieldBackground from './components/StarfieldBackground';
@@ -105,6 +106,22 @@ import AtmosphereLayers from './components/Meteorology/AtmosphereLayers';
 import OneInSixty from './components/Nav/OneInSixty';
 import TimeZoner from './components/TimeZoner';
 import GNSSTheory from './components/RadioNav/GNSSTheory';
+import WavePropVisualizer from './components/RadioNav/WavePropVisualizer';
+import SpectrumExplorer from './components/RadioNav/SpectrumExplorer';
+import IonosphereSim from './components/RadioNav/IonosphereSim';
+import AntennaTheory from './components/RadioNav/AntennaTheory';
+import Modulation from './components/RadioNav/Modulation';
+import VDF from './components/RadioNav/VDF';
+import MLS from './components/RadioNav/MLS';
+import VORLab from './components/RadioNav/VORLab';
+import ADFSimulator from './components/RadioNav/ADFSimulator';
+import DMESimulator from './components/RadioNav/DMESimulator';
+import ILSSimulator from './components/RadioNav/ILSSimulator';
+import RadarTheory from './components/RadioNav/RadarTheory';
+import SSRTransponder from './components/RadioNav/SSRTransponder';
+import SbasAbas from './components/RadioNav/SbasAbas';
+import RnavPbn from './components/RadioNav/RnavPbn';
+import FMSTrainer from './components/RadioNav/FMSTrainer';
 import LiftDrag from './components/PoF/LiftDrag';
 
 import CommsDashboard from './components/Comms/CommsDashboard';
@@ -644,6 +661,9 @@ const App: React.FC = () => {
                             {currentView === View.ADMIN_DASHBOARD && user.isAdmin && (
                                 <AdminDashboard currentUser={user} onBack={() => setCurrentView(View.PLATFORM_DASHBOARD)} />
                             )}
+                            {currentView === View.STUDY_GUIDE && (
+                                <StudyGuide onBack={() => setCurrentView(View.PLATFORM_DASHBOARD)} />
+                            )}
 
                             {/* --- SUBJECT MODULES --- */}
                             {/* Air Law */}
@@ -845,12 +865,48 @@ const App: React.FC = () => {
                                     description="Radio aids, radar, GNSS, area navigation systems."
                                     icon={Wifi} onChangeView={setCurrentView}
                                     modules={[
-                                        { title: 'GNSS', desc: 'GPS, GLONASS, GALILEO principles.', view: View.NAV_GNSS },
-                                        { title: 'VOR / DME', desc: 'Principles, errors, cone of confusion.', isLocked: true },
+                                        // Phase 1: Basics
+                                        { title: 'Wave Propagation', desc: 'Wavelength, Frequency, Amplitude visualized.', view: View.RAD_NAV_WAVE_PROP },
+                                        { title: 'Spectrum Explorer', desc: 'VLF to EHF bands and aviation usage.', view: View.RAD_NAV_SPECTRUM },
+                                        { title: 'Ionosphere', desc: 'Sky wave propagation, layers and skip distance.', view: View.RAD_NAV_IONOSPHERE },
+                                        { title: 'Antenna Theory', desc: 'Radiation patterns, dipoles and loops.', view: View.RAD_NAV_ANTENNA },
+                                        { title: 'Modulation', desc: 'AM, FM, Phase and Pulse modulation.', view: View.RAD_NAV_MODULATION },
+
+                                        // Phase 2: Radio Aids
+                                        { title: 'VOR Simulator', desc: 'CDI, TO/FROM, Radial Interception.', view: View.RAD_NAV_VOR },
+                                        { title: 'ADF/NDB', desc: 'RBI/RMI tracking and homing.', view: View.RAD_NAV_ADF },
+                                        { title: 'DME', desc: 'Slant range vs Ground distance.', view: View.RAD_NAV_DME },
+                                        { title: 'ILS Approach', desc: 'Localizer and Glidepath lobes.', view: View.RAD_NAV_ILS },
+                                        { title: 'VDF', desc: 'QDM/QDR and homing.', view: View.RAD_NAV_VDF },
+                                        { title: 'MLS', desc: 'Microwave Landing System TRSB.', view: View.RAD_NAV_MLS },
+
+                                        // Phase 3: Radar & Advanced
+                                        { title: 'Radar Theory', desc: 'Pulse technique, PRF, PRI.', view: View.RAD_NAV_RADAR },
+                                        { title: 'SSR Transponder', desc: 'Mode A/C/S, Codes and Interrogation.', view: View.RAD_NAV_SSR },
+                                        { title: 'GNSS Principles', desc: 'GPS, GLONASS, GALILEO satellites.', view: View.NAV_GNSS },
+                                        { title: 'SBAS/ABAS', desc: 'EGNOS, WAAS and augmentation.', view: View.RAD_NAV_SBAS },
+                                        { title: 'RNAV/PBN', desc: 'Area Navigation and Kalman Filtering.', view: View.RAD_NAV_RNAV },
+                                        { title: 'FMS Trainer', desc: 'CDU/MCDU Waypoint entry.', view: View.RAD_NAV_FMS },
                                     ]}
                                 />
                             )}
                             {currentView === View.NAV_GNSS && <GNSSTheory />}
+                            {currentView === View.RAD_NAV_WAVE_PROP && <WavePropVisualizer />}
+                            {currentView === View.RAD_NAV_SPECTRUM && <SpectrumExplorer />}
+                            {currentView === View.RAD_NAV_IONOSPHERE && <IonosphereSim />}
+                            {currentView === View.RAD_NAV_ANTENNA && <AntennaTheory />}
+                            {currentView === View.RAD_NAV_MODULATION && <Modulation />}
+                            {currentView === View.RAD_NAV_VOR && <VORLab />}
+                            {currentView === View.RAD_NAV_ADF && <ADFSimulator />}
+                            {currentView === View.RAD_NAV_DME && <DMESimulator />}
+                            {currentView === View.RAD_NAV_ILS && <ILSSimulator />}
+                            {currentView === View.RAD_NAV_VDF && <VDF />}
+                            {currentView === View.RAD_NAV_MLS && <MLS />}
+                            {currentView === View.RAD_NAV_RADAR && <RadarTheory />}
+                            {currentView === View.RAD_NAV_SSR && <SSRTransponder />}
+                            {currentView === View.RAD_NAV_SBAS && <SbasAbas />}
+                            {currentView === View.RAD_NAV_RNAV && <RnavPbn />}
+                            {currentView === View.RAD_NAV_FMS && <FMSTrainer />}
 
                             {/* PoF */}
                             {currentView === View.POF_HOME && (

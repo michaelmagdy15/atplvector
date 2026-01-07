@@ -129,6 +129,20 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                             <div className="text-xl font-bold text-white">Cadet</div>
                         </div>
                     </div>
+
+                    {/* Study Guide Quick Access */}
+                    <div
+                        onClick={() => onChangeView(View.STUDY_GUIDE)}
+                        className="glass-panel px-5 py-3 rounded-2xl flex items-center gap-4 cursor-pointer hover:bg-white/5 transition-colors border border-blue-500/30 shadow-lg shadow-blue-500/10 group"
+                    >
+                        <div className="p-2 bg-blue-500/20 rounded-lg text-blue-400 group-hover:scale-110 transition-transform">
+                            <TrendingUp size={20} />
+                        </div>
+                        <div>
+                            <div className="text-[10px] text-blue-400/60 font-bold uppercase tracking-wider">Strategy</div>
+                            <div className="text-xl font-bold text-white group-hover:text-blue-200 transition-colors">Study Guide</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

@@ -1,0 +1,3213 @@
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 638 of 1885| Feb 2022 
+ 
+SUBJECT 062 – NAVIGATION – RADIO NAVIGATION 
+ED Decision 2020/018/R 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+060 00 00 
+00 
+ NAVIGATION            
+062 00 00 
+00 
+ RADIO NAVIGATION            
+062 01 00 
+00 
+ BASIC RADIO PROPAGATION THEORY            
+062 01 01 
+00 
+ Basic principles            
+062 01 01 
+01 
+ Electromagnetic waves            
+(01) X State that radio waves travel at the speed of 
+light, being approximately 300 000 km/s. 
+X X X X X X      
+(02) X Define a ‘cycle’: a complete series of values 
+of a periodical process. 
+X X X X X X      
+062 01 01 
+02 
+ Frequency, wavelength, amplitude, phase 
+angle  
+           
+(01) X Define ‘frequency’: the number of cycles 
+occurring in 1 second expressed in Hertz 
+(Hz). 
+X X X X X X      
+(02) X Define ‘wavelength’: the physical distance 
+travelled by a radio wave during one cycle of 
+transmission. 
+X X X X X X      
+(03) X Define ‘amplitude’: the maximum deflection 
+in an oscillation or wave. 
+X X X X X X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 639 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(04) X State that the relationship between 
+wavelength and frequency is: wavelength (λ) 
+= speed of light (c) / frequency (f). 
+X X X X X X      
+(05) X Define ‘phase angle’: the fraction of one 
+wavelength expressed in degrees from 000° 
+to 360°. 
+X X X X X X      
+(06) X Define ‘phase angle difference/shift’: the 
+angular difference between the 
+corresponding points of two cycles of equal 
+wavelength, which is measurable in degrees 
+(°). 
+X X X X X X      
+062 01 01 
+03 
+ Frequency bands, sidebands, single 
+sideband 
+           
+(01)  List the bands of the frequency spectrum for 
+electromagnetic waves: 
+— very low frequency (VLF): 3–30 kHz; 
+— low frequency (LF): 30–300 kHz; 
+— medium frequency (MF): 300–
+3 000 kHz; 
+— high frequency (HF): 3–30 MHz; 
+— very high frequency (VHF): 30–300 
+MHz; 
+— ultra-high frequency (UHF):  
+300–3 000 MHz; 
+— super high frequency (SHF): 3–
+30 GHz; 
+X X X X X X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 640 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+— extremely high frequency (EHF): 30–
+300 GHz. 
+(02)  State that when a carrier wave is modulated, 
+the resultant radiation consists of the carrier 
+frequency plus additional upper and lower 
+sidebands. 
+X X X X X X      
+(03)  State that HF meteorological information for 
+aircraft in flight (VOLMET) and HF two-way 
+communication use a single sideband. 
+X X X X X X      
+(04)  State that the following abbreviations 
+(classifications according to International 
+Telecommunication Union (ITU) regulations) 
+are used for aviation applications: 
+— N0N: carrier without modulation as 
+used by non-directional radio beacons 
+(NDBs); 
+— A1A: carrier with keyed Morse code 
+modulation as used by NDBs; 
+— A2A: carrier with amplitude 
+modulated Morse code as used by 
+NDBs; 
+X X X X X X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 641 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+— A3E: carrier with amplitude 
+modulated speech used for 
+communication (VHF-COM). 
+062 01 01 
+04 
+ Pulse characteristics             
+(01)  Define the following terms that are 
+associated with a pulse string: 
+— pulse length; 
+— pulse power; 
+— continuous power. 
+X X X X X X      
+062 01 01 
+05 
+ Carrier, modulation            
+(01) X Define ‘carrier wave’: the radio wave acting 
+as the carrier or transporter. 
+X X X X X X      
+(02) X Define ‘modulation’: the technical term for 
+the process of impressing and transporting 
+information by radio waves. 
+X X X X X X      
+062 01 01 
+06 
+ Kinds of modulation (amplitude, frequency, 
+pulse, phase) 
+           
+(01) X Define ‘amplitude modulation’: the 
+information that is impressed onto the 
+carrier wave by altering the amplitude of the 
+carrier.  
+X X X X X X      
+(02) X Define ‘frequency modulation’: the 
+information that is impressed onto the 
+carrier wave by altering the frequency of the 
+carrier. 
+X X X X X X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 642 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(03) X Describe ‘pulse modulation’: a modulation 
+form used in radar by transmitting short 
+pulses followed by larger interruptions. 
+X X X X X X      
+(04) X Describe ‘phase modulation’: a modulation 
+form used in GPS where the phase of the 
+carrier wave is reversed. 
+X X X X X X      
+062 01 02 
+00 
+ Antennas            
+062 01 02 
+01 
+ Characteristics            
+(01) X Define ‘antenna’: an antenna or aerial is an 
+electrical device which converts electric 
+power into radio waves, and vice versa. 
+X X X X X X      
+(02) X State that the simplest type of antenna is a 
+dipole, which is a wire of length equal to one 
+half of the wavelength. 
+X X X X X X      
+(03) X State that an electromagnetic wave always 
+consists of an oscillating electric (E) and an 
+oscillating magnetic (H) field which 
+propagates at the speed of light. 
+X X X X X X      
+(04) X State that the E and H fields are 
+perpendicular to each other. The oscillations 
+are perpendicular to the propagation 
+direction and are in-phase. 
+X X X X X X      
+062 01 02 
+02 
+ Polarisation            
+(01) X State that the polarisation of an 
+electromagnetic wave describes the 
+orientation of the plane of oscillation of the 
+X X X X X X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 643 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+electrical component of the wave with 
+regard to its direction of propagation. 
+062 01 02 
+03 
+ Types of antennas            
+(01)  Name the common different types of 
+directional antennas: 
+— loop antenna used in old automatic 
+direction-finding (ADF) receivers; 
+— parabolic antenna used in weather 
+radars; 
+— slotted planar array used in more 
+modern weather radars. 
+X X X X X X      
+(02)  Explain ‘antenna shadowing’. X X X X X       
+(03)  Explain the importance of antenna 
+placement on aircraft. 
+X X X X X       
+062 01 03 
+00 
+ Wave propagation            
+062 01 03 
+01 
+ Structure of the ionosphere and its effect on 
+radio waves 
+           
+(01) X State that the ionosphere is the ionised 
+component of the Earth’s upper atmosphere 
+from approximately 60 to 400 km above the 
+surface, which is vertically structured in 
+three regions or layers. 
+X X X X X X      
+(02) X State that the layers of the ionosphere are 
+named D, E and F layers, and their depth 
+varies with time. 
+X X X X X X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 644 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(03) X State that electromagnetic waves refracted 
+from the E and F layers of the ionosphere are 
+called sky waves. 
+X X X X X X      
+(04) X Explain how the different layers of the 
+ionosphere influence wave propagation. 
+X X X X X X      
+062 01 03 
+02 
+ Ground waves            
+(01) X Define ‘ground or surface waves’: the 
+electromagnetic waves travelling along the 
+surface of the Earth. 
+X X X X X X      
+062 01 03 
+03 
+ Space waves            
+(01) X Define ‘space waves’: the electromagnetic 
+waves travelling through the air directly from 
+the transmitter to the receiver. 
+X X X X X X      
+062 01 03 
+04 
+ Propagation with the frequency bands            
+(01)  State that radio waves in VHF, UHF, SHF and 
+EHF propagate as space waves. 
+X X X X X X      
+(02)  State that radio waves in LF, MF and HF 
+propagate as surface/ground waves and sky 
+waves. 
+X X X X X X      
+062 01 03 
+05 
+ Doppler principle            
+(01) X State that the Doppler effect is the 
+phenomenon where the frequency of a wave 
+will increase or decrease if there is relative 
+motion between the transmitter and the 
+receiver. 
+X X X X X X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 645 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+062 01 03 
+06 
+ Factors affecting propagation            
+(01) X Define ‘skip distance’: the distance between 
+the transmitter and the point on the surface 
+of the Earth where the first sky wave return 
+arrives. 
+X X X X X X      
+(02)  State that skip zone/dead space is the 
+distance between the limit of the surface 
+wave and the sky wave. 
+X X X X X X      
+(03)  Describe ‘fading’: when a receiver picks up 
+two signals with the same frequency, and 
+the signals will interfere with each other 
+causing changes in the resultant signal 
+strength and polarisation. 
+X X X X X X      
+(04)  State that radio waves in the VHF band and 
+above are limited in range as they are not 
+reflected by the ionosphere and do not have 
+a surface wave. 
+X X X X X X      
+(05) X Describe the physical phenomena 
+‘reflection’, ‘refraction’, ‘diffraction’, 
+‘absorption’ and ‘interference’. 
+X X X X X X      
+(06)   State that multipath is when the signal 
+arrives at the receiver via more than one 
+path (the signal being reflected from 
+surfaces near the receiver). 
+X X X X X X      
+062 02 00 
+00 
+ RADIO AIDS            
+062 02 01 
+00 
+ Ground direction finding (DF)            
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 646 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+062 02 01 
+01 
+ Principles            
+(01) X Describe the use of a ground DF. X X X X X X      
+(02)  Explain the limitation of range because of 
+the path of the VHF signal. 
+X X X X X X      
+062 02 01 
+02 
+ Presentation and interpretation            
+(01)  Define the term ‘QDM’: the magnetic 
+bearing to the station. 
+X X X X X X X  1   
+(02)  Define the term ‘QDR’: the magnetic bearing 
+from the station. 
+X X X X X X X  1   
+(03)  Explain that by using more than one ground 
+station, the position of an aircraft can be 
+determined and transmitted to the pilot. 
+X X X X X X      
+062 02 01 
+03 
+ Coverage and range             
+(01)  Use the formula: 
+1.23 × √transmitter height in feet + 1.23 × 
+√receiver height in feet 
+to calculate the range in NM. 
+X X X X X X X  2   
+062 02 01 
+04 
+ Errors and accuracy            
+(01) X Explain why synchronous transmissions will 
+cause errors. 
+X X X X X X      
+(02) X Describe the effect of ‘multipath signals’. X X X X X X      
+(03)  Explain that VDF information is divided into 
+the following classes according to ICAO 
+Annex 10: 
+X X X X X X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 647 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+− Class A: accurate to a range within ± 
+2°; 
+− Class B: accurate to a range within ± 
+5°; 
+− Class C: accurate to a range within ± 
+10°;  
+− Class D: accurate to less than Class C. 
+062 02 02 
+00 
+ Non-directional radio beacon 
+(NDB)/automatic direction finding (ADF) 
+           
+062 02 02 
+01 
+ Principles            
+(01) X Define the acronym ‘NDB’: non-directional 
+radio beacon. 
+X X X X X X X  2   
+(02) X Define the acronym ‘ADF’: automatic 
+direction-finding equipment. 
+X X X X X X X  2   
+(03) X State that the NDB is the ground part of the 
+system. 
+X X X X X X X  2   
+(04) X State that the ADF is the airborne part of the 
+system. 
+X X X X X X X  2   
+(05)  State that the NDB operates in the LF and MF 
+frequency bands. 
+X X X X X X X 2    
+(06)  State that the frequency band assigned to 
+aeronautical NDBs according to ICAO Annex 
+10 is 190–1 750 kHz. 
+X X X X X X X 2    
+(07)  Define a ‘locator beacon’: an LF/MF NDB 
+used as an aid to final approach usually with 
+a range of 10–25 NM.  
+X X X X X X X 2    
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 648 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(08) X State that certain commercial radio stations 
+transmit within the frequency band of the 
+NDB. 
+X X X X X X X  2   
+(09) X State that according to ICAO Annex 10, an 
+NDB station has an automatic ground 
+monitoring system. 
+X X X X X X X     
+(10)  Describe the use of NDBs for navigation. X X X X X X X 2    
+(11)  Describe the procedure to identify an NDB 
+station. 
+X X X X X X X 2    
+(12) X Interpret the term ‘cone of confusion’ in 
+respect of an NDB. 
+X X X X X X X  2   
+(13) X State that an NDB station emits a N0N/A1A 
+or a N0N/A2A signal. 
+X X X X X X X  2   
+(14) X State the function of the beat frequency 
+oscillator (BFO). 
+X X X X X X X  2   
+(15) X State that in order to identify a N0N/A1A 
+NDB, the BFO circuit of the receiver has to be 
+activated. 
+X X X X X X X  2   
+(16) X State that on modern aircraft, the BFO is 
+activated automatically. 
+X X X X X X X  2   
+062 02 02 
+02 
+ Presentation and interpretation            
+(01) X Name the types of indicators commonly in 
+use: 
+− electronic display; 
+− radio magnetic indicator (RMI); 
+− fixed-card ADF (radio compass); 
+X X X X X X X  2   
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 649 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+− moving-card ADF. 
+(02)  Interpret the indications given on RMI, fixed-
+card and moving-card ADF displays. 
+X X X X X X X 2    
+(03)  Given a display, interpret the relevant ADF 
+information. 
+X X X X X X X 2    
+(04)  Calculate the true bearing from the compass 
+heading and relative bearing. 
+X X X X X X X 2    
+(05)  Convert the compass bearing into magnetic 
+bearing and true bearing. 
+X X X X X X X 2    
+(06)  Describe how to fly the following in-flight 
+ADF procedures: 
+− homing and tracking, and explain the 
+influence of wind; 
+− interception of inbound QDM and 
+outbound QDR; 
+− changing from one QDM/QDR to 
+another; 
+− determining station passage and the 
+abeam point.  
+X X X X X X X 2    
+062 02 02 
+03 
+ Coverage and range            
+(01) X State that the power of the transmitter limits 
+the range of an NDB. 
+X X X X X X X  2   
+(02)  Explain the relationship between power and 
+range.  
+X X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 650 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(03) X Describe the propagation path of NDB radio 
+waves with respect to the ionosphere and 
+the Earth’s surface. 
+X X X X X X X  2   
+(04)  Explain that the interference between sky 
+waves and ground waves leads to ‘fading’. 
+X X X X X X X 2    
+(05)  Define that the accuracy the pilot has to fly 
+the required bearing in order to be 
+considered established during approach, 
+according to ICAO Doc 8168, has to be within 
+± 5°. 
+X X X X X X X 2    
+(06)  State that there is no warning indication of 
+NDB failure. 
+X X X X X X X 2    
+062 02 02 
+04 
+ Errors and accuracy            
+(01) X Explain ‘coastal refraction’: as a radio wave 
+travelling over land crosses the coast, the 
+wave speeds up over water and the wave 
+front bends. 
+X X X X X X X  2   
+(02) X Define ‘night/twilight effect’: the influence of 
+sky waves and ground waves arriving at the 
+ADF receiver with a difference of phase and 
+polarisation which introduce bearing errors.  
+X X X X X X X  2   
+(03)  State that interference from other NDB 
+stations on the same frequency may occur at 
+night due to sky-wave contamination. 
+X X X X X X X 2    
+062 02 02 
+05 
+ Factors affecting range and accuracy            
+(01)  Describe diffraction of radio waves in 
+mountainous terrain (mountain effect). 
+X X X X X X X 2    
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 651 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(02)  State that static radiation energy from a 
+cumulonimbus cloud may interfere with the 
+radio wave and influence the ADF bearing 
+indication. 
+X X X X X X X 2    
+(03)   Explain that the bank angle of the aircraft 
+causes a dip error. 
+X X X X X X X     
+062 02 03 
+00 
+ VHF omnidirectional radio range (VOR): 
+conventional VOR (CVOR) and Doppler VOR 
+(DVOR) 
+           
+062 02 03 
+01 
+ Principles            
+(01) X Explain the working principle of VOR using 
+the following general terms: 
+— reference phase; 
+— variable phase; 
+— phase difference. 
+X X X X X X      
+(02)  State that the frequency band allocated to 
+VOR according to ICAO Annex 10 is VHF, and 
+the frequencies used are 108.0–117.975 
+MHz. 
+X X X X X X X 2    
+(03)  State that frequencies within the allocated 
+VOR range 108.0–111.975 MHz, which have 
+an odd number in the first decimal place, are 
+used by instrument landing system (ILS). 
+X X X X X X X 2    
+(04)  State that the following types of VOR are in 
+operation: 
+— conventional VOR (CVOR): a 
+first-generation VOR station emitting 
+X X X X X X X 2    
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 652 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+signals by means of a rotating 
+antenna; 
+— Doppler VOR (DVOR): a second-
+generation VOR station emitting 
+signals by means of a combination of 
+fixed antennas utilising the Doppler 
+principle; 
+— en-route VOR for use by IFR traffic; 
+— terminal VOR (TVOR): a station with a 
+shorter range used as part of the 
+approach and departure structure at 
+major aerodromes; 
+— test VOR (VOT): a VOR station 
+emitting a signal to test VOR 
+indicators in an aircraft. 
+(05)  State that automatic terminal information 
+service (ATIS) information is transmitted on 
+VOR frequencies. 
+X X X X X X X 2    
+(06) X List the three main components of VOR 
+airborne equipment: 
+— the antenna; 
+— the receiver; 
+— the indicator. 
+X X X X X X X  2   
+(07)  Describe the identification of a VOR in terms 
+of Morse-code letters and additional plain 
+text. 
+X X X X X X X 2    
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 653 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(08) X State that according to ICAO Annex 10, a 
+VOR station has an automatic ground 
+monitoring system. 
+X X X X X X      
+(09)  State that failure of the VOR station to stay 
+within the required limits can cause the 
+removal of identification and navigation 
+components from the carrier or radiation to 
+cease. 
+X X X X X X X 2    
+062 02 03 
+02 
+ Presentation and interpretation            
+(01)  Read off the radial on an RMI. X X X X X X  2    
+(02)  Read off the angular displacement in relation 
+to a preselected radial on a horizontal 
+situation indicator (HSI) or omnibearing 
+indicator (OBI). 
+X X X X X X  2    
+(03)  Explain the use of the TO/FROM indicator in 
+order to determine aircraft position relative 
+to the VOR considering also the heading of 
+the aircraft. 
+X X X X X X  2    
+(04)  Interpret VOR information as displayed on 
+HSI, CDI and RMI. 
+X X X X X X  2    
+(05)  Describe the following in-flight VOR 
+procedures: 
+— tracking, and explain the influence of 
+wind when tracking; 
+— interception of a radial inbound and 
+outbound to/from a   VOR; 
+— changing from one radial 
+inbound/outbound to another; 
+X X X X X X  2    
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 654 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+— determining station passage and the 
+abeam point. 
+(06)  State that when converting a radial into a 
+true bearing, the variation at the VOR station 
+has to be taken into account. 
+X X X X X X  2    
+062 02 03 
+03 
+ Intentionally left blank            
+062 02 03 
+04 
+ Errors and accuracy            
+(01)  Define that the accuracy the pilot has to fly 
+the required bearing in order to be 
+considered established on a VOR track when 
+flying approach procedures, according to 
+ICAO Doc 8168, has to be within the half-full 
+scale deflection of the required track. 
+X X X X X X X 2    
+(02)  State that due to reflections from terrain, 
+radials can be bent and lead to wrong or 
+fluctuating indications, which is called 
+‘scalloping’. 
+X X X X X X X 2    
+062 02 04 
+00 
+ Distance-measuring equipment (DME)            
+062 02 04 
+01 
+ Principles            
+(01)  State that DME operates in the UHF band. X X X X X X X 2    
+(02) X State that the system comprises two basic 
+components: 
+— the aircraft component: the 
+interrogator; 
+X X X X X X X  2   
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 655 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+— the ground component: the 
+transponder.  
+(03)  Describe the principle of distance 
+measurement using DME in terms of a timed 
+transmission from the interrogator and reply 
+from the transponder on different 
+frequencies. 
+X X X X X X      
+(04)  Explain that the distance measured by DME 
+is slant range. 
+X X X X X X X 2    
+(05)  Illustrate that a position line using DME is a 
+circle with the station at its centre. 
+X X X X X X X 2    
+(06)  State that the pairing of VHF and UHF 
+frequencies (VOR/DME) enables the 
+selection of two items of navigation 
+information from one frequency setting. 
+X X X X X X X  2   
+(07) X Describe, in the case of co-location with VOR 
+and ILS, the frequency pairing and 
+identification procedure. 
+X X X X X X X  2   
+(08)  State that military UHF tactical air navigation 
+aid (TACAN) stations may be used for DME 
+information. 
+X X X X X X X 2    
+062 02 04 
+02 
+ Presentation and interpretation            
+(01) X State that when identifying a DME station 
+co-located with a VOR station, the 
+identification signal with the higher-tone 
+frequency is the DME which identifies itself 
+approximately every 40 seconds. 
+X X X X X X X  2   
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 656 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(02)  Calculate ground distance from given slant 
+range and altitude. 
+X X X X X X X 2    
+(03)  Describe the use of DME to fly a DME arc in 
+accordance with ICAO Doc 8168 Volume 1. 
+X X X X X X X 2    
+(04) X State that a DME system may have a ground 
+speed (GS) and time to station read-out 
+combined with the DME read-out. 
+X X X X X X X  2   
+062 02 04 
+03 
+ Coverage and range             
+(01)  Explain why a ground station can generally 
+respond to a maximum of 100 aircraft. 
+X X X X X X X 2    
+(02)  Explain which aircraft will be denied a DME 
+range first when more than 100 
+interrogations are being made. 
+X X X X X X X 2    
+062 02 04 
+04 
+ Intentionally left blank            
+062 02 04 
+05 
+ Factors affecting range and accuracy            
+(01)  Explain why the GS read-out from a DME can 
+be less than the actual GS, and is zero when 
+flying a DME arc. 
+X X X X X X X     
+062 02 05 
+00 
+ Instrument landing system (ILS)            
+062 02 05 
+01 
+ Principles            
+(01)  Name the three main components of an ILS: 
+— the localiser (LOC); 
+— the glide path (GP); 
+X  X   X X 2    
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 657 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+— range information (markers or DME). 
+(02) X State the site locations of the ILS 
+components: 
+— the LOC antenna should be located on 
+the extension of the runway centre 
+line at the stop-end; 
+— the GP antenna should be locate 
+beyond the runway threshold, 
+laterally displaced to the side of the 
+runway centre line. 
+X  X   X X  2   
+(03)  Explain that marker beacons produce 
+radiation patterns to indicate predetermined 
+distances from the threshold along the ILS 
+GP. 
+X  X   X X 2    
+(04)  State that marker beacons are sometimes 
+replaced by a DME paired with the LOC 
+frequency. 
+X  X   X X 2    
+(05)  State that in the ILS LOC frequency assigned 
+band 108.0–111.975 MHz, only frequencies 
+which have an odd number in the first 
+decimal are ILS LOC frequencies. 
+X  X   X X 2    
+(06)  State that the GP operates in the UHF band.  X  X   X X 2    
+(07) X Describe the use of the 90-Hz and the 150-Hz 
+signals in the LOC and GP 
+transmitters/receivers, stating how the 
+signals at the receivers vary with angular 
+deviation. 
+X  X   X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 658 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(08)  State that the UHF GP frequency is selected 
+automatically by being paired with the LOC 
+frequency. 
+X  X   X      
+(09)  Explain that both the LOC and the GP 
+antenna radiates side lobes (false beams) 
+which can give rise to false centre-line and 
+false GP indication. 
+X  X   X X 2    
+(10) X Explain that the back beam from the LOC 
+antenna may be used as a published ‘non-
+precision approach’. 
+X  X   X X  2   
+(11)  State that the recommended GP is 3°. X  X   X X 2    
+(12)  Name the frequency, modulation and 
+identification assigned to all marker beacons. 
+All marker beacons operate on 75-MHz 
+carrier frequency.  
+The modulation frequencies of the audio are: 
+— outer marker: low;  
+— middle marker: medium; 
+— inner marker: high. 
+The audio frequency modulation (for 
+identification) is the continuous modulation 
+of the audio frequency and is keyed as 
+follows: 
+— outer marker: 2 dashes per second 
+continuously;  
+— middle marker: a continuous series of 
+alternate dots and dashes; 
+X  X   X X 2    
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 659 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+— inner marker: 6 dots per second 
+continuously. 
+— The outer-marker cockpit indicator is 
+coloured blue, the middle marker 
+amber, and the inner marker white. 
+(13)  State that the final-approach area contains a 
+fix or facility that permits verification of the  
+ILS GP–altimeter relationship. The outer 
+marker or DME is usually used for this 
+purpose. 
+X  X   X X 2    
+062 02 05 
+02 
+ Presentation and interpretation            
+(01)  Describe the ILS identification regarding 
+frequency and Morse code or plain text. 
+X  X   X X 2    
+(02)  State that an ILS installation has an 
+automatic ground monitoring system. 
+X  X   X      
+(03)  State that the LOC and GP monitoring system 
+monitors any shift in the LOC and GP mean 
+course line or reduction in signal strength. 
+X  X   X      
+(04)  State that warning flags will appear for both 
+the LOC and the GP if the received signal 
+strength is below a threshold value. 
+X  X   X X 2    
+(05)  Describe the circumstances in which warning 
+flags will appear for both the LOC and the 
+GP: 
+— absence of the carrier frequency; 
+— absence of the modulation 
+simultaneously; 
+X  X   X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 660 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+— the percentage modulation of the 
+navigation signal reduced to 0. 
+(06)  Interpret the indications on a CDI and an HSI: 
+— full-scale deflection of the CDI needle 
+corresponds to approximately 2.5° 
+displacement from the ILS centre line; 
+— full-scale deflection on the GP 
+corresponds to approximately 0.7° 
+from the ILS GP centre line. 
+X  X   X X 2    
+(07)  Interpret the aircraft’s position in relation to 
+the extended runway centre line on a back-
+beam approach. 
+X  X   X  2    
+(08)  Explain the setting of the course pointer of 
+an HSI and the course selector of an 
+omnibearing indicator (OBI) for front-beam 
+and back-beam approaches. 
+X  X   X  2    
+062 02 05 
+03 
+ Coverage and range            
+(01)  Sketch the standard coverage area of the 
+LOC and GP with angular sector limits in 
+degrees and distance limits from the 
+transmitter: 
+LOC coverage area is 10° on either side of 
+the centre line to a distance of 25 NM from 
+the runway, and 35° on either side of the 
+X  X   X X 2    
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 661 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+centre line to a distance of 17 NM from the 
+runway; 
+GP coverage area is 8° on either side of the 
+centre line to a distance of minimum 10 NM 
+from the runway. 
+062 02 05 
+04 
+ Errors and accuracy            
+(01)  Explain that ILS approaches are divided into 
+facility performance categories defined in 
+ICAO Annex 10. 
+X  X   X X     
+(02)  Define the following ILS operation 
+categories: 
+— Category I; 
+— Category II; 
+— Category IIIA; 
+— Category IIIB; 
+— Category IIIC. 
+X  X   X      
+(03)  Explain that all Category III ILS operations 
+guidance information is provided from the 
+coverage limits of the facility to, and along, 
+the surface of the runway. 
+X  X   X      
+(04)  Explain why the accuracy requirements are 
+progressively higher for CAT I, CAT II and CAT 
+III ILS.  
+X  X   X      
+(05)  Explain the following in accordance with 
+ICAO Doc 8168: 
+— the accuracy the pilot has to fly the 
+ILS LOC to be considered established 
+X  X   X X 2    
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 662 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+on an ILS track is within the half-full 
+scale deflection of the required track; 
+— the aircraft has to be established 
+within the half-scale deflection of the 
+LOC before starting descent on the 
+GP; 
+— the pilot has to fly the ILS GP to a 
+maximum of half-scale fly-up 
+deflection of the GP in order to stay in 
+protected airspace. 
+(06)  State that if a pilot deviates by more than 
+half-course deflection on the LOC or by more 
+than half-dot deflection on the GP, an 
+immediate go-around should be executed 
+because obstacle clearance may no longer be 
+guaranteed. 
+X  X   X X 2    
+(07)  Describe ILS beam bends as deviations from 
+the nominal LOC and GP respectively which 
+can be assessed by flight test.  
+X  X   X      
+(08)  Explain that multipath interference is caused 
+by reflections from objects within the ILS 
+coverage area. 
+X  X   X      
+062 02 05 
+05 
+ Factors affecting range and accuracy            
+(01)  Define the ‘ILS-critical area’: an area of 
+defined dimensions around the LOC and GP 
+antennas where vehicles, including aircraft, 
+are excluded during all ILS operations. 
+X  X   X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 663 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(02)  Define the ‘ILS-sensitive area’: an area 
+extending beyond the ILS-critical area where 
+the parking or movement of vehicles, 
+including aircraft, is controlled to prevent the 
+possibility of unacceptable interference to 
+the ILS signal during ILS operations. 
+X  X   X X     
+062 02 06 
+00 
+ Microwave landing system (MLS)             
+062 02 06 
+01 
+ Principles            
+(01)  Explain the principle of operation: 
+— horizontal course guidance during the 
+approach; 
+— vertical guidance during the 
+approach; 
+— horizontal guidance for departure and 
+missed approach; 
+— DME (DME/P) distance; 
+— transmission of special information 
+regarding the system and the 
+approach conditions. 
+X  X   X      
+(02)  State that MLS operates in the SHF band on 
+any one of 200 channels, on assigned 
+frequencies. 
+X  X   X      
+(03)  Explain the reason why MLS can be installed 
+at aerodromes where, as a result of the 
+effects of surrounding buildings or terrain, 
+ILS siting is difficult. 
+X  X   X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 664 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+062 02 06 
+02 
+ Presentation and interpretation            
+(01)  Interpret the display of airborne equipment 
+designed to continuously show the position 
+of the aircraft in relation to a preselected 
+course and glide path, along with distance 
+information, during approach and departure.  
+X  X   X      
+(02)  Explain that segmented approaches can be 
+carried out with a presentation with two 
+cross bars directed by a computer which has 
+been programmed with the approach to be 
+flown. 
+X  X   X      
+(03)  Illustrate that segmented and curved 
+approaches can only be executed with 
+DME/P installed. 
+X  X   X      
+(04)  Explain why aircraft are equipped with a 
+multimode receiver (MMR) in order to be 
+able to receive ILS, MLS and GPS. 
+X  X   X      
+(05)  Explain why MLS without DME/P gives an ILS 
+lookalike straight-line approach. 
+X  X   X      
+062 02 06 
+03 
+ Coverage and range             
+(01)  Describe the coverage area for the approach 
+direction as being within a sector of ± 40° of 
+the centre line out to a range of 20 NM from 
+the threshold (according to ICAO Annex 10). 
+X  X   X      
+062 03 00 
+00 
+ RADAR            
+062 03 01 
+00 
+ Pulse techniques             
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 665 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+062 03 01 
+01  
+ Pulse techniques and associated terms            
+(01)  Name the different applications of radar with 
+respect to air traffic control (ATC), weather 
+observations, and airborne weather radar 
+(AWR). 
+X X X X X X X 2    
+(02) X Describe the pulse technique and echo 
+principle on which primary radar systems are 
+based. 
+X X X X X X   2   
+(03) X 
+ 
+State that the range of a radar depends on 
+pulse repetition frequency (PRF), pulse 
+length, pulse power, height of aircraft, height 
+of antenna and frequency used. 
+X X X X X X      
+062 03 02 
+00 
+ Ground radar            
+062 03 02 
+01 
+ Principles            
+(01)  Explain that primary radar provides bearing 
+and distance of targets. 
+X  X X  X X 2    
+(02) X Explain that primary ground radar is used to 
+detect aircraft that are not equipped with a 
+secondary radar transponder. 
+X  X X  X X  2   
+062 03 02 
+02 
+ Presentation and interpretation             
+(01)  State that modern ATC systems use inputs 
+from various sensors to generate the display. 
+X  X X  X X  2   
+062 03 03 
+00 
+ Airborne weather radar            
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 666 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+062 03 03 
+01 
+ Principles            
+(01)  List the two main tasks of the weather radar 
+in respect of weather and navigation. 
+X  X X  X X     
+(02)  State that modern weather radars employ 
+frequencies that give wavelengths of about 
+3 cm that reflect best on wet hailstones. 
+X  X X  X X     
+(03) X State that the antenna is stabilised in the 
+horizontal plane with signals from the 
+aircraft’s attitude reference system. 
+X  X X  X X     
+(04) X Describe the cone-shaped pencil beam of 
+about 3 to 5° beam width used for weather 
+detection. 
+X  X X  X X     
+062 03 03 
+02 
+ Presentation and interpretation            
+(01)  Explain the functions of the following 
+different controls on the radar control panel: 
+− off/on switch; 
+− function switch with WX, WX+T and 
+MAP modes; 
+− gain-control setting (auto/manual); 
+− tilt/autotilt switch. 
+X  X X  X X     
+(02)  Name, for areas of differing reflection 
+intensity, the colour gradations (green, 
+yellow, red and magenta) indicating the 
+increasing intensity of precipitation. 
+X  X X  X X     
+(03) X State the use of azimuth-marker lines and 
+range lines in respect of the relative bearing 
+X  X X  X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 667 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+and the distance to a thunderstorm on the 
+screen. 
+062 03 03 
+03 
+ Coverage and range            
+(01)  Explain how the radar is used for weather 
+detection and for mapping (range, tilt and 
+gain, if available). 
+X  X X  X X     
+062 03 03 
+04 
+ Errors, accuracy, limitations            
+(01)  Explain why AWR should be used with 
+extreme caution when on the ground. 
+X  X X  X X     
+062 03 03 
+05 
+ Factors affecting range and accuracy            
+(01)  Explain the danger of the area behind heavy 
+rain (shadow area) where no radar waves 
+will penetrate. 
+X  X X  X X     
+(02)  Describe appropriate tilt settings in relation 
+to altitude and thunderstorms. 
+X  X X  X X     
+(03)  Explain why a thunderstorm may not be 
+detected when the tilt is set too high. 
+X  X X  X X     
+062 03 03 
+06 
+ Application for navigation             
+(01)  Describe the navigation function of the radar 
+in the mapping mode. 
+X  X X  X X     
+(02)  Describe the use of the weather radar to 
+avoid a thunderstorm (Cb). 
+X  X X  X X     
+(03)  Explain how turbulence (not CAT) can be 
+detected by a modern weather radar. 
+X  X X  X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 668 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(04)  Explain how wind shear can be detected by a 
+modern weather radar. 
+X  X X  X X     
+062 03 04 
+00 
+ Secondary surveillance radar and 
+transponder 
+           
+062 03 04 
+01 
+ Principles            
+(01)  State that the ATC system is based on the 
+replies provided by the airborne 
+transponders in response to interrogations 
+from the ATC secondary radar. 
+X X X X X X X 2    
+(02) X State that the ground ATC secondary radar 
+uses techniques which provide the ATC with 
+information that cannot be acquired by the 
+primary radar. 
+X X X X X X X  2   
+(03) X State that an airborne transponder provides 
+coded-reply signals in response to 
+interrogation signals from the ground 
+secondary radar and from aircraft equipped 
+with traffic alert and collision avoidance 
+system (TCAS). 
+X X X X X X X  2   
+(04)  State the advantages of secondary 
+surveillance radar (SSR) over a primary radar 
+regarding range and collected information 
+due to transponder principal information 
+and active participation of the aircraft. 
+X X X X X X X 2    
+062 03 04 
+02 
+ Modes and codes            
+(01) X State that the interrogator transmits its 
+interrogations in the form of a series of pulse 
+pairs. 
+X X X X X X X  2   
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 669 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(02)  Name the interrogation modes: 
+— Mode A; 
+— Mode C; 
+— Mode S. 
+X X X X X X X  2   
+(03)  State that the interrogation frequency and 
+the reply frequency are different. 
+X X X X X       
+(04)  Explain that the decoding of the time interval 
+between the pulse pairs determines the 
+operating mode of the transponder: 
+— Mode A: transmission of aircraft 
+transponder code; 
+— Mode C: transmission of aircraft 
+pressure altitude; 
+— Mode S: selection of aircraft address 
+and transmission of flight data for the 
+ground surveillance. 
+X X X X X       
+(05)  State that Mode A designation is a sequence 
+of four digits which can be manually selected 
+from 4 096 available codes. 
+X X X X X X X  2   
+(06)  State that in Mode C reply, the pressure 
+altitude is reported in 100-ft increments. 
+X X X X X X   2   
+(07)  State that in addition to the information 
+provided, on request from ATC, a special 
+position identification (SPI) pulse can be 
+transmitted but only as a result of a manual 
+selection by the pilot (IDENT button). 
+X X X X X X   2   
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 670 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(08) X State the need for compatibility of Mode S 
+with Mode A and C. 
+X X X X X X   2   
+(09)  Explain that Mode S transponders receive 
+interrogations from TCAS and SSR ground 
+stations. 
+X X X X X X   2   
+(10) X State that Mode S interrogation contains 
+either the aircraft address, selective call or 
+all-call address. 
+X X X X X X   2   
+(11)  State that every aircraft is allocated an ICAO 
+aircraft address, which is hard-coded into the 
+Mode S transponder (Mode S address). 
+X X X X X X X  2   
+(12)  Explain that a 24-bit address is used in all 
+Mode S transmissions, so that every 
+interrogation can be directed to a specific 
+aircraft. 
+X X X X X X      
+(13)  State that Mode S can provide enhanced 
+vertical tracking, using a 25-ft altitude 
+increment. 
+X X X X X X      
+(14)  State that SSR can be used for automatic 
+dependent surveillance — broadcast (ADS-
+B). 
+X X X X X X      
+062 03 04 
+03 
+ Presentation and interpretation            
+(01)  State that an aircraft can be identified by a 
+unique code. 
+X X X X X X X 2    
+(02)  State which information can be presented on 
+the ATC display system: 
+— pressure altitude; 
+— flight level; 
+X X X X X X X 2    
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 671 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+— flight number or aircraft registration 
+number; 
+— GS. 
+(03) X Explain the use and function of the selector 
+modes: OFF, Standby, ON (Mode A), ALT 
+(Mode A, C and S), TEST, and of the reply 
+lamp. 
+X X X X X X X  2   
+062 04 00 
+00 
+ INTENTIONALLY LEFT BLANK            
+062 05 00 
+00 
+ INTENTIONALLY LEFT BLANK            
+062 06 00 
+00 
+ GLOBAL NAVIGATION SATELLITE SYSTEMS 
+(GNSSs) 
+           
+062 06 01 
+00 
+ Global navigation satellite systems (GNSSs)            
+062 06 01 
+01 
+ General            
+(01)  State that there are four main GNSSs. These 
+are: 
+— USA NAVigation System with Timing 
+And Ranging Global Positioning 
+System (NAVSTAR GPS); 
+— Russian GLObal NAvigation Satellite 
+System (GLONASS); 
+— European Galileo (under 
+construction); 
+— Chinese BeiDou (under construction). 
+X X X X X X X 2    
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 672 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(02) X State that all four systems (will) consist of a 
+constellation of satellites which can be used 
+by a suitably equipped receiver to determine 
+position. 
+X X X X X X X  2   
+062 06 01 
+02 
+ Operation            
+  Global navigation satellite system (GNSS)            
+(01)  State that there are currently two modes of 
+operation: standard positioning service (SPS) 
+for civilian users, and precise positioning 
+service (PPS) for authorised users.  
+X X X X X X X 2    
+(02)  SPS was originally designed to provide 
+civilian users with a less accurate positioning 
+capability than PPS.  
+X X X X X X X 2    
+(03) X Name the three GNSS segments as follows:  
+— space segment; 
+— control segment; 
+— user segment. 
+X X X X X X X  2   
+  Space segment (example: NAVSTAR GPS)            
+(04)  State that each satellite broadcasts ranging 
+signals on two UHF frequencies: L1 and L2. 
+X X X X X X      
+(05)  State that SPS is a positioning and timing 
+service provided on frequency L1.  
+X X X X X X      
+(06)  State that PPS uses both frequencies L1 and 
+L2.  
+X X X X X X      
+(07) X State that the satellites transmit a coded 
+signal used for ranging, identification 
+X X X X X X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 673 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(satellite individual PRN code), timing and 
+navigation. 
+(08) X State that the navigation message contains: 
+— satellite clock correction parameters; 
+— Universal Time Coordinated (UTC) 
+parameters; 
+— an ionospheric model; 
+— satellite health data. 
+X X X X X X      
+(09) X State that an ionospheric model is used to 
+calculate the time delay of the signal 
+travelling through the ionosphere.  
+X X X X X X X  2   
+(10) X State that two codes are transmitted on the 
+L1 frequency, namely a coarse acquisition 
+(C/A) code and a precision (P) code. The P 
+code is not used for standard positioning 
+service (SPS). 
+X X X X X X      
+(11) X State that satellites are equipped with 
+atomic clocks which allow the system to 
+keep very accurate time reference. 
+X X X X X X X  2   
+  Control segment            
+(12) X State that the control segment comprises: 
+— a master control station; 
+— a ground antenna; 
+— monitoring stations. 
+X X X X X X X  2   
+(13) X State that the control segment provides: 
+— monitoring of the constellation status; 
+X X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 674 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+— correction of orbital parameters; 
+— navigation data uploading. 
+  User segment            
+(14) X State that GNSS supplies three-dimensional 
+position fixes and speed data, plus a precise 
+time reference. 
+X X X X X X X  2   
+(15) X State that a GNSS receiver is able to 
+determine the distance to a satellite by 
+determining the difference between the time 
+of transmission by the satellite and the time 
+of reception. 
+X X X X X X X  2   
+(16) X State that the initial distance calculated to 
+the satellites is called pseudo-range because 
+the difference between the GNSS receiver 
+and the satellite time references initially 
+creates an erroneous range. 
+X X X X X X   2   
+(17) X State that each range defines a sphere with 
+its centre at the satellite. 
+X X X X X X X  2   
+(18) X State that there are four unknown 
+parameters (x, y, z and Δt) (receiver clock 
+error) which require the measurement of 
+ranges to four different satellites in order to 
+get the position. 
+X X X X X X X  2   
+(19) X State that the GNSS receiver is able to 
+synchronise to the correct time reference 
+when receiving four satellites.  
+X X X X X X X  2   
+(20) X State that the receiver is able to calculate 
+aircraft ground speed using the space vehicle 
+X X X X X X   2   
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 675 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(SV) Doppler frequency shift or the change in 
+receiver position over time.  
+  NAVigation System with Timing And 
+Ranging Global Positioning System 
+(NAVSTAR GPS) integrity 
+           
+(21)  Define ‘receiver autonomous integrity 
+monitoring (RAIM)’ as a technique that 
+ensures the integrity of the provided data by 
+redundant measurements.  
+X X X X X X X 2    
+(22)  State that RAIM is achieved by consistency 
+checks among range measurements. 
+X X X X X X X 2    
+(23)  State that basic RAIM requires five satellites. 
+A sixth one is for isolating a faulty satellite 
+from the navigation solution. 
+X X X X X X X     
+(24)  State that agreements have been concluded 
+between the appropriate agencies for the 
+compatibility and interoperability by any 
+approved user of NAVSTAR and GLONASS 
+systems. 
+X X X X X X      
+(25) X State that the different GNSSs use different 
+data with respect to reference systems, 
+orbital data, and navigation services. 
+X X X X X X      
+062 06 01 
+03 
+ Errors and factors affecting accuracy            
+(01)  List the most significant factors that affect 
+accuracy: 
+— ionospheric propagation delay; 
+— dilution of precision; 
+X X X X X X X     
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 676 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+— satellite clock error; 
+— satellite orbital variations; 
+— multipath. 
+(02)   State that a user equivalent range error 
+(UERE) can be computed from all these 
+factors. 
+X X X X X X      
+(03) X State that the error from the ionospheric 
+propagation delay (IPD) can be reduced by 
+modelling, using a model of the ionosphere, 
+or can almost be eliminated by using two 
+frequencies. 
+X X X X X X      
+(04) X State that ionospheric delay is the most 
+significant error. 
+X X X X X X      
+(05)  State that dilution of precision arises from 
+the geometry and number of satellites in 
+view. It is called geometric dilution of 
+precision (GDOP).  
+X X X X X X      
+(06)   State that the UERE in combination with the 
+geometric dilution of precision (GDOP) 
+allows for an estimation of position accuracy. 
+X X X X X X      
+(07) X State that errors in the satellite orbits are 
+due to: 
+— solar winds; 
+— gravitation of the Sun and the Moon. 
+X X X X X X      
+062 06 02 
+00 
+ Ground-, satellite- and aircraft-based 
+augmentation systems  
+           
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 677 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+062 06 02 
+01 
+ Ground-based augmentation systems 
+(GBASs) 
+           
+(01)  Explain the principle of a GBAS: to measure 
+on the ground the errors in the signals 
+transmitted by GNSS satellites and relay the 
+measured errors to the user for correction. 
+X X X X X X X     
+(02) X State that the ICAO GBAS standard is based 
+on this technique through the use of a data 
+link in the VHF band of ILS–VOR systems 
+(108–118 MHz). 
+X X X X X X X     
+(03)  State that for a GBAS station the coverage is 
+about 20 NM. 
+X X X X X X X     
+(04)  State that GBAS provides information for 
+guidance in the terminal area, and for 
+three-dimensional guidance in the final 
+approach segment (FAS) by transmitting the 
+FAS data block.  
+X X X X X X X     
+(05)  State that one ground station can support all 
+the aircraft subsystems within its coverage 
+providing the aircraft with approach data, 
+corrections and integrity information for 
+GNSS satellites in view via a VHF data 
+broadcast (VDB).  
+X X X X X X      
+(06) X State that the minimum software designed 
+coverage area is 10° on either side of the 
+final approach path to a distance between 15 
+and 20 NM, and 35° on either side of the 
+final approach path up to a distance of 15 
+NM. 
+X X X X X X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 678 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(07)   State that outside this area the FAS data of 
+GBAS is not used. 
+X X X X X X      
+(08) X State that GBAS based on GPS is sometimes 
+called local area augmentation system 
+(LAAS). 
+X X X X X X      
+(09)  State that a GBAS-based approach is called 
+GLS approach (GLS-GNSS landing system). 
+X X X X X X      
+062 06 02 
+02 
+ Satellite-based augmentation systems 
+(SBASs) 
+           
+(01) X Explain the principle of an SBAS: to measure 
+on the ground the errors in the signals 
+received from the satellites and transmit 
+differential corrections and integrity 
+messages for navigation satellites. 
+X X X X X X X  2   
+(02) X State that the frequency band of the data 
+link is identical to that of the GPS signals. 
+X X X X X X X  2   
+(03) X Explain that the use of geostationary 
+satellites enables messages to be broadcast 
+over very wide areas. 
+X X X X X X X  2   
+(04) X State that pseudo-range measurements to 
+these geostationary satellites can also be 
+made, as if they were GPS satellites. 
+X X X X X X X  2   
+(05) X State that SBAS consists of two elements: 
+— ground infrastructure (monitoring and 
+processing stations); 
+— communication satellites. 
+X X X X X X X  2   
+(06)  State that SBAS allows the implementation 
+of three-dimensional Type A and Type B 
+approaches. 
+X X X X X X X 2    
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 679 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(07) X State the following examples of SBAS: 
+— European Geostationary Navigation 
+Overlay Service (EGNOS) in western 
+Europe and the Mediterranean; 
+— wide area augmentation system 
+(WAAS) in the USA; 
+— multi-functional transport satellite 
+(MTSAT)-based augmentation system 
+(MSAS) in Japan; 
+— GPS and geostationary earth orbit 
+augmented navigation (GAGAN) in 
+India. 
+X X X X X X X  2   
+(08) X State that SBAS is designed to significantly 
+improve accuracy and integrity. 
+X X X X X X X  2   
+(09)  Explain that integrity and safety are 
+improved by alerting SBAS users within 6 
+seconds if a GPS malfunction occurs.  
+X X X X X X X 2    
+062 06 02 
+03 
+ Intentionally left blank            
+062 06 02 
+04 
+ Aircraft-based augmentation systems 
+(ABASs) 
+           
+(01)  Explain the principle of ABAS: to use 
+redundant elements within the GPS 
+constellation (e.g. multiplicity of distance 
+measurements to various satellites) or the 
+combination of GNSS measurements with 
+those of other navigation sensors (such as 
+inertial systems) in order to develop integrity 
+control. 
+X X X X X X X 2    
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 680 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(02)  State that the type of ABAS using only GNSS 
+information is named receiver autonomous 
+integrity monitoring (RAIM). 
+X X X X X X X 2    
+(03)  State that a system using information from 
+additional onboard sensors is named aircraft 
+autonomous integrity monitoring (AAIM). 
+X X X X X X X 2    
+(04)  Explain that the typical sensors used are 
+barometric altimeter and inertial reference 
+system (IRS). 
+X X X X X X X 2    
+062 07 00 
+00 
+ PERFORMANCE-BASED NAVIGATION (PBN)            
+062 07 01 
+00 
+ Performance-based navigation (PBN) 
+concept  
+(as described in ICAO Doc 9613) 
+           
+062 07 01 
+01 
+ PBN principles            
+(01)  List the factors used to define area 
+navigation (RNAV) or required navigation 
+performance (RNP) system performance 
+requirements (accuracy, integrity and 
+continuity). 
+X  X   
+ 
+X X  3   
+(02)  X State that these RNAV and RNP systems are 
+necessary to optimise the utilisation of 
+available airspace. 
+X  X   X   2, 3   
+(03)   State that it is necessary for flight crew and 
+air traffic controllers to be aware of the on-
+board RNAV or RNP system capabilities in 
+order to determine whether the 
+performance of the RNAV or RNP system is 
+X  X   X   2, 3   
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 681 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+appropriate for the specific airspace 
+requirements. 
+(04)   Define accuracy as the conformance of the 
+true position and the required position. 
+X  X   X   2, 3   
+(05)  Define continuity as the capability of the 
+system to perform its function without 
+unscheduled interruptions during the 
+intended operation. 
+X  X   X X 2 3   
+(06)  Define integrity as a measure of the trust 
+that can be placed in the correctness of the 
+information supplied by the total system. 
+Integrity includes the ability of a system to 
+provide timely and valid alerts to the user. 
+X  X   X X 2 3   
+(07)  State that, unlike conventional navigation, 
+PBN is not sensor-specific. 
+X  X   X X 2 3   
+(08)  Explain the difference between raw data and 
+computed data. 
+X  X   X X 2 3   
+(09)   Define availability as the percentage of time 
+(annually) during which the system is 
+available for use. 
+X  X   X X 2 3   
+062 07 01 
+02 
+ PBN components            
+(01)  List the components of PBN as navigational 
+aid (NAVAID) infrastructure, navigation 
+specification and navigation application. 
+X  X   X      
+062 07 01 
+03 
+ PBN scope            
+(01)  State that in oceanic/remote, en-route and 
+terminal phases of flight, PBN is limited to 
+X  X   X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 682 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+operations with linear lateral performance 
+requirements and time constraints. 
+(02)  State that in the approach phases of flight, 
+PBN accommodates both linear and angular 
+laterally guided operations, and explain the 
+difference between the two. 
+X  X   X      
+062 07 02 
+00 
+ Navigation specifications            
+062 07 02 
+01 
+ Area navigation (RNAV) and required 
+navigation performance (RNP) 
+           
+(01)  State the difference between RNAV and RNP 
+in terms of the requirement for on-board 
+performance monitoring and alerting. 
+X  X   X X 2 3   
+062 07 02 
+02 
+ Navigation functional requirements            
+(01) X List the basic functional requirements of the 
+RNAV and RNP specifications (continuous 
+indication of lateral deviation, 
+distance/bearing to active waypoint, GS or 
+time to active waypoint, navigation data 
+storage and failure indication). 
+X  X   X      
+062 07 02 
+03 
+ Designation of RNP and RNAV specifications            
+(01)  Interpret X in RNAV X or RNP X as the lateral 
+navigation (LNAV) accuracy (total system 
+error) in nautical miles, which is expected to 
+be achieved at least 95 % of the flight time 
+by the population of aircraft operating within 
+the given airspace, route or procedure. 
+X  X   X  2  3   
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 683 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(02)  State that aircraft approved to the more 
+stringent accuracy requirements may not 
+necessarily meet some of the functional 
+requirements of the navigation specification 
+that has a less stringent accuracy 
+requirement. 
+X  X   X X 2 3   
+(03)  State that RNAV 10 and RNP 4 are used in 
+the oceanic/remote phase of flight. 
+X  X   X      
+(04)  State that RNAV 5 is used in the en-route and 
+arrival phases of flight. 
+X  X   X X 2 3   
+(05)  State that RNAV 2 and RNP 2 are also used as 
+navigation specifications. 
+X  X   X      
+(06)  State that RNP 2 is used in the en-route and 
+oceanic/remote phases of flight. 
+X  X   X      
+(07)   State that RNAV 2 might be used in the en-
+route continental, arrival and departure 
+phases of flight. 
+X  X   X      
+(08)  State that RNAV 1 and RNP 1 are used in the 
+arrival and departure phases of flight. 
+X  X   X X 2     
+(09)  State that required navigation performance 
+approach (RNP APCH) is used in the 
+approach phase of flight. 
+X  X   X X 2    
+(10)  State that required navigation performance 
+authorisation required approach (RNP AR 
+APCH) is used in the approach phase of 
+flight. 
+X  X   X X 2    
+(11)  State that RNP 0.3 navigation specification is 
+used in all phases of flight except for 
+oceanic/remote and final approach, primarily 
+for helicopters. 
+X  X   X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 684 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(12)   State that RNAV 1, RNP 1 and RNP 0.3 may 
+also be used in en-route phases of low-level 
+instrument flight rule (IFR) helicopter flights. 
+X  X   X      
+062 07 03 
+00 
+ Use of performance-based navigation (PBN)            
+062 07 03 
+01 
+ Intentionally left blank            
+062 07 03 
+02 
+ Intentionally left blank            
+062 07 03 
+03 
+ Specific RNAV and RNP system functions            
+(01)  Recognise the definition of radius to fix (RF) 
+leg. 
+X  X   X X 2 3   
+(02)  Recognise the definition of a fixed radius 
+transition (FRT). 
+X  X   X X 2 3   
+(03)   State the importance of respecting the flight 
+director guidance and the speed constraints 
+associated with an RF procedure. 
+X  X   X X 2 3   
+(04)  Explain the difference between a fly-by-turn 
+and a fly-over. 
+X  X   X X 2  3   
+(05)  State that the Aeronautical Radio, 
+Incorporated (ARINC) 424 path terminators 
+set the standards for coding the SIDs, STARs 
+and instrument approach procedures (IAPs) 
+from the official published government 
+source documentation into the ARINC 
+navigation database format. 
+X  X   X      
+(06)  State that the path terminators define a 
+specific type of termination of the previous 
+flight path. 
+X  X   X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 685 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(07)  Define the term ‘offset flight path’. X  X   X X 2 3   
+062 07 03 
+04 
+ Intentionally left blank            
+062 07 04 
+00 
+ Performance-based navigation (PBN) 
+operations 
+           
+062 07 04 
+01 
+ Performance-based navigation (PBN) 
+principles 
+           
+(01)  Define ‘path definition error’ (PDE). X  X   X X 2 3   
+(02)  Define ‘flight technical error’ (FTE) and state 
+that the FTE is the error in following the 
+prescribed path, either by the auto-flight 
+system or by the pilot. 
+X  X   X X 2 3   
+(03)  Define ‘navigation system error’ (NSE) and 
+state that the accuracy of a navigation 
+system may be referred to as NSE. 
+X  X   X X 2 3   
+(04)  Define ‘total system error’ (TSE) and state 
+that the geometric sum of the PDE, FTE and 
+NSE equals the TSE. 
+X  X   X X 2 3   
+(05)   State that navigation accuracy depends on 
+the TSE. 
+X  X   X      
+062 07 04 
+02 
+ On-board performance monitoring and 
+alerting 
+           
+(01)  State that on-board performance monitoring 
+and alerting of flight technical errors is 
+managed by on-board systems or flight crew 
+procedures. 
+X  X   X X 2 3   
+(02)  State that on-board performance monitoring 
+and alerting of navigation system errors is a 
+X  X   X X 2 3   
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 686 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+requirement of on-board equipment for 
+RNP. 
+(03)   State that, dependent on the navigation 
+sensor, the estimated position error (EPE) is 
+compared with the required navigation 
+specification. 
+X  X   X      
+(04)  Explain how a navigation system assesses the 
+EPE. 
+X  X   X      
+(05)  Give an example of how the loss of the 
+ability to operate in RNP airspace may be 
+indicated by the navigation system. 
+X  X   X      
+(06)  State that on-board performance monitoring 
+and alerting of path definition error is 
+managed by gross reasonableness checks of 
+navigation data. 
+X  X   X X 2 3   
+062 07 04 
+03 
+ Abnormal situations            
+(01)  State that abnormal and contingency 
+procedures are to be used in case of loss of 
+the PBN capability. 
+X  X   X X 2  3   
+062 07 04 
+04 
+ Database management            
+(01)  State that, unless otherwise specified in the 
+operations documentation or acceptable 
+means of compliance (AMCs), the 
+navigational database must be valid for the 
+current aeronautical information regulation 
+and control (AIRAC) cycle. 
+X  X   X X 2 3   
+062 07 05 
+00 
+ Requirements of specific RNAV and RNP 
+specifications 
+           
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 687 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+062 07 05 
+01 
+ RNAV 10            
+(01)  State that RNAV 10 requires that aircraft 
+operating in oceanic and remote areas be 
+equipped with at least two independent and 
+serviceable long-range navigation systems 
+(LRNSs) comprising an INS, an inertial 
+reference system (IRS)/flight management 
+system (FMS) or a GNSS. 
+X  X   X      
+(02)  State that operators may extend their 
+RNAV 10 navigation capability time by 
+updating. 
+X  X   X      
+062 07 05 
+02 
+ RNAV 5            
+(01)  State that manual data entry is acceptable 
+for RNAV 5. 
+X  X   X X 2 3   
+062 07 05 
+03 
+ RNAV 1/RNAV 2/RNP 1/RNP 2            
+(01)  State that pilots must not fly an RNAV 1, 
+RNAV 2, RNP 1 or RNP 2 standard instrument 
+departure (SID) or standard instrument 
+arrival (STAR) unless it is retrievable by route 
+name from the on-board navigation 
+database and conforms to the charted route. 
+X  X   X X 2  3   
+(02)  State that the route may subsequently be 
+modified through the insertion (from the 
+database) or deletion of specific waypoints in 
+response to ATC clearances. 
+X  X   X X 2  3   
+(03)  State that the manual entry, or creation of 
+new waypoints by manual entry, of either 
+X  X   X X 2  3   
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 688 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+latitude and longitude or 
+place/bearing/distance values is not 
+permitted. 
+062 07 05 
+04 
+ Intentionally left blank            
+062 07 05 
+05 
+ Required navigation performance approach 
+(RNP APCH) 
+           
+(01)  State that pilots must not fly an RNP APCH 
+unless it is retrievable by procedure name 
+from the on-board navigation database and 
+conforms to the charted procedure. 
+X  X   X X 2    
+(02)  State that an RNP APCH to LNAV minima is a 
+non-precision IAP designed for two-
+dimensional approach operations. 
+X  X   X X 2    
+(03)  State that an RNP APCH to lateral navigation 
+(LNAV)/vertical navigation (VNAV) minima 
+has lateral guidance based on GNSS and 
+vertical guidance based on either SBAS or 
+barometric vertical navigation (Baro-VNAV). 
+X  X   X X 2    
+(04)  State that an RNP APCH to LNAV/VNAV 
+minima may only be conducted with vertical 
+guidance certified for the purpose. 
+X  X   X X 2    
+(05)  Explain why an RNP APCH to LNAV/VNAV 
+minima based on Baro-VNAV may only be 
+conducted when the aerodrome 
+temperature is within a promulgated range if 
+the barometric input is not automatically 
+temperature-compensated. 
+X  X   X X 2    
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 689 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(06)  State that the correct altimeter setting is 
+critical for the safe conduct of an RNP APCH 
+using Baro-VNAV. 
+X  X   X X 2    
+(07)  State that an RNP APCH to LNAV/VNAV 
+minima is a three-dimensional operation. 
+X  X   X X 2    
+(08)  State that an RNP APCH to localiser 
+performance with vertical guidance (LPV) 
+minima is a three-dimensional operation. 
+X  X   X X 2    
+(09)  State that RNP APCH to LPV minima requires 
+a final approach segment (FAS) data block. 
+X  X   X X 2    
+(10)   State that RNP approaches to LPV minima 
+require SBAS. 
+X  X   X X 2    
+(11)  State that the FAS data block is a standard 
+data format to describe the final approach 
+path. 
+X  X   X X 2    
+062 07 05 
+06 
+ Required navigation performance 
+authorisation required approach (RNP AR 
+APCH) 
+           
+(01)  State that RNP AR APCH requires 
+authorisation. 
+X  X   X X 2    
+062 07 05 
+07 
+ Advanced required navigation performance 
+(A-RNP) 
+           
+(01)  State that A-RNP incorporates the navigation 
+specifications RNAV 5, RNAV 2, RNAV 1, RNP 
+2, RNP 1 and RNP APCH. 
+X  X   X      
+062 07 05 
+08 
+ PBN point-in-space (PinS) departure            
+(01)  State that a PinS departure is a departure 
+procedure designed for helicopters only. 
+  X   X      
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 690 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter 
+IR CB-IR(A) 
+BIR 
+Exa
+m 
+BIR 
+BK Remarks 
+ 
+ATPL CPL ATPL/I
+R 
+ATPL CPL  
+(02)  State that a PinS departure procedure 
+includes either a ‘proceed VFR’ or a ‘proceed 
+visually’ instruction from the landing location 
+to the initial departure fix (IDF). 
+  X   X      
+(03)  Recognise the differences in the instructions 
+‘proceed VFR’ and ‘proceed visually’. 
+  X   X      
+062 07 05 
+09 
+ PBN point-in-space (PinS) approach            
+(01)  State that a PinS approach procedure is an 
+instrument RNP APCH procedure designed 
+for helicopters only, and that it may be 
+published with LNAV minima or LPV minima. 
+  X   X      
+(02)  State that a PinS approach procedure 
+includes either a ‘proceed VFR’ or a ‘proceed 
+visually’ instruction from the missed 
+approach point (MAPt) to a landing location. 
+  X   X      
+(03)  Recognise the differences between ‘proceed 
+VFR’ and ‘proceed visually’. 
+  X   X      

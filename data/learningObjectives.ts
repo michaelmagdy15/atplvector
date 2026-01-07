@@ -11,7 +11,7 @@ export const SUBJECTS: SubjectStats[] = [
     { id: '040', name: 'Human Performance', totalLOs: 110, coveredLOs: 0 },
     { id: '050', name: 'Meteorology', totalLOs: 160, coveredLOs: 0 },
     { id: '061', name: 'General Navigation', totalLOs: 90, coveredLOs: 0 },
-    { id: '062', name: 'Radio Navigation', totalLOs: 130, coveredLOs: 0 },
+    { id: '062', name: 'Radio Navigation', totalLOs: 328, coveredLOs: 0 },
     { id: '070', name: 'Operational Proc.', totalLOs: 85, coveredLOs: 0 },
     { id: '081', name: 'Principles of Flight', totalLOs: 150, coveredLOs: 0 },
     { id: '090', name: 'Communications', totalLOs: 119, coveredLOs: 0 },

@@ -1,0 +1,2972 @@
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 731 of 1885| Feb 2022 
+ 
+SUBJECT 081 – PRINCIPLES OF FLIGHT – AEROPLANES 
+ED Decision 2020/018/R 
+(1) The following standard symbols and their corresponding meanings are used for certain mathematical operations: 
+*  multiplication 
+≥  greater than or equal to 
+≤  less than or equal to  
+SQRT(…) square root of the function, symbol or number in round brackets 
+(2) Normally, it should be assumed that the effect of a variable under review is the only variation that needs to be addressed, u nless specifically stated 
+otherwise. 
+(3) Candidates are expected in simple calculations to be able to convert knots (kt) into metres/second (m/s), and know the appropriate conversion factors 
+by heart. 
+(4) In the subsonic range, as covered under Subject 081 01, compressibility effects normally are not considered, unless specifically mentioned. 
+(5) For those questions related to propellers (Subject 081 07), as a simplification of the physical reality, the inflow speed int o the propeller plane is taken 
+as the aeroplane’s true airspeed (TAS). 
+(6) In addition, when discussing propeller rotational direction, it will always be specified as seen from behind the propeller plane. 
+(7) Note that the term ‘mass’ is used to describe a quantity of matter, and ‘weight’ when describing the force. However, the term ‘weight’ is normally used 
+in aviation to colloquially describe ‘mass’. The professional pilot should always note the units to determine whether the term ‘weight’ is being used to 
+describe a force (e.g. unit newton) or quantity of matter (e.g. unit kilogram). 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+080 00 00 00  PRINCIPLES OF FLIGHT            
+081 00 00 00  PRINCIPLES OF FLIGHT — AEROPLANES           
+081 01 00 00  SUBSONIC AERODYNAMICS           
+081 01 01 00  Basics, laws and definitions           
+081 01 01 01   Laws and definitions           
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 732 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(01)  List the international system of units of 
+measurement (SI) for mass, acceleration, weight, 
+velocity, energy, density, temperature, pressure, 
+force, wing loading, and power. 
+X X         
+(02) X Define ‘mass’, ‘force’, ‘acceleration’, and 
+‘weight’. 
+X X         
+(03)  State and interpret Newton’s three laws of 
+motion. 
+X X         
+(04) X Explain air density. X X         
+(05) X List the atmospheric properties that effect air 
+density. 
+X X         
+(06)  Explain how temperature and pressure changes 
+affect air density. 
+X X         
+(07) X Define ‘static pressure’. X X         
+(08) X Define ‘dynamic pressure’. X X         
+(09) X State the formula for ‘dynamic pressure’.  X X         
+(10)  Describe dynamic pressure in terms of an 
+indication of the energy in the system, and how 
+it is related to indicated airspeed (IAS) and air 
+density for a given altitude and speed. 
+X X         
+(11)  State Bernoulli’s equation for incompressible 
+flow.  
+X X         
+(12)  Define ‘total pressure’ and explain that the total 
+pressure differs in different systems. 
+X X         
+(13)  Apply Bernoulli’s equation to flow through a 
+venturi stream tube for incompressible flow. 
+X X         
+(14)  Describe how IAS is acquired from the pitot static 
+system. 
+X X         
+(15)  Describe the relationship between density, 
+temperature, and pressure for air.  
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 733 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(16)  Explain the equation of continuity and its 
+application to the flow through a stream tube. 
+X X         
+(17) X Define ‘IAS’, ‘CAS’, ‘EAS’, and ‘TAS’. X X         
+081 01 01 02  Basics of airflow           
+(01) X Describe steady and unsteady airflow.  X X         
+(02) X Explain the concept of a streamline and a stream 
+tube. 
+X X         
+(03) X Describe and explain airflow through a stream 
+tube. 
+X X          
+(04) X Explain the difference between two- and 
+three-dimensional airflow. 
+X X         
+081 01 01 03  Aerodynamic forces on aerofoils            
+(01)  Describe the originating point and direction of 
+the resultant force caused by the pressure 
+distribution around an aerofoil. 
+X X         
+(02) X Resolve the resultant force into the components 
+‘lift’ and ‘drag’. 
+X X         
+(03)  Describe the direction of lift and drag. X X         
+(04) X Define the ‘aerodynamic moment’. X X         
+(05) X List the factors that affect the aerodynamic 
+moment. 
+X X         
+(06)  Describe the aerodynamic moment for a 
+symmetrical aerofoil. 
+X X         
+(07)  Describe the aerodynamic moment for a 
+positively and negatively cambered aerofoil.  
+X X         
+(08) X Define ‘angle of attack’ (). X X         
+081 01 01 04  Shape of an aerofoil section           
+(01) X Describe the following parameter of an aerofoil 
+section: leading edge. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 734 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(02) X Describe the following parameter of an aerofoil 
+section: trailing edge. 
+X X         
+(03)  Describe the following parameter of an aerofoil 
+section:  
+chord line.  
+X X         
+(04)  Describe the following parameter of an aerofoil 
+section: thickness-to-chord ratio or relative 
+thickness. 
+X X         
+(05)  Describe the following parameter of an aerofoil 
+section: location of maximum thickness. 
+X X         
+(06)  Describe the following parameter of an aerofoil 
+section: camber line. 
+X X         
+(07)  Describe the following parameter of an aerofoil 
+section: camber. 
+X X         
+(08) X Describe the following parameter of an aerofoil 
+section:  
+nose radius. 
+X X         
+(09) X Describe a symmetrical and an asymmetrical 
+aerofoil section. 
+X X         
+081 01 01 05  Wing shape           
+(01) X Describe the following parameter of a wing: 
+span. 
+X X         
+(02) X Describe the following parameter of a wing: tip 
+and root chord. 
+X X         
+(03)  Describe the following parameter of a wing: 
+taper ratio. 
+X X         
+(04) X Describe the following parameter of a wing: wing 
+area. 
+X X         
+(05)  Describe the following parameter of a wing: wing 
+planform. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 735 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(06) X Describe the following parameter of a wing: 
+mean geometric chord. 
+X X         
+(07)  Describe the following parameter of a wing: 
+mean aerodynamic chord (MAC). 
+X X         
+(08)  Describe the following parameter of a wing: 
+aspect ratio. 
+X X         
+(09) X Describe the following parameter of a wing: 
+dihedral angle. 
+X X         
+(10) X Describe the following parameter of a wing: 
+sweep angle. 
+X X         
+(11) X Describe the following parameter of a wing: wing 
+twist, geometric and aerodynamic. 
+X X         
+(12)  Describe the following parameter of a wing: 
+angle of incidence. 
+Remark: In certain textbooks, angle of incidence 
+is used as angle of attack (α). For Part-FCL 
+theoretical knowledge examination purposes, 
+this use is discontinued, and the angle of 
+incidence is defined as the angle between the 
+aeroplane longitudinal axis and the wing-root 
+chord line. 
+X X         
+081 01 02 00  Two-dimensional airflow around an aerofoil           
+081 01 02 01  Streamline pattern           
+(01) X Describe the streamline pattern around an 
+aerofoil. 
+X X         
+(02)  Describe converging and diverging streamlines, 
+and their effect on static pressure and velocity. 
+X X         
+(03) X Describe upwash and downwash. X X         
+081 01 02 02  Stagnation point           
+(01)  Describe the stagnation point. X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 736 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(02)  Describe the movement of the stagnation point 
+as the α changes. 
+X X         
+081 01 02 03  Pressure distribution           
+(01)  Describe pressure distribution and local speeds 
+around an aerofoil including effects of camber 
+and α.  
+X X         
+(02)  Intentionally left blank           
+081 01 02 04  Centre of pressure (CP) and aerodynamic centre 
+(AC) 
+          
+(01)  Explain CP and AC. X X         
+081 01 02 05  Intentionally left blank           
+081 01 02 06  Drag and wake           
+(01) X List two physical phenomena that cause drag. X X         
+(02)  Describe skin friction drag. X X         
+(03)  Describe form (pressure) drag. X X         
+(04) X Explain why drag and wake cause loss of energy 
+(momentum). 
+X X         
+081 01 02 07  Influence of angle of attack (α)           
+(01)  Explain the influence of α on lift. X X         
+081 01 02 08  Intentionally left blank            
+081 01 02 09  The lift coefficient (CL) – angle of attack () 
+graph 
+          
+(01)  Describe the CL–α graph. X X         
+(02)  Explain the significant points:  
+— point where the curve crosses the 
+horizontal axis (zero lift); 
+— point where the curve crosses the vertical 
+axis (α = 0); 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 737 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+— point where the curve reaches its 
+maximum (CLMAX). 
+081 01 03 00  Coefficients           
+081 01 03 01  General use of coefficients           
+(01) X Explain why coefficients are used in general. X X         
+081 01 03 02  The lift coefficient (CL)            
+(01)  Explain the lift formula, the factors that affect 
+lift, and perform simple calculations. 
+X X         
+(02)  Describe the effect of camber on the CL– graph 
+(symmetrical and positively/negatively cambered 
+aerofoils). 
+X X         
+(03)  Describe the typical difference in the CL– graph 
+for fast and slow aerofoil design. 
+X X         
+(04) X Define ‘CLMAX’ (maximum lift coefficient) and 
+‘CRIT’ (stalling ) on the graph. 
+X X         
+(05)   Describe CL and explain the variables that affect 
+it in low subsonic flight. 
+X X         
+081 01 03 03  Drag            
+(01)  Describe the two-dimensional drag formula. X X         
+(02)  Discuss the effect of the shape of a body, 
+cross-sectional area, and surface roughness on 
+the drag coefficient. 
+X X         
+081 01 04 00  Three-dimensional airflow around an aeroplane           
+081 01 04 01  Angle of attack (α)           
+(01) X Define ‘angle of attack’ (α). 
+Remark: For theoretical knowledge examination 
+purposes, the angle-of-attack definition requires 
+a reference line. This reference line for 3D has 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 738 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+been chosen to be the longitudinal axis and for 
+2D the chord line. 
+(02)  Explain the difference between the α and the 
+attitude of an aeroplane. 
+X X         
+081 01 04 02  Streamline pattern           
+(01)  Describe the general streamline pattern around 
+the wing, tail section, and fuselage. 
+X X         
+(02)  Explain and describe the causes of spanwise flow 
+over top and bottom surfaces. 
+X X         
+(03)  Describe wing tip vortices and their contribution 
+to downwash behind the wing. 
+X X         
+(04)  Explain why wing tip vortices vary with α. X X         
+(05)  Describe spanwise lift distribution including the 
+effect of wing planform. 
+X X         
+(06)  Describe the causes, distribution and duration of 
+the wake turbulence behind an aeroplane. 
+X X         
+(07)  Describe the influence of flap deflection on the 
+wing tip vortex. 
+X X         
+(08)  Describe the parameters that influence wake 
+turbulence. 
+X X         
+081 01 04 03  Induced drag           
+(01)  Explain the factors that cause induced drag. X X         
+(02)  Describe the approximate formula for the 
+induced drag coefficient (including variables but 
+excluding constants). 
+X X         
+(03)  Describe the relationship between induced drag 
+and total drag in straight and level flight with 
+variable speed. 
+X X         
+(04)  Describe the effect of mass on induced drag at a 
+given IAS. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 739 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(05)  Describe the means to reduce induced drag: 
+— aspect ratio; 
+— winglets; 
+— tip tanks; 
+— wing twist; 
+— camber change. 
+X X         
+(06)  Describe the influence of lift distribution on 
+induced drag. 
+X X         
+(07)  Describe the influence of downwash on the 
+effective airflow. 
+X X         
+(08)  Explain induced and effective local α. X X         
+(09)  Explain the influence of the induced α on the 
+direction of the lift vector. 
+X X         
+(10)  Explain the relationship between induced drag 
+and: 
+— speed; 
+— aspect ratio; 
+— wing planform; 
+— bank angle in a horizontal coordinated 
+turn. 
+X X         
+(11)  Explain the induced drag coefficient and its 
+relationship with the lift coefficient and aspect 
+ratio. 
+X X         
+(12)  Explain the influence of induced drag on: X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 740 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+— the CL–α graph, and show the effect on 
+the graph when comparing high- and 
+low-aspect ratio wings; 
+— the CL–CD (aeroplane polar), and show the 
+effect on the graph when comparing high- 
+and low-aspect ratio wings; 
+— the parabolic aeroplane polar in a graph 
+and as a formula [CD = CPD + kCL2], where 
+CD = coefficient of drag and  
+CPD = coefficient of parasite drag. 
+(13)  Describe the CL–CD graph (polar). X X         
+(14)  Indicate minimum drag on the graph. X X         
+(15)  Explain why the CL–CD ratio is important as a 
+measure of performance. 
+X X         
+(16)  Intentionally left blank           
+081 01 05 00  Total drag           
+081 01 05 01  Total drag in relation to parasite drag and 
+induced drag 
+          
+(01) X State that total drag consists of parasite drag and 
+induced drag. 
+X X         
+081 01 05 02  Parasite drag           
+(01)  Describe the types of drag that are included in 
+parasite drag. 
+X X         
+(02)  Describe form (pressure) drag and the factors 
+which affect its magnitude. 
+X X         
+(03)  Describe interference drag and the factors which 
+affect its magnitude. 
+X X         
+(04)  Describe friction drag and the factors which 
+affect its magnitude. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 741 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+081 01 05 03  Parasite drag and speed           
+(01)  Describe the relationship between parasite drag 
+and speed. 
+X X         
+081 01 05 04  Induced drag and speed  
+(Refer to 081 01 04 03)  
+          
+081 01 05 05  Total drag            
+(01)  Explain the total drag–speed graph and the 
+constituent drag components. 
+X X         
+(02)  Indicate the speed for minimum drag. X X         
+081 01 05 06  Intentionally left blank           
+081 01 05 07  Variables affecting the total drag–speed graph           
+(01)  Describe the effect of aeroplane gross mass on 
+the graph. 
+X X         
+(02)  Describe the effect of pressure altitude on: 
+— drag–IAS graph; 
+— drag–TAS graph. 
+X X         
+(03)  Describe speed stability from the graph. X X         
+(04)  Describe non-stable, neutral, and stable IAS 
+regions. 
+X X         
+(05)  Explain what happens to the IAS and drag in the 
+non-stable region if speed suddenly decreases 
+and why this could occur. 
+X X         
+081 01 06 00  Ground effect           
+081 01 06 01  Influence of ground effect            
+(01)  Explain the influence of ground effect on wing tip 
+vortices, downwash, airflow pattern, lift, and 
+drag. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 742 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(02)  Describe the influence of ground effect on 
+induced  and the coefficient of induced drag 
+(CDi). 
+X X         
+(03)  Explain the effects of entering and leaving 
+ground effect. 
+X X         
+081 01 06 02  Effect on stalling angle of attack (αCRIT)           
+(01)  Describe the influence of ground effect on αCRIT. X X         
+081 01 06 03  Effect on lift coefficient (CL)           
+(01)  Describe the influence of ground effect on the 
+effective  and CL. 
+X X         
+081 01 06 04  Effect on take-off and landing characteristics of 
+an aeroplane 
+          
+(01)  Describe the influence of ground effect on 
+take-off and landing characteristics and 
+performance of an aeroplane. 
+X X         
+(02)  Describe the difference in take-off and landing 
+characteristics of high- and low-wing aeroplanes. 
+X X         
+081 01 07 00  The relationship between lift coefficient and 
+speed in steady, straight, and level flight 
+          
+081 01 07 01  Represented by an equation           
+(01)  Explain the effect on CL during speed 
+increase/decrease in steady, straight, and level 
+flight, and perform simple calculations. 
+X X         
+081 01 07 02  Represented by a graph           
+(01)  Explain, by using a graph, the effect on speed of 
+CL changes at a given weight. 
+X X         
+081 01 08 00  Intentionally left blank           
+081 01 09 00  CLMAX augmentation           
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 743 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+081 01 09 01  Trailing-edge flaps and the reasons for their use 
+in take-off and landing 
+          
+(01)  From the given relevant diagrams, describe or 
+identify the following types of trailing-edge flaps: 
+— split flaps; 
+— plain flaps; 
+— slotted flaps; 
+— Fowler flaps. 
+X X         
+(02)  Describe how the wing’s effective camber 
+increases the CL and CD, and the reasons why this 
+can be beneficial. 
+X X         
+(03)  Describe their effect on: 
+— the location of CP; 
+— pitching moments (due to wing CP 
+movement); 
+— stall speed. 
+X X         
+(04)  Compare their influence on the CL– graph: 
+— indicate the variation in CL at any given ; 
+— indicate their effect on CLMAX; 
+— indicate their effect on critical ; 
+— indicate their effect on the  at a given CL. 
+X X         
+(05)  Compare their influence on the CL–CD graph: 
+— indicate how the (CL/CD)MAX differs from 
+that of a clean wing. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 744 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(06)  Explain the influence of trailing-edge flap 
+deflection on the glide angle. 
+X X         
+(07)  Describe flap asymmetry: 
+— explain the effect on aeroplane 
+controllability. 
+X X         
+(08)  Describe trailing-edge flap effect on take-off and 
+landing: 
+— explain the advantages of lower-nose 
+attitudes; 
+— explain why take-off and landing 
+speeds/distances are reduced. 
+X X         
+(09)  Explain the effects of flap-setting errors, such as 
+mis-selection and premature/late extension or 
+retraction of flaps, on: 
+— take-off and landing distance and speeds; 
+— climb and descent performance;  
+— stall buffet margins. 
+X X         
+081 01 09 02  Leading-edge devices and the reasons for their 
+use in take-off and landing 
+          
+(01)  From the given relevant diagrams, describe or 
+identify the different types of leading-edge 
+high-lift devices: 
+— Krueger flaps; 
+— variable camber flaps; 
+— slats. 
+X X         
+(02)  Describe the function of the slot. X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 745 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(03)  Describe how the wing’s effective camber 
+increases with a leading-edge flap. 
+X X         
+(04)  Explain the effect of leading-edge flaps on the 
+stall speed, also in comparison with trailing-edge 
+flaps. 
+X X         
+(05)  Compare their influence on the CL– graph, 
+compared with trailing-edge flaps and a clean 
+wing: 
+— indicate the effect of leading-edge devices 
+on CLMAX; 
+— explain how the CL curve differs from that 
+of a clean wing; 
+— indicate the effect of leading-edge devices 
+on αCRIT. 
+X X         
+(06)  Compare their influence on the CL–CD graph. X X         
+(07)  Describe slat asymmetry: 
+– describe the effect on aeroplane 
+controllability. 
+X X         
+(08)  Explain the reasons for using leading-edge 
+high-lift devices on take-off and landing: 
+— explain the disadvantage of increased 
+nose-up attitudes; 
+— explain why take-off and landing 
+speeds/distances are reduced. 
+X X         
+081 01 09 03  Vortex generators           
+(01)  Explain the purpose of vortex generators. X X         
+(02)  Describe the basic operating principle of vortex 
+generators. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 746 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(03)  State their advantages and disadvantages. X X         
+081 01 10 00  Means to reduce the CL–CD ratio           
+081 01 10 01  Spoilers and the reasons for their use in the 
+different phases of flight 
+          
+(01)  Describe the aerodynamic functioning of spoilers: 
+— roll spoilers; 
+— flight spoilers (speed brakes); 
+— ground spoilers (lift dumpers). 
+X X         
+(02)  Describe the effect of spoilers on the C L– graph 
+and stall speed. 
+X X         
+(03)  Describe the influence of spoilers on the CL–CD 
+graph and lift-drag ratio. 
+X X         
+081 01 10 02  Speed brakes and the reasons for their use in 
+the different phases of flight 
+          
+(01)  Describe speed brakes and the reasons for using 
+them in the different phases of flight. 
+X X         
+(02)  State their influence on the CL–CD graph and  
+lift–drag ratio. 
+X X         
+(03)  Explain how speed brakes increase parasite drag. X X         
+(04)  Describe how speed brakes affect the minimum 
+drag speed. 
+X X         
+(05)  Describe their effect on rate and angle of 
+descent. 
+X X         
+081 01 11 00  Intentionally left blank           
+081 01 12 00  Aerodynamic degradation           
+081 01 12 01  Ice and other contaminants           
+(01)  Describe the locations on an aeroplane where ice 
+build-up will occur during flight. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 747 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(02)  Explain the aerodynamic effects of ice and other 
+contaminants on: 
+— lift (maximum CL); 
+— drag; 
+— stall speed; 
+— CRIT; 
+— stability and controllability. 
+X X         
+(03)  Explain the aerodynamic effects of icing during 
+take-off. 
+X X         
+081 01 12 02  Deformation and modification of airframe, 
+ageing aeroplanes 
+          
+(01)  Describe the effect of airframe deformation and 
+modification of an ageing aeroplane on 
+aeroplane performance. 
+X X         
+(02)  Explain the effect on boundary layer condition of 
+an ageing aeroplane. 
+X X         
+081 02 00 00  HIGH-SPEED AERODYNAMICS           
+081 02 01 00  Speeds           
+081 02 01 01  Speed of sound           
+(01) X Define ‘speed of sound’. X          
+(02)  Explain the variation of the speed of sound with 
+altitude. 
+X          
+(03)  Explain the influence of temperature on the 
+speed of sound. 
+X          
+081 02 01 02  Mach number           
+(01)  Define ‘Mach number’ as a function of TAS and 
+speed of sound. 
+X          
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 748 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+081 02 01 03  Influence of temperature and altitude on Mach 
+number 
+          
+(01)  Explain the absence of change of Mach number 
+with varying temperature at constant flight level 
+and calibrated airspeed. 
+X          
+(02)  Explain the relationship between Mach number, 
+TAS and IAS during climb and descent at constant 
+Mach number or IAS, and explain variation of lift 
+coefficient, α, pitch and flight-path angle. 
+X          
+(03)  Explain: 
+— risk of exceeding the maximum operation 
+speed (VMO) when descending at 
+constant Mach number; 
+— risk of exceeding the maximum operating 
+Mach number (MMO) when climbing at 
+constant IAS; 
+— risk of a low-speed stall at high altitude 
+when climbing at a too low Mach number. 
+X          
+081 02 01 04  Compressibility           
+(01)  State that compressibility means that density can 
+change along a streamline, and that this occurs in 
+the high subsonic (from Mach 0.4), transonic, 
+and supersonic flow. 
+X          
+(02) X State that compressibility negatively affects the 
+pressure gradient, leading to an overall reduction 
+of the CL. 
+X          
+(03) X State that Mach number is a measure of 
+compressibility. 
+X          
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 749 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(04)   Describe that compressibility increases 
+low-speed stall speed and decreases αCRIT. 
+X          
+081 02 01 05  Subdivision of aerodynamic flow           
+(01) X List the subdivision of aerodynamic flow: 
+— subsonic flow below compressibility; 
+— subsonic flow above compressibility;  
+— transonic flow; 
+— supersonic flow. 
+X          
+(02)  Describe the characteristics of the flow regimes 
+listed above. 
+X          
+(03)  Explain why some transport aeroplanes cruise at 
+Mach numbers above the critical Mach number 
+(MCRIT). 
+X          
+081 02 02 00  Shock waves           
+081 02 02 01  Definition of shock wave           
+(01) X Define a ‘shock wave’. X          
+081 02 02 02  Normal shock waves           
+(01)  Describe a normal shock wave with respect to 
+changes in: 
+— static temperature; 
+— static and total pressure; 
+— velocity; 
+— local speed of sound; 
+— Mach number; 
+— density. 
+X          
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 750 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(02)  Describe a normal shock wave with respect to 
+orientation relative to the wing surface. 
+X          
+(03)  Explain the influence of increasing Mach number 
+on a normal shock wave, at positive lift, with 
+respect to: 
+— strength; 
+— position relative to the wing; 
+— second shock wave at the lower surface. 
+X          
+(04)  Explain the influence of  on shock-wave 
+intensity and shock-wave location at constant 
+Mach number. 
+X          
+081 02 03 00  Effects of exceeding the critical Mach number 
+(MCRIT) 
+          
+081 02 03 01  Critical Mach number (MCRIT)           
+(01)  Define ‘MCRIT’. X          
+(02)  Explain how a change in , aeroplane weight, 
+manoeuvres, and centre-of-gravity (CG) position 
+influences MCRIT. 
+X          
+081 02 03 02  Effect on lift           
+(01)  Describe the behaviour of CL versus Mach 
+number at constant . 
+X          
+(02)  Explain the consequences of exceeding MCRIT 
+with respect to CL and CLMAX.  
+X          
+(03)  Explain the change in stall indicated airspeed 
+(IAS) with altitude. 
+X          
+(04)  Discuss the effect on αCRIT. X          
+(05)   Explain the advantages of exceeding MCRIT in 
+aeroplanes with supercritical aerofoils with 
+respect to: 
+X          
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 751 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+— speed versus drag ratio; 
+— specific range; 
+— optimum altitude. 
+081 02 03 03  Effect on drag           
+(01)  Describe wave drag. X          
+(02)  Describe the behaviour of CD versus Mach 
+number at constant . 
+X          
+(03)  Explain the effect of Mach number on the CL–CD 
+graph. 
+X          
+(04)  Describe the effects and hazards of exceeding 
+MDRAG DIVERGENCE, namely: 
+— drag rise; 
+— instability; 
+— Mach tuck; 
+— shock stall. 
+X          
+(05)  State the relation between MCRIT and MDRAG 
+DIVERGENCE. 
+X          
+081 02 03 04  Effect on pitching moment           
+(01)  Discuss the effect of Mach number on the CP 
+location.  
+X          
+(02)  Describe the overall change in pitching moment 
+above MCRIT and explain the ‘tuck under’ or 
+‘Mach tuck’ effect. 
+X          
+(03) X State the requirement for a Mach trim system to 
+compensate for the effect of the CP movement 
+and ‘tuck under’ effect. 
+X          
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 752 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(04) X Discuss the aerodynamic functioning of the Mach 
+trim system. 
+X          
+(05)  Discuss the corrective measures if the Mach trim 
+fails. 
+X          
+081 02 03 05  Effect on control effectiveness           
+(01)  Discuss the effects on the effectiveness of 
+control surfaces. 
+X          
+081 02 04 00  Intentionally left blank           
+081 02 05 00  Means to influence critical Mach number (MCRIT)           
+081 02 05 01  Wing sweep           
+(01)  Explain the influence of the angle of sweep on: 
+— MCRIT; 
+— effective thickness/chord change or 
+velocity component perpendicular to the 
+quarter chord line. 
+X          
+(02)  Describe the influence of the angle of sweepback 
+at subsonic speed on: 
+— CLMAX; 
+— efficiency of and requirement for high-lift 
+devices; 
+— pitch-up stall behaviour. 
+X          
+(03)  Discuss the effect of wing sweepback on drag. X          
+081 02 05 02  Aerofoil shape           
+(01)  Explain the use of thin aerofoils with reduced 
+camber. 
+X          
+(02)  Explain the main purpose of supercritical 
+aerofoils. 
+X          
+(03)  Intentionally left blank           
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 753 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(04)  Explain the advantages and disadvantages of 
+supercritical aerofoils for wing design. 
+X          
+081 02 05 03  Vortex generators           
+(01)  Explain the use of vortex generators as a means 
+to avoid or restrict flow separation caused by the 
+presence of a normal shock wave. 
+X          
+081 03 00 00  Stall, Mach tuck, and upset prevention and 
+recovery 
+          
+081 03 01 00  The stall           
+081 03 01 01  Flow separation at increasing α           
+(01) X Define the ‘boundary layer’. X X         
+(02) X Describe the thickness of a typical laminar and 
+turbulent boundary layer. 
+X X         
+(03)  Describe the properties, advantages and 
+disadvantages of the laminar boundary layer. 
+X X         
+(04)  Describe the properties, advantages and 
+disadvantages of the turbulent boundary layer. 
+X X         
+(05)  Define the ‘transition point’. X X         
+(06)  Explain why the laminar boundary layer 
+separates easier than the turbulent boundary 
+layer does. 
+X X         
+(07)  Describe why the airflow over the aft part of a 
+wing slows down as the α increases. 
+X X         
+(08)  Define the ‘separation point’ and describe its 
+location as a function of α. 
+X X         
+(09) X Define αCRIT. X X         
+(10)  Describe in straight and level flight the influence 
+of increasing the α and the phenomenon that 
+may occur regarding: 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 754 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+— the forward stagnation point; 
+— the pressure distribution; 
+— the CP location (straight and swept-back 
+wing); 
+— CL; 
+— CD and D (drag); 
+— the pitching moment (straight and swept-
+back wing); 
+— buffet onset; 
+— deterrent buffet for a clean wing at high 
+Mach number; 
+— lack of pitch authority; 
+— uncommanded pitch down; 
+— uncommanded roll. 
+(11)  Explain what causes the possible natural buffet 
+on the aeroplane in a pre-stall condition. 
+X X         
+(12)  Describe the effectiveness of the flight controls 
+in a pre-stall condition. 
+X X         
+(13)  Describe and explain the normal post-stall 
+behaviour of a straight-wing aeroplane. 
+X X         
+(14)  Describe the effect and dangers of using the 
+controls close to the stall. 
+X X         
+(15)  Describe the deterrent buffet. X X         
+(16)  Explain the occurrence of the deterrent buffet 
+and why this phenomenon is considered to be a 
+stall limit. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 755 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+081 03 01 02  The stall speed           
+(01)  Explain VS0, VS1, VSR, and VS1G. X X         
+(02)  Solve VS1G from the lift formula given varying CL. X X         
+(03)  Describe and explain the influence of the 
+following parameters on stall speed: 
+— CG; 
+— thrust component; 
+— slipstream; 
+— wing loading; 
+— mass; 
+— wing contamination; 
+— angle of sweep; 
+— altitude (for compressibility effects, see 
+081 02 03 02). 
+X X         
+(04) X Define the ‘load factor n’. X X         
+(05)  Explain why the load factor increases in a turn. X X         
+(06)  Explain why the load factor increases in a pull-up 
+and decreases in a push-over manoeuvre. 
+X X         
+(07)  Describe and explain the influence of the ‘load 
+factor n’ on stall speed. 
+X X         
+(08) X Explain the expression ‘accelerated stall’. 
+Remark: Sometimes, accelerated stall is also 
+erroneously referred to as high-speed stall. This 
+latter expression will not be used for Subject 081. 
+X X         
+(09)  Calculate the change of stall speed as a function 
+of the load factor. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 756 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(10)  Calculate the increase of stall speed in a 
+horizontal coordinated turn as a function of bank 
+angle. 
+X X         
+(11)  Calculate the change of stall speed as a function 
+of the gross mass. 
+X X         
+081 03 01 03  The initial stall in spanwise direction           
+(01)  Explain the initial stall sequence on the following 
+planforms: 
+— elliptical; 
+— rectangular; 
+— moderate and high taper; 
+— sweepback or delta. 
+X X         
+(02)  Explain the purpose of aerodynamic and 
+geometric twist (washout). 
+X X         
+(03)  Intentionally left blank           
+(04)  Explain the influence of fences, vortilons, saw 
+teeth, vortex generators, and strakes on engine 
+nacelles. 
+X X         
+081 03 01 04  Stall warning           
+(01) X Explain why stall warning is necessary. X X         
+(02) X Explain when aerodynamic and artificial stall 
+warnings are used. 
+X X         
+(03)  Explain why CS-23 and CS-25 require a margin to 
+stall speed for take-off and landing speeds. 
+X X         
+(04) X Describe: 
+— buffet; 
+— stall strip; 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 757 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+— flapper switch (leading-edge stall-warning 
+vane); 
+— angle-of-attack vane; 
+— angle-of-attack probe; 
+— stick shaker. 
+(05)  Describe the recovery after: 
+— stall warning; 
+— stall; 
+— stick-pusher actuation. 
+X X         
+081 03 01 05  Special phenomena of stall           
+(01)  Intentionally left blank           
+(02)  Explain the difference between power-off and 
+power-on stalls and recovery. 
+X X         
+(03)  Describe stall and recovery in a climbing and 
+descending turn. 
+X X         
+(04)  Describe the pitch-up effect on a swept wing 
+aeroplane and also an aeroplane with a T-tail. 
+X X         
+(05)  Describe super stall or deep stall. X X         
+(06)  Describe the philosophy behind the stick-pusher 
+system. 
+X X         
+(07)  Describe the factors that can lead to the absence 
+of stall warning and explain the associated risks. 
+X X         
+(08)  Describe the indications and explain the 
+consequences of premature stabiliser stall due to 
+ice contamination (negative tail stall). 
+X X         
+(09)  Describe when to expect in-flight icing. X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 758 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(10)  Explain how the effect is changed when 
+retracting/extending lift-augmentation devices. 
+X X         
+(11)  Intentionally left blank           
+(12)  Explain the effect of a contaminated wing on the 
+stall speed and αCRIT. 
+X X         
+(13)  Explain the hazards associated with airframe 
+contamination when parked and during ground 
+operations in winter conditions, and the 
+aerodynamic effects when attempting a take-off. 
+X X         
+(14)  Explain de-icing/anti-icing holdover time and the 
+likely hazards after it has expired. 
+X X         
+(15)  Describe the aerodynamic effects of heavy 
+tropical rain on stall speed and drag, and the 
+appropriate mitigation in such conditions. 
+X X         
+081 03 01 06  The spin           
+(01)  Explain how to avoid spins. X X         
+(02)  List the factors that cause a spin to develop. X X         
+(03)  Describe an ‘incipient’ and ‘developed’ spin, 
+recognition and recovery. 
+X X         
+(04)  Describe the differences in spin attitude with 
+forward and aft CG.  
+X X         
+081 03 02 00  Buffet onset boundary           
+081 03 02 01  Mach buffet           
+(01)  Explain shock-induced separation, and describe 
+its relationship with Mach buffet (high speed 
+buffet) and Mach tuck. 
+X          
+(02)  Intentionally left blank           
+081 03 02 02  Buffet onset           
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 759 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(01)  Explain the concept of buffet margin, and 
+describe the influence of the following 
+parameters on the concept of buffet margin: 
+— ; 
+— Mach number; 
+— pressure altitude; 
+— mass; 
+— load factor; 
+— angle of bank; 
+— CG location. 
+X          
+(02)  Explain how the buffet onset boundary chart can 
+be used to determine: 
+— manoeuvrability; 
+— buffet margin. 
+X          
+(03)  Describe the consequences of exceeding MMO: 
+light buffet, buffet onset. 
+X          
+(04)  Explain ‘aerodynamic ceiling’ and ‘coffin corner’. X          
+(05)  Explain the concept of the ‘1.3g’ buffet margin 
+altitude. 
+X          
+(06)  Find (using an example graph): 
+— buffet free range; 
+— aerodynamic ceiling at a given mass; 
+— load factor and bank angle at which buffet 
+occurs at a given mass, Mach number, 
+and pressure altitude. 
+X          
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 760 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(07)  Explain why descent increases the buffet free 
+range. 
+X          
+081 03 03 00  Situations in which buffet or stall could occur           
+081 03 03 01  Explain why buffet or stall occurs           
+(01)  Explain why buffet or stall could occur in the 
+following pilot-induced situations, and the 
+methods to mitigate them:  
+— inappropriate take-off configuration, 
+detailing the consequences of errors 
+associated with leading-edge devices; 
+— steep turns; 
+— go-around using take-off/go-around 
+(TOGA) setting (underslung engines). 
+X 
+ 
+ 
+X         
+(02)  Explain why buffet or stall could occur in the 
+following environmental conditions at low 
+altitude, and how to mitigate them: 
+— thunderstorms; 
+— wind shear and microburst; 
+— turbulence; 
+— wake turbulence; 
+— icing conditions. 
+X X         
+(03)  Explain why buffet or stall could occur in the 
+following environmental conditions at high 
+altitude, and how to mitigate them: 
+— thunderstorms in the intertropical 
+convergence zone (ITCZ); 
+— jet streams; 
+X          
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 761 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+— clear-air turbulence. 
+(04)  Explain why buffet or stall could occur in the 
+following situations, and how to mitigate them: 
+— inappropriate autopilot climb mode; 
+— loss of, or unreliable, airspeed indication. 
+X X         
+081 03 04 00  Recognition of stalled condition           
+081 03 04 01  Recognition and explanation of stalled 
+condition 
+          
+(01)  Explain why a stalled condition can occur at any 
+airspeed, or attitude or altitude. 
+X X         
+(02)  Explain that a stall may be recognised by 
+continuous stall-warning activation accompanied 
+by at least one of the following: 
+— buffet, that can be heavy; 
+— lack of pitch authority; 
+— uncommanded pitch down and 
+uncommanded roll; 
+— inability to arrest the descent rate. 
+X X         
+(03)  Explain that ‘stall warning’ means a natural or 
+synthetic indication provided when approaching 
+the stall that may include one or more of the 
+following indications: 
+— aerodynamic buffeting; 
+— reduced roll stability and aileron 
+effectiveness; 
+— visual or aural clues and warnings; 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 762 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+— reduced elevator (pitch) authority; 
+— inability to maintain altitude or arrest a 
+rate of descent; 
+— stick-shaker activation. 
+081 04 00 00  STABILITY           
+081 04 01 00  Static and dynamic stability           
+081 04 01 01  Basics and definitions           
+(01)  Define ‘static stability’: 
+— describe/identify a statically stable, 
+neutral, and unstable condition (positive, 
+neutral, and negative static stability), and 
+— explain why aeroplanes are statically 
+stable. 
+X X         
+(02)  Explain manoeuvrability. X X         
+(03)  Explain the relationship between static stability 
+and manoeuvrability. 
+X X         
+(04)  Define ‘dynamic stability’: 
+— describe/identify a dynamically stable, 
+neutral, and unstable motion (positive, 
+neutral, and negative dynamic stability); 
+— describe/identify periodic and aperiodic 
+motion. 
+X X         
+(05)  Intentionally left blank           
+081 04 01 02  Precondition for static stability           
+(01) X Explain an equilibrium of forces and moments as 
+the initial condition for static stability.  
+X X         
+081 04 01 03  Sum of forces           
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 763 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(01) X Identify the forces considered in the equilibrium 
+of forces. 
+X X         
+081 04 01 04  Sum of moments           
+(01)  Identify the moments about all three axes 
+considered in the equilibrium of moments. 
+X X         
+(02)  Discuss the effect of sum of moments not being 
+zero. 
+X X         
+081 04 02 00  Intentionally left blank           
+081 04 03 00  Static and dynamic longitudinal stability           
+081 04 03 01  Methods for achieving balance           
+(01) X Explain the stabiliser as the means to satisfy the 
+condition of nullifying the total sum of the 
+moments about the lateral axis. 
+X X         
+(02)  Explain the influence of the location of the wing 
+CP relative to the CG on the magnitude and 
+direction of the balancing force on the stabiliser. 
+X X         
+(03)  Explain the influence of the indicated airspeed 
+on the magnitude and direction of the balancing 
+force on the stabiliser. 
+X X         
+(04)  Explain the use of the elevator deflection or 
+stabiliser angle for the generation of the 
+balancing force and its direction. 
+X X         
+(05)  Explain the elevator deflection required to 
+balance thrust change as a function of engine 
+position. 
+X X         
+081 04 03 02  Static longitudinal stability           
+(01)  Discuss the effect of the CG location on pitch 
+manoeuvrability and longitudinal stability. 
+X X         
+081 04 03 03  Neutral point           
+(01) X Define ‘neutral point’. X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 764 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(02) X Explain why the location of the neutral point is 
+only dependent on the aerodynamic design of 
+the aeroplane. 
+X X         
+081 04 03 04  Factors affecting neutral point           
+(01)  Describe the location of the neutral point relative 
+to the locations of the aerodynamic centre of the 
+wing and tail. 
+X X         
+081 04 03 05  Location of centre of gravity (CG)           
+(01)  Explain the influence of the CG location on the 
+static longitudinal stability of the aeroplane. 
+X X         
+(02)  Explain the CG forward and aft limits with 
+respect to: 
+— longitudinal control forces; 
+— elevator effectiveness; 
+— stability. 
+X X         
+(03)  Define ‘static margin’. X X         
+081 04 03 06  The Cm– graph           
+(01) X Describe the Cm– graph with respect to the 
+relationship between the slope of the graph and 
+static stability.  
+X X         
+081 04 03 07  Factors affecting the Cm– graph            
+(01)  Explain: 
+— the effect on the Cm– graph of a shift of 
+CG in the forward and aft direction; 
+— the effect on the Cm– graph when the 
+elevator is moved up or down; 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 765 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+— the effect on the Cm– graph when the 
+trim is moved; 
+— the effect of the wing contribution; 
+— the tail contribution. 
+081 04 03 08  Intentionally left blank           
+081 04 03 09  Intentionally left blank           
+081 04 03 10  The stick force versus speed graph (IAS)            
+(01)  Explain how a pilot perceives stable static 
+longitudinal stick force stability regarding 
+changes in: 
+— speed; 
+— altitude; 
+— mass distribution (CG location). 
+X X         
+081 04 03 11  Intentionally left blank           
+081 04 03 12  The manoeuvring stability/stick force per g           
+(01) X Define the ‘stick force per g’, and describe that 
+the stick force increases linearly with increase in 
+g. 
+X X         
+(02)  Explain why: 
+— the stick force per g has a prescribed 
+minimum and maximum value; 
+— the stick force per g decreases with 
+pressure altitude. 
+X X         
+081 04 03 13  Intentionally left blank           
+081 04 03 14  Factors affecting the manoeuvring 
+stability/stick force per g 
+          
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 766 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(01)  Explain the influence on stick force per g of: 
+— CG location; 
+— trim setting. 
+X X         
+081 04 03 15  Intentionally left blank           
+081 04 03 16  Dynamic longitudinal stability           
+(01)  Describe the phugoid and short-period motion in 
+terms of period, damping, variations (if 
+applicable) in speed, altitude, and α. 
+X X         
+(02)  Explain why the short-period motion is more 
+hazardous than the phugoid. 
+X X         
+(03)  Describe ‘pilot-induced oscillations’. X X         
+(04)  Explain the effect of high altitude on dynamic 
+stability. 
+X X         
+(05)  Describe the influence of the CG location on the 
+dynamic longitudinal stability of the aeroplane. 
+X X         
+081 04 04 00  Static directional stability           
+081 04 04 01  Definition and effects of static directional 
+stability 
+          
+(01) X Define ‘static directional stability’. X X         
+(02)  Explain the effects of static directional stability 
+being too weak or too strong. 
+X X         
+081 04 04 02  Sideslip angle            
+(01)  Define ‘sideslip angle’. X X         
+(02)  Identify β as the symbol used for the sideslip 
+angle. 
+X X         
+081 04 04 03  Yaw-moment coefficient Cn            
+(01) X Define the ‘yawing-moment coefficient Cn’. X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 767 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(02) X Define the relationship between Cn and β for an 
+aeroplane with static directional stability. 
+X X         
+081 04 04 04  Cn–β graph            
+(01) X Explain why: 
+— Cn depends on β; 
+— Cn equals zero for that β that provides 
+static equilibrium about the aeroplane’s 
+normal axis; 
+— if no asymmetric engine thrust, flight 
+control or loading condition prevails, the 
+equilibrium β equals zero. 
+X X         
+(02) X Identify how the slope of the Cn–β graph is a 
+measure for static directional stability. 
+X X         
+(03)  X Identify how the slope of the Cn–β graph is 
+affected by altitude.  
+X X         
+081 04 04 05  Factors affecting static directional stability           
+(01)  Describe how the following aeroplane 
+components contribute to static directional 
+stability: 
+— wing; 
+— fin; 
+— dorsal fin; 
+— ventral fin; 
+— angle of sweep of the wing; 
+— angle of sweep of the fin; 
+— fuselage at high α; 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 768 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+— strakes. 
+(02)  Explain the reduction in static directional stability 
+when the CG moves aft. 
+X X         
+081 04 05 00  Static lateral stability           
+081 04 05 01  Definition and effects of static lateral stability           
+(01) X Define ‘static lateral stability’. X X         
+(02)  Explain the effects of static lateral stability being 
+too weak or too strong. 
+X X         
+081 04 05 02  Bank angle Ø           
+(01) X Define ‘bank angle Ø’. X X         
+081 04 05 03  The roll-moment coefficient Cl            
+(01) X Define the ‘roll-moment coefficient Cl’. X X         
+081 04 05 04  Contribution of sideslip angle (β)           
+(01)  Explain how without coordination the bank angle 
+(Ø) creates sideslip angle (β). 
+X X         
+081 04 05 05  The Cl–β graph            
+(01) X Describe the Cl– graph. X X         
+(02) X Identify the slope of the Cl– graph as a measure 
+for static lateral stability. 
+X X         
+(03) X Identify how the slope of the Cl–β graph is 
+affected by altitude. 
+X X         
+081 04 05 06  Factors affecting static lateral stability           
+(01)  Explain the contribution to the static lateral 
+stability of: 
+— dihedral, anhedral; 
+— high wing, low wing; 
+— sweep angle of the wing; 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 769 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+— ventral fin; 
+— vertical tail. 
+081 04 06 00  Dynamic lateral/directional stability           
+081 04 06 01  Intentionally left blank           
+081 04 06 02  Tendency to spiral dive           
+(01)  Explain how lateral and directional stability are 
+coupled. 
+X X         
+(02)  Explain how high static directional stability and 
+low static lateral stability may cause spiral 
+divergence (unstable spiral dive), and under 
+which conditions the spiral dive mode is neutral 
+or stable. 
+X X         
+(03)  Describe an unstable spiral dive mode with 
+respect to deviations in speed, bank angle, nose 
+low-pitch attitude, and decreasing altitude. 
+X X         
+081 04 06 03  Dutch roll           
+(01)  Describe Dutch roll. X X         
+(02)  Explain: 
+— why Dutch roll occurs when the static 
+lateral stability is higher than static 
+directional stability; 
+— the conditions for a stable, neutral or 
+unstable Dutch roll motion; 
+— the function of the yaw damper; 
+— the actions to be taken when the yaw 
+damper is not available. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 770 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(03)  Describe how the asymmetric nature of shock 
+waves on both wings, at high Mach numbers, can 
+lead to Dutch roll. 
+X          
+081 04 06 04  Effects of altitude on dynamic stability           
+(01)  Explain that increased pressure altitude reduces 
+dynamic lateral/directional stability. 
+X X         
+081 05 00 00  CONTROL           
+081 05 01 00  General           
+081 05 01 01  Basics — The three planes and three axes           
+(01) X Define: 
+— lateral axis; 
+— longitudinal axis; 
+— normal axis. 
+X X         
+(02) X — Define: 
+— pitch angle; 
+— bank angle (Ø); 
+— yaw angle. 
+X X         
+(03)  Describe the motion about the three axes. X X         
+(04)  Name and describe the devices that control 
+these motions. 
+X X         
+081 05 01 02  Camber change           
+(01)  State that camber is changed by movement of a 
+control surface and explain the effect. 
+X X         
+081 05 01 03  Angle-of-attack (α) change           
+(01) X Explain the influence of local α change by 
+movement of a control surface. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 771 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+081 05 02 00  Pitch (longitudinal) control           
+081 05 02 01  Elevator/all-flying tails           
+(01)  Explain the working principle of the  
+elevator/all-flying tail and describe its function. 
+X X         
+081 05 02 02  Downwash effects           
+(01)  Explain the effect of downwash on the 
+tailplane α. 
+X X         
+(02)  Intentionally left blank           
+081 05 02 03  Intentionally left blank           
+081 05 02 04  Location of centre of gravity (CG)           
+(01)  Explain the relationship between elevator 
+deflection and CG location to produce a given 
+aeroplane response. 
+X X         
+(02)  Explain the effect of forward CG limit on pitch 
+control. 
+X X         
+081 05 02 05  Moments due to engine thrust           
+(01)  Describe the effect of engine thrust on pitching 
+moments for different engine locations. 
+X X         
+081 05 03 00  Yaw (directional) control           
+081 05 03 01  The rudder           
+(01)  Explain the working principle of the rudder and 
+describe its function. 
+State the relationship between rudder deflection 
+and the moment about the normal axis. 
+Describe the effect of sideslip on the moment 
+about the normal axis. 
+X X         
+081 05 03 02  Rudder limiting           
+(01)  Explain why and how rudder deflection is limited 
+on CAT aeroplanes. 
+X          
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 772 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+081 05 04 00  Roll (lateral) control           
+081 05 04 01  Ailerons           
+(01)  Explain the functioning of ailerons. X X         
+(02)  Describe the adverse effects of aileron 
+deflection.  
+(Refer to Subjects 081 05 04 04 and 081 06 01 02) 
+X X         
+(03)  Explain why some aeroplanes have inboard and 
+outboard ailerons. 
+X X         
+(04)  State that the outboard ailerons are locked 
+beyond a given speed to prevent: 
+— over-control; 
+— exceeding structural limitations; 
+— aeroelastic phenomena (flutter, 
+divergence and aileron reversal). 
+X X         
+(05)  Describe the use of aileron deflection in normal 
+flight, flight with sideslip, crosswind landings, 
+horizontal turns, flight with  
+one-engine-inoperative. 
+X X         
+(06) X Define ‘roll rate’. X X         
+(07) X List the factors that affect roll rate. X X         
+(08)  Describe flaperons and aileron droop. X X         
+081 05 04 02  Intentionally left blank           
+081 05 04 03  Spoilers           
+(01)  Explain how spoilers can be used to control the 
+rolling movement in combination with or instead 
+of the ailerons. 
+X X         
+081 05 04 04  Adverse yaw           
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 773 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(01)  Explain why the use of ailerons induces adverse 
+yaw. 
+X X         
+081 05 04 05  Means to avoid adverse yaw           
+(01)  Explain how the following reduce adverse yaw: 
+— Frise ailerons; 
+— differential aileron deflection; 
+— rudder aileron cross-coupling; 
+— roll spoilers. 
+X X         
+081 05 05 00  Roll/yaw interaction           
+081 05 05 01  Explain roll/yaw interaction           
+(01)  Explain the secondary effect of roll. X X         
+(02)  Explain the secondary effect of yaw. X X         
+081 05 06 00  Means to reduce control forces           
+081 05 06 01  Aerodynamic balance           
+(01)  Describe the purpose of aerodynamic balance. X X         
+(02)  Describe the working principle of the horn 
+balance. 
+X X         
+(03)  Describe the working principle of the internal 
+balance. 
+X X         
+(04)  Describe the working principle and application 
+of: 
+— balance tab; 
+— anti-balance tab; 
+— spring tab; 
+— servo tab. 
+X X         
+081 05 06 02  Artificial means           
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 774 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(01)  State the differences between fully powered 
+controls and power-assisted controls. 
+X X         
+(02)  Describe power-assisted controls. X X         
+(03)  Describe the advantages of artificial feel in fully 
+powered control. 
+X X         
+081 05 07 00  Fly-by-wire (FBW)           
+081 05 07 01  Control laws           
+(01)  Explain which parameters may be controlled in 
+level flight with the pitch control law. 
+X          
+(02)  Explain the advantages of using the CG position 
+in the FBW system. 
+X          
+(03)  Explain what type of flight-degraded control laws 
+may be available in case of failure. 
+X          
+(04)  Explain what are hard and soft protections. X          
+081 05 08 00  Trimming           
+081 05 08 01  Reasons to trim           
+(01)  State the reasons for using trimming devices. X X         
+(02)  Explain the difference between a trim tab and 
+the various balance tabs. 
+X X         
+081 05 08 02  Trim tabs           
+(01)  Describe the working principle of a trim tab 
+including cockpit indications. 
+X X         
+081 05 08 03  Stabiliser trim           
+(01)  Describe the working principle of a stabiliser trim 
+including the flight deck indications. 
+X X         
+(02)  Explain the advantages and disadvantages of a 
+stabiliser trim compared to a trim tab. 
+X X         
+(03)  Explain the relationship between CG position, 
+take-off trim setting, and stabiliser trim position. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 775 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(04)  Explain the effect of errors in the take-off 
+stabiliser trim setting on the rotation 
+characteristics and stick force during take-off 
+rotation. 
+X X         
+(05)  Discuss the effects of jammed and runaway 
+stabiliser. 
+X X         
+(06)  Explain the consequences of a jammed stabiliser 
+during take-off, landing, and go-around. 
+X X         
+081 06 00 00  LIMITATIONS           
+081 06 01 00  Operating limitations           
+081 06 01 01  Flutter           
+(01)  Describe the phenomenon of flutter and how IAS 
+and mass distribution affects the likelihood of 
+flutter occurrence.  
+X X         
+(02)  Describe the use of mass balance to alleviate the 
+flutter problem by adjusting the mass 
+distribution: 
+— wing-mounted engines on pylons; 
+— control surface mass balance. 
+X X         
+(03)  Explain what is the flight envelope free of flutter. X X         
+081 06 01 02  Intentionally left blank           
+(01)  Intentionally left blank           
+081 06 01 03  Landing gear/flap operating           
+(01)  Describe the reason for flap/landing gear 
+limitations. 
+Define ‘VLO’. 
+Define ‘VLE’. 
+X X         
+(02)  Explain why there is a difference between VLO 
+and VLE in the case of some aeroplane types. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 776 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(03)  Define ‘VFE’ and describe flap limiting speeds. X X         
+(04)  Describe flap design features, procedures and 
+warnings to prevent overload. 
+X X         
+081 06 01 04  VMO, VNO, and VNE           
+(01) X Define ‘VMO’, ‘VNO’, and ‘VNE’. X X         
+(02)  Explain the significance of VMO, VNO and VNE, and 
+the differences between these airspeeds. 
+X X         
+(03)  Explain the hazards of flying at speeds above VNE 
+and VMO. 
+X X         
+081 06 01 05  MMO           
+(01)  Define ‘MMO’ and state its limiting factors. X          
+081 06 02 00  Manoeuvring envelope           
+081 06 02 01  Manoeuvring–load diagram           
+(01)  Describe the manoeuvring–load diagram. X X         
+(02)  Define limit and ultimate load factor, and explain 
+what can happen if these values are exceeded. 
+X X         
+(03)  Define ‘VA’, ‘VB’, ‘VC’, and ‘VD’. X X         
+(04)  Identify and explain the varying features on the 
+VN diagram: 
+— load factor ‘n’; 
+— speed scale, equivalent airspeed; 
+— equivalent airspeed envelope; 
+— 1g stall speed; 
+— stall boundary (refer to 081 03 01 02). 
+X X         
+(05)  Describe the relationship between VMO or VNE 
+and VC. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 777 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(06)  State all the manoeuvring load-factors limits 
+applicable to CS-23 and CS-25 aeroplanes. 
+X X         
+(07)  Explain the relationship between VA and VS in a 
+formula, and calculate the values. 
+X X         
+(08)  Explain the significance of VA and the adverse 
+consequences of applying full, abrupt nose-up 
+elevator deflection when exceeding VA. 
+X X         
+081 06 02 02  Factors affecting the manoeuvring–load 
+diagram 
+          
+(01)  State the relationship of mass to load-factor 
+limits and accelerated stall speed boundary limit. 
+X X         
+(02)  Calculate the change of VA with changing mass. X X         
+(03)  Explain why VA loses significance at higher 
+altitude. 
+X          
+(04) X Define ‘MC’ and ‘MD’. X          
+081 06 03 00  Gust envelope           
+081 06 03 01  Gust–load diagram           
+(01)  Recognise a typical gust–load diagram, and state 
+the minimum gust speeds in ft/s, m/s and kt that 
+the aeroplane must be designed to withstand at 
+VB to VC and VD.  
+X X         
+(02)  Discuss considerations for the selection of VRA. X X         
+(03)  Explain the adverse effects on the aeroplane 
+when flying in turbulence. 
+X X         
+081 06 03 02  Factors affecting the gust–load diagram           
+(01)  Describe and explain the relationship between 
+the gust–load factor and the following: lift–curve 
+slope, aspect ratio, angle of sweep, altitude, wing 
+loading, weight, wing area, equivalent airspeed 
+(EAS), and speed of vertical gust. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 778 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(Note: For examination purposes, the ECQB 
+questions will not be calculation based.) 
+081 07 00 00  PROPELLERS           
+081 07 01 00  Conversion of engine torque to thrust           
+081 07 01 01  Explain conversion of aerodynamic force on a 
+propeller blade 
+          
+(01)  Explain the resolution of aerodynamic force on a 
+propeller blade element into lift and drag or into 
+thrust and torque. 
+X X         
+(02)  Describe how propeller thrust and aerodynamic 
+torque vary with IAS. 
+X X         
+081 07 01 02  Relevant propeller parameters           
+(01)  Describe the geometry of a typical propeller 
+blade element at the reference section: 
+— blade chord line; 
+— propeller rotational velocity vector; 
+— true airspeed vector; 
+— blade angle of attack; 
+— pitch or blade angle; 
+— advance or helix angle. 
+Define ‘geometric pitch’, ‘effective pitch’, and 
+‘propeller slip’. 
+Remark: For theoretical knowledge examination 
+purposes, the following definition is used for 
+geometric pitch: the theoretical distance a 
+propeller would advance in one revolution at zero 
+blade angle of attack. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 779 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(02)  Describe how the terms ‘fine pitch’ and ‘coarse 
+pitch’ can be used to express blade angle. 
+X X         
+081 07 01 03  Blade twist           
+(01) X Define ‘blade twist’. X X         
+(02)  Explain why blade twist is necessary. X X         
+081 07 01 04  Fixed pitch and variable pitch/constant speed           
+(01) X List the different types of propellers: 
+— fixed pitch; 
+— adjustable pitch or variable pitch (non-
+governing); 
+— variable pitch (governing)/constant speed. 
+X X         
+(02)  Discuss the advantages and disadvantages of 
+fixed-pitch and constant-speed propellers. 
+X X         
+(03)  Discuss climb and cruise propellers. X X         
+(04)  Explain the relationship between blade angle, 
+blade angle of attack, and airspeed for fixed and 
+variable pitch propellers. 
+X X         
+(05)  Describe and explain the forces that act on a 
+rotating blade element in normal, feathered, 
+windmilling, and reverse operation. 
+X X         
+(06)  Explain the effects of changing propeller pitch at 
+constant IAS. 
+X X         
+081 07 01 05  Propeller efficiency versus speed           
+(01)  Define ‘propeller efficiency’. X X         
+(02)  Explain and describe the relationship between 
+propeller efficiency and speed (TAS) for different 
+types of propellers. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 780 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(03)  Explain the relationship between blade angle and 
+thrust. 
+X X         
+081 07 01 06  Effects of ice on propeller           
+(01)  Describe the effects and hazards of ice on a 
+propeller. 
+X X         
+081 07 02 00  Engine failure           
+081 07 02 01  Windmilling drag           
+(01)  Describe the effects of an inoperative engine on 
+the performance and controllability of an 
+aeroplane: 
+— thrust loss/drag increase; 
+— influence on yaw moment during 
+asymmetric power. 
+X X         
+081 07 02 02  Feathering           
+(01)  Explain the reasons for feathering a propeller, 
+including the effect on the yaw moment, 
+performance and controllability. 
+X X         
+081 07 03 00  Design features for power absorption           
+081 07 03 01  Propeller design characteristics that increase 
+power absorption 
+          
+(01) X Name the propeller design characteristics that 
+increase power absorption. 
+X X         
+081 07 03 02  Diameter of propeller           
+(01)  Explain the reasons for restricting propeller 
+diameter. 
+X X         
+081 07 03 03  Number of blades           
+(01) X Define ‘solidity’. X X         
+(02)  Describe the advantages and disadvantages of 
+increasing the number of blades. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 781 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+081 07 03 04  Propeller noise           
+(01) X Describe how propeller noise can be minimised. X X         
+081 07 04 00  Secondary effects of propellers           
+081 07 04 01  Torque reaction           
+(01)  Describe the effects of engine/propeller torque. X X         
+(02)  Describe the following methods for 
+counteracting engine/propeller torque: 
+— counter-rotating propellers; 
+— contra-rotating propellers. 
+X X         
+081 07 04 02  Gyroscopic precession           
+(01) X Describe what causes gyroscopic precession. X X         
+(02) X Describe the effect on the aeroplane due to the 
+gyroscopic effect. 
+X X         
+081 07 04 03  Slipstream effect           
+(01)  Describe the possible effects of the rotating 
+propeller slipstream. 
+X X         
+081 07 04 04  Asymmetric blade effect           
+(01)  Explain the asymmetric blade effect (also called 
+P factor). 
+X X         
+(02)  Explain the influence of direction of rotation on 
+the critical engine on twin-engine aeroplanes. 
+X X         
+081 07 04 05  Consideration of propeller effects           
+(01)   Describe, given direction of propeller rotation, 
+the propeller effects during take-off run, rotation 
+and initial climb, and their consequence on 
+controllability. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 782 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(02)  Describe, given the direction of propeller 
+rotation, the propeller effects during a go-around 
+and their consequence on controllability. 
+X X         
+(03)   Explain how propeller effects during go-around 
+can be affected by:  
+— high engine performance conditions and 
+their effect on the VMC speeds;  
+— loss of the critical engine;  
+— crosswind;  
+— high flap setting; 
+X X         
+081 08 00 00  FLIGHT MECHANICS           
+081 08 01 00  Forces acting on an aeroplane           
+081 08 01 01  Straight, horizontal, steady flight           
+(01) X Describe the forces that act on an aeroplane in 
+straight, horizontal, and steady flight. 
+X X         
+(02) X List the four forces and state where they act on. X X         
+(03)  Explain how the four forces are balanced, 
+including the function of the tailplane. 
+X X         
+081 08 01 02  Straight, steady climb           
+(01) X Define ‘flight-path angle’ (). X X         
+(02)  Describe the relationship between pitch attitude, 
+ and α for zero-wind and zero-bank conditions. 
+X X         
+(03) X Describe the forces that act on an aeroplane in a 
+straight, steady climb. 
+X X         
+(04)  Name the forces parallel and perpendicular to 
+the direction of flight. 
+— Apply the formula relating to the parallel 
+forces (T = D + W sin ). 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 783 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+— Apply the formula relating to the 
+perpendicular forces (L = W cos ). 
+(05)  Explain why thrust is greater than drag. X X         
+(06)  Explain why lift is less than weight. X X         
+(07)  Explain the formula (for small angles) that gives 
+the relationship between , thrust, weight, and 
+lift–drag ratio, and use this formula for simple 
+calculations. 
+X X         
+(08)  Explain how IAS, α, and  change in a climb 
+performed with constant vertical speed and 
+constant thrust setting. 
+X X         
+081 08 01 03  Straight, steady descent           
+(01) X Describe the forces that act on an aeroplane in a 
+straight, steady descent. 
+X X         
+(02)  Name the forces parallel and perpendicular to 
+the direction of flight. 
+— Apply the formula for forces parallel to 
+the direction of flight (T = D – W sin ). 
+— Apply the formula relating to the 
+perpendicular forces (L = W cos ). 
+X X         
+(03)  Explain why lift is less than weight. X X         
+(04)  Explain why thrust is less than drag. X X         
+081 08 01 04  Straight, steady glide           
+(01) X Describe the forces that act on an aeroplane in a 
+straight, steady glide. 
+X X         
+(02)  Name the forces parallel and perpendicular to 
+the direction of flight. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 784 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+— Apply the formula for forces parallel to 
+the direction of flight (D = W sin ). 
+— Apply the formula for forces 
+perpendicular to the direction of flight  
+(L = W cos ). 
+(03)  Describe the relationship between the glide 
+gradient and the lift–drag ratio, and calculate 
+glide range given:  
+— initial height; 
+— L–D ratio; 
+— glide speed and wind speed. 
+X X         
+(04)  Define VMD (speed for minimum drag) and 
+explain the relationship between α, VMD and the 
+best lift–drag ratio. 
+X X         
+(05)  Explain the effect of wind component on glide 
+angle, duration, and distance. 
+X X         
+(06)  Explain the effect of mass change on glide angle, 
+duration, and distance, given that the aeroplane 
+remains at either the same airspeed or at VMD. 
+X X         
+(07)  Explain the effect of configuration change on 
+glide angle and duration. 
+X X         
+(08)  Describe the relation between TAS, gradient of 
+descent, and rate of descent. 
+X X         
+(09)  Define VMP (speed for minimum power) and 
+describe that the minimum rate of descent in the 
+glide will be at VMP, and explain the relationship 
+of this speed to the optimum speed for minimum 
+glide angle. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 785 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+(10)   Discuss when a pilot could elect to fly for 
+minimum glide rate of descent or minimum glide 
+angle, and why speed stability or 
+headwinds/tailwinds may favour a speed that is 
+faster or slower than the optimum airspeed in 
+still air. 
+X X         
+081 08 01 05  Steady, coordinated turn           
+(01)  Describe the forces that act on an aeroplane in a 
+steady, coordinated turn. 
+X X         
+(02)  Resolve the forces that act horizontally and 
+vertically during a coordinated turn 
+(tan
+gR
+V2
+= ). 
+X X         
+(03)  Describe the difference between a coordinated 
+and an uncoordinated turn, and describe how to 
+correct an uncoordinated turn using turn and slip 
+indicator or turn coordinator. 
+X X         
+(04)  Explain why the angle of bank is independent of 
+mass, and that it only depends on TAS and radius 
+of turn. 
+X X         
+(05)  Resolve the forces to show that for a given angle 
+of bank the radius of turn is determined solely by 
+airspeed (tan
+gR
+V2
+= ). 
+X X         
+(06)  Calculate the turn radius of a steady turn given 
+TAS and angle of bank. 
+X X         
+(07)  Explain the effects of bank angle on: 
+− load factor (LF = 1/cos
+ ); 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 786 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+− α; 
+− thrust; 
+− drag. 
+(08) X Define ‘angular velocity’. X X         
+(09) X Define ‘rate of turn’ and ‘rate-1 turn’. X X         
+(10)  Explain the influence of TAS on rate of turn at a 
+given bank angle. 
+X X         
+(11)   Calculate the load factor and stall speed in a turn 
+given angle of bank and 1g stall speed. 
+X X         
+(12)  Explain situations in which turn radius is relevant 
+for safety, such as maximum speed limits on 
+departure or arrival plates, or outbound speed 
+categories on approach plates, and the 
+implications/hazards of exceeding given speeds. 
+X X         
+(13)   Describe the hazards of excessive use of rudder 
+to increase the rate of turn in a swept-wing 
+aeroplane.  
+X X         
+081 08 02 00  Asymmetric thrust           
+081 08 02 01  Jet-engined and propeller-driven aeroplanes           
+(01)  Describe the effects on the aeroplane of 
+asymmetric thrust during flight, for both 
+jet-engined and propeller-driven aeroplanes. 
+X X         
+(02)  Explain critical engine, and explain, for a 
+propeller-driven aeroplane, the effect of the 
+direction of propeller rotation. 
+X X         
+(03) X Explain the effect of steady, asymmetric flight on 
+a conventional (ball) slip indicator/turn indicator. 
+X X         
+(04)  Explain the effect of a crosswind on asymmetric 
+flight. 
+X X         
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 787 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+081 08 02 02  Balanced moments about the normal axis           
+(01)  Explain the yaw moments about the CG. X X         
+(02)  Explain the change to the yaw moment caused 
+by the effect of air density on thrust. 
+X X         
+(03)  Describe the changes to the yaw moment caused 
+by engine distance from CG. 
+X X         
+(04)  Describe the methods to achieve directional 
+balance following engine loss. 
+X X         
+081 08 02 03  Forces parallel to the lateral axis           
+(01)  Explain: 
+— the force on the vertical fin; 
+— the fuselage side force due to sideslip 
+(using wing-level method); 
+— the use of bank angle to tilt the lift vector 
+(in wing-down method). 
+X X         
+(02)  Explain the flight hazards at VMC: 
+— α; 
+— side slip; 
+— loads on the fin; 
+— α on the fin. 
+X X         
+(03)  Explain the effect on fin α due to sideslip. X X         
+081 08 02 04  Influence of aeroplane mass           
+(01)  Explain why controllability with  
+one-engine-inoperative is a typical problem 
+arising from the low speeds associated with low 
+aeroplane mass. 
+X X         
+081 08 02 05  Intentionally left blank           
+
+
+ 
+Easy Access Rules for Aircrew (Regulation (EU) 
+No 1178/2011) 
+ANNEX I (Part-FCL) 
+SUBPART D – COMMERCIAL PILOT LICENCE – CPL 
+ 
+Powered by EASA eRules Page 788 of 1885| Feb 2022 
+ 
+Syllabus 
+reference BK Syllabus details and associated Learning 
+Objectives 
+Aeroplane Helicopter IR CB-IR(A)  BIR 
+Exam 
+BIR 
+BK Remarks ATPL CPL ATPL/IR ATPL CPL 
+081 08 02 06  Intentionally left blank           
+081 08 02 07  Intentionally left blank           
+081 08 02 08  Minimum control speed (VMC)           
+(01)  Define ‘VMC’. X X         
+(02)  Describe how VMC is determined. X X         
+(03)  Explain the influence of the CG location.  X X         
+081 08 02 09  Minimum control speed during approach and 
+landing (VMCL) 
+          
+(01)  Define ‘VMCL’. X X         
+(02)  Describe how VMCL is determined. X X         
+(03)  Explain the influence of the CG location. X X         
+081 08 02 10  Minimum control speed on the ground (VMCG)           
+(01)  Define ‘VMCG’. X X         
+(02)  Describe how VMCG is determined.  X X         
+(03)  Explain the influence of the CG location. X X         
+081 08 02 11  Influence of density           
+(01)  Describe the influence of density on thrust 
+during asymmetric flight. 
+X X         
+(02)  Explain why VMC, VMCL and VMCG reduce with a 
+reduction in thrust. 
+X X         
+081 08 03 00  Significant points on a polar curve           
+081 08 03 01  Identify and explain           
+(01)  Identify and explain the significant points on a 
+polar curve.  
+X X         

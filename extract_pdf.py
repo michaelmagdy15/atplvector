@@ -36,7 +36,18 @@ def extract_text_from_pdf(pdf_path):
 if __name__ == "__main__":
     # Use command line argument if provided, otherwise check for the specific file in directory
     if len(sys.argv) > 1:
-        pdf_file = sys.argv[1]
+        arg_file = sys.argv[1]
+        if os.path.exists(arg_file):
+            pdf_file = arg_file
+        else:
+            # Try to find a file starting with this argument
+            found_files = [f for f in os.listdir('.') if f.startswith(arg_file) and f.endswith('.pdf')]
+            if found_files:
+                pdf_file = found_files[0]
+                print(f"Match found: {pdf_file}")
+            else:
+                print(f"Error: File '{arg_file}' not found and no match found.")
+                sys.exit(1)
     else:
         # Default detected in your directory
         default_file = "040_Easy-Access-Rules-for-Aircrew-Regulation-EU-No-1178_2011-—-Revision-from-February-2022.pdf"
