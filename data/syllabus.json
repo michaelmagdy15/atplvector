@@ -1,0 +1,2226 @@
+[
+  {
+    "code": "040 00 00 00",
+    "title": "HUMAN PERFORMANCE AND LIMITATIONS",
+    "children": [
+      {
+        "code": "040 01 00 00",
+        "title": "HUMAN FACTORS: BASIC CONCEPTS",
+        "children": [
+          {
+            "code": "040 01 01 00",
+            "title": "Human factors in aviation",
+            "children": [
+              {
+                "code": "040 01 01 01",
+                "title": "Becoming a competent pilot",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that competence is based on knowledge, skills and attitudes of the individual pilot, and list the ICAO eight core competencies: \u2014 application of procedures; \u2014 communication; \u2014 aircraft flight path management, automation; \u2014 aircraft flight path management, manual control; \u2014 leadership and teamwork; \u2014 problem-solving and decision-making; \u2014 situation awareness; \u2014 workload management.",
+                    "details": "State that competence is based on knowledge, skills"
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "040 01 02 00",
+            "title": "Intentionally left blank",
+            "children": [],
+            "los": []
+          },
+          {
+            "code": "040 01 03 00",
+            "title": "Flight safety concepts",
+            "children": [
+              {
+                "code": "040 01 03 01",
+                "title": "Threat and error management (TEM) model and",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain the three components of the TEM model. X X X X X X X",
+                    "details": "Explain the three components of the TEM model. X X X X X X X"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Explain and give examples of latent threats. X X X X X X X 1",
+                    "details": "Explain and give examples of latent threats. X X X X X X X 1"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain and give examples of environmental threats.",
+                    "details": "Explain and give examples of environmental"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain and give examples of organisational threats. X X X X X X X 1",
+                    "details": "Explain and give examples of organisational threats. X X X X X X X 1"
+                  },
+                  {
+                    "id": "05",
+                    "text": "Explain and give a definition of \u2018error\u2019 according to the TEM model of ICAO Doc 9683 (Part II, Chapter 2).",
+                    "details": "Explain and give a definition of \u2018error\u2019 according to"
+                  },
+                  {
+                    "id": "06",
+                    "text": "Give examples of different countermeasures which may be used in order to manage threats, errors, and undesired aircraft states.",
+                    "details": "Give examples of different countermeasures which"
+                  },
+                  {
+                    "id": "07",
+                    "text": "Explain and give examples of procedural error, communication errors, and aircraft handling errors.",
+                    "details": "Explain and give examples of procedural error,"
+                  },
+                  {
+                    "id": "08",
+                    "text": "Explain and give examples of \u2018undesired aircraft states\u2019.",
+                    "details": "Explain and give examples of \u2018undesired aircraft"
+                  },
+                  {
+                    "id": "09",
+                    "text": "State the components of the SHELL model. X X X X X X",
+                    "details": "State the components of the SHELL model. X X X X X X"
+                  },
+                  {
+                    "id": "10",
+                    "text": "State the relevance of the SHELL model to the work in the cockpit.",
+                    "details": "State the relevance of the SHELL model to the work"
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "040 01 04 00",
+            "title": "Safety culture",
+            "children": [
+              {
+                "code": "040 01 04 01",
+                "title": "Safety culture and safety management",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Distinguish between \u2018open cultures\u2019 and \u2018closed cultures\u2019.",
+                    "details": "Distinguish between \u2018open cultures\u2019 and \u2018closed"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Illustrate how safety culture is reflected in national culture.",
+                    "details": "Illustrate how safety culture is reflected in national"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Discuss the established expression \u2018safety first\u2019 in a commercial entity.",
+                    "details": "Discuss the established expression \u2018safety first\u2019 in a"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain James Reason\u2019s \u2018Swiss Cheese Model\u2019. X X X X X X X 1",
+                    "details": "Explain James Reason\u2019s \u2018Swiss Cheese Model\u2019. X X X X X X X 1"
+                  },
+                  {
+                    "id": "05",
+                    "text": "State the important factors that promote a good safety culture.",
+                    "details": "State the important factors that promote a good"
+                  },
+                  {
+                    "id": "06",
+                    "text": "Distinguish between \u2018just culture\u2019 and \u2018non-punitive culture\u2019.",
+                    "details": "Distinguish between \u2018just culture\u2019 and \u2018non-punitive"
+                  },
+                  {
+                    "id": "07",
+                    "text": "Name the five components which form safety culture (according to James Reason: informed culture, reporting culture, learning culture, just culture, flexible culture).",
+                    "details": "Name the five components which form safety"
+                  },
+                  {
+                    "id": "08",
+                    "text": "Name the basic concepts of safety management system (SMS) (including hazard identification and risk management) and its relationship with safety culture in order to: \u2014 define how the organisation is set up to manage risks; \u2014 identify workplace risk and implement suitable controls; \u2014 implement effective communication across all levels of the organisation.",
+                    "details": "Name the basic concepts of safety management"
+                  }
+                ]
+              }
+            ],
+            "los": []
+          }
+        ],
+        "los": []
+      },
+      {
+        "code": "040 02 00 00",
+        "title": "BASICS OF AVIATION PHYSIOLOGY AND HEALTH",
+        "children": [
+          {
+            "code": "040 02 01 00",
+            "title": "Basics of flight physiology",
+            "children": [
+              {
+                "code": "040 02 01 01",
+                "title": "The atmosphere",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that the volume percentage of the gases in ambient air will remain constant at all altitudes at which conventional aircraft operate.",
+                    "details": "State that the volume percentage of the gases in"
+                  }
+                ]
+              },
+              {
+                "code": "040 02 01 02",
+                "title": "Respiratory and circulatory system",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "List the main components of the respiratory system and their function.",
+                    "details": "List the main components of the respiratory system"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Identify the different volumes of air in the lungs and state the normal respiratory rate.",
+                    "details": "Identify the different volumes of air in the lungs and"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain the role of carbon dioxide in the control and regulation of respiration.",
+                    "details": "Explain the role of carbon dioxide in the control and"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Describe the basic processes of external respiration and internal respiration.",
+                    "details": "Describe the basic processes of external respiration"
+                  },
+                  {
+                    "id": "05",
+                    "text": "List the factors that determine pulse rate. X X X X X X",
+                    "details": "List the factors that determine pulse rate. X X X X X X"
+                  },
+                  {
+                    "id": "06",
+                    "text": "Name the major components of the circulatory system and describe their function.",
+                    "details": "Name the major components of the circulatory"
+                  },
+                  {
+                    "id": "07",
+                    "text": "State the values for a normal pulse rate and the average cardiac output (heart rate \u00d7 stroke volume) of an adult at rest.",
+                    "details": "State the values for a normal pulse rate and the"
+                  },
+                  {
+                    "id": "08",
+                    "text": "Define \u2018systolic\u2019 and \u2018diastolic\u2019 blood pressure. X X X X X X",
+                    "details": "Define \u2018systolic\u2019 and \u2018diastolic\u2019 blood pressure. X X X X X X"
+                  },
+                  {
+                    "id": "09",
+                    "text": "State the normal blood pressure ranges and units of measurement.",
+                    "details": "State the normal blood pressure ranges and units of"
+                  },
+                  {
+                    "id": "10",
+                    "text": "List the main constituents of blood and describe their functions.",
+                    "details": "List the main constituents of blood and describe"
+                  },
+                  {
+                    "id": "11",
+                    "text": "Stress the function of haemoglobin in the circulatory system.",
+                    "details": "Stress the function of haemoglobin in the"
+                  },
+                  {
+                    "id": "12",
+                    "text": "Define \u2018anaemia\u2019 and state its common causes. X X X X X X",
+                    "details": "Define \u2018anaemia\u2019 and state its common causes. X X X X X X"
+                  },
+                  {
+                    "id": "13",
+                    "text": "Indicate the effect of increasing altitude on haemoglobin oxygen saturation. Hypertension and hypotension",
+                    "details": "Indicate the effect of increasing altitude on"
+                  },
+                  {
+                    "id": "14",
+                    "text": "Define \u2018hypertension\u2019 and \u2018hypotension\u2019. X X X X X X",
+                    "details": "Define \u2018hypertension\u2019 and \u2018hypotension\u2019. X X X X X X"
+                  },
+                  {
+                    "id": "15",
+                    "text": "List the effects that high and low blood pressure will have on some normal functions of the human body.",
+                    "details": "List the effects that high and low blood pressure will"
+                  },
+                  {
+                    "id": "16",
+                    "text": "State that both hypotension and hypertension may disqualify a pilot from obtaining medical clearance to fly.",
+                    "details": "State that both hypotension and hypertension may"
+                  },
+                  {
+                    "id": "17",
+                    "text": "List the factors which can lead to hypertension for an individual.",
+                    "details": "List the factors which can lead to hypertension for"
+                  },
+                  {
+                    "id": "18",
+                    "text": "State the corrective actions that may be taken to reduce high blood pressure.",
+                    "details": "State the corrective actions that may be taken to"
+                  },
+                  {
+                    "id": "19",
+                    "text": "Stress that hypertension is the major factor of strokes in the general population. Coronary artery disease",
+                    "details": "Stress that hypertension is the major factor of"
+                  },
+                  {
+                    "id": "20",
+                    "text": "Differentiate between \u2018angina\u2019 and \u2018heart attack\u2019. X X X X X X",
+                    "details": "Differentiate between \u2018angina\u2019 and \u2018heart attack\u2019. X X X X X X"
+                  },
+                  {
+                    "id": "21",
+                    "text": "Explain the major risk factors for coronary disease. X X X X X X",
+                    "details": "Explain the major risk factors for coronary disease. X X X X X X"
+                  },
+                  {
+                    "id": "22",
+                    "text": "State the role physical exercise plays in reducing the chances of developing coronary disease. Hypoxia",
+                    "details": "State the role physical exercise plays in reducing the"
+                  },
+                  {
+                    "id": "23",
+                    "text": "Define the two major forms of hypoxia (hypoxic and anaemic), and the common causes of both.",
+                    "details": "Define the two major forms of hypoxia (hypoxic and"
+                  },
+                  {
+                    "id": "24",
+                    "text": "State the symptoms of hypoxia. X X X X X X   1",
+                    "details": "State the symptoms of hypoxia. X X X X X X   1"
+                  },
+                  {
+                    "id": "25",
+                    "text": "State that healthy people are able to compensate for altitudes up to approximately 10 000\u201312 000 ft.",
+                    "details": "State that healthy people are able to compensate"
+                  },
+                  {
+                    "id": "26",
+                    "text": "Name the three physiological thresholds and allocate the corresponding altitudes for each of them: \u2014 reaction threshold (7 000 ft); \u2014 disturbance threshold (10\u201312 000 ft); and \u2014 critical threshold (22 000 ft).",
+                    "details": "Name the three physiological thresholds and"
+                  },
+                  {
+                    "id": "27",
+                    "text": "State the altitude at which short-term memory begins to be affected by hypoxia.",
+                    "details": "State the altitude at which short-term memory"
+                  },
+                  {
+                    "id": "28",
+                    "text": "Define the terms \u2018time of useful consciousness\u2019 (TUC) and \u2018effective performance time\u2019 (EPT).",
+                    "details": "Define the terms \u2018time of useful consciousness\u2019"
+                  },
+                  {
+                    "id": "29",
+                    "text": "State that TUC varies among individuals, but the approximate values for a person seated (at rest) are: \u2014 20 000 ft  30 min \u2014 30 000 ft  1\u20132 min \u2014 35 000 ft  30\u201390 s \u2014 40 000 ft  15\u201320 s",
+                    "details": "State that TUC varies among individuals, but the"
+                  },
+                  {
+                    "id": "30",
+                    "text": "List the factors that determine the severity of hypoxia.",
+                    "details": "List the factors that determine the severity of"
+                  },
+                  {
+                    "id": "31",
+                    "text": "State the equivalent altitudes when breathing ambient air and 100 % oxygen at mean sea level (MSL) and at approximately 10 000, 30 000 and 40 000 ft. Hyperventilation",
+                    "details": "State the equivalent altitudes when breathing"
+                  },
+                  {
+                    "id": "32",
+                    "text": "Describe the role of carbon dioxide in hyperventilation.",
+                    "details": "Describe the role of carbon dioxide in"
+                  },
+                  {
+                    "id": "33",
+                    "text": "Define the term \u2018hyperventilation\u2019. X X X X X X",
+                    "details": "Define the term \u2018hyperventilation\u2019. X X X X X X"
+                  },
+                  {
+                    "id": "34",
+                    "text": "List the factors that cause hyperventilation. X X X X X X",
+                    "details": "List the factors that cause hyperventilation. X X X X X X"
+                  },
+                  {
+                    "id": "35",
+                    "text": "State that hyperventilation may be caused by psychological or physiological reasons.",
+                    "details": "State that hyperventilation may be caused by"
+                  },
+                  {
+                    "id": "36",
+                    "text": "List the signs and symptoms of hyperventilation. X X X X X X",
+                    "details": "List the signs and symptoms of hyperventilation. X X X X X X"
+                  },
+                  {
+                    "id": "37",
+                    "text": "List the measures which may be taken to counteract hyperventilation: breath slowly, close one opening of the nose, speak loudly, place a paper bag over nose and mouth. Decompression sickness/illness",
+                    "details": "List the measures which may be taken to"
+                  },
+                  {
+                    "id": "38",
+                    "text": "State the normal range of cabin pressure altitude in pressurised commercial air transport aircraft and describe its protective function for aircrew and passengers.",
+                    "details": "State the normal range of cabin pressure altitude in"
+                  },
+                  {
+                    "id": "39",
+                    "text": "List the vital actions the crew has to perform when cabin pressurisation is lost (oxygen mask on, emergency descent, land as soon as possible, and no further flight for the next minimum 24 hours). State that decompression sickness symptoms can occur up to 24 hours later.",
+                    "details": "List the vital actions the crew has to perform when"
+                  },
+                  {
+                    "id": "40",
+                    "text": "Identify the causes of decompression sickness in flight operation.",
+                    "details": "Identify the causes of decompression sickness in"
+                  },
+                  {
+                    "id": "41",
+                    "text": "State how decompression sickness can be prevented.",
+                    "details": "State how decompression sickness can be"
+                  },
+                  {
+                    "id": "42",
+                    "text": "List the symptoms of decompression sickness (bends, creeps, chokes, staggers).",
+                    "details": "List the symptoms of decompression sickness"
+                  },
+                  {
+                    "id": "43",
+                    "text": "Indicate how decompression sickness may be treated.",
+                    "details": "Indicate how decompression sickness may be"
+                  },
+                  {
+                    "id": "44",
+                    "text": "Define the hazards of diving and flying, and give the recommendations associated with these activities. Acceleration",
+                    "details": "Define the hazards of diving and flying, and give the"
+                  },
+                  {
+                    "id": "45",
+                    "text": "Define \u2018linear acceleration\u2019 and \u2018angular acceleration\u2019.",
+                    "details": "Define \u2018linear acceleration\u2019 and \u2018angular"
+                  },
+                  {
+                    "id": "46",
+                    "text": "Describe the effects of z-acceleration on the circulation and blood volume distribution.",
+                    "details": "Describe the effects of z-acceleration on the"
+                  },
+                  {
+                    "id": "47",
+                    "text": "List magnitude, duration and onset as factors that determine the effects of acceleration on the human body.",
+                    "details": "List magnitude, duration and onset as factors that"
+                  },
+                  {
+                    "id": "48",
+                    "text": "List the effects of positive acceleration with respect to type, sequence and corresponding G-load. Carbon monoxide",
+                    "details": "List the effects of positive acceleration with respect"
+                  },
+                  {
+                    "id": "49",
+                    "text": "State how carbon monoxide is produced. X X X X X X  1",
+                    "details": "State how carbon monoxide is produced. X X X X X X  1"
+                  },
+                  {
+                    "id": "50",
+                    "text": "State how the presence of carbon monoxide in the blood affects the distribution of oxygen.",
+                    "details": "State how the presence of carbon monoxide in the"
+                  },
+                  {
+                    "id": "51",
+                    "text": "List the signs and symptoms of carbon-monoxide poisoning.",
+                    "details": "List the signs and symptoms of carbon-monoxide"
+                  },
+                  {
+                    "id": "52",
+                    "text": "Explain immediate countermeasures on suspicion of carbon-monoxide poisoning and how poisoning can be treated later on the ground.",
+                    "details": "Explain immediate countermeasures on suspicion of"
+                  }
+                ]
+              },
+              {
+                "code": "040 02 01 03",
+                "title": "High-altitude environment",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State how an increase in altitude may change the proportion of ozone in the atmosphere and that aircraft can be equipped with special ozone removers. X Radiation",
+                    "details": "State how an increase in altitude may change the"
+                  },
+                  {
+                    "id": "02",
+                    "text": "State the sources of radiation at high altitude. X",
+                    "details": "State the sources of radiation at high altitude. X"
+                  },
+                  {
+                    "id": "03",
+                    "text": "List the effects of excessive exposure to radiation. X Humidity",
+                    "details": "List the effects of excessive exposure to radiation. X"
+                  },
+                  {
+                    "id": "04",
+                    "text": "List the factors that affect the relative humidity of both the atmosphere and cabin air. X",
+                    "details": "List the factors that affect the relative humidity of"
+                  },
+                  {
+                    "id": "05",
+                    "text": "List the effects of low humidity on human body to be spurious thirst, dry eyes, skin and mucous membranes, and indicate measures that can be taken: drinking water, using eye drops and aqueous creams. X",
+                    "details": "List the effects of low humidity on human body to"
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "040 02 02 00",
+            "title": "People and the environment: the sensory system",
+            "children": [
+              {
+                "code": "040 02 02 01",
+                "title": "The different senses",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "List the different senses. X X X X X X X  1",
+                    "details": "List the different senses. X X X X X X X  1"
+                  }
+                ]
+              },
+              {
+                "code": "040 02 02 02",
+                "title": "Central, peripheral and autonomic nervous system",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Define the term \u2018sensory threshold\u2019. X X X X X X",
+                    "details": "Define the term \u2018sensory threshold\u2019. X X X X X X"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Define the term \u2018sensitivity\u2019, especially in the context of vision.",
+                    "details": "Define the term \u2018sensitivity\u2019, especially in the"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Give examples of sensory adaptation. X X X X X X",
+                    "details": "Give examples of sensory adaptation. X X X X X X"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Define the term \u2018habituation\u2019 and state its implication for flight safety.",
+                    "details": "Define the term \u2018habituation\u2019 and state its"
+                  }
+                ]
+              },
+              {
+                "code": "040 02 02 03",
+                "title": "Vision",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Name the most important parts of the eye and the pathway to the visual cortex.",
+                    "details": "Name the most important parts of the eye and the"
+                  },
+                  {
+                    "id": "02",
+                    "text": "State the basic functions of the parts of the eye. X X X X X X  1",
+                    "details": "State the basic functions of the parts of the eye. X X X X X X  1"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Define \u2018accommodation\u2019. X X X X X X",
+                    "details": "Define \u2018accommodation\u2019. X X X X X X"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Distinguish between the functions of the rod and cone cells.",
+                    "details": "Distinguish between the functions of the rod and"
+                  },
+                  {
+                    "id": "05",
+                    "text": "Describe the distribution of rod and cone cells in the retina and explain their relevance to vision. The fovea (fovea centralis) and peripheral vision",
+                    "details": "Describe the distribution of rod and cone cells in"
+                  },
+                  {
+                    "id": "06",
+                    "text": "Explain the terms \u2018visual acuity\u2019, \u2018visual field\u2019, \u2018central vision\u2019, \u2018peripheral vision\u2019 and \u2018the fovea\u2019, and explain their function in the process of vision.",
+                    "details": "Explain the terms \u2018visual acuity\u2019, \u2018visual field\u2019,"
+                  },
+                  {
+                    "id": "07",
+                    "text": "List the factors that may degrade visual acuity and the importance of \u2018lookout\u2019.",
+                    "details": "List the factors that may degrade visual acuity and"
+                  },
+                  {
+                    "id": "08",
+                    "text": "State the limitations of night vision and the different scanning techniques at both night and day.",
+                    "details": "State the limitations of night vision and the"
+                  },
+                  {
+                    "id": "09",
+                    "text": "State the time necessary for the eye to adapt both to bright light and the dark.",
+                    "details": "State the time necessary for the eye to adapt both"
+                  },
+                  {
+                    "id": "10",
+                    "text": "State the effect of hypoxia, smoking and altitude in excess of 5 000 ft on night vision.",
+                    "details": "State the effect of hypoxia, smoking and altitude in"
+                  },
+                  {
+                    "id": "11",
+                    "text": "Explain the nature of colour blindness.  X X X X X X Binocular and monocular vision",
+                    "details": "Explain the nature of colour blindness.  X X X X X X"
+                  },
+                  {
+                    "id": "12",
+                    "text": "Distinguish between monocular and binocular vision.",
+                    "details": "Distinguish between monocular and binocular"
+                  },
+                  {
+                    "id": "13",
+                    "text": "Explain the basis of depth perception and its relevance to flight performance.",
+                    "details": "Explain the basis of depth perception and its"
+                  },
+                  {
+                    "id": "14",
+                    "text": "List the possible monocular cues for depth perception.",
+                    "details": "List the possible monocular cues for depth"
+                  },
+                  {
+                    "id": "15",
+                    "text": "State that for high-energy blue light and UV rays, sunglasses can prevent damage to the retina. Defective vision",
+                    "details": "State that for high-energy blue light and UV rays,"
+                  },
+                  {
+                    "id": "16",
+                    "text": "Explain long-sightedness, short-sightedness and astigmatism.",
+                    "details": "Explain long-sightedness, short-sightedness and"
+                  },
+                  {
+                    "id": "17",
+                    "text": "List the causes of and the precautions that may be taken to reduce the probability of vision loss due to: \u2014 presbyopia; \u2014 cataract; \u2014 glaucoma.",
+                    "details": "List the causes of and the precautions that may be"
+                  },
+                  {
+                    "id": "18",
+                    "text": "List the types of sunglasses that could cause perceptional problems in flight.",
+                    "details": "List the types of sunglasses that could cause"
+                  },
+                  {
+                    "id": "19",
+                    "text": "List the measures that may be taken to protect oneself from flash blindness.",
+                    "details": "List the measures that may be taken to protect"
+                  },
+                  {
+                    "id": "20",
+                    "text": "State the possible problems associated with contact lenses.",
+                    "details": "State the possible problems associated with contact"
+                  },
+                  {
+                    "id": "21",
+                    "text": "State the current rules/regulations governing the wearing of corrective spectacles and contact lenses when operating as a pilot.",
+                    "details": "State the current rules/regulations governing the"
+                  },
+                  {
+                    "id": "22",
+                    "text": "Explain the significance of the \u2018blind spot\u2019 on the retina in detecting other traffic in flight.",
+                    "details": "Explain the significance of the \u2018blind spot\u2019 on the"
+                  }
+                ]
+              },
+              {
+                "code": "040 02 02 04",
+                "title": "Hearing",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State the basic parts and functions of the outer, the middle and the inner ear.",
+                    "details": "State the basic parts and functions of the outer, the"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Differentiate between the functions of the vestibular apparatus and the cochlea in the inner ear. Hearing loss",
+                    "details": "Differentiate between the functions of the"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Define the main causes of the following hearing defects/loss: \u2014 \u2018conductive deafness\u2019; \u2014 \u2018noise-induced hearing loss\u2019 (NIHL); \u2014 \u2018presbycusis\u2019.",
+                    "details": "Define the main causes of the following hearing"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Summarise the effects of environmental noise on hearing.",
+                    "details": "Summarise the effects of environmental noise on"
+                  },
+                  {
+                    "id": "05",
+                    "text": "State the decibel level of received noise that will cause NIHL.",
+                    "details": "State the decibel level of received noise that will"
+                  },
+                  {
+                    "id": "06",
+                    "text": "Identify the potential occupational risks that may cause hearing loss.",
+                    "details": "Identify the potential occupational risks that may"
+                  },
+                  {
+                    "id": "07",
+                    "text": "List the main sources of hearing loss in the flying environment.",
+                    "details": "List the main sources of hearing loss in the flying"
+                  },
+                  {
+                    "id": "08",
+                    "text": "List the precautions that may be taken to reduce the probability of onset of hearing loss.",
+                    "details": "List the precautions that may be taken to reduce"
+                  }
+                ]
+              },
+              {
+                "code": "040 02 02 05",
+                "title": "Equilibrium",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "List the main elements of the vestibular apparatus. X X X X X X  1",
+                    "details": "List the main elements of the vestibular apparatus. X X X X X X  1"
+                  },
+                  {
+                    "id": "02",
+                    "text": "State the functions of the vestibular apparatus on the ground and in flight.",
+                    "details": "State the functions of the vestibular apparatus on"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Distinguish between the component parts of the vestibular apparatus in the detection of linear and angular acceleration as well as on gravity.",
+                    "details": "Distinguish between the component parts of the"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain how the semicircular canals are stimulated. X X X X X X   1 Motion sickness",
+                    "details": "Explain how the semicircular canals are stimulated. X X X X X X   1"
+                  },
+                  {
+                    "id": "05",
+                    "text": "Describe air sickness and its accompanying symptoms.",
+                    "details": "Describe air sickness and its accompanying"
+                  },
+                  {
+                    "id": "06",
+                    "text": "List the causes of air sickness. X X X X X X X 1",
+                    "details": "List the causes of air sickness. X X X X X X X 1"
+                  },
+                  {
+                    "id": "07",
+                    "text": "Describe the necessary actions to be taken to counteract the symptoms of air sickness.",
+                    "details": "Describe the necessary actions to be taken to"
+                  }
+                ]
+              },
+              {
+                "code": "040 02 02 06",
+                "title": "Integration of sensory inputs",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State the interaction between vision, equilibrium, proprioception and hearing to obtain spatial orientation in flight.",
+                    "details": "State the interaction between vision, equilibrium,"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Define the term \u2018illusion\u2019. X X X X X X X 1",
+                    "details": "Define the term \u2018illusion\u2019. X X X X X X X 1"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Give examples of visual illusions based on shape constancy, size constancy, aerial perspective, atmospheric perspective, the absence of focal or ambient cues, autokinesis, vectional false horizons, field myopia, and surface planes.",
+                    "details": "Give examples of visual illusions based on shape"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Relate these illusions to problems that may be experienced in flight and identify the danger attached to them.",
+                    "details": "Relate these illusions to problems that may be"
+                  },
+                  {
+                    "id": "05",
+                    "text": "List approach and landing illusions for slope of the runway, black-hole approach, and terrain around runway, and state the danger involved with recommendations to avoid or counteract the problems with high or low approach or flare at the wrong time.",
+                    "details": "List approach and landing illusions for slope of the"
+                  },
+                  {
+                    "id": "06",
+                    "text": "State the problems associated with flickering lights (strobe lights, anti-collision lights, propellers and rotors under certain light conditions, etc.).",
+                    "details": "State the problems associated with flickering lights"
+                  },
+                  {
+                    "id": "07",
+                    "text": "Describe vestibular illusions caused by the angular accelerations (the Leans, Coriolis) and linear accelerations (somatogravic, G-effect).",
+                    "details": "Describe vestibular illusions caused by the angular"
+                  },
+                  {
+                    "id": "08",
+                    "text": "Relate the above-mentioned vestibular illusions to problems encountered in flight and state the dangers involved.",
+                    "details": "Relate the above-mentioned vestibular illusions to"
+                  },
+                  {
+                    "id": "09",
+                    "text": "State that the \u2018seat-of-the-pants\u2019 sense is completely unreliable when visual contact with the ground is lost or when flying in instrument meteorological conditions (IMC) or with a poor visual horizon.",
+                    "details": "State that the \u2018seat-of-the-pants\u2019 sense is"
+                  },
+                  {
+                    "id": "10",
+                    "text": "Differentiate between vertigo, Coriolis effect, and spatial disorientation.",
+                    "details": "Differentiate between vertigo, Coriolis effect, and"
+                  },
+                  {
+                    "id": "11",
+                    "text": "List the measures to prevent or overcome spatial disorientation.",
+                    "details": "List the measures to prevent or overcome spatial"
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "040 02 03 00",
+            "title": "Health and hygiene",
+            "children": [
+              {
+                "code": "040 02 03 01",
+                "title": "Intentionally left blank",
+                "children": [],
+                "los": []
+              },
+              {
+                "code": "040 02 03 02",
+                "title": "Body rhythm and sleep",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Name some internal body rhythms and their relevance to sleep. Explain that the most important of which is body temperature.",
+                    "details": "Name some internal body rhythms and their"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Explain the term \u2018circadian rhythm\u2019.  X X X X X",
+                    "details": "Explain the term \u2018circadian rhythm\u2019.  X X X X X"
+                  },
+                  {
+                    "id": "03",
+                    "text": "State the approximate duration of a \u2018free-running\u2019 rhythm.",
+                    "details": "State the approximate duration of a \u2018free-running\u2019"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain the significance of the \u2018internal clock\u2019 in regulating the normal circadian rhythm.",
+                    "details": "Explain the significance of the \u2018internal clock\u2019 in"
+                  },
+                  {
+                    "id": "05",
+                    "text": "State the effect of the circadian rhythm of body temperature on an individual\u2019s performance standard and on an individual\u2019s sleep patterns.",
+                    "details": "State the effect of the circadian rhythm of body"
+                  },
+                  {
+                    "id": "06",
+                    "text": "List and describe the stages of a sleep cycle. X X X X X",
+                    "details": "List and describe the stages of a sleep cycle. X X X X X"
+                  },
+                  {
+                    "id": "07",
+                    "text": "Differentiate between rapid eye movement (REM) and non-REM sleep.",
+                    "details": "Differentiate between rapid eye movement (REM)"
+                  },
+                  {
+                    "id": "08",
+                    "text": "Explain the function of sleep and describe the effects of insufficient sleep on performance.",
+                    "details": "Explain the function of sleep and describe the"
+                  },
+                  {
+                    "id": "09",
+                    "text": "Explain the simple calculations for the sleep/wake credit/debit situation.",
+                    "details": "Explain the simple calculations for the sleep/wake"
+                  },
+                  {
+                    "id": "10",
+                    "text": "Explain how sleep debit can become cumulative. X X X X X",
+                    "details": "Explain how sleep debit can become cumulative. X X X X X"
+                  },
+                  {
+                    "id": "11",
+                    "text": "State the time formula for the adjustment of body rhythms to the new local time scale after crossing time zones.",
+                    "details": "State the time formula for the adjustment of body"
+                  },
+                  {
+                    "id": "12",
+                    "text": "State the problems caused by circadian disrhythmia (jet lag) with regard to an individual\u2019s performance and sleep.",
+                    "details": "State the problems caused by circadian disrhythmia"
+                  },
+                  {
+                    "id": "13",
+                    "text": "Differentiate between the effects of westbound and eastbound travel.",
+                    "details": "Differentiate between the effects of westbound and"
+                  },
+                  {
+                    "id": "14",
+                    "text": "Explain the interactive effects of circadian rhythm and vigilance on a pilot\u2019s performance during flight as the duty day elapses.",
+                    "details": "Explain the interactive effects of circadian rhythm"
+                  },
+                  {
+                    "id": "15",
+                    "text": "Describe the main effects of lack of sleep on an individual\u2019s performance.",
+                    "details": "Describe the main effects of lack of sleep on an"
+                  },
+                  {
+                    "id": "16",
+                    "text": "List the possible strategies to cope with jet lag. X X X X X",
+                    "details": "List the possible strategies to cope with jet lag. X X X X X"
+                  }
+                ]
+              },
+              {
+                "code": "040 02 03 03",
+                "title": "Problem areas for pilots",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State the role of the Eustachian tube in equalising pressure between the middle ear and the environment.",
+                    "details": "State the role of the Eustachian tube in equalising"
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that the in-flight environment may increase the severity of symptoms which may be minor while on the ground.",
+                    "details": "State that the in-flight environment may increase"
+                  },
+                  {
+                    "id": "03",
+                    "text": "List the negative effects of suffering from colds or flu on flight operations especially with regard to the middle ear, the sinuses, and the teeth.",
+                    "details": "List the negative effects of suffering from colds or"
+                  },
+                  {
+                    "id": "04",
+                    "text": "State when a pilot should seek medical advice from an aeromedical examiner (AME) or aeromedical centre (AeMC).",
+                    "details": "State when a pilot should seek medical advice from"
+                  },
+                  {
+                    "id": "05",
+                    "text": "Describe the measures to prevent or clear problems due to pressure changes during flight. Entrapped gases and barotrauma",
+                    "details": "Describe the measures to prevent or clear problems"
+                  },
+                  {
+                    "id": "06",
+                    "text": "Define \u2018barotrauma\u2019. X X X X X X",
+                    "details": "Define \u2018barotrauma\u2019. X X X X X X"
+                  },
+                  {
+                    "id": "07",
+                    "text": "Differentiate between otic, sinus, gastrointestinal and aerodontalgia (of the teeth) barotraumas and explain avoidance strategies.",
+                    "details": "Differentiate between otic, sinus, gastrointestinal"
+                  },
+                  {
+                    "id": "08",
+                    "text": "Explain why the effects of otic barotrauma can be worse in the descent. Gastrointestinal upsets",
+                    "details": "Explain why the effects of otic barotrauma can be"
+                  },
+                  {
+                    "id": "09",
+                    "text": "State the effects of gastrointestinal upsets that may occur during flight.",
+                    "details": "State the effects of gastrointestinal upsets that may"
+                  },
+                  {
+                    "id": "10",
+                    "text": "List the precautions that should be observed to reduce the occurrence of gastrointestinal upsets.",
+                    "details": "List the precautions that should be observed to"
+                  },
+                  {
+                    "id": "11",
+                    "text": "Indicate the major sources of gastrointestinal upsets. Obesity",
+                    "details": "Indicate the major sources of gastrointestinal"
+                  },
+                  {
+                    "id": "12",
+                    "text": "Define \u2018obesity\u2019. X X X X X X",
+                    "details": "Define \u2018obesity\u2019. X X X X X X"
+                  },
+                  {
+                    "id": "13",
+                    "text": "State the following harmful effects obesity can cause: \u2014 possibility of developing coronary problems; \u2014 increased chances of developing diabetes; \u2014 reduced ability to withstand G-forces; \u2014 development of problems with the joints of the limbs; \u2014 general circulatory problems; \u2014 reduced ability to cope with hypoxia or decompression sickness; \u2014 sleep apnoea.",
+                    "details": "State the following harmful effects obesity can"
+                  },
+                  {
+                    "id": "14",
+                    "text": "Describe the problems associated with Type 2 (mostly adult) diabetes: \u2014 risk factors; \u2014 insulin resistance; \u2014 complications (vascular, neurological) and the consequences for the medical licence; \u2014 pilots are not protected from Type 2 diabetes more than other people.",
+                    "details": "Describe the problems associated with Type 2"
+                  },
+                  {
+                    "id": "15",
+                    "text": "Describe the typical back problems (unspecific back pain, slipped disc) that pilots have. Explain also the ways of preventing and treating these problems: \u2014 good sitting posture; \u2014 lumbar support; \u2014 good physical condition; \u2014 in-flight exercise, if possible; \u2014 physiotherapy. Food hygiene",
+                    "details": "Describe the typical back problems (unspecific back"
+                  },
+                  {
+                    "id": "16",
+                    "text": "Stress the importance of and methods to be adopted by aircrew, especially when travelling abroad, to avoid contaminated food and liquids.",
+                    "details": "Stress the importance of and methods to be"
+                  },
+                  {
+                    "id": "17",
+                    "text": "List the major contaminating sources in foodstuffs. X X X X X X",
+                    "details": "List the major contaminating sources in foodstuffs. X X X X X X"
+                  },
+                  {
+                    "id": "18",
+                    "text": "State the major constituents of a healthy diet. X X X X X X",
+                    "details": "State the major constituents of a healthy diet. X X X X X X"
+                  },
+                  {
+                    "id": "19",
+                    "text": "State the measure to avoid hypoglycaemia. X X X X X X",
+                    "details": "State the measure to avoid hypoglycaemia. X X X X X X"
+                  },
+                  {
+                    "id": "20",
+                    "text": "State the importance of adequate hydration. X X X X X X Tropical climates",
+                    "details": "State the importance of adequate hydration. X X X X X X"
+                  },
+                  {
+                    "id": "21",
+                    "text": "List the problems associated with operating in tropical climates.",
+                    "details": "List the problems associated with operating in"
+                  },
+                  {
+                    "id": "22",
+                    "text": "State the possible causes/sources of incapacitation in tropical countries with reference to: \u2014 standards of hygiene; \u2014 quality of water supply; \u2014 insect-borne diseases; \u2014 parasitic worms; \u2014 rabies or other diseases that may be spread through contact with animals; \u2014 sexually transmitted diseases.",
+                    "details": "State the possible causes/sources of incapacitation"
+                  },
+                  {
+                    "id": "23",
+                    "text": "State the precautions to be taken to reduce the risks of developing problems in tropical areas. Infectious diseases",
+                    "details": "State the precautions to be taken to reduce the"
+                  },
+                  {
+                    "id": "24",
+                    "text": "State the major infectious diseases that may severely incapacitate or kill individuals.",
+                    "details": "State the major infectious diseases that may"
+                  },
+                  {
+                    "id": "25",
+                    "text": "State the precautions that must be taken to ensure that disease-carrying insects are not transported between areas.",
+                    "details": "State the precautions that must be taken to ensure"
+                  }
+                ]
+              },
+              {
+                "code": "040 02 03 04",
+                "title": "Intoxication",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State the harmful effects of tobacco on: \u2014 the respiratory system; \u2014 the cardiovascular system; \u2014 the ability to resist hypoxia; \u2014 the ability to withstand G-forces; \u2014 night vision. Caffeine",
+                    "details": "State the harmful effects of tobacco on:"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Indicate the level of caffeine dosage at which performance is degraded.",
+                    "details": "Indicate the level of caffeine dosage at which"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Besides coffee, indicate other beverages containing caffeine. Alcohol",
+                    "details": "Besides coffee, indicate other beverages containing"
+                  },
+                  {
+                    "id": "04",
+                    "text": "State the maximum acceptable limit of alcohol for flight crew according to the applicable regulations.",
+                    "details": "State the maximum acceptable limit of alcohol for"
+                  },
+                  {
+                    "id": "05",
+                    "text": "State the effects of alcohol consumption on: \u2014 the ability to reason; \u2014 inhibitions and self-control; \u2014 vision; \u2014 the sense of balance and sensory illusions; \u2014 sleep patterns; \u2014 hypoxia.",
+                    "details": "State the effects of alcohol consumption on:"
+                  },
+                  {
+                    "id": "06",
+                    "text": "State the effects alcohol may have if consumed together with other drugs.",
+                    "details": "State the effects alcohol may have if consumed"
+                  },
+                  {
+                    "id": "07",
+                    "text": "List the signs and symptoms of alcoholism.  X X X X X X",
+                    "details": "List the signs and symptoms of alcoholism.  X X X X X X"
+                  },
+                  {
+                    "id": "08",
+                    "text": "List the factors that may be associated with the development of alcoholism.",
+                    "details": "List the factors that may be associated with the"
+                  },
+                  {
+                    "id": "09",
+                    "text": "Define the \u2018unit\u2019 of alcohol and state the approximate elimination rate from the blood.",
+                    "details": "Define the \u2018unit\u2019 of alcohol and state the"
+                  },
+                  {
+                    "id": "10",
+                    "text": "State the maximum daily and weekly intake of units of alcohol which may be consumed without causing damage to the organs and systems of the human body.",
+                    "details": "State the maximum daily and weekly intake of units"
+                  },
+                  {
+                    "id": "11",
+                    "text": "Discuss the actions that might be taken if a crew member is suspected of being an alcoholic. Prescription and non-prescription drugs and self-medication",
+                    "details": "Discuss the actions that might be taken if a crew"
+                  },
+                  {
+                    "id": "12",
+                    "text": "State the dangers associated with the use of non-prescription drugs.",
+                    "details": "State the dangers associated with the use of"
+                  },
+                  {
+                    "id": "13",
+                    "text": "State the side effects of common non-prescription drugs used to treat colds, flu, hay fever and other allergies, especially medicines containing antihistamine preparations.",
+                    "details": "State the side effects of common non-prescription"
+                  },
+                  {
+                    "id": "14",
+                    "text": "Interpret the rules relevant to using (prescription or non-prescription) drugs that the pilot has not used before.",
+                    "details": "Interpret the rules relevant to using (prescription or"
+                  },
+                  {
+                    "id": "15",
+                    "text": "Interpret the general rule that \u2018if a pilot is so unwell that they require any medication, then they should consider themselves unfit to fly\u2019. Toxic materials",
+                    "details": "Interpret the general rule that \u2018if a pilot is so unwell"
+                  },
+                  {
+                    "id": "16",
+                    "text": "List those materials present in an aircraft which may, when uncontained, cause severe health problems.",
+                    "details": "List those materials present in an aircraft which"
+                  },
+                  {
+                    "id": "17",
+                    "text": "List those aircraft-component parts which if burnt may give off toxic fumes.",
+                    "details": "List those aircraft-component parts which if burnt"
+                  },
+                  {
+                    "id": "18",
+                    "text": "Describe a fume event and the possible incapacitating effects on those exposed to it.",
+                    "details": "Describe a fume event and the possible"
+                  }
+                ]
+              },
+              {
+                "code": "040 02 03 05",
+                "title": "Incapacitation in flight",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that incapacitation is most dangerous when its onset is insidious.",
+                    "details": "State that incapacitation is most dangerous when"
+                  },
+                  {
+                    "id": "02",
+                    "text": "List the major causes of in-flight incapacitation. X X X X X X",
+                    "details": "List the major causes of in-flight incapacitation. X X X X X X"
+                  },
+                  {
+                    "id": "03",
+                    "text": "State the importance of crew to be able to recognise and promptly react upon incapacitation of other crew members, should it occur in flight.",
+                    "details": "State the importance of crew to be able to"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain methods and procedures to cope with incapacitation in flight.",
+                    "details": "Explain methods and procedures to cope with"
+                  }
+                ]
+              }
+            ],
+            "los": []
+          }
+        ],
+        "los": []
+      },
+      {
+        "code": "040 03 00 00",
+        "title": "BASIC AVIATION PSYCHOLOGY",
+        "children": [
+          {
+            "code": "040 03 01 00",
+            "title": "Human information processing",
+            "children": [
+              {
+                "code": "040 03 01 01",
+                "title": "Attention and vigilance",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Differentiate between \u2018attention\u2019 and \u2018vigilance\u2019. X X X X X X",
+                    "details": "Differentiate between \u2018attention\u2019 and \u2018vigilance\u2019. X X X X X X"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Differentiate between \u2018selective\u2019 and \u2018divided\u2019 attention.",
+                    "details": "Differentiate between \u2018selective\u2019 and \u2018divided\u2019"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Define \u2018hypovigilance\u2019. X X X X X X",
+                    "details": "Define \u2018hypovigilance\u2019. X X X X X X"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Identify the factors that may affect the state of vigilance.",
+                    "details": "Identify the factors that may affect the state of"
+                  },
+                  {
+                    "id": "05",
+                    "text": "List the factors that may forestall hypovigilance during flight.",
+                    "details": "List the factors that may forestall hypovigilance"
+                  },
+                  {
+                    "id": "06",
+                    "text": "Indicate the signs of reduced vigilance. X X X X X X",
+                    "details": "Indicate the signs of reduced vigilance. X X X X X X"
+                  },
+                  {
+                    "id": "07",
+                    "text": "List the factors that affect a person\u2019s level of attention.",
+                    "details": "List the factors that affect a person\u2019s level of"
+                  }
+                ]
+              },
+              {
+                "code": "040 03 01 02",
+                "title": "Perception",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Name the basis of the perceptual process.  X X X X X X",
+                    "details": "Name the basis of the perceptual process.  X X X X X X"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Describe the mechanism of perception (\u2018bottom-up\u2019/\u2018top-down\u2019 process).",
+                    "details": "Describe the mechanism of perception"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Illustrate why perception is subjective and state the relevant factors that influence interpretation of perceived information.",
+                    "details": "Illustrate why perception is subjective and state the"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Describe some basic perceptual illusions. X X X X X X",
+                    "details": "Describe some basic perceptual illusions. X X X X X X"
+                  },
+                  {
+                    "id": "05",
+                    "text": "Illustrate some basic perceptual concepts. X X X X X X",
+                    "details": "Illustrate some basic perceptual concepts. X X X X X X"
+                  },
+                  {
+                    "id": "06",
+                    "text": "Give examples where perception plays a decisive role in flight safety.",
+                    "details": "Give examples where perception plays a decisive"
+                  },
+                  {
+                    "id": "07",
+                    "text": "Stress how persuasive and believable mistaken perception can manifest itself both for an individual and a group.",
+                    "details": "Stress how persuasive and believable mistaken"
+                  }
+                ]
+              },
+              {
+                "code": "040 03 01 03",
+                "title": "Memory",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain the link between the types of memory (to include sensory, working/short-term and long-term memory).",
+                    "details": "Explain the link between the types of memory (to"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Describe the differences between the types of memory in terms of capacity and retention time.",
+                    "details": "Describe the differences between the types of"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Justify the importance of sensory-store memories in processing information.",
+                    "details": "Justify the importance of sensory-store memories in"
+                  },
+                  {
+                    "id": "04",
+                    "text": "State the average maximum number of separate items that may be held in working memory (5 \u00b1 2).",
+                    "details": "State the average maximum number of separate"
+                  },
+                  {
+                    "id": "05",
+                    "text": "Stress how interruption can affect short-term/working memory.",
+                    "details": "Stress how interruption can affect"
+                  },
+                  {
+                    "id": "06",
+                    "text": "Give examples of items that are important for pilots to hold in working memory during flight.",
+                    "details": "Give examples of items that are important for pilots"
+                  },
+                  {
+                    "id": "07",
+                    "text": "Describe how the capacity of the working-memory store may be increased.",
+                    "details": "Describe how the capacity of the working-memory"
+                  },
+                  {
+                    "id": "08",
+                    "text": "State the subdivisions of long-term memory and give examples of their content.",
+                    "details": "State the subdivisions of long-term memory and"
+                  },
+                  {
+                    "id": "09",
+                    "text": "Explain that skills are kept primarily in the long- term memory.",
+                    "details": "Explain that skills are kept primarily in the long-"
+                  },
+                  {
+                    "id": "10",
+                    "text": "Describe amnesia and how it affects memory. X X X X X X",
+                    "details": "Describe amnesia and how it affects memory. X X X X X X"
+                  },
+                  {
+                    "id": "11",
+                    "text": "Name the common problems with both the long- and short-term memories and the best methods to try to counteract them.",
+                    "details": "Name the common problems with both the long-"
+                  }
+                ]
+              },
+              {
+                "code": "040 03 01 04",
+                "title": "Response selection",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain and distinguish between the following basic forms of learning: \u2014 classic and operant conditioning (behaviouristic approach); \u2014 learning by insight (cognitive approach); \u2014 learning by imitating (modelling).",
+                    "details": "Explain and distinguish between the following basic"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Recognise pilot-related examples as behaviouristic, cognitive or modelling forms of learning.",
+                    "details": "Recognise pilot-related examples as behaviouristic,"
+                  },
+                  {
+                    "id": "03",
+                    "text": "State the factors that are necessary for and promote the quality of learning: \u2014 intrinsic motivation; \u2014 good mental health; \u2014 rehearsals for improvement of memory; \u2014 consciousness; \u2014 vigilance; \u2014 application in practical exercises.",
+                    "details": "State the factors that are necessary for and"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain ways to facilitate the memorisation of information with the following learning techniques: \u2014 mnemonics; \u2014 mental training.",
+                    "details": "Explain ways to facilitate the memorisation of"
+                  },
+                  {
+                    "id": "05",
+                    "text": "Describe the advantage of planning and anticipation of future actions: \u2014 define the term \u2018skills\u2019; \u2014 state the three phases of learning a skill (Anderson: cognitive, associative and autonomous phase).",
+                    "details": "Describe the advantage of planning and anticipation"
+                  },
+                  {
+                    "id": "06",
+                    "text": "Explain the term \u2018motor programme\u2019 or \u2018mental schema\u2019.",
+                    "details": "Explain the term \u2018motor programme\u2019 or \u2018mental"
+                  },
+                  {
+                    "id": "07",
+                    "text": "Describe the advantages and disadvantages of mental schemas.",
+                    "details": "Describe the advantages and disadvantages of"
+                  },
+                  {
+                    "id": "08",
+                    "text": "Explain the Rasmussen model which describes the guidance of a pilot\u2019s behaviour in different situations.",
+                    "details": "Explain the Rasmussen model which describes the"
+                  },
+                  {
+                    "id": "09",
+                    "text": "State the possible problems or risks associated with skill-, rule- and knowledge-based behaviour. Motivation",
+                    "details": "State the possible problems or risks associated with"
+                  },
+                  {
+                    "id": "10",
+                    "text": "Define \u2018motivation\u2019. X X X X X X",
+                    "details": "Define \u2018motivation\u2019. X X X X X X"
+                  },
+                  {
+                    "id": "11",
+                    "text": "Explain the relationship between motivation and learning.",
+                    "details": "Explain the relationship between motivation and"
+                  },
+                  {
+                    "id": "12",
+                    "text": "Explain the problems of over-motivation, especially in the context of the extreme need to achieve.",
+                    "details": "Explain the problems of over-motivation, especially"
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "040 03 02 00",
+            "title": "Human error and reliability",
+            "children": [
+              {
+                "code": "040 03 02 01",
+                "title": "Reliability of human behaviour",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Name and explain the factors that influence human reliability.",
+                    "details": "Name and explain the factors that influence human"
+                  }
+                ]
+              },
+              {
+                "code": "040 03 02 02",
+                "title": "Mental models and situation awareness",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Define the term \u2018situation awareness\u2019.  X X X X X X X  1",
+                    "details": "Define the term \u2018situation awareness\u2019.  X X X X X X X  1"
+                  },
+                  {
+                    "id": "02",
+                    "text": "List the cues that indicate loss of situation awareness and name the steps to regain it.",
+                    "details": "List the cues that indicate loss of situation"
+                  },
+                  {
+                    "id": "03",
+                    "text": "List the factors that influence one\u2019s situation awareness both positively and negatively, and stress the importance of situation awareness in the context of flight safety.",
+                    "details": "List the factors that influence one\u2019s situation"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Define the term \u2018mental model\u2019 in relation to a surrounding complex situation.",
+                    "details": "Define the term \u2018mental model\u2019 in relation to a"
+                  },
+                  {
+                    "id": "05",
+                    "text": "Describe the advantages/disadvantages of mental models.",
+                    "details": "Describe the advantages/disadvantages of mental"
+                  },
+                  {
+                    "id": "06",
+                    "text": "Explain the relationship between personal \u2018mental models\u2019 and the creation of cognitive illusions.",
+                    "details": "Explain the relationship between personal \u2018mental"
+                  }
+                ]
+              },
+              {
+                "code": "040 03 02 03",
+                "title": "Theory and model of human error",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain the concept of the \u2018error chain\u2019. X X X X X X X 1",
+                    "details": "Explain the concept of the \u2018error chain\u2019. X X X X X X X 1"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Differentiate between an isolated error and an error chain.",
+                    "details": "Differentiate between an isolated error and an"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Distinguish between the main forms/types of errors (i.e. slips, faults, omissions and violations).",
+                    "details": "Distinguish between the main forms/types of errors"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Discuss the above errors and their relevance in flight.",
+                    "details": "Discuss the above errors and their relevance in"
+                  },
+                  {
+                    "id": "05",
+                    "text": "Distinguish between an active and a latent error, and give examples.",
+                    "details": "Distinguish between an active and a latent error,"
+                  }
+                ]
+              },
+              {
+                "code": "040 03 02 04",
+                "title": "Error generation",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Distinguish between internal and external factors in error generation.",
+                    "details": "Distinguish between internal and external factors in"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Identify possible sources of internal error generation.",
+                    "details": "Identify possible sources of internal error"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Define and discuss the two errors associated with motor programmes (action slip and environmental capture).",
+                    "details": "Define and discuss the two errors associated with"
+                  },
+                  {
+                    "id": "04",
+                    "text": "List the three main sources of external error generation in the flight crew compartment.",
+                    "details": "List the three main sources of external error"
+                  },
+                  {
+                    "id": "05",
+                    "text": "Give examples to illustrate the following factors in external error generation in the flight crew compartment: \u2014 ergonomics; \u2014 economics; \u2014 social environment.",
+                    "details": "Give examples to illustrate the following factors in"
+                  },
+                  {
+                    "id": "06",
+                    "text": "Name the major goals in the design of human-centred human\u2013machine interfaces.",
+                    "details": "Name the major goals in the design of"
+                  },
+                  {
+                    "id": "07",
+                    "text": "Define the term \u2018error tolerance\u2019.  X X X X X X X 1",
+                    "details": "Define the term \u2018error tolerance\u2019.  X X X X X X X 1"
+                  },
+                  {
+                    "id": "08",
+                    "text": "List and describe the strategies that are used to reduce human error.",
+                    "details": "List and describe the strategies that are used to"
+                  },
+                  {
+                    "id": "09",
+                    "text": "Describe the advantage of planning and the anticipation of future actions.",
+                    "details": "Describe the advantage of planning and the"
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "040 03 03 00",
+            "title": "Decision-making",
+            "children": [
+              {
+                "code": "040 03 03 01",
+                "title": "Decision-making concepts",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Define the terms \u2018deciding\u2019 and \u2018decision-making\u2019. X X X X X X X  1",
+                    "details": "Define the terms \u2018deciding\u2019 and \u2018decision-making\u2019. X X X X X X X  1"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Describe the major factors on which decision- making should be based during the course of a flight.",
+                    "details": "Describe the major factors on which decision-"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Describe the main human attributes with regard to decision-making.",
+                    "details": "Describe the main human attributes with regard to"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Discuss the nature of bias and its influence on the decision-making process.",
+                    "details": "Discuss the nature of bias and its influence on the"
+                  },
+                  {
+                    "id": "05",
+                    "text": "Describe the main error sources and limits in an individual\u2019s decision-making mechanism.",
+                    "details": "Describe the main error sources and limits in an"
+                  },
+                  {
+                    "id": "06",
+                    "text": "State the factors upon which an individual\u2019s risk assessment is based.",
+                    "details": "State the factors upon which an individual\u2019s risk"
+                  },
+                  {
+                    "id": "07",
+                    "text": "Explain the relationship between risk assessment, commitment and pressure of time in decision-making strategies.",
+                    "details": "Explain the relationship between risk assessment,"
+                  },
+                  {
+                    "id": "08",
+                    "text": "Explain the risks associated with dispersion or channelised attention during the application of procedures requiring a high workload within a short time frame (e.g. a go-around).",
+                    "details": "Explain the risks associated with dispersion or"
+                  },
+                  {
+                    "id": "09",
+                    "text": "Describe the positive and negative influences exerted by other group members on an individual\u2019s decision-making process (risky shift).",
+                    "details": "Describe the positive and negative influences"
+                  },
+                  {
+                    "id": "10",
+                    "text": "Explain the general idea behind the creation of a model for decision-making based upon: \u2014 definition of the aim; \u2014 collection of information; \u2014 risk assessment; \u2014 development of options; \u2014 evaluation of options; \u2014 decision; \u2014 implementation; \u2014 consequences; \u2014 review and feedback.",
+                    "details": "Explain the general idea behind the creation of a"
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "040 03 04 00",
+            "title": "Avoiding and managing errors: cockpit",
+            "children": [
+              {
+                "code": "040 03 04 01",
+                "title": "Safety awareness",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Justify the need for being aware of not only one\u2019s own performance but that of others before and during a flight and the possible consequences or risks.",
+                    "details": "Justify the need for being aware of not only one\u2019s"
+                  }
+                ]
+              },
+              {
+                "code": "040 03 04 02",
+                "title": "Coordination (multi-crew concepts)",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Name the objectives of the multi-crew concept.  X  X X",
+                    "details": "Name the objectives of the multi-crew concept.  X  X X"
+                  },
+                  {
+                    "id": "02",
+                    "text": "State and explain the elements of multi-crew concepts.",
+                    "details": "State and explain the elements of multi-crew"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Describe the concepts of \u2018standard operating procedures\u2019 (SOPs), checklists and crew briefings.",
+                    "details": "Describe the concepts of \u2018standard operating"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Describe the purpose of and procedure for crew briefings.",
+                    "details": "Describe the purpose of and procedure for crew"
+                  },
+                  {
+                    "id": "05",
+                    "text": "Describe the purpose of and procedure for checklists.",
+                    "details": "Describe the purpose of and procedure for"
+                  },
+                  {
+                    "id": "06",
+                    "text": "Describe the function of communication in a coordinated team.",
+                    "details": "Describe the function of communication in a"
+                  },
+                  {
+                    "id": "07",
+                    "text": "Explain the advantages of SOPs. X X X X X",
+                    "details": "Explain the advantages of SOPs. X X X X X"
+                  },
+                  {
+                    "id": "08",
+                    "text": "Explain how SOPs contribute to avoiding, reducing and managing threats and errors.",
+                    "details": "Explain how SOPs contribute to avoiding, reducing"
+                  },
+                  {
+                    "id": "09",
+                    "text": "Explain potential threats of SOPs, for example during company or type conversion (e.g. motor programmes, company culture, hazardous attitudes, developed habits).",
+                    "details": "Explain potential threats of SOPs, for example"
+                  }
+                ]
+              },
+              {
+                "code": "040 03 04 03",
+                "title": "Cooperation",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Distinguish between cooperation and coaction. X X X X X",
+                    "details": "Distinguish between cooperation and coaction. X X X X X"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Define the term \u2018group\u2019. X X X X X",
+                    "details": "Define the term \u2018group\u2019. X X X X X"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Illustrate the influence of interdependence in a group.",
+                    "details": "Illustrate the influence of interdependence in a"
+                  },
+                  {
+                    "id": "04",
+                    "text": "List the advantages and disadvantages of teamwork.",
+                    "details": "List the advantages and disadvantages of"
+                  },
+                  {
+                    "id": "05",
+                    "text": "Explain the term \u2018synergy\u2019. X X X X X",
+                    "details": "Explain the term \u2018synergy\u2019. X X X X X"
+                  },
+                  {
+                    "id": "06",
+                    "text": "Define the term \u2018cohesion\u2019. X X X X X",
+                    "details": "Define the term \u2018cohesion\u2019. X X X X X"
+                  },
+                  {
+                    "id": "07",
+                    "text": "Define the term \u2018groupthink\u2019. X X X X X",
+                    "details": "Define the term \u2018groupthink\u2019. X X X X X"
+                  },
+                  {
+                    "id": "08",
+                    "text": "State the essential conditions for good teamwork.  X X X X X",
+                    "details": "State the essential conditions for good teamwork.  X X X X X"
+                  },
+                  {
+                    "id": "09",
+                    "text": "Explain the function of role and norm in a group. X X X X X",
+                    "details": "Explain the function of role and norm in a group. X X X X X"
+                  },
+                  {
+                    "id": "10",
+                    "text": "Name the different role patterns which occur in a group situation.",
+                    "details": "Name the different role patterns which occur in a"
+                  },
+                  {
+                    "id": "11",
+                    "text": "Explain how behaviour can be affected by the following factors: \u2014 persuasion; \u2014 conformity; \u2014 compliance; \u2014 obedience.",
+                    "details": "Explain how behaviour can be affected by the"
+                  },
+                  {
+                    "id": "12",
+                    "text": "Distinguish between status and role. X X X X X",
+                    "details": "Distinguish between status and role. X X X X X"
+                  },
+                  {
+                    "id": "13",
+                    "text": "Stress the inherent dangers of a situation where there is a mix of role and status within the flight crew compartment.",
+                    "details": "Stress the inherent dangers of a situation where"
+                  },
+                  {
+                    "id": "14",
+                    "text": "Explain the terms \u2018leadership\u2019 and \u2018followership\u2019. X X X X X",
+                    "details": "Explain the terms \u2018leadership\u2019 and \u2018followership\u2019. X X X X X"
+                  },
+                  {
+                    "id": "15",
+                    "text": "Describe the trans-cockpit authority gradient and its affiliated leadership styles (i.e. autocratic, laissez-faire and synergistic).",
+                    "details": "Describe the trans-cockpit authority gradient and its"
+                  },
+                  {
+                    "id": "16",
+                    "text": "Name the most important attributes of a positive leadership style.",
+                    "details": "Name the most important attributes of a positive"
+                  }
+                ]
+              },
+              {
+                "code": "040 03 04 04",
+                "title": "Communication",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Define the term \u2018communication\u2019. X X X X X X",
+                    "details": "Define the term \u2018communication\u2019. X X X X X X"
+                  },
+                  {
+                    "id": "02",
+                    "text": "List the most basic components of interpersonal communication.",
+                    "details": "List the most basic components of interpersonal"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain the advantages of in-person two-way communication as opposed to one-way communication.",
+                    "details": "Explain the advantages of in-person two-way"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Intentionally left blank",
+                    "details": "Intentionally left blank"
+                  },
+                  {
+                    "id": "05",
+                    "text": "Name the importance of non-verbal communication.",
+                    "details": "Name the importance of non-verbal"
+                  },
+                  {
+                    "id": "06",
+                    "text": "Describe the general aspects of non-verbal communication.",
+                    "details": "Describe the general aspects of non-verbal"
+                  },
+                  {
+                    "id": "07",
+                    "text": "Describe the advantages/disadvantages of implicit and explicit communication.",
+                    "details": "Describe the advantages/disadvantages of implicit"
+                  },
+                  {
+                    "id": "08",
+                    "text": "Describe the advantages and possible problems of using \u2018social\u2019 and \u2018professional\u2019 language in high-and low-workload situations.",
+                    "details": "Describe the advantages and possible problems of"
+                  },
+                  {
+                    "id": "09",
+                    "text": "Name and explain the major obstacles to effective communication.",
+                    "details": "Name and explain the major obstacles to effective"
+                  },
+                  {
+                    "id": "10",
+                    "text": "Explain the difference between intrapersonal and interpersonal conflict.",
+                    "details": "Explain the difference between intrapersonal and"
+                  },
+                  {
+                    "id": "11",
+                    "text": "Describe the escalation process in human conflict. X X X X X X",
+                    "details": "Describe the escalation process in human conflict. X X X X X X"
+                  },
+                  {
+                    "id": "12",
+                    "text": "List the typical consequences of conflicts between crew members.",
+                    "details": "List the typical consequences of conflicts between"
+                  },
+                  {
+                    "id": "13",
+                    "text": "Explain the following terms as part of the communication practice with regard to preventing or resolving conflicts: \u2014 inquiry; \u2014 active listening; \u2014 advocacy; \u2014 feedback; \u2014 metacommunication; \u2014 negotiation.",
+                    "details": "Explain the following terms as part of the"
+                  },
+                  {
+                    "id": "14",
+                    "text": "Describe the limitations of communication in situations of high workload in the flight crew compartment in view of listening, verbal, non-verbal and visual effects.",
+                    "details": "Describe the limitations of communication in"
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "040 03 05 00",
+            "title": "Human behaviour",
+            "children": [
+              {
+                "code": "040 03 05 01",
+                "title": "Personality, attitude and behaviour",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Describe the factors that determine an individual\u2019s behaviour.",
+                    "details": "Describe the factors that determine an individual\u2019s"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Define and distinguish between \u2018personality\u2019, \u2018attitude\u2019 and \u2018behaviour\u2019.",
+                    "details": "Define and distinguish between \u2018personality\u2019,"
+                  },
+                  {
+                    "id": "03",
+                    "text": "State the origin of personality and attitude. X X X X X X",
+                    "details": "State the origin of personality and attitude. X X X X X X"
+                  },
+                  {
+                    "id": "04",
+                    "text": "State that with behaviour good and bad habits can be formed.",
+                    "details": "State that with behaviour good and bad habits can"
+                  },
+                  {
+                    "id": "05",
+                    "text": "Explain how behaviour is generally a product of personality, attitude and the environment to which one was exposed at significant moments (childhood, schooling and training).",
+                    "details": "Explain how behaviour is generally a product of"
+                  },
+                  {
+                    "id": "06",
+                    "text": "State that personality differences and selfish attitude may have effects on flight crew performance.",
+                    "details": "State that personality differences and selfish"
+                  }
+                ]
+              },
+              {
+                "code": "040 03 05 02",
+                "title": "Individual differences in personality and",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Describe the individual differences in personality by means of a common trait model (e.g. Eysenck\u2019s personality factors) and use it to describe today\u2019s ideal pilot. Self-concept",
+                    "details": "Describe the individual differences in personality by"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Define the term \u2018self-concept\u2019 and the role it plays in any change of personality.",
+                    "details": "Define the term \u2018self-concept\u2019 and the role it plays"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain how a self-concept of under-confidence may lead to an outward show of aggression and self- assertiveness. Self-discipline",
+                    "details": "Explain how a self-concept of under-confidence"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Define \u2018self-discipline\u2019 and justify its importance for flight safety.",
+                    "details": "Define \u2018self-discipline\u2019 and justify its importance for"
+                  }
+                ]
+              },
+              {
+                "code": "040 03 05 03",
+                "title": "Identification of hazardous attitudes (error",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain dangerous attitudes in aviation: \u2014 anti-authority; \u2014 macho; \u2014 impulsivity; \u2014 invulnerability; \u2014 complacency; \u2014 resignation.",
+                    "details": "Explain dangerous attitudes in aviation:"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Describe the personality, attitude and behaviour patterns of an ideal crew member.",
+                    "details": "Describe the personality, attitude and behaviour"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Summarise how a person\u2019s attitude influences their work in the flight crew compartment.",
+                    "details": "Summarise how a person\u2019s attitude influences their"
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "040 03 06 00",
+            "title": "Human overload and underload",
+            "children": [
+              {
+                "code": "040 03 06 01",
+                "title": "Arousal",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain the term \u2018arousal\u2019. X X X X X X",
+                    "details": "Explain the term \u2018arousal\u2019. X X X X X X"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Describe the relationship between arousal and performance.",
+                    "details": "Describe the relationship between arousal and"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain the circumstances under which underload may occur and its possible dangers.",
+                    "details": "Explain the circumstances under which underload"
+                  }
+                ]
+              },
+              {
+                "code": "040 03 06 02",
+                "title": "Stress",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain the term \u2018stress\u2019 and why stress is a natural human reaction.",
+                    "details": "Explain the term \u2018stress\u2019 and why stress is a natural"
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that the physiological response to stress is generated by the \u2018fight or flight\u2019 response.",
+                    "details": "State that the physiological response to stress is"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Describe the function of the autonomic nervous system (ANS) in stress response.",
+                    "details": "Describe the function of the autonomic nervous"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain the relationship between arousal and stress. X X X X X X",
+                    "details": "Explain the relationship between arousal and stress. X X X X X X"
+                  },
+                  {
+                    "id": "05",
+                    "text": "State the relationship between stress and performance.",
+                    "details": "State the relationship between stress and"
+                  },
+                  {
+                    "id": "06",
+                    "text": "State the basic categories of stressors. X X X X X X X",
+                    "details": "State the basic categories of stressors. X X X X X X X"
+                  },
+                  {
+                    "id": "07",
+                    "text": "List and discuss the major environmental sources of stress in the flight crew compartment.",
+                    "details": "List and discuss the major environmental sources of"
+                  },
+                  {
+                    "id": "08",
+                    "text": "Discuss the concept of \u2018break point\u2019 with regard to stress, overload and performance.",
+                    "details": "Discuss the concept of \u2018break point\u2019 with regard to"
+                  },
+                  {
+                    "id": "09",
+                    "text": "Name the principal causes of domestic stress. X X X X X X",
+                    "details": "Name the principal causes of domestic stress. X X X X X X"
+                  },
+                  {
+                    "id": "10",
+                    "text": "State that the stress experienced as a result of particular demands varies among individuals.",
+                    "details": "State that the stress experienced as a result of"
+                  },
+                  {
+                    "id": "11",
+                    "text": "Explain the factors that lead to differences in the levels of stress experienced by individuals.",
+                    "details": "Explain the factors that lead to differences in the"
+                  },
+                  {
+                    "id": "12",
+                    "text": "List the factors that influence the tolerance of stressors.",
+                    "details": "List the factors that influence the tolerance of"
+                  },
+                  {
+                    "id": "13",
+                    "text": "State that stress is a result of perceived demands and perceived ability.",
+                    "details": "State that stress is a result of perceived demands"
+                  },
+                  {
+                    "id": "14",
+                    "text": "Explain the relationship between stress and anxiety. X X X X X X X",
+                    "details": "Explain the relationship between stress and anxiety. X X X X X X X"
+                  },
+                  {
+                    "id": "15",
+                    "text": "Describe the effects of anxiety on human performance.",
+                    "details": "Describe the effects of anxiety on human"
+                  },
+                  {
+                    "id": "16",
+                    "text": "State the general effect of acute stress on people. X X X X X X X",
+                    "details": "State the general effect of acute stress on people. X X X X X X X"
+                  },
+                  {
+                    "id": "17",
+                    "text": "Describe the relationship between stress, arousal and vigilance.",
+                    "details": "Describe the relationship between stress, arousal"
+                  },
+                  {
+                    "id": "18",
+                    "text": "State the general effect of chronic stress and the biological reaction by means of the three stages of the general adaptation syndrome (Selye): alarm, resistance, and exhaustion.",
+                    "details": "State the general effect of chronic stress and the"
+                  },
+                  {
+                    "id": "19",
+                    "text": "Explain the differences between psychological, psychosomatic and somatic stress reactions.",
+                    "details": "Explain the differences between psychological,"
+                  },
+                  {
+                    "id": "20",
+                    "text": "Name the typical common physiological and psychological symptoms of human overload.",
+                    "details": "Name the typical common physiological and"
+                  },
+                  {
+                    "id": "21",
+                    "text": "Describe the effects of stress on human behaviour. X X X X X X",
+                    "details": "Describe the effects of stress on human behaviour. X X X X X X"
+                  },
+                  {
+                    "id": "22",
+                    "text": "Explain how stress is cumulative and how stress from one situation can be transferred to a different situation.",
+                    "details": "Explain how stress is cumulative and how stress"
+                  },
+                  {
+                    "id": "23",
+                    "text": "Explain how successful completion of a stressful task will reduce the amount of stress experienced when a similar situation arises in the future.",
+                    "details": "Explain how successful completion of a stressful"
+                  },
+                  {
+                    "id": "24",
+                    "text": "Describe the effect of human underload/overload on effectiveness in the flight crew compartment.",
+                    "details": "Describe the effect of human underload/overload"
+                  },
+                  {
+                    "id": "25",
+                    "text": "List sources and symptoms of human underload. X X X X X X X 1",
+                    "details": "List sources and symptoms of human underload. X X X X X X X 1"
+                  }
+                ]
+              },
+              {
+                "code": "040 03 06 03",
+                "title": "Intentionally left blank",
+                "children": [],
+                "los": []
+              },
+              {
+                "code": "040 03 06 04",
+                "title": "Intentionally left blank",
+                "children": [],
+                "los": []
+              },
+              {
+                "code": "040 03 06 05",
+                "title": "Fatigue and stress management",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain the term \u2018fatigue\u2019 and differentiate between the two types of fatigue (short-term and chronic fatigue).",
+                    "details": "Explain the term \u2018fatigue\u2019 and differentiate between"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Name the causes of short-term and chronic fatigue. X X X X X X",
+                    "details": "Name the causes of short-term and chronic fatigue. X X X X X X"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Identify the symptoms and describe the effects of fatigue.",
+                    "details": "Identify the symptoms and describe the effects of"
+                  },
+                  {
+                    "id": "04",
+                    "text": "List the strategies that prevent or delay the onset of fatigue and hypovigilance.",
+                    "details": "List the strategies that prevent or delay the onset of"
+                  },
+                  {
+                    "id": "05",
+                    "text": "List and describe strategies for coping with stress factors and stress reactions.",
+                    "details": "List and describe strategies for coping with stress"
+                  },
+                  {
+                    "id": "06",
+                    "text": "Distinguish between short-term and long-term methods of stress management.",
+                    "details": "Distinguish between short-term and long-term"
+                  },
+                  {
+                    "id": "07",
+                    "text": "Give examples of short-term methods of stress management.",
+                    "details": "Give examples of short-term methods of stress"
+                  },
+                  {
+                    "id": "08",
+                    "text": "Give examples of long-term methods of coping with stress.",
+                    "details": "Give examples of long-term methods of coping with"
+                  },
+                  {
+                    "id": "09",
+                    "text": "Describe the fatigue risk management system (FRMS) as follows: a data-driven means of continuously monitoring and managing fatigue-related safety risks, based upon scientific principles and knowledge as well as operational experience that aims to ensure relevant personnel are performing at adequate levels of alertness.",
+                    "details": "Describe the fatigue risk management system"
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "040 03 07 00",
+            "title": "Advanced cockpit automation",
+            "children": [
+              {
+                "code": "040 03 07 01",
+                "title": "Advantages and disadvantages",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Compare the two basic concepts of automation: \u2014 as per Boeing, where the pilot remains the last operator; \u2014 and as per Airbus, where automated systems can correct erroneous pilot action.",
+                    "details": "Compare the two basic concepts of automation:"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Explain the fundamental restrictions of autoflight systems to be lack of creativity in unknown situations, and lack of personal motivation with regard to safety.",
+                    "details": "Explain the fundamental restrictions of autoflight"
+                  },
+                  {
+                    "id": "03",
+                    "text": "List the principal strengths and weaknesses of pilot versus autopilot systems to be creativity, decision-making, prioritisation of tasks, safety attitude versus precision, reliability.",
+                    "details": "List the principal strengths and weaknesses of pilot"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain the \u2018ironies of automation\u2019: designers\u2019 errors due to wrong interpretation of the data, leaving tasks to the pilot that are too complex to automate, loss of manual and cognitive skills of the pilot. State the necessity for regular training flights as one possible countermeasure.",
+                    "details": "Explain the \u2018ironies of automation\u2019: designers\u2019"
+                  },
+                  {
+                    "id": "05",
+                    "text": "Describe methods to overcome the drawbacks of autoflight systems to be loss of manual flying capabilities, additional workload through programming, risk of slips during programming, and hypovigilance during cruise.",
+                    "details": "Describe methods to overcome the drawbacks of"
+                  }
+                ]
+              },
+              {
+                "code": "040 03 07 02",
+                "title": "Automation complacency",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State the main weaknesses in the monitoring of automatic systems to be hypovigilance during flight, and loss of flying skills.",
+                    "details": "State the main weaknesses in the monitoring of"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Explain some basic flight crew errors and terms that arise with the introduction of automation: \u2014 passive monitoring; \u2014 blinkered concentration; \u2014 confusion; \u2014 mode awareness.",
+                    "details": "Explain some basic flight crew errors and terms that"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain how the method of call-outs counteracts ineffective monitoring of automatic systems.",
+                    "details": "Explain how the method of call-outs counteracts"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Define \u2018complacency\u2019. X X X X X X X 1",
+                    "details": "Define \u2018complacency\u2019. X X X X X X X 1"
+                  }
+                ]
+              },
+              {
+                "code": "040 03 07 03",
+                "title": "Working concepts",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain that the potential disadvantages of automation on crew communication are loss of awareness of input errors, flight modes, failure detection, failure comprehension, status of the aircraft and aircraft position.",
+                    "details": "Explain that the potential disadvantages of"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Explain how the negative effects of automation on pilots may be alleviated by degrading to a lower level of automation to recover comprehension of the flight status from VNAV/LNAV to ALT/HDG or even to manual flying.",
+                    "details": "Explain how the negative effects of automation on"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Interpret the role of automation with respect to flight safety regarding the basic principle of the use of manual versus autoflight in normal operations, frequent changes in the flight profile, and in abnormal situations.",
+                    "details": "Interpret the role of automation with respect to"
+                  }
+                ]
+              }
+            ],
+            "los": []
+          }
+        ],
+        "los": []
+      }
+    ],
+    "los": []
+  }
+]

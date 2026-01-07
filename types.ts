@@ -121,6 +121,10 @@ export enum View {
   HPL_MOTION_SICKNESS = 'HPL_MOTION_SICKNESS', // Sensory conflict theory
   HPL_PERCEPTION = 'HPL_PERCEPTION',       // Visual illusions, runway illusions
   HPL_WORKLOAD = 'HPL_WORKLOAD',           // Workload management, Yerkes-Dodson
+  HPL_COMMUNICATION_PROCESS = 'HPL_COMMUNICATION_PROCESS',
+  HPL_COMPETENCY = 'HPL_COMPETENCY',
+  HPL_COOPERATION = 'HPL_COOPERATION',
+  HPL_HEALTH_HYGIENE = 'HPL_HEALTH_HYGIENE',
 
   // Meteorology (050)
   MET_HOME = 'MET_HOME',

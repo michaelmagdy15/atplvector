@@ -96,6 +96,10 @@ import HPLPressure from './components/HPL/HPLPressure';
 import HPLMotionSickness from './components/HPL/HPLMotionSickness';
 import HPLPerception from './components/HPL/HPLPerception';
 import HPLWorkload from './components/HPL/HPLWorkload';
+import HPLCommunicationProcess from './components/HPL/HPLCommunicationProcess';
+import HPLCompetency from './components/HPL/HPLCompetency';
+import HPLCooperation from './components/HPL/HPLCooperation';
+import HPLHealthHygiene from './components/HPL/HPLHealthHygiene';
 
 import AtmosphereLayers from './components/Meteorology/AtmosphereLayers';
 import OneInSixty from './components/Nav/OneInSixty';
@@ -758,6 +762,10 @@ const App: React.FC = () => {
                                         { title: 'Motion Sickness', desc: 'Sensory Conflict, Prevention.', view: View.HPL_MOTION_SICKNESS },
                                         { title: 'Perception', desc: 'Visual Illusions, Runway Illusions.', view: View.HPL_PERCEPTION },
                                         { title: 'Workload', desc: 'Yerkes-Dodson, ANC, DODAR.', view: View.HPL_WORKLOAD },
+                                        { title: 'Communication Process', desc: 'Models, Barriers, Readback.', view: View.HPL_COMMUNICATION_PROCESS },
+                                        { title: 'Competency', desc: 'KSA, Core Competencies.', view: View.HPL_COMPETENCY },
+                                        { title: 'Cooperation', desc: 'Group Dynamics, Synergy.', view: View.HPL_COOPERATION },
+                                        { title: 'Health & Hygiene', desc: 'Alcohol, Drugs, Sleep.', view: View.HPL_HEALTH_HYGIENE },
                                     ]}
                                 />
                             )}
@@ -790,20 +798,15 @@ const App: React.FC = () => {
                             {currentView === View.HPL_RADIATION && <HPLRadiation />}
                             {currentView === View.HPL_THERMAL && <HPLThermal />}
                             {currentView === View.HPL_SLEEP_DISORDERS && <HPLSleepDisorders />}
-                            {currentView === View.HPL_RESPIRATION && <HPLRespiration />}
-                            {currentView === View.HPL_CIRCULATION && <HPLCirculation />}
-                            {currentView === View.HPL_NERVOUS && <HPLNervousSystem />}
-                            {currentView === View.HPL_METABOLISM && <HPLMetabolism />}
-                            {currentView === View.HPL_ERGONOMICS && <HPLErgonomics />}
-                            {currentView === View.HPL_BIASES && <HPLBiases />}
-                            {currentView === View.HPL_CULTURE && <HPLCulture />}
-                            {currentView === View.HPL_RADIATION && <HPLRadiation />}
-                            {currentView === View.HPL_THERMAL && <HPLThermal />}
-                            {currentView === View.HPL_SLEEP_DISORDERS && <HPLSleepDisorders />}
+
                             {currentView === View.HPL_PRESSURE && <HPLPressure />}
                             {currentView === View.HPL_MOTION_SICKNESS && <HPLMotionSickness />}
                             {currentView === View.HPL_PERCEPTION && <HPLPerception />}
                             {currentView === View.HPL_WORKLOAD && <HPLWorkload />}
+                            {currentView === View.HPL_COMMUNICATION_PROCESS && <HPLCommunicationProcess onNavigate={setCurrentView} />}
+                            {currentView === View.HPL_COMPETENCY && <HPLCompetency onNavigate={setCurrentView} />}
+                            {currentView === View.HPL_COOPERATION && <HPLCooperation onNavigate={setCurrentView} />}
+                            {currentView === View.HPL_HEALTH_HYGIENE && <HPLHealthHygiene onNavigate={setCurrentView} />}
 
                             {/* Met */}
                             {currentView === View.MET_HOME && (
