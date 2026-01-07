@@ -208,8 +208,13 @@ const NAV_MAP: SubjectConfig[] = [
         dashboardView: View.GEN_NAV_HOME,
         items: [
             { label: 'Dashboard', view: View.GEN_NAV_HOME, icon: Compass },
+            { label: 'Earth Geometry', view: View.GEN_NAV_EARTH },
+            { label: 'Solar Time', view: View.GEN_NAV_SOLAR },
+            { label: 'Map Projections', view: View.GEN_NAV_MAPS },
             { label: '1 in 60 Rule', view: View.NAV_60_1 },
-            { label: 'Time', view: View.NAV_TIME },
+            { label: 'Wind Triangle', view: View.GEN_NAV_WIND_TRIANGLE },
+            { label: 'Time Zones', view: View.NAV_TIME },
+            { label: 'Polar Nav', view: View.GEN_NAV_POLAR },
         ]
     },
     {
@@ -219,7 +224,23 @@ const NAV_MAP: SubjectConfig[] = [
         dashboardView: View.RAD_NAV_HOME,
         items: [
             { label: 'Dashboard', view: View.RAD_NAV_HOME, icon: Wifi },
+            { label: 'Wave Propagation', view: View.RAD_NAV_WAVE_PROP },
+            { label: 'Spectrum Explorer', view: View.RAD_NAV_SPECTRUM },
+            { label: 'Modulation', view: View.RAD_NAV_MODULATION },
+            { label: 'Antenna Theory', view: View.RAD_NAV_ANTENNA },
+            { label: 'Ionosphere', view: View.RAD_NAV_IONOSPHERE },
+            { label: 'VDF', view: View.RAD_NAV_VDF },
+            { label: 'ADF/NDB', view: View.RAD_NAV_ADF },
+            { label: 'VOR Lab', view: View.RAD_NAV_VOR },
+            { label: 'DME', view: View.RAD_NAV_DME },
+            { label: 'ILS', view: View.RAD_NAV_ILS },
+            { label: 'MLS', view: View.RAD_NAV_MLS },
+            { label: 'Radar Theory', view: View.RAD_NAV_RADAR },
+            { label: 'SSR/Transponder', view: View.RAD_NAV_SSR },
+            { label: 'RNAV/PBN', view: View.RAD_NAV_RNAV },
+            { label: 'FMS', view: View.RAD_NAV_FMS },
             { label: 'GNSS Theory', view: View.NAV_GNSS },
+            { label: 'SBAS/ABAS', view: View.RAD_NAV_SBAS },
         ]
     },
     {
