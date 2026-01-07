@@ -26,14 +26,12 @@ const GenNavDashboard: React.FC<Props> = ({ currentView, setCurrentView }) => {
                 {
                     title: 'Solar System & Time',
                     desc: 'Seasons, Equation of Time, UTC/LMT conversions.',
-                    view: View.GEN_NAV_SOLAR,
-                    isLocked: true // Planned
+                    view: View.GEN_NAV_SOLAR
                 },
                 {
                     title: 'Map Projections',
                     desc: 'Mercator vs Lambert Conformal Conic charts.',
-                    view: View.GEN_NAV_MAPS,
-                    isLocked: true // Planned
+                    view: View.GEN_NAV_MAPS
                 },
                 {
                     title: 'Dead Reckoning',
@@ -43,8 +41,7 @@ const GenNavDashboard: React.FC<Props> = ({ currentView, setCurrentView }) => {
                 {
                     title: 'Polar Navigation',
                     desc: 'Grid Heading and Polar Stereographic charts.',
-                    view: View.GEN_NAV_POLAR,
-                    isLocked: true // Planned
+                    view: View.GEN_NAV_POLAR
                 },
             ]}
         />

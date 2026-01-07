@@ -101,6 +101,10 @@ import HPLCommunicationProcess from './components/HPL/HPLCommunicationProcess';
 import HPLCompetency from './components/HPL/HPLCompetency';
 import HPLCooperation from './components/HPL/HPLCooperation';
 import HPLHealthHygiene from './components/HPL/HPLHealthHygiene';
+import HPLLearning from './components/HPL/HPLLearning';
+import HPLPersonality from './components/HPL/HPLPersonality';
+import HPLAtmosphere from './components/HPL/HPLAtmosphere';
+import HPLIncidents from './components/HPL/HPLIncidents';
 
 import AtmosphereLayers from './components/Meteorology/AtmosphereLayers';
 import OneInSixty from './components/Nav/OneInSixty';
@@ -155,6 +159,9 @@ import AirepSpec from './components/AirepSpec';
 import GenNavDashboard from './components/GenNav/GenNavDashboard';
 import EarthGeometry from './components/GenNav/EarthGeometry';
 import WindTriangle from './components/GenNav/WindTriangle';
+import SolarCalc from './components/GenNav/SolarCalc';
+import MapProjections from './components/GenNav/MapProjections';
+import PolarGrid from './components/GenNav/PolarGrid';
 import NavDataLink from './components/NavDataLink';
 import EmergencyBuilder from './components/EmergencyBuilder';
 import EmergencyOps from './components/EmergencyOps';
@@ -830,6 +837,18 @@ const App: React.FC = () => {
                             {currentView === View.HPL_RADIATION && <HPLRadiation />}
                             {currentView === View.HPL_THERMAL && <HPLThermal />}
                             {currentView === View.HPL_SLEEP_DISORDERS && <HPLSleepDisorders />}
+                            {currentView === View.HPL_WORKLOAD && <HPLWorkload />}
+                            {currentView === View.HPL_PERSONALITY && <HPLPersonality />}
+                            {currentView === View.HPL_LEARNING && <HPLLearning />}
+                            {currentView === View.HPL_PERCEPTION && <HPLPerception />}
+                            {currentView === View.HPL_COMMUNICATION_PROCESS && <HPLCommunicationProcess />}
+                            {currentView === View.HPL_COOPERATION && <HPLCooperation />}
+                            {currentView === View.HPL_COMPETENCY && <HPLCompetency />}
+                            {currentView === View.HPL_MOTION_SICKNESS && <HPLMotionSickness />}
+                            {currentView === View.HPL_PRESSURE && <HPLPressure />}
+                            {currentView === View.HPL_ATMOSPHERE && <HPLAtmosphere />}
+                            {currentView === View.HPL_HEALTH_HYGIENE && <HPLHealthHygiene />}
+                            {currentView === View.HPL_INCIDENTS && <HPLIncidents />}
 
                             {currentView === View.HPL_PRESSURE && <HPLPressure />}
                             {currentView === View.HPL_MOTION_SICKNESS && <HPLMotionSickness />}
@@ -861,7 +880,10 @@ const App: React.FC = () => {
                                 <GenNavDashboard currentView={currentView} setCurrentView={setCurrentView} />
                             )}
                             {currentView === View.GEN_NAV_EARTH && <EarthGeometry onNavigate={setCurrentView} />}
+                            {currentView === View.GEN_NAV_SOLAR && <SolarCalc onNavigate={setCurrentView} />}
+                            {currentView === View.GEN_NAV_MAPS && <MapProjections onNavigate={setCurrentView} />}
                             {currentView === View.GEN_NAV_WIND_TRIANGLE && <WindTriangle onNavigate={setCurrentView} />}
+                            {currentView === View.GEN_NAV_POLAR && <PolarGrid onNavigate={setCurrentView} />}
                             {currentView === View.NAV_HOME && (
                                 <GenNavDashboard currentView={View.GEN_NAV_HOME} setCurrentView={setCurrentView} />
                             )}
