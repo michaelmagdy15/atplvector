@@ -160,6 +160,7 @@ export enum View {
   RAD_NAV_RNAV = 'RAD_NAV_RNAV',
   RAD_NAV_FMS = 'RAD_NAV_FMS',
   RAD_NAV_SBAS = 'RAD_NAV_SBAS',
+  RAD_NAV_CLASS_1 = 'RAD_NAV_CLASS_1', // Class 1: Radio Fundamentals
 
   // General Navigation (061)
   GEN_NAV_HOME = 'GEN_NAV_HOME',

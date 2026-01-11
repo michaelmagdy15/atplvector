@@ -1,0 +1,97 @@
+[
+  {
+    "id": "010",
+    "name": "AIR LAW",
+    "totalLOs": 131
+  },
+  {
+    "id": "020",
+    "name": "AIRCRAFT GENERAL KNOWLEDGE",
+    "totalLOs": 0
+  },
+  {
+    "id": "021",
+    "name": "AIRCRAFT GENERAL KNOWLEDGE \u2014 AIRFRAME,",
+    "totalLOs": 145
+  },
+  {
+    "id": "022",
+    "name": "AIRCRAFT GENERAL KNOWLEDGE \u2014",
+    "totalLOs": 92
+  },
+  {
+    "id": "030",
+    "name": "FLIGHT PERFORMANCE AND PLANNING",
+    "totalLOs": 0
+  },
+  {
+    "id": "031",
+    "name": "MASS AND BALANCE \u2014",
+    "totalLOs": 38
+  },
+  {
+    "id": "032",
+    "name": "PERFORMANCE \u2014 AEROPLANES",
+    "totalLOs": 54
+  },
+  {
+    "id": "033",
+    "name": "FLIGHT PLANNING AND MONITORING",
+    "totalLOs": 40
+  },
+  {
+    "id": "034",
+    "name": "PERFORMANCE \u2014 HELICOPTERS",
+    "totalLOs": 38
+  },
+  {
+    "id": "040",
+    "name": "HUMAN PERFORMANCE AND LIMITATIONS",
+    "totalLOs": 41
+  },
+  {
+    "id": "050",
+    "name": "METEOROLOGY",
+    "totalLOs": 116
+  },
+  {
+    "id": "060",
+    "name": "NAVIGATION",
+    "totalLOs": 0
+  },
+  {
+    "id": "061",
+    "name": "GENERAL NAVIGATION",
+    "totalLOs": 44
+  },
+  {
+    "id": "070",
+    "name": "OPERATIONAL PROCEDURES",
+    "totalLOs": 0
+  },
+  {
+    "id": "080",
+    "name": "PRINCIPLES OF FLIGHT",
+    "totalLOs": 0
+  },
+  {
+    "id": "081",
+    "name": "PRINCIPLES OF FLIGHT \u2014 AEROPLANES",
+    "totalLOs": 166
+  },
+  {
+    "id": "082",
+    "name": "PRINCIPLES OF FLIGHT \u2014 HELICOPTERS",
+    "totalLOs": 66
+  },
+  {
+    "id": "090",
+    "name": "COMMUNICATIONS",
+    "totalLOs": 25
+  },
+  {
+    "id": "100",
+    "name": "KNOWLEDGE, SKILLS AND ATTITUDES (KSA)",
+    "totalLOs": 0
+  }
+]

@@ -326,7 +326,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                 <div className="lg:w-1/2 flex flex-col justify-center px-8 lg:px-20 relative z-10 pt-10 lg:pt-0">
                     <div className="space-y-8 max-w-xl">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wider backdrop-blur-sm animate-in fade-in slide-in-from-bottom-4 duration-700">
-                            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> EASA 2025 Ready
+                            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> EASA 2026 Ready
                         </div>
                         <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
                             Master <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">ATPL Theory</span><br />Visually.
@@ -713,7 +713,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                         <a href="#" className="hover:text-white transition">Contact</a>
                     </div>
                     <div className="text-xs text-slate-600 mt-4 md:mt-0">
-                        © 2025 ATPLVector. All rights reserved.
+                        © 2026 ATPLVector. All rights reserved.
                     </div>
                 </div>
             </footer>

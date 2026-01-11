@@ -137,6 +137,7 @@ import ThreeDAirflow from './components/PoF/ThreeDAirflow';
 import TotalDrag from './components/PoF/TotalDrag';
 import GroundEffect from './components/PoF/GroundEffect';
 import HighLiftDevices from './components/PoF/HighLiftDevices';
+import RadioFundamentals from './components/RadioNav/RadioFundamentals';
 
 import CommsDashboard from './components/Comms/CommsDashboard';
 import GeneralTheory from './components/GeneralTheory';
@@ -895,6 +896,7 @@ const App: React.FC = () => {
                                     icon={Wifi} onChangeView={setCurrentView}
                                     modules={[
                                         // Phase 1: Basics
+                                        { title: 'Class 1: Fundamentals', desc: 'Waves, Spectrum, Modulation, Propagation (New).', view: View.RAD_NAV_CLASS_1 },
                                         { title: 'Wave Propagation', desc: 'Wavelength, Frequency, Amplitude visualized.', view: View.RAD_NAV_WAVE_PROP },
                                         { title: 'Spectrum Explorer', desc: 'VLF to EHF bands and aviation usage.', view: View.RAD_NAV_SPECTRUM },
                                         { title: 'Ionosphere', desc: 'Sky wave propagation, layers and skip distance.', view: View.RAD_NAV_IONOSPHERE },
@@ -936,6 +938,7 @@ const App: React.FC = () => {
                             {currentView === View.RAD_NAV_SBAS && <SbasAbas />}
                             {currentView === View.RAD_NAV_RNAV && <RnavPbn />}
                             {currentView === View.RAD_NAV_FMS && <FMSTrainer />}
+                            {currentView === View.RAD_NAV_CLASS_1 && <RadioFundamentals onNavigate={setCurrentView} />}
 
                             {/* PoF */}
                             {currentView === View.POF_HOME && (
