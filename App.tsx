@@ -120,6 +120,7 @@ import VDF from './components/RadioNav/VDF';
 import MLS from './components/RadioNav/MLS';
 import VORLab from './components/RadioNav/VORLab';
 import ADFSimulator from './components/RadioNav/ADFSimulator';
+import NDBADFSystem from './components/RadioNav/NDBADFSystem';
 import DMESimulator from './components/RadioNav/DMESimulator';
 import ILSSimulator from './components/RadioNav/ILSSimulator';
 import RadarTheory from './components/RadioNav/RadarTheory';
@@ -928,7 +929,7 @@ const App: React.FC = () => {
                             {currentView === View.RAD_NAV_ANTENNA && <AntennaTheory />}
                             {currentView === View.RAD_NAV_MODULATION && <Modulation />}
                             {currentView === View.RAD_NAV_VOR && <VORLab />}
-                            {currentView === View.RAD_NAV_ADF && <ADFSimulator />}
+                            {currentView === View.RAD_NAV_ADF && <NDBADFSystem onNavigate={setCurrentView} />}
                             {currentView === View.RAD_NAV_DME && <DMESimulator />}
                             {currentView === View.RAD_NAV_ILS && <ILSSimulator />}
                             {currentView === View.RAD_NAV_VDF && <VDF />}
