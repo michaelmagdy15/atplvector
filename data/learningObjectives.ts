@@ -1,22 +1,68 @@
 
 import { LearningObjective, SubjectStats, View } from '../types';
+import syllabusData from './syllabus.json';
 
-export const SUBJECTS: SubjectStats[] = [
-    { id: '010', name: 'Air Law', totalLOs: 215, coveredLOs: 0 },
-    { id: '021', name: 'AGK: Airframe/Systems', totalLOs: 180, coveredLOs: 0 },
-    { id: '022', name: 'AGK: Instrumentation', totalLOs: 140, coveredLOs: 0 },
-    { id: '031', name: 'Mass & Balance', totalLOs: 80, coveredLOs: 0 },
-    { id: '032', name: 'Performance (A)', totalLOs: 120, coveredLOs: 0 },
-    { id: '033', name: 'Flight Planning', totalLOs: 95, coveredLOs: 0 },
-    { id: '040', name: 'Human Performance', totalLOs: 110, coveredLOs: 0 },
-    { id: '050', name: 'Meteorology', totalLOs: 160, coveredLOs: 0 },
-    { id: '061', name: 'General Navigation', totalLOs: 90, coveredLOs: 0 },
-    { id: '062', name: 'Radio Navigation', totalLOs: 328, coveredLOs: 0 },
-    { id: '070', name: 'Operational Proc.', totalLOs: 85, coveredLOs: 0 },
-    { id: '081', name: 'Principles of Flight', totalLOs: 150, coveredLOs: 0 },
-    { id: '090', name: 'Communications', totalLOs: 119, coveredLOs: 0 },
-];
+// Type for syllabus JSON structure
+interface SyllabusNode {
+    code: string;
+    title: string;
+    children?: SyllabusNode[];
+    los?: { id: string; text: string; details?: string }[];
+}
 
+// Recursively count all LOs in a syllabus node
+function countLOs(node: SyllabusNode): number {
+    let count = node.los?.length || 0;
+    if (node.children) {
+        for (const child of node.children) {
+            count += countLOs(child);
+        }
+    }
+    return count;
+}
+
+// Extract subject ID from code (e.g., "040 00 00 00" -> "040")
+function getSubjectId(code: string): string {
+    return code.split(' ')[0];
+}
+
+// Build subjects dynamically from syllabus.json, with fallback defaults
+function buildSubjectsFromSyllabus(): SubjectStats[] {
+    // Default subjects with estimated totalLOs (used if not in syllabus.json)
+    const defaultSubjects: SubjectStats[] = [
+        { id: '010', name: 'Air Law', totalLOs: 215, coveredLOs: 0 },
+        { id: '021', name: 'AGK: Systems', totalLOs: 180, coveredLOs: 0 },
+        { id: '022', name: 'AGK: Instruments', totalLOs: 140, coveredLOs: 0 },
+        { id: '031', name: 'Mass & Balance', totalLOs: 80, coveredLOs: 0 },
+        { id: '032', name: 'Performance (A)', totalLOs: 120, coveredLOs: 0 },
+        { id: '033', name: 'Flight Planning', totalLOs: 95, coveredLOs: 0 },
+        { id: '040', name: 'Human Performance', totalLOs: 110, coveredLOs: 0 },
+        { id: '050', name: 'Meteorology', totalLOs: 160, coveredLOs: 0 },
+        { id: '061', name: 'General Navigation', totalLOs: 90, coveredLOs: 0 },
+        { id: '062', name: 'Radio Navigation', totalLOs: 328, coveredLOs: 0 },
+        { id: '070', name: 'Operational Proc.', totalLOs: 85, coveredLOs: 0 },
+        { id: '081', name: 'Principles of Flight', totalLOs: 150, coveredLOs: 0 },
+        { id: '090', name: 'Communications', totalLOs: 119, coveredLOs: 0 },
+    ];
+
+    // Build map of syllabus.json data to override defaults
+    const syllabusMap: Record<string, number> = {};
+    for (const subject of syllabusData as SyllabusNode[]) {
+        const id = getSubjectId(subject.code);
+        syllabusMap[id] = countLOs(subject);
+    }
+
+    // Merge: use syllabus.json totalLOs when available AND meaningful (>10), otherwise keep defaults
+    return defaultSubjects.map(sub => ({
+        ...sub,
+        totalLOs: (syllabusMap[sub.id] && syllabusMap[sub.id] > 10) ? syllabusMap[sub.id] : sub.totalLOs,
+    }));
+}
+
+// Generate SUBJECTS dynamically from the JSON
+export const SUBJECTS: SubjectStats[] = buildSubjectsFromSyllabus();
+
+// Covered Learning Objectives - these map platform modules to syllabus sections
 export const LEARNING_OBJECTIVES: LearningObjective[] = [
     // --- 010 AIR LAW ---
     { id: '010.01.00', subject: '010', text: 'International Law: Conventions & Agreements', coveredBy: View.AIR_LAW_INT_LAW },
@@ -157,6 +203,7 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '090.07.03', subject: '090', text: 'Data Link (ACARS/CPDLC)', coveredBy: View.RADIO_NAV_DATA },
 ];
 
+// Calculate progress by comparing covered LOs to total from syllabus
 export const calculateProgress = () => {
     const stats = SUBJECTS.map(sub => {
         // Find mapped learning objectives for this subject
@@ -165,17 +212,17 @@ export const calculateProgress = () => {
         // Count the unique modules covering this subject
         const uniqueModules = new Set(mappedLOs.map(lo => lo.coveredBy)).size;
 
-        // Weighting Logic:
-        // We assume each interactive module covers approximately 5 official Learning Objectives (LOs).
-        // e.g., "Airspace Explorer" covers definitions, classes A-G, separation, VFR rules, etc.
+        // Each interactive module covers approximately 5 official Learning Objectives (LOs)
         const estimatedCoverage = uniqueModules * 5;
 
-        // Calculate percentage, capped at 100%
-        const percentage = Math.min(100, Math.round((estimatedCoverage / sub.totalLOs) * 100));
+        // Calculate percentage using the actual totalLOs from syllabus.json
+        const percentage = sub.totalLOs > 0
+            ? Math.min(100, Math.round((estimatedCoverage / sub.totalLOs) * 100))
+            : 0;
 
         return {
             ...sub,
-            coveredLOs: estimatedCoverage, // Display estimated coverage count
+            coveredLOs: estimatedCoverage,
             percentage: percentage
         };
     });

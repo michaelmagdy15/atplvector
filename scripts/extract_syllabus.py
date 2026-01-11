@@ -3,6 +3,9 @@ import json
 import os
 from pypdf import PdfReader
 
+def clean_text(text):
+    return re.sub(r'\s+', ' ', text).strip()
+
 def extract_syllabus(pdf_path, output_path):
     print(f"Reading {pdf_path}...")
     try:
@@ -11,134 +14,174 @@ def extract_syllabus(pdf_path, output_path):
         print(f"Error reading PDF: {e}")
         return
 
-    text = ""
-    for page in reader.pages:
-        text += page.extract_text() + "\n"
+    full_text = ""
+    print(f"Extracting text from {len(reader.pages)} pages...")
+    for i, page in enumerate(reader.pages):
+        try:
+            full_text += page.extract_text() + "\n"
+        except Exception as e:
+            print(f"Warning: Could not extract text from page {i}: {e}")
 
-    # Regex patterns for EASA syllabus
-    # Subject: 010 00 00 00 AIR LAW
-    # Topic: 010 01 00 00 ...
-    # LO: 010.01.01.01 ... (Format varies, sometimes 010 01 01 01)
+    # EASA Syllabus Reference Numbers usually follow this hierarchy:
+    # Subject:   010 00 00 00
+    # Topic:     010 01 00 00
+    # Subtopic:  010 01 01 00
+    # LO:        010 01 01 01 (sometimes with dots: 010.01.01.01)
     
-    # Let's try to capture the hierarchical structure
-    # We will use a simplified structure:
-    # {
-    #   "010": { name: "Air Law", totalLOs: 0, los: [] },
-    #   ...
-    # }
+    # We will build a hierarchical dictionary
+    syllabus = []
+    
+    # Map to keep track of current context
+    current_subject = None
+    current_topic = None
+    current_subtopic = None
+    
+    lines = full_text.split('\n')
+    
+    # Regex Patterns
+    # 010 00 00 00 followed by text
+    subject_pattern = re.compile(r"^(\d{3})\s+00\s+00\s+00\s+(.+)$")
+    
+    # 010 01 00 00 
+    topic_pattern = re.compile(r"^(\d{3})\s+(\d{2})\s+00\s+00\s+(.+)$")
+    
+    # 010 01 01 00
+    subtopic_pattern = re.compile(r"^(\d{3})\s+(\d{2})\s+(\d{2})\s+00\s+(.+)$")
+    
+    # LO: 010 01 01 01 OR 010.01.01.01
+    lo_pattern_spaces = re.compile(r"^(\d{3})\s+(\d{2})\s+(\d{2})\s+(\d{2})\s+(.+)$")
+    lo_pattern_dots = re.compile(r"^(\d{3})\.(\d{2})\.(\d{2})\.(\d{2})\s+(.+)$")
 
-    subjects = {}
-    current_subject_id = None
+    print("Parsing text...")
+    
+    # Helper to find or create nodes
+    def find_or_create_subject(code, title):
+        nonlocal current_subject, current_topic, current_subtopic
+        # Check if subject already exists (in case of page breaks repeating headers)
+        for sub in syllabus:
+            if sub['code'].startswith(code):
+                current_subject = sub
+                current_topic = None
+                current_subtopic = None
+                return
+        
+        # Create new
+        new_subject = {
+            "code": f"{code} 00 00 00",
+            "title": clean_text(title),
+            "children": [],
+            "los": []
+        }
+        syllabus.append(new_subject)
+        current_subject = new_subject
+        current_topic = None
+        current_subtopic = None
 
-    # Flexible regex to catch the LOs
-    # Pattern to match subject headers like "010 00 00 00 AIR LAW"
-    subject_pattern = re.compile(r"^(\d{3})\s+00\s+00\s+00\s+(.+)$", re.MULTILINE)
-    
-    # Pattern to match LOs. 
-    # EASA LOs often look like "010 05 02 03" followed by text.
-    # Sometimes dotted: "010.05.02.03"
-    # We'll try to catch lines starting with the subject ID and having at least 3 parts
-    lo_pattern = re.compile(r"^(\d{3})[\s\.](\d{2})[\s\.](\d{2})[\s\.](\d{2})\s+(.+)$", re.MULTILINE)
+    def find_or_create_topic(code, topic_idx, title):
+        nonlocal current_topic, current_subtopic
+        if not current_subject: return 
+        
+        full_code = f"{code} {topic_idx} 00 00"
+        
+        # Check existing
+        for t in current_subject['children']:
+            if t['code'] == full_code:
+                current_topic = t
+                current_subtopic = None
+                return
 
-    lines = text.split('\n')
-    
-    # Pre-processing to handle potential multi-line LOs could be complex. 
-    # For a first pass, we'll assume single line or primary line contains the code.
-    
-    # Note: The PDF text extraction might not be perfect with whitespace.
-    
-    # Let's do a pass to find subjects first
+        new_topic = {
+            "code": full_code,
+            "title": clean_text(title),
+            "children": [],
+            "los": []
+        }
+        current_subject['children'].append(new_topic)
+        current_topic = new_topic
+        current_subtopic = None
+
+    def find_or_create_subtopic(code, topic_idx, subtopic_idx, title):
+        nonlocal current_subtopic
+        if not current_topic: return
+
+        full_code = f"{code} {topic_idx} {subtopic_idx} 00"
+        
+        for st in current_topic['children']:
+            if st['code'] == full_code:
+                current_subtopic = st
+                return
+
+        new_subtopic = {
+            "code": full_code,
+            "title": clean_text(title),
+            "children": [],
+            "los": [] # Leaf LOs here
+        }
+        current_topic['children'].append(new_subtopic)
+        current_subtopic = new_subtopic
+
+    def add_lo(code, topic_idx, sub_idx, lo_idx, text):
+        # Determine where to add LO. Ideally in current_subtopic.
+        # But sometimes PDF structure skips levels or LO is direct child of topic.
+        
+        target = current_subtopic if current_subtopic else current_topic
+        if not target and current_subject: target = current_subject # Fallback
+        
+        if target:
+            full_id = f"{code}.{topic_idx}.{sub_idx}.{lo_idx}"
+            target['los'].append({
+                "id": lo_idx,
+                "text": clean_text(text),
+                "full_id": full_id
+            })
+
     for line in lines:
         line = line.strip()
+        if not line: continue
         
-        # Check for Subject Header
-        # e.g. 010 00 00 00 AIR LAW
-        # We need to be careful not to match LOs as subjects if regex is loose
-        # But the 00 00 00 signature is usually good for top level.
-        
-        # Heuristic: Starts with 3 digits, then space/dot, then 00...
-        if re.match(r"^\d{3}[\s\.]00[\s\.]00[\s\.]00", line):
-            parts = re.split(r"[\s\.]", line)
-            if len(parts) >= 4:
-                subj_id = parts[0]
-                # Extract name: everything after the zeros. 
-                # Identifying where the name starts is tricky if split by space.
-                # Let's use specific regex.
-                match = re.match(r"^(\d{3})[\s\.]00[\s\.]00[\s\.]00\s+(.*)", line)
-                if match:
-                    subj_id = match.group(1)
-                    subj_name = match.group(2).strip()
-                    if subj_id not in subjects:
-                        subjects[subj_id] = {
-                            "id": subj_id,
-                            "name": subj_name,
-                            "totalLOs": 0,
-                            "los": [] # We might store just IDs to count them
-                        }
-                        current_subject_id = subj_id
-                        print(f"Found Subject: {subj_id} - {subj_name}")
+        # Subject
+        m_subj = subject_pattern.match(line)
+        if m_subj:
+            find_or_create_subject(m_subj.group(1), m_subj.group(2))
+            continue
+            
+        # Topic
+        m_topic = topic_pattern.match(line)
+        if m_topic:
+            # Ensure subject context is correct or inferred? 
+            # We assume sequential processing matches context.
+            if current_subject and m_topic.group(1) == current_subject['code'][:3]:
+                find_or_create_topic(m_topic.group(1), m_topic.group(2), m_topic.group(3))
+            continue
+            
+        # Subtopic
+        m_sub = subtopic_pattern.match(line)
+        if m_sub:
+            if current_topic: # Simplification: assume parent topic is set
+                 find_or_create_subtopic(m_sub.group(1), m_sub.group(2), m_sub.group(3), m_sub.group(4))
+            continue
 
-        # Check for LOs
-        # 010 01 01 01 or 010.01.01.01
-        elif re.match(r"^\d{3}[\s\.]\d{2}[\s\.]\d{2}[\s\.]\d{2}", line):
-             # It's an LO or a topic header.
-             # EASA structure:
-             # Subject: 010 00 00 00
-             # Topic: 010 01 00 00
-             # Subtopic: 010 01 01 00
-             # LO: 010 01 01 01
-             
-             # We want to count the leaf nodes (LOs).
-             # Usually LOs end with non-zero.
-             parts = re.split(r"[\s\.]", line)
-             # Clean parts (remove empty strings from consecutive spaces)
-             parts = [p for p in parts if p]
-             
-             if len(parts) >= 4:
-                 try:
-                     id_parts = parts[:4]
-                     # Check if it is a leaf LO. 
-                     # If the last part is not '00', it's likely an LO.
-                     # However, sometimes they go deeper? No, standard is 4 levels.
-                     
-                     s_id = id_parts[0]
-                     if s_id in subjects:
-                         # Check if it's a leaf node (last two digits != 00)
-                         # Actually usually last TWO digits are the LO index.
-                         # Example: 010 01 01 01 -> LO
-                         # Example: 010 01 01 00 -> Subtopic
-                         
-                         idx = id_parts[3]
-                         if idx != '00':
-                             subjects[s_id]["totalLOs"] += 1
-                             # Construct ID
-                             full_id = ".".join(id_parts)
-                             subjects[s_id]["los"].append(full_id)
-                 except:
-                     pass
+        # LO
+        m_lo = lo_pattern_spaces.match(line) or lo_pattern_dots.match(line)
+        if m_lo:
+            # 1=code, 2=topic, 3=sub, 4=lo, 5=text
+            # Try to auto-create hierarchy if missing?
+            # For now, just add to current context if possible
+            add_lo(m_lo.group(1), m_lo.group(2), m_lo.group(3), m_lo.group(4), m_lo.group(5))
+            continue
 
-    # Post processing
-    final_data = []
-    for k, v in subjects.items():
-        print(f"Subject {k}: {v['totalLOs']} LOs found.")
-        final_data.append({
-            "id": k,
-            "name": v["name"],
-            "totalLOs": v["totalLOs"]
-        })
-
+    print(f"Extraction complete. Found {len(syllabus)} subjects.")
+    
+    # Save
     with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(final_data, f, indent=2)
-    print(f"Database saved to {output_path}")
+        json.dump(syllabus, f, indent=2)
+    print(f"Saved to {output_path}")
 
 if __name__ == "__main__":
     pdf_file = "ATPLSYLLABUS.pdf"
-    output_file = "data/syllabus_db.json"
+    output_file = "data/syllabus.json"
     
-    # Check if files exist
-    if not os.path.exists(pdf_file):
-        # try referencing from root if running from script dir?
-        # script is widely assumed to be run from project root as per Cwd
-        pass
-
-    extract_syllabus(pdf_file, output_file)
+    if os.path.exists(pdf_file):
+        extract_syllabus(pdf_file, output_file)
+    else:
+        print(f"File not found: {pdf_file}")
