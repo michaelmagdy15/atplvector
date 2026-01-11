@@ -19,6 +19,7 @@ import SubjectSidebar from './components/SubjectSidebar';
 import { getSubjectConfig } from './data/sidebarNavigation';
 import StarfieldBackground from './components/StarfieldBackground';
 import GlowOrbs from './components/GlowOrbs';
+import LoadingScreen from './components/LoadingScreen';
 
 // Imports for Subjects...
 import AirLawDashboard from './components/AirLawDashboard';
@@ -423,11 +424,7 @@ const App: React.FC = () => {
     };
 
     if (isLoading) {
-        return (
-            <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-                <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-            </div>
-        );
+        return <LoadingScreen />;
     }
 
     if (!user) {
