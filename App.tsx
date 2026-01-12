@@ -118,11 +118,11 @@ import AntennaTheory from './components/RadioNav/AntennaTheory';
 import Modulation from './components/RadioNav/Modulation';
 import VDF from './components/RadioNav/VDF';
 import MLS from './components/RadioNav/MLS';
-import VORLab from './components/RadioNav/VORLab';
+import VORSystem from './components/RadioNav/VORSystem';
 import ADFSimulator from './components/RadioNav/ADFSimulator';
 import NDBADFSystem from './components/RadioNav/NDBADFSystem';
-import DMESimulator from './components/RadioNav/DMESimulator';
-import ILSSimulator from './components/RadioNav/ILSSimulator';
+import DMESystem from './components/RadioNav/DMESystem';
+import ILSSystem from './components/RadioNav/ILSSystem';
 import RadarTheory from './components/RadioNav/RadarTheory';
 import SSRTransponder from './components/RadioNav/SSRTransponder';
 import SbasAbas from './components/RadioNav/SbasAbas';
@@ -928,10 +928,10 @@ const App: React.FC = () => {
                             {currentView === View.RAD_NAV_IONOSPHERE && <IonosphereSim />}
                             {currentView === View.RAD_NAV_ANTENNA && <AntennaTheory />}
                             {currentView === View.RAD_NAV_MODULATION && <Modulation />}
-                            {currentView === View.RAD_NAV_VOR && <VORLab />}
+                            {currentView === View.RAD_NAV_VOR && <VORSystem onNavigate={setCurrentView} />}
                             {currentView === View.RAD_NAV_ADF && <NDBADFSystem onNavigate={setCurrentView} />}
-                            {currentView === View.RAD_NAV_DME && <DMESimulator />}
-                            {currentView === View.RAD_NAV_ILS && <ILSSimulator />}
+                            {currentView === View.RAD_NAV_DME && <DMESystem onNavigate={setCurrentView} />}
+                            {currentView === View.RAD_NAV_ILS && <ILSSystem onNavigate={setCurrentView} />}
                             {currentView === View.RAD_NAV_VDF && <VDF />}
                             {currentView === View.RAD_NAV_MLS && <MLS />}
                             {currentView === View.RAD_NAV_RADAR && <RadarTheory />}
