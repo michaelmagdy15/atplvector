@@ -47,26 +47,37 @@ const WeatherRadar: React.FC<Props> = ({ onNavigate }) => {
         setStorms(initialStorms);
     }, []);
 
+    // Simulation State
+    const sweepDirRef = useRef(1); // 1 = Right, -1 = Left
+    const lastTimeRef = useRef(Date.now());
+
     // Animation & Logic Loop
     useEffect(() => {
         let frameId: number;
-        let lastTime = Date.now();
-        let sweepDir = 1;
 
         const loop = () => {
             const now = Date.now();
-            const dt = (now - lastTime) / 1000;
-            lastTime = now;
+            const dt = (now - lastTimeRef.current) / 1000;
+            lastTimeRef.current = now;
 
             // 1. Update Antenna Sweep
             setScanAngle(prev => {
-                let next = prev + (sweepDir * 60 * dt); // 60 deg/sec
-                if (next > 45) { next = 45; sweepDir = -1; }
-                if (next < -45) { next = -45; sweepDir = 1; }
+                let next = prev + (sweepDirRef.current * 60 * dt); // 60 deg/sec
+                if (next > 45) {
+                    next = 45;
+                    sweepDirRef.current = -1;
+                }
+                if (next < -45) {
+                    next = -45;
+                    sweepDirRef.current = 1;
+                }
                 return next;
             });
 
-            // 2. Render
+            // 2. Render functions will be called by the effect, 
+            // but relying on state updates to trigger effect re-run for drawing is inefficient.
+            // Better to just update scan angle state, and let the effect re-run render the canvas?
+            // Actually, currently we call drawND() in the loop.
             drawND();
             drawVerticalProfile();
 

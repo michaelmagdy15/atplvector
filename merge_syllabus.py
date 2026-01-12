@@ -1,35 +1,34 @@
 import json
-import sys
+import os
 
-def merge_syllabus(main_file, new_file):
-    with open(main_file, 'r', encoding='utf-8') as f:
-        main_data = json.load(f)
-        
-    with open(new_file, 'r', encoding='utf-8') as f:
-        new_data_list = json.load(f)
-        
-    # Check if we are appending a list
-    if isinstance(new_data_list, list):
-        for item in new_data_list:
-            # Check if this code already exists to avoid duplicates
-             if not any(x['code'] == item['code'] for x in main_data):
-                main_data.append(item)
-             else:
-                print(f"Item with code {item['code']} already exists. Skipping.")
-    else:
-        print("New data is not a list.")
+syllabus_path = 'data/syllabus.json'
+radio_path = 'data/radio_nav_syllabus.json'
 
-    with open(main_file, 'w', encoding='utf-8') as f:
-        json.dump(main_data, f, indent=2)
-        
-    print(f"Successfully merged data into {main_file}")
+print(f"Loading {syllabus_path}...")
+with open(syllabus_path, 'r', encoding='utf-8') as f:
+    syllabus = json.load(f)
 
-if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print("Usage: python merge_syllabus.py <main_json> <new_json>")
-        sys.exit(1)
-        
-    main_file = sys.argv[1]
-    new_file = sys.argv[2]
+print(f"Loading {radio_path}...")
+with open(radio_path, 'r', encoding='utf-8') as f:
+    radio_data = json.load(f)
+
+# radio_data is a list containing the subject object(s)
+radio_subject = radio_data[0]
+radio_code = radio_subject['code']
+
+# Check if already exists
+existing_codes = [s['code'] for s in syllabus]
+if any(c.startswith('062') for c in existing_codes):
+    print("Subject 062 already exists in syllabus.json. Skipping.")
+else:
+    print("Subject 062 not found. appending...")
+    syllabus.append(radio_subject)
     
-    merge_syllabus(main_file, new_file)
+    # Sort
+    print("Sorting syllabus by code...")
+    syllabus.sort(key=lambda x: x['code'])
+    
+    print(f"Saving to {syllabus_path}...")
+    with open(syllabus_path, 'w', encoding='utf-8') as f:
+        json.dump(syllabus, f, indent=2)
+    print("Done.")

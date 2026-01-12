@@ -1,0 +1,2410 @@
+[
+  {
+    "code": "062 00 00 00",
+    "title": "RADIO NAVIGATION",
+    "children": [
+      {
+        "code": "062 01 00 00",
+        "title": "BASIC RADIO PROPAGATION THEORY",
+        "children": [
+          {
+            "code": "062 01 01 00",
+            "title": "Basic principles",
+            "children": [
+              {
+                "code": "062 01 01 01",
+                "title": "Electromagnetic waves",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that radio waves travel at the speed of light, being approximately 300 000 km/s.",
+                    "details": "State that radio waves travel at the speed of light, being approximately 300 000 km/s."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Define a \u2018cycle\u2019: a complete series of values of a periodical process.",
+                    "details": "Define a \u2018cycle\u2019: a complete series of values of a periodical process."
+                  }
+                ]
+              },
+              {
+                "code": "062 01 01 02",
+                "title": "Frequency, wavelength, amplitude, phase angle",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Define \u2018frequency\u2019: the number of cycles occurring in 1 second expressed in Hertz (Hz).",
+                    "details": "Define \u2018frequency\u2019: the number of cycles occurring in 1 second expressed in Hertz (Hz)."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Define \u2018wavelength\u2019: the physical distance travelled by a radio wave during one cycle of transmission.",
+                    "details": "Define \u2018wavelength\u2019: the physical distance travelled by a radio wave during one cycle of transmission."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Define \u2018amplitude\u2019: the maximum deflection in an oscillation or wave.",
+                    "details": "Define \u2018amplitude\u2019: the maximum deflection in an oscillation or wave."
+                  },
+                  {
+                    "id": "04",
+                    "text": "State that the relationship between wavelength and frequency is: wavelength (\u03bb) = speed of light (c) / frequency (f).",
+                    "details": "State that the relationship between wavelength and frequency is: wavelength (\u03bb) = speed of light (c) / frequency (f)."
+                  },
+                  {
+                    "id": "05",
+                    "text": "Define \u2018phase angle\u2019: the fraction of one wavelength expressed in degrees from 000\u00b0 to 360\u00b0.",
+                    "details": "Define \u2018phase angle\u2019: the fraction of one wavelength expressed in degrees from 000\u00b0 to 360\u00b0."
+                  },
+                  {
+                    "id": "06",
+                    "text": "Define \u2018phase angle difference/shift\u2019: the angular difference between the corresponding points of two cycles of equal wavelength, which is measurable in degrees (\u00b0).",
+                    "details": "Define \u2018phase angle difference/shift\u2019: the angular difference between the corresponding points of two cycles of equal wavelength, which is measurable in degrees (\u00b0)."
+                  }
+                ]
+              },
+              {
+                "code": "062 01 01 03",
+                "title": "Frequency bands, sidebands, single sideband",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "List the bands of the frequency spectrum for electromagnetic waves: \u2014 very low frequency (VLF): 3\u201330 kHz; \u2014 low frequency (LF): 30\u2013300 kHz; \u2014 medium frequency (MF): 300\u2013 3 000 kHz; \u2014 high frequency (HF): 3\u201330 MHz; \u2014 very high frequency (VHF): 30\u2013300 MHz; \u2014 ultra-high frequency (UHF): 300\u20133 000 MHz; \u2014 super high frequency (SHF): 3\u2013 30 GHz;",
+                    "details": "List the bands of the frequency spectrum for electromagnetic waves: \u2014 very low frequency (VLF): 3\u201330 kHz; \u2014 low frequency (LF): 30\u2013300 kHz; \u2014 medium frequency (MF): 300\u2013 3 000 kHz; \u2014 high frequency (HF): 3\u201330 MHz; \u2014 very high frequency (VHF): 30\u2013300 MHz; \u2014 ultra-high frequency (UHF): 300\u20133 000 MHz; \u2014 super high frequency (SHF): 3\u2013 30 GHz;"
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that when a carrier wave is modulated, the resultant radiation consists of the carrier frequency plus additional upper and lower sidebands.",
+                    "details": "State that when a carrier wave is modulated, the resultant radiation consists of the carrier frequency plus additional upper and lower sidebands."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that HF meteorological information for aircraft in flight (VOLMET) and HF two-way communication use a single sideband.",
+                    "details": "State that HF meteorological information for aircraft in flight (VOLMET) and HF two-way communication use a single sideband."
+                  },
+                  {
+                    "id": "04",
+                    "text": "State that the following abbreviations (classifications according to International Telecommunication Union (ITU) regulations) are used for aviation applications: \u2014 N0N: carrier without modulation as used by non-directional radio beacons (NDBs); \u2014 A1A: carrier with keyed Morse code modulation as used by NDBs; \u2014 A2A: carrier with amplitude modulated Morse code as used by NDBs;",
+                    "details": "State that the following abbreviations (classifications according to International Telecommunication Union (ITU) regulations) are used for aviation applications: \u2014 N0N: carrier without modulation as used by non-directional radio beacons (NDBs); \u2014 A1A: carrier with keyed Morse code modulation as used by NDBs; \u2014 A2A: carrier with amplitude modulated Morse code as used by NDBs;"
+                  }
+                ]
+              },
+              {
+                "code": "062 01 01 04",
+                "title": "Pulse characteristics",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Define the following terms that are associated with a pulse string: \u2014 pulse length; \u2014 pulse power; \u2014 continuous power.",
+                    "details": "Define the following terms that are associated with a pulse string: \u2014 pulse length; \u2014 pulse power; \u2014 continuous power."
+                  }
+                ]
+              },
+              {
+                "code": "062 01 01 05",
+                "title": "Carrier, modulation",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Define \u2018carrier wave\u2019: the radio wave acting as the carrier or transporter.",
+                    "details": "Define \u2018carrier wave\u2019: the radio wave acting as the carrier or transporter."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Define \u2018modulation\u2019: the technical term for the process of impressing and transporting information by radio waves.",
+                    "details": "Define \u2018modulation\u2019: the technical term for the process of impressing and transporting information by radio waves."
+                  }
+                ]
+              },
+              {
+                "code": "062 01 01 06",
+                "title": "Kinds of modulation (amplitude, frequency, pulse, phase)",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Define \u2018amplitude modulation\u2019: the information that is impressed onto the carrier wave by altering the amplitude of the carrier.",
+                    "details": "Define \u2018amplitude modulation\u2019: the information that is impressed onto the carrier wave by altering the amplitude of the carrier."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Define \u2018frequency modulation\u2019: the information that is impressed onto the carrier wave by altering the frequency of the carrier.",
+                    "details": "Define \u2018frequency modulation\u2019: the information that is impressed onto the carrier wave by altering the frequency of the carrier."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Describe \u2018pulse modulation\u2019: a modulation form used in radar by transmitting short pulses followed by larger interruptions.",
+                    "details": "Describe \u2018pulse modulation\u2019: a modulation form used in radar by transmitting short pulses followed by larger interruptions."
+                  },
+                  {
+                    "id": "04",
+                    "text": "Describe \u2018phase modulation\u2019: a modulation form used in GPS where the phase of the carrier wave is reversed.",
+                    "details": "Describe \u2018phase modulation\u2019: a modulation form used in GPS where the phase of the carrier wave is reversed."
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "062 01 02 00",
+            "title": "Antennas",
+            "children": [
+              {
+                "code": "062 01 02 01",
+                "title": "Characteristics",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Define \u2018antenna\u2019: an antenna or aerial is an electrical device which converts electric power into radio waves, and vice versa.",
+                    "details": "Define \u2018antenna\u2019: an antenna or aerial is an electrical device which converts electric power into radio waves, and vice versa."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that the simplest type of antenna is a dipole, which is a wire of length equal to one half of the wavelength.",
+                    "details": "State that the simplest type of antenna is a dipole, which is a wire of length equal to one half of the wavelength."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that an electromagnetic wave always consists of an oscillating electric (E) and an oscillating magnetic (H) field which propagates at the speed of light.",
+                    "details": "State that an electromagnetic wave always consists of an oscillating electric (E) and an oscillating magnetic (H) field which propagates at the speed of light."
+                  },
+                  {
+                    "id": "04",
+                    "text": "State that the E and H fields are perpendicular to each other. The oscillations are perpendicular to the propagation direction and are in-phase.",
+                    "details": "State that the E and H fields are perpendicular to each other. The oscillations are perpendicular to the propagation direction and are in-phase."
+                  }
+                ]
+              },
+              {
+                "code": "062 01 02 02",
+                "title": "Polarisation",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that the polarisation of an electromagnetic wave describes the orientation of the plane of oscillation of the",
+                    "details": "State that the polarisation of an electromagnetic wave describes the orientation of the plane of oscillation of the"
+                  }
+                ]
+              },
+              {
+                "code": "062 01 02 03",
+                "title": "Types of antennas",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Name the common different types of directional antennas: \u2014 loop antenna used in old automatic direction-finding (ADF) receivers; \u2014 parabolic antenna used in weather radars; \u2014 slotted planar array used in more modern weather radars.",
+                    "details": "Name the common different types of directional antennas: \u2014 loop antenna used in old automatic direction-finding (ADF) receivers; \u2014 parabolic antenna used in weather radars; \u2014 slotted planar array used in more modern weather radars."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Explain \u2018antenna shadowing\u2019.",
+                    "details": "Explain \u2018antenna shadowing\u2019."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain the importance of antenna placement on aircraft.",
+                    "details": "Explain the importance of antenna placement on aircraft."
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "062 01 03 00",
+            "title": "Wave propagation",
+            "children": [
+              {
+                "code": "062 01 03 01",
+                "title": "Structure of the ionosphere and its effect on radio waves",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that the ionosphere is the ionised component of the Earth\u2019s upper atmosphere from approximately 60 to 400 km above the surface, which is vertically structured in three regions or layers.",
+                    "details": "State that the ionosphere is the ionised component of the Earth\u2019s upper atmosphere from approximately 60 to 400 km above the surface, which is vertically structured in three regions or layers."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that the layers of the ionosphere are named D, E and F layers, and their depth varies with time.",
+                    "details": "State that the layers of the ionosphere are named D, E and F layers, and their depth varies with time."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that electromagnetic waves refracted from the E and F layers of the ionosphere are called sky waves.",
+                    "details": "State that electromagnetic waves refracted from the E and F layers of the ionosphere are called sky waves."
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain how the different layers of the ionosphere influence wave propagation.",
+                    "details": "Explain how the different layers of the ionosphere influence wave propagation."
+                  }
+                ]
+              },
+              {
+                "code": "062 01 03 02",
+                "title": "Ground waves",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Define \u2018ground or surface waves\u2019: the electromagnetic waves travelling along the surface of the Earth.",
+                    "details": "Define \u2018ground or surface waves\u2019: the electromagnetic waves travelling along the surface of the Earth."
+                  }
+                ]
+              },
+              {
+                "code": "062 01 03 03",
+                "title": "Space waves",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Define \u2018space waves\u2019: the electromagnetic waves travelling through the air directly from the transmitter to the receiver.",
+                    "details": "Define \u2018space waves\u2019: the electromagnetic waves travelling through the air directly from the transmitter to the receiver."
+                  }
+                ]
+              },
+              {
+                "code": "062 01 03 04",
+                "title": "Propagation with the frequency bands",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that radio waves in VHF, UHF, SHF and EHF propagate as space waves.",
+                    "details": "State that radio waves in VHF, UHF, SHF and EHF propagate as space waves."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that radio waves in LF, MF and HF propagate as surface/ground waves and sky waves.",
+                    "details": "State that radio waves in LF, MF and HF propagate as surface/ground waves and sky waves."
+                  }
+                ]
+              },
+              {
+                "code": "062 01 03 05",
+                "title": "Doppler principle",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that the Doppler effect is the phenomenon where the frequency of a wave will increase or decrease if there is relative motion between the transmitter and the receiver.",
+                    "details": "State that the Doppler effect is the phenomenon where the frequency of a wave will increase or decrease if there is relative motion between the transmitter and the receiver."
+                  }
+                ]
+              },
+              {
+                "code": "062 01 03 06",
+                "title": "Factors affecting propagation",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Define \u2018skip distance\u2019: the distance between the transmitter and the point on the surface of the Earth where the first sky wave return arrives.",
+                    "details": "Define \u2018skip distance\u2019: the distance between the transmitter and the point on the surface of the Earth where the first sky wave return arrives."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that skip zone/dead space is the distance between the limit of the surface wave and the sky wave.",
+                    "details": "State that skip zone/dead space is the distance between the limit of the surface wave and the sky wave."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Describe \u2018fading\u2019: when a receiver picks up two signals with the same frequency, and the signals will interfere with each other causing changes in the resultant signal strength and polarisation.",
+                    "details": "Describe \u2018fading\u2019: when a receiver picks up two signals with the same frequency, and the signals will interfere with each other causing changes in the resultant signal strength and polarisation."
+                  },
+                  {
+                    "id": "04",
+                    "text": "State that radio waves in the VHF band and above are limited in range as they are not reflected by the ionosphere and do not have a surface wave.",
+                    "details": "State that radio waves in the VHF band and above are limited in range as they are not reflected by the ionosphere and do not have a surface wave."
+                  },
+                  {
+                    "id": "05",
+                    "text": "Describe the physical phenomena \u2018reflection\u2019, \u2018refraction\u2019, \u2018diffraction\u2019, \u2018absorption\u2019 and \u2018interference\u2019.",
+                    "details": "Describe the physical phenomena \u2018reflection\u2019, \u2018refraction\u2019, \u2018diffraction\u2019, \u2018absorption\u2019 and \u2018interference\u2019."
+                  },
+                  {
+                    "id": "06",
+                    "text": "State that multipath is when the signal arrives at the receiver via more than one path (the signal being reflected from surfaces near the receiver).",
+                    "details": "State that multipath is when the signal arrives at the receiver via more than one path (the signal being reflected from surfaces near the receiver)."
+                  }
+                ]
+              }
+            ],
+            "los": []
+          }
+        ],
+        "los": []
+      },
+      {
+        "code": "062 02 00 00",
+        "title": "RADIO AIDS",
+        "children": [
+          {
+            "code": "062 02 01 00",
+            "title": "Ground direction finding (DF) No 1178/2011) ANNEX I (Part-FCL) SUBPART D \u2013 COMMERCIAL PILOT LICENCE \u2013 CPL Syllabus reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR Exa m BIR BK Remarks ATPL CPL ATPL/I R ATPL CPL",
+            "children": [
+              {
+                "code": "062 02 01 01",
+                "title": "Principles",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Describe the use of a ground DF.",
+                    "details": "Describe the use of a ground DF."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Explain the limitation of range because of the path of the VHF signal.",
+                    "details": "Explain the limitation of range because of the path of the VHF signal."
+                  }
+                ]
+              },
+              {
+                "code": "062 02 01 02",
+                "title": "Presentation and interpretation",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Define the term \u2018QDM\u2019: the magnetic bearing to the station.",
+                    "details": "Define the term \u2018QDM\u2019: the magnetic bearing to the station."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Define the term \u2018QDR\u2019: the magnetic bearing from the station.",
+                    "details": "Define the term \u2018QDR\u2019: the magnetic bearing from the station."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain that by using more than one ground station, the position of an aircraft can be determined and transmitted to the pilot.",
+                    "details": "Explain that by using more than one ground station, the position of an aircraft can be determined and transmitted to the pilot."
+                  }
+                ]
+              },
+              {
+                "code": "062 02 01 03",
+                "title": "Coverage and range",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Use the formula: 1.23 \u00d7 \u221atransmitter height in feet + 1.23 \u00d7 \u221areceiver height in feet to calculate the range in NM.",
+                    "details": "Use the formula: 1.23 \u00d7 \u221atransmitter height in feet + 1.23 \u00d7 \u221areceiver height in feet to calculate the range in NM."
+                  }
+                ]
+              },
+              {
+                "code": "062 02 01 04",
+                "title": "Errors and accuracy",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain why synchronous transmissions will cause errors.",
+                    "details": "Explain why synchronous transmissions will cause errors."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Describe the effect of \u2018multipath signals\u2019.",
+                    "details": "Describe the effect of \u2018multipath signals\u2019."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain that VDF information is divided into the following classes according to ICAO Annex 10:",
+                    "details": "Explain that VDF information is divided into the following classes according to ICAO Annex 10:"
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "062 02 02 00",
+            "title": "Non-directional radio beacon (NDB)/automatic direction finding (ADF)",
+            "children": [
+              {
+                "code": "062 02 02 01",
+                "title": "Principles",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Define the acronym \u2018NDB\u2019: non-directional radio beacon.",
+                    "details": "Define the acronym \u2018NDB\u2019: non-directional radio beacon."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Define the acronym \u2018ADF\u2019: automatic direction-finding equipment.",
+                    "details": "Define the acronym \u2018ADF\u2019: automatic direction-finding equipment."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that the NDB is the ground part of the system.",
+                    "details": "State that the NDB is the ground part of the system."
+                  },
+                  {
+                    "id": "04",
+                    "text": "State that the ADF is the airborne part of the system.",
+                    "details": "State that the ADF is the airborne part of the system."
+                  },
+                  {
+                    "id": "05",
+                    "text": "State that the NDB operates in the LF and MF frequency bands.",
+                    "details": "State that the NDB operates in the LF and MF frequency bands."
+                  },
+                  {
+                    "id": "06",
+                    "text": "State that the frequency band assigned to aeronautical NDBs according to ICAO Annex 10 is 190\u20131 750 kHz.",
+                    "details": "State that the frequency band assigned to aeronautical NDBs according to ICAO Annex 10 is 190\u20131 750 kHz."
+                  },
+                  {
+                    "id": "07",
+                    "text": "Define a \u2018locator beacon\u2019: an LF/MF NDB used as an aid to final approach usually with a range of 10\u201325 NM.",
+                    "details": "Define a \u2018locator beacon\u2019: an LF/MF NDB used as an aid to final approach usually with a range of 10\u201325 NM."
+                  },
+                  {
+                    "id": "08",
+                    "text": "State that certain commercial radio stations transmit within the frequency band of the NDB.",
+                    "details": "State that certain commercial radio stations transmit within the frequency band of the NDB."
+                  },
+                  {
+                    "id": "09",
+                    "text": "State that according to ICAO Annex 10, an NDB station has an automatic ground monitoring system.",
+                    "details": "State that according to ICAO Annex 10, an NDB station has an automatic ground monitoring system."
+                  },
+                  {
+                    "id": "10",
+                    "text": "Describe the use of NDBs for navigation.",
+                    "details": "Describe the use of NDBs for navigation."
+                  },
+                  {
+                    "id": "11",
+                    "text": "Describe the procedure to identify an NDB station.",
+                    "details": "Describe the procedure to identify an NDB station."
+                  },
+                  {
+                    "id": "12",
+                    "text": "Interpret the term \u2018cone of confusion\u2019 in respect of an NDB.",
+                    "details": "Interpret the term \u2018cone of confusion\u2019 in respect of an NDB."
+                  },
+                  {
+                    "id": "13",
+                    "text": "State that an NDB station emits a N0N/A1A or a N0N/A2A signal.",
+                    "details": "State that an NDB station emits a N0N/A1A or a N0N/A2A signal."
+                  },
+                  {
+                    "id": "14",
+                    "text": "State the function of the beat frequency oscillator (BFO).",
+                    "details": "State the function of the beat frequency oscillator (BFO)."
+                  },
+                  {
+                    "id": "15",
+                    "text": "State that in order to identify a N0N/A1A NDB, the BFO circuit of the receiver has to be activated.",
+                    "details": "State that in order to identify a N0N/A1A NDB, the BFO circuit of the receiver has to be activated."
+                  },
+                  {
+                    "id": "16",
+                    "text": "State that on modern aircraft, the BFO is activated automatically.",
+                    "details": "State that on modern aircraft, the BFO is activated automatically."
+                  }
+                ]
+              },
+              {
+                "code": "062 02 02 02",
+                "title": "Presentation and interpretation",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Name the types of indicators commonly in use: \u2212 electronic display; \u2212 radio magnetic indicator (RMI); \u2212 fixed-card ADF (radio compass);",
+                    "details": "Name the types of indicators commonly in use: \u2212 electronic display; \u2212 radio magnetic indicator (RMI); \u2212 fixed-card ADF (radio compass);"
+                  },
+                  {
+                    "id": "02",
+                    "text": "Interpret the indications given on RMI, fixed- card and moving-card ADF displays.",
+                    "details": "Interpret the indications given on RMI, fixed- card and moving-card ADF displays."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Given a display, interpret the relevant ADF information.",
+                    "details": "Given a display, interpret the relevant ADF information."
+                  },
+                  {
+                    "id": "04",
+                    "text": "Calculate the true bearing from the compass heading and relative bearing.",
+                    "details": "Calculate the true bearing from the compass heading and relative bearing."
+                  },
+                  {
+                    "id": "05",
+                    "text": "Convert the compass bearing into magnetic bearing and true bearing.",
+                    "details": "Convert the compass bearing into magnetic bearing and true bearing."
+                  },
+                  {
+                    "id": "06",
+                    "text": "Describe how to fly the following in-flight ADF procedures: \u2212 homing and tracking, and explain the influence of wind; \u2212 interception of inbound QDM and outbound QDR; \u2212 changing from one QDM/QDR to another; \u2212 determining station passage and the abeam point.",
+                    "details": "Describe how to fly the following in-flight ADF procedures: \u2212 homing and tracking, and explain the influence of wind; \u2212 interception of inbound QDM and outbound QDR; \u2212 changing from one QDM/QDR to another; \u2212 determining station passage and the abeam point."
+                  }
+                ]
+              },
+              {
+                "code": "062 02 02 03",
+                "title": "Coverage and range",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that the power of the transmitter limits the range of an NDB.",
+                    "details": "State that the power of the transmitter limits the range of an NDB."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Explain the relationship between power and range.",
+                    "details": "Explain the relationship between power and range."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Describe the propagation path of NDB radio waves with respect to the ionosphere and the Earth\u2019s surface.",
+                    "details": "Describe the propagation path of NDB radio waves with respect to the ionosphere and the Earth\u2019s surface."
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain that the interference between sky waves and ground waves leads to \u2018fading\u2019.",
+                    "details": "Explain that the interference between sky waves and ground waves leads to \u2018fading\u2019."
+                  },
+                  {
+                    "id": "05",
+                    "text": "Define that the accuracy the pilot has to fly the required bearing in order to be considered established during approach, according to ICAO Doc 8168, has to be within \u00b1 5\u00b0.",
+                    "details": "Define that the accuracy the pilot has to fly the required bearing in order to be considered established during approach, according to ICAO Doc 8168, has to be within \u00b1 5\u00b0."
+                  },
+                  {
+                    "id": "06",
+                    "text": "State that there is no warning indication of NDB failure.",
+                    "details": "State that there is no warning indication of NDB failure."
+                  }
+                ]
+              },
+              {
+                "code": "062 02 02 04",
+                "title": "Errors and accuracy",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain \u2018coastal refraction\u2019: as a radio wave travelling over land crosses the coast, the wave speeds up over water and the wave front bends.",
+                    "details": "Explain \u2018coastal refraction\u2019: as a radio wave travelling over land crosses the coast, the wave speeds up over water and the wave front bends."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Define \u2018night/twilight effect\u2019: the influence of sky waves and ground waves arriving at the ADF receiver with a difference of phase and polarisation which introduce bearing errors.",
+                    "details": "Define \u2018night/twilight effect\u2019: the influence of sky waves and ground waves arriving at the ADF receiver with a difference of phase and polarisation which introduce bearing errors."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that interference from other NDB stations on the same frequency may occur at night due to sky-wave contamination.",
+                    "details": "State that interference from other NDB stations on the same frequency may occur at night due to sky-wave contamination."
+                  }
+                ]
+              },
+              {
+                "code": "062 02 02 05",
+                "title": "Factors affecting range and accuracy",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Describe diffraction of radio waves in mountainous terrain (mountain effect).",
+                    "details": "Describe diffraction of radio waves in mountainous terrain (mountain effect)."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that static radiation energy from a cumulonimbus cloud may interfere with the radio wave and influence the ADF bearing indication.",
+                    "details": "State that static radiation energy from a cumulonimbus cloud may interfere with the radio wave and influence the ADF bearing indication."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain that the bank angle of the aircraft causes a dip error.",
+                    "details": "Explain that the bank angle of the aircraft causes a dip error."
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "062 02 03 00",
+            "title": "VHF omnidirectional radio range (VOR): conventional VOR (CVOR) and Doppler VOR (DVOR)",
+            "children": [
+              {
+                "code": "062 02 03 01",
+                "title": "Principles",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain the working principle of VOR using the following general terms: \u2014 reference phase; \u2014 variable phase; \u2014 phase difference.",
+                    "details": "Explain the working principle of VOR using the following general terms: \u2014 reference phase; \u2014 variable phase; \u2014 phase difference."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that the frequency band allocated to VOR according to ICAO Annex 10 is VHF, and the frequencies used are 108.0\u2013117.975 MHz.",
+                    "details": "State that the frequency band allocated to VOR according to ICAO Annex 10 is VHF, and the frequencies used are 108.0\u2013117.975 MHz."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that frequencies within the allocated VOR range 108.0\u2013111.975 MHz, which have an odd number in the first decimal place, are used by instrument landing system (ILS).",
+                    "details": "State that frequencies within the allocated VOR range 108.0\u2013111.975 MHz, which have an odd number in the first decimal place, are used by instrument landing system (ILS)."
+                  },
+                  {
+                    "id": "04",
+                    "text": "State that the following types of VOR are in operation: \u2014 conventional VOR (CVOR): a first-generation VOR station emitting",
+                    "details": "State that the following types of VOR are in operation: \u2014 conventional VOR (CVOR): a first-generation VOR station emitting"
+                  },
+                  {
+                    "id": "05",
+                    "text": "State that automatic terminal information service (ATIS) information is transmitted on VOR frequencies.",
+                    "details": "State that automatic terminal information service (ATIS) information is transmitted on VOR frequencies."
+                  },
+                  {
+                    "id": "06",
+                    "text": "List the three main components of VOR airborne equipment: \u2014 the antenna; \u2014 the receiver; \u2014 the indicator.",
+                    "details": "List the three main components of VOR airborne equipment: \u2014 the antenna; \u2014 the receiver; \u2014 the indicator."
+                  },
+                  {
+                    "id": "07",
+                    "text": "Describe the identification of a VOR in terms of Morse-code letters and additional plain text.",
+                    "details": "Describe the identification of a VOR in terms of Morse-code letters and additional plain text."
+                  },
+                  {
+                    "id": "08",
+                    "text": "State that according to ICAO Annex 10, a VOR station has an automatic ground monitoring system.",
+                    "details": "State that according to ICAO Annex 10, a VOR station has an automatic ground monitoring system."
+                  },
+                  {
+                    "id": "09",
+                    "text": "State that failure of the VOR station to stay within the required limits can cause the removal of identification and navigation components from the carrier or radiation to cease.",
+                    "details": "State that failure of the VOR station to stay within the required limits can cause the removal of identification and navigation components from the carrier or radiation to cease."
+                  }
+                ]
+              },
+              {
+                "code": "062 02 03 02",
+                "title": "Presentation and interpretation",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Read off the radial on an RMI.",
+                    "details": "Read off the radial on an RMI."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Read off the angular displacement in relation to a preselected radial on a horizontal situation indicator (HSI) or omnibearing indicator (OBI).",
+                    "details": "Read off the angular displacement in relation to a preselected radial on a horizontal situation indicator (HSI) or omnibearing indicator (OBI)."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain the use of the TO/FROM indicator in order to determine aircraft position relative to the VOR considering also the heading of the aircraft.",
+                    "details": "Explain the use of the TO/FROM indicator in order to determine aircraft position relative to the VOR considering also the heading of the aircraft."
+                  },
+                  {
+                    "id": "04",
+                    "text": "Interpret VOR information as displayed on HSI, CDI and RMI.",
+                    "details": "Interpret VOR information as displayed on HSI, CDI and RMI."
+                  },
+                  {
+                    "id": "05",
+                    "text": "Describe the following in-flight VOR procedures: \u2014 tracking, and explain the influence of wind when tracking; \u2014 interception of a radial inbound and outbound to/from a VOR; \u2014 changing from one radial inbound/outbound to another;",
+                    "details": "Describe the following in-flight VOR procedures: \u2014 tracking, and explain the influence of wind when tracking; \u2014 interception of a radial inbound and outbound to/from a VOR; \u2014 changing from one radial inbound/outbound to another;"
+                  },
+                  {
+                    "id": "06",
+                    "text": "State that when converting a radial into a true bearing, the variation at the VOR station has to be taken into account.",
+                    "details": "State that when converting a radial into a true bearing, the variation at the VOR station has to be taken into account."
+                  }
+                ]
+              },
+              {
+                "code": "062 02 03 03",
+                "title": "Intentionally left blank",
+                "children": [],
+                "los": []
+              },
+              {
+                "code": "062 02 03 04",
+                "title": "Errors and accuracy",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Define that the accuracy the pilot has to fly the required bearing in order to be considered established on a VOR track when flying approach procedures, according to ICAO Doc 8168, has to be within the half-full scale deflection of the required track.",
+                    "details": "Define that the accuracy the pilot has to fly the required bearing in order to be considered established on a VOR track when flying approach procedures, according to ICAO Doc 8168, has to be within the half-full scale deflection of the required track."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that due to reflections from terrain, radials can be bent and lead to wrong or fluctuating indications, which is called \u2018scalloping\u2019.",
+                    "details": "State that due to reflections from terrain, radials can be bent and lead to wrong or fluctuating indications, which is called \u2018scalloping\u2019."
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "062 02 04 00",
+            "title": "Distance-measuring equipment (DME)",
+            "children": [
+              {
+                "code": "062 02 04 01",
+                "title": "Principles",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that DME operates in the UHF band.",
+                    "details": "State that DME operates in the UHF band."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that the system comprises two basic components: \u2014 the aircraft component: the interrogator;",
+                    "details": "State that the system comprises two basic components: \u2014 the aircraft component: the interrogator;"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Describe the principle of distance measurement using DME in terms of a timed transmission from the interrogator and reply from the transponder on different frequencies.",
+                    "details": "Describe the principle of distance measurement using DME in terms of a timed transmission from the interrogator and reply from the transponder on different frequencies."
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain that the distance measured by DME is slant range.",
+                    "details": "Explain that the distance measured by DME is slant range."
+                  },
+                  {
+                    "id": "05",
+                    "text": "Illustrate that a position line using DME is a circle with the station at its centre.",
+                    "details": "Illustrate that a position line using DME is a circle with the station at its centre."
+                  },
+                  {
+                    "id": "06",
+                    "text": "State that the pairing of VHF and UHF frequencies (VOR/DME) enables the selection of two items of navigation information from one frequency setting.",
+                    "details": "State that the pairing of VHF and UHF frequencies (VOR/DME) enables the selection of two items of navigation information from one frequency setting."
+                  },
+                  {
+                    "id": "07",
+                    "text": "Describe, in the case of co-location with VOR and ILS, the frequency pairing and identification procedure.",
+                    "details": "Describe, in the case of co-location with VOR and ILS, the frequency pairing and identification procedure."
+                  },
+                  {
+                    "id": "08",
+                    "text": "State that military UHF tactical air navigation aid (TACAN) stations may be used for DME information.",
+                    "details": "State that military UHF tactical air navigation aid (TACAN) stations may be used for DME information."
+                  }
+                ]
+              },
+              {
+                "code": "062 02 04 02",
+                "title": "Presentation and interpretation",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that when identifying a DME station co-located with a VOR station, the identification signal with the higher-tone frequency is the DME which identifies itself approximately every 40 seconds.",
+                    "details": "State that when identifying a DME station co-located with a VOR station, the identification signal with the higher-tone frequency is the DME which identifies itself approximately every 40 seconds."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Calculate ground distance from given slant range and altitude.",
+                    "details": "Calculate ground distance from given slant range and altitude."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Describe the use of DME to fly a DME arc in accordance with ICAO Doc 8168 Volume 1.",
+                    "details": "Describe the use of DME to fly a DME arc in accordance with ICAO Doc 8168 Volume 1."
+                  },
+                  {
+                    "id": "04",
+                    "text": "State that a DME system may have a ground speed (GS) and time to station read-out combined with the DME read-out.",
+                    "details": "State that a DME system may have a ground speed (GS) and time to station read-out combined with the DME read-out."
+                  }
+                ]
+              },
+              {
+                "code": "062 02 04 03",
+                "title": "Coverage and range",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain why a ground station can generally respond to a maximum of 100 aircraft.",
+                    "details": "Explain why a ground station can generally respond to a maximum of 100 aircraft."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Explain which aircraft will be denied a DME range first when more than 100 interrogations are being made.",
+                    "details": "Explain which aircraft will be denied a DME range first when more than 100 interrogations are being made."
+                  }
+                ]
+              },
+              {
+                "code": "062 02 04 04",
+                "title": "Intentionally left blank",
+                "children": [],
+                "los": []
+              },
+              {
+                "code": "062 02 04 05",
+                "title": "Factors affecting range and accuracy",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain why the GS read-out from a DME can be less than the actual GS, and is zero when flying a DME arc.",
+                    "details": "Explain why the GS read-out from a DME can be less than the actual GS, and is zero when flying a DME arc."
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "062 02 05 00",
+            "title": "Instrument landing system (ILS)",
+            "children": [
+              {
+                "code": "062 02 05 01",
+                "title": "Principles",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Name the three main components of an ILS: \u2014 the localiser (LOC); \u2014 the glide path (GP);",
+                    "details": "Name the three main components of an ILS: \u2014 the localiser (LOC); \u2014 the glide path (GP);"
+                  },
+                  {
+                    "id": "02",
+                    "text": "State the site locations of the ILS components: \u2014 the LOC antenna should be located on the extension of the runway centre line at the stop-end; \u2014 the GP antenna should be locate beyond the runway threshold, laterally displaced to the side of the runway centre line.",
+                    "details": "State the site locations of the ILS components: \u2014 the LOC antenna should be located on the extension of the runway centre line at the stop-end; \u2014 the GP antenna should be locate beyond the runway threshold, laterally displaced to the side of the runway centre line."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain that marker beacons produce radiation patterns to indicate predetermined distances from the threshold along the ILS GP.",
+                    "details": "Explain that marker beacons produce radiation patterns to indicate predetermined distances from the threshold along the ILS GP."
+                  },
+                  {
+                    "id": "04",
+                    "text": "State that marker beacons are sometimes replaced by a DME paired with the LOC frequency.",
+                    "details": "State that marker beacons are sometimes replaced by a DME paired with the LOC frequency."
+                  },
+                  {
+                    "id": "05",
+                    "text": "State that in the ILS LOC frequency assigned band 108.0\u2013111.975 MHz, only frequencies which have an odd number in the first decimal are ILS LOC frequencies.",
+                    "details": "State that in the ILS LOC frequency assigned band 108.0\u2013111.975 MHz, only frequencies which have an odd number in the first decimal are ILS LOC frequencies."
+                  },
+                  {
+                    "id": "06",
+                    "text": "State that the GP operates in the UHF band.",
+                    "details": "State that the GP operates in the UHF band."
+                  },
+                  {
+                    "id": "07",
+                    "text": "Describe the use of the 90-Hz and the 150-Hz signals in the LOC and GP transmitters/receivers, stating how the signals at the receivers vary with angular deviation.",
+                    "details": "Describe the use of the 90-Hz and the 150-Hz signals in the LOC and GP transmitters/receivers, stating how the signals at the receivers vary with angular deviation."
+                  },
+                  {
+                    "id": "08",
+                    "text": "State that the UHF GP frequency is selected automatically by being paired with the LOC frequency.",
+                    "details": "State that the UHF GP frequency is selected automatically by being paired with the LOC frequency."
+                  },
+                  {
+                    "id": "09",
+                    "text": "Explain that both the LOC and the GP antenna radiates side lobes (false beams) which can give rise to false centre-line and false GP indication.",
+                    "details": "Explain that both the LOC and the GP antenna radiates side lobes (false beams) which can give rise to false centre-line and false GP indication."
+                  },
+                  {
+                    "id": "10",
+                    "text": "Explain that the back beam from the LOC antenna may be used as a published \u2018non- precision approach\u2019.",
+                    "details": "Explain that the back beam from the LOC antenna may be used as a published \u2018non- precision approach\u2019."
+                  },
+                  {
+                    "id": "11",
+                    "text": "State that the recommended GP is 3\u00b0.",
+                    "details": "State that the recommended GP is 3\u00b0."
+                  },
+                  {
+                    "id": "12",
+                    "text": "Name the frequency, modulation and identification assigned to all marker beacons. All marker beacons operate on 75-MHz carrier frequency. The modulation frequencies of the audio are: \u2014 outer marker: low; \u2014 middle marker: medium; \u2014 inner marker: high. The audio frequency modulation (for identification) is the continuous modulation of the audio frequency and is keyed as follows: \u2014 outer marker: 2 dashes per second continuously; \u2014 middle marker: a continuous series of alternate dots and dashes;",
+                    "details": "Name the frequency, modulation and identification assigned to all marker beacons. All marker beacons operate on 75-MHz carrier frequency. The modulation frequencies of the audio are: \u2014 outer marker: low; \u2014 middle marker: medium; \u2014 inner marker: high. The audio frequency modulation (for identification) is the continuous modulation of the audio frequency and is keyed as follows: \u2014 outer marker: 2 dashes per second continuously; \u2014 middle marker: a continuous series of alternate dots and dashes;"
+                  },
+                  {
+                    "id": "13",
+                    "text": "State that the final-approach area contains a fix or facility that permits verification of the ILS GP\u2013altimeter relationship. The outer marker or DME is usually used for this purpose.",
+                    "details": "State that the final-approach area contains a fix or facility that permits verification of the ILS GP\u2013altimeter relationship. The outer marker or DME is usually used for this purpose."
+                  }
+                ]
+              },
+              {
+                "code": "062 02 05 02",
+                "title": "Presentation and interpretation",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Describe the ILS identification regarding frequency and Morse code or plain text.",
+                    "details": "Describe the ILS identification regarding frequency and Morse code or plain text."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that an ILS installation has an automatic ground monitoring system.",
+                    "details": "State that an ILS installation has an automatic ground monitoring system."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that the LOC and GP monitoring system monitors any shift in the LOC and GP mean course line or reduction in signal strength.",
+                    "details": "State that the LOC and GP monitoring system monitors any shift in the LOC and GP mean course line or reduction in signal strength."
+                  },
+                  {
+                    "id": "04",
+                    "text": "State that warning flags will appear for both the LOC and the GP if the received signal strength is below a threshold value.",
+                    "details": "State that warning flags will appear for both the LOC and the GP if the received signal strength is below a threshold value."
+                  },
+                  {
+                    "id": "05",
+                    "text": "Describe the circumstances in which warning flags will appear for both the LOC and the GP: \u2014 absence of the carrier frequency; \u2014 absence of the modulation simultaneously;",
+                    "details": "Describe the circumstances in which warning flags will appear for both the LOC and the GP: \u2014 absence of the carrier frequency; \u2014 absence of the modulation simultaneously;"
+                  },
+                  {
+                    "id": "06",
+                    "text": "Interpret the indications on a CDI and an HSI: \u2014 full-scale deflection of the CDI needle corresponds to approximately 2.5\u00b0 displacement from the ILS centre line; \u2014 full-scale deflection on the GP corresponds to approximately 0.7\u00b0 from the ILS GP centre line.",
+                    "details": "Interpret the indications on a CDI and an HSI: \u2014 full-scale deflection of the CDI needle corresponds to approximately 2.5\u00b0 displacement from the ILS centre line; \u2014 full-scale deflection on the GP corresponds to approximately 0.7\u00b0 from the ILS GP centre line."
+                  },
+                  {
+                    "id": "07",
+                    "text": "Interpret the aircraft\u2019s position in relation to the extended runway centre line on a back- beam approach.",
+                    "details": "Interpret the aircraft\u2019s position in relation to the extended runway centre line on a back- beam approach."
+                  },
+                  {
+                    "id": "08",
+                    "text": "Explain the setting of the course pointer of an HSI and the course selector of an omnibearing indicator (OBI) for front-beam and back-beam approaches.",
+                    "details": "Explain the setting of the course pointer of an HSI and the course selector of an omnibearing indicator (OBI) for front-beam and back-beam approaches."
+                  }
+                ]
+              },
+              {
+                "code": "062 02 05 03",
+                "title": "Coverage and range",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Sketch the standard coverage area of the LOC and GP with angular sector limits in degrees and distance limits from the transmitter: LOC coverage area is 10\u00b0 on either side of the centre line to a distance of 25 NM from the runway, and 35\u00b0 on either side of the",
+                    "details": "Sketch the standard coverage area of the LOC and GP with angular sector limits in degrees and distance limits from the transmitter: LOC coverage area is 10\u00b0 on either side of the centre line to a distance of 25 NM from the runway, and 35\u00b0 on either side of the"
+                  }
+                ]
+              },
+              {
+                "code": "062 02 05 04",
+                "title": "Errors and accuracy",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain that ILS approaches are divided into facility performance categories defined in ICAO Annex 10.",
+                    "details": "Explain that ILS approaches are divided into facility performance categories defined in ICAO Annex 10."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Define the following ILS operation categories: \u2014 Category I; \u2014 Category II; \u2014 Category IIIA; \u2014 Category IIIB; \u2014 Category IIIC.",
+                    "details": "Define the following ILS operation categories: \u2014 Category I; \u2014 Category II; \u2014 Category IIIA; \u2014 Category IIIB; \u2014 Category IIIC."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain that all Category III ILS operations guidance information is provided from the coverage limits of the facility to, and along, the surface of the runway.",
+                    "details": "Explain that all Category III ILS operations guidance information is provided from the coverage limits of the facility to, and along, the surface of the runway."
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain why the accuracy requirements are progressively higher for CAT I, CAT II and CAT III ILS.",
+                    "details": "Explain why the accuracy requirements are progressively higher for CAT I, CAT II and CAT III ILS."
+                  },
+                  {
+                    "id": "05",
+                    "text": "Explain the following in accordance with ICAO Doc 8168: \u2014 the accuracy the pilot has to fly the ILS LOC to be considered established",
+                    "details": "Explain the following in accordance with ICAO Doc 8168: \u2014 the accuracy the pilot has to fly the ILS LOC to be considered established"
+                  },
+                  {
+                    "id": "06",
+                    "text": "State that if a pilot deviates by more than half-course deflection on the LOC or by more than half-dot deflection on the GP, an immediate go-around should be executed because obstacle clearance may no longer be guaranteed.",
+                    "details": "State that if a pilot deviates by more than half-course deflection on the LOC or by more than half-dot deflection on the GP, an immediate go-around should be executed because obstacle clearance may no longer be guaranteed."
+                  },
+                  {
+                    "id": "07",
+                    "text": "Describe ILS beam bends as deviations from the nominal LOC and GP respectively which can be assessed by flight test.",
+                    "details": "Describe ILS beam bends as deviations from the nominal LOC and GP respectively which can be assessed by flight test."
+                  },
+                  {
+                    "id": "08",
+                    "text": "Explain that multipath interference is caused by reflections from objects within the ILS coverage area.",
+                    "details": "Explain that multipath interference is caused by reflections from objects within the ILS coverage area."
+                  }
+                ]
+              },
+              {
+                "code": "062 02 05 05",
+                "title": "Factors affecting range and accuracy",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Define the \u2018ILS-critical area\u2019: an area of defined dimensions around the LOC and GP antennas where vehicles, including aircraft, are excluded during all ILS operations.",
+                    "details": "Define the \u2018ILS-critical area\u2019: an area of defined dimensions around the LOC and GP antennas where vehicles, including aircraft, are excluded during all ILS operations."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Define the \u2018ILS-sensitive area\u2019: an area extending beyond the ILS-critical area where the parking or movement of vehicles, including aircraft, is controlled to prevent the possibility of unacceptable interference to the ILS signal during ILS operations.",
+                    "details": "Define the \u2018ILS-sensitive area\u2019: an area extending beyond the ILS-critical area where the parking or movement of vehicles, including aircraft, is controlled to prevent the possibility of unacceptable interference to the ILS signal during ILS operations."
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "062 02 06 00",
+            "title": "Microwave landing system (MLS)",
+            "children": [
+              {
+                "code": "062 02 06 01",
+                "title": "Principles",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain the principle of operation: \u2014 horizontal course guidance during the approach; \u2014 vertical guidance during the approach; \u2014 horizontal guidance for departure and missed approach; \u2014 DME (DME/P) distance; \u2014 transmission of special information regarding the system and the approach conditions.",
+                    "details": "Explain the principle of operation: \u2014 horizontal course guidance during the approach; \u2014 vertical guidance during the approach; \u2014 horizontal guidance for departure and missed approach; \u2014 DME (DME/P) distance; \u2014 transmission of special information regarding the system and the approach conditions."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that MLS operates in the SHF band on any one of 200 channels, on assigned frequencies.",
+                    "details": "State that MLS operates in the SHF band on any one of 200 channels, on assigned frequencies."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain the reason why MLS can be installed at aerodromes where, as a result of the effects of surrounding buildings or terrain, ILS siting is difficult.",
+                    "details": "Explain the reason why MLS can be installed at aerodromes where, as a result of the effects of surrounding buildings or terrain, ILS siting is difficult."
+                  }
+                ]
+              },
+              {
+                "code": "062 02 06 02",
+                "title": "Presentation and interpretation",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Interpret the display of airborne equipment designed to continuously show the position of the aircraft in relation to a preselected course and glide path, along with distance information, during approach and departure.",
+                    "details": "Interpret the display of airborne equipment designed to continuously show the position of the aircraft in relation to a preselected course and glide path, along with distance information, during approach and departure."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Explain that segmented approaches can be carried out with a presentation with two cross bars directed by a computer which has been programmed with the approach to be flown.",
+                    "details": "Explain that segmented approaches can be carried out with a presentation with two cross bars directed by a computer which has been programmed with the approach to be flown."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Illustrate that segmented and curved approaches can only be executed with DME/P installed.",
+                    "details": "Illustrate that segmented and curved approaches can only be executed with DME/P installed."
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain why aircraft are equipped with a multimode receiver (MMR) in order to be able to receive ILS, MLS and GPS.",
+                    "details": "Explain why aircraft are equipped with a multimode receiver (MMR) in order to be able to receive ILS, MLS and GPS."
+                  },
+                  {
+                    "id": "05",
+                    "text": "Explain why MLS without DME/P gives an ILS lookalike straight-line approach.",
+                    "details": "Explain why MLS without DME/P gives an ILS lookalike straight-line approach."
+                  }
+                ]
+              },
+              {
+                "code": "062 02 06 03",
+                "title": "Coverage and range",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Describe the coverage area for the approach direction as being within a sector of \u00b1 40\u00b0 of the centre line out to a range of 20 NM from the threshold (according to ICAO Annex 10).",
+                    "details": "Describe the coverage area for the approach direction as being within a sector of \u00b1 40\u00b0 of the centre line out to a range of 20 NM from the threshold (according to ICAO Annex 10)."
+                  }
+                ]
+              }
+            ],
+            "los": []
+          }
+        ],
+        "los": []
+      },
+      {
+        "code": "062 03 00 00",
+        "title": "RADAR",
+        "children": [
+          {
+            "code": "062 03 01 00",
+            "title": "Pulse techniques No 1178/2011) ANNEX I (Part-FCL) SUBPART D \u2013 COMMERCIAL PILOT LICENCE \u2013 CPL Syllabus reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR Exa m BIR BK Remarks ATPL CPL ATPL/I R ATPL CPL",
+            "children": [
+              {
+                "code": "062 03 01 01",
+                "title": "Pulse techniques and associated terms",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Name the different applications of radar with respect to air traffic control (ATC), weather observations, and airborne weather radar (AWR).",
+                    "details": "Name the different applications of radar with respect to air traffic control (ATC), weather observations, and airborne weather radar (AWR)."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Describe the pulse technique and echo principle on which primary radar systems are based.",
+                    "details": "Describe the pulse technique and echo principle on which primary radar systems are based."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that the range of a radar depends on pulse repetition frequency (PRF), pulse length, pulse power, height of aircraft, height of antenna and frequency used.",
+                    "details": "State that the range of a radar depends on pulse repetition frequency (PRF), pulse length, pulse power, height of aircraft, height of antenna and frequency used."
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "062 03 02 00",
+            "title": "Ground radar",
+            "children": [
+              {
+                "code": "062 03 02 01",
+                "title": "Principles",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain that primary radar provides bearing and distance of targets.",
+                    "details": "Explain that primary radar provides bearing and distance of targets."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Explain that primary ground radar is used to detect aircraft that are not equipped with a secondary radar transponder.",
+                    "details": "Explain that primary ground radar is used to detect aircraft that are not equipped with a secondary radar transponder."
+                  }
+                ]
+              },
+              {
+                "code": "062 03 02 02",
+                "title": "Presentation and interpretation",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that modern ATC systems use inputs from various sensors to generate the display.",
+                    "details": "State that modern ATC systems use inputs from various sensors to generate the display."
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "062 03 03 00",
+            "title": "Airborne weather radar No 1178/2011) ANNEX I (Part-FCL) SUBPART D \u2013 COMMERCIAL PILOT LICENCE \u2013 CPL Syllabus reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR Exa m BIR BK Remarks ATPL CPL ATPL/I R ATPL CPL",
+            "children": [
+              {
+                "code": "062 03 03 01",
+                "title": "Principles",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "List the two main tasks of the weather radar in respect of weather and navigation.",
+                    "details": "List the two main tasks of the weather radar in respect of weather and navigation."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that modern weather radars employ frequencies that give wavelengths of about 3 cm that reflect best on wet hailstones.",
+                    "details": "State that modern weather radars employ frequencies that give wavelengths of about 3 cm that reflect best on wet hailstones."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that the antenna is stabilised in the horizontal plane with signals from the aircraft\u2019s attitude reference system.",
+                    "details": "State that the antenna is stabilised in the horizontal plane with signals from the aircraft\u2019s attitude reference system."
+                  },
+                  {
+                    "id": "04",
+                    "text": "Describe the cone-shaped pencil beam of about 3 to 5\u00b0 beam width used for weather detection.",
+                    "details": "Describe the cone-shaped pencil beam of about 3 to 5\u00b0 beam width used for weather detection."
+                  }
+                ]
+              },
+              {
+                "code": "062 03 03 02",
+                "title": "Presentation and interpretation",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain the functions of the following different controls on the radar control panel: \u2212 off/on switch; \u2212 function switch with WX, WX+T and MAP modes; \u2212 gain-control setting (auto/manual); \u2212 tilt/autotilt switch.",
+                    "details": "Explain the functions of the following different controls on the radar control panel: \u2212 off/on switch; \u2212 function switch with WX, WX+T and MAP modes; \u2212 gain-control setting (auto/manual); \u2212 tilt/autotilt switch."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Name, for areas of differing reflection intensity, the colour gradations (green, yellow, red and magenta) indicating the increasing intensity of precipitation.",
+                    "details": "Name, for areas of differing reflection intensity, the colour gradations (green, yellow, red and magenta) indicating the increasing intensity of precipitation."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State the use of azimuth-marker lines and range lines in respect of the relative bearing",
+                    "details": "State the use of azimuth-marker lines and range lines in respect of the relative bearing"
+                  }
+                ]
+              },
+              {
+                "code": "062 03 03 03",
+                "title": "Coverage and range",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain how the radar is used for weather detection and for mapping (range, tilt and gain, if available).",
+                    "details": "Explain how the radar is used for weather detection and for mapping (range, tilt and gain, if available)."
+                  }
+                ]
+              },
+              {
+                "code": "062 03 03 04",
+                "title": "Errors, accuracy, limitations",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain why AWR should be used with extreme caution when on the ground.",
+                    "details": "Explain why AWR should be used with extreme caution when on the ground."
+                  }
+                ]
+              },
+              {
+                "code": "062 03 03 05",
+                "title": "Factors affecting range and accuracy",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain the danger of the area behind heavy rain (shadow area) where no radar waves will penetrate.",
+                    "details": "Explain the danger of the area behind heavy rain (shadow area) where no radar waves will penetrate."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Describe appropriate tilt settings in relation to altitude and thunderstorms.",
+                    "details": "Describe appropriate tilt settings in relation to altitude and thunderstorms."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain why a thunderstorm may not be detected when the tilt is set too high.",
+                    "details": "Explain why a thunderstorm may not be detected when the tilt is set too high."
+                  }
+                ]
+              },
+              {
+                "code": "062 03 03 06",
+                "title": "Application for navigation",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Describe the navigation function of the radar in the mapping mode.",
+                    "details": "Describe the navigation function of the radar in the mapping mode."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Describe the use of the weather radar to avoid a thunderstorm (Cb).",
+                    "details": "Describe the use of the weather radar to avoid a thunderstorm (Cb)."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain how turbulence (not CAT) can be detected by a modern weather radar.",
+                    "details": "Explain how turbulence (not CAT) can be detected by a modern weather radar."
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain how wind shear can be detected by a modern weather radar.",
+                    "details": "Explain how wind shear can be detected by a modern weather radar."
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "062 03 04 00",
+            "title": "Secondary surveillance radar and transponder",
+            "children": [
+              {
+                "code": "062 03 04 01",
+                "title": "Principles",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that the ATC system is based on the replies provided by the airborne transponders in response to interrogations from the ATC secondary radar.",
+                    "details": "State that the ATC system is based on the replies provided by the airborne transponders in response to interrogations from the ATC secondary radar."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that the ground ATC secondary radar uses techniques which provide the ATC with information that cannot be acquired by the primary radar.",
+                    "details": "State that the ground ATC secondary radar uses techniques which provide the ATC with information that cannot be acquired by the primary radar."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that an airborne transponder provides coded-reply signals in response to interrogation signals from the ground secondary radar and from aircraft equipped with traffic alert and collision avoidance system (TCAS).",
+                    "details": "State that an airborne transponder provides coded-reply signals in response to interrogation signals from the ground secondary radar and from aircraft equipped with traffic alert and collision avoidance system (TCAS)."
+                  },
+                  {
+                    "id": "04",
+                    "text": "State the advantages of secondary surveillance radar (SSR) over a primary radar regarding range and collected information due to transponder principal information and active participation of the aircraft.",
+                    "details": "State the advantages of secondary surveillance radar (SSR) over a primary radar regarding range and collected information due to transponder principal information and active participation of the aircraft."
+                  }
+                ]
+              },
+              {
+                "code": "062 03 04 02",
+                "title": "Modes and codes",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that the interrogator transmits its interrogations in the form of a series of pulse pairs.",
+                    "details": "State that the interrogator transmits its interrogations in the form of a series of pulse pairs."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Name the interrogation modes: \u2014 Mode A; \u2014 Mode C; \u2014 Mode S.",
+                    "details": "Name the interrogation modes: \u2014 Mode A; \u2014 Mode C; \u2014 Mode S."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that the interrogation frequency and the reply frequency are different.",
+                    "details": "State that the interrogation frequency and the reply frequency are different."
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain that the decoding of the time interval between the pulse pairs determines the operating mode of the transponder: \u2014 Mode A: transmission of aircraft transponder code; \u2014 Mode C: transmission of aircraft pressure altitude; \u2014 Mode S: selection of aircraft address and transmission of flight data for the ground surveillance.",
+                    "details": "Explain that the decoding of the time interval between the pulse pairs determines the operating mode of the transponder: \u2014 Mode A: transmission of aircraft transponder code; \u2014 Mode C: transmission of aircraft pressure altitude; \u2014 Mode S: selection of aircraft address and transmission of flight data for the ground surveillance."
+                  },
+                  {
+                    "id": "05",
+                    "text": "State that Mode A designation is a sequence of four digits which can be manually selected from 4 096 available codes.",
+                    "details": "State that Mode A designation is a sequence of four digits which can be manually selected from 4 096 available codes."
+                  },
+                  {
+                    "id": "06",
+                    "text": "State that in Mode C reply, the pressure altitude is reported in 100-ft increments.",
+                    "details": "State that in Mode C reply, the pressure altitude is reported in 100-ft increments."
+                  },
+                  {
+                    "id": "07",
+                    "text": "State that in addition to the information provided, on request from ATC, a special position identification (SPI) pulse can be transmitted but only as a result of a manual selection by the pilot (IDENT button).",
+                    "details": "State that in addition to the information provided, on request from ATC, a special position identification (SPI) pulse can be transmitted but only as a result of a manual selection by the pilot (IDENT button)."
+                  },
+                  {
+                    "id": "08",
+                    "text": "State the need for compatibility of Mode S with Mode A and C.",
+                    "details": "State the need for compatibility of Mode S with Mode A and C."
+                  },
+                  {
+                    "id": "09",
+                    "text": "Explain that Mode S transponders receive interrogations from TCAS and SSR ground stations.",
+                    "details": "Explain that Mode S transponders receive interrogations from TCAS and SSR ground stations."
+                  },
+                  {
+                    "id": "10",
+                    "text": "State that Mode S interrogation contains either the aircraft address, selective call or all-call address.",
+                    "details": "State that Mode S interrogation contains either the aircraft address, selective call or all-call address."
+                  },
+                  {
+                    "id": "11",
+                    "text": "State that every aircraft is allocated an ICAO aircraft address, which is hard-coded into the Mode S transponder (Mode S address).",
+                    "details": "State that every aircraft is allocated an ICAO aircraft address, which is hard-coded into the Mode S transponder (Mode S address)."
+                  },
+                  {
+                    "id": "12",
+                    "text": "Explain that a 24-bit address is used in all Mode S transmissions, so that every interrogation can be directed to a specific aircraft.",
+                    "details": "Explain that a 24-bit address is used in all Mode S transmissions, so that every interrogation can be directed to a specific aircraft."
+                  },
+                  {
+                    "id": "13",
+                    "text": "State that Mode S can provide enhanced vertical tracking, using a 25-ft altitude increment.",
+                    "details": "State that Mode S can provide enhanced vertical tracking, using a 25-ft altitude increment."
+                  },
+                  {
+                    "id": "14",
+                    "text": "State that SSR can be used for automatic dependent surveillance \u2014 broadcast (ADS- B).",
+                    "details": "State that SSR can be used for automatic dependent surveillance \u2014 broadcast (ADS- B)."
+                  }
+                ]
+              },
+              {
+                "code": "062 03 04 03",
+                "title": "Presentation and interpretation",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that an aircraft can be identified by a unique code.",
+                    "details": "State that an aircraft can be identified by a unique code."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State which information can be presented on the ATC display system: \u2014 pressure altitude; \u2014 flight level;",
+                    "details": "State which information can be presented on the ATC display system: \u2014 pressure altitude; \u2014 flight level;"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain the use and function of the selector modes: OFF, Standby, ON (Mode A), ALT (Mode A, C and S), TEST, and of the reply lamp.",
+                    "details": "Explain the use and function of the selector modes: OFF, Standby, ON (Mode A), ALT (Mode A, C and S), TEST, and of the reply lamp."
+                  }
+                ]
+              }
+            ],
+            "los": []
+          }
+        ],
+        "los": []
+      },
+      {
+        "code": "062 04 00 00",
+        "title": "INTENTIONALLY LEFT BLANK",
+        "children": [],
+        "los": []
+      },
+      {
+        "code": "062 05 00 00",
+        "title": "INTENTIONALLY LEFT BLANK",
+        "children": [],
+        "los": []
+      },
+      {
+        "code": "062 06 00 00",
+        "title": "GLOBAL NAVIGATION SATELLITE SYSTEMS (GNSSs)",
+        "children": [
+          {
+            "code": "062 06 01 00",
+            "title": "Global navigation satellite systems (GNSSs)",
+            "children": [
+              {
+                "code": "062 06 01 01",
+                "title": "General",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that there are four main GNSSs. These are: \u2014 USA NAVigation System with Timing And Ranging Global Positioning System (NAVSTAR GPS); \u2014 Russian GLObal NAvigation Satellite System (GLONASS); \u2014 European Galileo (under construction); \u2014 Chinese BeiDou (under construction).",
+                    "details": "State that there are four main GNSSs. These are: \u2014 USA NAVigation System with Timing And Ranging Global Positioning System (NAVSTAR GPS); \u2014 Russian GLObal NAvigation Satellite System (GLONASS); \u2014 European Galileo (under construction); \u2014 Chinese BeiDou (under construction)."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that all four systems (will) consist of a constellation of satellites which can be used by a suitably equipped receiver to determine position.",
+                    "details": "State that all four systems (will) consist of a constellation of satellites which can be used by a suitably equipped receiver to determine position."
+                  }
+                ]
+              },
+              {
+                "code": "062 06 01 02",
+                "title": "Operation Global navigation satellite system (GNSS)",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that there are currently two modes of operation: standard positioning service (SPS) for civilian users, and precise positioning service (PPS) for authorised users.",
+                    "details": "State that there are currently two modes of operation: standard positioning service (SPS) for civilian users, and precise positioning service (PPS) for authorised users."
+                  },
+                  {
+                    "id": "02",
+                    "text": "SPS was originally designed to provide civilian users with a less accurate positioning capability than PPS.",
+                    "details": "SPS was originally designed to provide civilian users with a less accurate positioning capability than PPS."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Name the three GNSS segments as follows: \u2014 space segment; \u2014 control segment; \u2014 user segment.",
+                    "details": "Name the three GNSS segments as follows: \u2014 space segment; \u2014 control segment; \u2014 user segment."
+                  },
+                  {
+                    "id": "04",
+                    "text": "State that each satellite broadcasts ranging signals on two UHF frequencies: L1 and L2.",
+                    "details": "State that each satellite broadcasts ranging signals on two UHF frequencies: L1 and L2."
+                  },
+                  {
+                    "id": "05",
+                    "text": "State that SPS is a positioning and timing service provided on frequency L1.",
+                    "details": "State that SPS is a positioning and timing service provided on frequency L1."
+                  },
+                  {
+                    "id": "06",
+                    "text": "State that PPS uses both frequencies L1 and L2.",
+                    "details": "State that PPS uses both frequencies L1 and L2."
+                  },
+                  {
+                    "id": "07",
+                    "text": "State that the satellites transmit a coded signal used for ranging, identification",
+                    "details": "State that the satellites transmit a coded signal used for ranging, identification"
+                  },
+                  {
+                    "id": "08",
+                    "text": "State that the navigation message contains: \u2014 satellite clock correction parameters; \u2014 Universal Time Coordinated (UTC) parameters; \u2014 an ionospheric model; \u2014 satellite health data.",
+                    "details": "State that the navigation message contains: \u2014 satellite clock correction parameters; \u2014 Universal Time Coordinated (UTC) parameters; \u2014 an ionospheric model; \u2014 satellite health data."
+                  },
+                  {
+                    "id": "09",
+                    "text": "State that an ionospheric model is used to calculate the time delay of the signal travelling through the ionosphere.",
+                    "details": "State that an ionospheric model is used to calculate the time delay of the signal travelling through the ionosphere."
+                  },
+                  {
+                    "id": "10",
+                    "text": "State that two codes are transmitted on the L1 frequency, namely a coarse acquisition (C/A) code and a precision (P) code. The P code is not used for standard positioning service (SPS).",
+                    "details": "State that two codes are transmitted on the L1 frequency, namely a coarse acquisition (C/A) code and a precision (P) code. The P code is not used for standard positioning service (SPS)."
+                  },
+                  {
+                    "id": "11",
+                    "text": "State that satellites are equipped with atomic clocks which allow the system to keep very accurate time reference.",
+                    "details": "State that satellites are equipped with atomic clocks which allow the system to keep very accurate time reference."
+                  },
+                  {
+                    "id": "12",
+                    "text": "State that the control segment comprises: \u2014 a master control station; \u2014 a ground antenna; \u2014 monitoring stations.",
+                    "details": "State that the control segment comprises: \u2014 a master control station; \u2014 a ground antenna; \u2014 monitoring stations."
+                  },
+                  {
+                    "id": "13",
+                    "text": "State that the control segment provides: \u2014 monitoring of the constellation status;",
+                    "details": "State that the control segment provides: \u2014 monitoring of the constellation status;"
+                  },
+                  {
+                    "id": "14",
+                    "text": "State that GNSS supplies three-dimensional position fixes and speed data, plus a precise time reference.",
+                    "details": "State that GNSS supplies three-dimensional position fixes and speed data, plus a precise time reference."
+                  },
+                  {
+                    "id": "15",
+                    "text": "State that a GNSS receiver is able to determine the distance to a satellite by determining the difference between the time of transmission by the satellite and the time of reception.",
+                    "details": "State that a GNSS receiver is able to determine the distance to a satellite by determining the difference between the time of transmission by the satellite and the time of reception."
+                  },
+                  {
+                    "id": "16",
+                    "text": "State that the initial distance calculated to the satellites is called pseudo-range because the difference between the GNSS receiver and the satellite time references initially creates an erroneous range.",
+                    "details": "State that the initial distance calculated to the satellites is called pseudo-range because the difference between the GNSS receiver and the satellite time references initially creates an erroneous range."
+                  },
+                  {
+                    "id": "17",
+                    "text": "State that each range defines a sphere with its centre at the satellite.",
+                    "details": "State that each range defines a sphere with its centre at the satellite."
+                  },
+                  {
+                    "id": "18",
+                    "text": "State that there are four unknown parameters (x, y, z and \u0394t) (receiver clock error) which require the measurement of ranges to four different satellites in order to get the position.",
+                    "details": "State that there are four unknown parameters (x, y, z and \u0394t) (receiver clock error) which require the measurement of ranges to four different satellites in order to get the position."
+                  },
+                  {
+                    "id": "19",
+                    "text": "State that the GNSS receiver is able to synchronise to the correct time reference when receiving four satellites.",
+                    "details": "State that the GNSS receiver is able to synchronise to the correct time reference when receiving four satellites."
+                  },
+                  {
+                    "id": "20",
+                    "text": "State that the receiver is able to calculate aircraft ground speed using the space vehicle",
+                    "details": "State that the receiver is able to calculate aircraft ground speed using the space vehicle"
+                  },
+                  {
+                    "id": "21",
+                    "text": "Define \u2018receiver autonomous integrity monitoring (RAIM)\u2019 as a technique that ensures the integrity of the provided data by redundant measurements.",
+                    "details": "Define \u2018receiver autonomous integrity monitoring (RAIM)\u2019 as a technique that ensures the integrity of the provided data by redundant measurements."
+                  },
+                  {
+                    "id": "22",
+                    "text": "State that RAIM is achieved by consistency checks among range measurements.",
+                    "details": "State that RAIM is achieved by consistency checks among range measurements."
+                  },
+                  {
+                    "id": "23",
+                    "text": "State that basic RAIM requires five satellites. A sixth one is for isolating a faulty satellite from the navigation solution.",
+                    "details": "State that basic RAIM requires five satellites. A sixth one is for isolating a faulty satellite from the navigation solution."
+                  },
+                  {
+                    "id": "24",
+                    "text": "State that agreements have been concluded between the appropriate agencies for the compatibility and interoperability by any approved user of NAVSTAR and GLONASS systems.",
+                    "details": "State that agreements have been concluded between the appropriate agencies for the compatibility and interoperability by any approved user of NAVSTAR and GLONASS systems."
+                  },
+                  {
+                    "id": "25",
+                    "text": "State that the different GNSSs use different data with respect to reference systems, orbital data, and navigation services.",
+                    "details": "State that the different GNSSs use different data with respect to reference systems, orbital data, and navigation services."
+                  }
+                ]
+              },
+              {
+                "code": "062 06 01 03",
+                "title": "Errors and factors affecting accuracy",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "List the most significant factors that affect accuracy: \u2014 ionospheric propagation delay; \u2014 dilution of precision;",
+                    "details": "List the most significant factors that affect accuracy: \u2014 ionospheric propagation delay; \u2014 dilution of precision;"
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that a user equivalent range error (UERE) can be computed from all these factors.",
+                    "details": "State that a user equivalent range error (UERE) can be computed from all these factors."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that the error from the ionospheric propagation delay (IPD) can be reduced by modelling, using a model of the ionosphere, or can almost be eliminated by using two frequencies.",
+                    "details": "State that the error from the ionospheric propagation delay (IPD) can be reduced by modelling, using a model of the ionosphere, or can almost be eliminated by using two frequencies."
+                  },
+                  {
+                    "id": "04",
+                    "text": "State that ionospheric delay is the most significant error.",
+                    "details": "State that ionospheric delay is the most significant error."
+                  },
+                  {
+                    "id": "05",
+                    "text": "State that dilution of precision arises from the geometry and number of satellites in view. It is called geometric dilution of precision (GDOP).",
+                    "details": "State that dilution of precision arises from the geometry and number of satellites in view. It is called geometric dilution of precision (GDOP)."
+                  },
+                  {
+                    "id": "06",
+                    "text": "State that the UERE in combination with the geometric dilution of precision (GDOP) allows for an estimation of position accuracy.",
+                    "details": "State that the UERE in combination with the geometric dilution of precision (GDOP) allows for an estimation of position accuracy."
+                  },
+                  {
+                    "id": "07",
+                    "text": "State that errors in the satellite orbits are due to: \u2014 solar winds; \u2014 gravitation of the Sun and the Moon.",
+                    "details": "State that errors in the satellite orbits are due to: \u2014 solar winds; \u2014 gravitation of the Sun and the Moon."
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "062 06 02 00",
+            "title": "Ground-, satellite- and aircraft-based augmentation systems No 1178/2011) ANNEX I (Part-FCL) SUBPART D \u2013 COMMERCIAL PILOT LICENCE \u2013 CPL Syllabus reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR Exa m BIR BK Remarks ATPL CPL ATPL/I R ATPL CPL",
+            "children": [
+              {
+                "code": "062 06 02 01",
+                "title": "Ground-based augmentation systems (GBASs)",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain the principle of a GBAS: to measure on the ground the errors in the signals transmitted by GNSS satellites and relay the measured errors to the user for correction.",
+                    "details": "Explain the principle of a GBAS: to measure on the ground the errors in the signals transmitted by GNSS satellites and relay the measured errors to the user for correction."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that the ICAO GBAS standard is based on this technique through the use of a data link in the VHF band of ILS\u2013VOR systems (108\u2013118 MHz).",
+                    "details": "State that the ICAO GBAS standard is based on this technique through the use of a data link in the VHF band of ILS\u2013VOR systems (108\u2013118 MHz)."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that for a GBAS station the coverage is about 20 NM.",
+                    "details": "State that for a GBAS station the coverage is about 20 NM."
+                  },
+                  {
+                    "id": "04",
+                    "text": "State that GBAS provides information for guidance in the terminal area, and for three-dimensional guidance in the final approach segment (FAS) by transmitting the FAS data block.",
+                    "details": "State that GBAS provides information for guidance in the terminal area, and for three-dimensional guidance in the final approach segment (FAS) by transmitting the FAS data block."
+                  },
+                  {
+                    "id": "05",
+                    "text": "State that one ground station can support all the aircraft subsystems within its coverage providing the aircraft with approach data, corrections and integrity information for GNSS satellites in view via a VHF data broadcast (VDB).",
+                    "details": "State that one ground station can support all the aircraft subsystems within its coverage providing the aircraft with approach data, corrections and integrity information for GNSS satellites in view via a VHF data broadcast (VDB)."
+                  },
+                  {
+                    "id": "06",
+                    "text": "State that the minimum software designed coverage area is 10\u00b0 on either side of the final approach path to a distance between 15 and 20 NM, and 35\u00b0 on either side of the final approach path up to a distance of 15 NM.",
+                    "details": "State that the minimum software designed coverage area is 10\u00b0 on either side of the final approach path to a distance between 15 and 20 NM, and 35\u00b0 on either side of the final approach path up to a distance of 15 NM."
+                  },
+                  {
+                    "id": "07",
+                    "text": "State that outside this area the FAS data of GBAS is not used.",
+                    "details": "State that outside this area the FAS data of GBAS is not used."
+                  },
+                  {
+                    "id": "08",
+                    "text": "State that GBAS based on GPS is sometimes called local area augmentation system (LAAS).",
+                    "details": "State that GBAS based on GPS is sometimes called local area augmentation system (LAAS)."
+                  },
+                  {
+                    "id": "09",
+                    "text": "State that a GBAS-based approach is called GLS approach (GLS-GNSS landing system).",
+                    "details": "State that a GBAS-based approach is called GLS approach (GLS-GNSS landing system)."
+                  }
+                ]
+              },
+              {
+                "code": "062 06 02 02",
+                "title": "Satellite-based augmentation systems (SBASs)",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain the principle of an SBAS: to measure on the ground the errors in the signals received from the satellites and transmit differential corrections and integrity messages for navigation satellites.",
+                    "details": "Explain the principle of an SBAS: to measure on the ground the errors in the signals received from the satellites and transmit differential corrections and integrity messages for navigation satellites."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that the frequency band of the data link is identical to that of the GPS signals.",
+                    "details": "State that the frequency band of the data link is identical to that of the GPS signals."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Explain that the use of geostationary satellites enables messages to be broadcast over very wide areas.",
+                    "details": "Explain that the use of geostationary satellites enables messages to be broadcast over very wide areas."
+                  },
+                  {
+                    "id": "04",
+                    "text": "State that pseudo-range measurements to these geostationary satellites can also be made, as if they were GPS satellites.",
+                    "details": "State that pseudo-range measurements to these geostationary satellites can also be made, as if they were GPS satellites."
+                  },
+                  {
+                    "id": "05",
+                    "text": "State that SBAS consists of two elements: \u2014 ground infrastructure (monitoring and processing stations); \u2014 communication satellites.",
+                    "details": "State that SBAS consists of two elements: \u2014 ground infrastructure (monitoring and processing stations); \u2014 communication satellites."
+                  },
+                  {
+                    "id": "06",
+                    "text": "State that SBAS allows the implementation of three-dimensional Type A and Type B approaches.",
+                    "details": "State that SBAS allows the implementation of three-dimensional Type A and Type B approaches."
+                  },
+                  {
+                    "id": "07",
+                    "text": "State the following examples of SBAS: \u2014 European Geostationary Navigation Overlay Service (EGNOS) in western Europe and the Mediterranean; \u2014 wide area augmentation system (WAAS) in the USA; \u2014 multi-functional transport satellite (MTSAT)-based augmentation system (MSAS) in Japan; \u2014 GPS and geostationary earth orbit augmented navigation (GAGAN) in India.",
+                    "details": "State the following examples of SBAS: \u2014 European Geostationary Navigation Overlay Service (EGNOS) in western Europe and the Mediterranean; \u2014 wide area augmentation system (WAAS) in the USA; \u2014 multi-functional transport satellite (MTSAT)-based augmentation system (MSAS) in Japan; \u2014 GPS and geostationary earth orbit augmented navigation (GAGAN) in India."
+                  },
+                  {
+                    "id": "08",
+                    "text": "State that SBAS is designed to significantly improve accuracy and integrity.",
+                    "details": "State that SBAS is designed to significantly improve accuracy and integrity."
+                  },
+                  {
+                    "id": "09",
+                    "text": "Explain that integrity and safety are improved by alerting SBAS users within 6 seconds if a GPS malfunction occurs.",
+                    "details": "Explain that integrity and safety are improved by alerting SBAS users within 6 seconds if a GPS malfunction occurs."
+                  }
+                ]
+              },
+              {
+                "code": "062 06 02 03",
+                "title": "Intentionally left blank",
+                "children": [],
+                "los": []
+              },
+              {
+                "code": "062 06 02 04",
+                "title": "Aircraft-based augmentation systems (ABASs)",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Explain the principle of ABAS: to use redundant elements within the GPS constellation (e.g. multiplicity of distance measurements to various satellites) or the combination of GNSS measurements with those of other navigation sensors (such as inertial systems) in order to develop integrity control.",
+                    "details": "Explain the principle of ABAS: to use redundant elements within the GPS constellation (e.g. multiplicity of distance measurements to various satellites) or the combination of GNSS measurements with those of other navigation sensors (such as inertial systems) in order to develop integrity control."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that the type of ABAS using only GNSS information is named receiver autonomous integrity monitoring (RAIM).",
+                    "details": "State that the type of ABAS using only GNSS information is named receiver autonomous integrity monitoring (RAIM)."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that a system using information from additional onboard sensors is named aircraft autonomous integrity monitoring (AAIM).",
+                    "details": "State that a system using information from additional onboard sensors is named aircraft autonomous integrity monitoring (AAIM)."
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain that the typical sensors used are barometric altimeter and inertial reference system (IRS).",
+                    "details": "Explain that the typical sensors used are barometric altimeter and inertial reference system (IRS)."
+                  }
+                ]
+              }
+            ],
+            "los": []
+          }
+        ],
+        "los": []
+      },
+      {
+        "code": "062 07 00 00",
+        "title": "PERFORMANCE-BASED NAVIGATION (PBN)",
+        "children": [
+          {
+            "code": "062 07 01 00",
+            "title": "Performance-based navigation (PBN) concept (as described in ICAO Doc 9613)",
+            "children": [
+              {
+                "code": "062 07 01 01",
+                "title": "PBN principles",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "List the factors used to define area navigation (RNAV) or required navigation performance (RNP) system performance requirements (accuracy, integrity and continuity).",
+                    "details": "List the factors used to define area navigation (RNAV) or required navigation performance (RNP) system performance requirements (accuracy, integrity and continuity)."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that these RNAV and RNP systems are necessary to optimise the utilisation of available airspace.",
+                    "details": "State that these RNAV and RNP systems are necessary to optimise the utilisation of available airspace."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that it is necessary for flight crew and air traffic controllers to be aware of the on- board RNAV or RNP system capabilities in order to determine whether the performance of the RNAV or RNP system is",
+                    "details": "State that it is necessary for flight crew and air traffic controllers to be aware of the on- board RNAV or RNP system capabilities in order to determine whether the performance of the RNAV or RNP system is"
+                  },
+                  {
+                    "id": "04",
+                    "text": "Define accuracy as the conformance of the true position and the required position.",
+                    "details": "Define accuracy as the conformance of the true position and the required position."
+                  },
+                  {
+                    "id": "05",
+                    "text": "Define continuity as the capability of the system to perform its function without unscheduled interruptions during the intended operation.",
+                    "details": "Define continuity as the capability of the system to perform its function without unscheduled interruptions during the intended operation."
+                  },
+                  {
+                    "id": "06",
+                    "text": "Define integrity as a measure of the trust that can be placed in the correctness of the information supplied by the total system. Integrity includes the ability of a system to provide timely and valid alerts to the user.",
+                    "details": "Define integrity as a measure of the trust that can be placed in the correctness of the information supplied by the total system. Integrity includes the ability of a system to provide timely and valid alerts to the user."
+                  },
+                  {
+                    "id": "07",
+                    "text": "State that, unlike conventional navigation, PBN is not sensor-specific.",
+                    "details": "State that, unlike conventional navigation, PBN is not sensor-specific."
+                  },
+                  {
+                    "id": "08",
+                    "text": "Explain the difference between raw data and computed data.",
+                    "details": "Explain the difference between raw data and computed data."
+                  },
+                  {
+                    "id": "09",
+                    "text": "Define availability as the percentage of time (annually) during which the system is available for use.",
+                    "details": "Define availability as the percentage of time (annually) during which the system is available for use."
+                  }
+                ]
+              },
+              {
+                "code": "062 07 01 02",
+                "title": "PBN components",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "List the components of PBN as navigational aid (NAVAID) infrastructure, navigation specification and navigation application.",
+                    "details": "List the components of PBN as navigational aid (NAVAID) infrastructure, navigation specification and navigation application."
+                  }
+                ]
+              },
+              {
+                "code": "062 07 01 03",
+                "title": "PBN scope",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that in oceanic/remote, en-route and terminal phases of flight, PBN is limited to",
+                    "details": "State that in oceanic/remote, en-route and terminal phases of flight, PBN is limited to"
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that in the approach phases of flight, PBN accommodates both linear and angular laterally guided operations, and explain the difference between the two.",
+                    "details": "State that in the approach phases of flight, PBN accommodates both linear and angular laterally guided operations, and explain the difference between the two."
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "062 07 02 00",
+            "title": "Navigation specifications",
+            "children": [
+              {
+                "code": "062 07 02 01",
+                "title": "Area navigation (RNAV) and required navigation performance (RNP)",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State the difference between RNAV and RNP in terms of the requirement for on-board performance monitoring and alerting.",
+                    "details": "State the difference between RNAV and RNP in terms of the requirement for on-board performance monitoring and alerting."
+                  }
+                ]
+              },
+              {
+                "code": "062 07 02 02",
+                "title": "Navigation functional requirements",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "List the basic functional requirements of the RNAV and RNP specifications (continuous indication of lateral deviation, distance/bearing to active waypoint, GS or time to active waypoint, navigation data storage and failure indication).",
+                    "details": "List the basic functional requirements of the RNAV and RNP specifications (continuous indication of lateral deviation, distance/bearing to active waypoint, GS or time to active waypoint, navigation data storage and failure indication)."
+                  }
+                ]
+              },
+              {
+                "code": "062 07 02 03",
+                "title": "Designation of RNP and RNAV specifications",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Interpret X in RNAV X or RNP X as the lateral navigation (LNAV) accuracy (total system error) in nautical miles, which is expected to be achieved at least 95 % of the flight time by the population of aircraft operating within the given airspace, route or procedure.",
+                    "details": "Interpret X in RNAV X or RNP X as the lateral navigation (LNAV) accuracy (total system error) in nautical miles, which is expected to be achieved at least 95 % of the flight time by the population of aircraft operating within the given airspace, route or procedure."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that aircraft approved to the more stringent accuracy requirements may not necessarily meet some of the functional requirements of the navigation specification that has a less stringent accuracy requirement.",
+                    "details": "State that aircraft approved to the more stringent accuracy requirements may not necessarily meet some of the functional requirements of the navigation specification that has a less stringent accuracy requirement."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that RNAV 10 and RNP 4 are used in the oceanic/remote phase of flight.",
+                    "details": "State that RNAV 10 and RNP 4 are used in the oceanic/remote phase of flight."
+                  },
+                  {
+                    "id": "04",
+                    "text": "State that RNAV 5 is used in the en-route and arrival phases of flight.",
+                    "details": "State that RNAV 5 is used in the en-route and arrival phases of flight."
+                  },
+                  {
+                    "id": "05",
+                    "text": "State that RNAV 2 and RNP 2 are also used as navigation specifications.",
+                    "details": "State that RNAV 2 and RNP 2 are also used as navigation specifications."
+                  },
+                  {
+                    "id": "06",
+                    "text": "State that RNP 2 is used in the en-route and oceanic/remote phases of flight.",
+                    "details": "State that RNP 2 is used in the en-route and oceanic/remote phases of flight."
+                  },
+                  {
+                    "id": "07",
+                    "text": "State that RNAV 2 might be used in the en- route continental, arrival and departure phases of flight.",
+                    "details": "State that RNAV 2 might be used in the en- route continental, arrival and departure phases of flight."
+                  },
+                  {
+                    "id": "08",
+                    "text": "State that RNAV 1 and RNP 1 are used in the arrival and departure phases of flight.",
+                    "details": "State that RNAV 1 and RNP 1 are used in the arrival and departure phases of flight."
+                  },
+                  {
+                    "id": "09",
+                    "text": "State that required navigation performance approach (RNP APCH) is used in the approach phase of flight.",
+                    "details": "State that required navigation performance approach (RNP APCH) is used in the approach phase of flight."
+                  },
+                  {
+                    "id": "10",
+                    "text": "State that required navigation performance authorisation required approach (RNP AR APCH) is used in the approach phase of flight.",
+                    "details": "State that required navigation performance authorisation required approach (RNP AR APCH) is used in the approach phase of flight."
+                  },
+                  {
+                    "id": "11",
+                    "text": "State that RNP 0.3 navigation specification is used in all phases of flight except for oceanic/remote and final approach, primarily for helicopters.",
+                    "details": "State that RNP 0.3 navigation specification is used in all phases of flight except for oceanic/remote and final approach, primarily for helicopters."
+                  },
+                  {
+                    "id": "12",
+                    "text": "State that RNAV 1, RNP 1 and RNP 0.3 may also be used in en-route phases of low-level instrument flight rule (IFR) helicopter flights.",
+                    "details": "State that RNAV 1, RNP 1 and RNP 0.3 may also be used in en-route phases of low-level instrument flight rule (IFR) helicopter flights."
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "062 07 03 00",
+            "title": "Use of performance-based navigation (PBN)",
+            "children": [
+              {
+                "code": "062 07 03 01",
+                "title": "Intentionally left blank",
+                "children": [],
+                "los": []
+              },
+              {
+                "code": "062 07 03 02",
+                "title": "Intentionally left blank",
+                "children": [],
+                "los": []
+              },
+              {
+                "code": "062 07 03 03",
+                "title": "Specific RNAV and RNP system functions",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Recognise the definition of radius to fix (RF) leg.",
+                    "details": "Recognise the definition of radius to fix (RF) leg."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Recognise the definition of a fixed radius transition (FRT).",
+                    "details": "Recognise the definition of a fixed radius transition (FRT)."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State the importance of respecting the flight director guidance and the speed constraints associated with an RF procedure.",
+                    "details": "State the importance of respecting the flight director guidance and the speed constraints associated with an RF procedure."
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain the difference between a fly-by-turn and a fly-over.",
+                    "details": "Explain the difference between a fly-by-turn and a fly-over."
+                  },
+                  {
+                    "id": "05",
+                    "text": "State that the Aeronautical Radio, Incorporated (ARINC) 424 path terminators set the standards for coding the SIDs, STARs and instrument approach procedures (IAPs) from the official published government source documentation into the ARINC navigation database format.",
+                    "details": "State that the Aeronautical Radio, Incorporated (ARINC) 424 path terminators set the standards for coding the SIDs, STARs and instrument approach procedures (IAPs) from the official published government source documentation into the ARINC navigation database format."
+                  },
+                  {
+                    "id": "06",
+                    "text": "State that the path terminators define a specific type of termination of the previous flight path.",
+                    "details": "State that the path terminators define a specific type of termination of the previous flight path."
+                  },
+                  {
+                    "id": "07",
+                    "text": "Define the term \u2018offset flight path\u2019.",
+                    "details": "Define the term \u2018offset flight path\u2019."
+                  }
+                ]
+              },
+              {
+                "code": "062 07 03 04",
+                "title": "Intentionally left blank",
+                "children": [],
+                "los": []
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "062 07 04 00",
+            "title": "Performance-based navigation (PBN) operations",
+            "children": [
+              {
+                "code": "062 07 04 01",
+                "title": "Performance-based navigation (PBN) principles",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "Define \u2018path definition error\u2019 (PDE).",
+                    "details": "Define \u2018path definition error\u2019 (PDE)."
+                  },
+                  {
+                    "id": "02",
+                    "text": "Define \u2018flight technical error\u2019 (FTE) and state that the FTE is the error in following the prescribed path, either by the auto-flight system or by the pilot.",
+                    "details": "Define \u2018flight technical error\u2019 (FTE) and state that the FTE is the error in following the prescribed path, either by the auto-flight system or by the pilot."
+                  },
+                  {
+                    "id": "03",
+                    "text": "Define \u2018navigation system error\u2019 (NSE) and state that the accuracy of a navigation system may be referred to as NSE.",
+                    "details": "Define \u2018navigation system error\u2019 (NSE) and state that the accuracy of a navigation system may be referred to as NSE."
+                  },
+                  {
+                    "id": "04",
+                    "text": "Define \u2018total system error\u2019 (TSE) and state that the geometric sum of the PDE, FTE and NSE equals the TSE.",
+                    "details": "Define \u2018total system error\u2019 (TSE) and state that the geometric sum of the PDE, FTE and NSE equals the TSE."
+                  },
+                  {
+                    "id": "05",
+                    "text": "State that navigation accuracy depends on the TSE.",
+                    "details": "State that navigation accuracy depends on the TSE."
+                  }
+                ]
+              },
+              {
+                "code": "062 07 04 02",
+                "title": "On-board performance monitoring and alerting",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that on-board performance monitoring and alerting of flight technical errors is managed by on-board systems or flight crew procedures.",
+                    "details": "State that on-board performance monitoring and alerting of flight technical errors is managed by on-board systems or flight crew procedures."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that on-board performance monitoring and alerting of navigation system errors is a",
+                    "details": "State that on-board performance monitoring and alerting of navigation system errors is a"
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that, dependent on the navigation sensor, the estimated position error (EPE) is compared with the required navigation specification.",
+                    "details": "State that, dependent on the navigation sensor, the estimated position error (EPE) is compared with the required navigation specification."
+                  },
+                  {
+                    "id": "04",
+                    "text": "Explain how a navigation system assesses the EPE.",
+                    "details": "Explain how a navigation system assesses the EPE."
+                  },
+                  {
+                    "id": "05",
+                    "text": "Give an example of how the loss of the ability to operate in RNP airspace may be indicated by the navigation system.",
+                    "details": "Give an example of how the loss of the ability to operate in RNP airspace may be indicated by the navigation system."
+                  },
+                  {
+                    "id": "06",
+                    "text": "State that on-board performance monitoring and alerting of path definition error is managed by gross reasonableness checks of navigation data.",
+                    "details": "State that on-board performance monitoring and alerting of path definition error is managed by gross reasonableness checks of navigation data."
+                  }
+                ]
+              },
+              {
+                "code": "062 07 04 03",
+                "title": "Abnormal situations",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that abnormal and contingency procedures are to be used in case of loss of the PBN capability.",
+                    "details": "State that abnormal and contingency procedures are to be used in case of loss of the PBN capability."
+                  }
+                ]
+              },
+              {
+                "code": "062 07 04 04",
+                "title": "Database management",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that, unless otherwise specified in the operations documentation or acceptable means of compliance (AMCs), the navigational database must be valid for the current aeronautical information regulation and control (AIRAC) cycle.",
+                    "details": "State that, unless otherwise specified in the operations documentation or acceptable means of compliance (AMCs), the navigational database must be valid for the current aeronautical information regulation and control (AIRAC) cycle."
+                  }
+                ]
+              }
+            ],
+            "los": []
+          },
+          {
+            "code": "062 07 05 00",
+            "title": "Requirements of specific RNAV and RNP specifications No 1178/2011) ANNEX I (Part-FCL) SUBPART D \u2013 COMMERCIAL PILOT LICENCE \u2013 CPL Syllabus reference BK Syllabus details and associated Learning Objectives Aeroplane Helicopter IR CB-IR(A) BIR Exa m BIR BK Remarks ATPL CPL ATPL/I R ATPL CPL",
+            "children": [
+              {
+                "code": "062 07 05 01",
+                "title": "RNAV 10",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that RNAV 10 requires that aircraft operating in oceanic and remote areas be equipped with at least two independent and serviceable long-range navigation systems (LRNSs) comprising an INS, an inertial reference system (IRS)/flight management system (FMS) or a GNSS.",
+                    "details": "State that RNAV 10 requires that aircraft operating in oceanic and remote areas be equipped with at least two independent and serviceable long-range navigation systems (LRNSs) comprising an INS, an inertial reference system (IRS)/flight management system (FMS) or a GNSS."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that operators may extend their RNAV 10 navigation capability time by updating.",
+                    "details": "State that operators may extend their RNAV 10 navigation capability time by updating."
+                  }
+                ]
+              },
+              {
+                "code": "062 07 05 02",
+                "title": "RNAV 5",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that manual data entry is acceptable for RNAV 5.",
+                    "details": "State that manual data entry is acceptable for RNAV 5."
+                  }
+                ]
+              },
+              {
+                "code": "062 07 05 03",
+                "title": "RNAV 1/RNAV 2/RNP 1/RNP 2",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that pilots must not fly an RNAV 1, RNAV 2, RNP 1 or RNP 2 standard instrument departure (SID) or standard instrument arrival (STAR) unless it is retrievable by route name from the on-board navigation database and conforms to the charted route.",
+                    "details": "State that pilots must not fly an RNAV 1, RNAV 2, RNP 1 or RNP 2 standard instrument departure (SID) or standard instrument arrival (STAR) unless it is retrievable by route name from the on-board navigation database and conforms to the charted route."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that the route may subsequently be modified through the insertion (from the database) or deletion of specific waypoints in response to ATC clearances.",
+                    "details": "State that the route may subsequently be modified through the insertion (from the database) or deletion of specific waypoints in response to ATC clearances."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that the manual entry, or creation of new waypoints by manual entry, of either",
+                    "details": "State that the manual entry, or creation of new waypoints by manual entry, of either"
+                  }
+                ]
+              },
+              {
+                "code": "062 07 05 04",
+                "title": "Intentionally left blank",
+                "children": [],
+                "los": []
+              },
+              {
+                "code": "062 07 05 05",
+                "title": "Required navigation performance approach (RNP APCH)",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that pilots must not fly an RNP APCH unless it is retrievable by procedure name from the on-board navigation database and conforms to the charted procedure.",
+                    "details": "State that pilots must not fly an RNP APCH unless it is retrievable by procedure name from the on-board navigation database and conforms to the charted procedure."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that an RNP APCH to LNAV minima is a non-precision IAP designed for two- dimensional approach operations.",
+                    "details": "State that an RNP APCH to LNAV minima is a non-precision IAP designed for two- dimensional approach operations."
+                  },
+                  {
+                    "id": "03",
+                    "text": "State that an RNP APCH to lateral navigation (LNAV)/vertical navigation (VNAV) minima has lateral guidance based on GNSS and vertical guidance based on either SBAS or barometric vertical navigation (Baro-VNAV).",
+                    "details": "State that an RNP APCH to lateral navigation (LNAV)/vertical navigation (VNAV) minima has lateral guidance based on GNSS and vertical guidance based on either SBAS or barometric vertical navigation (Baro-VNAV)."
+                  },
+                  {
+                    "id": "04",
+                    "text": "State that an RNP APCH to LNAV/VNAV minima may only be conducted with vertical guidance certified for the purpose.",
+                    "details": "State that an RNP APCH to LNAV/VNAV minima may only be conducted with vertical guidance certified for the purpose."
+                  },
+                  {
+                    "id": "05",
+                    "text": "Explain why an RNP APCH to LNAV/VNAV minima based on Baro-VNAV may only be conducted when the aerodrome temperature is within a promulgated range if the barometric input is not automatically temperature-compensated.",
+                    "details": "Explain why an RNP APCH to LNAV/VNAV minima based on Baro-VNAV may only be conducted when the aerodrome temperature is within a promulgated range if the barometric input is not automatically temperature-compensated."
+                  },
+                  {
+                    "id": "06",
+                    "text": "State that the correct altimeter setting is critical for the safe conduct of an RNP APCH using Baro-VNAV.",
+                    "details": "State that the correct altimeter setting is critical for the safe conduct of an RNP APCH using Baro-VNAV."
+                  },
+                  {
+                    "id": "07",
+                    "text": "State that an RNP APCH to LNAV/VNAV minima is a three-dimensional operation.",
+                    "details": "State that an RNP APCH to LNAV/VNAV minima is a three-dimensional operation."
+                  },
+                  {
+                    "id": "08",
+                    "text": "State that an RNP APCH to localiser performance with vertical guidance (LPV) minima is a three-dimensional operation.",
+                    "details": "State that an RNP APCH to localiser performance with vertical guidance (LPV) minima is a three-dimensional operation."
+                  },
+                  {
+                    "id": "09",
+                    "text": "State that RNP APCH to LPV minima requires a final approach segment (FAS) data block.",
+                    "details": "State that RNP APCH to LPV minima requires a final approach segment (FAS) data block."
+                  },
+                  {
+                    "id": "10",
+                    "text": "State that RNP approaches to LPV minima require SBAS.",
+                    "details": "State that RNP approaches to LPV minima require SBAS."
+                  },
+                  {
+                    "id": "11",
+                    "text": "State that the FAS data block is a standard data format to describe the final approach path.",
+                    "details": "State that the FAS data block is a standard data format to describe the final approach path."
+                  }
+                ]
+              },
+              {
+                "code": "062 07 05 06",
+                "title": "Required navigation performance authorisation required approach (RNP AR APCH)",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that RNP AR APCH requires authorisation.",
+                    "details": "State that RNP AR APCH requires authorisation."
+                  }
+                ]
+              },
+              {
+                "code": "062 07 05 07",
+                "title": "Advanced required navigation performance (A-RNP)",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that A-RNP incorporates the navigation specifications RNAV 5, RNAV 2, RNAV 1, RNP 2, RNP 1 and RNP APCH.",
+                    "details": "State that A-RNP incorporates the navigation specifications RNAV 5, RNAV 2, RNAV 1, RNP 2, RNP 1 and RNP APCH."
+                  }
+                ]
+              },
+              {
+                "code": "062 07 05 08",
+                "title": "PBN point-in-space (PinS) departure",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that a PinS departure is a departure procedure designed for helicopters only.",
+                    "details": "State that a PinS departure is a departure procedure designed for helicopters only."
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that a PinS departure procedure includes either a \u2018proceed VFR\u2019 or a \u2018proceed visually\u2019 instruction from the landing location to the initial departure fix (IDF). X X",
+                    "details": "State that a PinS departure procedure includes either a \u2018proceed VFR\u2019 or a \u2018proceed visually\u2019 instruction from the landing location to the initial departure fix (IDF). X X"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Recognise the differences in the instructions \u2018proceed VFR\u2019 and \u2018proceed visually\u2019. X X",
+                    "details": "Recognise the differences in the instructions \u2018proceed VFR\u2019 and \u2018proceed visually\u2019. X X"
+                  }
+                ]
+              },
+              {
+                "code": "062 07 05 09",
+                "title": "PBN point-in-space (PinS) approach",
+                "children": [],
+                "los": [
+                  {
+                    "id": "01",
+                    "text": "State that a PinS approach procedure is an instrument RNP APCH procedure designed for helicopters only, and that it may be published with LNAV minima or LPV minima. X X",
+                    "details": "State that a PinS approach procedure is an instrument RNP APCH procedure designed for helicopters only, and that it may be published with LNAV minima or LPV minima. X X"
+                  },
+                  {
+                    "id": "02",
+                    "text": "State that a PinS approach procedure includes either a \u2018proceed VFR\u2019 or a \u2018proceed visually\u2019 instruction from the missed approach point (MAPt) to a landing location. X X",
+                    "details": "State that a PinS approach procedure includes either a \u2018proceed VFR\u2019 or a \u2018proceed visually\u2019 instruction from the missed approach point (MAPt) to a landing location. X X"
+                  },
+                  {
+                    "id": "03",
+                    "text": "Recognise the differences between \u2018proceed VFR\u2019 and \u2018proceed visually\u2019. X X",
+                    "details": "Recognise the differences between \u2018proceed VFR\u2019 and \u2018proceed visually\u2019. X X"
+                  }
+                ]
+              }
+            ],
+            "los": []
+          }
+        ],
+        "los": []
+      }
+    ],
+    "los": []
+  }
+]

@@ -65,23 +65,23 @@ export const SUBJECTS: SubjectStats[] = buildSubjectsFromSyllabus();
 // Covered Learning Objectives - these map platform modules to syllabus sections
 export const LEARNING_OBJECTIVES: LearningObjective[] = [
     // --- 010 AIR LAW ---
-    { id: '010.01.00', subject: '010', text: 'International Law: Conventions & Agreements', coveredBy: View.AIR_LAW_INT_LAW },
-    { id: '010.02.00', subject: '010', text: 'Airworthiness of Aircraft (Annex 8)', coveredBy: View.AIR_LAW_AIRWORTHINESS },
-    { id: '010.03.00', subject: '010', text: 'Aircraft Nationality & Registration (Annex 7)', coveredBy: View.AIR_LAW_REGISTRATION },
-    { id: '010.04.00', subject: '010', text: 'Personnel Licensing (Annex 1)', coveredBy: View.AIR_LAW_PERSONNEL },
-    { id: '010.05.00', subject: '010', text: 'Rules of the Air (Annex 2 / SERA)', coveredBy: View.AIR_LAW_RULES_DETAILS },
+    { id: '010.01', subject: '010', text: 'International Law: Conventions & Agreements', coveredBy: View.AIR_LAW_INT_LAW },
+    { id: '010.02', subject: '010', text: 'Airworthiness of Aircraft (Annex 8)', coveredBy: View.AIR_LAW_AIRWORTHINESS },
+    { id: '010.03', subject: '010', text: 'Aircraft Nationality & Registration (Annex 7)', coveredBy: View.AIR_LAW_REGISTRATION },
+    { id: '010.04', subject: '010', text: 'Personnel Licensing (Annex 1)', coveredBy: View.AIR_LAW_PERSONNEL },
+    { id: '010.05', subject: '010', text: 'Rules of the Air (Annex 2 / SERA)', coveredBy: View.AIR_LAW_RULES_DETAILS },
     { id: '010.05.02', subject: '010', text: 'Visual & Instrument Flight Rules', coveredBy: View.AIR_LAW_RULES_OF_AIR },
     { id: '010.05.03', subject: '010', text: 'Interception Procedures', coveredBy: View.AIR_LAW_INTERCEPT },
     { id: '010.05.04', subject: '010', text: 'Altimeter Setting Procedures', coveredBy: View.AIR_LAW_ALTIMETER },
     { id: '010.05.05', subject: '010', text: 'Cruising Levels (Semi-Circular Rule)', coveredBy: View.AIR_LAW_CRUISING },
-    { id: '010.06.00', subject: '010', text: 'Aircraft Operations (Annex 6)', coveredBy: View.AIR_LAW_DOCS },
+    { id: '010.06', subject: '010', text: 'Aircraft Operations (Annex 6)', coveredBy: View.AIR_LAW_DOCS },
     { id: '010.06.02', subject: '010', text: 'Operational Procedures (PANS-OPS)', coveredBy: View.AIR_LAW_PANS_OPS },
     { id: '010.06.04', subject: '010', text: 'Instrument Approach Procedures', coveredBy: View.AIR_LAW_INSTRUMENT },
     { id: '010.06.05', subject: '010', text: 'Holding Procedures', coveredBy: View.AIR_LAW_HOLDING },
-    { id: '010.07.00', subject: '010', text: 'Air Traffic Services (Annex 11)', coveredBy: View.AIR_LAW_LAYERS },
+    { id: '010.07', subject: '010', text: 'Air Traffic Services (Annex 11)', coveredBy: View.AIR_LAW_LAYERS },
     { id: '010.07.02', subject: '010', text: 'Airspace Classifications', coveredBy: View.AIR_LAW_IFR_VFR },
-    { id: '010.08.00', subject: '010', text: 'Aeronautical Information Service (Annex 15)', coveredBy: View.AIR_LAW_OPS_INFO },
-    { id: '010.09.00', subject: '010', text: 'Aerodromes (Annex 14)', coveredBy: View.AIR_LAW_REF_CODE },
+    { id: '010.08', subject: '010', text: 'Aeronautical Information Service (Annex 15)', coveredBy: View.AIR_LAW_OPS_INFO },
+    { id: '010.09', subject: '010', text: 'Aerodromes (Annex 14)', coveredBy: View.AIR_LAW_REF_CODE },
     { id: '010.09.02', subject: '010', text: 'Aerodrome Data & Dimensions', coveredBy: View.AIR_LAW_DECLARED_DIST },
     { id: '010.09.03', subject: '010', text: 'Movement Area & Surfaces', coveredBy: View.AIR_LAW_SURFACE_CON },
     { id: '010.09.04', subject: '010', text: 'Visual Aids: Markings', coveredBy: View.AIR_LAW_AERODROME_VIS },
@@ -89,11 +89,11 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '010.09.06', subject: '010', text: 'Visual Aids: Signs', coveredBy: View.AIR_LAW_SIGNS },
     { id: '010.09.07', subject: '010', text: 'Visual Aids: PAPI/VASIS', coveredBy: View.AIR_LAW_TVASIS },
     { id: '010.09.08', subject: '010', text: 'Runway Status Lights', coveredBy: View.AIR_LAW_RWSL },
-    { id: '010.10.00', subject: '010', text: 'Facilitation (Annex 9)', coveredBy: View.AIR_LAW_OPS_INFO },
-    { id: '010.11.00', subject: '010', text: 'Search and Rescue (Annex 12)', coveredBy: View.AIR_LAW_SAR },
-    { id: '010.12.00', subject: '010', text: 'Security (Annex 17)', coveredBy: View.AIR_LAW_SECURITY },
-    { id: '010.13.00', subject: '010', text: 'Accident Investigation (Annex 13)', coveredBy: View.AIR_LAW_ACCIDENT },
-    { id: '010.14.00', subject: '010', text: 'Ground Operations', coveredBy: View.AIR_LAW_GROUND_OPS },
+    { id: '010.10', subject: '010', text: 'Facilitation (Annex 9)', coveredBy: View.AIR_LAW_OPS_INFO },
+    { id: '010.11', subject: '010', text: 'Search and Rescue (Annex 12)', coveredBy: View.AIR_LAW_SAR },
+    { id: '010.12', subject: '010', text: 'Security (Annex 17)', coveredBy: View.AIR_LAW_SECURITY },
+    { id: '010.13', subject: '010', text: 'Accident Investigation (Annex 13)', coveredBy: View.AIR_LAW_ACCIDENT },
+    { id: '010.14', subject: '010', text: 'Ground Operations', coveredBy: View.AIR_LAW_GROUND_OPS },
 
     // --- 021 AGK SYSTEMS ---
     { id: '021.03.01', subject: '021', text: 'Hydromechanics: Principles', coveredBy: View.AGK_HYDRAULICS },
@@ -151,7 +151,25 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '061.01.05', subject: '061', text: 'Time: UTC & Local', coveredBy: View.TIME_ZONER },
 
     // --- 062 RADIO NAV ---
-    { id: '062.06.01', subject: '062', text: 'GNSS: Principles', coveredBy: View.NAV_GNSS },
+    { id: '062.01', subject: '062', text: 'Radio Fundamentals (Class 1)', coveredBy: View.RAD_NAV_CLASS_1 },
+    { id: '062.01.01', subject: '062', text: 'Wave Propagation', coveredBy: View.RAD_NAV_WAVE_PROP },
+    { id: '062.01.02', subject: '062', text: 'Frequency Spectrum', coveredBy: View.RAD_NAV_SPECTRUM },
+    { id: '062.01.03', subject: '062', text: 'Modulation', coveredBy: View.RAD_NAV_MODULATION },
+    { id: '062.01.04', subject: '062', text: 'Antennas', coveredBy: View.RAD_NAV_ANTENNA },
+    { id: '062.01.05', subject: '062', text: 'Ionosphere', coveredBy: View.RAD_NAV_IONOSPHERE },
+    { id: '062.02', subject: '062', text: 'VHF Direction Finding (VDF)', coveredBy: View.RAD_NAV_VDF },
+    { id: '062.02.01', subject: '062', text: 'ADF / NDB', coveredBy: View.RAD_NAV_ADF },
+    { id: '062.02.02', subject: '062', text: 'VOR / DVOR', coveredBy: View.RAD_NAV_VOR },
+    { id: '062.02.03', subject: '062', text: 'DME', coveredBy: View.RAD_NAV_DME },
+    { id: '062.02.04', subject: '062', text: 'ILS', coveredBy: View.RAD_NAV_ILS },
+    { id: '062.02.05', subject: '062', text: 'MLS', coveredBy: View.RAD_NAV_MLS },
+    { id: '062.03', subject: '062', text: 'Basic Radar Theory', coveredBy: View.RAD_NAV_RADAR },
+    { id: '062.03.01', subject: '062', text: 'Secondary Surveillance Radar (SSR)', coveredBy: View.RAD_NAV_SSR },
+    { id: '062.05', subject: '062', text: 'Area Navigation (RNAV/PBN)', coveredBy: View.RAD_NAV_RNAV },
+    { id: '062.05.01', subject: '062', text: 'FMS', coveredBy: View.RAD_NAV_FMS },
+    { id: '062.06', subject: '062', text: 'GNSS: Principles', coveredBy: View.NAV_GNSS }, // Includes GNSS Theory
+    { id: '062.06.01', subject: '062', text: 'SBAS / ABAS', coveredBy: View.RAD_NAV_SBAS },
+    { id: '062.07', subject: '062', text: 'Weather Radar', coveredBy: View.RAD_NAV_WX_RADAR },
 
     // --- 081 PRINCIPLES OF FLIGHT ---
     { id: '081.01.01', subject: '081', text: 'Subsonic Aerodynamics: Lift/Drag', coveredBy: View.POF_LIFT_DRAG },
@@ -213,7 +231,10 @@ export const calculateProgress = () => {
         const uniqueModules = new Set(mappedLOs.map(lo => lo.coveredBy)).size;
 
         // Each interactive module covers approximately 5 official Learning Objectives (LOs)
-        const estimatedCoverage = uniqueModules * 5;
+        // EXCEPTION: Radio Nav (062) modules are huge (entire chapters), so we weight them higher (18 LOs each)
+        // to reflect that ~18 modules cover the entire ~320 LO syllabus.
+        const weightPerModule = sub.id === '062' ? 18 : 5;
+        const estimatedCoverage = uniqueModules * weightPerModule;
 
         // Calculate percentage using the actual totalLOs from syllabus.json
         const percentage = sub.totalLOs > 0

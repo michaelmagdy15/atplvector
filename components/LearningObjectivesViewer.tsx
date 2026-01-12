@@ -20,13 +20,26 @@ interface SyllabusNodeData {
 }
 
 // Recursive Tree Node Component
+// Helper to normalize code from "062 01 01 00" to "062.01.01"
+const normalizeCode = (code: string | undefined): string => {
+    if (!code) return '';
+    const parts = code.split(' ');
+    // Remove trailing '00's
+    while (parts.length > 0 && parts[parts.length - 1] === '00') {
+        parts.pop();
+    }
+    return parts.join('.');
+};
+
+// Recursive Tree Node Component
 const SyllabusNode: React.FC<{
     node: SyllabusNodeData;
     depth: number;
     onNavigate: (view: View) => void;
     searchTerm: string;
     defaultOpen?: boolean;
-}> = ({ node, depth, onNavigate, searchTerm, defaultOpen }) => {
+    inheritedView?: View; // View passed down from parent
+}> = ({ node, depth, onNavigate, searchTerm, defaultOpen, inheritedView }) => {
     // Determine if this node is relevant to the search
     // If searchTerm is empty, show everything (collapsed by default unless depth < 2)
     // If searchTerm exists, expand if self or children match
@@ -63,11 +76,16 @@ const SyllabusNode: React.FC<{
     const isSubject = depth === 0;
     const isTopic = depth === 1;
     const isSubTopic = depth === 2;
-    const isLO = !!node.id; // It's a Learning Objective leaf
+    const isLO = !!node.id && !node.code; // It's a Learning Objective leaf
 
-    // Find if this LO is covered in legacy data (for "Launch" button)
-    const legacyLO = isLO ? LEARNING_OBJECTIVES.find(l => l.id === node.id || l.id === node.code) : null;
-    const isCovered = !!legacyLO?.coveredBy;
+    // Determine Coverage
+    // 1. Check if direct match in LEARNING_OBJECTIVES (using normalized code)
+    const normalizedId = normalizeCode(node.code);
+    const directCoverage = LEARNING_OBJECTIVES.find(l => l.id === normalizedId || l.id === node.id);
+
+    // 2. Resolve final view: direct coverage OR inherited view
+    const effectiveView = directCoverage?.coveredBy || inheritedView;
+    const isCovered = !!effectiveView;
 
     if (isLO) {
         return (
@@ -79,10 +97,13 @@ const SyllabusNode: React.FC<{
                         </span>
                     </div>
                     <p className="text-slate-300 font-medium leading-relaxed">{node.text}</p>
+                    {node.details && node.details !== node.text && (
+                        <p className="text-slate-500 text-sm mt-2 pl-2 border-l-2 border-slate-700">{node.details}</p>
+                    )}
                 </div>
                 {isCovered ? (
                     <button
-                        onClick={() => onNavigate(legacyLO!.coveredBy!)}
+                        onClick={() => onNavigate(effectiveView!)}
                         className="self-start md:self-center shrink-0 flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white rounded-lg font-bold shadow-lg shadow-emerald-900/20 transition-all transform hover:scale-105"
                     >
                         <Check size={16} />
@@ -112,7 +133,7 @@ const SyllabusNode: React.FC<{
                             <BookOpen size={20} className="text-white" />
                         </div>
                     ) : (
-                        <ChevronRight size={isTopic ? 18 : 16} className={isOpen ? 'text-blue-400' : 'text-slate-500'} />
+                        <ChevronRight size={isTopic ? 18 : 16} className={isOpen ? 'text-blue-400 hover:text-blue-300' : 'text-slate-500'} />
                     )}
                 </div>
 
@@ -131,6 +152,13 @@ const SyllabusNode: React.FC<{
                         `}>
                             {node.title}
                         </span>
+
+                        {/* Status Badge for Topic/Subject */}
+                        {isCovered && !isSubject && (
+                            <span className="ml-auto text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold hidden md:inline-block">
+                                IMPLEMENTED
+                            </span>
+                        )}
                     </div>
                 </div>
             </button>
@@ -149,6 +177,7 @@ const SyllabusNode: React.FC<{
                             depth={depth + 1}
                             onNavigate={onNavigate}
                             searchTerm={searchTerm}
+                            inheritedView={effectiveView} // Pass down coverage
                         />
                     ))}
                     {node.los?.map((lo, idx) => (
@@ -158,6 +187,7 @@ const SyllabusNode: React.FC<{
                             depth={depth + 1}
                             onNavigate={onNavigate}
                             searchTerm={searchTerm}
+                            inheritedView={effectiveView} // Pass down coverage
                         />
                     ))}
                 </div>
@@ -170,7 +200,7 @@ const SyllabusNode: React.FC<{
 const LearningObjectivesViewer: React.FC<Props> = ({ onNavigate }) => {
     const [viewMode, setViewMode] = useState<'TREE' | 'LIST'>('TREE');
     const [searchTerm, setSearchTerm] = useState('');
-    const [filterSubject, setFilterSubject] = useState<string>('040'); // Default to 040 for Tree view
+    const [filterSubject, setFilterSubject] = useState<string>('ALL'); // Default to ALL for Tree view
 
     // Legacy Filter Logic
     const filteredLegacy = useMemo(() => {
@@ -263,12 +293,7 @@ const LearningObjectivesViewer: React.FC<Props> = ({ onNavigate }) => {
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
                 {viewMode === 'TREE' ? (
                     <div className="space-y-4">
-                        {filterSubject !== '040' && filterSubject !== 'ALL' && (
-                            <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 flex items-center gap-3 text-amber-200 mb-6">
-                                <AlertCircle size={20} />
-                                <p>Detailed tree view is currently only available for <strong>040 Human Performance</strong>. Other subjects will show empty or limited data.</p>
-                            </div>
-                        )}
+
 
                         {filteredTreeRoots.length > 0 ? (
                             filteredTreeRoots.map((node: any, idx: number) => (
