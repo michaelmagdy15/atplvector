@@ -59,12 +59,19 @@ import EmergencyProcedures from './components/EmergencyProcedures';
 
 import HydraulicSystemAnim from './components/AGK/HydraulicSystemAnim';
 import JetEnginePrinciples from './components/AGK/JetEnginePrinciples';
+import MassBalanceDashboard from './components/MassBal/MassBalanceDashboard';
+import WeighingProcedure from './components/MassBal/WeighingProcedure';
 import MassDefinitions from './components/MassBal/MassDefinitions';
 import CgCalculator from './components/MassBal/CgCalculator';
 import LoadingLimits from './components/MassBal/LoadingLimits';
 import MacVisualizer from './components/MassBal/MacVisualizer';
 import FuelDensityCalc from './components/MassBal/FuelDensityCalc';
 import CargoHandlingSim from './components/MassBal/CargoHandlingSim';
+import LoadSheetSim from './components/MassBal/LoadSheetSim';
+import MassBuildUpFlow from './components/MassBal/MassBuildUpFlow';
+import TrimSheetSim from './components/MassBal/TrimSheetSim';
+import CGShiftVisualizer from './components/MassBal/CGShiftVisualizer';
+import UnitConverter from './components/MassBal/UnitConverter';
 import HumanPhysiology from './components/HPL/HumanPhysiology';
 import HumanFactorsIntro from './components/HPL/HumanFactorsIntro';
 import SleepAndRhythms from './components/HPL/SleepAndRhythms';
@@ -846,13 +853,13 @@ const App: React.FC = () => {
                             {currentView === View.HPL_PERSONALITY && <HPLPersonality />}
                             {currentView === View.HPL_LEARNING && <HPLLearning />}
                             {currentView === View.HPL_PERCEPTION && <HPLPerception />}
-                            {currentView === View.HPL_COMMUNICATION_PROCESS && <HPLCommunicationProcess />}
-                            {currentView === View.HPL_COOPERATION && <HPLCooperation />}
-                            {currentView === View.HPL_COMPETENCY && <HPLCompetency />}
+                            {currentView === View.HPL_COMMUNICATION_PROCESS && <HPLCommunicationProcess onNavigate={setCurrentView} />}
+                            {currentView === View.HPL_COOPERATION && <HPLCooperation onNavigate={setCurrentView} />}
+                            {currentView === View.HPL_COMPETENCY && <HPLCompetency onNavigate={setCurrentView} />}
                             {currentView === View.HPL_MOTION_SICKNESS && <HPLMotionSickness />}
                             {currentView === View.HPL_PRESSURE && <HPLPressure />}
                             {currentView === View.HPL_ATMOSPHERE && <HPLAtmosphere />}
-                            {currentView === View.HPL_HEALTH_HYGIENE && <HPLHealthHygiene />}
+                            {currentView === View.HPL_HEALTH_HYGIENE && <HPLHealthHygiene onNavigate={setCurrentView} />}
                             {currentView === View.HPL_INCIDENTS && <HPLIncidents />}
 
                             {currentView === View.HPL_PRESSURE && <HPLPressure />}
@@ -1041,6 +1048,7 @@ const App: React.FC = () => {
                             {currentView === View.WAKE_TURB && <WakeTurbulence />}
                             {currentView === View.SERVICE_CODES && <ServiceCodes />}
                             {currentView === View.INTERCEPT && <InterceptTrainer />}
+
 
                             {currentView === View.OPS_PROC_HOME && (
                                 <GenericSubjectDashboard

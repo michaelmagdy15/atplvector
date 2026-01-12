@@ -25,47 +25,49 @@ const MassDefinitions: React.FC = () => {
             <p className="text-slate-400 mb-8">Visualize how aircraft masses are constructed.</p>
 
             <div className="grid lg:grid-cols-2 gap-12">
-                
+
                 {/* Visual Stack */}
                 <div className="relative h-[400px] w-full bg-slate-900 rounded-xl border border-slate-700 flex flex-col-reverse p-8 shadow-inner">
-                    
+
                     {/* BEM Block */}
-                    <div 
-                        style={{ height: `${getPercent(bem)}%` }} 
-                        className="w-full bg-slate-600 rounded-b-lg relative border-t border-slate-500 flex items-center justify-center transition-all duration-500"
+                    <div
+                        style={{ height: `${getPercent(bem)}%` }}
+                        className="w-1/2 mx-auto bg-slate-600 rounded-b-lg relative border-t border-slate-500 flex items-center justify-center transition-all duration-500"
                     >
-                        <span className="text-white font-bold drop-shadow-md">Basic Empty Mass (BEM)</span>
-                        <span className="absolute right-2 text-xs text-slate-300">{bem} kg</span>
+                        <span className="text-white font-bold drop-shadow-md pb-1 text-[10px] truncate px-1">Structure (BEM)</span>
+                        <span className="absolute right-2 text-[10px] text-slate-300 transform translate-x-full pl-2">{bem}kg</span>
                     </div>
 
                     {/* Crew Block */}
-                    <div 
-                        style={{ height: `${getPercent(crew)}%` }} 
-                        className="w-full bg-indigo-600 relative border-t border-indigo-400 flex items-center justify-center transition-all duration-500"
+                    <div
+                        style={{ height: `${getPercent(crew)}%` }}
+                        className="w-1/2 mx-auto bg-indigo-600 relative border-t border-indigo-400 flex items-center justify-center transition-all duration-500"
                     >
-                        <span className="text-white text-xs font-bold drop-shadow-md">+ Crew & Kit</span>
-                        <div className="absolute right-[-140px] top-1/2 -translate-y-1/2 text-indigo-400 font-bold flex items-center">
-                             <ArrowRight className="mr-2 h-4 w-4" /> DOM: {dom} kg
+                        <span className="text-white text-[10px] font-bold drop-shadow-md truncate px-1">Crew</span>
+                        {/* DOM Line */}
+                        <div className="absolute right-[-100px] top-1/2 -translate-y-1/2 w-[90px] text-left text-indigo-400 font-bold text-xs flex items-center">
+                            <ArrowRight className="mr-1 h-3 w-3" /> DOM: {dom}
                         </div>
                     </div>
 
                     {/* Payload Block */}
-                    <div 
-                        style={{ height: `${getPercent(pax)}%` }} 
-                        className="w-full bg-emerald-600 relative border-t border-emerald-400 flex items-center justify-center transition-all duration-500"
+                    <div
+                        style={{ height: `${getPercent(pax)}%` }}
+                        className="w-1/2 mx-auto bg-emerald-600 relative border-t border-emerald-400 flex items-center justify-center transition-all duration-500"
                     >
-                        <span className="text-white text-xs font-bold drop-shadow-md">+ Traffic Load (Payload)</span>
-                        <div className="absolute left-[-140px] top-1/2 -translate-y-1/2 text-emerald-400 font-bold flex items-center justify-end w-[130px]">
-                             ZFM: {zfm} kg <ArrowRight className="ml-2 h-4 w-4 rotate-180" /> 
+                        <span className="text-white text-[10px] font-bold drop-shadow-md truncate px-1">Payload</span>
+                        {/* ZFM Line */}
+                        <div className="absolute left-[-100px] top-1/2 -translate-y-1/2 w-[90px] text-right text-emerald-400 font-bold text-xs flex items-center justify-end">
+                            ZFM: {zfm} <ArrowRight className="ml-1 h-3 w-3 rotate-180" />
                         </div>
                     </div>
 
                     {/* Fuel Block */}
-                    <div 
-                        style={{ height: `${getPercent(fuel)}%` }} 
-                        className="w-full bg-yellow-600 rounded-t-lg relative border-t border-yellow-400 flex items-center justify-center transition-all duration-500"
+                    <div
+                        style={{ height: `${getPercent(fuel)}%` }}
+                        className="w-1/2 mx-auto bg-yellow-600 rounded-t-lg relative border-t border-yellow-400 flex items-center justify-center transition-all duration-500"
                     >
-                        <span className="text-white text-xs font-bold drop-shadow-md">+ Take-off Fuel</span>
+                        <span className="text-white text-[10px] font-bold drop-shadow-md truncate px-1">Fuel</span>
                     </div>
 
                     {/* Total */}

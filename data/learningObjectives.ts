@@ -100,13 +100,37 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '021.03.01', subject: '021', text: 'Hydromechanics: Principles', coveredBy: View.AGK_HYDRAULICS },
     { id: '021.11.01', subject: '021', text: 'Gas Turbines: Basic Principles', coveredBy: View.AGK_JET_ENGINE },
 
+    // --- 031 MASS & BALANCE ---
+    // [031.01] PURPOSE OF MASS-AND-BALANCE
+    { id: '031.01', subject: '031', text: 'Purpose', coveredBy: View.MASS_BAL_DEFINITIONS },
+
+    // [031.02] LOADING
+    { id: '031.02', subject: '031', text: 'Loading', coveredBy: View.MASS_BAL_LIMITS },
+    { id: '031.02.01', subject: '031', text: 'Mass definitions', coveredBy: View.MASS_BAL_DEFINITIONS },
+    { id: '031.02.02', subject: '031', text: 'Mass limits', coveredBy: View.MASS_BAL_LIMITS },
+
+    // [031.04] MASS-AND-BALANCE DETAILS OF AIRCRAFT
+    { id: '031.04', subject: '031', text: 'Details of Aircraft', coveredBy: View.MASS_BAL_MAC },
+    { id: '031.04.01', subject: '031', text: 'Weighing procedures', coveredBy: View.MASS_BAL_MAC },
+
+    // [031.05] DETERMINATION OF CG POSITION
+    { id: '031.05', subject: '031', text: 'Determination of CG Position', coveredBy: View.MASS_BAL_CG_CALC },
+    { id: '031.05.01', subject: '031', text: 'Methods of calculation', coveredBy: View.MASS_BAL_CG_CALC },
+    { id: '031.05.02', subject: '031', text: 'Arithmetic method', coveredBy: View.MASS_BAL_CG_CALC },
+
+    // [031.06] CARGO HANDLING
+    { id: '031.06', subject: '031', text: 'Cargo Handling', coveredBy: View.MASS_BAL_SHIFT },
+    { id: '031.06.01', subject: '031', text: 'Load shifting', coveredBy: View.MASS_BAL_SHIFT },
+
     // --- 040 HUMAN PERFORMANCE (Complete EASA Coverage) ---
     // 040.01 - Human Factors: Basic Concepts
+    { id: '040.01', subject: '040', text: 'Human Factors: Basic Concepts', coveredBy: View.HPL_BASIC_CONCEPTS },
     { id: '040.01.01', subject: '040', text: 'Human factors in aviation', coveredBy: View.HPL_BASIC_CONCEPTS },
     { id: '040.01.03', subject: '040', text: 'TEM and SHELL models', coveredBy: View.HPL_TEM },
     { id: '040.01.04', subject: '040', text: 'Safety culture', coveredBy: View.HPL_SAFETY },
 
     // 040.02 - Basics of Aviation Physiology
+    { id: '040.02', subject: '040', text: 'Basics of Aviation Physiology and Health', coveredBy: View.HPL_HOME },
     { id: '040.02.01.01', subject: '040', text: 'The atmosphere - composition, gas laws', coveredBy: View.HPL_ATMOSPHERE },
     { id: '040.02.01.02', subject: '040', text: 'Respiratory system', coveredBy: View.HPL_RESPIRATION },
     { id: '040.02.01.03', subject: '040', text: 'Circulatory system', coveredBy: View.HPL_CIRCULATION },
@@ -122,6 +146,7 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '040.02.03.05', subject: '040', text: 'G-effects and accelerations', coveredBy: View.HPL_ACCELERATION },
 
     // 040.03 - Basic Aviation Psychology
+    { id: '040.03', subject: '040', text: 'Basic Aviation Psychology', coveredBy: View.HPL_HOME },
     { id: '040.03.01.01', subject: '040', text: 'Attention, perception, memory', coveredBy: View.HPL_INFO_PROCESSING },
     { id: '040.03.01.02', subject: '040', text: 'Perception and illusions', coveredBy: View.HPL_PERCEPTION },
     { id: '040.03.01.03', subject: '040', text: 'Memory - sensory, STM, LTM', coveredBy: View.HPL_MEMORY },

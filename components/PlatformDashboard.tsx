@@ -46,7 +46,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
     };
 
     // Card Helper Component
-    const SubjectCard = ({ id, code, title, desc, icon: Icon, color, onClick }: any) => {
+    const SubjectCard = ({ id, code, title, desc, icon: Icon, color, onClick, progress }: any) => {
         const locked = isLocked(code);
         const gradient = getColorStyles(color);
 
@@ -64,7 +64,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                     </div>
                 )}
 
-                <div className="bg-slate-900/40 rounded-xl h-full p-6 md:p-8 relative overflow-hidden">
+                <div className="bg-slate-900/40 rounded-xl h-full p-6 md:p-8 relative overflow-hidden flex flex-col">
                     {/* Background Glow */}
                     <div className={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${gradient} rounded-full blur-[80px] opacity-20 group-hover:opacity-30 transition-opacity duration-500`}></div>
 
@@ -85,11 +85,27 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
 
                         <h2 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-all">{title}</h2>
 
-                        <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-grow">
+                        <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
                             {desc}
                         </p>
 
-                        <div className="flex items-center text-sm font-bold text-white/80 group-hover:text-white transition-colors pt-4 border-t border-white/5">
+                        {/* Progress Bar */}
+                        {!locked && progress !== undefined && (
+                            <div className="mb-6">
+                                <div className="flex justify-between text-xs font-bold text-slate-400 mb-1">
+                                    <span>Progress</span>
+                                    <span>{progress}%</span>
+                                </div>
+                                <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                                    <div
+                                        className={`h-full bg-gradient-to-r ${gradient} transition-all duration-1000`}
+                                        style={{ width: `${progress}%` }}
+                                    ></div>
+                                </div>
+                            </div>
+                        )}
+
+                        <div className="flex items-center text-sm font-bold text-white/80 group-hover:text-white transition-colors pt-4 border-t border-white/5 mt-auto">
                             <span>Open Module</span>
                             <ChevronRight className="ml-auto w-4 h-4 text-white/50 group-hover:text-white group-hover:translate-x-1 transition-all" />
                         </div>
@@ -243,6 +259,14 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                     desc="Subsonic aerodynamics, stability, control, lift, drag, and stalling."
                     icon={Plane} color="violet"
                     onClick={() => onChangeView(View.POF_HOME)}
+                />
+
+                {/* 100 KSA */}
+                <SubjectCard
+                    code="100" title="KSA"
+                    desc="Knowledge, Skills and Attitudes. Core competencies, TEM, and mental maths."
+                    icon={Users} color="pink"
+                    onClick={() => onChangeView(View.KSA_HOME)}
                 />
 
                 {/* 090 Communications (Featured) */}
