@@ -202,6 +202,11 @@ import ServiceCodes from './components/ServiceCodes';
 import InterceptTrainer from './components/InterceptTrainer';
 
 import GenericSubjectDashboard from './components/GenericSubjectDashboard';
+import KSADashboard from './components/KSA/KSADashboard';
+import CoreCompetencies from './components/KSA/CoreCompetencies';
+import TEMAdvanced from './components/KSA/TEMAdvanced';
+import MentalMathsLab from './components/KSA/MentalMathsLab';
+
 import {
     Plane as PlaneIcon, Menu, X, BookOpen, Settings, Weight,
     Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog, Wind
@@ -974,6 +979,12 @@ const App: React.FC = () => {
                             {currentView === View.POF_DRAG && <TotalDrag />}
                             {currentView === View.POF_GROUND_EFFECT && <GroundEffect />}
                             {currentView === View.POF_HIGH_LIFT && <HighLiftDevices />}
+
+                            {/* KSA (100) */}
+                            {currentView === View.KSA_HOME && <KSADashboard onChangeView={setCurrentView} />}
+                            {currentView === View.KSA_COMPETENCIES && <CoreCompetencies />}
+                            {currentView === View.KSA_TEM && <TEMAdvanced />}
+                            {currentView === View.KSA_MENTAL_MATHS && <MentalMathsLab />}
 
                             {/* Communications (090) */}
                             {currentView === View.DASHBOARD && <CommsDashboard onChangeView={setCurrentView} />}

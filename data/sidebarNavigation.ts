@@ -275,6 +275,18 @@ const NAV_MAP: SubjectConfig[] = [
         ]
     },
     {
+        id: '100',
+        title: 'KSA',
+        color: 'indigo',
+        dashboardView: View.KSA_HOME,
+        items: [
+            { label: 'Dashboard', view: View.KSA_HOME, icon: Brain },
+            { label: 'Competencies', view: View.KSA_COMPETENCIES },
+            { label: 'TEM', view: View.KSA_TEM },
+            { label: 'Mental Maths', view: View.KSA_MENTAL_MATHS },
+        ]
+    },
+    {
         id: '070',
         title: 'Ops Procedures',
         color: 'indigo',

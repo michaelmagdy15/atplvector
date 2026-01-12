@@ -43,6 +43,7 @@ function buildSubjectsFromSyllabus(): SubjectStats[] {
         { id: '070', name: 'Operational Proc.', totalLOs: 85, coveredLOs: 0 },
         { id: '081', name: 'Principles of Flight', totalLOs: 150, coveredLOs: 0 },
         { id: '090', name: 'Communications', totalLOs: 119, coveredLOs: 0 },
+        { id: '100', name: 'KSA', totalLOs: 40, coveredLOs: 0 },
     ];
 
     // Build map of syllabus.json data to override defaults
@@ -176,12 +177,14 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
 
     // --- 090 COMMUNICATIONS (Comprehensive) ---
     // 090.01 Concepts
+    { id: '090.01', subject: '090', text: 'Concepts', coveredBy: View.DASHBOARD },
     { id: '090.01.01', subject: '090', text: 'Definitions & Terms', coveredBy: View.GENERAL_THEORY },
     { id: '090.01.02', subject: '090', text: 'Abbreviations', coveredBy: View.GENERAL_THEORY },
     { id: '090.01.03', subject: '090', text: 'Q-Codes', coveredBy: View.QCODE_CARDS },
     { id: '090.01.04', subject: '090', text: 'Categories of Messages', coveredBy: View.PRIORITY },
 
     // 090.02 General Operating Procedures
+    { id: '090.02', subject: '090', text: 'General Operating Procedures', coveredBy: View.DASHBOARD },
     { id: '090.02.01', subject: '090', text: 'Transmission Technique', coveredBy: View.GENERAL_THEORY },
     { id: '090.02.02', subject: '090', text: 'Callsigns & Suffixes', coveredBy: View.SUFFIX_MATCH },
     { id: '090.02.03', subject: '090', text: 'Transmission of Numbers', coveredBy: View.ALT_SPEAK },
@@ -196,29 +199,40 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '090.02.12', subject: '090', text: 'Advanced Phraseology', coveredBy: View.ADV_PHRASEOLOGY },
 
     // 090.03 Weather
+    { id: '090.03', subject: '090', text: 'Relevant Weather Information', coveredBy: View.DASHBOARD },
     { id: '090.03.01', subject: '090', text: 'Aerodrome Weather (METAR)', coveredBy: View.METAR },
     { id: '090.03.02', subject: '090', text: 'Weather Broadcasts (VOLMET/ATIS)', coveredBy: View.VOLMET_SIM },
     { id: '090.03.03', subject: '090', text: 'Special Air Reports', coveredBy: View.AIREP_SPEC },
 
     // 090.04 Failure
+    { id: '090.04', subject: '090', text: 'Voice Communication Failure', coveredBy: View.COMM_FAIL },
     { id: '090.04.01', subject: '090', text: 'Communications Failure', coveredBy: View.COMM_FAIL },
     { id: '090.04.02', subject: '090', text: 'Blind Transmission', coveredBy: View.BLIND_TX },
 
     // 090.05 Distress
+    { id: '090.05', subject: '090', text: 'Distress and Urgency Procedures', coveredBy: View.EMERGENCY },
     { id: '090.05.01', subject: '090', text: 'Distress (MAYDAY)', coveredBy: View.EMERGENCY },
     { id: '090.05.02', subject: '090', text: 'Urgency (PAN-PAN)', coveredBy: View.EMERGENCY },
     { id: '090.05.03', subject: '090', text: 'Emergency Operations', coveredBy: View.EMERGENCY_OPS },
 
     // 090.06 Propagation
+    { id: '090.06', subject: '090', text: 'VHF Propagation and Allocation', coveredBy: View.PROPAGATION_THEORY },
     { id: '090.06.01', subject: '090', text: 'VHF Propagation', coveredBy: View.PROPAGATION_THEORY },
     { id: '090.06.02', subject: '090', text: 'Frequency Spectrum', coveredBy: View.BAND_SPEC },
     { id: '090.06.03', subject: '090', text: 'Range & Altitude', coveredBy: View.VHF_CALC },
     { id: '090.06.04', subject: '090', text: 'Technical Aspects', coveredBy: View.TECH_PHYSICS },
 
     // 090.07 Misc
+    { id: '090.07', subject: '090', text: 'Other Communications', coveredBy: View.DASHBOARD },
     { id: '090.07.01', subject: '090', text: 'Morse Code', coveredBy: View.MORSE },
     { id: '090.07.02', subject: '090', text: 'Transponder Operation', coveredBy: View.TRANSPONDER },
     { id: '090.07.03', subject: '090', text: 'Data Link (ACARS/CPDLC)', coveredBy: View.RADIO_NAV_DATA },
+
+    // --- 100 KNOWLEDGE, SKILLS AND ATTITUDES (KSA) ---
+    { id: '100.01', subject: '100', text: 'ICAO Core Competencies', coveredBy: View.KSA_COMPETENCIES },
+    { id: '100.02', subject: '100', text: 'Core Competencies Learning Objectives', coveredBy: View.KSA_COMPETENCIES },
+    { id: '100.03', subject: '100', text: 'Threat and Error Management (TEM)', coveredBy: View.KSA_TEM },
+    { id: '100.04', subject: '100', text: 'Mental Maths', coveredBy: View.KSA_MENTAL_MATHS },
 ];
 
 // Calculate progress by comparing covered LOs to total from syllabus
