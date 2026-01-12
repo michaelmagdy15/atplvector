@@ -248,6 +248,7 @@ const NAV_MAP: SubjectConfig[] = [
             { label: 'ILS', view: View.RAD_NAV_ILS },
             { label: 'MLS', view: View.RAD_NAV_MLS },
             { label: 'Radar Theory', view: View.RAD_NAV_RADAR },
+            { label: 'Weather Radar', view: View.RAD_NAV_WX_RADAR },
             { label: 'SSR/Transponder', view: View.RAD_NAV_SSR },
             { label: 'RNAV/PBN', view: View.RAD_NAV_RNAV },
             { label: 'FMS', view: View.RAD_NAV_FMS },

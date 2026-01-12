@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View } from '../../types';
-import { ArrowLeft, Satellite, RadioTower, Server, Send } from 'lucide-react';
+import { ArrowLeft, Satellite, RadioTower, Server, Send, Plane as PlaneIcon } from 'lucide-react';
 
 interface Props {
     onNavigate?: (view: View) => void;
@@ -163,6 +163,64 @@ const SbasAbas: React.FC<Props> = ({ onNavigate }) => {
                             <div className="p-3 bg-slate-900 rounded border border-slate-700">
                                 <span className="font-bold text-purple-400 block">MSAS / GAGAN</span>
                                 <span className="text-xs text-slate-400">Japan / India</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* NEW: GBAS / GLS */}
+            <div className="mt-8 glass-panel p-6 rounded-xl animate-in slide-in-from-bottom border-t border-slate-700 pt-6">
+                <div className="flex items-center gap-4 mb-6">
+                    <div className="p-3 bg-indigo-500/20 rounded-lg">
+                        <RadioTower className="text-indigo-400" size={24} />
+                    </div>
+                    <div>
+                        <h2 className="text-xl font-bold text-white">GBAS (Ground Based Augmentation System)</h2>
+                        <p className="text-sm text-slate-400">Local area augmentation for precision approach (GLS)</p>
+                    </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-8">
+                    <div className="space-y-4">
+                        <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-800">
+                            <h4 className="font-bold text-indigo-300 text-sm mb-2">Key Differences from SBAS</h4>
+                            <ul className="space-y-2 text-xs text-slate-300">
+                                <li className="flex gap-2 items-start">
+                                    <span className="text-indigo-500 font-bold">•</span>
+                                    <span>Corrects locally (airport vicinity only, ~23 NM).</span>
+                                </li>
+                                <li className="flex gap-2 items-start">
+                                    <span className="text-indigo-500 font-bold">•</span>
+                                    <span>Corrections sent via <strong>VHF Data Broadcast (VDB)</strong>, not GEO Satellite.</span>
+                                </li>
+                                <li className="flex gap-2 items-start">
+                                    <span className="text-indigo-500 font-bold">•</span>
+                                    <span>Enables <strong>CAT I, II, and III</strong> approaches (GLS).</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className="relative h-48 bg-slate-950 rounded-lg overflow-hidden border border-slate-800 flex items-center justify-center">
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-indigo-900/20 via-slate-950 to-slate-950"></div>
+
+                        {/* Simple Schematic */}
+                        <div className="relative z-10 flex items-end gap-8">
+                            <div className="flex flex-col items-center gap-2">
+                                <Satellite className="text-slate-500 mb-8" size={20} />
+                                <div className="h-12 w-0.5 bg-dashed border-l border-slate-700"></div>
+                                <div className="p-2 bg-indigo-600 rounded-lg shadow-[0_0_15px_rgba(79,70,229,0.5)]">
+                                    <RadioTower size={24} className="text-white" />
+                                </div>
+                                <span className="text-[9px] text-indigo-300 mt-1">Ground Station</span>
+                            </div>
+
+                            <div className="h-px w-20 bg-gradient-to-r from-indigo-500 to-sky-500 animate-pulse"></div>
+
+                            <div className="flex flex-col items-center">
+                                <PlaneIcon className="text-sky-400 rotate-12 mb-2" size={24} />
+                                <span className="text-[9px] text-sky-300">Aircraft (VHF Receiver)</span>
                             </div>
                         </div>
                     </div>

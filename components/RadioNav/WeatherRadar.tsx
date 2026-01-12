@@ -1,329 +1,471 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { View } from '../../types';
-import { ArrowLeft, CloudRain, Zap, Layers, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, CloudRain, Wind, AlertTriangle, Info, Compass, Target, Layers, Ruler, Activity, Settings } from 'lucide-react';
 
 interface Props {
     onNavigate?: (view: View) => void;
 }
 
+interface StormCell {
+    id: number;
+    angle: number; // Azimuth relative to nose (0 is straight ahead)
+    dist: number;  // NM
+    width: number; // NM radius
+    height: number; // ft (Top of storm)
+    base: number;   // ft (Bottom of storm)
+    intensity: number; // 0-1 (1 is max)
+    type: 'CB' | 'STRATUS';
+}
+
 const WeatherRadar: React.FC<Props> = ({ onNavigate }) => {
-    // Controls
-    const [tilt, setTilt] = useState(0); // Degrees (-15 to +15)
-    const [gain, setGain] = useState(50); // %
-    const [range, setRange] = useState(80); // NM
-    const [isoEcho, setIsoEcho] = useState(false);
-    const [showShadow, setShowShadow] = useState(true);
+    // Simulator State
+    const [range, setRange] = useState(80); // NM Range Scale
+    const [tilt, setTilt] = useState(0); // Degrees
+    const [gain, setGain] = useState(70); // %
+    const [mode, setMode] = useState<'WX' | 'MAP' | 'WX+T'>('WX');
+    const [aircraftAlt, setAircraftAlt] = useState(15000); // ft
+    const [scanAngle, setScanAngle] = useState(0); // Current beam angle (-45 to 45)
 
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-    const sweepRef = useRef(0);
-    const animationRef = useRef<number | null>(null);
+    // Derived Constants
+    const BEAM_WIDTH = 3.0; // Degrees
+    const GROUND_ELEVATION = 0; // ft MSL
 
-    // Weather Cell Data (Simulated)
-    // Distance (NM), Azimuth (Deg), Intensity (0-100), Size (NM)
-    const [cells] = useState([
-        { dist: 30, az: -10, intensity: 90, size: 8 }, // Heavy Storm (Left)
-        { dist: 45, az: 15, intensity: 60, size: 12 }, // Moderate Rain (Right)
-        { dist: 60, az: -5, intensity: 40, size: 20 }, // Light Rain (Center)
-    ]);
+    // Simulation Objects
+    const [storms, setStorms] = useState<StormCell[]>([]);
+    const ndCanvasRef = useRef<HTMLCanvasElement>(null);
+    const vertCanvasRef = useRef<HTMLCanvasElement>(null);
 
+    // Initialize Storms
     useEffect(() => {
-        const render = () => {
-            const canvas = canvasRef.current;
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            if (!ctx) return;
+        const initialStorms: StormCell[] = [
+            { id: 1, angle: -10, dist: 40, width: 4, height: 35000, base: 2000, intensity: 0.9, type: 'CB' },
+            { id: 2, angle: 15, dist: 60, width: 8, height: 25000, base: 1000, intensity: 0.7, type: 'CB' },
+            { id: 3, angle: -30, dist: 20, width: 3, height: 12000, base: 0, intensity: 0.5, type: 'STRATUS' },
+            { id: 4, angle: 5, dist: 90, width: 12, height: 40000, base: 500, intensity: 1.0, type: 'CB' },
+        ];
+        setStorms(initialStorms);
+    }, []);
 
-            const width = canvas.width;
-            const height = canvas.height;
-            const cx = width / 2;
-            const cy = height; // Fan origin at bottom center
+    // Animation & Logic Loop
+    useEffect(() => {
+        let frameId: number;
+        let lastTime = Date.now();
+        let sweepDir = 1;
 
-            // Clear Background
-            ctx.fillStyle = '#020617'; // Slate 950
-            ctx.fillRect(0, 0, width, height);
+        const loop = () => {
+            const now = Date.now();
+            const dt = (now - lastTime) / 1000;
+            lastTime = now;
 
-            // Draw Range Arcs
-            ctx.strokeStyle = '#1e293b'; // Slate 800
-            ctx.lineWidth = 1;
-            const scale = height / range; // px per NM
-
-            for (let r = range / 4; r <= range; r += range / 4) {
-                ctx.beginPath();
-                ctx.arc(cx, cy, r * scale, Math.PI, 2 * Math.PI);
-                ctx.stroke();
-                // Label
-                ctx.fillStyle = '#64748b';
-                ctx.font = '10px monospace';
-                ctx.fillText(`${r} NM`, cx + 5, cy - r * scale + 10);
-            }
-
-            // Draw Azimuth Lines
-            [-30, -15, 0, 15, 30].forEach(deg => {
-                const rad = (deg - 90) * (Math.PI / 180);
-                const x = cx + Math.cos(rad) * height;
-                const y = cy + Math.sin(rad) * height;
-                ctx.beginPath();
-                ctx.moveTo(cx, cy);
-                ctx.lineTo(x, y);
-                ctx.stroke();
+            // 1. Update Antenna Sweep
+            setScanAngle(prev => {
+                let next = prev + (sweepDir * 60 * dt); // 60 deg/sec
+                if (next > 45) { next = 45; sweepDir = -1; }
+                if (next < -45) { next = -45; sweepDir = 1; }
+                return next;
             });
 
-            // --- Render Weather Returns ---
-            // Calculate effective "slice" based on Tilt
-            // Simple model: 
-            // - Ground clutter appears if Tilt < -2
-            // - Storm tops approx 40k ft. Bottoms 2k ft.
-            // - Aircraft Alt: assume 30k ft.
-            // - Beam width: 3 degrees.
+            // 2. Render
+            drawND();
+            drawVerticalProfile();
 
-            // Ground Clutter Simulation
-            if (tilt < -1) {
-                const clutterStart = Math.max(10, 80 + (tilt * 5)); // Clutter moves out as tilt goes up (less negative)
-                // Draw noise at range
-                for (let i = 0; i < 500; i++) {
-                    const r = (clutterStart + Math.random() * 40) * scale;
-                    const theta = Math.PI + (Math.random() * Math.PI); // Full 180 semi circle
-                    const x = cx + r * Math.cos(theta);
-                    const y = cy + r * Math.sin(theta);
+            frameId = requestAnimationFrame(loop);
+        };
+        frameId = requestAnimationFrame(loop);
+        return () => cancelAnimationFrame(frameId);
+    }, [range, tilt, gain, mode, aircraftAlt, storms, scanAngle]);
 
-                    if (y < height && y > 0 && x > 0 && x < width) {
-                        ctx.fillStyle = Math.random() > 0.5 ? '#15803d' : '#facc15'; // Green/Yellow clutter
-                        ctx.fillRect(x, y, 2, 2);
-                    }
+
+    // === RENDERERS ===
+
+    const drawND = () => {
+        const cvs = ndCanvasRef.current;
+        if (!cvs) return;
+        const ctx = cvs.getContext('2d');
+        if (!ctx) return;
+
+        const w = cvs.width;
+        const h = cvs.height;
+        const cx = w / 2;
+        const cy = h; // Bottom center
+        const scalePxPerNm = h / range; // e.g. 400px / 80nm = 5 px/nm
+
+        // Fade effect (persist previous sweep slightly)
+        ctx.fillStyle = 'rgba(0,0,0,0.05)';
+        ctx.fillRect(0, 0, w, h);
+
+        // Draw Sweep Line (Current Beam)
+        // We only draw physics returns AT the scan line
+        // But for visual smoothness we might cheat and draw full storms if we want traditional game-feel,
+        // BUT for a simulator, we should only draw along the sweep line like a real radar raster.
+        // Let's go hybrid: Clear background fully, redraw static overlay, but draw returns based on beam intersection.
+
+        // Actually, real radars "paint" the returns.
+        // Let's clear completely for crisp React rendering, but simulate "painting" by just drawing everything visible.
+        ctx.fillStyle = '#020617';
+        ctx.fillRect(0, 0, w, h);
+
+        // 1. Grid / Rings
+        ctx.strokeStyle = '#334155';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(cx, cy, h * 0.25, Math.PI, 2 * Math.PI);
+        ctx.arc(cx, cy, h * 0.5, Math.PI, 2 * Math.PI);
+        ctx.arc(cx, cy, h * 0.75, Math.PI, 2 * Math.PI);
+        ctx.stroke();
+
+        ctx.fillStyle = '#64748b';
+        ctx.font = '10px monospace';
+        ctx.fillText(`${range / 4}`, cx + 5, cy - h * 0.25);
+        ctx.fillText(`${range / 2}`, cx + 5, cy - h * 0.5);
+        ctx.fillText(`${range * 0.75}`, cx + 5, cy - h * 0.75);
+
+        // 2. RAYCASTING LOGIC (The Core Simulation)
+        // We iterate angle from -45 to +45 in small steps to build the image (simulating memory)
+        // Or just iterate objects and check visibility.
+        // Iterating objects is faster for JS.
+
+        // Beam Calculation
+        const beamTopAngle = tilt + (BEAM_WIDTH / 2);
+        const beamBottomAngle = tilt - (BEAM_WIDTH / 2);
+
+        // GROUND RETURN
+        // Ground is a plane at GROUND_ELEVATION.
+        // Aircraft is at aircraftAlt.
+        // Angle to ground at distance D = atan((GroundAlt - AircraftAlt) / D)
+        // Check if BeamBottom < AngleToGround < BeamTop
+
+        // Ground Clutter Loop (per NM)
+        if (mode !== 'MAP') { // Map mode usually enhances ground, but WX tries to suppress or differentiate.
+            // For sim, let's just draw "Ground" as red noise
+            const step = 0.5; // NM
+            for (let d = 1; d < range; d += step) {
+                const distFt = d * 6076;
+                const angleToGround = (Math.atan((GROUND_ELEVATION - aircraftAlt) / distFt) * 180 / Math.PI);
+
+                // If the beam hits the ground (Beam Bottom is below the angle to ground, AND Beam Top is above it)
+                // Actually if Beam 'includes' the ground angle.
+                if (beamBottomAngle <= angleToGround && beamTopAngle >= angleToGround) {
+                    // Hit!
+                    const arcWidth = 90 * (Math.PI / 180); // Full sector
+                    const r = d * scalePxPerNm;
+
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, r, Math.PI, 2 * Math.PI); // Draw full arc for ground? Or just sector?
+                    ctx.strokeStyle = `rgba(255, 0, 0, ${0.1 * (gain / 100)})`; // Faint red ring
+                    ctx.stroke();
                 }
             }
+        }
 
-            // Weather Cells
-            cells.forEach((cell, index) => {
-                // Determine visibility based on Tilt
-                // 1 deg tilt = 100ft per NM approx.
-                // At 30NM, 1 deg change = 3000ft.
-                // If we tilt UP (+), we scan tops. Down (-), we scan lower.
-                // Let's assume optimal tilt for this weather is 0 deg.
-                // If tilt > 5, we overscan (miss it).
-                // If tilt < -10, we underscan (ground clutter obscures).
+        // STORM RETURNS
+        storms.forEach(storm => {
+            // 1. Is storm within Range?
+            if (storm.dist > range) return;
 
-                const tiltFactor = Math.abs(tilt); // Simple deviation
-                if (tiltFactor > 8) return; // Beam misses cell
+            // 2. Vertical Intercept? 
+            // Calculate Beam Height at Storm Distance.
+            // Height = Dist(ft) * tan(tilt) roughly.
+            const distFt = storm.dist * 6076;
+            // Beam center height relative to aircraft
+            const beamCenterHeightRel = distFt * Math.tan(tilt * Math.PI / 180);
+            const beamTopRel = distFt * Math.tan(beamTopAngle * Math.PI / 180);
+            const beamBottomRel = distFt * Math.tan(beamBottomAngle * Math.PI / 180);
 
-                // Attenuation Logic (Shadowing)
-                // If this cell is BEHIND a stronger cell, reduce its intensity
-                // Simple check: is there a cell with *similar azimuth* but *closer distance*?
-                let attenuatedIntensity = cell.intensity;
+            const beamAbsTop = aircraftAlt + beamTopRel;
+            const beamAbsBottom = aircraftAlt + beamBottomRel;
 
-                if (showShadow) {
-                    cells.forEach(blocker => {
-                        if (blocker === cell) return;
-                        if (blocker.dist < cell.dist &&
-                            Math.abs(blocker.az - cell.az) < 10 && // Overlapping azimuth
-                            blocker.intensity > 70) { // Strong enough to attenuate
-                            attenuatedIntensity *= 0.2; // Massive signal loss
-                        }
-                    });
+            // Does beam overlap storm vertical extent?
+            // Storm Z: [storm.base, storm.height]
+            const overlapsVertically = (beamAbsBottom < storm.height) && (beamAbsTop > storm.base);
+
+            if (overlapsVertically) {
+                // Draw Storm
+                // Convert Polar to Cartesian for Canvas
+                const angleRad = (storm.angle - 90) * (Math.PI / 180);
+                const x = cx + Math.cos(angleRad) * (storm.dist * scalePxPerNm);
+                const y = cy + Math.sin(angleRad) * (storm.dist * scalePxPerNm);
+                const radius = storm.width * scalePxPerNm;
+
+                // Color based on Intensity & Gain
+                const visualIntensity = storm.intensity * (gain / 50);
+
+                const grad = ctx.createRadialGradient(x, y, 0, x, y, radius);
+                if (visualIntensity > 0.8) {
+                    grad.addColorStop(0, '#ff00ff'); // Turbulence
+                    grad.addColorStop(0.5, '#ef4444'); // Red
+                    grad.addColorStop(1, '#22c55e');   // Green
+                } else if (visualIntensity > 0.5) {
+                    grad.addColorStop(0, '#ef4444');
+                    grad.addColorStop(1, '#22c55e');
+                } else {
+                    grad.addColorStop(0, '#22c55e');
+                    grad.addColorStop(1, 'rgba(34, 197, 94, 0)');
                 }
-
-                // Color Mapping (Green -> Yellow -> Red -> Magenta)
-                let color = '#22c55e'; // Green
-                if (attenuatedIntensity > 50) color = '#eab308'; // Yellow
-                if (attenuatedIntensity > 75) color = '#ef4444'; // Red
-                if (attenuatedIntensity > 85) color = '#d946ef'; // Magenta (Turbulence)
-
-                // Iso-Echo: Strong returns turn BLACK
-                if (isoEcho && attenuatedIntensity > 80) {
-                    color = '#000000'; // Black hole effect
-                }
-
-                // Draw Cell (Blob)
-                const centerR = cell.dist * scale;
-                const centerTheta = (cell.az - 90) * (Math.PI / 180);
-                const baseX = cx + centerR * Math.cos(centerTheta);
-                const baseY = cy + centerR * Math.sin(centerTheta);
-                const sizePx = cell.size * scale;
-
-                const grad = ctx.createRadialGradient(baseX, baseY, 0, baseX, baseY, sizePx);
-                grad.addColorStop(0, color);
-                grad.addColorStop(1, 'transparent');
 
                 ctx.fillStyle = grad;
                 ctx.beginPath();
-                ctx.arc(baseX, baseY, sizePx, 0, 2 * Math.PI);
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
                 ctx.fill();
+            }
+        });
 
-                // Iso-Echo border (if black)
-                if (isoEcho && attenuatedIntensity > 80) {
-                    ctx.strokeStyle = '#d946ef';
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-                }
-            });
+        // 3. Draw Sweep Line
+        const scanRad = (scanAngle - 90) * (Math.PI / 180);
+        ctx.strokeStyle = '#0ea5e9';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + Math.cos(scanRad) * h, cy + Math.sin(scanRad) * h);
+        ctx.stroke();
+    };
 
+    const drawVerticalProfile = () => {
+        const cvs = vertCanvasRef.current;
+        if (!cvs) return;
+        const ctx = cvs.getContext('2d');
+        if (!ctx) return;
+        const w = cvs.width;
+        const h = cvs.height;
 
-            // Sweep Line
-            sweepRef.current = (sweepRef.current + 2) % 360; // deg
-            // Constrain sweep to +/- 60 deg scan sector
-            // Let's create a ping-pong sweep -60 to +60
-            const time = Date.now() / 1000;
-            const sweepAngle = Math.sin(time * 2) * 60; // +/- 60 deg
+        // Coordinate System:
+        // X: Distance (0 to Range)
+        // Y: Altitude (0 to 60,000 ft)
+        const maxAlt = 50000;
+        const scaleX = w / range; // px per NM
+        const scaleY = h / maxAlt; // px per ft
 
-            const sweepRad = (sweepAngle - 90) * (Math.PI / 180);
+        // BG
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(0, 0, w, h);
 
-            ctx.strokeStyle = '#0ea5e9'; // Sky blue
-            ctx.lineWidth = 2;
-            ctx.shadowColor = '#0ea5e9';
-            ctx.shadowBlur = 10;
-            ctx.beginPath();
-            ctx.moveTo(cx, cy);
-            ctx.lineTo(cx + height * Math.cos(sweepRad), cy + height * Math.sin(sweepRad));
-            ctx.stroke();
-            ctx.shadowBlur = 0;
+        // Grid (Altitudes)
+        ctx.strokeStyle = '#1e293b';
+        ctx.lineWidth = 1;
+        for (let a = 10000; a < maxAlt; a += 10000) {
+            const y = h - (a * scaleY);
+            ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+            ctx.fillStyle = '#475569'; ctx.font = '10px monospace'; ctx.fillText(`${a / 1000}k`, 5, y - 2);
+        }
 
-            animationRef.current = requestAnimationFrame(render);
-        };
+        // Draw Ground
+        const groundY = h - (GROUND_ELEVATION * scaleY);
+        ctx.fillStyle = '#3f6212'; // Dark Green
+        ctx.fillRect(0, groundY, w, h - groundY); // Simple flat earth for now
 
-        render();
-        return () => { if (animationRef.current) cancelAnimationFrame(animationRef.current); };
-    }, [tilt, gain, range, isoEcho, showShadow, cells]);
+        // Draw Storms (Side View)
+        storms.forEach(storm => {
+            // Only draw if within viewing range
+            if (storm.dist > range) return;
+
+            // X position
+            const x = storm.dist * scaleX;
+            const widthPx = storm.width * scaleX * 2; // Approximate width in side view
+
+            // Y position
+            const topY = h - (storm.height * scaleY);
+            const baseY = h - (storm.base * scaleY);
+            const heightPx = baseY - topY;
+
+            // Draw Rect (Simple profile)
+            ctx.fillStyle = storm.intensity > 0.8 ? '#ef4444' : '#22c55e';
+            ctx.fillRect(x - widthPx / 2, topY, widthPx, heightPx);
+        });
+
+        // Draw Aircraft Position
+        const acY = h - (aircraftAlt * scaleY);
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.arc(0, acY, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Draw Radar CONE
+        // Beam spreads with distance.
+        // Upper Edge
+        const beamTopAngle = tilt + (BEAM_WIDTH / 2);
+        const beamBottomAngle = tilt - (BEAM_WIDTH / 2);
+
+        // Calculate Y at max range
+        const distFt = range * 6076;
+        const topYOffset = distFt * Math.tan(beamTopAngle * Math.PI / 180);
+        const bottomYOffset = distFt * Math.tan(beamBottomAngle * Math.PI / 180);
+
+        const yTopAtRange = h - ((aircraftAlt + topYOffset) * scaleY);
+        const yBottomAtRange = h - ((aircraftAlt + bottomYOffset) * scaleY);
+
+        ctx.fillStyle = 'rgba(14, 165, 233, 0.2)'; // Sky blue, transparent
+        ctx.beginPath();
+        ctx.moveTo(0, acY);
+        ctx.lineTo(w, yTopAtRange);
+        ctx.lineTo(w, yBottomAtRange);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.strokeStyle = 'rgba(14, 165, 233, 0.5)';
+        ctx.beginPath();
+        ctx.moveTo(0, acY);
+        ctx.lineTo(w, h - ((aircraftAlt + (distFt * Math.tan(tilt * Math.PI / 180))) * scaleY)); // Center line
+        ctx.stroke();
+
+    };
 
 
     return (
-        <div className="max-w-6xl mx-auto p-4 space-y-6">
-            <div className="flex items-center space-x-4">
+        <div className="max-w-7xl mx-auto p-4 space-y-6 pb-20">
+            <div className="flex items-center space-x-4 mb-6">
                 <button
                     onClick={() => onNavigate?.(View.RAD_NAV_HOME)}
-                    className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white"
+                    className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition-colors"
                 >
-                    <ArrowLeft size={20} />
+                    <ArrowLeft size={24} />
                 </button>
-                <div className="flex items-center gap-2">
-                    <CloudRain className="text-emerald-400" />
-                    <h1 className="text-2xl font-bold text-slate-100">Airborne Weather Radar</h1>
+                <div>
+                    <h1 className="text-3xl font-bold text-slate-100 flex items-center gap-3">
+                        <Activity className="text-sky-400" size={32} />
+                        Weather Radar Simulator
+                    </h1>
+                    <p className="text-slate-400 mt-1">Advanced Tilt Management & Interpretation</p>
                 </div>
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-6">
-                {/* Radar Display (EHSI/ND style) */}
-                <div className="lg:col-span-2 bg-black rounded-3xl border-8 border-slate-800 shadow-2xl overflow-hidden relative aspect-[4/3]">
-                    <canvas
-                        ref={canvasRef}
-                        width={800}
-                        height={600}
-                        className="w-full h-full object-cover"
-                    />
+            <div className="grid lg:grid-cols-12 gap-6">
 
-                    {/* Corner Info */}
-                    <div className="absolute top-4 left-4 text-emerald-500 font-mono text-sm space-y-1">
-                        <div>WXR {isoEcho ? 'ISO' : 'STD'}</div>
-                        <div>TILT {tilt > 0 ? `+${tilt.toFixed(1)}` : tilt.toFixed(1)}°</div>
-                        <div>GAIN {gain}%</div>
+                {/* LEFT: PRIMARY DISPLAY (ND) */}
+                <div className="lg:col-span-7 space-y-4">
+                    <div className="bg-black rounded-3xl border-8 border-slate-800 shadow-2xl overflow-hidden relative aspect-square max-w-2xl mx-auto">
+                        <canvas ref={ndCanvasRef} width={600} height={600} className="w-full h-full" />
+
+                        {/* Corner Overlays */}
+                        <div className="absolute top-4 left-4 font-mono font-bold text-sky-400 text-lg">
+                            {mode}
+                            <span className="block text-white text-2xl">RNG {range}</span>
+                        </div>
+                        <div className="absolute top-4 right-4 font-mono font-bold text-lg text-right">
+                            <span className={`block ${tilt > 0 ? 'text-blue-400' : tilt < 0 ? 'text-amber-400' : 'text-white'}`}>
+                                TILT {tilt > 0 ? '+' : ''}{tilt.toFixed(1)}°
+                            </span>
+                            <span className="block text-emerald-400 text-sm">GAIN {gain}%</span>
+                        </div>
+
+                        {/* Aircraft Icon */}
+                        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+                            <PlaneIcon className="text-white w-12 h-12" />
+                        </div>
                     </div>
 
-                    <div className="absolute top-4 right-4 text-emerald-500 font-mono text-sm text-right">
-                        <div>RNG {range}</div>
-                        <div>MODE WX</div>
-                    </div>
-
-                    {/* Aircraft Symbol */}
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 text-white">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M12 2L12 22M2 12L22 12" stroke="transparent" /> {/* Spacer */}
-                            <path d="M12 2L15 10L22 12L15 14L12 22L9 14L2 12L9 10L12 2Z" fill="#fbbf24" stroke="none" />
-                        </svg>
+                    <div className="bg-slate-900 p-4 rounded-xl border border-slate-700 flex justify-center gap-8">
+                        <div className="text-center">
+                            <div className="text-xs text-slate-400 uppercase mb-1">Beam Hits Ground?</div>
+                            {(tilt - 1.5) < (Math.atan((0 - aircraftAlt) / (range * 6076)) * 180 / Math.PI) ? ( // Rough approx check at max range
+                                <span className="text-red-500 font-bold flex items-center gap-1 justify-center"><AlertTriangle size={16} /> YES (CLUTTER)</span>
+                            ) : (
+                                <span className="text-emerald-500 font-bold">NO (CLEAR)</span>
+                            )}
+                        </div>
                     </div>
                 </div>
 
-                {/* Control Panel */}
-                <div className="space-y-6 bg-slate-900 p-6 rounded-2xl border border-slate-700">
-                    <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                        <Layers size={20} />
-                        Radar Control Head
-                    </h2>
+                {/* RIGHT: CONTROLS & VERTICAL PROFILE */}
+                <div className="lg:col-span-5 space-y-6">
 
-                    {/* Tilt Control */}
-                    <div className="bg-slate-800 p-4 rounded-xl border border-slate-700">
-                        <label className="text-xs font-bold text-slate-400 uppercase flex justify-between mb-2">
-                            <span>Antenna Tilt</span>
-                            <span className="text-white">{tilt.toFixed(1)}°</span>
-                        </label>
-                        <input
-                            type="range"
-                            min="-15" max="15" step="0.5"
-                            value={tilt}
-                            onChange={(e) => setTilt(parseFloat(e.target.value))}
-                            className="w-full accent-blue-500"
-                        />
-                        <div className="flex justify-between text-[10px] text-slate-500 mt-1">
-                            <span>DN (Ground)</span>
-                            <span>AUTO</span>
-                            <span>UP (Overshoot)</span>
+                    {/* Vertical Profile Visualizer */}
+                    <div className="bg-slate-900 rounded-xl border border-slate-700 overflow-hidden">
+                        <div className="px-4 py-2 bg-slate-800 border-b border-slate-700 flex justify-between items-center">
+                            <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                                <Ruler size={16} /> Vertical Profile (Side View)
+                            </h3>
+                            <span className="text-xs text-slate-400">Not available in real cockpit</span>
+                        </div>
+                        <div className="h-64 bg-slate-950 relative">
+                            <canvas ref={vertCanvasRef} width={500} height={300} className="w-full h-full" />
+                        </div>
+                        <div className="p-3 text-xs text-slate-500 bg-slate-900/50">
+                            Shows relationship between Beam Cone (Blue), Storms (Green/Red), and Ground (Dark Green).
                         </div>
                     </div>
 
-                    {/* Range Control */}
-                    <div className="bg-slate-800 p-4 rounded-xl border border-slate-700">
-                        <label className="text-xs font-bold text-slate-400 uppercase flex justify-between mb-2">
-                            <span>Range</span>
-                            <span className="text-white">{range} NM</span>
-                        </label>
-                        <div className="grid grid-cols-4 gap-2">
-                            {[10, 20, 40, 80, 160, 320].map(r => (
-                                <button
-                                    key={r}
-                                    onClick={() => setRange(r)}
-                                    className={`px-2 py-1 rounded text-xs font-bold transition-all ${range === r
-                                        ? 'bg-blue-600 text-white shadow'
-                                        : 'bg-slate-700 text-slate-400 hover:bg-slate-600'
-                                        }`}
-                                >
-                                    {r}
-                                </button>
-                            ))}
+                    {/* Control Panel */}
+                    <div className="glass-panel p-6 rounded-xl border border-slate-700 bg-slate-900/80">
+                        <h3 className="text-lg font-bold text-sky-400 mb-6 flex items-center gap-2">
+                            <Settings size={20} /> Radar Control Panel
+                        </h3>
+
+                        <div className="space-y-6">
+                            {/* TILT */}
+                            <div>
+                                <div className="flex justify-between mb-2">
+                                    <label className="text-sm font-bold text-white">ANT TILT</label>
+                                    <span className="font-mono text-sky-400">{tilt.toFixed(1)}°</span>
+                                </div>
+                                <input
+                                    type="range" min="-15" max="15" step="0.1"
+                                    value={tilt} onChange={(e) => setTilt(parseFloat(e.target.value))}
+                                    className="w-full h-3 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-sky-500"
+                                />
+                                <div className="flex justify-between text-xs text-slate-500 mt-1">
+                                    <span>-15° (DN)</span>
+                                    <span>0°</span>
+                                    <span>+15° (UP)</span>
+                                </div>
+                            </div>
+
+                            {/* RANGE */}
+                            <div>
+                                <label className="text-sm font-bold text-white mb-2 block">RANGE SCALE</label>
+                                <div className="grid grid-cols-5 gap-2">
+                                    {[10, 20, 40, 80, 160].map(r => (
+                                        <button
+                                            key={r}
+                                            onClick={() => setRange(r)}
+                                            className={`py-2 rounded font-mono text-sm font-bold transition-all ${range === r ? 'bg-sky-600 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}`}
+                                        >
+                                            {r}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* GAIN */}
+                            <div>
+                                <div className="flex justify-between mb-2">
+                                    <label className="text-sm font-bold text-white">GAIN</label>
+                                    <span className="font-mono text-emerald-400">{gain}%</span>
+                                </div>
+                                <input
+                                    type="range" min="0" max="100" step="1"
+                                    value={gain} onChange={(e) => setGain(parseInt(e.target.value))}
+                                    className="w-full h-3 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-500"
+                                />
+                            </div>
+
+                            {/* ALTITUDE SIM */}
+                            <div className="pt-4 border-t border-slate-700">
+                                <div className="flex justify-between mb-2">
+                                    <label className="text-sm font-bold text-slate-300">AIRCRAFT ALTITUDE</label>
+                                    <span className="font-mono text-white">{(aircraftAlt).toLocaleString()} ft</span>
+                                </div>
+                                <input
+                                    type="range" min="0" max="45000" step="1000"
+                                    value={aircraftAlt} onChange={(e) => setAircraftAlt(parseInt(e.target.value))}
+                                    className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-slate-400"
+                                />
+                            </div>
                         </div>
+
                     </div>
-
-                    {/* Modes */}
-                    <div className="grid grid-cols-2 gap-4">
-                        <button
-                            onClick={() => setIsoEcho(!isoEcho)}
-                            className={`p-4 rounded-xl border flex flex-col items-center gap-2 transition-all ${isoEcho
-                                ? 'bg-fuchsia-900/50 border-fuchsia-500/50 text-fuchsia-200'
-                                : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-750'
-                                }`}
-                        >
-                            <Zap size={24} className={isoEcho ? "animate-pulse" : ""} />
-                            <span className="font-bold">ISO-ECHO</span>
-                        </button>
-
-                        <button
-                            onClick={() => setShowShadow(!showShadow)}
-                            className={`p-4 rounded-xl border flex flex-col items-center gap-2 transition-all ${showShadow
-                                ? 'bg-orange-900/50 border-orange-500/50 text-orange-200'
-                                : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-750'
-                                }`}
-                        >
-                            <AlertTriangle size={24} />
-                            <span className="font-bold">ATTENUATION</span>
-                        </button>
-                    </div>
-
-                    {/* Theory Panel */}
-                    <div className="border border-blue-500/30 bg-blue-900/10 p-4 rounded-xl text-xs space-y-2 text-blue-200">
-                        <h4 className="font-bold text-blue-100 border-b border-blue-500/20 pb-2 mb-2">Operational Theory</h4>
-                        <p>
-                            <strong>Planar Array:</strong> Stabilized antenna to maintain horizon reference during turns.
-                        </p>
-                        <p>
-                            <strong>Attenuation:</strong> Heavy rain (Red/Magenta) absorbs radar energy, creating a "Shadow" behind it where other storms may hide.
-                        </p>
-                        <p>
-                            <strong>Iso-Echo:</strong> Inverts strong signals (&gt;80%) to black to highlight areas of steepest gradient (extreme turbulence).
-                        </p>
-                    </div>
-
                 </div>
             </div>
         </div>
     );
 };
+
+function PlaneIcon(props: any) {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}>
+            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" />
+        </svg>
+    );
+}
 
 export default WeatherRadar;

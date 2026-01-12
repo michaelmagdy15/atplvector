@@ -1,262 +1,365 @@
 
 import React, { useState } from 'react';
 import { View } from '../../types';
-import { Globe, Satellite, Clock, AlertTriangle, ShieldCheck, Cpu } from 'lucide-react';
+import { ArrowLeft, Globe, Satellite, Clock, RadioTower, AlertTriangle, Layers, Navigation, Cpu } from 'lucide-react';
 
 interface Props {
     onNavigate?: (view: View) => void;
 }
 
 const GNSSTheory: React.FC<Props> = ({ onNavigate }) => {
-    const [activeTab, setActiveTab] = useState<'segments' | 'signals' | 'errors' | 'positioning'>('segments');
+    const [activeTab, setActiveTab] = useState('CONST');
 
     return (
-        <div className="max-w-5xl mx-auto p-4 space-y-8">
-            <div className="flex items-center space-x-4">
-                <div className="p-2 bg-slate-800 rounded-lg text-slate-400">
-                    <Satellite size={24} className="text-sky-400" />
-                </div>
+        <div className="max-w-6xl mx-auto p-4 space-y-6 pb-20">
+            <div className="flex items-center space-x-4 mb-6">
+                <button
+                    onClick={() => onNavigate?.(View.RAD_NAV_HOME)}
+                    className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition-colors"
+                >
+                    <ArrowLeft size={24} />
+                </button>
                 <div>
-                    <h1 className="text-2xl font-bold text-slate-100">Global Navigation Satellite Systems (GNSS)</h1>
-                    <p className="text-slate-400 text-sm">GPS, GLONASS, Galileo, BeiDou</p>
+                    <h1 className="text-3xl font-bold text-slate-100 flex items-center gap-3">
+                        <Satellite className="text-sky-400" size={32} />
+                        Global Navigation Satellite Systems
+                    </h1>
+                    <p className="text-slate-400 mt-1">Class 12: Architecture, Signals, Positioning & Errors</p>
                 </div>
             </div>
 
-            {/* Navigation Tabs */}
-            <div className="flex gap-2 overflow-x-auto pb-2">
-                {[
-                    { id: 'segments', label: 'Architecture', icon: Globe },
-                    { id: 'signals', label: 'Signals & Time', icon: Clock },
-                    { id: 'positioning', label: 'Positioning', icon: ShieldCheck },
-                    { id: 'errors', label: 'Errors & Factors', icon: AlertTriangle },
-                ].map(tab => (
-                    <button
-                        key={tab.id}
-                        onClick={() => setActiveTab(tab.id as any)}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === tab.id
-                            ? 'bg-sky-600 text-white shadow-lg'
-                            : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'
-                            }`}
-                    >
-                        <tab.icon size={16} />
-                        {tab.label}
-                    </button>
-                ))}
+            <div className="flex flex-wrap gap-2 p-1 bg-slate-900/80 rounded-xl backdrop-blur-sm border border-slate-800 sticky top-4 z-50">
+                <TabButton id="CONST" label="Constellations" icon={<Globe size={18} />} active={activeTab} setActive={setActiveTab} />
+                <TabButton id="ARCH" label="Architecture" icon={<Layers size={18} />} active={activeTab} setActive={setActiveTab} />
+                <TabButton id="POS" label="Positioning" icon={<Navigation size={18} />} active={activeTab} setActive={setActiveTab} />
+                <TabButton id="ERR" label="Errors" icon={<AlertTriangle size={18} />} active={activeTab} setActive={setActiveTab} />
             </div>
 
-            {/* Content Area */}
-            <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 min-h-[400px]">
-
-                {/* 1. SEGMENTS */}
-                {activeTab === 'segments' && (
-                    <div className="space-y-6 animate-fade-in">
-                        <div className="grid md:grid-cols-3 gap-6">
-                            <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 relative overflow-hidden group hover:border-sky-500/50 transition-all">
-                                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                    <Satellite size={80} />
-                                </div>
-                                <h3 className="text-lg font-bold text-sky-400 mb-2">Space Segment</h3>
-                                <ul className="space-y-2 text-sm text-slate-300 relative z-10">
-                                    <li>• <strong>24+ Satellites</strong> (30+ active usually)</li>
-                                    <li>• <strong>6 Orbital Planes</strong> (55° inclination)</li>
-                                    <li>• <strong>Altitude:</strong> 20,200 km (MEO)</li>
-                                    <li>• <strong>Orbit Time:</strong> 11 hours 58 min</li>
-                                    <li>• Ensures 4+ satellites visible anywhere.</li>
-                                </ul>
-                            </div>
-
-                            <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 relative overflow-hidden group hover:border-emerald-500/50 transition-all">
-                                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                    <Cpu size={80} />
-                                </div>
-                                <h3 className="text-lg font-bold text-emerald-400 mb-2">Control Segment</h3>
-                                <ul className="space-y-2 text-sm text-slate-300 relative z-10">
-                                    <li>• <strong>Master Control Station</strong> (Colorado Springs)</li>
-                                    <li>• <strong>Monitor Stations:</strong> Track satellites.</li>
-                                    <li>• <strong>Ground Antennas:</strong> Uplink corrections.</li>
-                                    <li>• Updates Almanacs and Atomic Clocks.</li>
-                                </ul>
-                            </div>
-
-                            <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 relative overflow-hidden group hover:border-amber-500/50 transition-all">
-                                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                    <ShieldCheck size={80} />
-                                </div>
-                                <h3 className="text-lg font-bold text-amber-400 mb-2">User Segment</h3>
-                                <ul className="space-y-2 text-sm text-slate-300 relative z-10">
-                                    <li>• <strong>Receivers</strong> (Aircraft, Phones, Cars)</li>
-                                    <li>• Passive listening only (No transmission).</li>
-                                    <li>• Calculates position from Time-of-Arrival.</li>
-                                    <li>• Stores an Almanac (approx orbit data).</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div className="grid md:grid-cols-4 gap-4 mt-8">
-                            {['GPS (USA)', 'GLONASS (Russia)', 'Galileo (EU)', 'BeiDou (China)'].map(sys => (
-                                <div key={sys} className="text-center p-3 bg-slate-950 rounded border border-slate-800">
-                                    <span className="text-xs font-bold text-slate-400">{sys}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
-
-                {/* 2. SIGNALS */}
-                {activeTab === 'signals' && (
-                    <div className="space-y-6 animate-fade-in">
-                        <div className="grid md:grid-cols-2 gap-8">
-                            <div>
-                                <h3 className="text-xl font-bold text-white mb-4">The Signal Structure</h3>
-                                <div className="space-y-4">
-                                    <div className="p-4 bg-slate-800 rounded-lg border-l-4 border-purple-500">
-                                        <h4 className="font-bold text-purple-400">Carrier Frequencies</h4>
-                                        <p className="text-sm text-slate-300">L1 (1575.42 MHz) and L2/L5 (Civil/Military).</p>
-                                    </div>
-                                    <div className="p-4 bg-slate-800 rounded-lg border-l-4 border-blue-500">
-                                        <h4 className="font-bold text-blue-400">PRN Code (Pseudo Random Noise)</h4>
-                                        <p className="text-sm text-slate-300">
-                                            A unique digital signature for each satellite. Allows the receiver to identify who is talking (CDMA).
-                                            Also used for precise timing measurements.
-                                        </p>
-                                    </div>
-                                    <div className="p-4 bg-slate-800 rounded-lg border-l-4 border-yellow-500">
-                                        <h4 className="font-bold text-yellow-400">Navigation Message</h4>
-                                        <ul className="text-sm text-slate-300 list-disc list-inside mt-1">
-                                            <li><strong>Ephemeris:</strong> Precise orbit data (Valid ~4 hours).</li>
-                                            <li><strong>Almanac:</strong> Coarse orbit data for all sats (Valid months).</li>
-                                            <li><strong>Clock Correction:</strong> Atomic clock bias.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="bg-slate-950 p-6 rounded-xl border border-slate-800 flex flex-col justify-center items-center text-center">
-                                <Clock size={48} className="text-rose-500 mb-4 animate-pulse" />
-                                <h3 className="text-2xl font-bold text-white font-mono">Time = Distance</h3>
-                                <p className="text-slate-400 text-sm mt-2 max-w-sm">
-                                    Distance = c × (Time_Rx - Time_Tx)
-                                </p>
-                                <div className="mt-6 p-4 bg-indigo-900/20 rounded-lg border border-indigo-500/20 text-xs text-indigo-200">
-                                    An error of just <strong>1 microsecond</strong> ($10^-6$ s) results in a position error of <strong>300 meters</strong>!
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {/* 3. POSITIONING */}
-                {activeTab === 'positioning' && (
-                    <div className="space-y-6 animate-fade-in">
-                        <div className="grid md:grid-cols-2 gap-8 items-center">
-                            <div>
-                                <div className="bg-slate-800 p-6 rounded-xl shadow-lg relative h-[300px]">
-                                    {/* Abstract visual of Trilateration */}
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        {/* Sat 1 */}
-                                        <div className="absolute top-10 left-10 w-24 h-24 border-2 border-red-500/30 rounded-full flex items-center justify-center">
-                                            <div className="w-1 h-1 bg-red-500 rounded-full"></div>
-                                        </div>
-                                        {/* Sat 2 */}
-                                        <div className="absolute top-10 right-10 w-32 h-32 border-2 border-blue-500/30 rounded-full flex items-center justify-center">
-                                            <div className="w-1 h-1 bg-blue-500 rounded-full"></div>
-                                        </div>
-                                        {/* Sat 3 */}
-                                        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-40 h-40 border-2 border-green-500/30 rounded-full flex items-center justify-center">
-                                            <div className="w-1 h-1 bg-green-500 rounded-full"></div>
-                                        </div>
-
-                                        {/* Intersection */}
-                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-[0_0_15px_white] animate-pulse"></div>
-                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-4 text-xs font-bold text-white bg-black/50 px-1 rounded">2D FIX</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-bold text-white mb-2">Trilateration</h3>
-                                <p className="text-slate-400 mb-6">
-                                    Measuring distance (Pseudo-range) from multiple known points (Satellites) intersects at a single location.
-                                </p>
-
-                                <div className="space-y-3">
-                                    <div className="flex items-center justify-between p-3 bg-slate-800 rounded border border-slate-700">
-                                        <span className="font-bold text-slate-300">3 Satellites</span>
-                                        <span className="text-yellow-400 font-mono font-bold">2D Fix (Lat, Long)</span>
-                                    </div>
-                                    <div className="flex items-center justify-between p-3 bg-slate-800 rounded border border-slate-700">
-                                        <span className="font-bold text-slate-300">4 Satellites</span>
-                                        <span className="text-emerald-400 font-mono font-bold">3D Fix (Lat, Long, Alt)</span>
-                                    </div>
-                                    <div className="flex items-center justify-between p-3 bg-slate-800 rounded border border-slate-700">
-                                        <span className="font-bold text-slate-300">5+ Satellites</span>
-                                        <span className="text-sky-400 font-mono font-bold">RAIM (Fault Detection)</span>
-                                    </div>
-                                </div>
-
-                                <div className="mt-4 text-xs text-slate-500">
-                                    *The 4th satellite is required to solve the Receiver Clock Bias (Time Error). We have 4 unknowns: X, Y, Z, and Time.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {/* 4. ERRORS */}
-                {activeTab === 'errors' && (
-                    <div className="space-y-6 animate-fade-in">
-                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-
-                            <div className="p-4 bg-slate-800 rounded-xl border border-rose-500/20 hover:border-rose-500/50 transition-colors">
-                                <div className="text-rose-400 font-bold mb-2 flex items-center gap-2">
-                                    <AlertTriangle size={16} /> Ionosphere
-                                </div>
-                                <p className="text-xs text-slate-400">
-                                    Solar radiation ionizes the atmosphere, slowing down the signal. Largest source of error.
-                                </p>
-                                <div className="mt-2 text-xs text-slate-500 font-mono">Mitigation: Dual Frequency (L1/L2) or Models.</div>
-                            </div>
-
-                            <div className="p-4 bg-slate-800 rounded-xl border border-amber-500/20 hover:border-amber-500/50 transition-colors">
-                                <div className="text-amber-400 font-bold mb-2 flex items-center gap-2">
-                                    <AlertTriangle size={16} /> Multipath
-                                </div>
-                                <p className="text-xs text-slate-400">
-                                    Signal bouncing off ground/buildings before reaching receiver. Increases path length.
-                                </p>
-                                <div className="mt-2 text-xs text-slate-500 font-mono">Mitigation: Mask angle, Antenna design.</div>
-                            </div>
-
-                            <div className="p-4 bg-slate-800 rounded-xl border border-blue-500/20 hover:border-blue-500/50 transition-colors">
-                                <div className="text-blue-400 font-bold mb-2 flex items-center gap-2">
-                                    <AlertTriangle size={16} /> GDOP
-                                </div>
-                                <p className="text-xs text-slate-400">
-                                    <strong>Geometric Dilution of Precision</strong>. Satellites bunched together = Poor accuracy. Spread out = Good accuracy.
-                                </p>
-                                <div className="mt-2 text-xs text-slate-500 font-mono">Mitigation: More satellites.</div>
-                            </div>
-
-                            <div className="p-4 bg-slate-800 rounded-xl border border-slate-700">
-                                <div className="text-slate-300 font-bold mb-2">Clock Error</div>
-                                <p className="text-xs text-slate-400">Receiver clock is not atomic. Solved by 4th satellite.</p>
-                            </div>
-
-                            <div className="p-4 bg-slate-800 rounded-xl border border-slate-700">
-                                <div className="text-slate-300 font-bold mb-2">Ephemeris Error</div>
-                                <p className="text-xs text-slate-400">Satellite orbit is essentially slightly off from reported position.</p>
-                            </div>
-
-                            <div className="p-4 bg-slate-800 rounded-xl border border-slate-700">
-                                <div className="text-slate-300 font-bold mb-2">Jamming / Spoofing</div>
-                                <p className="text-xs text-slate-400">External interference (Intentional or Unintentional).</p>
-                            </div>
-
-                        </div>
-                    </div>
-                )}
+            <div className="transition-all duration-300">
+                {activeTab === 'CONST' && <ConstellationsSection />}
+                {activeTab === 'ARCH' && <ArchitectureSection />}
+                {activeTab === 'POS' && <PositioningSection />}
+                {activeTab === 'ERR' && <ErrorsSection />}
             </div>
         </div>
     );
 };
+
+const TabButton = ({ id, label, icon, active, setActive }: any) => (
+    <button
+        onClick={() => setActive(id)}
+        className={`flex items-center gap-2 px-4 py-3 rounded-lg text-sm font-semibold transition-all duration-200 ${active === id
+            ? 'bg-sky-600 text-white shadow-lg shadow-sky-900/20'
+            : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+            }`}
+    >
+        {icon}
+        <span className="hidden sm:inline">{label}</span>
+    </button>
+);
+
+// === SECTION 1: CONSTELLATIONS ===
+const ConstellationsSection = () => {
+    const systems = [
+        { id: 'GPS', country: 'USA', Sats: '24+', Orbit: '20,200 km', Period: '11h 58m' },
+        { id: 'GLONASS', country: 'Russia', Sats: '24+', Orbit: '19,100 km', Period: '11h 15m' },
+        { id: 'Galileo', country: 'EU', Sats: '24+', Orbit: '23,222 km', Period: '14h 05m' },
+        { id: 'BeiDou', country: 'China', Sats: '35', Orbit: 'Multiple', Period: 'Var' },
+    ];
+
+    return (
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {systems.map(s => (
+                    <div key={s.id} className="bg-slate-900 p-6 rounded-xl border border-slate-800 hover:border-sky-500/50 transition-colors group">
+                        <div className="flex justify-between items-start mb-4">
+                            <h3 className="text-xl font-black text-white">{s.id}</h3>
+                            <span className="text-xs font-bold px-2 py-1 rounded bg-slate-800 text-slate-400 group-hover:bg-sky-900 group-hover:text-sky-300 transition-colors">
+                                {s.country}
+                            </span>
+                        </div>
+                        <ul className="text-sm text-slate-400 space-y-2">
+                            <li className="flex justify-between">
+                                <span>Satellites</span> <span className="text-white">{s.Sats}</span>
+                            </li>
+                            <li className="flex justify-between">
+                                <span>Altitude</span> <span className="text-white">{s.Orbit}</span>
+                            </li>
+                            <li className="flex justify-between">
+                                <span>Period</span> <span className="text-white">{s.Period}</span>
+                            </li>
+                        </ul>
+                    </div>
+                ))}
+            </div>
+
+            <div className="glass-panel p-6 rounded-xl border border-slate-700 bg-slate-900/50">
+                <h3 className="text-xl font-bold text-sky-400 mb-4 flex items-center gap-2">
+                    <OrbitIcon size={24} /> Orbital Characteristics
+                </h3>
+                <div className="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <p className="text-slate-300 mb-4 leading-relaxed">
+                            Satellites are in <strong className="text-white">Medium Earth Orbit (MEO)</strong>.
+                            GPS uses <strong className="text-white">6 orbital planes</strong> inclined at 55° to the equator, ensuring at least 4 satellites are visible from any point on Earth at any time.
+                        </p>
+                        <div className="bg-slate-800 p-4 rounded-lg border-l-4 border-yellow-500">
+                            <h4 className="font-bold text-white mb-1">Key Concept</h4>
+                            <p className="text-sm text-slate-400">
+                                They are NOT geostationary (except some SBAS/BeiDou). They move across the sky, completing ~2 orbits per day.
+                            </p>
+                        </div>
+                    </div>
+                    <div className="relative h-64 bg-black rounded-xl overflow-hidden border border-slate-800 flex items-center justify-center">
+                        {/* Earth */}
+                        <div className="w-24 h-24 rounded-full bg-blue-600 shadow-[0_0_30px_rgba(37,99,235,0.5)] z-10 flex items-center justify-center">
+                            <Globe className="text-blue-300 opacity-50" size={64} />
+                        </div>
+                        {/* Orbits */}
+                        {[0, 60, 120].map(deg => (
+                            <div key={deg} className={`absolute w-[200px] h-[60px] rounded-[100%] border border-slate-600/50`}
+                                style={{ transform: `rotate(${deg}deg)` }}>
+                                <div className="absolute top-0 left-1/2 w-3 h-3 bg-white rounded-full shadow-[0_0_10px_white] animate-pulse"></div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// === SECTION 2: ARCHITECTURE ===
+const ArchitectureSection = () => {
+    return (
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="grid md:grid-cols-3 gap-6">
+                {/* Space Segment */}
+                <div className="glass-panel p-6 rounded-xl border border-slate-700 bg-slate-900/50 flex flex-col items-center text-center">
+                    <div className="p-4 bg-slate-800 rounded-full mb-4 text-sky-400">
+                        <Satellite size={32} />
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-2">Space Segment</h3>
+                    <p className="text-sm text-slate-400 mb-4">
+                        The constellation of SVs (Space Vehicles). Transmit precise time and position data on L1/L2/L5 frequencies.
+                    </p>
+                    <div className="mt-auto w-full bg-slate-800 p-3 rounded text-xs text-left">
+                        <strong className="block text-slate-300 mb-1">Atomic Clocks</strong>
+                        Each SV has 4 atomic clocks (Cesium/Rubidium) for nanosecond precision.
+                    </div>
+                </div>
+
+                {/* Control Segment */}
+                <div className="glass-panel p-6 rounded-xl border border-slate-700 bg-slate-900/50 flex flex-col items-center text-center">
+                    <div className="p-4 bg-slate-800 rounded-full mb-4 text-emerald-400">
+                        <RadioTower size={32} />
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-2">Control Segment</h3>
+                    <p className="text-sm text-slate-400 mb-4">
+                        Master Control Station (Colorado Springs) + Monitor Stations. Tracks satellites and updates their clocks & orbits.
+                    </p>
+                    <div className="mt-auto w-full bg-slate-800 p-3 rounded text-xs text-left">
+                        <strong className="block text-slate-300 mb-1">Uploads</strong>
+                        Sends "Ephemeris" (precise orbit) and "Almanac" (general orbit) updates to SVs.
+                    </div>
+                </div>
+
+                {/* User Segment */}
+                <div className="glass-panel p-6 rounded-xl border border-slate-700 bg-slate-900/50 flex flex-col items-center text-center">
+                    <div className="p-4 bg-slate-800 rounded-full mb-4 text-amber-400">
+                        <Navigation size={32} />
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-2">User Segment</h3>
+                    <p className="text-sm text-slate-400 mb-4">
+                        The aircraft receiver. Passive (does not transmit). Calculates position based on Time of Arrival.
+                    </p>
+                    <div className="mt-auto w-full bg-slate-800 p-3 rounded text-xs text-left">
+                        <strong className="block text-slate-300 mb-1">Pseudo-Random Noise</strong>
+                        Receiver matches internal PRN code with received code to measure time delay.
+                    </div>
+                </div>
+            </div>
+
+            {/* Signal Details */}
+            <div className="bg-slate-900 rounded-xl border border-slate-800 p-6">
+                <h3 className="text-lg font-bold text-slate-200 mb-4">The GPS Signal</h3>
+                <div className="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <ul className="space-y-3 text-sm text-slate-400">
+                            <li className="flex gap-2">
+                                <div className="w-20 font-mono text-sky-400">L1 freq</div>
+                                <div className="flex-1">1575.42 MHz (UHF). Carries C/A code (Civil) and P code (Military).</div>
+                            </li>
+                            <li className="flex gap-2">
+                                <div className="w-20 font-mono text-sky-400">Ephemeris</div>
+                                <div className="flex-1">Detailed orbital data for the specific satellite. Valid for ~4 hours.</div>
+                            </li>
+                            <li className="flex gap-2">
+                                <div className="w-20 font-mono text-sky-400">Almanac</div>
+                                <div className="flex-1">Coarse data for the entire constellation. Helps receiver find sats. Valid for months.</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="bg-black/50 p-4 rounded border border-white/5 font-mono text-xs text-green-400 overflow-hidden">
+                        <div>&gt; RX_SIGNAL_LOCK: PRN_04</div>
+                        <div>&gt; TIME_DELAY: 0.0674s</div>
+                        <div>&gt; DISTANCE: 20,220 km</div>
+                        <div>&gt; DECODING NAV MSG...</div>
+                        <div className="mt-2 text-slate-500">
+                            The receiver generates a replica of the PRN code and shifts it to match the incoming signal. The shift amount = Time Delay.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// === SECTION 3: POSITIONING ===
+const PositioningSection = () => {
+    return (
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="grid lg:grid-cols-2 gap-8">
+                <div className="space-y-6">
+                    <div className="glass-panel p-6 rounded-xl border border-slate-700 bg-slate-900/50">
+                        <h3 className="text-xl font-bold text-sky-400 mb-4">Trilateration</h3>
+                        <p className="text-slate-300 mb-4 text-sm">
+                            Distance is calculated by <strong className="text-white">Speed of Light × Time</strong>.
+                            Knowing distance from satellites creates intersecting spheres.
+                        </p>
+
+                        <div className="space-y-2 text-sm">
+                            <div className="flex items-center gap-3 p-3 bg-slate-800 rounded">
+                                <div className="font-mono text-2xl font-bold text-slate-500">1</div>
+                                <div>
+                                    <strong className="text-white">Satellite</strong>
+                                    <div className="text-slate-400 text-xs">"I am somewhere on this sphere"</div>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-3 p-3 bg-slate-800 rounded">
+                                <div className="font-mono text-2xl font-bold text-slate-500">2</div>
+                                <div>
+                                    <strong className="text-white">Satellites</strong>
+                                    <div className="text-slate-400 text-xs">Intersection is a circle (infinite positions)</div>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-3 p-3 bg-slate-800 rounded">
+                                <div className="font-mono text-2xl font-bold text-blue-400">3</div>
+                                <div>
+                                    <strong className="text-white">Satellites</strong>
+                                    <div className="text-slate-400 text-xs">Two points (one usually in space, rejected). Gives 2D fix (Lat/Long).</div>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-3 p-3 bg-slate-800 rounded border border-emerald-500/50">
+                                <div className="font-mono text-2xl font-bold text-emerald-400">4</div>
+                                <div>
+                                    <strong className="text-white">Satellites</strong>
+                                    <div className="text-slate-400 text-xs">Resolves <strong className="text-emerald-400">Receiver Clock Error</strong>. Gives 3D fix (Lat/Long/Alt).</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="bg-slate-950 rounded-xl border border-slate-800 p-6 flex flex-col items-center justify-center text-center">
+                    <div className="relative w-64 h-64 mb-4">
+                        {/* Abstract Visualization of Intersecting Circles */}
+                        <div className="absolute top-0 left-10 w-32 h-32 rounded-full border-2 border-red-500/30 animate-pulse"></div>
+                        <div className="absolute top-10 right-10 w-32 h-32 rounded-full border-2 border-blue-500/30 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                        <div className="absolute bottom-4 left-20 w-32 h-32 rounded-full border-2 border-green-500/30 animate-pulse" style={{ animationDelay: '1s' }}></div>
+
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-[0_0_15px_white]"></div>
+                    </div>
+                    <p className="text-sm text-slate-400 max-w-xs">
+                        Satellites have cheap quartz clocks. They drift. The 4th satellite provides a 4th equation to solve for the 4th unknown variable (Time Bias), synchronizing the receiver to atomic time.
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// === SECTION 4: ERRORS ===
+const ErrorsSection = () => {
+    return (
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="glass-panel p-6 rounded-xl border border-slate-700 bg-slate-900/50">
+                <h3 className="text-xl font-bold text-rose-400 mb-6 flex items-center gap-2">
+                    <AlertTriangle size={24} /> System Errors
+                </h3>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                    <ErrorCard
+                        title="Ionospheric Delay"
+                        val="~10-20m"
+                        desc="Solar radiation ionizes the atmosphere, slowing down signal speed. Greatest error source. Corrected by dual-frequency (L1/L2) or Modelling."
+                    />
+                    <ErrorCard
+                        title="Clock Error"
+                        val="~2m"
+                        desc="Small discrepancies between atomic clock and receiver time."
+                    />
+                    <ErrorCard
+                        title="Multipath"
+                        val="~1-3m"
+                        desc="Signal reflects off ground or buildings before reaching receiver. Ghost signals."
+                    />
+                    <ErrorCard
+                        title="Ephemeris Error"
+                        val="~2m"
+                        desc="Satellite is not exactly where it claims to be in orbit."
+                    />
+                </div>
+            </div>
+
+            <div className="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                <h3 className="text-lg font-bold text-white mb-2">GDOP (Geometric Dilution of Precision)</h3>
+                <p className="text-sm text-slate-400 mb-4">
+                    The geometry of satellites affects accuracy.
+                </p>
+                <div className="grid md:grid-cols-2 gap-8">
+                    <div className="text-center">
+                        <div className="h-24 flex items-center justify-center gap-1 mb-2">
+                            <Satellite size={20} className="text-sky-500" />
+                            <Satellite size={20} className="text-sky-500" />
+                            <Satellite size={20} className="text-sky-500" />
+                        </div>
+                        <div className="font-bold text-rose-400">High GDOP (Bad)</div>
+                        <p className="text-xs text-slate-500">Satellites bunched together. Large area of uncertainty.</p>
+                    </div>
+                    <div className="text-center">
+                        <div className="h-24 relative mb-2">
+                            <Satellite size={20} className="text-emerald-500 absolute top-0 left-0" />
+                            <Satellite size={20} className="text-emerald-500 absolute top-0 right-0" />
+                            <Satellite size={20} className="text-emerald-500 absolute bottom-0 left-1/2" />
+                        </div>
+                        <div className="font-bold text-emerald-400">Low GDOP (Good)</div>
+                        <p className="text-xs text-slate-500">Satellites widely spread out. Precise intersection.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const ErrorCard = ({ title, val, desc }: any) => (
+    <div className="bg-slate-800 p-4 rounded-lg">
+        <div className="flex justify-between items-center mb-2">
+            <h4 className="font-bold text-white">{title}</h4>
+            <span className="text-xs font-mono bg-slate-700 px-2 py-1 rounded text-rose-300">{val}</span>
+        </div>
+        <p className="text-xs text-slate-400">{desc}</p>
+    </div>
+);
+
+function OrbitIcon(props: any) {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+            <path d="M2 12a14.5 14.5 0 0 0 20 0 14.5 14.5 0 0 0-20 0" />
+        </svg>
+    )
+}
 
 export default GNSSTheory;

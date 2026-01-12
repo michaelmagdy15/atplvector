@@ -328,6 +328,103 @@ const RadarTheory: React.FC<Props> = ({ onNavigate }) => {
                     </div>
 
                 </div>
+
+                {/* NEW: Radar Types & Errors */}
+                <div className="grid md:grid-cols-2 gap-6 animate-in slide-in-from-bottom border-t border-slate-700 pt-6">
+
+                    {/* Radar Types */}
+                    <div className="glass-panel p-6 rounded-xl space-y-4">
+                        <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                            <Activity size={20} className="text-sky-400" />
+                            Radar Types
+                        </h3>
+                        <div className="space-y-3">
+                            <div className="p-3 bg-slate-900 rounded border border-slate-800 hover:border-sky-500/50 transition-colors">
+                                <div className="flex justify-between items-center mb-1">
+                                    <span className="font-bold text-sky-400">En-route (ACC)</span>
+                                    <span className="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-white">L-Band</span>
+                                </div>
+                                <p className="text-xs text-slate-400">Long range (~200 NM), slow rotation (5-6 RPM). Used for airway surveillance.</p>
+                            </div>
+                            <div className="p-3 bg-slate-900 rounded border border-slate-800 hover:border-emerald-500/50 transition-colors">
+                                <div className="flex justify-between items-center mb-1">
+                                    <span className="font-bold text-emerald-400">Terminal (TMA)</span>
+                                    <span className="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-white">S-Band</span>
+                                </div>
+                                <p className="text-xs text-slate-400">Medium range (~80 NM), medium rotation (15 RPM). Approach control.</p>
+                            </div>
+                            <div className="p-3 bg-slate-900 rounded border border-slate-800 hover:border-amber-500/50 transition-colors">
+                                <div className="flex justify-between items-center mb-1">
+                                    <span className="font-bold text-amber-400">Approach (PAR)</span>
+                                    <span className="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-white">X-Band</span>
+                                </div>
+                                <p className="text-xs text-slate-400">Short range, very fast update. Precision guidance to runway.</p>
+                            </div>
+                            <div className="p-3 bg-slate-900 rounded border border-slate-800 hover:border-rose-500/50 transition-colors">
+                                <div className="flex justify-between items-center mb-1">
+                                    <span className="font-bold text-rose-400">Surface (ASMR)</span>
+                                    <span className="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-white">Ku-Band</span>
+                                </div>
+                                <p className="text-xs text-slate-400">Ground movement. Extremely high resolution, short range (airport).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Errors: Ducting */}
+                    <div className="glass-panel p-6 rounded-xl space-y-4">
+                        <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                            <Activity size={20} className="text-rose-400" />
+                            Propagation Errors
+                        </h3>
+
+                        <div className="relative h-48 bg-slate-950 rounded-lg overflow-hidden border border-slate-800">
+                            {/* Sky */}
+                            <div className="absolute inset-0 bg-gradient-to-b from-slate-900 to-slate-950"></div>
+
+                            {/* Atmosphere Layers */}
+                            <div className="absolute top-0 left-0 right-0 h-20 bg-blue-900/10 border-b border-blue-500/10"></div>
+                            <div className="absolute top-4 right-4 text-[10px] text-blue-300">Standard Atmosphere</div>
+
+                            {/* Ducting Layer */}
+                            <div className="absolute top-20 left-0 right-0 h-10 bg-rose-900/10 border-y border-rose-500/20 animate-pulse"></div>
+                            <div className="absolute top-22 right-4 text-[10px] text-rose-300 font-bold">Temperature Inversion (Duct)</div>
+
+                            {/* Ground */}
+                            <div className="absolute bottom-0 left-0 right-0 h-4 bg-emerald-900/30"></div>
+                            <div className="absolute bottom-4 left-4 w-4 h-4 rounded-full bg-slate-700 border border-slate-500 z-10"></div> {/* Radar */}
+
+                            {/* Normal Beam */}
+                            <div className="absolute bottom-6 left-6 w-32 h-32 border-t border-slate-600 rounded-tr-[100%] opacity-30"></div>
+
+                            {/* Ducted Beam */}
+                            <path className="absolute bottom-6 left-6" /> {/* Placeholder for CSS drawing */}
+                            <div className="absolute bottom-6 left-6 w-full h-full pointer-events-none">
+                                <svg className="w-full h-full">
+                                    <path d="M 0,160 Q 150,50 300,160" fill="none" stroke="#f43f5e" strokeWidth="2" strokeDasharray="4,4" className="animate-[dash_20s_linear_infinite]" />
+                                </svg>
+                            </div>
+
+                            <div className="absolute bottom-2 right-2 text-xs text-rose-400 bg-black/50 px-2 rounded">
+                                Range &gt; Theoretical Max
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <h4 className="font-bold text-rose-400 text-sm">Super Refraction (Ducting)</h4>
+                            <p className="text-xs text-slate-300">
+                                Happens when temperature increases with height (Inversion) or humidity decreases rapidly.
+                                The radar beam bends <strong className="text-white">downwards</strong> following the earth's curvature, significantly <strong className="text-white">increasing range</strong> but causing clutter from distant ground objects.
+                            </p>
+                        </div>
+                        <div className="space-y-2 pt-2 border-t border-slate-800">
+                            <h4 className="font-bold text-amber-400 text-sm">Sub Refraction</h4>
+                            <p className="text-xs text-slate-300">
+                                Opposite conditions. Beam bends <strong className="text-white">upwards</strong> away from surface. Reduced low-level coverage.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     );

@@ -163,6 +163,54 @@ const SSRTransponder: React.FC<Props> = ({ onNavigate }) => {
                             </div>
                         </div>
                     </div>
+
+                    {/* NEW: Mode S */}
+                    <div className="glass-panel p-6 rounded-xl border-l-4 border-emerald-500">
+                        <div className="flex justify-between items-start mb-4">
+                            <h3 className="text-sm font-bold text-white">Mode S (Select)</h3>
+                            <span className="text-[10px] bg-emerald-900/50 text-emerald-400 px-2 py-1 rounded border border-emerald-500/30">Standard</span>
+                        </div>
+                        <ul className="space-y-3 text-xs text-slate-300">
+                            <li className="flex gap-2">
+                                <div className="min-w-1 w-1 h-1 mt-1.5 rounded-full bg-emerald-500"></div>
+                                <span><strong className="text-white">24-bit Address:</strong> Unique code assigned to airframe (&gt;16 million combos). Hardcoded.</span>
+                            </li>
+                            <li className="flex gap-2">
+                                <div className="min-w-1 w-1 h-1 mt-1.5 rounded-full bg-emerald-500"></div>
+                                <span><strong className="text-white">Bidirectional Data:</strong> Can send logical data (Callsign, Heading, Speed) to ATC.</span>
+                            </li>
+                            <li className="flex gap-2">
+                                <div className="min-w-1 w-1 h-1 mt-1.5 rounded-full bg-emerald-500"></div>
+                                <span><strong className="text-white">Selective Interrogation:</strong> ATC interrogates specific aircraft, reducing RF congestion. Enables TCAS.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* NEW: Errors */}
+                    <div className="glass-panel p-6 rounded-xl space-y-4">
+                        <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                            <ShieldAlert size={16} className="text-red-400" />
+                            System Errors
+                        </h3>
+
+                        <div className="space-y-3">
+                            <div className="p-3 bg-slate-900 rounded border border-slate-800">
+                                <div className="font-bold text-red-400 text-xs mb-1">Fruiting (Interference)</div>
+                                <p className="text-[10px] text-slate-400">
+                                    Occurs when your transponder replies to a <strong className="text-slate-300">different ground station</strong>.
+                                    The correct station sees a synchronized reply, but also random "fruit" replies intended for others.
+                                </p>
+                            </div>
+
+                            <div className="p-3 bg-slate-900 rounded border border-slate-800">
+                                <div className="font-bold text-red-400 text-xs mb-1">Garbling (Overlapping)</div>
+                                <p className="text-[10px] text-slate-400">
+                                    Occurs when two aircraft are on the <strong className="text-slate-300">same bearing</strong> and within <strong className="text-slate-300">1.7 NM</strong> of each other.
+                                    Their reply pulses overlap at the receiver, making decoding difficult.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>

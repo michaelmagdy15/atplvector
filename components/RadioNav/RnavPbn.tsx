@@ -131,6 +131,58 @@ const RnavPbn: React.FC<Props> = ({ onNavigate }) => {
                     </div>
                 </div>
             </div>
+
+            {/* NEW: RNP Approach Types */}
+            <div className="mt-8 grid md:grid-cols-2 gap-6 animate-in slide-in-from-bottom border-t border-slate-700 pt-6">
+                <div className="glass-panel p-6 rounded-xl space-y-4">
+                    <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                        <LocateFixed size={20} className="text-teal-400" />
+                        RNP APCH (Standard)
+                    </h3>
+                    <p className="text-xs text-slate-400">
+                        Previously called "GPS Approach" or "GNSS Approach".
+                        Flown with generic GNSS equipment.
+                    </p>
+                    <div className="bg-slate-900 p-4 rounded-lg border border-slate-800 space-y-2">
+                        <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-teal-500"></div>
+                            <span className="text-xs font-bold text-slate-200">Straight Segments Only</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-teal-500"></div>
+                            <span className="text-xs font-bold text-slate-200">No RF Legs (Radius to Fix)</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-teal-500"></div>
+                            <span className="text-xs font-bold text-slate-200">Integrity: RAIM required</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="glass-panel p-6 rounded-xl space-y-4 border-l-4 border-amber-500">
+                    <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                        <Waypoints size={20} className="text-amber-400" />
+                        RNP AR APCH (Auth Required)
+                    </h3>
+                    <p className="text-xs text-slate-400">
+                        "Approval Required" (SAAAR). For navigating complex terrain or airspace.
+                    </p>
+                    <div className="bg-slate-900 p-4 rounded-lg border border-slate-800 space-y-2">
+                        <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-amber-500"></div>
+                            <span className="text-xs font-bold text-slate-200">Curved Paths (RF Legs)</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-amber-500"></div>
+                            <span className="text-xs font-bold text-slate-200">RNP Values &lt; 0.3 NM (down to 0.1)</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 rounded-full bg-amber-500"></div>
+                            <span className="text-xs font-bold text-slate-200">Mandatory: Auto-flight coupling</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
