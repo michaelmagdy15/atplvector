@@ -161,6 +161,7 @@ export enum View {
   RAD_NAV_FMS = 'RAD_NAV_FMS',
   RAD_NAV_SBAS = 'RAD_NAV_SBAS',
   RAD_NAV_CLASS_1 = 'RAD_NAV_CLASS_1', // Class 1: Radio Fundamentals
+  RAD_NAV_WX_RADAR = 'RAD_NAV_WX_RADAR', // Class 10: Weather Radar
 
   // General Navigation (061)
   GEN_NAV_HOME = 'GEN_NAV_HOME',

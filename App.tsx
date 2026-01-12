@@ -139,6 +139,7 @@ import TotalDrag from './components/PoF/TotalDrag';
 import GroundEffect from './components/PoF/GroundEffect';
 import HighLiftDevices from './components/PoF/HighLiftDevices';
 import RadioFundamentals from './components/RadioNav/RadioFundamentals';
+import WeatherRadar from './components/RadioNav/WeatherRadar';
 
 import CommsDashboard from './components/Comms/CommsDashboard';
 import GeneralTheory from './components/GeneralTheory';
@@ -913,6 +914,7 @@ const App: React.FC = () => {
                                         { title: 'MLS', desc: 'Microwave Landing System TRSB.', view: View.RAD_NAV_MLS },
 
                                         // Phase 3: Radar & Advanced
+                                        { title: 'Weather Radar', desc: 'Tilt, Iso-Echo, Attenuation and shadows.', view: View.RAD_NAV_WX_RADAR },
                                         { title: 'Radar Theory', desc: 'Pulse technique, PRF, PRI.', view: View.RAD_NAV_RADAR },
                                         { title: 'SSR Transponder', desc: 'Mode A/C/S, Codes and Interrogation.', view: View.RAD_NAV_SSR },
                                         { title: 'GNSS Principles', desc: 'GPS, GLONASS, GALILEO satellites.', view: View.NAV_GNSS },
@@ -935,6 +937,7 @@ const App: React.FC = () => {
                             {currentView === View.RAD_NAV_VDF && <VDF />}
                             {currentView === View.RAD_NAV_MLS && <MLS />}
                             {currentView === View.RAD_NAV_RADAR && <RadarTheory />}
+                            {currentView === View.RAD_NAV_WX_RADAR && <WeatherRadar onNavigate={setCurrentView} />}
                             {currentView === View.RAD_NAV_SSR && <SSRTransponder />}
                             {currentView === View.RAD_NAV_SBAS && <SbasAbas />}
                             {currentView === View.RAD_NAV_RNAV && <RnavPbn />}

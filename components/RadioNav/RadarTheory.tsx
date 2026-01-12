@@ -265,6 +265,7 @@ const RadarTheory: React.FC<Props> = ({ onNavigate }) => {
                         </div>
                     </div>
 
+
                     {/* Formulae */}
                     <div className="p-4 bg-blue-900/20 border border-blue-500/20 rounded-xl text-xs space-y-2 text-blue-200">
                         <p><strong>Max Range:</strong> Rmax = c / (2 × PRF)</p>
@@ -272,6 +273,58 @@ const RadarTheory: React.FC<Props> = ({ onNavigate }) => {
                         <div className="h-px bg-blue-500/20 my-2"></div>
                         <p><strong>Min Range:</strong> Rmin = (c × PW) / 2</p>
                         <p>Long Pulse = Large Blind Spot (Rx is off while Tx).</p>
+                    </div>
+
+                    {/* NEW: Power Law & Beam Width */}
+                    <div className="glass-panel p-6 rounded-xl space-y-4 border-t border-rose-500/20">
+                        <h3 className="text-sm font-bold text-white mb-2">Radar Range Equation</h3>
+                        <div className="text-xs text-slate-400 mb-2">
+                            To double the range, you need <strong>16x</strong> the power ($2^4$).
+                        </div>
+                        {/* Interactive Power Slider */}
+                        <div className="space-y-2">
+                            <div className="flex justify-between text-xs">
+                                <span>Tx Power</span>
+                                <span className="text-rose-400">Range Impact</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <div className="h-2 flex-1 bg-slate-700 rounded-full overflow-hidden">
+                                    <div className="h-full bg-rose-500" style={{ width: '25%' }}></div>
+                                </div>
+                                <span className="text-xs font-mono text-white">x1 Power = x1 Range</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <div className="h-2 flex-1 bg-slate-700 rounded-full overflow-hidden">
+                                    <div className="h-full bg-rose-500" style={{ width: '100%' }}></div>
+                                </div>
+                                <span className="text-xs font-mono text-white">x16 Power = x2 Range</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="glass-panel p-6 rounded-xl space-y-4">
+                        <h3 className="text-sm font-bold text-white mb-2">Beam Width</h3>
+                        <div className="text-xs text-slate-400 mb-2">
+                            Beam Width = 70 × (Wavelength / Diameter)
+                        </div>
+                        <div className="p-3 bg-slate-900 rounded border border-slate-700 space-y-2">
+                            <div className="flex justify-between text-xs">
+                                <span>Wavelength ($\lambda$)</span>
+                                <span className="text-white">3 cm (X-Band)</span>
+                            </div>
+                            <div className="flex justify-between text-xs">
+                                <span>Dish Diameter</span>
+                                <span className="text-white">30 cm (12")</span>
+                            </div>
+                            <div className="h-px bg-slate-700"></div>
+                            <div className="flex justify-between font-bold text-sm text-emerald-400">
+                                <span>Beam Width</span>
+                                <span>7.0°</span>
+                            </div>
+                            <div className="text-[10px] text-slate-500 mt-1">
+                                Narrow beam concentrates energy better. Large dish = Narrow beam.
+                            </div>
+                        </div>
                     </div>
 
                 </div>
