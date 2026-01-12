@@ -128,11 +128,16 @@ const NAV_MAP: SubjectConfig[] = [
         items: [
             { label: 'Dashboard', view: View.MASS_BAL_HOME, icon: Weight },
             { label: 'Definitions', view: View.MASS_BAL_DEFINITIONS },
-            { label: 'CG Calculator', view: View.MASS_BAL_CG_CALC },
-            { label: 'Loading Limits', view: View.MASS_BAL_LIMITS },
+            { label: 'Flow Diagram', view: View.MASS_BAL_FLOW_DIAGRAM },
+            { label: 'Weighing Procedure', view: View.MASS_BAL_CG_CALC },
             { label: 'MAC Visualizer', view: View.MASS_BAL_MAC },
+            { label: 'Load Sheet Sim', view: View.MASS_BAL_LOADSHEET },
+            { label: 'Trim Sheet Sim', view: View.MASS_BAL_TRIM_SHEET },
+            { label: 'Loading Limits', view: View.MASS_BAL_LIMITS },
             { label: 'Fuel Density', view: View.MASS_BAL_FUEL },
-            { label: 'Load Shift', view: View.MASS_BAL_SHIFT },
+            { label: 'CG Shift (Move/Add)', view: View.MASS_BAL_CG_SHIFT },
+            { label: 'Load Shift (Cargo)', view: View.MASS_BAL_SHIFT },
+            { label: 'Unit Converter', view: View.MASS_BAL_CONVERTER },
         ]
     },
     {

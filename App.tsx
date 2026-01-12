@@ -750,28 +750,7 @@ const App: React.FC = () => {
                             {currentView === View.AGK_HYDRAULICS && <HydraulicSystemAnim />}
                             {currentView === View.AGK_JET_ENGINE && <JetEnginePrinciples />}
 
-                            {/* Mass & Balance */}
-                            {currentView === View.MASS_BAL_HOME && (
-                                <GenericSubjectDashboard
-                                    subjectCode="031" subjectName="Mass & Balance" color="yellow"
-                                    description="Center of gravity calculations, loading, weighing, and performance limitations."
-                                    icon={Weight} onChangeView={setCurrentView}
-                                    modules={[
-                                        { title: 'Mass Definitions', desc: 'BEM, DOM, TOM, ZFM. Build the stack.', view: View.MASS_BAL_DEFINITIONS },
-                                        { title: 'CG Calculator', desc: 'Moments, Arms, and Envelope visualization.', view: View.MASS_BAL_CG_CALC },
-                                        { title: 'Loading Limits', desc: 'Floor loading, running load, and spreaders.', view: View.MASS_BAL_LIMITS },
-                                        { title: 'MAC Visualizer', desc: 'Mean Aerodynamic Chord, LEMAC and CG% calculations.', view: View.MASS_BAL_MAC },
-                                        { title: 'Fuel Density', desc: 'SG vs Temperature. Volume to Mass conversion.', view: View.MASS_BAL_FUEL },
-                                        { title: 'Load Shifting', desc: 'Calculate CG movement when shifting cargo.', view: View.MASS_BAL_SHIFT },
-                                    ]}
-                                />
-                            )}
-                            {currentView === View.MASS_BAL_DEFINITIONS && <MassDefinitions />}
-                            {currentView === View.MASS_BAL_CG_CALC && <CgCalculator />}
-                            {currentView === View.MASS_BAL_LIMITS && <LoadingLimits />}
-                            {currentView === View.MASS_BAL_MAC && <MacVisualizer />}
-                            {currentView === View.MASS_BAL_FUEL && <FuelDensityCalc />}
-                            {currentView === View.MASS_BAL_SHIFT && <CargoHandlingSim />}
+
 
                             {/* HPL */}
                             {currentView === View.HPL_HOME && (
@@ -1049,6 +1028,19 @@ const App: React.FC = () => {
                             {currentView === View.SERVICE_CODES && <ServiceCodes />}
                             {currentView === View.INTERCEPT && <InterceptTrainer />}
 
+
+                            {currentView === View.MASS_BAL_HOME && <MassBalanceDashboard onNavigate={setCurrentView} />}
+                            {currentView === View.MASS_BAL_DEFINITIONS && <MassDefinitions />}
+                            {currentView === View.MASS_BAL_CG_CALC && <WeighingProcedure />}
+                            {currentView === View.MASS_BAL_LIMITS && <MassDefinitions />} {/* Reusing for limits if no dedicated component yet */}
+                            {currentView === View.MASS_BAL_MAC && <MacVisualizer />}
+                            {currentView === View.MASS_BAL_SHIFT && <CargoHandlingSim />}
+                            {currentView === View.MASS_BAL_FUEL && <FuelDensityCalc />}
+                            {currentView === View.MASS_BAL_LOADSHEET && <LoadSheetSim />}
+                            {currentView === View.MASS_BAL_FLOW_DIAGRAM && <MassBuildUpFlow />}
+                            {currentView === View.MASS_BAL_TRIM_SHEET && <TrimSheetSim />}
+                            {currentView === View.MASS_BAL_CG_SHIFT && <CGShiftVisualizer />}
+                            {currentView === View.MASS_BAL_CONVERTER && <UnitConverter />}
 
                             {currentView === View.OPS_PROC_HOME && (
                                 <GenericSubjectDashboard
