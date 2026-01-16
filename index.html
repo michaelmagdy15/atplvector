@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>ATPLVector - Aviation Training & Preparation</title>
   <meta name="description"
     content="Master your ATPL exams with ATPLVector. Comprehensive aviation training resources, interactive learning modules, and exam preparation tools for aspiring pilots." />
@@ -68,6 +69,10 @@
       background-image: radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.1) 0px, transparent 50%),
         radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
       background-attachment: fixed;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
     }
 
     /* Glassmorphism Utilities */

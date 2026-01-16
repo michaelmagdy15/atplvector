@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { User, Shield, TrendingUp, Layers, HelpCircle } from 'lucide-react';
 
 const HPLPersonality: React.FC = () => {
-    const [tab, setTab] = useState<'maslow' | 'defence' | 'big5'>('maslow');
+    const [tab, setTab] = useState<'maslow' | 'defence' | 'big5' | 'self'>('maslow');
 
     return (
         <div className="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700 mt-8">
@@ -13,22 +13,72 @@ const HPLPersonality: React.FC = () => {
                         <User className="text-orange-400" />
                         Personality & Motivation (040.03)
                     </h2>
-                    <p className="text-slate-400 text-sm">Maslow's Hierarchy, Defence Mechanisms, and Traits.</p>
+                    <p className="text-slate-400 text-sm">Hierarchy of Needs, Traits, and Self-Concept.</p>
                 </div>
 
-                <div className="flex bg-slate-900 p-1 rounded-lg">
-                    <button onClick={() => setTab('maslow')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'maslow' ? 'bg-orange-600 text-white' : 'text-slate-400 hover:text-white'}`}>Maslow</button>
-                    <button onClick={() => setTab('defence')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'defence' ? 'bg-orange-600 text-white' : 'text-slate-400 hover:text-white'}`}>Defence Mech</button>
-                    <button onClick={() => setTab('big5')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'big5' ? 'bg-orange-600 text-white' : 'text-slate-400 hover:text-white'}`}>Big 5 Traits</button>
+                <div className="flex bg-slate-900 p-1 rounded-lg border border-slate-800 flex-wrap">
+                    <button onClick={() => setTab('maslow')} className={`px-4 py-2 rounded-md font-bold text-sm transition-all ${tab === 'maslow' ? 'bg-orange-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}>Maslow</button>
+                    <button onClick={() => setTab('defence')} className={`px-4 py-2 rounded-md font-bold text-sm transition-all ${tab === 'defence' ? 'bg-orange-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}>Defence</button>
+                    <button onClick={() => setTab('big5')} className={`px-4 py-2 rounded-md font-bold text-sm transition-all ${tab === 'big5' ? 'bg-orange-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}>Big 5</button>
+                    <button onClick={() => setTab('self')} className={`px-4 py-2 rounded-md font-bold text-sm transition-all ${tab === 'self' ? 'bg-orange-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}>Self & Social</button>
                 </div>
             </div>
 
             {tab === 'maslow' && <MaslowPyramid />}
             {tab === 'defence' && <DefenceMechanisms />}
             {tab === 'big5' && <BigFiveTraits />}
+            {tab === 'self' && <SelfAndSocial />}
         </div>
     );
 };
+
+const SelfAndSocial = () => (
+    <div className="animate-in fade-in space-y-8">
+        <div className="grid md:grid-cols-2 gap-6">
+            {/* Self-Concept */}
+            <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <User className="text-orange-400" /> Self-Concept
+                </h3>
+                <p className="text-xs text-slate-300 mb-4 uppercase font-bold text-center border-b border-slate-800 pb-2">"Who do I think I am?"</p>
+                <div className="space-y-4">
+                    <div className="p-3 bg-slate-800 rounded border-l-4 border-blue-500">
+                        <h4 className="font-bold text-white text-sm">Self-Image</h4>
+                        <p className="text-[11px] text-slate-400 italic">"How I see myself right now."</p>
+                    </div>
+                    <div className="p-3 bg-slate-800 rounded border-l-4 border-emerald-500">
+                        <h4 className="font-bold text-white text-sm">Self-Ideal</h4>
+                        <p className="text-[11px] text-slate-400 italic">"The person I want to be."</p>
+                    </div>
+                </div>
+                <p className="text-[10px] text-slate-500 mt-4 leading-relaxed">
+                    A large gap between image and ideal leads to low self-esteem and anxiety. Pilots need a realistic, positive self-concept to handle criticism.
+                </p>
+            </div>
+
+            {/* Social Skills & Discipline */}
+            <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <Shield className="text-orange-400" /> Social Skills & Discipline
+                </h3>
+                <div className="space-y-4">
+                    <div className="p-3 bg-orange-900/10 border border-orange-500/30 rounded">
+                        <h4 className="font-bold text-white text-sm">Self-Discipline</h4>
+                        <p className="text-[10px] text-slate-300">The ability to follow SOPs even when no one is watching. Reliability and professionalism.</p>
+                    </div>
+                    <div>
+                        <h4 className="text-xs font-bold text-slate-400 mb-2">Social Skills:</h4>
+                        <ul className="text-[10px] text-slate-300 space-y-2 ml-4 list-disc">
+                            <li><strong>Empathy:</strong> Understanding others' perspectives.</li>
+                            <li><strong>Persuasion:</strong> Leading through influence, not just authority.</li>
+                            <li><strong>Listening:</strong> Active listening is a core CRM skill.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+);
 
 const MaslowPyramid = () => {
     const [level, setLevel] = useState<number | null>(null);

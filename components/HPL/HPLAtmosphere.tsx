@@ -113,15 +113,24 @@ const ISACalculator = () => {
 const CosmicRadiation = () => {
     return (
         <div className="animate-in slide-in-from-right-4">
-            <h3 className="font-bold text-white mb-6">Cosmic Radiation</h3>
+            <h3 className="font-bold text-white mb-6">Cosmic Radiation (040.02.01.03)</h3>
 
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
                 <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
                     <Sun className="text-yellow-400 mb-4 w-12 h-12" />
+                    <h4 className="font-bold text-white mb-2">Sources</h4>
                     <p className="text-sm text-slate-300 leading-relaxed mb-4">
-                        High energy particles from the Sun (Solar Flares) and Deep Space (Galactic).
-                        Atmosphere protects us. Flying higher = Less protection.
+                        Ionising radiation from deep space (Galactic) and the Sun (Solar).
+                        Earth's atmosphere and magnetic field act as shields.
                     </p>
+
+                    <div className="bg-slate-800 p-4 rounded-lg mb-4">
+                        <h5 className="text-xs font-bold text-sky-400 uppercase mb-2">Measurement Units</h5>
+                        <div className="flex justify-between items-center">
+                            <span className="text-sm text-white">Effective Dose</span>
+                            <span className="text-sm font-mono text-white">Sieverts (Sv) / mSv</span>
+                        </div>
+                    </div>
 
                     <div className="space-y-2">
                         <div className="flex justify-between text-xs text-white p-2 border-b border-slate-700">
@@ -129,32 +138,31 @@ const CosmicRadiation = () => {
                             <span className="text-green-400">Minimal Risk</span>
                         </div>
                         <div className="flex justify-between text-xs text-white p-2 border-b border-slate-700">
-                            <span>FL 300 (30,000ft)</span>
-                            <span className="text-yellow-400">~60x Ground Level</span>
+                            <span>FL 350 (Cruise)</span>
+                            <span className="text-yellow-400">Significantly Higher</span>
                         </div>
                         <div className="flex justify-between text-xs text-white p-2 border-b border-slate-700">
-                            <span>Concorde (60,000ft)</span>
-                            <span className="text-red-400">High Exposure</span>
+                            <span>Polar Routes</span>
+                            <span className="text-red-400">Maximum Exposure</span>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-slate-900 p-6 rounded-xl border border-slate-700 flex flex-col justify-center">
-                    <h4 className="font-bold text-white text-sm mb-4">Key Factors</h4>
-                    <ul className="text-xs text-slate-300 space-y-3">
-                        <li className="flex gap-2">
-                            <Waves size={16} className="text-sky-400 shrink-0" />
-                            <span><strong>Altitude:</strong> Higher = More radiation.</span>
-                        </li>
-                        <li className="flex gap-2">
-                            <Waves size={16} className="text-sky-400 shrink-0" />
-                            <span><strong>Latitude:</strong> Protection is weakest at the Poles (Magnetic field funneling). Polar routes = Max dosage.</span>
-                        </li>
-                        <li className="flex gap-2">
-                            <Waves size={16} className="text-sky-400 shrink-0" />
-                            <span><strong>Solar Activity:</strong> Solar flares can significantly increase dosage temporarily.</span>
-                        </li>
-                    </ul>
+                <div className="bg-slate-900 p-6 rounded-xl border border-slate-700 flex flex-col">
+                    <h4 className="font-bold text-white text-sm mb-4">Health Implications</h4>
+                    <div className="space-y-4">
+                        <div className="p-3 bg-red-900/10 border border-red-500/30 rounded">
+                            <h5 className="text-[11px] font-bold text-red-400 mb-1">Genetic Damage</h5>
+                            <p className="text-[10px] text-slate-300">Radiation can damage DNA, leading to potential mutations or cancer (Somatic and Genetic effects).</p>
+                        </div>
+                        <div className="p-3 bg-blue-900/10 border border-blue-500/30 rounded">
+                            <h5 className="text-[11px] font-bold text-blue-400 mb-1">Dose Monitoring</h5>
+                            <p className="text-[10px] text-slate-300">Airlines must monitor crew exposure if likely to exceed 1 mSv per year. Max legal limit for aircrew is typically 20 mSv/year.</p>
+                        </div>
+                        <ul className="text-xs text-slate-300 space-y-2 pt-2">
+                            <li className="flex gap-2"><div className="w-1 h-1 rounded-full bg-sky-400 mt-2"></div> <strong>Pregnancy:</strong> Specific limits apply to protect the foetus (1 mSv total).</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

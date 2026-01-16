@@ -109,12 +109,14 @@ import HPLCommunicationProcess from './components/HPL/HPLCommunicationProcess';
 import HPLCompetency from './components/HPL/HPLCompetency';
 import HPLCooperation from './components/HPL/HPLCooperation';
 import HPLHealthHygiene from './components/HPL/HPLHealthHygiene';
+import HPLTropicalDiseases from './components/HPL/HPLTropicalDiseases';
 import HPLLearning from './components/HPL/HPLLearning';
 import HPLPersonality from './components/HPL/HPLPersonality';
 import HPLAtmosphere from './components/HPL/HPLAtmosphere';
 import HPLIncidents from './components/HPL/HPLIncidents';
 
 import AtmosphereLayers from './components/Meteorology/AtmosphereLayers';
+import Altimetry from './components/Meteorology/Altimetry';
 import OneInSixty from './components/Nav/OneInSixty';
 import TimeZoner from './components/TimeZoner';
 import GNSSTheory from './components/RadioNav/GNSSTheory';
@@ -188,6 +190,9 @@ import AIQuiz from './components/AIQuiz';
 import LightGunGame from './components/LightGunGame';
 import MorseMaster from './components/MorseMaster';
 import BandSpectrum from './components/BandSpectrum';
+import RadarVectors from './components/Comms/RadarVectors';
+import TransferDrill from './components/Comms/TransferDrill';
+import MetarBuilder from './components/Comms/MetarBuilder';
 import VHFCalculator from './components/VHFCalculator';
 import AdvancedPhraseology from './components/AdvancedPhraseology';
 import RvrSimulator from './components/RvrSimulator';
@@ -795,7 +800,8 @@ const App: React.FC = () => {
                                         { title: 'Communication Process', desc: 'Models, Barriers, Readback.', view: View.HPL_COMMUNICATION_PROCESS },
                                         { title: 'Competency', desc: 'KSA, Core Competencies.', view: View.HPL_COMPETENCY },
                                         { title: 'Cooperation', desc: 'Group Dynamics, Synergy.', view: View.HPL_COOPERATION },
-                                        { title: 'Health & Hygiene', desc: 'Alcohol, Drugs, Sleep.', view: View.HPL_HEALTH_HYGIENE },
+                                        { title: 'Health & Hygiene', desc: 'Alcohol, Drugs, Diet & Hygiene.', view: View.HPL_HEALTH_HYGIENE },
+                                        { title: 'Tropical Diseases', desc: 'Infectious diseases and travel health.', view: View.HPL_TROPICAL_DISEASES },
                                     ]}
                                 />
                             )}
@@ -849,6 +855,7 @@ const App: React.FC = () => {
                             {currentView === View.HPL_COMPETENCY && <HPLCompetency onNavigate={setCurrentView} />}
                             {currentView === View.HPL_COOPERATION && <HPLCooperation onNavigate={setCurrentView} />}
                             {currentView === View.HPL_HEALTH_HYGIENE && <HPLHealthHygiene onNavigate={setCurrentView} />}
+                            {currentView === View.HPL_TROPICAL_DISEASES && <HPLTropicalDiseases onNavigate={setCurrentView} />}
 
                             {/* Met */}
                             {currentView === View.MET_HOME && (
@@ -1006,6 +1013,9 @@ const App: React.FC = () => {
                             {currentView === View.AI_ROLEPLAY && <ScenarioRoleplay />}
                             {currentView === View.AI_QUIZ && <AIQuiz />}
                             {currentView === View.LIGHT_GUN && <LightGunGame />}
+                            {currentView === View.RADAR_VECTORS && <RadarVectors />}
+                            {currentView === View.TRANSFER_DRILL && <TransferDrill />}
+                            {currentView === View.METAR_BUILDER && <MetarBuilder />}
                             {currentView === View.MORSE && <MorseMaster />}
                             {currentView === View.BAND_SPEC && <BandSpectrum />}
                             {currentView === View.VHF_CALC && <VHFCalculator />}
@@ -1066,6 +1076,19 @@ const App: React.FC = () => {
                                     modules={[]}
                                 />
                             )}
+                            {currentView === View.MET_HOME && (
+                                <GenericSubjectDashboard
+                                    subjectCode="050" subjectName="Meteorology" color="teal"
+                                    description="Atmosphere, Charts, Altimetry, and Weather Hazards."
+                                    icon={Cloud} onChangeView={setCurrentView}
+                                    modules={[
+                                        { title: 'Atmosphere', desc: 'Composition, Layers, ISA.', view: View.MET_ATMOSPHERE },
+                                        { title: 'Altimetry', desc: 'Pressure Altitude, QNH/QFE, Errors.', view: View.MET_ALTIMETRY },
+                                    ]}
+                                />
+                            )}
+                            {currentView === View.MET_ATMOSPHERE && <AtmosphereLayers />}
+                            {currentView === View.MET_ALTIMETRY && <Altimetry />}
                         </div>
                     </div>
                 </main>

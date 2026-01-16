@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Wine, AlertTriangle, Pill, Cigarette, Clock, Skull } from 'lucide-react';
+import { Wine, AlertTriangle, Pill, Cigarette, Clock, Skull, Activity } from 'lucide-react';
 
 const HPLToxicology: React.FC = () => {
-    const [tab, setTab] = useState<'alcohol' | 'drugs' | 'smoking'>('alcohol');
+    const [tab, setTab] = useState<'alcohol' | 'drugs' | 'substances' | 'smoking'>('alcohol');
 
     return (
         <div className="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700 mt-8">
@@ -15,19 +15,58 @@ const HPLToxicology: React.FC = () => {
                     <p className="text-slate-400 text-sm">Effects of Alcohol, Drugs, and Toxic Hazards.</p>
                 </div>
 
-                <div className="flex bg-slate-900 p-1 rounded-lg">
-                    <button onClick={() => setTab('alcohol')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'alcohol' ? 'bg-purple-600 text-white' : 'text-slate-400 hover:text-white'}`}>Alcohol Calc</button>
-                    <button onClick={() => setTab('drugs')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'drugs' ? 'bg-purple-600 text-white' : 'text-slate-400 hover:text-white'}`}>Medications</button>
-                    <button onClick={() => setTab('smoking')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'smoking' ? 'bg-purple-600 text-white' : 'text-slate-400 hover:text-white'}`}>Smoking & CO</button>
+                <div className="flex bg-slate-900 p-1 rounded-lg border border-slate-800">
+                    <button onClick={() => setTab('alcohol')} className={`px-4 py-2 rounded-md font-bold text-sm transition-all ${tab === 'alcohol' ? 'bg-purple-600 text-white' : 'text-slate-400 hover:text-white'}`}>Alcohol</button>
+                    <button onClick={() => setTab('drugs')} className={`px-4 py-2 rounded-md font-bold text-sm transition-all ${tab === 'drugs' ? 'bg-purple-600 text-white' : 'text-slate-400 hover:text-white'}`}>Meds</button>
+                    <button onClick={() => setTab('substances')} className={`px-4 py-2 rounded-md font-bold text-sm transition-all ${tab === 'substances' ? 'bg-purple-600 text-white' : 'text-slate-400 hover:text-white'}`}>Caffeine</button>
+                    <button onClick={() => setTab('smoking')} className={`px-4 py-2 rounded-md font-bold text-sm transition-all ${tab === 'smoking' ? 'bg-purple-600 text-white' : 'text-slate-400 hover:text-white'}`}>Smoking</button>
                 </div>
             </div>
 
             {tab === 'alcohol' && <AlcoholCalc />}
             {tab === 'drugs' && <DrugInteractions />}
+            {tab === 'substances' && <CaffeineFacts />}
             {tab === 'smoking' && <SmokingCO />}
         </div>
     );
 };
+
+const CaffeineFacts = () => (
+    <div className="animate-in fade-in grid md:grid-cols-2 gap-8">
+        <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+            <h3 className="font-bold text-white mb-4 flex items-center gap-2">
+                <Activity className="text-blue-400" /> Caffeine (Stimulant)
+            </h3>
+            <p className="text-xs text-slate-400 mb-4">Found in coffee, tea, cola, and some over-the-counter drugs.</p>
+
+            <div className="space-y-4">
+                <div className="bg-slate-800 p-3 rounded border-l-4 border-blue-500">
+                    <h4 className="text-xs font-bold text-white">Desired Effects</h4>
+                    <p className="text-[10px] text-slate-400">Temporary increase in alertness, reduced feeling of fatigue.</p>
+                </div>
+                <div className="bg-red-900/10 p-3 rounded border-l-4 border-red-500">
+                    <h4 className="text-xs font-bold text-red-400">Negatives / Overdose</h4>
+                    <p className="text-[10px] text-slate-300">Nervousness, tremor, heart palpitations, insomnia. Impairs fine motor control.</p>
+                </div>
+            </div>
+        </div>
+
+        <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+            <h3 className="font-bold text-white mb-4">Withdrawal & Aviation</h3>
+            <div className="space-y-4">
+                <p className="text-xs text-slate-400">Regular users build tolerance. Stopping abruptly causes <strong>Withdrawal Symptoms:</strong></p>
+                <ul className="text-[11px] text-slate-300 space-y-1 ml-4 list-disc">
+                    <li>Severe headaches</li>
+                    <li>Irritability</li>
+                    <li>Excessive fatigue</li>
+                </ul>
+                <div className="bg-yellow-900/10 p-3 rounded border border-yellow-500/30">
+                    <p className="text-[10px] text-yellow-200"><strong>Note:</strong> Caffeine is a diuretic. It increases urine production, contributing to <strong>dehydration</strong> in the dry cabin environment.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+);
 
 // Alcohol Calculator (Widmark Approximation)
 const AlcoholCalc = () => {

@@ -8,10 +8,14 @@
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "ionic:build": "vite build && cap sync"
   },
   "homepage": "https://michaelmagdy15.github.io/atplvector",
   "dependencies": {
+    "@capacitor/cli": "^5.7.8",
+    "@capacitor/core": "^5.7.8",
+    "@capacitor/ios": "^5.7.8",
     "@google/genai": "^1.33.0",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.4.2",

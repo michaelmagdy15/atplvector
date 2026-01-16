@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Brain, GraduationCap, Database, ArrowRight, Save, Play, TrendingUp, Eye } from 'lucide-react';
+import { Brain, GraduationCap, Database, ArrowRight, Save, Play, TrendingUp, Eye, Target, Zap, ShieldAlert } from 'lucide-react';
 
 const HPLLearning: React.FC = () => {
-    const [tab, setTab] = useState<'memory' | 'curve' | 'skills'>('memory');
+    const [tab, setTab] = useState<'memory' | 'curve' | 'skills' | 'motivation' | 'behavior'>('memory');
 
     return (
         <div className="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700 mt-8">
@@ -15,19 +15,88 @@ const HPLLearning: React.FC = () => {
                     <p className="text-slate-400 text-sm">Information Processing, Memory Types, and Skill Acquisition.</p>
                 </div>
 
-                <div className="flex bg-slate-900 p-1 rounded-lg">
-                    <button onClick={() => setTab('memory')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'memory' ? 'bg-lime-600 text-white' : 'text-slate-400 hover:text-white'}`}>Memory Model</button>
-                    <button onClick={() => setTab('curve')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'curve' ? 'bg-lime-600 text-white' : 'text-slate-400 hover:text-white'}`}>Learning Curve</button>
-                    <button onClick={() => setTab('skills')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'skills' ? 'bg-lime-600 text-white' : 'text-slate-400 hover:text-white'}`}>Skill Phases</button>
+                <div className="flex bg-slate-900 p-1 rounded-lg border border-slate-800 flex-wrap">
+                    <button onClick={() => setTab('memory')} className={`px-4 py-2 rounded-md font-bold text-sm transition-all ${tab === 'memory' ? 'bg-lime-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}>Memory</button>
+                    <button onClick={() => setTab('curve')} className={`px-4 py-2 rounded-md font-bold text-sm transition-all ${tab === 'curve' ? 'bg-lime-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}>Curve</button>
+                    <button onClick={() => setTab('skills')} className={`px-4 py-2 rounded-md font-bold text-sm transition-all ${tab === 'skills' ? 'bg-lime-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}>Skills</button>
+                    <button onClick={() => setTab('motivation')} className={`px-4 py-2 rounded-md font-bold text-sm transition-all ${tab === 'motivation' ? 'bg-lime-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}>Motivation</button>
+                    <button onClick={() => setTab('behavior')} className={`px-4 py-2 rounded-md font-bold text-sm transition-all ${tab === 'behavior' ? 'bg-lime-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}>Behavior</button>
                 </div>
             </div>
 
             {tab === 'memory' && <MemoryPipeline />}
             {tab === 'curve' && <LearningCurve />}
             {tab === 'skills' && <SkillPhases />}
+            {tab === 'motivation' && <MotivationSection />}
+            {tab === 'behavior' && <BehaviorModels />}
         </div>
     );
 };
+
+const MotivationSection = () => (
+    <div className="animate-in fade-in space-y-6">
+        <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-slate-900 p-6 rounded-xl border border-slate-700 hover:border-lime-500 transition-colors">
+                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <Target className="text-lime-400" /> Types of Motivation
+                </h3>
+                <div className="space-y-4">
+                    <div className="p-3 bg-lime-900/10 border-l-4 border-lime-500 rounded">
+                        <h4 className="font-bold text-white text-sm">Intrinsic Motivation</h4>
+                        <p className="text-xs text-slate-400">The drive from within (e.g., love for flying, personal satisfaction). Leads to better deep learning.</p>
+                    </div>
+                    <div className="p-3 bg-blue-900/10 border-l-4 border-blue-500 rounded">
+                        <h4 className="font-bold text-white text-sm">Extrinsic Motivation</h4>
+                        <p className="text-xs text-slate-400">Driven by external rewards (e.g., salary, status, avoiding punishment).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <Zap className="text-amber-400" /> Yerkes-Dodson Law
+                </h3>
+                <p className="text-xs text-slate-400 mb-4">Performance peaks at "optimal arousal". Too little (boredom) or too much (anxiety) degrades performance.</p>
+                <div className="relative h-24 bg-slate-800 rounded border border-slate-700 overflow-hidden flex items-end justify-center">
+                    <svg viewBox="0 0 100 40" className="w-full h-full opacity-50">
+                        <path d="M 10 40 Q 50 0 90 40" fill="none" stroke="#fbbf24" strokeWidth="2" />
+                    </svg>
+                    <div className="absolute top-2 text-[10px] font-bold text-amber-400">OPTIMAL PERFORMANCE</div>
+                </div>
+            </div>
+        </div>
+    </div>
+);
+
+const BehaviorModels = () => (
+    <div className="animate-in slide-in-from-right-4 space-y-6">
+        <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
+            <ShieldAlert className="text-red-400" /> Rasmussen's SRK Model
+        </h3>
+        <p className="text-sm text-slate-400 mb-6">Categorizes human behavior based on the cognitive effort required.</p>
+
+        <div className="grid md:grid-cols-3 gap-4">
+            {[
+                { level: 'Skill-Based', type: 'Automatic', desc: 'Pre-programmed motor skills (e.g. taxiing). Requires little attention.', error: 'Slips & Lapses', color: 'border-emerald-500' },
+                { level: 'Rule-Based', type: 'Procedural', desc: 'Follows IF-THEN rules (e.g. checklists). Pattern matching.', error: 'Rule-based Mistakes', color: 'border-amber-500' },
+                { level: 'Knowledge-Based', type: 'Conscious', desc: 'Novel situations. High mental load. Analytical reasoning.', error: 'Knowledge-based Mistakes', color: 'border-red-500' }
+            ].map((m, i) => (
+                <div key={i} className={`bg-slate-900 p-5 rounded-xl border-b-4 ${m.color} h-full`}>
+                    <div className="text-[10px] font-black text-slate-500 uppercase mb-1">{m.type}</div>
+                    <h4 className="text-lg font-bold text-white mb-2">{m.level}</h4>
+                    <p className="text-xs text-slate-300 mb-4 h-12 leading-relaxed">{m.desc}</p>
+                    <div className="bg-slate-800 p-2 rounded text-[10px] mt-auto">
+                        <span className="text-red-400 font-bold">Common Errors:</span> {m.error}
+                    </div>
+                </div>
+            ))}
+        </div>
+
+        <div className="p-4 bg-slate-700/30 rounded-lg text-xs text-slate-300">
+            <p><strong>Note:</strong> Experts spend most time at the <strong>Skill-Based</strong> level. Beginners or experts in emergencies are forced into the <strong>Knowledge-Based</strong> level, where fatigue and errors are most likely.</p>
+        </div>
+    </div>
+);
 
 // Multi-Store Model of Memory (Atkinson-Shriffrin)
 const MemoryPipeline = () => {

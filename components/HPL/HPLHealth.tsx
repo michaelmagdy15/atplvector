@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Activity, Thermometer, Wind, AlertCircle, Clock } from 'lucide-react';
 
 const HPLHealth: React.FC = () => {
-    const [tab, setTab] = useState<'gas' | 'hypoxia' | 'health'>('gas');
+    const [tab, setTab] = useState<'gas' | 'hypoxia' | 'health' | 'profHealth'>('gas');
 
     return (
         <div className="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700 mt-8">
@@ -16,19 +16,71 @@ const HPLHealth: React.FC = () => {
                     <p className="text-slate-400 text-sm">Gas Laws, Hypoxia, and Fitness to Fly.</p>
                 </div>
 
-                <div className="flex bg-slate-900 p-1 rounded-lg">
-                    <button onClick={() => setTab('gas')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'gas' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'}`}>Gas Laws</button>
-                    <button onClick={() => setTab('hypoxia')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'hypoxia' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'}`}>Hypoxia & TUC</button>
-                    <button onClick={() => setTab('health')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'health' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'}`}>Barotrauma</button>
+                <div className="flex bg-slate-900 p-1 rounded-lg border border-slate-800">
+                    <button onClick={() => setTab('gas')} className={`px-4 py-2 rounded-md font-bold text-sm transition-all ${tab === 'gas' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'}`}>Gas Laws</button>
+                    <button onClick={() => setTab('hypoxia')} className={`px-4 py-2 rounded-md font-bold text-sm transition-all ${tab === 'hypoxia' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'}`}>Hypoxia</button>
+                    <button onClick={() => setTab('health')} className={`px-4 py-2 rounded-md font-bold text-sm transition-all ${tab === 'health' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'}`}>Barotrauma</button>
+                    <button onClick={() => setTab('profHealth')} className={`px-4 py-2 rounded-md font-bold text-sm transition-all ${tab === 'profHealth' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'}`}>Prof. Health</button>
                 </div>
             </div>
 
             {tab === 'gas' && <GasLaws />}
             {tab === 'hypoxia' && <HypoxiaTUC />}
             {tab === 'health' && <Barotrauma />}
+            {tab === 'profHealth' && <ProfessionalHealth />}
         </div>
     );
 };
+
+const ProfessionalHealth = () => (
+    <div className="animate-in fade-in space-y-8">
+        <div className="grid md:grid-cols-2 gap-6">
+            {/* Obesity & Diabetes */}
+            <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <AlertCircle className="text-red-400" /> Obesity & Metabolic Risks
+                </h3>
+                <div className="space-y-4">
+                    <div className="p-3 bg-red-900/10 border-l-4 border-red-500 rounded">
+                        <h4 className="font-bold text-white text-sm">Obesity Risks</h4>
+                        <p className="text-xs text-slate-400">Reduced G-tolerance, increased risk of hypoxia, and Obstructive Sleep Apnoea (OSA).</p>
+                    </div>
+                    <div className="p-3 bg-blue-900/10 border-l-4 border-blue-500 rounded">
+                        <h4 className="font-bold text-white text-sm">Type 2 Diabetes</h4>
+                        <p className="text-xs text-slate-400">Can lead to disqualification if medication is required that causes hypoglycaemia. Associated with cardiovascular disease.</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Back Care */}
+            <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <Activity className="text-emerald-400" /> Back Care & Posture
+                </h3>
+                <p className="text-xs text-slate-400 mb-4">Long hours sitting in vibration-heavy cockpits lead to back issues (Lumbago).</p>
+                <ul className="space-y-2 text-[11px] text-slate-300">
+                    <li className="flex gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1"></div>
+                        <span>Maintain lumbar support (adjust seat properly).</span>
+                    </li>
+                    <li className="flex gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1"></div>
+                        <span>Regular exercise to strengthen core/abdominal muscles.</span>
+                    </li>
+                    <li className="flex gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1"></div>
+                        <span>Isometric exercises (muscle tensing) during cruise.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div className="bg-slate-900/50 p-6 rounded-xl border border-dashed border-slate-700 text-center">
+            <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Fitness to Fly Principle</h4>
+            <p className="text-sm text-slate-300 italic">"The pilot is responsible for assessing their own fitness before every flight. If in doubt, ground yourself."</p>
+        </div>
+    </div>
+);
 
 const GasLaws = () => {
     const [altitude, setAltitude] = useState(0); // 0 to 40000 ft
