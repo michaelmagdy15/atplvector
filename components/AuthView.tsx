@@ -741,59 +741,161 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                         <div className="max-w-7xl mx-auto px-6">
                             <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-8 duration-700">
                                 <span className="text-indigo-400 font-bold uppercase tracking-widest text-sm">Pricing</span>
-                                <h2 className="text-3xl md:text-5xl font-black text-white mt-2">Invest in your career.</h2>
-                                <p className="text-slate-400 mt-4">Simple pricing. Cancel anytime.</p>
+                                <h2 className="text-3xl md:text-5xl font-black text-white mt-2">Premium visual learning, accessible prices.</h2>
+                                <p className="text-slate-400 mt-4">Choose your study duration. All plans include every subject and simulator.</p>
                             </div>
 
-                            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                                {/* Custom */}
-                                <div className="bg-slate-800 p-8 rounded-2xl border border-slate-700 flex flex-col hover:border-slate-500 transition-all hover:-translate-y-2 duration-300">
-                                    <h3 className="font-bold text-white text-xl">Custom</h3>
-                                    <p className="text-slate-400 text-sm mb-6">Pick only what you need.</p>
-                                    <div className="mb-6">
-                                        <span className="text-4xl font-black text-white">$19</span>
-                                        <span className="text-slate-500"> / subject / mo</span>
+                            {/* Duration-based Pricing Grid */}
+                            <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-6xl mx-auto mb-16">
+                                {/* 12 Months - Best Value */}
+                                <div className="bg-slate-800 p-6 rounded-2xl border-2 border-emerald-500 relative flex flex-col hover:scale-105 transition-transform duration-300 shadow-xl shadow-emerald-500/10">
+                                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">Best Value</div>
+                                    <h3 className="font-bold text-white text-lg mt-2">12 Months</h3>
+                                    <div className="my-4">
+                                        <span className="text-slate-500 line-through text-sm">€139</span>
+                                        <span className="text-3xl font-black text-white ml-2">€119</span>
                                     </div>
-                                    <ul className="space-y-3 mb-8 flex-1">
-                                        <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-blue-500" /> Single Subject Access</li>
-                                        <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-blue-500" /> Specific Simulators</li>
-                                        <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-blue-500" /> Basic Support</li>
-                                    </ul>
-                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full py-3 rounded-xl border border-slate-600 text-white font-bold hover:bg-slate-700 transition">Select Subjects</button>
+                                    <p className="text-emerald-400 text-xs font-bold">~€10/month</p>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="mt-4 w-full py-2 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-500 transition text-sm">Get Started</button>
                                 </div>
 
-                                {/* Pro Monthly */}
-                                <div className="bg-slate-800 p-8 rounded-2xl border-2 border-indigo-500 relative transform md:-translate-y-4 shadow-2xl flex flex-col hover:scale-105 transition-transform duration-300 z-10">
-                                    <div className="absolute top-0 right-0 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-bl-xl uppercase tracking-wider shadow-lg">Most Popular</div>
-                                    <h3 className="font-bold text-white text-xl">Pro Monthly</h3>
-                                    <p className="text-slate-400 text-sm mb-6">Total access for serious study.</p>
-                                    <div className="mb-6">
-                                        <span className="text-4xl font-black text-white">$29</span>
-                                        <span className="text-slate-500"> / month</span>
+                                {/* 9 Months */}
+                                <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 flex flex-col hover:border-blue-500 hover:scale-105 transition-all duration-300">
+                                    <h3 className="font-bold text-white text-lg">9 Months</h3>
+                                    <div className="my-4">
+                                        <span className="text-slate-500 line-through text-sm">€119</span>
+                                        <span className="text-3xl font-black text-white ml-2">€99</span>
                                     </div>
-                                    <ul className="space-y-3 mb-8 flex-1">
-                                        <li className="flex gap-2 text-white text-sm"><CheckCircle size={16} className="text-emerald-500" /> All 14 ATPL Subjects</li>
-                                        <li className="flex gap-2 text-white text-sm"><CheckCircle size={16} className="text-emerald-500" /> All Simulators & Tools</li>
-                                        <li className="flex gap-2 text-white text-sm"><CheckCircle size={16} className="text-emerald-500" /> Unlimited AI Roleplay</li>
-                                        <li className="flex gap-2 text-white text-sm"><CheckCircle size={16} className="text-emerald-500" /> Priority Support</li>
-                                    </ul>
-                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full py-3 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-500 transition shadow-lg shadow-indigo-500/25">Start Free Trial</button>
+                                    <p className="text-blue-400 text-xs font-bold">~€11/month</p>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="mt-4 w-full py-2 rounded-xl border border-slate-600 text-white font-bold hover:bg-slate-700 transition text-sm">Select</button>
                                 </div>
 
-                                {/* Pro Yearly */}
-                                <div className="bg-slate-800 p-8 rounded-2xl border border-slate-700 flex flex-col hover:border-slate-500 transition-all hover:-translate-y-2 duration-300">
-                                    <h3 className="font-bold text-white text-xl">Pro Yearly</h3>
-                                    <p className="text-slate-400 text-sm mb-6">Commit to the long haul.</p>
-                                    <div className="mb-6">
-                                        <span className="text-4xl font-black text-white">$290</span>
-                                        <span className="text-slate-500"> / year</span>
+                                {/* 6 Months */}
+                                <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 flex flex-col hover:border-blue-500 hover:scale-105 transition-all duration-300">
+                                    <h3 className="font-bold text-white text-lg">6 Months</h3>
+                                    <div className="my-4">
+                                        <span className="text-slate-500 line-through text-sm">€89</span>
+                                        <span className="text-3xl font-black text-white ml-2">€79</span>
                                     </div>
-                                    <ul className="space-y-3 mb-8 flex-1">
-                                        <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-purple-500" /> 2 Months Free</li>
-                                        <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-purple-500" /> All Pro Features</li>
-                                        <li className="flex gap-2 text-slate-300 text-sm"><CheckCircle size={16} className="text-purple-500" /> Offline Mode (App)</li>
-                                    </ul>
-                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full py-3 rounded-xl border border-slate-600 text-white font-bold hover:bg-slate-700 transition">Get Yearly</button>
+                                    <p className="text-blue-400 text-xs font-bold">~€13/month</p>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="mt-4 w-full py-2 rounded-xl border border-slate-600 text-white font-bold hover:bg-slate-700 transition text-sm">Select</button>
+                                </div>
+
+                                {/* 3 Months */}
+                                <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 flex flex-col hover:border-blue-500 hover:scale-105 transition-all duration-300">
+                                    <h3 className="font-bold text-white text-lg">3 Months</h3>
+                                    <div className="my-4">
+                                        <span className="text-slate-500 line-through text-sm">€59</span>
+                                        <span className="text-3xl font-black text-white ml-2">€49</span>
+                                    </div>
+                                    <p className="text-blue-400 text-xs font-bold">~€16/month</p>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="mt-4 w-full py-2 rounded-xl border border-slate-600 text-white font-bold hover:bg-slate-700 transition text-sm">Select</button>
+                                </div>
+
+                                {/* 1 Month */}
+                                <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 flex flex-col hover:border-blue-500 hover:scale-105 transition-all duration-300">
+                                    <h3 className="font-bold text-white text-lg">1 Month</h3>
+                                    <div className="my-4">
+                                        <span className="text-slate-500 line-through text-sm">€25</span>
+                                        <span className="text-3xl font-black text-white ml-2">€19</span>
+                                    </div>
+                                    <p className="text-slate-400 text-xs font-bold">Trial friendly</p>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="mt-4 w-full py-2 rounded-xl border border-slate-600 text-white font-bold hover:bg-slate-700 transition text-sm">Try It</button>
+                                </div>
+
+                                {/* Single Subject */}
+                                <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 flex flex-col hover:border-purple-500 hover:scale-105 transition-all duration-300">
+                                    <h3 className="font-bold text-white text-lg">1 Subject</h3>
+                                    <div className="my-4">
+                                        <span className="text-slate-500 line-through text-sm">€29</span>
+                                        <span className="text-3xl font-black text-white ml-2">€25</span>
+                                    </div>
+                                    <p className="text-purple-400 text-xs font-bold">3 months access</p>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="mt-4 w-full py-2 rounded-xl border border-slate-600 text-white font-bold hover:bg-slate-700 transition text-sm">Focus Mode</button>
+                                </div>
+                            </div>
+
+                            {/* All Plans Include */}
+                            <div className="text-center mb-16">
+                                <p className="text-slate-400 text-sm mb-4">All plans include:</p>
+                                <div className="flex flex-wrap justify-center gap-4 text-xs">
+                                    <span className="flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-full text-slate-300"><CheckCircle size={14} className="text-emerald-500" /> All 14 ATPL Subjects</span>
+                                    <span className="flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-full text-slate-300"><CheckCircle size={14} className="text-emerald-500" /> 50+ Interactive Simulators</span>
+                                    <span className="flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-full text-slate-300"><CheckCircle size={14} className="text-emerald-500" /> AI ATC Roleplay</span>
+                                    <span className="flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-full text-slate-300"><CheckCircle size={14} className="text-emerald-500" /> EASA 2026 Aligned</span>
+                                </div>
+                            </div>
+
+                            {/* Why ATPLVector - Comparison Section */}
+                            <div className="bg-slate-800/50 rounded-3xl border border-slate-700 p-8 md:p-12 max-w-5xl mx-auto">
+                                <div className="text-center mb-10">
+                                    <h3 className="text-2xl md:text-3xl font-black text-white">Why ATPLVector?</h3>
+                                    <p className="text-slate-400 mt-2">Understanding vs. Memorization</p>
+                                </div>
+
+                                <div className="grid md:grid-cols-2 gap-8">
+                                    {/* ATPLVector Column */}
+                                    <div className="bg-gradient-to-br from-blue-900/30 to-indigo-900/30 rounded-2xl p-6 border border-blue-500/30">
+                                        <div className="flex items-center gap-3 mb-6">
+                                            <div className="p-2 bg-blue-500/20 rounded-lg">
+                                                <Plane className="w-6 h-6 text-blue-400" />
+                                            </div>
+                                            <h4 className="font-bold text-white text-lg">ATPLVector</h4>
+                                            <span className="ml-auto text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full font-bold">Visual Learning</span>
+                                        </div>
+                                        <ul className="space-y-4">
+                                            <li className="flex gap-3 text-sm">
+                                                <CheckCircle size={18} className="text-emerald-400 shrink-0 mt-0.5" />
+                                                <span className="text-slate-300"><strong className="text-white">3D Interactive Simulations</strong> - See how systems actually work</span>
+                                            </li>
+                                            <li className="flex gap-3 text-sm">
+                                                <CheckCircle size={18} className="text-emerald-400 shrink-0 mt-0.5" />
+                                                <span className="text-slate-300"><strong className="text-white">AI-Powered Roleplay</strong> - Practice radio calls with intelligent feedback</span>
+                                            </li>
+                                            <li className="flex gap-3 text-sm">
+                                                <CheckCircle size={18} className="text-emerald-400 shrink-0 mt-0.5" />
+                                                <span className="text-slate-300"><strong className="text-white">Deep Understanding</strong> - Learn the "why", not just the "what"</span>
+                                            </li>
+                                            <li className="flex gap-3 text-sm">
+                                                <CheckCircle size={18} className="text-emerald-400 shrink-0 mt-0.5" />
+                                                <span className="text-slate-300"><strong className="text-white">Affordable Pricing</strong> - Premium learning from €10/mo</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    {/* Question Bank Providers Column */}
+                                    <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-700">
+                                        <div className="flex items-center gap-3 mb-6">
+                                            <div className="p-2 bg-slate-700 rounded-lg">
+                                                <HelpCircle className="w-6 h-6 text-slate-400" />
+                                            </div>
+                                            <h4 className="font-bold text-slate-400 text-lg">Question Banks</h4>
+                                            <span className="ml-auto text-xs bg-slate-700 text-slate-400 px-2 py-1 rounded-full font-bold">Memorization</span>
+                                        </div>
+                                        <ul className="space-y-4">
+                                            <li className="flex gap-3 text-sm">
+                                                <X size={18} className="text-slate-500 shrink-0 mt-0.5" />
+                                                <span className="text-slate-500">Static PDFs and text-heavy content</span>
+                                            </li>
+                                            <li className="flex gap-3 text-sm">
+                                                <X size={18} className="text-slate-500 shrink-0 mt-0.5" />
+                                                <span className="text-slate-500">Repetitive question drilling</span>
+                                            </li>
+                                            <li className="flex gap-3 text-sm">
+                                                <X size={18} className="text-slate-500 shrink-0 mt-0.5" />
+                                                <span className="text-slate-500">Memorize answers, forget concepts</span>
+                                            </li>
+                                            <li className="flex gap-3 text-sm">
+                                                <X size={18} className="text-slate-500 shrink-0 mt-0.5" />
+                                                <span className="text-slate-500">€200+ for full access</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div className="mt-8 text-center">
+                                    <p className="text-slate-400 text-sm mb-4">💡 <strong className="text-white">Pro Tip:</strong> Use ATPLVector to understand the theory, then add any question bank for exam practice.</p>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-8 py-3 rounded-xl font-bold transition shadow-lg shadow-blue-500/25">Start 7-Day Free Trial</button>
                                 </div>
                             </div>
                         </div>

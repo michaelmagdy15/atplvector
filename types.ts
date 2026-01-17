@@ -323,7 +323,7 @@ export interface User {
   fullName?: string;
   status: AuthStatus;
   studySeconds: number; // New field for tracking
-  subscriptionTier?: 'CUSTOM' | 'PRO_MONTHLY' | 'PRO_YEARLY';
+  subscriptionTier?: '1_MONTH' | '3_MONTHS' | '6_MONTHS' | '9_MONTHS' | '12_MONTHS' | 'SINGLE_SUBJECT' | 'CUSTOM' | 'PRO_MONTHLY' | 'PRO_YEARLY';
   allowedSubjects?: string[]; // 'ALL' or array of IDs
   isAdmin?: boolean;
   isApproved?: boolean; // Manual admin approval status

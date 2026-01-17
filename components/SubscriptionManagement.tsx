@@ -12,7 +12,7 @@ interface Props {
 }
 
 const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack }) => {
-    const [plan, setPlan] = useState<'CUSTOM' | 'PRO_MONTHLY' | 'PRO_YEARLY'>(user.subscriptionTier || 'CUSTOM');
+    const [plan, setPlan] = useState<'1_MONTH' | '3_MONTHS' | '6_MONTHS' | '9_MONTHS' | '12_MONTHS' | 'SINGLE_SUBJECT'>(user.subscriptionTier as any || '12_MONTHS');
     const initialSubjects = (user.allowedSubjects || []).filter(s => s !== 'ALL');
     const [subjects, setSubjects] = useState<string[]>(initialSubjects);
 
@@ -28,25 +28,34 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
     };
 
     const getPrice = () => {
-        if (plan === 'PRO_MONTHLY') return 29;
-        if (plan === 'PRO_YEARLY') return 290;
-        return subjects.length * 19;
+        if (plan === '12_MONTHS') return 119;
+        if (plan === '9_MONTHS') return 99;
+        if (plan === '6_MONTHS') return 79;
+        if (plan === '3_MONTHS') return 49;
+        if (plan === '1_MONTH') return 19;
+        if (plan === 'SINGLE_SUBJECT') return subjects.length * 25;
+        return 0;
     };
 
     const getBillingPeriod = () => {
-        if (plan === 'PRO_YEARLY') return '/ year';
-        return '/ month';
+        if (plan === '12_MONTHS') return '/ 12 months';
+        if (plan === '9_MONTHS') return '/ 9 months';
+        if (plan === '6_MONTHS') return '/ 6 months';
+        if (plan === '3_MONTHS') return '/ 3 months';
+        if (plan === '1_MONTH') return '/ month';
+        if (plan === 'SINGLE_SUBJECT') return '/ 3 months';
+        return '';
     };
 
     // MANUAL SUBSCRIPTION LOGIC (Option B)
     const handleSave = async () => {
-        if (plan === 'CUSTOM' && subjects.length === 0) {
-            alert("Please select at least one subject for the Custom plan.");
+        if (plan === 'SINGLE_SUBJECT' && subjects.length === 0) {
+            alert("Please select at least one subject for the Single Subject plan.");
             return;
         }
 
         setLoading(true);
-        const newAllowed = plan === 'CUSTOM' ? subjects : ['ALL'];
+        const newAllowed = plan === 'SINGLE_SUBJECT' ? subjects : ['ALL'];
 
         try {
             // 1. Check if subscription exists (Avoids ON CONFLICT error if DB constraint is missing)
@@ -115,7 +124,7 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
             <h1 className="text-3xl font-black text-white mb-2 flex items-center gap-3">
                 <CreditCard className="text-blue-500" /> Subscription Management
             </h1>
-            <p className="text-slate-400 mb-8">Manage your plan, add or remove modules, and view billing details.</p>
+            <p className="text-slate-400 mb-8">Select your plan duration. All plans include every subject and simulator.</p>
 
             <div className="grid lg:grid-cols-3 gap-8">
 
@@ -124,57 +133,109 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
 
                     {/* Plan Cards */}
                     <div className="bg-slate-900 rounded-xl border border-slate-700 p-6">
-                        <h2 className="text-xl font-bold text-white mb-4">Select Plan</h2>
-                        <div className="grid md:grid-cols-3 gap-4">
+                        <h2 className="text-xl font-bold text-white mb-4">Select Plan Duration</h2>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            {/* 12 Months */}
                             <div
-                                onClick={() => setPlan('CUSTOM')}
-                                className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${plan === 'CUSTOM'
-                                        ? 'border-blue-500 bg-blue-900/20'
-                                        : 'border-slate-700 bg-slate-800 hover:border-slate-500'
+                                onClick={() => setPlan('12_MONTHS')}
+                                className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${plan === '12_MONTHS'
+                                    ? 'border-emerald-500 bg-emerald-900/20'
+                                    : 'border-slate-700 bg-slate-800 hover:border-slate-500'
                                     }`}
                             >
                                 <div className="flex justify-between items-start mb-2">
-                                    <Layout className={`w-6 h-6 ${plan === 'CUSTOM' ? 'text-blue-400' : 'text-slate-500'}`} />
-                                    {plan === 'CUSTOM' && <CheckCircle className="w-5 h-5 text-blue-500" />}
+                                    <Shield className={`w-5 h-5 ${plan === '12_MONTHS' ? 'text-emerald-400' : 'text-slate-500'}`} />
+                                    {plan === '12_MONTHS' && <CheckCircle className="w-4 h-4 text-emerald-500" />}
                                 </div>
-                                <h3 className="font-bold text-white">Custom</h3>
-                                <p className="text-xs text-slate-400 mt-1">Pay per subject ($19/mo)</p>
+                                <h3 className="font-bold text-white text-sm">12 Months</h3>
+                                <p className="text-emerald-400 text-xs font-bold">€119</p>
+                                <p className="text-[10px] text-slate-500 mt-1">Best Value</p>
                             </div>
 
+                            {/* 9 Months */}
                             <div
-                                onClick={() => setPlan('PRO_MONTHLY')}
-                                className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${plan === 'PRO_MONTHLY'
-                                        ? 'border-emerald-500 bg-emerald-900/20'
-                                        : 'border-slate-700 bg-slate-800 hover:border-slate-500'
+                                onClick={() => setPlan('9_MONTHS')}
+                                className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${plan === '9_MONTHS'
+                                    ? 'border-blue-500 bg-blue-900/20'
+                                    : 'border-slate-700 bg-slate-800 hover:border-slate-500'
                                     }`}
                             >
                                 <div className="flex justify-between items-start mb-2">
-                                    <Zap className={`w-6 h-6 ${plan === 'PRO_MONTHLY' ? 'text-emerald-400' : 'text-slate-500'}`} />
-                                    {plan === 'PRO_MONTHLY' && <CheckCircle className="w-5 h-5 text-emerald-500" />}
+                                    <Zap className={`w-5 h-5 ${plan === '9_MONTHS' ? 'text-blue-400' : 'text-slate-500'}`} />
+                                    {plan === '9_MONTHS' && <CheckCircle className="w-4 h-4 text-blue-500" />}
                                 </div>
-                                <h3 className="font-bold text-white">Pro Monthly</h3>
-                                <p className="text-xs text-slate-400 mt-1">All Access ($29/mo)</p>
+                                <h3 className="font-bold text-white text-sm">9 Months</h3>
+                                <p className="text-blue-400 text-xs font-bold">€99</p>
                             </div>
 
+                            {/* 6 Months */}
                             <div
-                                onClick={() => setPlan('PRO_YEARLY')}
-                                className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${plan === 'PRO_YEARLY'
-                                        ? 'border-purple-500 bg-purple-900/20'
-                                        : 'border-slate-700 bg-slate-800 hover:border-slate-500'
+                                onClick={() => setPlan('6_MONTHS')}
+                                className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${plan === '6_MONTHS'
+                                    ? 'border-blue-500 bg-blue-900/20'
+                                    : 'border-slate-700 bg-slate-800 hover:border-slate-500'
                                     }`}
                             >
                                 <div className="flex justify-between items-start mb-2">
-                                    <Shield className={`w-6 h-6 ${plan === 'PRO_YEARLY' ? 'text-purple-400' : 'text-slate-500'}`} />
-                                    {plan === 'PRO_YEARLY' && <CheckCircle className="w-5 h-5 text-purple-500" />}
+                                    <Zap className={`w-5 h-5 ${plan === '6_MONTHS' ? 'text-blue-400' : 'text-slate-500'}`} />
+                                    {plan === '6_MONTHS' && <CheckCircle className="w-4 h-4 text-blue-500" />}
                                 </div>
-                                <h3 className="font-bold text-white">Pro Yearly</h3>
-                                <p className="text-xs text-slate-400 mt-1">Best Value ($290/yr)</p>
+                                <h3 className="font-bold text-white text-sm">6 Months</h3>
+                                <p className="text-blue-400 text-xs font-bold">€79</p>
+                            </div>
+
+                            {/* 3 Months */}
+                            <div
+                                onClick={() => setPlan('3_MONTHS')}
+                                className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${plan === '3_MONTHS'
+                                    ? 'border-blue-500 bg-blue-900/20'
+                                    : 'border-slate-700 bg-slate-800 hover:border-slate-500'
+                                    }`}
+                            >
+                                <div className="flex justify-between items-start mb-2">
+                                    <Zap className={`w-5 h-5 ${plan === '3_MONTHS' ? 'text-blue-400' : 'text-slate-500'}`} />
+                                    {plan === '3_MONTHS' && <CheckCircle className="w-4 h-4 text-blue-500" />}
+                                </div>
+                                <h3 className="font-bold text-white text-sm">3 Months</h3>
+                                <p className="text-blue-400 text-xs font-bold">€49</p>
+                            </div>
+
+                            {/* 1 Month */}
+                            <div
+                                onClick={() => setPlan('1_MONTH')}
+                                className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${plan === '1_MONTH'
+                                    ? 'border-blue-500 bg-blue-900/20'
+                                    : 'border-slate-700 bg-slate-800 hover:border-slate-500'
+                                    }`}
+                            >
+                                <div className="flex justify-between items-start mb-2">
+                                    <Zap className={`w-5 h-5 ${plan === '1_MONTH' ? 'text-blue-400' : 'text-slate-500'}`} />
+                                    {plan === '1_MONTH' && <CheckCircle className="w-4 h-4 text-blue-500" />}
+                                </div>
+                                <h3 className="font-bold text-white text-sm">1 Month</h3>
+                                <p className="text-blue-400 text-xs font-bold">€19</p>
+                            </div>
+
+                            {/* Single Subject */}
+                            <div
+                                onClick={() => setPlan('SINGLE_SUBJECT')}
+                                className={`cursor-pointer p-4 rounded-xl border-2 transition-all ${plan === 'SINGLE_SUBJECT'
+                                    ? 'border-purple-500 bg-purple-900/20'
+                                    : 'border-slate-700 bg-slate-800 hover:border-slate-500'
+                                    }`}
+                            >
+                                <div className="flex justify-between items-start mb-2">
+                                    <Layout className={`w-5 h-5 ${plan === 'SINGLE_SUBJECT' ? 'text-purple-400' : 'text-slate-500'}`} />
+                                    {plan === 'SINGLE_SUBJECT' && <CheckCircle className="w-4 h-4 text-purple-500" />}
+                                </div>
+                                <h3 className="font-bold text-white text-sm">1 Subject</h3>
+                                <p className="text-purple-400 text-xs font-bold">€25 each</p>
                             </div>
                         </div>
                     </div>
 
-                    {/* Subject Selector (Only for Custom) */}
-                    {plan === 'CUSTOM' && (
+                    {/* Subject Selector (Only for Single Subject) */}
+                    {plan === 'SINGLE_SUBJECT' && (
                         <div className="bg-slate-900 rounded-xl border border-slate-700 p-6 animate-in fade-in slide-in-from-top-4">
                             <div className="flex justify-between items-center mb-4">
                                 <h2 className="text-xl font-bold text-white">Select Subjects</h2>
@@ -188,8 +249,8 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                                             key={sub.id}
                                             onClick={() => toggleSubject(sub.id)}
                                             className={`p-3 rounded-lg border cursor-pointer transition-all flex items-center justify-between ${isSelected
-                                                    ? 'bg-blue-600 text-white border-blue-500 shadow-md'
-                                                    : 'bg-slate-800 text-slate-400 border-slate-700 hover:border-slate-500'
+                                                ? 'bg-blue-600 text-white border-blue-500 shadow-md'
+                                                : 'bg-slate-800 text-slate-400 border-slate-700 hover:border-slate-500'
                                                 }`}
                                         >
                                             <span className="text-sm font-bold truncate pr-2">{sub.id} {sub.name.split(':')[0]}</span>
@@ -201,11 +262,11 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                         </div>
                     )}
 
-                    {/* Pro Benefits Info */}
-                    {(plan === 'PRO_MONTHLY' || plan === 'PRO_YEARLY') && (
+                    {/* Full Access Benefits Info */}
+                    {plan !== 'SINGLE_SUBJECT' && (
                         <div className="bg-emerald-900/10 rounded-xl border border-emerald-500/30 p-6 animate-in fade-in">
                             <h3 className="text-emerald-400 font-bold mb-2 flex items-center gap-2">
-                                <Zap size={18} /> Pro Access Unlocked
+                                <Zap size={18} /> Full Access Unlocked
                             </h3>
                             <p className="text-slate-300 text-sm">
                                 You have full access to all 14 ATPL subjects, advanced simulators (VFR/IFR Comms, Holding, Met), AI Roleplay, and priority support.
@@ -223,14 +284,14 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                             <div className="flex justify-between text-sm">
                                 <span className="text-slate-400">Plan Type</span>
                                 <span className="text-white font-bold">
-                                    {plan === 'CUSTOM' ? 'Custom Selection' : (plan === 'PRO_MONTHLY' ? 'Monthly Pro' : 'Yearly Pro')}
+                                    {plan === 'SINGLE_SUBJECT' ? 'Single Subject' : plan.replace('_', ' ')}
                                 </span>
                             </div>
-                            {plan === 'CUSTOM' && (
+                            {plan === 'SINGLE_SUBJECT' && (
                                 <div className="mb-4">
                                     <div className="flex justify-between text-sm mb-2">
                                         <span className="text-slate-400">Subjects</span>
-                                        <span className="text-white font-bold">{subjects.length} x $19</span>
+                                        <span className="text-white font-bold">{subjects.length} x €25</span>
                                     </div>
                                     {subjects.length > 0 && (
                                         <div className="flex flex-col gap-1 pl-2 mb-2">
@@ -251,7 +312,7 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                             <div className="border-t border-slate-700 pt-4 flex justify-between items-end">
                                 <span className="text-slate-300 font-bold">Total</span>
                                 <div className="text-right">
-                                    <span className="text-3xl font-black text-white">${getPrice()}</span>
+                                    <span className="text-3xl font-black text-white">€{getPrice()}</span>
                                     <span className="text-slate-500 text-xs font-bold">{getBillingPeriod()}</span>
                                 </div>
                             </div>

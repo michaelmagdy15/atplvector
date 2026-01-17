@@ -15,6 +15,7 @@ import SubscriptionManagement from './components/SubscriptionManagement';
 import AdminDashboard from './components/AdminDashboard';
 import ContentProtection from './components/ContentProtection';
 import StudyGuide from './components/StudyGuide';
+import NavigationBar from './components/NavigationBar';
 import SubjectSidebar from './components/SubjectSidebar';
 import { getSubjectConfig } from './data/sidebarNavigation';
 import StarfieldBackground from './components/StarfieldBackground';
@@ -246,6 +247,48 @@ const App: React.FC = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [authInitialView, setAuthInitialView] = useState<'LOGIN' | 'SIGNUP' | 'RESET_PASSWORD'>('LOGIN');
+
+    // Navigation History State
+    const [viewHistory, setViewHistory] = useState<View[]>([View.PLATFORM_DASHBOARD]);
+    const [historyIndex, setHistoryIndex] = useState(0);
+
+    // Navigate to a new view (adds to history)
+    const navigateTo = (view: View) => {
+        // Don't add duplicate consecutive entries
+        if (viewHistory[historyIndex] === view) return;
+
+        // Clear forward history and add new view
+        const newHistory = viewHistory.slice(0, historyIndex + 1);
+        newHistory.push(view);
+
+        // Limit history size to prevent memory issues
+        if (newHistory.length > 50) newHistory.shift();
+
+        setViewHistory(newHistory);
+        setHistoryIndex(newHistory.length - 1);
+        setCurrentView(view);
+    };
+
+    // Go back in history
+    const goBack = () => {
+        if (historyIndex > 0) {
+            const newIndex = historyIndex - 1;
+            setHistoryIndex(newIndex);
+            setCurrentView(viewHistory[newIndex]);
+        }
+    };
+
+    // Go forward in history
+    const goForward = () => {
+        if (historyIndex < viewHistory.length - 1) {
+            const newIndex = historyIndex + 1;
+            setHistoryIndex(newIndex);
+            setCurrentView(viewHistory[newIndex]);
+        }
+    };
+
+    const canGoBack = historyIndex > 0;
+    const canGoForward = historyIndex < viewHistory.length - 1;
     const [isLoading, setIsLoading] = useState(true);
 
     // Pending/Invite State
@@ -637,7 +680,7 @@ const App: React.FC = () => {
     const NavButton = ({ view, label, icon: Icon }: any) => (
         <button
             onClick={() => {
-                setCurrentView(view);
+                navigateTo(view);
                 setMobileMenuOpen(false);
             }}
             className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 text-sm font-medium ${currentView === view
@@ -678,7 +721,7 @@ const App: React.FC = () => {
                                 )}
                                 <div
                                     className="flex items-center space-x-3 cursor-pointer group"
-                                    onClick={() => setCurrentView(View.PLATFORM_DASHBOARD)}
+                                    onClick={() => navigateTo(View.PLATFORM_DASHBOARD)}
                                 >
                                     <div className="p-2 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg shadow-lg group-hover:shadow-blue-500/20 transition-all duration-500 group-hover:scale-105">
                                         <PlaneIcon className="w-5 h-5 text-white" />
@@ -687,6 +730,14 @@ const App: React.FC = () => {
                                         ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span>
                                     </span>
                                 </div>
+
+                                {/* Navigation Back/Forward */}
+                                <NavigationBar
+                                    canGoBack={canGoBack}
+                                    canGoForward={canGoForward}
+                                    onBack={goBack}
+                                    onForward={goForward}
+                                />
                             </div>
 
                             {/* Desktop Nav */}
@@ -698,7 +749,7 @@ const App: React.FC = () => {
 
                                 {user.isAdmin && (
                                     <button
-                                        onClick={() => setCurrentView(View.ADMIN_DASHBOARD)}
+                                        onClick={() => navigateTo(View.ADMIN_DASHBOARD)}
                                         className="text-red-400 hover:text-red-300 font-bold text-xs uppercase px-4"
                                     >
                                         Admin
@@ -708,7 +759,7 @@ const App: React.FC = () => {
                                 <div className="h-6 w-px bg-white/10 mx-2"></div>
 
                                 <div
-                                    onClick={() => setCurrentView(View.PROFILE)}
+                                    onClick={() => navigateTo(View.PROFILE)}
                                     className="flex items-center space-x-3 cursor-pointer group pl-2"
                                 >
                                     <div className="w-9 h-9 bg-gradient-to-br from-slate-700 to-slate-800 rounded-full flex items-center justify-center text-xs font-bold text-white border border-white/10 group-hover:border-blue-500/50 transition-colors shadow-lg">
@@ -746,7 +797,7 @@ const App: React.FC = () => {
                             <SubjectSidebar
                                 config={subjectConfig}
                                 currentView={currentView}
-                                onNavigate={setCurrentView}
+                                onNavigate={navigateTo}
                                 onClose={() => setSidebarOpen(false)}
                             />
                         </div>
@@ -762,7 +813,7 @@ const App: React.FC = () => {
                                 <SubjectSidebar
                                     config={subjectConfig}
                                     currentView={currentView}
-                                    onNavigate={setCurrentView}
+                                    onNavigate={navigateTo}
                                 />
                             </div>
                         )}
@@ -774,7 +825,7 @@ const App: React.FC = () => {
                                     <div className="px-2 md:px-0 mb-8">
                                         <PlatformProgress />
                                     </div>
-                                    <PlatformDashboard onChangeView={setCurrentView} studyTime={studyTime} user={user} />
+                                    <PlatformDashboard onChangeView={navigateTo} studyTime={studyTime} user={user} />
                                 </div>
                             )}
                             {currentView === View.PROFILE && (
@@ -783,13 +834,13 @@ const App: React.FC = () => {
                                     studyTime={studyTime}
                                     onLogout={handleLogout}
                                     onUpdateUser={handleUserUpdate}
-                                    onNavigate={setCurrentView}
+                                    onNavigate={navigateTo}
                                 />
                             )}
                             {currentView === View.ACCOUNT_SETTINGS && (
                                 <AccountSettings user={user} onBack={() => setCurrentView(View.PROFILE)} />
                             )}
-                            {currentView === View.SYLLABUS_VIEWER && <LearningObjectivesViewer onNavigate={setCurrentView} />}
+                            {currentView === View.SYLLABUS_VIEWER && <LearningObjectivesViewer onNavigate={navigateTo} />}
                             {currentView === View.FLASHCARDS && <FlashcardSystem />}
                             {currentView === View.SUBSCRIPTION_MANAGEMENT && (
                                 <SubscriptionManagement
@@ -804,13 +855,13 @@ const App: React.FC = () => {
                             {currentView === View.STUDY_GUIDE && (
                                 <StudyGuide
                                     onBack={() => setCurrentView(View.PLATFORM_DASHBOARD)}
-                                    onChangeView={setCurrentView}
+                                    onChangeView={navigateTo}
                                 />
                             )}
 
                             {/* --- SUBJECT MODULES --- */}
                             {/* Air Law */}
-                            {currentView === View.AIR_LAW_HOME && <AirLawDashboard onChangeView={setCurrentView} isLocked={!isSubjectAllowed('010')} />}
+                            {currentView === View.AIR_LAW_HOME && <AirLawDashboard onChangeView={navigateTo} isLocked={!isSubjectAllowed('010')} />}
                             {currentView === View.AIR_LAW_INT_LAW && <InternationalLaw />}
                             {currentView === View.AIR_LAW_ORG && <AviationOrganisations />}
                             {currentView === View.AIR_LAW_LIABILITY && <LiabilityAndRights />}
@@ -850,7 +901,7 @@ const App: React.FC = () => {
                                 <GenericSubjectDashboard
                                     subjectCode="021" subjectName="AGK: Airframe & Systems" color="orange"
                                     description="Fuselage, hydraulics, landing gear, flight controls, pneumatics and electrics."
-                                    icon={Settings} onChangeView={setCurrentView}
+                                    icon={Settings} onChangeView={navigateTo}
                                     modules={[
                                         { title: 'Hydraulics', desc: 'Pascal’s Law, actuators, pumps and reservoirs.', view: View.AGK_HYDRAULICS, isLocked: !isSubjectAllowed('021') },
                                         { title: 'Gas Turbines', desc: 'The Brayton Cycle, intake, compression, combustion, exhaust.', view: View.AGK_JET_ENGINE, isLocked: !isSubjectAllowed('021') },
@@ -869,7 +920,7 @@ const App: React.FC = () => {
                                 <GenericSubjectDashboard
                                     subjectCode="040" subjectName="Human Performance" color="emerald"
                                     description="Physiology, psychology, sleep, stress, and error management."
-                                    icon={Users} onChangeView={setCurrentView}
+                                    icon={Users} onChangeView={navigateTo}
                                     modules={[
                                         { title: 'Physiology', desc: 'Hypoxia, Respiration, Circulation.', view: View.HPL_PHYSIOLOGY, isLocked: !isSubjectAllowed('040') },
                                         { title: 'Basic Concepts', desc: 'Accident stats, TEM, Safety Culture.', view: View.HPL_BASIC_CONCEPTS, isLocked: !isSubjectAllowed('040') },
@@ -946,24 +997,24 @@ const App: React.FC = () => {
                             {currentView === View.HPL_PERSONALITY && <HPLPersonality />}
                             {currentView === View.HPL_LEARNING && <HPLLearning />}
                             {currentView === View.HPL_PERCEPTION && <HPLPerception />}
-                            {currentView === View.HPL_COMMUNICATION_PROCESS && <HPLCommunicationProcess onNavigate={setCurrentView} />}
-                            {currentView === View.HPL_COOPERATION && <HPLCooperation onNavigate={setCurrentView} />}
-                            {currentView === View.HPL_COMPETENCY && <HPLCompetency onNavigate={setCurrentView} />}
+                            {currentView === View.HPL_COMMUNICATION_PROCESS && <HPLCommunicationProcess onNavigate={navigateTo} />}
+                            {currentView === View.HPL_COOPERATION && <HPLCooperation onNavigate={navigateTo} />}
+                            {currentView === View.HPL_COMPETENCY && <HPLCompetency onNavigate={navigateTo} />}
                             {currentView === View.HPL_MOTION_SICKNESS && <HPLMotionSickness />}
                             {currentView === View.HPL_PRESSURE && <HPLPressure />}
                             {currentView === View.HPL_ATMOSPHERE && <HPLAtmosphere />}
-                            {currentView === View.HPL_HEALTH_HYGIENE && <HPLHealthHygiene onNavigate={setCurrentView} />}
+                            {currentView === View.HPL_HEALTH_HYGIENE && <HPLHealthHygiene onNavigate={navigateTo} />}
                             {currentView === View.HPL_INCIDENTS && <HPLIncidents />}
 
 
-                            {currentView === View.HPL_TROPICAL_DISEASES && <HPLTropicalDiseases onNavigate={setCurrentView} />}
+                            {currentView === View.HPL_TROPICAL_DISEASES && <HPLTropicalDiseases onNavigate={navigateTo} />}
 
                             {/* Met */}
                             {currentView === View.MET_HOME && (
                                 <GenericSubjectDashboard
                                     subjectCode="050" subjectName="Meteorology" color="teal"
                                     description="Atmosphere, wind, thermodynamics, clouds, fog, precipitation."
-                                    icon={Cloud} onChangeView={setCurrentView}
+                                    icon={Cloud} onChangeView={navigateTo}
                                     modules={[
                                         { title: 'The Atmosphere', desc: 'Layers, composition, ISA.', view: View.MET_ATMOSPHERE },
                                         { title: 'Altimetry', desc: 'QNH, QFE, QFF, True Altitude.', isLocked: true },
@@ -978,11 +1029,11 @@ const App: React.FC = () => {
                             {currentView === View.GEN_NAV_HOME && (
                                 <GenNavDashboard currentView={currentView} setCurrentView={setCurrentView} isLocked={!isSubjectAllowed('061')} />
                             )}
-                            {currentView === View.GEN_NAV_EARTH && <EarthGeometry onNavigate={setCurrentView} />}
-                            {currentView === View.GEN_NAV_SOLAR && <SolarCalc onNavigate={setCurrentView} />}
-                            {currentView === View.GEN_NAV_MAPS && <MapProjections onNavigate={setCurrentView} />}
-                            {currentView === View.GEN_NAV_WIND_TRIANGLE && <WindTriangle onNavigate={setCurrentView} />}
-                            {currentView === View.GEN_NAV_POLAR && <PolarGrid onNavigate={setCurrentView} />}
+                            {currentView === View.GEN_NAV_EARTH && <EarthGeometry onNavigate={navigateTo} />}
+                            {currentView === View.GEN_NAV_SOLAR && <SolarCalc onNavigate={navigateTo} />}
+                            {currentView === View.GEN_NAV_MAPS && <MapProjections onNavigate={navigateTo} />}
+                            {currentView === View.GEN_NAV_WIND_TRIANGLE && <WindTriangle onNavigate={navigateTo} />}
+                            {currentView === View.GEN_NAV_POLAR && <PolarGrid onNavigate={navigateTo} />}
                             {currentView === View.NAV_HOME && (
                                 <GenNavDashboard currentView={View.GEN_NAV_HOME} setCurrentView={setCurrentView} isLocked={!isSubjectAllowed('061')} />
                             )}
@@ -994,7 +1045,7 @@ const App: React.FC = () => {
                                 <GenericSubjectDashboard
                                     subjectCode="062" subjectName="Radio Navigation" color="sky"
                                     description="Radio aids, radar, GNSS, area navigation systems."
-                                    icon={Wifi} onChangeView={setCurrentView}
+                                    icon={Wifi} onChangeView={navigateTo}
                                     modules={[
                                         // Phase 1: Basics
                                         { title: 'Class 1: Fundamentals', desc: 'Waves, Spectrum, Modulation, Propagation (New).', view: View.RAD_NAV_CLASS_1 },
@@ -1029,26 +1080,26 @@ const App: React.FC = () => {
                             {currentView === View.RAD_NAV_IONOSPHERE && <IonosphereSim />}
                             {currentView === View.RAD_NAV_ANTENNA && <AntennaTheory />}
                             {currentView === View.RAD_NAV_MODULATION && <Modulation />}
-                            {currentView === View.RAD_NAV_VOR && <VORSystem onNavigate={setCurrentView} />}
-                            {currentView === View.RAD_NAV_ADF && <NDBADFSystem onNavigate={setCurrentView} />}
-                            {currentView === View.RAD_NAV_DME && <DMESystem onNavigate={setCurrentView} />}
-                            {currentView === View.RAD_NAV_ILS && <ILSSystem onNavigate={setCurrentView} />}
+                            {currentView === View.RAD_NAV_VOR && <VORSystem onNavigate={navigateTo} />}
+                            {currentView === View.RAD_NAV_ADF && <NDBADFSystem onNavigate={navigateTo} />}
+                            {currentView === View.RAD_NAV_DME && <DMESystem onNavigate={navigateTo} />}
+                            {currentView === View.RAD_NAV_ILS && <ILSSystem onNavigate={navigateTo} />}
                             {currentView === View.RAD_NAV_VDF && <VDF />}
                             {currentView === View.RAD_NAV_MLS && <MLS />}
                             {currentView === View.RAD_NAV_RADAR && <RadarTheory />}
-                            {currentView === View.RAD_NAV_WX_RADAR && <WeatherRadar onNavigate={setCurrentView} />}
+                            {currentView === View.RAD_NAV_WX_RADAR && <WeatherRadar onNavigate={navigateTo} />}
                             {currentView === View.RAD_NAV_SSR && <SSRTransponder />}
                             {currentView === View.RAD_NAV_SBAS && <SbasAbas />}
                             {currentView === View.RAD_NAV_RNAV && <RnavPbn />}
                             {currentView === View.RAD_NAV_FMS && <FMSTrainer />}
-                            {currentView === View.RAD_NAV_CLASS_1 && <RadioFundamentals onNavigate={setCurrentView} />}
+                            {currentView === View.RAD_NAV_CLASS_1 && <RadioFundamentals onNavigate={navigateTo} />}
 
                             {/* PoF */}
                             {currentView === View.POF_HOME && (
                                 <GenericSubjectDashboard
                                     subjectCode="081" subjectName="Principles of Flight" color="violet"
                                     description="Subsonic aerodynamics, stability, control, lift, drag."
-                                    icon={PlaneIcon} onChangeView={setCurrentView}
+                                    icon={PlaneIcon} onChangeView={navigateTo}
                                     modules={[
                                         { title: 'Atmosphere', desc: 'ISA properties: Temperature, Pressure, Density.', view: View.POF_ATMOSPHERE },
                                         { title: 'Airflow Basics', desc: 'Streamlines, Bernoulli, and Continuity.', view: View.POF_AIRFLOW },
@@ -1075,13 +1126,13 @@ const App: React.FC = () => {
                             {currentView === View.POF_HIGH_LIFT && <HighLiftDevices />}
 
                             {/* KSA (100) */}
-                            {currentView === View.KSA_HOME && <KSADashboard onChangeView={setCurrentView} isLocked={!isSubjectAllowed('100')} />}
+                            {currentView === View.KSA_HOME && <KSADashboard onChangeView={navigateTo} isLocked={!isSubjectAllowed('100')} />}
                             {currentView === View.KSA_COMPETENCIES && <CoreCompetencies />}
                             {currentView === View.KSA_TEM && <TEMAdvanced />}
                             {currentView === View.KSA_MENTAL_MATHS && <MentalMathsLab />}
 
                             {/* Communications (090) */}
-                            {currentView === View.DASHBOARD && <CommsDashboard onChangeView={setCurrentView} />}
+                            {currentView === View.DASHBOARD && <CommsDashboard onChangeView={navigateTo} />}
                             {currentView === View.GENERAL_THEORY && <GeneralTheory />}
                             {currentView === View.PROPAGATION_THEORY && <PropagationTheory />}
                             {currentView === View.TECH_PHYSICS && <TechPhysics />}
@@ -1149,7 +1200,7 @@ const App: React.FC = () => {
                             {currentView === View.INTERCEPT && <InterceptTrainer />}
 
 
-                            {currentView === View.MASS_BAL_HOME && <MassBalanceDashboard onNavigate={setCurrentView} isLocked={!isSubjectAllowed('031')} />}
+                            {currentView === View.MASS_BAL_HOME && <MassBalanceDashboard onNavigate={navigateTo} isLocked={!isSubjectAllowed('031')} />}
                             {currentView === View.MASS_BAL_DEFINITIONS && <MassDefinitions />}
                             {currentView === View.MASS_BAL_CG_CALC && <WeighingProcedure />}
                             {currentView === View.MASS_BAL_LIMITS && <MassDefinitions />} {/* Reusing for limits if no dedicated component yet */}
@@ -1166,7 +1217,7 @@ const App: React.FC = () => {
                                 <GenericSubjectDashboard
                                     subjectCode="070" subjectName="Operational Procedures" color="indigo"
                                     description="Special operational procedures, noise abatement, fire/smoke, wind shear and icing."
-                                    icon={BookOpen} onChangeView={setCurrentView}
+                                    icon={BookOpen} onChangeView={navigateTo}
                                     modules={[
                                         { title: 'Long Range Ops', desc: 'NAT HLA, ETOPS, Polar.', view: View.OPS_LONG_RANGE, isLocked: !isSubjectAllowed('070') },
                                         { title: 'Special Procedures', desc: 'Fire, DG, Contamination, Noise.', view: View.OPS_SPECIAL, isLocked: !isSubjectAllowed('070') },
@@ -1187,7 +1238,7 @@ const App: React.FC = () => {
                                 <GenericSubjectDashboard
                                     subjectCode="032" subjectName="Performance (A)" color="lime"
                                     description="Take-off, climb, cruise, descent and landing performance for Class A/B aircraft."
-                                    icon={TrendingUp} onChangeView={setCurrentView}
+                                    icon={TrendingUp} onChangeView={navigateTo}
                                     modules={[]}
                                 />
                             )}
@@ -1195,7 +1246,7 @@ const App: React.FC = () => {
                                 <GenericSubjectDashboard
                                     subjectCode="033" subjectName="Flight Planning" color="green"
                                     description="VFR/IFR planning, fuel planning, point of equal time, and flight monitoring."
-                                    icon={Map} onChangeView={setCurrentView}
+                                    icon={Map} onChangeView={navigateTo}
                                     modules={[]}
                                 />
                             )}
@@ -1203,7 +1254,7 @@ const App: React.FC = () => {
                                 <GenericSubjectDashboard
                                     subjectCode="050" subjectName="Meteorology" color="teal"
                                     description="Atmosphere, Charts, Altimetry, and Weather Hazards."
-                                    icon={Cloud} onChangeView={setCurrentView}
+                                    icon={Cloud} onChangeView={navigateTo}
                                     modules={[
                                         { title: 'Atmosphere', desc: 'Composition, Layers, ISA.', view: View.MET_ATMOSPHERE },
                                         { title: 'Altimetry', desc: 'Pressure Altitude, QNH/QFE, Errors.', view: View.MET_ALTIMETRY },

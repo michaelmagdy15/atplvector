@@ -6,7 +6,7 @@ import {
     AlertTriangle, X, Save, User as UserIcon, Users, TrendingUp, Crown,
     Clock, Filter, ChevronDown, ChevronRight, BarChart3, Settings,
     UserCheck, UserX, Ban, RefreshCw, Download, MoreVertical,
-    Activity, Calendar, Zap, Eye, Layers, Award, KeyRound, Copy
+    Activity, Calendar, Zap, Eye, Layers, Award, KeyRound, Copy, Star
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { SUBJECTS } from '../data/learningObjectives';
@@ -38,7 +38,7 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
     // Edit Modal State
     const [editingUser, setEditingUser] = useState<User | null>(null);
     const [editSubs, setEditSubs] = useState<string[]>([]);
-    const [editTier, setEditTier] = useState<'CUSTOM' | 'PRO_MONTHLY' | 'PRO_YEARLY'>('CUSTOM');
+    const [editTier, setEditTier] = useState<'1_MONTH' | '3_MONTHS' | '6_MONTHS' | '9_MONTHS' | '12_MONTHS' | 'SINGLE_SUBJECT' | 'CUSTOM' | 'PRO_MONTHLY' | 'PRO_YEARLY'>('12_MONTHS');
     const [editIsAdmin, setEditIsAdmin] = useState(false);
     const [editStatus, setEditStatus] = useState<AuthStatus>(AuthStatus.VERIFIED);
 
@@ -55,6 +55,21 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
         }
     }, [users]);
 
+    // Fetch invite codes when switching to Invites tab
+    useEffect(() => {
+        if (activeTab === 'INVITES') {
+            const fetchCodes = async () => {
+                const { data: codes, error } = await supabase
+                    .from('access_codes')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (!error && codes) setInviteCodes(codes);
+            };
+            fetchCodes();
+        }
+    }, [activeTab]);
+
     const fetchUsers = async () => {
         setLoading(true);
         try {
@@ -64,15 +79,7 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
             const { data: subs, error: sError } = await supabase.from('subscriptions').select('*');
             if (sError) throw sError;
 
-            // Fetch codes if needed
-            if (activeTab === 'INVITES') {
-                const { data: codes, error: cError } = await supabase
-                    .from('access_codes')
-                    .select('*, used_by_user:used_by(email)')
-                    .order('created_at', { ascending: false });
-
-                if (!cError && codes) setInviteCodes(codes);
-            }
+            // Note: Invite codes are now fetched in a dedicated useEffect
 
             // Fetch testimonials
             if (activeTab === 'TESTIMONIALS') {
@@ -519,8 +526,9 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
 
                 if (error) throw error;
 
+                // Immediately add to local state for instant display
+                setInviteCodes(prev => [{ code, created_by: currentUser.id, created_at: new Date().toISOString(), is_used: false, used_by_user: null }, ...prev]);
                 setFeedback({ type: 'success', msg: `Code generated: ${code}` });
-                fetchUsers(); // Refresh list
             } catch (error: any) {
                 setFeedback({ type: 'error', msg: error.message });
             }
@@ -579,7 +587,7 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                                             </td>
                                             <td className="px-6 py-4">
                                                 {code.used_by_user ? (
-                                                    <span className="text-white">{code.used_by_user.email}</span>
+                                                    <span className="text-white text-xs font-mono">{code.used_by_user.slice(0, 8)}...</span>
                                                 ) : '-'}
                                             </td>
                                             <td className="px-6 py-4 text-xs">
@@ -941,8 +949,8 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2 mb-2">
                                             <span className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold ${t.status === 'approved' ? 'bg-green-500/20 text-green-400' :
-                                                    t.status === 'rejected' ? 'bg-red-500/20 text-red-400' :
-                                                        'bg-yellow-500/20 text-yellow-400'
+                                                t.status === 'rejected' ? 'bg-red-500/20 text-red-400' :
+                                                    'bg-yellow-500/20 text-yellow-400'
                                                 }`}>
                                                 {t.status}
                                             </span>
