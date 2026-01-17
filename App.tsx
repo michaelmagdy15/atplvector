@@ -752,7 +752,9 @@ const App: React.FC = () => {
                                 <NavButton view={View.SYLLABUS_VIEWER} label="Syllabus" />
                                 <NavButton view={View.FLASHCARDS} label="Flashcards" />
                                 <NavButton view={View.SUBSCRIPTION_MANAGEMENT} label="Plan" />
-
+                                {/* New Buttons */}
+                                <NavButton view={View.STUDY_GUIDE} label="Study Guide" />
+                                <NavButton view={View.QUESTION_BANK} label="Question Bank" />
                                 {user.isAdmin && (
                                     <button
                                         onClick={() => navigateTo(View.ADMIN_DASHBOARD)}
