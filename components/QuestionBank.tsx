@@ -1,314 +1,374 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Check, X, ArrowRight, Loader2, Image as ImageIcon, LayoutGrid, RotateCcw, HelpCircle, ChevronLeft } from 'lucide-react';
-import { Question, View } from '../types';
+import { Loader2, ArrowRight, HelpCircle, ImageIcon, Check, X, RotateCcw, ChevronLeft } from 'lucide-react';
+import { Question, View, QBConfig, SavedTest, TestResult, TopicResult } from '../types';
+import { QB_Dashboard } from './QB_Dashboard';
+import { QB_Setup } from './QB_Setup';
+import { QB_Grid } from './QB_Grid';
+import { QB_Results } from './QB_Results';
+import { QBStorage } from '../lib/qb_storage';
+import syllabusMetadata from '../data/qb_metadata.json'; // Access to titles for results
+
+const metadata = syllabusMetadata as { [key: string]: any[] };
 
 interface QuestionBankProps {
     onChangeView: (view: View) => void;
 }
 
-const subjects = [
-    { id: '010', name: 'Air Law', color: 'red' },
-    { id: '021', name: 'Aircraft General Knowledge', color: 'orange' },
-    { id: '022', name: 'Instrumentation', color: 'amber' },
-    { id: '031', name: 'Mass & Balance', color: 'yellow' },
-    { id: '032', name: 'Performance', color: 'lime' },
-    { id: '033', name: 'Flight Planning', color: 'green' },
-    { id: '040', name: 'Human Performance', color: 'emerald' },
-    { id: '050', name: 'Meteorology', color: 'teal' },
-    { id: '061', name: 'General Navigation', color: 'cyan' },
-    { id: '062', name: 'Radio Navigation', color: 'sky' },
-    { id: '070', name: 'Operational Procedures', color: 'indigo' },
-    { id: '081', name: 'Principles of Flight', color: 'violet' },
-    { id: '090', name: 'Communications', color: 'blue' },
-];
+type QBView = 'DASHBOARD' | 'SETUP' | 'PRACTICE' | 'RESULTS';
 
 const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
-    const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
-    const [questions, setQuestions] = useState<Question[]>([]);
+    const [view, setView] = useState<QBView>('DASHBOARD');
+    const [currentTest, setCurrentTest] = useState<SavedTest | null>(null);
+    const [questions, setQuestions] = useState<Question[]>([]); // Current test questions
     const [loading, setLoading] = useState(false);
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [userAnswer, setUserAnswer] = useState<number | null>(null);
-    const [showExplanation, setShowExplanation] = useState(false);
-    const [quizMode, setQuizMode] = useState<'browse' | 'practice'>('browse');
-    const [score, setScore] = useState(0);
-    const [answeredCount, setAnsweredCount] = useState(0);
+    const [result, setResult] = useState<TestResult | null>(null);
 
+    // Timer
     useEffect(() => {
-        if (selectedSubject) {
-            loadQuestions(selectedSubject);
+        let interval: NodeJS.Timeout;
+        if (view === 'PRACTICE' && currentTest && !currentTest.isCompleted) {
+            interval = setInterval(() => {
+                setCurrentTest(prev => {
+                    if (!prev) return null;
+                    return { ...prev, timeSpent: (prev.timeSpent || 0) + 1 };
+                });
+            }, 1000);
         }
-    }, [selectedSubject]);
+        return () => clearInterval(interval);
+    }, [view, currentTest?.isCompleted]);
 
-    const loadQuestions = async (subjectId: string) => {
+    // Save on unmount or view change
+    useEffect(() => {
+        if (currentTest && !currentTest.isCompleted) {
+            QBStorage.saveTest(currentTest);
+        }
+    }, [currentTest]);
+
+    const handleStartNew = (config: QBConfig) => {
+        initializeTest(config);
+    };
+
+    const handleResume = async (test: SavedTest) => {
         setLoading(true);
+        // Load questions for this test
         try {
-            const response = await fetch(`/question-bank/atpl/${subjectId}.json`);
-            if (!response.ok) throw new Error('Failed to load questions');
-            const data = await response.json();
-            // Shuffle for practice
-            setQuestions(data.sort(() => Math.random() - 0.5));
-            setCurrentIndex(0);
-            setAnsweredCount(0);
-            setScore(0);
-            setQuizMode('practice');
-        } catch (error) {
-            console.error('Error loading questions:', error);
-            alert('Could not load questions for this subject.');
+            // In a real app we'd store question content in DB or fetch by ID.
+            // Here we have to fetch the whole subject file and filter by IDs in SavedTest.
+            const response = await fetch(`/question-bank/atpl/${test.subjectId}.json`);
+            const allQuestions: Question[] = await response.json();
+
+            // Map saved items to full question objects
+            // Preserve order!
+            const testQuestions = test.questionIds.map(id => allQuestions.find(q => q.id === id)).filter(Boolean) as Question[];
+
+            setQuestions(testQuestions);
+            setCurrentTest(test);
+            setView('PRACTICE');
+        } catch (e) {
+            console.error(e);
+            alert("Failed to resume session. Data might be missing.");
         } finally {
             setLoading(false);
         }
     };
 
-    const handleAnswer = (idx: number) => {
-        if (userAnswer !== null) return;
-        setUserAnswer(idx);
-        setShowExplanation(true);
-        setAnsweredCount(prev => prev + 1);
-        if (idx === questions[currentIndex].correctAnswer) {
-            setScore(prev => prev + 1);
+    const initializeTest = async (config: QBConfig) => {
+        setLoading(true);
+        try {
+            const response = await fetch(`/question-bank/atpl/${config.subjectId}.json`);
+            if (!response.ok) throw new Error("Failed to load subject");
+
+            let allQuestions: Question[] = await response.json();
+
+            // Filter
+            if (config.topics.length > 0) {
+                // Check if question LO starts with any selected topic ID (e.g. 090.01)
+                // Question LOs are like "090.01.01.01.01"
+                allQuestions = allQuestions.filter(q =>
+                    q.learningObjectives.some(lo =>
+                        config.topics.some(topicId => lo.startsWith(topicId))
+                    )
+                );
+            }
+            // Todo: Implement other filters like 'unseen' logic using stats history if available
+
+            // Shuffle
+            allQuestions = allQuestions.sort(() => Math.random() - 0.5);
+
+            // Slice
+            const selectedQuestions = allQuestions.slice(0, config.count);
+
+            // Create SavedTest
+            const newTest: SavedTest = {
+                id: crypto.randomUUID(),
+                name: `${config.mode === 'exam' ? 'Exam' : 'Study'} - ${new Date().toLocaleDateString()}`,
+                subjectId: config.subjectId,
+                mode: config.mode,
+                questionIds: selectedQuestions.map(q => q.id),
+                userAnswers: new Array(selectedQuestions.length).fill(null),
+                userStatuses: new Array(selectedQuestions.length).fill('unseen'),
+                currentIndex: 0,
+                score: 0,
+                timeSpent: 0,
+                createdAt: new Date().toISOString(),
+                lastResumedAt: new Date().toISOString(),
+                isCompleted: false
+            };
+
+            setQuestions(selectedQuestions);
+            setCurrentTest(newTest);
+            setView('PRACTICE');
+            QBStorage.saveTest(newTest);
+
+        } catch (error) {
+            console.error(error);
+            alert("Error initializing test.");
+        } finally {
+            setLoading(false);
         }
     };
 
-    const nextQuestion = () => {
-        setUserAnswer(null);
-        setShowExplanation(false);
-        if (currentIndex < questions.length - 1) {
-            setCurrentIndex(prev => prev + 1);
-        } else {
-            setQuizMode('browse');
-            setSelectedSubject(null);
-        }
+    const handleAnswer = (optionIndex: number) => {
+        if (!currentTest || !questions[currentTest.currentIndex]) return;
+
+        const currentQ = questions[currentTest.currentIndex];
+        const isCorrect = optionIndex === currentQ.correctAnswer;
+
+        // Update state
+        const newAnswers = [...currentTest.userAnswers];
+        const newStatuses = [...currentTest.userStatuses];
+
+        // If already answered, don't change in exam mode maybe? But usually allow changing.
+        // For now, let's allow changing answer if not completed, but in 'Study' mode showing explanation might lock it?
+        // Let's assume one-shot for simplicity or until reset.
+
+        if (newAnswers[currentTest.currentIndex] !== null) return; // Prevent changing for now
+
+        newAnswers[currentTest.currentIndex] = optionIndex;
+        newStatuses[currentTest.currentIndex] = isCorrect ? 'correct' : 'incorrect';
+
+        const newScore = isCorrect ? currentTest.score + 1 : currentTest.score;
+
+        setCurrentTest({
+            ...currentTest,
+            userAnswers: newAnswers,
+            userStatuses: newStatuses,
+            score: newScore
+        });
     };
 
-    const resetQuiz = () => {
-        setCurrentIndex(0);
-        setUserAnswer(null);
-        setShowExplanation(false);
-        setScore(0);
-        setAnsweredCount(0);
-    };
+    const handleFinish = () => {
+        if (!currentTest) return;
 
-    const getColorStyles = (color: string) => {
-        const styles: Record<string, string> = {
-            red: 'from-red-500 to-rose-600',
-            orange: 'from-orange-500 to-amber-600',
-            amber: 'from-amber-400 to-orange-500',
-            yellow: 'from-yellow-400 to-orange-500',
-            lime: 'from-lime-400 to-green-500',
-            green: 'from-green-500 to-emerald-600',
-            emerald: 'from-emerald-500 to-teal-600',
-            teal: 'from-teal-400 to-cyan-500',
-            cyan: 'from-cyan-400 to-sky-500',
-            sky: 'from-sky-400 to-blue-500',
-            blue: 'from-blue-500 to-indigo-600',
-            indigo: 'from-indigo-500 to-violet-600',
-            violet: 'from-violet-500 to-purple-600',
-            purple: 'from-purple-500 to-fuchsia-600',
-            pink: 'from-pink-500 to-rose-600',
+        // Prepare results
+        const topicMap = new Map<string, { total: number, correct: number, title: string }>();
+
+        questions.forEach((q, idx) => {
+            const isCorrect = currentTest.userStatuses[idx] === 'correct';
+            // Use first LO as primary topic
+            // Find the robust topic ID (e.g. 090.01) from metadata if possible
+            const lo = q.learningObjectives[0] || 'Unknown';
+            // Try to find matching topic in metadata (e.g. first 3 parts 090.01.01)
+            let topicId = lo.split('.').slice(0, 3).join('.');
+            // Fallback to 2 parts if not found or if syllabus is simpler
+            let topicMeta = metadata[currentTest.subjectId]?.find(t => t.id === topicId);
+            if (!topicMeta) {
+                topicId = lo.split('.').slice(0, 2).join('.');
+                topicMeta = metadata[currentTest.subjectId]?.find(t => t.id === topicId);
+            }
+
+            const title = topicMeta?.title || topicId;
+
+            if (!topicMap.has(topicId)) {
+                topicMap.set(topicId, { total: 0, correct: 0, title });
+            }
+            const entry = topicMap.get(topicId)!;
+            entry.total++;
+            if (isCorrect) entry.correct++;
+        });
+
+        const topicBreakdown: TopicResult[] = Array.from(topicMap.entries()).map(([id, data]) => ({
+            topicId: id,
+            title: data.title,
+            total: data.total,
+            correct: data.correct
+        }));
+
+        const result: TestResult = {
+            testId: currentTest.id,
+            score: currentTest.score,
+            totalQuestions: currentTest.questionIds.length,
+            timeSpent: currentTest.timeSpent,
+            topicBreakdown,
+            areasForImprovement: []
         };
-        return styles[color] || styles['blue'];
+
+        // Update Stats
+        QBStorage.updateStats({
+            score: (result.score / result.totalQuestions) * 100,
+            type: currentTest.mode,
+            seenCount: result.totalQuestions
+        });
+
+        // Mark complete
+        const completedTest = { ...currentTest, isCompleted: true };
+        QBStorage.saveTest(completedTest);
+        // Maybe move to 'archived' storage later to keep 'Saved' list clean? 
+        // For now, saveTest keeps it and we can filter completed ones in dashboard if we want, 
+        // but user asked for "resume", so maybe we delete completed ones from "resume" list or move to history.
+        // I'll keep it simple: Finished tests are removed from "Resume" list in Dashboard (I should update getSavedTests logic or filter there).
+        // Actually, let's just delete it from saved list as it's done. History is in stats.
+        QBStorage.deleteTest(currentTest.id);
+
+        setResult(result);
+        setView('RESULTS');
     };
 
-    if (quizMode === 'browse') {
-        return (
-            <div className="p-8 max-w-7xl mx-auto animate-in fade-in duration-700">
-                <div className="mb-10">
-                    <h1 className="text-4xl font-black text-white mb-2 tracking-tight">Question Bank</h1>
-                    <p className="text-slate-400">Master the syllabus with over 15,000 official ATPL questions. Choose a subject to begin.</p>
-                </div>
+    if (view === 'DASHBOARD') {
+        return <QB_Dashboard onStartNew={() => setView('SETUP')} onResume={handleResume} />;
+    }
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {subjects.map(subject => (
-                        <div
-                            key={subject.id}
-                            onClick={() => setSelectedSubject(subject.id)}
-                            className="group relative glass-card rounded-2xl p-1 overflow-hidden transition-all duration-300 hover:scale-[1.02] cursor-pointer"
-                        >
-                            <div className="bg-slate-900/40 rounded-xl p-6 relative overflow-hidden flex flex-col min-h-[140px]">
-                                <div className={`absolute -top-12 -right-12 w-32 h-32 bg-gradient-to-br ${getColorStyles(subject.color)} rounded-full blur-[40px] opacity-10 group-hover:opacity-20 transition-opacity`}></div>
-                                <div className="flex items-center justify-between mb-4">
-                                    <div className={`p-2 rounded-lg bg-gradient-to-br ${getColorStyles(subject.color)} opacity-80 shadow-lg`}>
-                                        <BookOpen size={20} className="text-white" />
-                                    </div>
-                                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Subject {subject.id}</span>
-                                </div>
-                                <h3 className="text-lg font-bold text-white group-hover:text-blue-300 transition-colors">{subject.name}</h3>
-                                <div className="mt-auto flex items-center text-xs font-bold text-slate-500 group-hover:text-white transition-colors">
-                                    <span>Start Practice</span>
-                                    <ArrowRight className="ml-auto w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
-                                </div>
+    if (view === 'SETUP') {
+        return <QB_Setup onStart={handleStartNew} onCancel={() => setView('DASHBOARD')} />;
+    }
+
+    if (view === 'RESULTS' && result) {
+        return <QB_Results result={result} onHome={() => setView('DASHBOARD')} />;
+    }
+
+    if (view === 'PRACTICE' && currentTest) {
+        const currentQ = questions[currentTest.currentIndex];
+
+        return (
+            <div className="flex h-screen bg-slate-950 pt-20 pb-4 overflow-hidden animate-in fade-in duration-500">
+                {/* Main Question Area */}
+                <div className="flex-1 overflow-y-auto px-4 lg:px-8 pb-20 custom-scrollbar">
+                    <div className="max-w-4xl mx-auto py-8">
+                        {/* Header */}
+                        <div className="flex items-center gap-4 mb-6">
+                            <button onClick={() => { QBStorage.saveTest(currentTest); setView('DASHBOARD'); }} className="p-2 hover:bg-white/5 rounded-lg text-slate-400">
+                                <ChevronLeft />
+                            </button>
+                            <div>
+                                <h2 className="text-xl font-bold text-white mb-1">Question {currentTest.currentIndex + 1}</h2>
+                                <div className="text-xs text-slate-500 font-mono uppercase">ID: {currentQ?.id}</div>
                             </div>
                         </div>
-                    ))}
+
+                        {loading ? (
+                            <div className="flex justify-center py-20"><Loader2 className="animate-spin text-blue-500" /></div>
+                        ) : currentQ ? (
+                            <div className="space-y-6">
+                                {/* Question Content */}
+                                <div className="glass-card rounded-3xl p-8 relative shadow-2xl">
+                                    {currentQ.annexes && currentQ.annexes.length > 0 && (
+                                        <div className="mb-8 rounded-2xl overflow-hidden border border-white/5 bg-black/40 p-3">
+                                            {currentQ.annexes.map(annexFile => (
+                                                <img
+                                                    key={annexFile}
+                                                    src={`/question-bank/atpl/images/${annexFile}`}
+                                                    alt="Annex"
+                                                    className="max-w-full h-auto mx-auto rounded-xl"
+                                                />
+                                            ))}
+                                        </div>
+                                    )}
+                                    <h2 className="text-xl md:text-2xl font-bold text-white leading-relaxed mb-10">
+                                        {currentQ.question}
+                                    </h2>
+                                    <div className="grid grid-cols-1 gap-4">
+                                        {currentQ.options.map((opt, idx) => {
+                                            const answered = currentTest.userAnswers[currentTest.currentIndex] !== null;
+                                            const selected = currentTest.userAnswers[currentTest.currentIndex] === idx;
+                                            const isCorrect = idx === currentQ.correctAnswer;
+
+                                            // Styles
+                                            let style = "border-white/5 bg-white/5 hover:bg-white/10 text-slate-300";
+                                            if (answered) {
+                                                if (isCorrect) style = "border-green-500/50 bg-green-500/10 text-green-400";
+                                                else if (selected) style = "border-red-500/50 bg-red-500/10 text-red-400";
+                                                else style = "border-white/5 bg-white/5 opacity-50";
+                                            }
+
+                                            return (
+                                                <button
+                                                    key={idx}
+                                                    disabled={answered}
+                                                    onClick={() => handleAnswer(idx)}
+                                                    className={`w-full text-left p-6 rounded-2xl border-2 transition-all flex items-start gap-4 ${style}`}
+                                                >
+                                                    <div className={`mt-0.5 w-6 h-6 rounded border flex items-center justify-center text-xs font-bold
+                                                        ${answered && isCorrect ? 'bg-green-500 border-green-500 text-white' :
+                                                            answered && selected ? 'bg-red-500 border-red-500 text-white' : 'border-slate-600'}
+                                                     `}>
+                                                        {String.fromCharCode(65 + idx)}
+                                                    </div>
+                                                    <span className="flex-1">{opt}</span>
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+
+                                {/* Explanation - Show immediately in Study mode if answered */}
+                                {currentTest.mode === 'study' && currentTest.userAnswers[currentTest.currentIndex] !== null && (
+                                    <div className="glass-panel p-8 rounded-3xl border-l-4 border-blue-500 animate-in slide-in-from-bottom-2 fade-in">
+                                        <div className="flex items-center gap-2 mb-4 text-blue-400">
+                                            <HelpCircle size={20} />
+                                            <span className="font-bold uppercase tracking-wider text-sm">Explanation</span>
+                                        </div>
+                                        <p className="text-slate-300 leading-relaxed">
+                                            {currentQ.explanation || "No explanation provided."}
+                                        </p>
+                                        <div className="flex flex-wrap gap-2 mt-4">
+                                            {currentQ.learningObjectives.map(lo => (
+                                                <span key={lo} className="text-[10px] font-bold px-2 py-1 rounded bg-slate-800 text-slate-500">
+                                                    LO {lo}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Navigation Footer */}
+                                <div className="flex justify-between items-center pt-8">
+                                    <button
+                                        onClick={() => setCurrentTest({ ...currentTest, currentIndex: Math.max(0, currentTest.currentIndex - 1) })}
+                                        disabled={currentTest.currentIndex === 0}
+                                        className="px-6 py-3 rounded-xl bg-slate-800 text-slate-400 hover:text-white disabled:opacity-50"
+                                    >
+                                        Previous
+                                    </button>
+                                    <button
+                                        onClick={() => setCurrentTest({ ...currentTest, currentIndex: Math.min(questions.length - 1, currentTest.currentIndex + 1) })}
+                                        disabled={currentTest.currentIndex === questions.length - 1}
+                                        className="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold shadow-lg disabled:opacity-50 disabled:bg-slate-800"
+                                    >
+                                        Next Question
+                                    </button>
+                                </div>
+                            </div>
+                        ) : null}
+                    </div>
+                </div>
+
+                {/* Right Sidebar - Grid */}
+                <div className="w-80 border-l border-white/10 bg-slate-900/50 p-4 hidden lg:block">
+                    <QB_Grid
+                        total={questions.length}
+                        current={currentTest.currentIndex}
+                        statuses={currentTest.userStatuses}
+                        onNavigate={(i) => setCurrentTest({ ...currentTest, currentIndex: i })}
+                        onSave={() => { QBStorage.saveTest(currentTest); setView('DASHBOARD'); }}
+                        onFinish={handleFinish}
+                        timeLeft={currentTest.mode === 'exam' ? (90 * 60) - currentTest.timeSpent : undefined}
+                    />
                 </div>
             </div>
         );
     }
 
-    const currentQuestion = questions[currentIndex];
-
-    return (
-        <div className="p-4 md:p-8 max-w-4xl mx-auto min-h-screen pb-24 animate-in slide-in-from-right-4 duration-500">
-            {/* Header */}
-            <div className="flex items-center justify-between mb-8 glass-panel p-4 rounded-2xl">
-                <div className="flex items-center space-x-4">
-                    <button
-                        onClick={() => setQuizMode('browse')}
-                        className="flex items-center text-slate-400 hover:text-white transition-colors font-bold text-sm"
-                    >
-                        <ChevronLeft size={18} className="mr-1" /> Back
-                    </button>
-                    <div className="h-4 w-px bg-white/10"></div>
-                    <span className="text-white font-bold text-sm hidden md:block">
-                        {subjects.find(s => s.id === selectedSubject)?.name}
-                    </span>
-                </div>
-                <div className="flex items-center space-x-6">
-                    <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-full">
-                        Question {currentIndex + 1} of {questions.length}
-                    </div>
-                    <div className="text-sm font-black text-green-400">
-                        {score} / {answeredCount}
-                    </div>
-                </div>
-            </div>
-
-            {loading ? (
-                <div className="flex flex-col items-center justify-center py-24">
-                    <Loader2 className="w-12 h-12 text-blue-500 animate-spin mb-4" />
-                    <p className="text-slate-400 animate-pulse font-medium">Downloading question database...</p>
-                </div>
-            ) : currentQuestion ? (
-                <div className="space-y-6">
-                    {/* Question Card */}
-                    <div className="glass-card rounded-3xl p-8 relative overflow-hidden shadow-2xl">
-                        {/* Annexes Container */}
-                        {currentQuestion.annexes && currentQuestion.annexes.length > 0 && (
-                            <div className="mb-8 rounded-2xl overflow-hidden border border-white/5 bg-black/40 p-3 shadow-inner">
-                                {currentQuestion.annexes.map(annexFile => (
-                                    <img
-                                        key={annexFile}
-                                        src={`/question-bank/atpl/images/${annexFile}`}
-                                        alt="Question Annex"
-                                        className="max-w-full h-auto mx-auto rounded-xl"
-                                    />
-                                ))}
-                                <div className="mt-3 text-center text-[10px] text-slate-500 font-bold uppercase tracking-widest flex items-center justify-center gap-2">
-                                    <ImageIcon size={12} /> Figure Attached
-                                </div>
-                            </div>
-                        )}
-
-                        <h2 className="text-xl md:text-2xl font-bold text-white leading-relaxed mb-10">
-                            {currentQuestion.question}
-                        </h2>
-
-                        <div className="grid grid-cols-1 gap-4">
-                            {currentQuestion.options.map((opt, idx) => {
-                                let statusClass = "border-white/5 bg-white/5 hover:border-blue-500/50 hover:bg-blue-500/5 text-slate-300";
-                                if (userAnswer !== null) {
-                                    if (idx === currentQuestion.correctAnswer) {
-                                        statusClass = "border-green-500/50 bg-green-500/10 text-green-400";
-                                    } else if (idx === userAnswer) {
-                                        statusClass = "border-red-500/50 bg-red-500/10 text-red-400";
-                                    } else {
-                                        statusClass = "border-white/5 bg-white/5 opacity-40 text-slate-500 scale-[0.98]";
-                                    }
-                                }
-
-                                return (
-                                    <button
-                                        key={idx}
-                                        disabled={userAnswer !== null}
-                                        onClick={() => handleAnswer(idx)}
-                                        className={`w-full text-left p-6 rounded-2xl border-2 transition-all duration-300 flex items-start gap-5 ${statusClass}`}
-                                    >
-                                        <div className={`mt-0.5 w-8 h-8 rounded-xl border-2 flex items-center justify-center flex-shrink-0 text-sm font-black transition-colors
-                      ${userAnswer !== null && idx === currentQuestion.correctAnswer ? 'bg-green-500 border-green-500 text-white shadow-lg shadow-green-500/20' :
-                                                userAnswer !== null && idx === userAnswer ? 'bg-red-500 border-red-500 text-white shadow-lg shadow-red-500/20' : 'border-slate-700 text-slate-500'}
-                    `}>
-                                            {String.fromCharCode(65 + idx)}
-                                        </div>
-                                        <span className="flex-1 text-sm md:text-base font-medium leading-relaxed">{opt}</span>
-                                        {userAnswer !== null && idx === currentQuestion.correctAnswer && (
-                                            <div className="p-1 bg-green-500 rounded-full">
-                                                <Check className="w-4 h-4 text-white" />
-                                            </div>
-                                        )}
-                                        {userAnswer !== null && idx === userAnswer && idx !== currentQuestion.correctAnswer && (
-                                            <div className="p-1 bg-red-500 rounded-full">
-                                                <X className="w-4 h-4 text-white" />
-                                            </div>
-                                        )}
-                                    </button>
-                                )
-                            })}
-                        </div>
-                    </div>
-
-                    {/* Explanation Area */}
-                    {showExplanation && (
-                        <div className="animate-in slide-in-from-bottom-6 fade-in duration-700">
-                            <div className="glass-card rounded-3xl p-8 border-blue-500/30 bg-blue-500/5 relative overflow-hidden">
-                                <div className="absolute top-0 right-0 p-8 opacity-5">
-                                    <HelpCircle size={120} className="text-blue-400" />
-                                </div>
-
-                                <div className="relative z-10">
-                                    <div className="flex items-center space-x-3 mb-6 text-blue-400">
-                                        <HelpCircle className="w-6 h-6" />
-                                        <h3 className="text-lg font-black uppercase tracking-tighter">Instructor Notes</h3>
-                                    </div>
-
-                                    <div className="text-slate-300 leading-relaxed text-base md:text-lg mb-10">
-                                        {currentQuestion.explanation || "No complex theory for this one. The answer is straightforward as per the learning objectives."}
-                                    </div>
-
-                                    <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-8 border-t border-white/10">
-                                        <div className="flex flex-wrap gap-2">
-                                            {currentQuestion.learningObjectives.map(lo => (
-                                                <span key={lo} className="text-[10px] font-bold px-3 py-1 rounded-full bg-slate-800 text-slate-400 border border-white/5">
-                                                    LO {lo}
-                                                </span>
-                                            ))}
-                                        </div>
-                                        <button
-                                            onClick={nextQuestion}
-                                            className="w-full md:w-auto px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-blue-500/25 flex items-center justify-center transition-all hover:scale-105 active:scale-95"
-                                        >
-                                            Next Briefing <ArrowRight className="w-5 h-5 ml-3" />
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            ) : null}
-
-            {/* Control Bar - HUD style */}
-            <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
-                <div className="flex items-center gap-2 p-1.5 bg-slate-900/80 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl">
-                    <button
-                        onClick={resetQuiz}
-                        className="p-3 text-slate-400 hover:text-white transition-all hover:bg-white/5 rounded-xl"
-                        title="Reset Practice"
-                    >
-                        <RotateCcw size={20} />
-                    </button>
-                    <div className="w-px h-6 bg-white/10 mx-1"></div>
-                    <button
-                        onClick={() => setQuizMode('browse')}
-                        className="px-5 py-3 text-slate-400 hover:text-white transition-all hover:bg-white/5 rounded-xl flex items-center gap-2 font-bold text-xs uppercase tracking-wider"
-                        title="Change Subject"
-                    >
-                        <LayoutGrid size={18} />
-                        <span>Subjects</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
+    return <div className="p-20 text-center"><Loader2 className="animate-spin mx-auto" /></div>;
 };
 
 export default QuestionBank;
