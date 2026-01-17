@@ -21,7 +21,7 @@ const PrioritySorter: React.FC = () => {
         const newItems = [...items];
         const target = idx + direction;
         if (target < 0 || target >= newItems.length) return;
-        
+
         [newItems[idx], newItems[target]] = [newItems[target], newItems[idx]];
         setItems(newItems);
     };
@@ -40,7 +40,7 @@ const PrioritySorter: React.FC = () => {
 
     return (
         <div className="max-w-xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-slate-200 text-slate-900">
-             <div className="flex items-center space-x-3 mb-6">
+            <div className="flex items-center space-x-3 mb-6">
                 <ListOrdered className="w-6 h-6 text-sky-600" />
                 <h2 className="text-2xl font-bold text-slate-800">Message Priority</h2>
             </div>
@@ -54,8 +54,8 @@ const PrioritySorter: React.FC = () => {
                             <button onClick={() => move(idx, 1)} disabled={idx === items.length - 1 || checked} className="p-1 bg-slate-100 rounded hover:bg-slate-200 disabled:opacity-30 text-slate-600">▼</button>
                         </div>
                         <div className={`flex-1 p-4 rounded-lg border-2 font-bold flex justify-between items-center transition-all
-                            ${checked 
-                                ? (item.rank === idx + 1 ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-500 bg-red-50 text-red-700') 
+                            ${checked
+                                ? (item.rank === idx + 1 ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-500 bg-red-50 text-red-700')
                                 : 'border-slate-200 bg-white text-slate-700'}
                         `}>
                             <span>{item.name}</span>
@@ -66,20 +66,20 @@ const PrioritySorter: React.FC = () => {
             </div>
 
             <div className="flex justify-between items-center">
-                 {!checked ? (
-                     <button onClick={check} className="w-full py-3 bg-sky-600 text-white rounded-lg font-bold hover:bg-sky-500 transition">
-                         Check Order
-                     </button>
-                 ) : (
-                     <div className="w-full flex items-center justify-between">
-                         <div className={`font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'} flex items-center`}>
-                            {isCorrect ? <><CheckCircle className="mr-2"/> Correct Priority!</> : "Incorrect Order"}
-                         </div>
-                         <button onClick={reset} className="px-6 py-2 bg-slate-800 text-white rounded-lg font-bold hover:bg-slate-700">
-                             Try Again
-                         </button>
-                     </div>
-                 )}
+                {!checked ? (
+                    <button onClick={check} className="w-full py-3 bg-sky-600 text-white rounded-lg font-bold hover:bg-sky-500 transition">
+                        Check Order
+                    </button>
+                ) : (
+                    <div className="w-full flex items-center justify-between">
+                        <div className={`font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'} flex items-center`}>
+                            {isCorrect ? <><CheckCircle className="mr-2" /> Correct Priority!</> : "Incorrect Order"}
+                        </div>
+                        <button onClick={reset} className="px-6 py-2 bg-slate-800 text-white rounded-lg font-bold hover:bg-slate-700">
+                            Try Again
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );

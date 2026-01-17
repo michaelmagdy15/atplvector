@@ -114,6 +114,7 @@ import HPLLearning from './components/HPL/HPLLearning';
 import HPLPersonality from './components/HPL/HPLPersonality';
 import HPLAtmosphere from './components/HPL/HPLAtmosphere';
 import HPLIncidents from './components/HPL/HPLIncidents';
+import HPLIncapacitation from './components/HPL/HPLIncapacitation';
 
 import AtmosphereLayers from './components/Meteorology/AtmosphereLayers';
 import Altimetry from './components/Meteorology/Altimetry';
@@ -162,9 +163,17 @@ import WordMatch from './components/WordMatch';
 import PhoneticTrainer from './components/PhoneticTrainer';
 import AltSpeak from './components/AltSpeak';
 import TimeReport from './components/TimeReport';
-import ReadabilitySim from './components/ReadabilitySim';
+import ReadabilitySim from './components/Comms/ReadabilitySim';
 import FlightRules from './components/FlightRules';
-import PrioritySorter from './components/PrioritySorter';
+import PrioritySorter from './components/Comms/PrioritySorter';
+import CallsignTrainer from './components/Comms/CallsignTrainer';
+import TransmissionDrill from './components/Comms/TransmissionDrill';
+import CommsDefinitions from './components/Comms/CommsDefinitions';
+import QCodeCards from './components/Comms/QCodeCards';
+import UrgencyTrainer from './components/Comms/UrgencyTrainer';
+import LevelChanges from './components/Comms/LevelChanges';
+import AbbreviationGame from './components/Comms/AbbreviationGame';
+import CPDLCSim from './components/Comms/CPDLCSim';
 import ReadbackChallenge from './components/ReadbackChallenge';
 import MetarDecoder from './components/MetarDecoder';
 import VolmetSimulator from './components/Comms/VolmetSimulator';
@@ -209,9 +218,15 @@ import SurfaceLighting from './components/SurfaceLighting';
 import TaxiwayLighting from './components/TaxiwayLighting';
 import RunwayQuiz from './components/RunwayQuiz';
 import SnowtamDecoder from './components/SnowtamDecoder';
+import SigmetDecoder from './components/Comms/SigmetDecoder';
 import WakeTurbulence from './components/WakeTurbulence';
 import ServiceCodes from './components/ServiceCodes';
 import InterceptTrainer from './components/InterceptTrainer';
+import LongRangeOps from './components/LongRangeOps';
+import SpecialOpsDashboard from './components/SpecialOpsDashboard';
+import FTLCalculator from './components/FTLCalculator';
+import AllWeatherOps from './components/AllWeatherOps';
+import OpsGeneral from './components/OpsGeneral';
 
 import GenericSubjectDashboard from './components/GenericSubjectDashboard';
 import KSADashboard from './components/KSA/KSADashboard';
@@ -233,6 +248,11 @@ const App: React.FC = () => {
     const [authInitialView, setAuthInitialView] = useState<'LOGIN' | 'SIGNUP' | 'RESET_PASSWORD'>('LOGIN');
     const [isLoading, setIsLoading] = useState(true);
 
+    // Pending/Invite State
+    const [pendingInviteCode, setPendingInviteCode] = useState('');
+    const [isSubmittingCode, setIsSubmittingCode] = useState(false);
+    const [codeError, setCodeError] = useState('');
+
     // Clean URL hash after Supabase redirect
     useEffect(() => {
         if (window.location.hash && window.location.hash.includes('access_token')) {
@@ -245,7 +265,7 @@ const App: React.FC = () => {
         // 1. Check for active session
         supabase.auth.getSession().then(({ data: { session } }) => {
             if (session) {
-                fetchUserProfile(session.user.id, session.user.email!);
+                fetchUserProfile(session.user.id, session.user.email!, session.user.user_metadata);
             } else {
                 setIsLoading(false);
             }
@@ -255,12 +275,12 @@ const App: React.FC = () => {
         const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
             if (event === 'PASSWORD_RECOVERY') {
                 if (session) {
-                    fetchUserProfile(session.user.id, session.user.email!).then(() => {
+                    fetchUserProfile(session.user.id, session.user.email!, session.user.user_metadata).then(() => {
                         setCurrentView(View.ACCOUNT_SETTINGS);
                     });
                 }
             } else if (session) {
-                fetchUserProfile(session.user.id, session.user.email!);
+                fetchUserProfile(session.user.id, session.user.email!, session.user.user_metadata);
             } else {
                 setUser(null);
                 setCurrentView(View.PLATFORM_DASHBOARD);
@@ -270,11 +290,11 @@ const App: React.FC = () => {
         return () => subscription.unsubscribe();
     }, []);
 
-    const fetchUserProfile = async (uid: string, email: string) => {
+    const fetchUserProfile = async (uid: string, email: string, metadata: any = {}) => {
         try {
             // Trial configuration
             const TRIAL_DURATION_DAYS = 7;
-            const TRIAL_SUBJECTS = ['090', '040']; // Communications and Human Performance
+            const TRIAL_SUBJECTS = ['090']; // Communications only for free/trial users
 
             // Try to get profile
             let { data: profile, error } = await supabase
@@ -287,16 +307,20 @@ const App: React.FC = () => {
             if (error && (error.code === 'PGRST116' || error.message.includes('0 rows'))) {
                 console.log("Profile missing, creating new profile with trial access...");
                 const trialStartDate = new Date().toISOString();
+
+                // Determine initial approval status from metadata
+                const isApproved = metadata?.initial_status === 'PENDING_APPROVAL' ? false : true;
+
                 const { data: newProfile, error: createError } = await supabase
                     .from('profiles')
                     .insert([{
                         id: uid,
                         email: email,
-                        full_name: 'Pilot',
+                        full_name: metadata?.full_name || 'Pilot',
                         study_seconds: 0,
                         trial_start_date: trialStartDate,
                         trial_subjects: TRIAL_SUBJECTS,
-                        is_approved: true // Auto-approve for trial
+                        is_approved: isApproved
                     }])
                     .select()
                     .single();
@@ -317,7 +341,7 @@ const App: React.FC = () => {
                 .single();
 
             let subTier: any = 'CUSTOM';
-            let allowedSubjects: string[] = [];
+            let allowedSubjects: string[] = ['090']; // Default to 090 (Comms) always allowed
             let status: AuthStatus = AuthStatus.VERIFIED;
 
             // Check subscription status first
@@ -443,6 +467,14 @@ const App: React.FC = () => {
         setUser(updatedUser);
     };
 
+    // Helper to check subject access
+    const isSubjectAllowed = (code: string) => {
+        if (!user) return false;
+        if (user.isAdmin) return true;
+        if (user.allowedSubjects?.includes('ALL')) return true;
+        return user.allowedSubjects?.includes(code);
+    };
+
     if (isLoading) {
         return <LoadingScreen />;
     }
@@ -453,26 +485,98 @@ const App: React.FC = () => {
 
     // Show pending approval screen for unapproved users
     if (user.status === AuthStatus.PENDING_APPROVAL) {
+        const handleSubmitInviteCode = async () => {
+            if (!pendingInviteCode.trim()) return;
+            setIsSubmittingCode(true);
+            setCodeError('');
+
+            try {
+                // Verify code
+                const { data: codeData, error: codeError } = await supabase
+                    .from('access_codes')
+                    .select('*')
+                    .eq('code', pendingInviteCode.trim().toUpperCase())
+                    .eq('is_used', false)
+                    .single();
+
+                if (codeError || !codeData) throw new Error("Invalid or expired code.");
+
+                // Mark code used
+                await supabase.from('access_codes').update({
+                    is_used: true,
+                    used_by_user: user.id,
+                    used_at: new Date().toISOString()
+                }).eq('id', codeData.id);
+
+                // Approve user AND reset trial start date so they get full 7 days from approval
+                const { error: updateError } = await supabase
+                    .from('profiles')
+                    .update({
+                        is_approved: true,
+                        trial_start_date: new Date().toISOString()
+                    })
+                    .eq('id', user.id);
+
+                if (updateError) throw updateError;
+
+                // Refresh profile
+                await fetchUserProfile(user.id, user.email || '');
+
+            } catch (err: any) {
+                setCodeError(err.message || "Failed to verify code.");
+            } finally {
+                setIsSubmittingCode(false);
+            }
+        };
+
         return (
             <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6">
-                <div className="max-w-md w-full bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 text-center shadow-2xl">
-                    <div className="w-16 h-16 bg-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="max-w-md w-full bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 text-center shadow-2xl relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-500 to-orange-500"></div>
+
+                    <div className="w-16 h-16 bg-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-6 ring-4 ring-amber-500/10">
                         <svg className="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
-                    <h1 className="text-2xl font-bold text-white mb-3">Account Pending Approval</h1>
+
+                    <h1 className="text-2xl font-bold text-white mb-3">Waitlist / Approval</h1>
                     <p className="text-slate-400 mb-6">
-                        Thank you for signing up, <span className="text-white font-medium">{user.fullName || user.email}</span>!
-                        Your account is currently awaiting admin approval. You'll receive access once approved.
+                        Hi <span className="text-white font-medium">{user.fullName || user.email}</span>, your account is awaiting admin approval.
                     </p>
-                    <div className="bg-slate-800/50 rounded-xl p-4 mb-6 border border-slate-700">
-                        <p className="text-sm text-slate-500">Need help? Contact us at:</p>
-                        <a href="mailto:support@atplvector.com" className="text-blue-400 hover:text-blue-300 font-medium">support@atplvector.com</a>
+
+                    {/* Invite Code Section */}
+                    <div className="bg-slate-800/80 rounded-xl p-5 mb-6 border border-slate-700">
+                        <h3 className="text-sm font-bold text-slate-300 uppercase mb-3 flex items-center justify-center gap-2">
+                            Skip the queue
+                        </h3>
+                        <div className="flex gap-2">
+                            <input
+                                type="text"
+                                value={pendingInviteCode}
+                                onChange={e => setPendingInviteCode(e.target.value.toUpperCase())}
+                                placeholder="ENTER-CODE"
+                                className="flex-1 bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-white font-mono text-center uppercase tracking-widest focus:border-blue-500 outline-none"
+                            />
+                            <button
+                                onClick={handleSubmitInviteCode}
+                                disabled={isSubmittingCode || !pendingInviteCode}
+                                className="bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white px-4 py-2 rounded-lg font-bold"
+                            >
+                                {isSubmittingCode ? '...' : 'Go'}
+                            </button>
+                        </div>
+                        {codeError && <p className="text-red-400 text-xs mt-2 font-medium">{codeError}</p>}
                     </div>
+
+                    <div className="bg-slate-800/50 rounded-xl p-4 mb-6 border border-slate-700/50">
+                        <p className="text-sm text-slate-500">Need help? Contact</p>
+                        <a href="mailto:support@atplvector.com" className="text-blue-400 hover:text-blue-300 font-medium text-sm">support@atplvector.com</a>
+                    </div>
+
                     <button
                         onClick={handleLogout}
-                        className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-medium transition-colors border border-slate-600"
+                        className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-medium transition-colors border border-slate-600 hover:text-white"
                     >
                         Sign Out
                     </button>
@@ -698,12 +802,15 @@ const App: React.FC = () => {
                                 <AdminDashboard currentUser={user} onBack={() => setCurrentView(View.PLATFORM_DASHBOARD)} />
                             )}
                             {currentView === View.STUDY_GUIDE && (
-                                <StudyGuide onBack={() => setCurrentView(View.PLATFORM_DASHBOARD)} />
+                                <StudyGuide
+                                    onBack={() => setCurrentView(View.PLATFORM_DASHBOARD)}
+                                    onChangeView={setCurrentView}
+                                />
                             )}
 
                             {/* --- SUBJECT MODULES --- */}
                             {/* Air Law */}
-                            {currentView === View.AIR_LAW_HOME && <AirLawDashboard onChangeView={setCurrentView} />}
+                            {currentView === View.AIR_LAW_HOME && <AirLawDashboard onChangeView={setCurrentView} isLocked={!isSubjectAllowed('010')} />}
                             {currentView === View.AIR_LAW_INT_LAW && <InternationalLaw />}
                             {currentView === View.AIR_LAW_ORG && <AviationOrganisations />}
                             {currentView === View.AIR_LAW_LIABILITY && <LiabilityAndRights />}
@@ -745,8 +852,8 @@ const App: React.FC = () => {
                                     description="Fuselage, hydraulics, landing gear, flight controls, pneumatics and electrics."
                                     icon={Settings} onChangeView={setCurrentView}
                                     modules={[
-                                        { title: 'Hydraulics', desc: 'Pascal’s Law, actuators, pumps and reservoirs.', view: View.AGK_HYDRAULICS },
-                                        { title: 'Gas Turbines', desc: 'The Brayton Cycle, intake, compression, combustion, exhaust.', view: View.AGK_JET_ENGINE },
+                                        { title: 'Hydraulics', desc: 'Pascal’s Law, actuators, pumps and reservoirs.', view: View.AGK_HYDRAULICS, isLocked: !isSubjectAllowed('021') },
+                                        { title: 'Gas Turbines', desc: 'The Brayton Cycle, intake, compression, combustion, exhaust.', view: View.AGK_JET_ENGINE, isLocked: !isSubjectAllowed('021') },
                                         { title: 'Electrics', desc: 'DC/AC generation, batteries, and distribution.', isLocked: true },
                                         { title: 'Piston Engines', desc: 'Four stroke cycle, mixture, ignition.', isLocked: true },
                                     ]}
@@ -764,22 +871,22 @@ const App: React.FC = () => {
                                     description="Physiology, psychology, sleep, stress, and error management."
                                     icon={Users} onChangeView={setCurrentView}
                                     modules={[
-                                        { title: 'Physiology', desc: 'Hypoxia, Respiration, Circulation.', view: View.HPL_PHYSIOLOGY },
-                                        { title: 'Basic Concepts', desc: 'Accident stats, TEM, Safety Culture.', view: View.HPL_BASIC_CONCEPTS },
-                                        { title: 'Sleep & Rhythms', desc: 'Circadian rhythms, Jet Lag, Sleep Stages.', view: View.HPL_SLEEP },
-                                        { title: 'Information Processing', desc: 'Attention, Vigilance, Situation Awareness.', view: View.HPL_INFO_PROCESSING },
-                                        { title: 'Error & Decision', desc: 'Error models, FOR-DEC, Error Chains.', view: View.HPL_ERROR_DECISION },
-                                        { title: 'Cockpit Mgmt & CRM', desc: 'SOPs, Group Dynamics, Synergy.', view: View.HPL_COCKPIT_MGMT },
-                                        { title: 'Comms & Stress', desc: 'Communication models, Stress, Workload.', view: View.HPL_COMMS_STRESS },
-                                        { title: 'Human Behaviour', desc: 'Hazardous Attitudes, Leadership, Crew.', view: View.HPL_BEHAVIOUR },
-                                        { title: 'Vision', desc: 'Eye anatomy, Scanning, and Visual Illusions.', view: View.HPL_VISION },
-                                        { title: 'Hearing', desc: 'The Ear, Vestibular System, Spatial Disorientation.', view: View.HPL_HEARING },
-                                        { title: 'Health', desc: 'Gas Laws, Hypoxia, TUC, Barotrauma.', view: View.HPL_HEALTH },
-                                        { title: 'TEM Model', desc: 'Threats, Errors, UAS, and Countermeasures.', view: View.HPL_TEM },
-                                        { title: 'SHELL Model', desc: 'Software, Hardware, Environment, Liveware.', view: View.HPL_SHELL },
-                                        { title: 'Safety Culture', desc: 'Swiss Cheese, Just Culture, SMS.', view: View.HPL_SAFETY },
-                                        { title: 'Acceleration', desc: 'G-Forces, G-LOC, Protections.', view: View.HPL_ACCELERATION },
-                                        { title: 'Toxic Hazards', desc: 'CO, Alcohol, Smoking, Drugs.', view: View.HPL_TOXIC },
+                                        { title: 'Physiology', desc: 'Hypoxia, Respiration, Circulation.', view: View.HPL_PHYSIOLOGY, isLocked: !isSubjectAllowed('040') },
+                                        { title: 'Basic Concepts', desc: 'Accident stats, TEM, Safety Culture.', view: View.HPL_BASIC_CONCEPTS, isLocked: !isSubjectAllowed('040') },
+                                        { title: 'Sleep & Rhythms', desc: 'Circadian rhythms, Jet Lag, Sleep Stages.', view: View.HPL_SLEEP, isLocked: !isSubjectAllowed('040') },
+                                        { title: 'Information Processing', desc: 'Attention, Vigilance, Situation Awareness.', view: View.HPL_INFO_PROCESSING, isLocked: !isSubjectAllowed('040') },
+                                        { title: 'Error & Decision', desc: 'Error models, FOR-DEC, Error Chains.', view: View.HPL_ERROR_DECISION, isLocked: !isSubjectAllowed('040') },
+                                        { title: 'Cockpit Mgmt & CRM', desc: 'SOPs, Group Dynamics, Synergy.', view: View.HPL_COCKPIT_MGMT, isLocked: !isSubjectAllowed('040') },
+                                        { title: 'Comms & Stress', desc: 'Communication models, Stress, Workload.', view: View.HPL_COMMS_STRESS, isLocked: !isSubjectAllowed('040') },
+                                        { title: 'Human Behaviour', desc: 'Hazardous Attitudes, Leadership, Crew.', view: View.HPL_BEHAVIOUR, isLocked: !isSubjectAllowed('040') },
+                                        { title: 'Vision', desc: 'Eye anatomy, Scanning, and Visual Illusions.', view: View.HPL_VISION, isLocked: !isSubjectAllowed('040') },
+                                        { title: 'Hearing', desc: 'The Ear, Vestibular System, Spatial Disorientation.', view: View.HPL_HEARING, isLocked: !isSubjectAllowed('040') },
+                                        { title: 'Health', desc: 'Gas Laws, Hypoxia, TUC, Barotrauma.', view: View.HPL_HEALTH, isLocked: !isSubjectAllowed('040') },
+                                        { title: 'TEM Model', desc: 'Threats, Errors, UAS, and Countermeasures.', view: View.HPL_TEM, isLocked: !isSubjectAllowed('040') },
+                                        { title: 'SHELL Model', desc: 'Software, Hardware, Environment, Liveware.', view: View.HPL_SHELL, isLocked: !isSubjectAllowed('040') },
+                                        { title: 'Safety Culture', desc: 'Swiss Cheese, Just Culture, SMS.', view: View.HPL_SAFETY, isLocked: !isSubjectAllowed('040') },
+                                        { title: 'Acceleration', desc: 'G-Forces, G-LOC, Protections.', view: View.HPL_ACCELERATION, isLocked: !isSubjectAllowed('040') },
+                                        { title: 'Toxic Hazards', desc: 'CO, Alcohol, Smoking, Drugs.', view: View.HPL_TOXIC, isLocked: !isSubjectAllowed('040') },
                                         { title: 'Automation', desc: 'Levels, Irony, Mode Confusion.', view: View.HPL_AUTOMATION },
                                         { title: 'Vestibular', desc: 'Leans, Coriolis, Somatogravic.', view: View.HPL_VESTIBULAR },
                                         { title: 'Memory', desc: 'Sensory, STM, LTM, Motor Programs.', view: View.HPL_MEMORY },
@@ -797,6 +904,7 @@ const App: React.FC = () => {
                                         { title: 'Motion Sickness', desc: 'Sensory Conflict, Prevention.', view: View.HPL_MOTION_SICKNESS },
                                         { title: 'Perception', desc: 'Visual Illusions, Runway Illusions.', view: View.HPL_PERCEPTION },
                                         { title: 'Workload', desc: 'Yerkes-Dodson, ANC, DODAR.', view: View.HPL_WORKLOAD },
+                                        { title: 'Incapacitation', desc: 'Procedures, 2-Comms Rule, Fume Events.', view: View.HPL_INCAPACITATION },
                                         { title: 'Communication Process', desc: 'Models, Barriers, Readback.', view: View.HPL_COMMUNICATION_PROCESS },
                                         { title: 'Competency', desc: 'KSA, Core Competencies.', view: View.HPL_COMPETENCY },
                                         { title: 'Cooperation', desc: 'Group Dynamics, Synergy.', view: View.HPL_COOPERATION },
@@ -847,14 +955,7 @@ const App: React.FC = () => {
                             {currentView === View.HPL_HEALTH_HYGIENE && <HPLHealthHygiene onNavigate={setCurrentView} />}
                             {currentView === View.HPL_INCIDENTS && <HPLIncidents />}
 
-                            {currentView === View.HPL_PRESSURE && <HPLPressure />}
-                            {currentView === View.HPL_MOTION_SICKNESS && <HPLMotionSickness />}
-                            {currentView === View.HPL_PERCEPTION && <HPLPerception />}
-                            {currentView === View.HPL_WORKLOAD && <HPLWorkload />}
-                            {currentView === View.HPL_COMMUNICATION_PROCESS && <HPLCommunicationProcess onNavigate={setCurrentView} />}
-                            {currentView === View.HPL_COMPETENCY && <HPLCompetency onNavigate={setCurrentView} />}
-                            {currentView === View.HPL_COOPERATION && <HPLCooperation onNavigate={setCurrentView} />}
-                            {currentView === View.HPL_HEALTH_HYGIENE && <HPLHealthHygiene onNavigate={setCurrentView} />}
+
                             {currentView === View.HPL_TROPICAL_DISEASES && <HPLTropicalDiseases onNavigate={setCurrentView} />}
 
                             {/* Met */}
@@ -875,7 +976,7 @@ const App: React.FC = () => {
                             {/* Gen Nav */}
                             {/* General Navigation */}
                             {currentView === View.GEN_NAV_HOME && (
-                                <GenNavDashboard currentView={currentView} setCurrentView={setCurrentView} />
+                                <GenNavDashboard currentView={currentView} setCurrentView={setCurrentView} isLocked={!isSubjectAllowed('061')} />
                             )}
                             {currentView === View.GEN_NAV_EARTH && <EarthGeometry onNavigate={setCurrentView} />}
                             {currentView === View.GEN_NAV_SOLAR && <SolarCalc onNavigate={setCurrentView} />}
@@ -883,7 +984,7 @@ const App: React.FC = () => {
                             {currentView === View.GEN_NAV_WIND_TRIANGLE && <WindTriangle onNavigate={setCurrentView} />}
                             {currentView === View.GEN_NAV_POLAR && <PolarGrid onNavigate={setCurrentView} />}
                             {currentView === View.NAV_HOME && (
-                                <GenNavDashboard currentView={View.GEN_NAV_HOME} setCurrentView={setCurrentView} />
+                                <GenNavDashboard currentView={View.GEN_NAV_HOME} setCurrentView={setCurrentView} isLocked={!isSubjectAllowed('061')} />
                             )}
                             {currentView === View.NAV_60_1 && <OneInSixty />}
                             {currentView === View.NAV_TIME && <TimeZoner />}
@@ -974,7 +1075,7 @@ const App: React.FC = () => {
                             {currentView === View.POF_HIGH_LIFT && <HighLiftDevices />}
 
                             {/* KSA (100) */}
-                            {currentView === View.KSA_HOME && <KSADashboard onChangeView={setCurrentView} />}
+                            {currentView === View.KSA_HOME && <KSADashboard onChangeView={setCurrentView} isLocked={!isSubjectAllowed('100')} />}
                             {currentView === View.KSA_COMPETENCIES && <CoreCompetencies />}
                             {currentView === View.KSA_TEM && <TEMAdvanced />}
                             {currentView === View.KSA_MENTAL_MATHS && <MentalMathsLab />}
@@ -995,6 +1096,11 @@ const App: React.FC = () => {
                             {currentView === View.READABILITY_SIM && <ReadabilitySim />}
                             {currentView === View.FLIGHT_RULES && <FlightRules />}
                             {currentView === View.PRIORITY && <PrioritySorter />}
+                            {currentView === View.CALLSIGN_TRAINER && <CallsignTrainer />}
+                            {currentView === View.URGENCY_TRAINER && <UrgencyTrainer />}
+                            {currentView === View.LEVEL_CHANGES && <LevelChanges />}
+                            {currentView === View.ABBREVIATION_GAME && <AbbreviationGame />}
+                            {currentView === View.CPDLC_SIM && <CPDLCSim />}
                             {currentView === View.READBACK && <ReadbackChallenge />}
                             {currentView === View.METAR && <MetarDecoder />}
                             {currentView === View.VOLMET_SIM && <VolmetSimulator />}
@@ -1034,12 +1140,16 @@ const App: React.FC = () => {
                             {currentView === View.TAXIWAY_LIGHT && <TaxiwayLighting />}
                             {currentView === View.RUNWAY_MARKING && <RunwayQuiz />}
                             {currentView === View.SNOWTAM && <SnowtamDecoder />}
+                            {currentView === View.SIGMET_DECODER && <SigmetDecoder />}
                             {currentView === View.WAKE_TURB && <WakeTurbulence />}
                             {currentView === View.SERVICE_CODES && <ServiceCodes />}
+                            {currentView === View.QCODE_CARDS && <QCodeCards />}
+                            {currentView === View.NUM_TIME_TRANSMIT && <TransmissionDrill />}
+                            {currentView === View.COMMS_DEFINITIONS && <CommsDefinitions />}
                             {currentView === View.INTERCEPT && <InterceptTrainer />}
 
 
-                            {currentView === View.MASS_BAL_HOME && <MassBalanceDashboard onNavigate={setCurrentView} />}
+                            {currentView === View.MASS_BAL_HOME && <MassBalanceDashboard onNavigate={setCurrentView} isLocked={!isSubjectAllowed('031')} />}
                             {currentView === View.MASS_BAL_DEFINITIONS && <MassDefinitions />}
                             {currentView === View.MASS_BAL_CG_CALC && <WeighingProcedure />}
                             {currentView === View.MASS_BAL_LIMITS && <MassDefinitions />} {/* Reusing for limits if no dedicated component yet */}
@@ -1057,9 +1167,22 @@ const App: React.FC = () => {
                                     subjectCode="070" subjectName="Operational Procedures" color="indigo"
                                     description="Special operational procedures, noise abatement, fire/smoke, wind shear and icing."
                                     icon={BookOpen} onChangeView={setCurrentView}
-                                    modules={[]}
+                                    modules={[
+                                        { title: 'Long Range Ops', desc: 'NAT HLA, ETOPS, Polar.', view: View.OPS_LONG_RANGE, isLocked: !isSubjectAllowed('070') },
+                                        { title: 'Special Procedures', desc: 'Fire, DG, Contamination, Noise.', view: View.OPS_SPECIAL, isLocked: !isSubjectAllowed('070') },
+                                        { title: 'Flight Time Limitations', desc: 'FDP Calculator & Rest Rules.', view: View.OPS_FTL, isLocked: !isSubjectAllowed('070') },
+                                        { title: 'Emergency Ops', desc: 'Fuel dump, TCAS, Distress.', view: View.EMERGENCY_OPS, isLocked: !isSubjectAllowed('070') },
+                                        { title: 'All Weather Ops', desc: 'LVP, Minima, Approach Bans.', view: View.OPS_AWO, isLocked: !isSubjectAllowed('070') },
+                                        { title: 'General Requirements', desc: 'MEL, Equipment, AOC, Safety.', view: View.OPS_GENERAL, isLocked: !isSubjectAllowed('070') }, ,
+                                        { title: 'Ground Ops', desc: 'Marshalling & Safety.', view: View.AIR_LAW_GROUND_OPS, isLocked: !isSubjectAllowed('070') },
+                                    ]}
                                 />
                             )}
+                            {currentView === View.OPS_LONG_RANGE && <LongRangeOps />}
+                            {currentView === View.OPS_SPECIAL && <SpecialOpsDashboard isLocked={!isSubjectAllowed('070')} />}
+                            {currentView === View.OPS_FTL && <FTLCalculator />}
+                            {currentView === View.OPS_AWO && <AllWeatherOps />}
+                            {currentView === View.OPS_GENERAL && <OpsGeneral />}
                             {currentView === View.PERF_HOME && (
                                 <GenericSubjectDashboard
                                     subjectCode="032" subjectName="Performance (A)" color="lime"

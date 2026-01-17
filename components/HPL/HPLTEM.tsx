@@ -1,9 +1,9 @@
-
 import React, { useState } from 'react';
-import { AlertTriangle, Activity, Shield, ArrowRight, CheckCircle, XCircle } from 'lucide-react';
+import { AlertTriangle, Activity, Shield, ArrowRight, CheckCircle, Users } from 'lucide-react';
+import HPLShell from './HPLShell';
 
 const HPLTEM: React.FC = () => {
-    const [tab, setTab] = useState<'concepts' | 'threats' | 'errors' | 'uas'>('concepts');
+    const [tab, setTab] = useState<'concepts' | 'threats' | 'errors' | 'uas' | 'shell'>('concepts');
 
     return (
         <div className="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700 mt-8">
@@ -11,16 +11,18 @@ const HPLTEM: React.FC = () => {
                 <div>
                     <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
                         <Shield className="text-orange-400" />
-                        Threat & Error Management (TEM)
+                        TEM & SHELL Models
                     </h2>
-                    <p className="text-slate-400 text-sm">Proactive safety philosophy: Detect, Avoid, Trap, Mitigate.</p>
+                    <p className="text-slate-400 text-sm">Proactive safety philosophy & Human Factors Framework.</p>
                 </div>
 
                 <div className="flex bg-slate-900 p-1 rounded-lg flex-wrap">
-                    <button onClick={() => setTab('concepts')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'concepts' ? 'bg-orange-600 text-white' : 'text-slate-400 hover:text-white'}`}>The Model</button>
+                    <button onClick={() => setTab('concepts')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'concepts' ? 'bg-orange-600 text-white' : 'text-slate-400 hover:text-white'}`}>TEM Model</button>
                     <button onClick={() => setTab('threats')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'threats' ? 'bg-orange-600 text-white' : 'text-slate-400 hover:text-white'}`}>Threats</button>
                     <button onClick={() => setTab('errors')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'errors' ? 'bg-orange-600 text-white' : 'text-slate-400 hover:text-white'}`}>Errors</button>
                     <button onClick={() => setTab('uas')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'uas' ? 'bg-orange-600 text-white' : 'text-slate-400 hover:text-white'}`}>UAS</button>
+                    <div className="w-px bg-slate-700 mx-2"></div>
+                    <button onClick={() => setTab('shell')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'shell' ? 'bg-sky-600 text-white' : 'text-slate-400 hover:text-white'}`}>SHELL Model</button>
                 </div>
             </div>
 
@@ -28,9 +30,12 @@ const HPLTEM: React.FC = () => {
             {tab === 'threats' && <ThreatsModule />}
             {tab === 'errors' && <ErrorsModule />}
             {tab === 'uas' && <UASModule />}
+            {tab === 'shell' && <HPLShell />}
         </div>
     );
 };
+
+export default HPLTEM;
 
 const TEMConcepts = () => (
     <div className="animate-in fade-in space-y-8">
@@ -227,7 +232,3 @@ const UASModule = () => (
         </div>
     </div>
 );
-
-import { Users } from 'lucide-react';
-
-export default HPLTEM;

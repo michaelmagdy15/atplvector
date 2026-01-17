@@ -5,9 +5,10 @@ import { Brain, Users, Calculator, ShieldAlert, Target } from 'lucide-react';
 
 interface Props {
     onChangeView: (view: View) => void;
+    isLocked?: boolean;
 }
 
-const KSADashboard: React.FC<Props> = ({ onChangeView }) => {
+const KSADashboard: React.FC<Props> = ({ onChangeView, isLocked }) => {
     return (
         <GenericSubjectDashboard
             subjectCode="100"
@@ -20,17 +21,20 @@ const KSADashboard: React.FC<Props> = ({ onChangeView }) => {
                 {
                     title: 'Core Competencies',
                     desc: 'Communication, Leadership, Situation Awareness, Problem Solving.',
-                    view: View.KSA_COMPETENCIES
+                    view: View.KSA_COMPETENCIES,
+                    isLocked
                 },
                 {
                     title: 'Threat & Error Management',
                     desc: 'Threats, Errors, UAS, and Countermeasures implementation.',
-                    view: View.KSA_TEM
+                    view: View.KSA_TEM,
+                    isLocked
                 },
                 {
                     title: 'Mental Maths',
                     desc: '1-in-60 rule, Reciprocals, Time-Speed-Distance calculations.',
-                    view: View.KSA_MENTAL_MATHS
+                    view: View.KSA_MENTAL_MATHS,
+                    isLocked
                 },
             ]}
         />

@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Eye, Zap, AlertTriangle, ArrowRight, MousePointer } from 'lucide-react';
 
 const HPLVision: React.FC = () => {
-    const [tab, setTab] = useState<'anatomy' | 'illusions' | 'blindspot'>('anatomy');
+    const [tab, setTab] = useState<'anatomy' | 'illusions' | 'blindspot' | 'defects'>('anatomy');
 
     return (
         <div className="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700 mt-8">
@@ -16,8 +16,9 @@ const HPLVision: React.FC = () => {
                     <p className="text-slate-400 text-sm">Anatomy, scanning techniques, and physiological limitations.</p>
                 </div>
 
-                <div className="flex bg-slate-900 p-1 rounded-lg">
+                <div className="flex bg-slate-900 p-1 rounded-lg flex-wrap">
                     <button onClick={() => setTab('anatomy')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'anatomy' ? 'bg-cyan-600 text-white' : 'text-slate-400 hover:text-white'}`}>Anatomy</button>
+                    <button onClick={() => setTab('defects')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'defects' ? 'bg-cyan-600 text-white' : 'text-slate-400 hover:text-white'}`}>Defects</button>
                     <button onClick={() => setTab('blindspot')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'blindspot' ? 'bg-cyan-600 text-white' : 'text-slate-400 hover:text-white'}`}>Blind Spot</button>
                     <button onClick={() => setTab('illusions')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'illusions' ? 'bg-cyan-600 text-white' : 'text-slate-400 hover:text-white'}`}>Illusions</button>
                 </div>

@@ -144,6 +144,7 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '040.02.03.03', subject: '040', text: 'Hypoxia and hyperventilation', coveredBy: View.HPL_PHYSIOLOGY },
     { id: '040.02.03.04', subject: '040', text: 'Pressure effects - barotrauma, decompression', coveredBy: View.HPL_PRESSURE },
     { id: '040.02.03.05', subject: '040', text: 'G-effects and accelerations', coveredBy: View.HPL_ACCELERATION },
+    { id: '040.02.03.06', subject: '040', text: 'Incapacitation', coveredBy: View.HPL_INCAPACITATION },
 
     // 040.03 - Basic Aviation Psychology
     { id: '040.03', subject: '040', text: 'Basic Aviation Psychology', coveredBy: View.HPL_HOME },

@@ -106,6 +106,7 @@ export enum View {
   HPL_SAFETY = 'HPL_SAFETY', // 040.01
   HPL_ACCELERATION = 'HPL_ACCELERATION',
   HPL_TOXIC = 'HPL_TOXIC',
+  HPL_INCAPACITATION = 'HPL_INCAPACITATION',
   HPL_AUTOMATION = 'HPL_AUTOMATION',
   HPL_VESTIBULAR = 'HPL_VESTIBULAR',
   HPL_MEMORY = 'HPL_MEMORY',
@@ -179,6 +180,11 @@ export enum View {
 
   // Ops Procedures (070)
   OPS_PROC_HOME = 'OPS_PROC_HOME',
+  OPS_LONG_RANGE = 'OPS_LONG_RANGE',
+  OPS_SPECIAL = 'OPS_SPECIAL',
+  OPS_FTL = 'OPS_FTL',
+  OPS_AWO = 'OPS_AWO',
+  OPS_GENERAL = 'OPS_GENERAL',
 
   // Principles of Flight (081)
   POF_HOME = 'POF_HOME',
@@ -264,6 +270,14 @@ export enum View {
   RADAR_VECTORS = 'RADAR_VECTORS',
   TRANSFER_DRILL = 'TRANSFER_DRILL',
   METAR_BUILDER = 'METAR_BUILDER',
+  LEVEL_CHANGES = 'LEVEL_CHANGES',
+  CPDLC_SIM = 'CPDLC_SIM',
+  URGENCY_TRAINER = 'URGENCY_TRAINER',
+  ABBREVIATION_GAME = 'ABBREVIATION_GAME',
+  CALLSIGN_TRAINER = 'CALLSIGN_TRAINER',
+  SIGMET_DECODER = 'SIGMET_DECODER',
+  NUM_TIME_TRANSMIT = 'NUM_TIME_TRANSMIT',
+  COMMS_DEFINITIONS = 'COMMS_DEFINITIONS',
 }
 
 export enum AuthStatus {
@@ -372,6 +386,26 @@ export interface AdminStats {
   proUsers: number;
   adminCount: number;
   recentSignups: User[];
+}
+
+
+export interface InviteCode {
+  code: string;
+  created_by?: string;
+  created_at: string;
+  used_by?: string; // ID of user who used it
+  used_at?: string;
+}
+
+export interface Testimonial {
+  id: string;
+  userId: string;
+  userName: string;
+  userRole: string; // e.g., 'ATPL Student', 'CFI'
+  text: string;
+  rating: number; // 1-5
+  status: 'pending' | 'approved' | 'rejected';
+  createdAt: string;
 }
 
 // Global definition for JSX Intrinsic Elements to fix widespread errors

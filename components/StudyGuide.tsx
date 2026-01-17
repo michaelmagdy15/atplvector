@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
-import { BookOpen, Info, AlertTriangle, CheckCircle, BarChart as ChartIcon } from 'lucide-react';
+import { BookOpen, Info, AlertTriangle, CheckCircle, BarChart as ChartIcon, ArrowRight } from 'lucide-react';
+import { View } from '../types';
 
 const allSubjectsData: Record<string, any> = {
     "010": {
@@ -234,9 +235,106 @@ const allSubjectsData: Record<string, any> = {
 
 interface Props {
     onBack?: () => void;
+    onChangeView?: (view: View) => void;
 }
 
-const StudyGuide: React.FC<Props> = ({ onBack }) => {
+// Mapping from Topic ID to View
+const topicToView: Record<string, View> = {
+    // 090 - Communications
+    '090-01': View.GENERAL_THEORY,
+    '090-02': View.FLIGHT_RULES,
+    '090-03': View.METAR,
+    '090-04': View.COMM_FAIL,
+    '090-05': View.EMERGENCY,
+    '090-06': View.PROPAGATION_THEORY,
+    '090-07': View.CPDLC_SIM,
+
+    // 010 - Air Law
+    '010-01': View.AIR_LAW_INT_LAW,
+    '010-02': View.AIR_LAW_REGISTRATION, // Nationality
+    '010-04': View.AIR_LAW_PERSONNEL,
+    '010-05': View.AIR_LAW_RULES_OF_AIR,
+    '010-06': View.AIR_LAW_OPS_INFO, // Flight Ops (Approx)
+    '010-07': View.AIR_LAW_LAYERS, // ATS/ATM
+    '010-08': View.AIR_LAW_OPS_INFO, // AIS
+    '010-09': View.AIR_LAW_LIGHTING, // Aerodromes
+    '010-10': View.AIR_LAW_OPS_INFO, // Facilitation
+    '010-11': View.AIR_LAW_SAR,
+    '010-12': View.AIR_LAW_SECURITY,
+    '010-13': View.AIR_LAW_ACCIDENT,
+
+    // 021 - AGK Systems
+    '021-01': View.AGK_SYSTEMS_HOME,
+    '021-02': View.AGK_SYSTEMS_HOME,
+    '021-03': View.AGK_HYDRAULICS,
+    '021-08': View.AGK_SYSTEMS_HOME, // Fuel
+    '021-09': View.AGK_ELECTRICS,
+    '021-10': View.AGK_PISTON_ENGINE,
+    '021-11': View.AGK_JET_ENGINE,
+
+    // 022 - Instrumentation
+    '022-01': View.AGK_INSTRUMENTS_HOME,
+    '022-02': View.AGK_ASI, // Air Data
+    '022-03': View.AGK_INSTRUMENTS_HOME, // Magnetism
+    '022-04': View.AGK_GYROS,
+
+    // 031 - Mass & Balance
+    '031-01': View.MASS_BAL_DEFINITIONS,
+    '031-02': View.MASS_BAL_CG_CALC, // Loading
+    '031-04': View.MASS_BAL_LIMITS,
+    '031-05': View.MASS_BAL_CG_CALC,
+
+    // 032 - Performance
+    '032-01': View.PERF_HOME,
+
+    // 033 - Flight Planning
+    '033-01': View.FLIGHT_PLAN_HOME,
+    '033-02': View.FLIGHT_PLAN_HOME,
+    '033-03': View.FLIGHT_PLAN_HOME,
+
+    // 040 - HPL
+    '040-01': View.HPL_BASIC_CONCEPTS,
+    '040-02': View.HPL_PHYSIOLOGY,
+    '040-03': View.HPL_INFO_PROCESSING,
+
+    // 050 - Meteorology
+    '050-01': View.MET_ATMOSPHERE,
+    '050-02': View.MET_CIRCULATION, // Wind
+    '050-03': View.MET_ATMOSPHERE, // Thermo
+    '050-04': View.MET_CLOUDS,
+    '050-06': View.MET_FRONTS,
+    '050-07': View.MET_HOME, // Pressure systems
+    '050-10': View.MET_HOME, // Met Info
+
+    // 061 - Gen Nav
+    '061-01': View.GEN_NAV_EARTH,
+    '061-02': View.GEN_NAV_WIND_TRIANGLE, // VFR Nav
+    '061-03': View.GEN_NAV_HOME, // Great Circles
+    '061-04': View.GEN_NAV_MAPS,
+    '061-05': View.GEN_NAV_SOLAR, // Time
+
+    // 062 - Radio Nav
+    '062-01': View.RAD_NAV_WAVE_PROP,
+    '062-02': View.RAD_NAV_VOR, // Radio Aids (General)
+    '062-03': View.RAD_NAV_RADAR,
+    '062-06': View.NAV_GNSS,
+    '062-07': View.RAD_NAV_RNAV, // PBN
+
+    // 070 - Ops Code
+    '071-01': View.OPS_PROC_HOME, // General
+    '071-02': View.OPS_SPECIAL,
+    '071-04': View.OPS_LONG_RANGE,
+
+    // 081 - PoF
+    '081-01': View.POF_ATMOSPHERE, // Subsonic Aero
+    '081-02': View.POF_HOME, // High Speed
+    '081-04': View.POF_STABILITY,
+    '081-05': View.POF_HOME, // Control
+    '081-07': View.POF_HOME, // Propellers
+    '081-08': View.POF_HOME, // Flight Mechanics
+};
+
+const StudyGuide: React.FC<Props> = ({ onBack, onChangeView }) => {
     const [selectedSubject, setSelectedSubject] = useState('090');
 
     const chartData = useMemo(() => {
@@ -278,6 +376,17 @@ const StudyGuide: React.FC<Props> = ({ onBack }) => {
         if (priority > 1.1) return 'bg-green-500/20';
         if (priority < 0.9) return 'bg-red-500/20';
         return 'bg-slate-500/20';
+    };
+
+    const handleNavigate = (topicId: string) => {
+        if (!onChangeView) return;
+        const targetView = topicToView[topicId];
+        if (targetView) {
+            onChangeView(targetView);
+        } else {
+            console.warn(`No mapping for topic ${topicId}`);
+            // Optional: Fallback to subject home if possible
+        }
     };
 
     return (
@@ -376,8 +485,22 @@ const StudyGuide: React.FC<Props> = ({ onBack }) => {
                             formatter={(value: number) => [`${value}%`]}
                         />
                         <Legend wrapperStyle={{ paddingTop: '20px' }} />
-                        <Bar name="% of Question Bank" dataKey="qbPct" fill="#ef4444" radius={[4, 4, 0, 0]} />
-                        <Bar name="% of Actual Exam" dataKey="examPct" fill="#22c55e" radius={[4, 4, 0, 0]} />
+                        <Bar
+                            name="% of Question Bank"
+                            dataKey="qbPct"
+                            fill="#ef4444"
+                            radius={[4, 4, 0, 0]}
+                            cursor="pointer"
+                            onClick={(data: any) => handleNavigate(data.label)}
+                        />
+                        <Bar
+                            name="% of Actual Exam"
+                            dataKey="examPct"
+                            fill="#22c55e"
+                            radius={[4, 4, 0, 0]}
+                            cursor="pointer"
+                            onClick={(data: any) => handleNavigate(data.label)}
+                        />
                     </BarChart>
                 </ResponsiveContainer>
             </div>
@@ -402,9 +525,16 @@ const StudyGuide: React.FC<Props> = ({ onBack }) => {
                         </thead>
                         <tbody className="divide-y divide-white/5">
                             {chartData.map((row: any, idx: number) => (
-                                <tr key={idx} className="hover:bg-white/5 transition-colors">
+                                <tr
+                                    key={idx}
+                                    className={`hover:bg-white/5 transition-colors ${onChangeView ? 'cursor-pointer hover:bg-blue-500/10' : ''}`}
+                                    onClick={() => handleNavigate(row.label)}
+                                >
                                     <td className="px-6 py-4 font-mono text-white/70">{row.label}</td>
-                                    <td className="px-6 py-4 text-white font-medium">{row.topicName}</td>
+                                    <td className="px-6 py-4 text-white font-medium flex items-center gap-2">
+                                        {row.topicName}
+                                        {onChangeView && <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity text-blue-400" />}
+                                    </td>
                                     <td className="px-6 py-4 text-right font-mono">{row.qbCount}</td>
                                     <td className="px-6 py-4 text-right font-mono text-white">{row.examCount}</td>
                                     <td className="px-6 py-4 text-right font-mono text-red-400">{row.qbPct}%</td>

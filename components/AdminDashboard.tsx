@@ -6,17 +6,21 @@ import {
     AlertTriangle, X, Save, User as UserIcon, Users, TrendingUp, Crown,
     Clock, Filter, ChevronDown, ChevronRight, BarChart3, Settings,
     UserCheck, UserX, Ban, RefreshCw, Download, MoreVertical,
-    Activity, Calendar, Zap, Eye, Layers, Award
+    Activity, Calendar, Zap, Eye, Layers, Award, KeyRound, Copy
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { SUBJECTS } from '../data/learningObjectives';
+import { Testimonial } from '../types';
+import { TestimonialService } from '../services/TestimonialService';
 
 interface Props {
     currentUser: User;
     onBack: () => void;
 }
 
-type AdminTab = 'OVERVIEW' | 'USERS' | 'MEMBERSHIPS' | 'ANALYTICS';
+
+type AdminTab = 'OVERVIEW' | 'USERS' | 'MEMBERSHIPS' | 'ANALYTICS' | 'INVITES' | 'TESTIMONIALS';
+
 
 const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
     const [users, setUsers] = useState<User[]>([]);
@@ -28,6 +32,8 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
     const [feedback, setFeedback] = useState<{ type: 'success' | 'error', msg: string } | null>(null);
     const [activeTab, setActiveTab] = useState<AdminTab>('OVERVIEW');
     const [stats, setStats] = useState<AdminStats | null>(null);
+    const [inviteCodes, setInviteCodes] = useState<any[]>([]);
+    const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
 
     // Edit Modal State
     const [editingUser, setEditingUser] = useState<User | null>(null);
@@ -57,6 +63,26 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
 
             const { data: subs, error: sError } = await supabase.from('subscriptions').select('*');
             if (sError) throw sError;
+
+            // Fetch codes if needed
+            if (activeTab === 'INVITES') {
+                const { data: codes, error: cError } = await supabase
+                    .from('access_codes')
+                    .select('*, used_by_user:used_by(email)')
+                    .order('created_at', { ascending: false });
+
+                if (!cError && codes) setInviteCodes(codes);
+            }
+
+            // Fetch testimonials
+            if (activeTab === 'TESTIMONIALS') {
+                try {
+                    const t = await TestimonialService.getAllTestimonials();
+                    setTestimonials(t);
+                } catch (e: any) {
+                    console.error("Failed to fetch testimonials", e);
+                }
+            }
 
             const mappedUsers: User[] = profiles.map((p: any) => {
                 const sub = subs?.find((s: any) => s.user_id === p.id);
@@ -408,44 +434,176 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                 </div>
             )}
 
-            {/* Recent Signups */}
-            <div className="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
-                <div className="px-6 py-4 border-b border-slate-700 flex items-center justify-between">
-                    <h3 className="font-bold text-white flex items-center gap-2">
-                        <Activity className="w-5 h-5 text-blue-400" /> Recent Signups
-                    </h3>
-                </div>
-                <div className="divide-y divide-slate-700">
-                    {stats?.recentSignups.slice(0, 5).map(user => (
-                        <div key={user.id} className="px-6 py-4 flex items-center justify-between hover:bg-slate-700/30 transition-colors">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center border border-slate-600">
-                                    <span className="font-bold text-sm text-slate-300">
-                                        {user.fullName?.substring(0, 2).toUpperCase() || 'U'}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Recent Signups */}
+                <div className="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div className="px-6 py-4 border-b border-slate-700 flex items-center justify-between">
+                        <h3 className="font-bold text-white flex items-center gap-2">
+                            <Activity className="w-5 h-5 text-blue-400" /> Recent Signups
+                        </h3>
+                    </div>
+                    <div className="divide-y divide-slate-700">
+                        {stats?.recentSignups.slice(0, 5).map(user => (
+                            <div key={user.id} className="px-6 py-4 flex items-center justify-between hover:bg-slate-700/30 transition-colors">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center border border-slate-600">
+                                        <span className="font-bold text-sm text-slate-300">
+                                            {user.fullName?.substring(0, 2).toUpperCase() || 'U'}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <p className="font-medium text-white">{user.fullName || 'No Name'}</p>
+                                        <p className="text-xs text-slate-500">{user.email}</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <span className={`px-2 py-1 rounded text-[10px] font-bold border ${getStatusColor(user.status)}`}>
+                                        {getStatusLabel(user.status)}
                                     </span>
-                                </div>
-                                <div>
-                                    <p className="font-medium text-white">{user.fullName || 'No Name'}</p>
-                                    <p className="text-xs text-slate-500">{user.email}</p>
+                                    <button
+                                        onClick={() => openEditModal(user)}
+                                        className="text-slate-400 hover:text-white"
+                                    >
+                                        <Edit2 size={16} />
+                                    </button>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-3">
-                                <span className={`px-2 py-1 rounded text-[10px] font-bold border ${getStatusColor(user.status)}`}>
-                                    {getStatusLabel(user.status)}
-                                </span>
-                                <button
-                                    onClick={() => openEditModal(user)}
-                                    className="text-slate-400 hover:text-white"
-                                >
-                                    <Edit2 size={16} />
-                                </button>
-                            </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
+                </div>
+
+                {/* Plan Distribution */}
+                <div className="bg-slate-800 rounded-xl p-6 border border-slate-700">
+                    <h3 className="font-bold text-white mb-4 flex items-center gap-2">
+                        <CreditCard className="text-purple-400" /> Subscription Plans
+                    </h3>
+                    <div className="space-y-3">
+                        {[
+                            { id: 'PRO_YEARLY', label: 'Pro Yearly', color: 'bg-indigo-500' },
+                            { id: 'PRO_MONTHLY', label: 'Pro Monthly', color: 'bg-purple-500' },
+                            { id: 'CUSTOM', label: 'Custom', color: 'bg-blue-500' },
+                        ].map(plan => {
+                            const count = users.filter(u => u.subscriptionTier === plan.id).length;
+                            const percentage = users.length > 0 ? (count / users.length) * 100 : 0;
+                            return (
+                                <div key={plan.id} className="flex items-center gap-3">
+                                    <span className="text-sm text-slate-400 w-24">{plan.label}</span>
+                                    <div className="flex-1 h-3 bg-slate-700 rounded-full overflow-hidden">
+                                        <div
+                                            className={`h-full ${plan.color} transition-all duration-500`}
+                                            style={{ width: `${percentage}%` }}
+                                        />
+                                    </div>
+                                    <span className="text-sm font-bold text-white w-10 text-right">{count}</span>
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         </div>
     );
+
+    const InvitesTab = () => {
+        const generateCode = async () => {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let code = '';
+            for (let i = 0; i < 8; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+
+            try {
+                const { error } = await supabase
+                    .from('access_codes')
+                    .insert([{ code, created_by: currentUser.id }]);
+
+                if (error) throw error;
+
+                setFeedback({ type: 'success', msg: `Code generated: ${code}` });
+                fetchUsers(); // Refresh list
+            } catch (error: any) {
+                setFeedback({ type: 'error', msg: error.message });
+            }
+        };
+
+        const copyToClipboard = (text: string) => {
+            navigator.clipboard.writeText(text);
+            setFeedback({ type: 'success', msg: 'Copied to clipboard!' });
+        };
+
+        return (
+            <div className="space-y-6">
+                <div className="bg-slate-800 rounded-xl p-6 border border-slate-700 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div>
+                        <h3 className="text-lg font-bold text-white mb-1">Generate Access Code</h3>
+                        <p className="text-slate-400 text-sm">Create a unique 8-character code for new users.</p>
+                    </div>
+                    <button
+                        onClick={generateCode}
+                        className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg flex items-center gap-2"
+                    >
+                        <Zap size={18} /> Generate New Code
+                    </button>
+                </div>
+
+                <div className="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                    <div className="px-6 py-4 border-b border-slate-700 flex justify-between items-center">
+                        <h3 className="font-bold text-white">Active & Used Codes</h3>
+                        <button onClick={fetchUsers} className="text-slate-400 hover:text-white"><RefreshCw size={16} /></button>
+                    </div>
+
+                    {inviteCodes.length === 0 ? (
+                        <div className="p-12 text-center text-slate-500">No invite codes found. Generate one to get started.</div>
+                    ) : (
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left text-sm text-slate-400">
+                                <thead className="bg-slate-900 text-slate-300 uppercase font-bold text-xs">
+                                    <tr>
+                                        <th className="px-6 py-4">Code</th>
+                                        <th className="px-6 py-4">Status</th>
+                                        <th className="px-6 py-4">Used By</th>
+                                        <th className="px-6 py-4">Created At</th>
+                                        <th className="px-6 py-4 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-slate-700">
+                                    {inviteCodes.map((code) => (
+                                        <tr key={code.code} className="hover:bg-slate-700/30 transition-colors">
+                                            <td className="px-6 py-4 font-mono text-white text-lg tracking-wider font-bold">{code.code}</td>
+                                            <td className="px-6 py-4">
+                                                {code.is_used ? (
+                                                    <span className="px-2 py-1 bg-slate-700 text-slate-400 rounded text-xs font-bold uppercase">Used</span>
+                                                ) : (
+                                                    <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded text-xs font-bold uppercase">Active</span>
+                                                )}
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                {code.used_by_user ? (
+                                                    <span className="text-white">{code.used_by_user.email}</span>
+                                                ) : '-'}
+                                            </td>
+                                            <td className="px-6 py-4 text-xs">
+                                                {new Date(code.created_at).toLocaleDateString()}
+                                            </td>
+                                            <td className="px-6 py-4 text-right">
+                                                <button
+                                                    onClick={() => copyToClipboard(code.code)}
+                                                    className="p-2 hover:bg-slate-700 text-blue-400 rounded transition-colors"
+                                                    title="Copy Code"
+                                                >
+                                                    <Copy size={16} />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
+    };
 
     const UsersTab = () => (
         <div className="space-y-4">
@@ -758,6 +916,80 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
         </div>
     );
 
+    const TestimonialsTab = () => {
+        const handleStatusUpdate = async (id: string, newStatus: 'approved' | 'rejected' | 'pending') => {
+            try {
+                await TestimonialService.updateStatus(id, newStatus);
+                setFeedback({ type: 'success', msg: `Testimonial marked as ${newStatus}` });
+                // Refresh local state
+                setTestimonials(prev => prev.map(t => t.id === id ? { ...t, status: newStatus } : t));
+            } catch (e: any) {
+                setFeedback({ type: 'error', msg: e.message });
+            }
+        };
+
+        return (
+            <div className="space-y-6">
+                <div className="bg-slate-800 rounded-xl p-6 border border-slate-700">
+                    <h3 className="font-bold text-white mb-4">Manage Testimonials</h3>
+                    {testimonials.length === 0 ? (
+                        <p className="text-slate-500 text-center py-8">No testimonials submitted yet.</p>
+                    ) : (
+                        <div className="grid gap-4">
+                            {testimonials.map((t) => (
+                                <div key={t.id} className="bg-slate-900/50 p-4 rounded-xl border border-slate-700 flex justify-between gap-4">
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <span className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold ${t.status === 'approved' ? 'bg-green-500/20 text-green-400' :
+                                                    t.status === 'rejected' ? 'bg-red-500/20 text-red-400' :
+                                                        'bg-yellow-500/20 text-yellow-400'
+                                                }`}>
+                                                {t.status}
+                                            </span>
+                                            <span className="text-slate-400 text-xs">
+                                                {new Date(t.createdAt).toLocaleDateString()}
+                                            </span>
+                                        </div>
+                                        <p className="text-white italic mb-2">"{t.text}"</p>
+                                        <div className="flex items-center gap-2 text-sm text-slate-400">
+                                            <span className="font-bold text-slate-300">{t.userName}</span>
+                                            <span>•</span>
+                                            <span>{t.userRole}</span>
+                                            <span>•</span>
+                                            <span className="flex items-center text-yellow-400">
+                                                {t.rating} <Star size={12} fill="currentColor" className="ml-0.5" />
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-col gap-2 justify-center">
+                                        {t.status !== 'approved' && (
+                                            <button
+                                                onClick={() => handleStatusUpdate(t.id, 'approved')}
+                                                className="p-2 bg-green-900/30 hover:bg-green-900/50 text-green-400 rounded-lg transition-colors"
+                                                title="Approve"
+                                            >
+                                                <CheckCircle size={18} />
+                                            </button>
+                                        )}
+                                        {t.status !== 'rejected' && (
+                                            <button
+                                                onClick={() => handleStatusUpdate(t.id, 'rejected')}
+                                                className="p-2 bg-red-900/30 hover:bg-red-900/50 text-red-400 rounded-lg transition-colors"
+                                                title="Reject"
+                                            >
+                                                <X size={18} />
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
+    };
+
     const AnalyticsTab = () => (
         <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -799,18 +1031,18 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                     </h3>
                     <div className="space-y-3">
                         {[
-                            { plan: 'CUSTOM', label: 'Custom', color: 'bg-blue-500' },
-                            { plan: 'PRO_MONTHLY', label: 'Pro Monthly', color: 'bg-purple-500' },
-                            { plan: 'PRO_YEARLY', label: 'Pro Yearly', color: 'bg-indigo-500' },
-                        ].map(item => {
-                            const count = users.filter(u => u.subscriptionTier === item.plan).length;
+                            { id: 'PRO_YEARLY', label: 'Pro Yearly', color: 'bg-indigo-500' },
+                            { id: 'PRO_MONTHLY', label: 'Pro Monthly', color: 'bg-purple-500' },
+                            { id: 'CUSTOM', label: 'Custom', color: 'bg-blue-500' },
+                        ].map(plan => {
+                            const count = users.filter(u => u.subscriptionTier === plan.id).length;
                             const percentage = users.length > 0 ? (count / users.length) * 100 : 0;
                             return (
-                                <div key={item.plan} className="flex items-center gap-3">
-                                    <span className="text-sm text-slate-400 w-24">{item.label}</span>
+                                <div key={plan.id} className="flex items-center gap-3">
+                                    <span className="text-sm text-slate-400 w-24">{plan.label}</span>
                                     <div className="flex-1 h-3 bg-slate-700 rounded-full overflow-hidden">
                                         <div
-                                            className={`h-full ${item.color} transition-all duration-500`}
+                                            className={`h-full ${plan.color} transition-all duration-500`}
                                             style={{ width: `${percentage}%` }}
                                         />
                                     </div>
@@ -820,166 +1052,138 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                         })}
                     </div>
                 </div>
-            </div>
 
-            {/* Quick Stats */}
-            <div className="bg-slate-800 rounded-xl p-6 border border-slate-700">
-                <h3 className="font-bold text-white mb-4">Platform Summary</h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <div className="text-center">
-                        <p className="text-4xl font-black text-white">{stats?.totalUsers || 0}</p>
-                        <p className="text-sm text-slate-400">Total Users</p>
-                    </div>
-                    <div className="text-center">
-                        <p className="text-4xl font-black text-emerald-400">{stats?.activeSubscriptions || 0}</p>
-                        <p className="text-sm text-slate-400">Active Subs</p>
-                    </div>
-                    <div className="text-center">
-                        <p className="text-4xl font-black text-purple-400">{stats?.proUsers || 0}</p>
-                        <p className="text-sm text-slate-400">Pro Users</p>
-                    </div>
-                    <div className="text-center">
-                        <p className="text-4xl font-black text-yellow-400">{stats?.pendingApproval || 0}</p>
-                        <p className="text-sm text-slate-400">Pending</p>
-                    </div>
-                </div>
             </div>
         </div>
     );
 
     return (
-        <div className="max-w-7xl mx-auto p-4 md:p-8 relative">
-            {/* Feedback Toast */}
-            {feedback && (
-                <div className={`fixed top-4 right-4 z-50 px-6 py-4 rounded-lg shadow-2xl border flex items-center animate-in fade-in slide-in-from-top-4 ${feedback.type === 'success' ? 'bg-green-900/90 border-green-500 text-white' : 'bg-red-900/90 border-red-500 text-white'}`}>
-                    {feedback.type === 'success' ? <CheckCircle className="mr-2" /> : <AlertTriangle className="mr-2" />}
-                    {feedback.msg}
-                </div>
-            )}
-
-            {/* Header */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-                <div>
-                    <h1 className="text-3xl font-black text-white flex items-center gap-3">
-                        <Shield className="text-red-500" /> Mission Control
-                    </h1>
-                    <p className="text-slate-400">Manage users, subscriptions, and platform access.</p>
-                </div>
-                <button onClick={onBack} className="bg-slate-800 text-slate-400 px-4 py-2 rounded-lg font-bold hover:bg-slate-700 border border-slate-600 flex items-center gap-2">
-                    <X size={18} /> Exit Admin
-                </button>
-            </div>
-
-            {/* Tabs */}
-            <div className="mb-6 border-b border-slate-700">
-                <div className="flex gap-1 overflow-x-auto pb-px">
-                    {[
-                        { id: 'OVERVIEW' as AdminTab, label: 'Overview', icon: BarChart3 },
-                        { id: 'USERS' as AdminTab, label: 'Users', icon: Users },
-                        { id: 'MEMBERSHIPS' as AdminTab, label: 'Memberships', icon: CreditCard },
-                        { id: 'ANALYTICS' as AdminTab, label: 'Analytics', icon: TrendingUp },
-                    ].map(tab => (
+        <div className="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-8">
+            <div className="max-w-7xl mx-auto space-y-6">
+                {/* Header */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h1 className="text-3xl font-black text-white flex items-center gap-3">
+                            <Shield className="text-red-500" size={32} /> Admin Command
+                        </h1>
+                        <p className="text-slate-400">Manage users, system status, and content access.</p>
+                    </div>
+                    <div className="flex gap-3">
                         <button
-                            key={tab.id}
-                            onClick={() => setActiveTab(tab.id)}
-                            className={`flex items-center gap-2 px-4 py-3 font-bold text-sm transition-all border-b-2 whitespace-nowrap ${activeTab === tab.id
-                                ? 'text-white border-red-500'
-                                : 'text-slate-400 border-transparent hover:text-white hover:border-slate-600'
-                                }`}
+                            onClick={onBack}
+                            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-bold border border-slate-700 transition"
                         >
-                            <tab.icon size={18} />
-                            {tab.label}
+                            Exit Dashboard
                         </button>
-                    ))}
+                    </div>
+                </div>
+
+                {/* Feedback Toast */}
+                {feedback && (
+                    <div className={`p-4 rounded-xl border ${feedback.type === 'success' ? 'bg-green-500/10 border-green-500/20 text-green-200' : 'bg-red-500/10 border-red-500/20 text-red-200'} flex items-center gap-3 animate-in slide-in-from-top-4 fixed top-4 right-4 z-50 shadow-2xl`}>
+                        {feedback.type === 'success' ? <CheckCircle size={20} /> : <AlertTriangle size={20} />}
+                        <span className="font-bold">{feedback.msg}</span>
+                    </div>
+                )}
+
+                {/* Main Content */}
+                <div className="flex flex-col lg:flex-row gap-6">
+                    {/* Sidebar Nav */}
+                    <div className="lg:w-64 space-y-2">
+                        {[
+                            { id: 'OVERVIEW', label: 'Overview', icon: BarChart3 },
+                            { id: 'USERS', label: 'User Management', icon: Users },
+                            { id: 'MEMBERSHIPS', label: 'Subscriptions', icon: CreditCard },
+                            { id: 'INVITES', label: 'Invites & Access', icon: KeyRound },
+                            { id: 'TESTIMONIALS', label: 'Testimonials', icon: Star },
+                            { id: 'ANALYTICS', label: 'System Analytics', icon: Activity },
+                        ].map((item) => (
+                            <button
+                                key={item.id}
+                                onClick={() => setActiveTab(item.id as AdminTab)}
+                                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all ${activeTab === item.id
+                                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25'
+                                    : 'bg-slate-900/50 text-slate-400 hover:bg-slate-800 hover:text-white'
+                                    }`}
+                            >
+                                <item.icon size={18} /> {item.label}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Content Area */}
+                    <div className="flex-1">
+                        {activeTab === 'OVERVIEW' && <OverviewTab />}
+                        {activeTab === 'USERS' && <UsersTab />}
+                        {activeTab === 'MEMBERSHIPS' && <MembershipsTab />}
+                        {activeTab === 'ANALYTICS' && <AnalyticsTab />}
+                        {activeTab === 'INVITES' && <InvitesTab />}
+                        {activeTab === 'TESTIMONIALS' && <TestimonialsTab />}
+                    </div>
                 </div>
             </div>
 
-            {/* Tab Content */}
-            {activeTab === 'OVERVIEW' && <OverviewTab />}
-            {activeTab === 'USERS' && <UsersTab />}
-            {activeTab === 'MEMBERSHIPS' && <MembershipsTab />}
-            {activeTab === 'ANALYTICS' && <AnalyticsTab />}
-
-            {/* Edit Modal */}
+            {/* Edit User Modal */}
             {editingUser && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-                    <div className="bg-slate-900 rounded-2xl border border-slate-700 shadow-2xl w-full max-w-lg overflow-hidden">
-                        <div className="px-6 py-4 border-b border-slate-700 flex items-center justify-between">
-                            <h2 className="text-xl font-bold text-white">Edit User</h2>
-                            <button onClick={closeEditModal} className="text-slate-400 hover:text-white">
-                                <X size={20} />
-                            </button>
+                <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-full max-w-lg shadow-2xl animate-in zoom-in-95">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-xl font-bold text-white">Edit User Profile</h3>
+                            <button onClick={closeEditModal} className="text-slate-500 hover:text-white"><X /></button>
                         </div>
 
-                        <div className="p-6 space-y-5">
-                            {/* User Info */}
-                            <div className="flex items-center gap-4 pb-4 border-b border-slate-700">
-                                <div className="w-14 h-14 rounded-full bg-slate-800 flex items-center justify-center border border-slate-600">
-                                    <span className="font-bold text-lg text-slate-300">
-                                        {editingUser.fullName?.substring(0, 2).toUpperCase() || 'U'}
-                                    </span>
-                                </div>
-                                <div>
-                                    <p className="font-bold text-white text-lg">{editingUser.fullName || 'No Name'}</p>
-                                    <p className="text-sm text-slate-500">{editingUser.email}</p>
-                                </div>
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">User</label>
+                                <p className="text-white font-medium">{editingUser.fullName} ({editingUser.email})</p>
                             </div>
 
-                            {/* Status */}
                             <div>
-                                <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Status</label>
+                                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Account Status</label>
                                 <select
                                     value={editStatus}
-                                    onChange={e => setEditStatus(e.target.value as AuthStatus)}
-                                    className="w-full bg-slate-800 border border-slate-600 rounded-lg p-2.5 text-white"
+                                    onChange={(e) => setEditStatus(e.target.value as AuthStatus)}
+                                    className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white"
                                 >
-                                    <option value={AuthStatus.PENDING_APPROVAL}>Pending Approval</option>
-                                    <option value={AuthStatus.FREE_TRIAL}>Free Trial</option>
-                                    <option value={AuthStatus.TRIAL_EXPIRED}>Trial Expired</option>
-                                    <option value={AuthStatus.VERIFIED}>Verified</option>
-                                    <option value={AuthStatus.ACTIVE}>Active</option>
-                                    <option value={AuthStatus.SUSPENDED}>Suspended</option>
-                                    <option value={AuthStatus.BANNED}>Banned</option>
+                                    {Object.values(AuthStatus).map(s => (
+                                        <option key={s} value={s}>{s}</option>
+                                    ))}
                                 </select>
                             </div>
 
-                            {/* Plan */}
                             <div>
-                                <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Subscription Plan</label>
+                                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Subscription Plan</label>
                                 <select
                                     value={editTier}
-                                    onChange={e => setEditTier(e.target.value as any)}
-                                    className="w-full bg-slate-800 border border-slate-600 rounded-lg p-2.5 text-white"
+                                    onChange={(e) => setEditTier(e.target.value as any)}
+                                    className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white"
                                 >
-                                    <option value="CUSTOM">Custom</option>
+                                    <option value="CUSTOM">Custom (Subject based)</option>
                                     <option value="PRO_MONTHLY">Pro Monthly</option>
                                     <option value="PRO_YEARLY">Pro Yearly</option>
                                 </select>
                             </div>
 
-                            {/* Admin Toggle */}
                             <div className="flex items-center gap-3 p-3 bg-slate-800 rounded-lg border border-slate-700">
+                                <Shield className={editIsAdmin ? "text-red-400" : "text-slate-500"} />
+                                <div className="flex-1">
+                                    <label className="font-bold text-white block">Administrator Access</label>
+                                    <p className="text-xs text-slate-400">Can access this dashboard and manage users.</p>
+                                </div>
                                 <input
                                     type="checkbox"
-                                    id="adminToggle"
                                     checked={editIsAdmin}
                                     onChange={e => setEditIsAdmin(e.target.checked)}
-                                    className="w-5 h-5 rounded"
+                                    className="w-5 h-5 rounded accent-red-500"
                                 />
-                                <label htmlFor="adminToggle" className="flex items-center gap-2 cursor-pointer">
-                                    <Shield className="text-red-400" size={18} />
-                                    <span className="text-white font-bold">Admin Access</span>
-                                </label>
                             </div>
-                        </div>
 
-                        <div className="px-6 py-4 bg-slate-800/50 border-t border-slate-700 flex justify-end gap-3">
-                            <button onClick={closeEditModal} className="px-4 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700">
-                                Cancel
-                            </button>
-                            <button onClick={saveEdit} className="px-6 py-2 bg-blue-600 rounded-lg text-white font-bold hover:bg-blue-500 flex items-center gap-2">
-                                <Save size={16} /> Save Changes
-                            </button>
+                            <div className="pt-4 flex gap-3">
+                                <button onClick={closeEditModal} className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-bold">Cancel</button>
+                                <button onClick={saveEdit} className="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold flex items-center justify-center gap-2">
+                                    <Save size={18} /> Save Changes
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

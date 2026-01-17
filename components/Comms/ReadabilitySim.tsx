@@ -16,7 +16,7 @@ const ReadabilitySim: React.FC = () => {
     const getGarbledMessage = (text: string, scale: number) => {
         if (scale === 5) return text;
         if (scale === 1) return text.replace(/[a-zA-Z0-9]/g, '█');
-        
+
         const chance = (5 - scale) * 0.2; // 1->0.8, 2->0.6, 3->0.4, 4->0.2
         return text.split('').map(char => {
             if (char === ' ') return ' ';
@@ -47,11 +47,11 @@ const ReadabilitySim: React.FC = () => {
             </div>
 
             <div className="mb-8">
-                <input 
-                    type="range" 
-                    min="1" 
-                    max="5" 
-                    step="1" 
+                <input
+                    type="range"
+                    min="1"
+                    max="5"
+                    step="1"
                     value={level}
                     onChange={(e) => setLevel(Number(e.target.value))}
                     className="w-full h-4 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600"

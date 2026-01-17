@@ -6,7 +6,8 @@ import {
     Navigation, Activity, Phone, Wifi, Book,
     Mic, Play, ShieldAlert, Crosshair, Calculator,
     Brain, Clock, Database, Zap, Lock, Grid,
-    ListOrdered, FileText, CheckSquare, Sun, Thermometer, Map, Plane
+    ListOrdered, FileText, CheckSquare, Sun, Thermometer, Map, Plane,
+    TrendingUp, Star, AlertTriangle
 } from 'lucide-react';
 
 interface Props {
@@ -91,6 +92,12 @@ const CommsDashboard: React.FC<Props> = ({ onChangeView }) => {
                     icon={Book} color="indigo"
                 />
                 <Card
+                    view={View.COMMS_DEFINITIONS}
+                    title="Glossary of Terms"
+                    desc="Searchable database of ICAO definitions (Station types, Service categories)."
+                    icon={Book} color="indigo" tag="REF"
+                />
+                <Card
                     view={View.PROPAGATION_THEORY}
                     title="VHF Propagation"
                     desc="Line of sight, atmospheric ducting, attenuation, and range limitations."
@@ -109,10 +116,22 @@ const CommsDashboard: React.FC<Props> = ({ onChangeView }) => {
                     icon={Activity} color="indigo"
                 />
                 <Card
+                    view={View.CALLSIGN_TRAINER}
+                    title="Callsign Logic"
+                    desc="Rules for abbreviating aircraft and ground station callsigns."
+                    icon={Radio} color="indigo" tag="DRILL"
+                />
+                <Card
                     view={View.SUFFIX_MATCH}
                     title="Station Suffixes"
                     desc="Learn the callsigns: CONTROL, INFORMATION, DELIVERY, RADIO, etc."
                     icon={Radio} color="indigo" tag="DRILL"
+                />
+                <Card
+                    view={View.ABBREVIATION_GAME}
+                    title="Abbreviation Master"
+                    desc="Decode CAVOK, NOSIG, RVR and other standard abbreviations."
+                    icon={Book} color="indigo" tag="GAME"
                 />
                 <Card
                     view={View.QCODE_CARDS}
@@ -144,10 +163,22 @@ const CommsDashboard: React.FC<Props> = ({ onChangeView }) => {
                     icon={Mic} color="blue" tag="DRILL"
                 />
                 <Card
+                    view={View.NUM_TIME_TRANSMIT}
+                    title="Transmission Drill"
+                    desc="Interactive trainer for transmitting Altitude, Flight Levels, Visibility and Time."
+                    icon={Mic} color="blue" tag="DRILL"
+                />
+                <Card
                     view={View.ALT_SPEAK}
                     title="Number Transmission"
                     desc="Practice transmitting Altitude, FL, Heading and Frequency numbers."
                     icon={ListOrdered} color="blue" tag="DRILL"
+                />
+                <Card
+                    view={View.LEVEL_CHANGES}
+                    title="Level Changes"
+                    desc="Complex clearances: 'Climb FL100 to reach by...'"
+                    icon={Activity} color="blue" tag="DRILL"
                 />
                 <Card
                     view={View.TIME_REPORT}
@@ -171,7 +202,7 @@ const CommsDashboard: React.FC<Props> = ({ onChangeView }) => {
                     view={View.PRIORITY}
                     title="Message Priority"
                     desc="Sort messages by priority: Distress, Urgency, DF, Safety, Met, Flight Safety."
-                    icon={ListOrdered} color="blue" tag="GAME"
+                    icon={ListOrdered} color="blue" tag="DRILL"
                 />
                 <Card
                     view={View.READBACK}
@@ -197,16 +228,28 @@ const CommsDashboard: React.FC<Props> = ({ onChangeView }) => {
                     icon={Radio} color="sky" tag="AUDIO"
                 />
                 <Card
+                    view={View.CPDLC_SIM}
+                    title="CPDLC Simulator"
+                    desc="Send and receive data link messages: LOGON, CLIMB, CONTACT."
+                    icon={Wifi} color="sky" tag="SIM"
+                />
+                <Card
                     view={View.AIREP_SPEC}
                     title="AIREP Special"
                     desc="Reporting special weather phenomena (Turbulence, Icing, Ash)."
                     icon={Thermometer} color="sky" tag="TOOL"
                 />
                 <Card
-                    view={View.RADIO_NAV_DATA}
-                    title="Data Link (ACARS)"
-                    desc="ACARS OOOI phases and CPDLC message types."
-                    icon={Database} color="sky"
+                    view={View.SNOWTAM}
+                    title="SNOWTAM Decoder"
+                    desc="Decode Runway Condition Reports (RCR) and friction coefficients."
+                    icon={Sun} color="sky" tag="TOOL"
+                />
+                <Card
+                    view={View.SIGMET_DECODER}
+                    title="SIGMET / AIRMET"
+                    desc="Interpret hazardous weather warnings (Turbulence, Icing, Ash)."
+                    icon={AlertTriangle} color="sky" tag="TOOL"
                 />
                 <Card
                     view={View.TIME_ZONER}
@@ -224,6 +267,12 @@ const CommsDashboard: React.FC<Props> = ({ onChangeView }) => {
                     title="Distress Builder"
                     desc="Construct the perfect MAYDAY call sequence."
                     icon={AlertCircle} color="red" tag="TOOL"
+                />
+                <Card
+                    view={View.URGENCY_TRAINER}
+                    title="Urgency (PAN)"
+                    desc="Scenarios for PAN-PAN messages (Medical, Engine Failure)."
+                    icon={AlertCircle} color="red" tag="DRILL"
                 />
                 <Card
                     view={View.EMERGENCY_OPS}
@@ -296,6 +345,7 @@ const CommsDashboard: React.FC<Props> = ({ onChangeView }) => {
                     desc="Voice/Text chat with an AI Air Traffic Controller."
                     icon={Mic} color="purple" tag="AI"
                 />
+
                 <Card
                     view={View.AI_QUIZ}
                     title="Infinite Examiner"

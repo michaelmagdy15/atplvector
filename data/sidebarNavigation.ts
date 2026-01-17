@@ -202,10 +202,7 @@ const NAV_MAP: SubjectConfig[] = [
             { label: 'Atmosphere', view: View.HPL_ATMOSPHERE },
             { label: 'Health & Hygiene', view: View.HPL_HEALTH_HYGIENE },
             { label: 'Incidents', view: View.HPL_INCIDENTS },
-            { label: 'Pressure Effects', view: View.HPL_PRESSURE },
-            { label: 'Motion Sickness', view: View.HPL_MOTION_SICKNESS },
-            { label: 'Perception', view: View.HPL_PERCEPTION },
-            { label: 'Workload', view: View.HPL_WORKLOAD },
+
         ]
     },
     {
@@ -299,6 +296,13 @@ const NAV_MAP: SubjectConfig[] = [
         dashboardView: View.OPS_PROC_HOME,
         items: [
             { label: 'Dashboard', view: View.OPS_PROC_HOME, icon: BookOpen },
+            { label: 'All Weather Ops', view: View.OPS_AWO },
+            { label: 'General Req.', view: View.OPS_GENERAL },
+            { label: 'Long Range / MNPS', view: View.OPS_LONG_RANGE },
+            { label: 'Special Ops', view: View.OPS_SPECIAL },
+            { label: 'FTL & Crew', view: View.OPS_FTL },
+            { label: 'Emergency Ops', view: View.EMERGENCY_OPS },
+            { label: 'Ground Ops', view: View.AIR_LAW_GROUND_OPS },
         ]
     }
 ];

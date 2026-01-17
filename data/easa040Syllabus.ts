@@ -36,16 +36,17 @@ export const EASA_040_SYLLABUS = {
     '040.02.02.00': { title: 'People and the environment: the sensory system', status: 'covered' },
     '040.02.02.01': { title: 'Central and peripheral nervous system', status: 'covered', component: View.HPL_NERVOUS },
     '040.02.02.02': { title: 'Vision', status: 'covered', component: View.HPL_VISION },
-    '040.02.02.03': { title: 'Hearing', status: 'covered', component: View.HPL_HEARING },
+    '040.02.02.03': { title: 'Hearing', status: 'covered', component: View.HPL_HEARING }, // Vision protection also in HPL_VISION
     '040.02.02.04': { title: 'Equilibrium - vestibular system', status: 'covered', component: View.HPL_VESTIBULAR },
     '040.02.02.05': { title: 'Integration of senses - spatial disorientation', status: 'covered', component: View.HPL_VESTIBULAR },
     '040.02.02.06': { title: 'Motion sickness', status: 'covered', component: View.HPL_MOTION_SICKNESS },
     '040.02.03.00': { title: 'Health and hygiene', status: 'covered' },
     '040.02.03.01': { title: 'Personal hygiene, physical fitness', status: 'covered', component: View.HPL_HEALTH },
-    '040.02.03.02': { title: 'Toxic hazards - CO, alcohol, drugs', status: 'covered', component: View.HPL_TOXIC },
+    '040.02.03.02': { title: 'Toxic hazards - CO, alcohol, drugs, fumes', status: 'covered', component: View.HPL_TOXIC }, // Fumes also in HPL_INCAPACITATION
     '040.02.03.03': { title: 'Hypoxia and hyperventilation', status: 'covered', component: View.HPL_PHYSIOLOGY },
     '040.02.03.04': { title: 'Pressure effects - barotrauma, decompression', status: 'covered', component: View.HPL_PRESSURE },
     '040.02.03.05': { title: 'G-effects and accelerations', status: 'covered', component: View.HPL_ACCELERATION },
+    '040.02.03.06': { title: 'Incapacitation in flight', status: 'covered', component: View.HPL_INCAPACITATION },
 
     // 040.03 - BASIC AVIATION PSYCHOLOGY
     '040.03.00.00': { title: 'BASIC AVIATION PSYCHOLOGY', status: 'covered' },

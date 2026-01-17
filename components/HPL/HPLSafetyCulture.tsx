@@ -139,6 +139,29 @@ const SafetyCultureView = () => (
                     <p className="text-xs text-slate-300">Able to reconfigure facing high tempo operations or danger.</p>
                 </div>
             </div>
+
+            <div className="mt-8">
+                <h3 className="font-bold text-white mb-4">National Culture (Hofstede)</h3>
+                <div className="bg-slate-900 p-4 rounded-xl border border-slate-700">
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="border-r border-slate-700 pr-4">
+                            <h4 className="font-bold text-white text-sm">Power Distance (PDI)</h4>
+                            <p className="text-xs text-slate-400 mt-1">
+                                High PDI (e.g., some Asian/Latin countries) = Subordinates hesitate to question Captain.
+                                <br /><span className="text-red-400">Risk:</span> Steep cockpit gradient. Communication barrier.
+                            </p>
+                        </div>
+                        <div className="pl-4">
+                            <h4 className="font-bold text-white text-sm">Individualism (IDV)</h4>
+                            <p className="text-xs text-slate-400 mt-1">
+                                High IDV (e.g., USA/Europe) = Focus on self.
+                                <br />Low IDV = Focus on Group/Face.
+                                <br /><span className="text-emerald-400">Goal:</span> Balanced cockpit culture regardless of nationality.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div className="space-y-6">

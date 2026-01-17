@@ -6,16 +6,8 @@ const HPLShell: React.FC = () => {
     const [selectedInterface, setSelectedInterface] = useState<'LS' | 'LH' | 'LE' | 'LL' | null>(null);
 
     return (
-        <div className="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700 mt-8">
-            <div className="flex justify-between items-center mb-6">
-                <div>
-                    <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
-                        <Layers className="text-sky-400" />
-                        The SHELL Model
-                    </h2>
-                    <p className="text-slate-400 text-sm">Edwards (1972) / Hawkins (1975). Human Factors Framework.</p>
-                </div>
-            </div>
+        <div className="animate-in fade-in">
+            <h3 className="font-bold text-white mb-6">The SHELL Model (Edwards 1972 / Hawkins 1975)</h3>
 
             <div className="grid md:grid-cols-2 gap-12">
                 {/* Visual Model */}
