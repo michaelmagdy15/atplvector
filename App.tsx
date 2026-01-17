@@ -21,6 +21,7 @@ import { getSubjectConfig } from './data/sidebarNavigation';
 import StarfieldBackground from './components/StarfieldBackground';
 import GlowOrbs from './components/GlowOrbs';
 import LoadingScreen from './components/LoadingScreen';
+import QuestionBank from './components/QuestionBank';
 
 // Imports for Subjects...
 import AirLawDashboard from './components/AirLawDashboard';
@@ -234,6 +235,11 @@ import KSADashboard from './components/KSA/KSADashboard';
 import CoreCompetencies from './components/KSA/CoreCompetencies';
 import TEMAdvanced from './components/KSA/TEMAdvanced';
 import MentalMathsLab from './components/KSA/MentalMathsLab';
+import FORDECDecision from './components/KSA/FORDECDecision';
+import UPRTConcepts from './components/KSA/UPRTConcepts';
+import CRMScenarios from './components/KSA/CRMScenarios';
+import ResilienceTraining from './components/KSA/ResilienceTraining';
+import ProcedureApplication from './components/KSA/ProcedureApplication';
 
 import {
     Plane as PlaneIcon, Menu, X, BookOpen, Settings, Weight,
@@ -858,6 +864,11 @@ const App: React.FC = () => {
                                     onChangeView={navigateTo}
                                 />
                             )}
+                            {currentView === View.QUESTION_BANK && (
+                                <QuestionBank
+                                    onChangeView={navigateTo}
+                                />
+                            )}
 
                             {/* --- SUBJECT MODULES --- */}
                             {/* Air Law */}
@@ -1130,6 +1141,11 @@ const App: React.FC = () => {
                             {currentView === View.KSA_COMPETENCIES && <CoreCompetencies />}
                             {currentView === View.KSA_TEM && <TEMAdvanced />}
                             {currentView === View.KSA_MENTAL_MATHS && <MentalMathsLab />}
+                            {currentView === View.KSA_FORDEC && <FORDECDecision />}
+                            {currentView === View.KSA_UPRT && <UPRTConcepts />}
+                            {currentView === View.KSA_CRM && <CRMScenarios />}
+                            {currentView === View.KSA_RESILIENCE && <ResilienceTraining />}
+                            {currentView === View.KSA_PROCEDURES && <ProcedureApplication />}
 
                             {/* Communications (090) */}
                             {currentView === View.DASHBOARD && <CommsDashboard onChangeView={navigateTo} />}

@@ -259,6 +259,11 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '100.02', subject: '100', text: 'Core Competencies Learning Objectives', coveredBy: View.KSA_COMPETENCIES },
     { id: '100.03', subject: '100', text: 'Threat and Error Management (TEM)', coveredBy: View.KSA_TEM },
     { id: '100.04', subject: '100', text: 'Mental Maths', coveredBy: View.KSA_MENTAL_MATHS },
+    { id: '100.05', subject: '100', text: 'Application of Procedures', coveredBy: View.KSA_PROCEDURES },
+    { id: '100.06', subject: '100', text: 'Decision Making (FOR-DEC)', coveredBy: View.KSA_FORDEC },
+    { id: '100.07', subject: '100', text: 'UPRT Concepts', coveredBy: View.KSA_UPRT },
+    { id: '100.08', subject: '100', text: 'CRM scenarios', coveredBy: View.KSA_CRM },
+    { id: '100.09', subject: '100', text: 'Resilience Training', coveredBy: View.KSA_RESILIENCE },
 ];
 
 // Calculate progress by comparing covered LOs to total from syllabus

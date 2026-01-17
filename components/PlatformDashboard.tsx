@@ -159,6 +159,20 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                             <div className="text-xl font-bold text-white group-hover:text-blue-200 transition-colors">Study Guide</div>
                         </div>
                     </div>
+
+                    {/* Question Bank Quick Access */}
+                    <div
+                        onClick={() => onChangeView(View.QUESTION_BANK)}
+                        className="glass-panel px-5 py-3 rounded-2xl flex items-center gap-4 cursor-pointer hover:bg-white/5 transition-colors border border-purple-500/30 shadow-lg shadow-purple-500/10 group"
+                    >
+                        <div className="p-2 bg-purple-500/20 rounded-lg text-purple-400 group-hover:scale-110 transition-transform">
+                            <BookOpen size={20} />
+                        </div>
+                        <div>
+                            <div className="text-[10px] text-purple-400/60 font-bold uppercase tracking-wider">Practice</div>
+                            <div className="text-xl font-bold text-white group-hover:text-purple-200 transition-colors">Question Bank</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

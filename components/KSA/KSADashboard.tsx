@@ -20,19 +20,49 @@ const KSADashboard: React.FC<Props> = ({ onChangeView, isLocked }) => {
             modules={[
                 {
                     title: 'Core Competencies',
-                    desc: 'Communication, Leadership, Situation Awareness, Problem Solving.',
+                    desc: 'The 8 ICAO core pilot competencies and behavioral indicators.',
                     view: View.KSA_COMPETENCIES,
                     isLocked
                 },
                 {
+                    title: 'Decision Making (FOR-DEC)',
+                    desc: 'Interactive FOR-DEC model training for complex situations.',
+                    view: View.KSA_FORDEC,
+                    isLocked
+                },
+                {
+                    title: 'Procedure Application',
+                    desc: 'SOP adherence, checklist flows, and deviation recognition.',
+                    view: View.KSA_PROCEDURES,
+                    isLocked
+                },
+                {
                     title: 'Threat & Error Management',
-                    desc: 'Threats, Errors, UAS, and Countermeasures implementation.',
+                    desc: 'Identification of threats, errors, and UAS in various scenarios.',
                     view: View.KSA_TEM,
                     isLocked
                 },
                 {
-                    title: 'Mental Maths',
-                    desc: '1-in-60 rule, Reciprocals, Time-Speed-Distance calculations.',
+                    title: 'UPRT Theory',
+                    desc: 'Upset recognition and recovery techniques (Nose High/Low).',
+                    view: View.KSA_UPRT,
+                    isLocked
+                },
+                {
+                    title: 'CRM Scenarios',
+                    desc: 'Crew Resource Management assessment in multi-crew settings.',
+                    view: View.KSA_CRM,
+                    isLocked
+                },
+                {
+                    title: 'Resilience Training',
+                    desc: 'Startle effect, stress management, and fatigue mitigation.',
+                    view: View.KSA_RESILIENCE,
+                    isLocked
+                },
+                {
+                    title: 'Mental Maths Lab',
+                    desc: '11 interactive trainers for aviation arithmetic and RoT.',
                     view: View.KSA_MENTAL_MATHS,
                     isLocked
                 },

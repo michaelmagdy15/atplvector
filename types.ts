@@ -9,6 +9,7 @@ export enum View {
   SUBSCRIPTION_MANAGEMENT = 'SUBSCRIPTION_MANAGEMENT',
   ADMIN_DASHBOARD = 'ADMIN_DASHBOARD',
   STUDY_GUIDE = 'STUDY_GUIDE',
+  QUESTION_BANK = 'QUESTION_BANK',
 
   // Auth Specific
   AUTH_LOGIN = 'AUTH_LOGIN',
@@ -258,6 +259,11 @@ export enum View {
   KSA_COMPETENCIES = 'KSA_COMPETENCIES',
   KSA_TEM = 'KSA_TEM',
   KSA_MENTAL_MATHS = 'KSA_MENTAL_MATHS',
+  KSA_FORDEC = 'KSA_FORDEC',           // FOR-DEC Decision Model
+  KSA_UPRT = 'KSA_UPRT',               // Upset Prevention & Recovery
+  KSA_CRM = 'KSA_CRM',                 // CRM Scenarios
+  KSA_RESILIENCE = 'KSA_RESILIENCE',   // Resilience Training
+  KSA_PROCEDURES = 'KSA_PROCEDURES',   // Application of Procedures
 
   // NEW 090 SPECIFIC
   VOLMET_SIM = 'VOLMET_SIM',
@@ -357,6 +363,16 @@ export interface QuizQuestion {
   explanation: string;
 }
 
+export interface Question {
+  id: string;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+  learningObjectives: string[];
+  annexes: string[];
+}
+
 // New interfaces for LOs
 export interface LearningObjective {
   id: string;
@@ -428,4 +444,56 @@ declare global {
       [elemName: string]: any;
     }
   }
+}
+export interface SavedTest {
+  id: string;
+  name: string;
+  subjectId: string;
+  mode: 'study' | 'exam';
+  questionIds: string[];
+  userAnswers: (number | null)[]; // Index of selected option
+  userStatuses: ('correct' | 'incorrect' | 'skipped' | 'unseen')[];
+  currentIndex: number;
+  score: number;
+  timeSpent: number; // in seconds
+  createdAt: string;
+  lastResumedAt: string;
+  isCompleted: boolean;
+}
+
+export interface QBConfig {
+  subjectId: string;
+  mode: 'study' | 'exam';
+  count: number;
+  topics: string[]; // List of topic IDs selected
+  filters: {
+    onlyRealExam: boolean;
+    withAnnexes: boolean;
+    withoutAnnexes: boolean;
+    unseen: boolean;
+    incorrect: boolean;
+  };
+}
+
+export interface TopicResult {
+  topicId: string;
+  title: string;
+  total: number;
+  correct: number;
+}
+
+export interface TestResult {
+  testId: string;
+  score: number;
+  totalQuestions: number;
+  timeSpent: number;
+  topicBreakdown: TopicResult[];
+  areasForImprovement: string[]; // List of topic titles
+}
+
+export interface QBStats {
+  averageScore: number;
+  questionsSeen: number;
+  totalTestsCompleted: number;
+  scoreHistory: { date: string, score: number, type: 'study' | 'exam' }[];
 }

@@ -33,6 +33,38 @@ const SCENARIOS = [
         desc: 'ATC issues a rapid-fire, complex departure clearance with multiple amendments.',
         explanation: 'This is a THREAT. It challenges your capacity. Strategy: "Standby", write it down, valid readback.',
         correct: 'THREAT'
+    },
+    {
+        id: 5,
+        title: 'Automation Error',
+        type: 'ERROR',
+        desc: 'The Captain intended to set FL100 but accidentally scrolls to FL110. The FO does not verify.',
+        explanation: 'This is an ERROR (Action/Selection). It is a failure to exercise care. Management: Monitor and Cross-check.',
+        correct: 'ERROR'
+    },
+    {
+        id: 6,
+        title: 'Severe Turbulence',
+        type: 'THREAT',
+        desc: 'Unexpected severe turbulence is encountered at cruise, requiring an immediate altitude change.',
+        explanation: 'This is an Environmental THREAT. It is outside the crew\'s control but requires management. Management: Use of weather radar, pilot reports, and seatbelt signs.',
+        correct: 'THREAT'
+    },
+    {
+        id: 7,
+        title: 'Taxiway Incursion',
+        type: 'UAS',
+        desc: 'The aircraft has crossed a hold-short line without a specific ATC clearance to enter the runway.',
+        explanation: 'This is a UAS (Ground Navigation). The aircraft is in a unsafe position. Management: Stop immediately and notify ATC.',
+        correct: 'UAS'
+    },
+    {
+        id: 8,
+        title: 'Fatigue',
+        type: 'THREAT',
+        desc: 'The FO has had only 4 hours of sleep and is struggling to maintain concentration during the approach.',
+        explanation: 'This is a THREAT (Internal/Human). It reduces the crew\'s capability. Management: Workload sharing, Napping (where allowed), and use of automation.',
+        correct: 'THREAT'
     }
 ];
 

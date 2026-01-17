@@ -1,0 +1,3434 @@
+{
+  "010": [
+    {
+      "id": "010",
+      "title": "Air Law",
+      "parentId": null,
+      "level": 1
+    },
+    {
+      "id": "010.01",
+      "title": "International Law:\n-  Conventions, Agreements And Organisations",
+      "parentId": "010",
+      "level": 2
+    },
+    {
+      "id": "010.01.01",
+      "title": "The Convention on International Civil Aviation (Chicago) - Icao Doc 7300/9 - Convention on the High Seas (Geneva, 29 April 1958)",
+      "parentId": "010.01",
+      "level": 3
+    },
+    {
+      "id": "010.01.02",
+      "title": "Other conventions and agreements",
+      "parentId": "010.01",
+      "level": 3
+    },
+    {
+      "id": "010.01.03",
+      "title": "World organisations",
+      "parentId": "010.01",
+      "level": 3
+    },
+    {
+      "id": "010.01.04",
+      "title": "European organisations",
+      "parentId": "010.01",
+      "level": 3
+    },
+    {
+      "id": "010.02",
+      "title": "Airworthiness Of Aircraft, Aircraft Nationality And Registration Marks",
+      "parentId": "010",
+      "level": 2
+    },
+    {
+      "id": "010.02.02",
+      "title": "Certificate of Airworthiness (CofA)",
+      "parentId": "010.02",
+      "level": 3
+    },
+    {
+      "id": "010.02.03",
+      "title": "Icao Annex 7 - Aircraft Nationality and Registration Marks",
+      "parentId": "010.02",
+      "level": 3
+    },
+    {
+      "id": "010.02.04",
+      "title": "Nationality marks, common marks and registration marks",
+      "parentId": "010.02",
+      "level": 3
+    },
+    {
+      "id": "010.04",
+      "title": "Personnel Licensing",
+      "parentId": "010",
+      "level": 2
+    },
+    {
+      "id": "010.04.01",
+      "title": "Icao Annex 1",
+      "parentId": "010.04",
+      "level": 3
+    },
+    {
+      "id": "010.04.02",
+      "title": "Aircrew Regulation - Annex I (Part-Fcl) Source:\n-  Aircrew Regulation",
+      "parentId": "010.04",
+      "level": 3
+    },
+    {
+      "id": "010.04.03",
+      "title": "Aircrew Regulation - Annex Iv (Part-Med)",
+      "parentId": "010.04",
+      "level": 3
+    },
+    {
+      "id": "010.05",
+      "title": "Rules Of The Air According To Icao Annex 2 And Sera ",
+      "parentId": "010",
+      "level": 2
+    },
+    {
+      "id": "010.05.01",
+      "title": "Overview of Icao Annex 2 and Sera (Commission Implementing Regulation (Eu) No 923/2012 and its references and subsequent amendments)",
+      "parentId": "010.05",
+      "level": 3
+    },
+    {
+      "id": "010.05.02",
+      "title": "Rules of the Air",
+      "parentId": "010.05",
+      "level": 3
+    },
+    {
+      "id": "010.05.03",
+      "title": "General rules",
+      "parentId": "010.05",
+      "level": 3
+    },
+    {
+      "id": "010.05.04",
+      "title": "Visual flight rules (Vfr)",
+      "parentId": "010.05",
+      "level": 3
+    },
+    {
+      "id": "010.05.05",
+      "title": "Instrument flight rules (Ifr)",
+      "parentId": "010.05",
+      "level": 3
+    },
+    {
+      "id": "010.05.06",
+      "title": "Interception of civil aircraft",
+      "parentId": "010.05",
+      "level": 3
+    },
+    {
+      "id": "010.06",
+      "title": "Aircraft Operations ",
+      "parentId": "010",
+      "level": 2
+    },
+    {
+      "id": "010.06.02",
+      "title": "Definitions and abbreviations (Pans-Ops Flight Procedures, Icao Doc 8168, Volume I)",
+      "parentId": "010.06",
+      "level": 3
+    },
+    {
+      "id": "010.06.03",
+      "title": "Departure procedures - (Icao Doc 8168, Volume I)",
+      "parentId": "010.06",
+      "level": 3
+    },
+    {
+      "id": "010.06.04",
+      "title": "Approach procedures - Icao Doc 8168, Volume I",
+      "parentId": "010.06",
+      "level": 3
+    },
+    {
+      "id": "010.06.05",
+      "title": "Holding procedures - Icao Doc 8168, Volume I",
+      "parentId": "010.06",
+      "level": 3
+    },
+    {
+      "id": "010.06.06",
+      "title": "Altimeter-setting procedures - Icao Doc 8168",
+      "parentId": "010.06",
+      "level": 3
+    },
+    {
+      "id": "010.06.07",
+      "title": "Parallel or near-parallel instrument RWYs - Icao Doc 8168, Volume Iii",
+      "parentId": "010.06",
+      "level": 3
+    },
+    {
+      "id": "010.06.08",
+      "title": "Secondary surveillance radar (transponder) operating procedures - Icao Doc 8168",
+      "parentId": "010.06",
+      "level": 3
+    },
+    {
+      "id": "010.06.09",
+      "title": "Regulation (Eu) No 965/2012 On Air Operations",
+      "parentId": "010.06",
+      "level": 3
+    },
+    {
+      "id": "010.07",
+      "title": "Air Traffic Services (Ats) And Air Traffic Management (Atm)",
+      "parentId": "010",
+      "level": 2
+    },
+    {
+      "id": "010.07.01",
+      "title": "Icao Annex 11 - Air Traffic Services",
+      "parentId": "010.07",
+      "level": 3
+    },
+    {
+      "id": "010.07.02",
+      "title": "Icao Doc 4444 - Air Traffic Management",
+      "parentId": "010.07",
+      "level": 3
+    },
+    {
+      "id": "010.08",
+      "title": "Aeronautical Information Service (Ais)",
+      "parentId": "010",
+      "level": 2
+    },
+    {
+      "id": "010.08.01",
+      "title": "Introduction",
+      "parentId": "010.08",
+      "level": 3
+    },
+    {
+      "id": "010.08.02",
+      "title": "Definitions of Icao Annex 15",
+      "parentId": "010.08",
+      "level": 3
+    },
+    {
+      "id": "010.08.03",
+      "title": "General",
+      "parentId": "010.08",
+      "level": 3
+    },
+    {
+      "id": "010.08.04",
+      "title": "Aeronautical information products and services",
+      "parentId": "010.08",
+      "level": 3
+    },
+    {
+      "id": "010.08.05",
+      "title": "Atm service providers",
+      "parentId": "010.08",
+      "level": 3
+    },
+    {
+      "id": "010.09",
+      "title": "Aerodromes (Icao Annex 14 and Regulation (Eu) No\u00a0139/2014)",
+      "parentId": "010",
+      "level": 2
+    },
+    {
+      "id": "010.09.01",
+      "title": "General",
+      "parentId": "010.09",
+      "level": 3
+    },
+    {
+      "id": "010.09.02",
+      "title": "Aerodrome (Ad) data",
+      "parentId": "010.09",
+      "level": 3
+    },
+    {
+      "id": "010.09.03",
+      "title": "Physical characteristics",
+      "parentId": "010.09",
+      "level": 3
+    },
+    {
+      "id": "010.09.04",
+      "title": "Visual aids for navigation",
+      "parentId": "010.09",
+      "level": 3
+    },
+    {
+      "id": "010.09.05",
+      "title": "Visual aids for denoting obstacles",
+      "parentId": "010.09",
+      "level": 3
+    },
+    {
+      "id": "010.09.06",
+      "title": "Visual aids for denoting restricted use of areas",
+      "parentId": "010.09",
+      "level": 3
+    },
+    {
+      "id": "010.09.07",
+      "title": "Aerodrome (Ad) operational services, equipment and installations",
+      "parentId": "010.09",
+      "level": 3
+    },
+    {
+      "id": "010.09.08",
+      "title": "Supplementary Guidance Material",
+      "parentId": "010.09",
+      "level": 3
+    },
+    {
+      "id": "010.10",
+      "title": "Facilitation (Icao Annex 9)",
+      "parentId": "010",
+      "level": 2
+    },
+    {
+      "id": "010.10.02",
+      "title": "Entry and departure of aircraft",
+      "parentId": "010.10",
+      "level": 3
+    },
+    {
+      "id": "010.11",
+      "title": "Search And Rescue (Sar)",
+      "parentId": "010",
+      "level": 2
+    },
+    {
+      "id": "010.11.01",
+      "title": "Essential Sar definitions",
+      "parentId": "010.11",
+      "level": 3
+    },
+    {
+      "id": "010.11.02",
+      "title": "Sar - Organisation",
+      "parentId": "010.11",
+      "level": 3
+    },
+    {
+      "id": "010.11.03",
+      "title": "Operating procedures for non-Sar crews",
+      "parentId": "010.11",
+      "level": 3
+    },
+    {
+      "id": "010.11.04",
+      "title": "Search and rescue signals",
+      "parentId": "010.11",
+      "level": 3
+    },
+    {
+      "id": "010.12",
+      "title": "Security - Safeguarding International Civil Aviation against Acts of Unlawful Interference (Icao Annex 17) ",
+      "parentId": "010",
+      "level": 2
+    },
+    {
+      "id": "010.12.01",
+      "title": "Definitions of Icao Annex 17",
+      "parentId": "010.12",
+      "level": 3
+    },
+    {
+      "id": "010.12.02",
+      "title": "General principles",
+      "parentId": "010.12",
+      "level": 3
+    },
+    {
+      "id": "010.12.04",
+      "title": "Preventive security measures",
+      "parentId": "010.12",
+      "level": 3
+    },
+    {
+      "id": "010.12.05",
+      "title": "Management of response to acts of unlawful interference",
+      "parentId": "010.12",
+      "level": 3
+    },
+    {
+      "id": "010.12.06",
+      "title": "Operators\u2019 security programme",
+      "parentId": "010.12",
+      "level": 3
+    },
+    {
+      "id": "010.12.07",
+      "title": "Security procedures in other documents, i.e. Icao Annexes 2, 6 and 14, Icao Doc 4444, Regulation (Eu) No 965/2012 and Cs-Adr-Dsn",
+      "parentId": "010.12",
+      "level": 3
+    },
+    {
+      "id": "010.13",
+      "title": "Aircraft Accident And Incident Investigation",
+      "parentId": "010",
+      "level": 2
+    },
+    {
+      "id": "010.13.01",
+      "title": "Essential definitions of Icao Annex 13",
+      "parentId": "010.13",
+      "level": 3
+    },
+    {
+      "id": "010.13.02",
+      "title": "Accident and incident investigation in Icao Annex 13",
+      "parentId": "010.13",
+      "level": 3
+    },
+    {
+      "id": "010.13.03",
+      "title": "Accident and incident investigation in Eu regulations ",
+      "parentId": "010.13",
+      "level": 3
+    }
+  ],
+  "021": [
+    {
+      "id": "021",
+      "title": "Aircraft General Knowledge \u2014 Airframe, Systems And Power Plant",
+      "parentId": null,
+      "level": 1
+    },
+    {
+      "id": "021.01",
+      "title": "System Design, Loads, Stresses, Maintenance",
+      "parentId": "021",
+      "level": 2
+    },
+    {
+      "id": "021.01.01",
+      "title": "System design",
+      "parentId": "021.01",
+      "level": 3
+    },
+    {
+      "id": "021.01.02",
+      "title": "Loads and stresses",
+      "parentId": "021.01",
+      "level": 3
+    },
+    {
+      "id": "021.01.03",
+      "title": "Fatigue and corrosion",
+      "parentId": "021.01",
+      "level": 3
+    },
+    {
+      "id": "021.01.05",
+      "title": "Maintenance",
+      "parentId": "021.01",
+      "level": 3
+    },
+    {
+      "id": "021.02",
+      "title": "Airframe",
+      "parentId": "021",
+      "level": 2
+    },
+    {
+      "id": "021.02.01",
+      "title": "Attachment methods",
+      "parentId": "021.02",
+      "level": 3
+    },
+    {
+      "id": "021.02.02",
+      "title": "Materials",
+      "parentId": "021.02",
+      "level": 3
+    },
+    {
+      "id": "021.02.03",
+      "title": "Aeroplane:\n-  wings, tail surfaces and control surfaces",
+      "parentId": "021.02",
+      "level": 3
+    },
+    {
+      "id": "021.02.04",
+      "title": "Fuselage, landing gear, doors, floor, windscreen and windows",
+      "parentId": "021.02",
+      "level": 3
+    },
+    {
+      "id": "021.02.05",
+      "title": "Helicopter:\n-  structural aspects of flight controls ",
+      "parentId": "021.02",
+      "level": 3
+    },
+    {
+      "id": "021.02.06",
+      "title": "Structural limitations",
+      "parentId": "021.02",
+      "level": 3
+    },
+    {
+      "id": "021.03",
+      "title": "Hydraulics",
+      "parentId": "021",
+      "level": 2
+    },
+    {
+      "id": "021.03.01",
+      "title": "Hydromechanics:\n-  basic principles",
+      "parentId": "021.03",
+      "level": 3
+    },
+    {
+      "id": "021.03.02",
+      "title": "Hydraulic systems",
+      "parentId": "021.03",
+      "level": 3
+    },
+    {
+      "id": "021.04",
+      "title": "Landing Gear, Wheels, Tyres, Brakes",
+      "parentId": "021",
+      "level": 2
+    },
+    {
+      "id": "021.04.01",
+      "title": "Landing gear",
+      "parentId": "021.04",
+      "level": 3
+    },
+    {
+      "id": "021.04.02",
+      "title": "Nose-wheel steering",
+      "parentId": "021.04",
+      "level": 3
+    },
+    {
+      "id": "021.04.03",
+      "title": "Brakes",
+      "parentId": "021.04",
+      "level": 3
+    },
+    {
+      "id": "021.04.04",
+      "title": "Wheels, rims and tyres",
+      "parentId": "021.04",
+      "level": 3
+    },
+    {
+      "id": "021.04.05",
+      "title": "Helicopter equipment",
+      "parentId": "021.04",
+      "level": 3
+    },
+    {
+      "id": "021.05",
+      "title": "Flight Controls",
+      "parentId": "021",
+      "level": 2
+    },
+    {
+      "id": "021.05.01",
+      "title": "Aeroplane:\n-  primary flight controls",
+      "parentId": "021.05",
+      "level": 3
+    },
+    {
+      "id": "021.05.02",
+      "title": "Aeroplane:\n-  secondary flight controls",
+      "parentId": "021.05",
+      "level": 3
+    },
+    {
+      "id": "021.05.03",
+      "title": "Helicopter:\n-  flight controls",
+      "parentId": "021.05",
+      "level": 3
+    },
+    {
+      "id": "021.05.04",
+      "title": "Aeroplane:\n-  fly-by-wire (Fbw) control systems",
+      "parentId": "021.05",
+      "level": 3
+    },
+    {
+      "id": "021.05.05",
+      "title": "Helicopter:\n-  fly-by-wire (Fbw) control systems - to be introduced at a later date",
+      "parentId": "021.05",
+      "level": 3
+    },
+    {
+      "id": "021.06",
+      "title": "Pneumatics \u2014 Pressurisation And Air-Conditioning Systems",
+      "parentId": "021",
+      "level": 2
+    },
+    {
+      "id": "021.06.01",
+      "title": "Pneumatic/bleed-air supply",
+      "parentId": "021.06",
+      "level": 3
+    },
+    {
+      "id": "021.06.02",
+      "title": "Helicopter:\n-  air-conditioning systems",
+      "parentId": "021.06",
+      "level": 3
+    },
+    {
+      "id": "021.06.03",
+      "title": "Aeroplane:\n-  pressurisation and air-conditioning system",
+      "parentId": "021.06",
+      "level": 3
+    },
+    {
+      "id": "021.07",
+      "title": "Anti-Icing And De-Icing Systems",
+      "parentId": "021",
+      "level": 2
+    },
+    {
+      "id": "021.07.01",
+      "title": "Types, operation, indications",
+      "parentId": "021.07",
+      "level": 3
+    },
+    {
+      "id": "021.07.02",
+      "title": "Ice warning systems",
+      "parentId": "021.07",
+      "level": 3
+    },
+    {
+      "id": "021.07.03",
+      "title": "Helicopter blade heating systems",
+      "parentId": "021.07",
+      "level": 3
+    },
+    {
+      "id": "021.08",
+      "title": "Fuel System",
+      "parentId": "021",
+      "level": 2
+    },
+    {
+      "id": "021.08.01",
+      "title": "Piston engine",
+      "parentId": "021.08",
+      "level": 3
+    },
+    {
+      "id": "021.08.02",
+      "title": "Turbine engine",
+      "parentId": "021.08",
+      "level": 3
+    },
+    {
+      "id": "021.09",
+      "title": "Electrics ",
+      "parentId": "021",
+      "level": 2
+    },
+    {
+      "id": "021.09.01",
+      "title": "General, definitions, basic applications:\n-  circuit breakers, logic circuits",
+      "parentId": "021.09",
+      "level": 3
+    },
+    {
+      "id": "021.09.02",
+      "title": "Batteries",
+      "parentId": "021.09",
+      "level": 3
+    },
+    {
+      "id": "021.09.03",
+      "title": "Generation. ",
+      "parentId": "021.09",
+      "level": 3
+    },
+    {
+      "id": "021.09.04",
+      "title": "Distribution",
+      "parentId": "021.09",
+      "level": 3
+    },
+    {
+      "id": "021.09.05",
+      "title": "Electrical motors",
+      "parentId": "021.09",
+      "level": 3
+    },
+    {
+      "id": "021.10",
+      "title": "Piston Engines ",
+      "parentId": "021",
+      "level": 2
+    },
+    {
+      "id": "021.10.01",
+      "title": "General",
+      "parentId": "021.10",
+      "level": 3
+    },
+    {
+      "id": "021.10.02",
+      "title": "Fuel",
+      "parentId": "021.10",
+      "level": 3
+    },
+    {
+      "id": "021.10.03",
+      "title": "Engine fuel pumps",
+      "parentId": "021.10",
+      "level": 3
+    },
+    {
+      "id": "021.10.04",
+      "title": "Carburettor/injection system",
+      "parentId": "021.10",
+      "level": 3
+    },
+    {
+      "id": "021.10.05",
+      "title": "Cooling systems",
+      "parentId": "021.10",
+      "level": 3
+    },
+    {
+      "id": "021.10.06",
+      "title": "Lubrication systems ",
+      "parentId": "021.10",
+      "level": 3
+    },
+    {
+      "id": "021.10.07",
+      "title": "Ignition circuits",
+      "parentId": "021.10",
+      "level": 3
+    },
+    {
+      "id": "021.10.08",
+      "title": "Mixture",
+      "parentId": "021.10",
+      "level": 3
+    },
+    {
+      "id": "021.10.09",
+      "title": "Aeroplane:\n-  propellers",
+      "parentId": "021.10",
+      "level": 3
+    },
+    {
+      "id": "021.10.10",
+      "title": "Performance and engine handling",
+      "parentId": "021.10",
+      "level": 3
+    },
+    {
+      "id": "021.11",
+      "title": "Turbine Engines",
+      "parentId": "021",
+      "level": 2
+    },
+    {
+      "id": "021.11.01",
+      "title": "Basic principles",
+      "parentId": "021.11",
+      "level": 3
+    },
+    {
+      "id": "021.11.02",
+      "title": "Main-engine components",
+      "parentId": "021.11",
+      "level": 3
+    },
+    {
+      "id": "021.11.03",
+      "title": "Additional components and systems",
+      "parentId": "021.11",
+      "level": 3
+    },
+    {
+      "id": "021.11.04",
+      "title": "Engine operation and monitoring",
+      "parentId": "021.11",
+      "level": 3
+    },
+    {
+      "id": "021.11.05",
+      "title": "Performance aspects",
+      "parentId": "021.11",
+      "level": 3
+    },
+    {
+      "id": "021.11.06",
+      "title": "Auxiliary power unit (Apu)",
+      "parentId": "021.11",
+      "level": 3
+    },
+    {
+      "id": "021.12",
+      "title": "Protection And Detection Systems",
+      "parentId": "021",
+      "level": 2
+    },
+    {
+      "id": "021.12.01",
+      "title": "Smoke detection",
+      "parentId": "021.12",
+      "level": 3
+    },
+    {
+      "id": "021.12.02",
+      "title": "Fire-protection systems",
+      "parentId": "021.12",
+      "level": 3
+    },
+    {
+      "id": "021.12.03",
+      "title": "Rain-protection system",
+      "parentId": "021.12",
+      "level": 3
+    },
+    {
+      "id": "021.13",
+      "title": "Oxygen Systems",
+      "parentId": "021",
+      "level": 2
+    },
+    {
+      "id": "021.13.01",
+      "title": "Cockpit, portable and chemical oxygen systems",
+      "parentId": "021.13",
+      "level": 3
+    },
+    {
+      "id": "021.14",
+      "title": "Helicopter:\n-  Miscellaneous Systems",
+      "parentId": "021",
+      "level": 2
+    },
+    {
+      "id": "021.14.01",
+      "title": "Variable rotor speed, active vibration suppression, night-vision goggles (Nvg)",
+      "parentId": "021.14",
+      "level": 3
+    },
+    {
+      "id": "021.15",
+      "title": "Helicopter:\n-  Rotor Heads",
+      "parentId": "021",
+      "level": 2
+    },
+    {
+      "id": "021.15.01",
+      "title": "Main rotor",
+      "parentId": "021.15",
+      "level": 3
+    },
+    {
+      "id": "021.15.02",
+      "title": "Tail rotor",
+      "parentId": "021.15",
+      "level": 3
+    },
+    {
+      "id": "021.16",
+      "title": "Helicopter:\n-  Transmission",
+      "parentId": "021",
+      "level": 2
+    },
+    {
+      "id": "021.16.01",
+      "title": "Main gearbox",
+      "parentId": "021.16",
+      "level": 3
+    },
+    {
+      "id": "021.16.02",
+      "title": "Rotor brake",
+      "parentId": "021.16",
+      "level": 3
+    },
+    {
+      "id": "021.16.03",
+      "title": "Auxiliary systems",
+      "parentId": "021.16",
+      "level": 3
+    },
+    {
+      "id": "021.16.04",
+      "title": "Driveshaft and associated installation",
+      "parentId": "021.16",
+      "level": 3
+    },
+    {
+      "id": "021.16.05",
+      "title": "Intermediate and tail gearbox",
+      "parentId": "021.16",
+      "level": 3
+    },
+    {
+      "id": "021.16.06",
+      "title": "Clutches",
+      "parentId": "021.16",
+      "level": 3
+    },
+    {
+      "id": "021.16.07",
+      "title": "Freewheels",
+      "parentId": "021.16",
+      "level": 3
+    },
+    {
+      "id": "021.17",
+      "title": "Helicopter:\n-  Blades",
+      "parentId": "021",
+      "level": 2
+    },
+    {
+      "id": "021.17.01",
+      "title": "Main-rotor design and blade design",
+      "parentId": "021.17",
+      "level": 3
+    },
+    {
+      "id": "021.17.02",
+      "title": "Tail-rotor design and blade design",
+      "parentId": "021.17",
+      "level": 3
+    }
+  ],
+  "022": [
+    {
+      "id": "022",
+      "title": "Aircraft General Knowledge - Instrumentation",
+      "parentId": null,
+      "level": 1
+    },
+    {
+      "id": "022.01",
+      "title": "Sensors And Instruments ",
+      "parentId": "022",
+      "level": 2
+    },
+    {
+      "id": "022.01.01",
+      "title": "Pressure gauge",
+      "parentId": "022.01",
+      "level": 3
+    },
+    {
+      "id": "022.01.02",
+      "title": "Temperature sensing",
+      "parentId": "022.01",
+      "level": 3
+    },
+    {
+      "id": "022.01.03",
+      "title": "Fuel gauge",
+      "parentId": "022.01",
+      "level": 3
+    },
+    {
+      "id": "022.01.04",
+      "title": "Fuel flowmeters",
+      "parentId": "022.01",
+      "level": 3
+    },
+    {
+      "id": "022.01.05",
+      "title": "Tachometer",
+      "parentId": "022.01",
+      "level": 3
+    },
+    {
+      "id": "022.01.06",
+      "title": "Thrust measurement",
+      "parentId": "022.01",
+      "level": 3
+    },
+    {
+      "id": "022.01.07",
+      "title": "Engine torquemeter",
+      "parentId": "022.01",
+      "level": 3
+    },
+    {
+      "id": "022.01.08",
+      "title": "Synchroscope",
+      "parentId": "022.01",
+      "level": 3
+    },
+    {
+      "id": "022.01.09",
+      "title": "Engine-vibration monitoring ",
+      "parentId": "022.01",
+      "level": 3
+    },
+    {
+      "id": "022.01.10",
+      "title": "Time measurement",
+      "parentId": "022.01",
+      "level": 3
+    },
+    {
+      "id": "022.02",
+      "title": "Measurement Of Air-Data Parameters",
+      "parentId": "022",
+      "level": 2
+    },
+    {
+      "id": "022.02.01",
+      "title": "Pressure measurement",
+      "parentId": "022.02",
+      "level": 3
+    },
+    {
+      "id": "022.02.02",
+      "title": "Temperature measurement",
+      "parentId": "022.02",
+      "level": 3
+    },
+    {
+      "id": "022.02.03",
+      "title": "Angle-of-attack (AoA) measurement",
+      "parentId": "022.02",
+      "level": 3
+    },
+    {
+      "id": "022.02.04",
+      "title": "Altimeter",
+      "parentId": "022.02",
+      "level": 3
+    },
+    {
+      "id": "022.02.05",
+      "title": "Vertical speed indicator (Vsi)",
+      "parentId": "022.02",
+      "level": 3
+    },
+    {
+      "id": "022.02.06",
+      "title": "Airspeed indicator (Asi)",
+      "parentId": "022.02",
+      "level": 3
+    },
+    {
+      "id": "022.02.07",
+      "title": "Machmeter",
+      "parentId": "022.02",
+      "level": 3
+    },
+    {
+      "id": "022.02.08",
+      "title": "Air-data computer (Adc)",
+      "parentId": "022.02",
+      "level": 3
+    },
+    {
+      "id": "022.03",
+      "title": "Magnetism - Direct-Reading Compass And Flux Valve",
+      "parentId": "022",
+      "level": 2
+    },
+    {
+      "id": "022.03.01",
+      "title": "Earth\u2019s magnetic field",
+      "parentId": "022.03",
+      "level": 3
+    },
+    {
+      "id": "022.03.02",
+      "title": "Aircraft magnetic field",
+      "parentId": "022.03",
+      "level": 3
+    },
+    {
+      "id": "022.03.03",
+      "title": "Direct-reading magnetic compass ",
+      "parentId": "022.03",
+      "level": 3
+    },
+    {
+      "id": "022.03.04",
+      "title": "Flux valve",
+      "parentId": "022.03",
+      "level": 3
+    },
+    {
+      "id": "022.04",
+      "title": "Gyroscopic Instruments",
+      "parentId": "022",
+      "level": 2
+    },
+    {
+      "id": "022.04.01",
+      "title": "Gyroscope:\n-  basic principles",
+      "parentId": "022.04",
+      "level": 3
+    },
+    {
+      "id": "022.04.02",
+      "title": "Rate-of-turn indicator - Turn coordinator - Balance (slip) indicator",
+      "parentId": "022.04",
+      "level": 3
+    },
+    {
+      "id": "022.04.03",
+      "title": "Attitude indicator (artificial horizon)",
+      "parentId": "022.04",
+      "level": 3
+    },
+    {
+      "id": "022.04.04",
+      "title": "Directional gyroscope",
+      "parentId": "022.04",
+      "level": 3
+    },
+    {
+      "id": "022.04.05",
+      "title": "Remote-reading compass systems",
+      "parentId": "022.04",
+      "level": 3
+    },
+    {
+      "id": "022.04.06",
+      "title": "Solid-state systems - attitude and heading reference system (Ahrs) ",
+      "parentId": "022.04",
+      "level": 3
+    },
+    {
+      "id": "022.05",
+      "title": "Inertial Navigation",
+      "parentId": "022",
+      "level": 2
+    },
+    {
+      "id": "022.05.01",
+      "title": "Basic principles",
+      "parentId": "022.05",
+      "level": 3
+    },
+    {
+      "id": "022.05.02",
+      "title": "Alignment and operation",
+      "parentId": "022.05",
+      "level": 3
+    },
+    {
+      "id": "022.06",
+      "title": "Aeroplane:\n-  Automatic Flight Control Systems",
+      "parentId": "022",
+      "level": 2
+    },
+    {
+      "id": "022.06.01",
+      "title": "General",
+      "parentId": "022.06",
+      "level": 3
+    },
+    {
+      "id": "022.06.02",
+      "title": "Autopilot system",
+      "parentId": "022.06",
+      "level": 3
+    },
+    {
+      "id": "022.06.03",
+      "title": "Flight director:\n-  design and operation",
+      "parentId": "022.06",
+      "level": 3
+    },
+    {
+      "id": "022.06.04",
+      "title": "Aeroplane:\n-  flight mode annunciator (Fma) ",
+      "parentId": "022.06",
+      "level": 3
+    },
+    {
+      "id": "022.06.05",
+      "title": "Autoland",
+      "parentId": "022.06",
+      "level": 3
+    },
+    {
+      "id": "022.07",
+      "title": "Helicopter:\n-  Automatic Flight Control Systems",
+      "parentId": "022",
+      "level": 2
+    },
+    {
+      "id": "022.07.01",
+      "title": "General principles",
+      "parentId": "022.07",
+      "level": 3
+    },
+    {
+      "id": "022.07.02",
+      "title": "Components:\n-  operation",
+      "parentId": "022.07",
+      "level": 3
+    },
+    {
+      "id": "022.07.03",
+      "title": "Stability augmentation system (Sas)",
+      "parentId": "022.07",
+      "level": 3
+    },
+    {
+      "id": "022.07.04",
+      "title": "Autopilot - automatic stability equipment",
+      "parentId": "022.07",
+      "level": 3
+    },
+    {
+      "id": "022.08",
+      "title": "Trims - Yaw Damper - Flight-Envelope Protection",
+      "parentId": "022",
+      "level": 2
+    },
+    {
+      "id": "022.08.01",
+      "title": "Trim systems ",
+      "parentId": "022.08",
+      "level": 3
+    },
+    {
+      "id": "022.08.02",
+      "title": "Yaw damper",
+      "parentId": "022.08",
+      "level": 3
+    },
+    {
+      "id": "022.08.03",
+      "title": "Flight-envelope protection (Fep)",
+      "parentId": "022.08",
+      "level": 3
+    },
+    {
+      "id": "022.09",
+      "title": "Autothrust - Automatic Thrust Control System",
+      "parentId": "022",
+      "level": 2
+    },
+    {
+      "id": "022.09.01",
+      "title": "Autothrust system",
+      "parentId": "022.09",
+      "level": 3
+    },
+    {
+      "id": "022.10",
+      "title": "Communication Systems",
+      "parentId": "022",
+      "level": 2
+    },
+    {
+      "id": "022.10.01",
+      "title": "Voice communication, data-link transmission ",
+      "parentId": "022.10",
+      "level": 3
+    },
+    {
+      "id": "022.10.02",
+      "title": "Future air navigation systems (FANSs)",
+      "parentId": "022.10",
+      "level": 3
+    },
+    {
+      "id": "022.11",
+      "title": "Flight Management System (Fms) / Flight Management And Guidance System (Fmgs)",
+      "parentId": "022",
+      "level": 2
+    },
+    {
+      "id": "022.11.01",
+      "title": "Design",
+      "parentId": "022.11",
+      "level": 3
+    },
+    {
+      "id": "022.11.02",
+      "title": "Fmc databases",
+      "parentId": "022.11",
+      "level": 3
+    },
+    {
+      "id": "022.11.03",
+      "title": "Operations, limitations",
+      "parentId": "022.11",
+      "level": 3
+    },
+    {
+      "id": "022.11.04",
+      "title": "Human\u2013machine interface (control and display unit (Cdu)/ multifunction control and display unit (Mcdu))",
+      "parentId": "022.11",
+      "level": 3
+    },
+    {
+      "id": "022.12",
+      "title": "Alerting Systems, Proximity Systems",
+      "parentId": "022",
+      "level": 2
+    },
+    {
+      "id": "022.12.01",
+      "title": "General",
+      "parentId": "022.12",
+      "level": 3
+    },
+    {
+      "id": "022.12.02",
+      "title": "Flight warning systems (FWSs)",
+      "parentId": "022.12",
+      "level": 3
+    },
+    {
+      "id": "022.12.03",
+      "title": "Stall warning systems (SWSs)",
+      "parentId": "022.12",
+      "level": 3
+    },
+    {
+      "id": "022.12.04",
+      "title": "Stall protection",
+      "parentId": "022.12",
+      "level": 3
+    },
+    {
+      "id": "022.12.05",
+      "title": "Overspeed warning",
+      "parentId": "022.12",
+      "level": 3
+    },
+    {
+      "id": "022.12.06",
+      "title": "Take-off warning",
+      "parentId": "022.12",
+      "level": 3
+    },
+    {
+      "id": "022.12.07",
+      "title": "Altitude alert system",
+      "parentId": "022.12",
+      "level": 3
+    },
+    {
+      "id": "022.12.08",
+      "title": "Radio altimeter",
+      "parentId": "022.12",
+      "level": 3
+    },
+    {
+      "id": "022.12.09",
+      "title": "Ground-proximity warning systems (GPWSs)",
+      "parentId": "022.12",
+      "level": 3
+    },
+    {
+      "id": "022.12.10",
+      "title": "Acas/Tcas ",
+      "parentId": "022.12",
+      "level": 3
+    },
+    {
+      "id": "022.12.11",
+      "title": "Rotor/engine overspeed alert system",
+      "parentId": "022.12",
+      "level": 3
+    },
+    {
+      "id": "022.13",
+      "title": "Integrated Instruments - Electronic Displays",
+      "parentId": "022",
+      "level": 2
+    },
+    {
+      "id": "022.13.01",
+      "title": "Electronic display units",
+      "parentId": "022.13",
+      "level": 3
+    },
+    {
+      "id": "022.13.02",
+      "title": "Mechanical integrated instruments",
+      "parentId": "022.13",
+      "level": 3
+    },
+    {
+      "id": "022.13.03",
+      "title": "Electronic flight instrument systems (EFISs)",
+      "parentId": "022.13",
+      "level": 3
+    },
+    {
+      "id": "022.13.04",
+      "title": "Engine parameters, crew warnings, aircraft systems, procedure and mission display systems ",
+      "parentId": "022.13",
+      "level": 3
+    },
+    {
+      "id": "022.13.05",
+      "title": "Engine first limit indicator",
+      "parentId": "022.13",
+      "level": 3
+    },
+    {
+      "id": "022.13.06",
+      "title": "Electronic flight bag (Efb)",
+      "parentId": "022.13",
+      "level": 3
+    },
+    {
+      "id": "022.13.07",
+      "title": "Head-up display (Hud), synthetic vision system (Svs) and enhanced visual system (Evs)",
+      "parentId": "022.13",
+      "level": 3
+    },
+    {
+      "id": "022.14",
+      "title": "Maintenance, Monitoring And Recording Systems",
+      "parentId": "022",
+      "level": 2
+    },
+    {
+      "id": "022.14.01",
+      "title": "Cockpit voice recorder (Cvr)",
+      "parentId": "022.14",
+      "level": 3
+    },
+    {
+      "id": "022.14.02",
+      "title": "Flight data recorder (Fdr)",
+      "parentId": "022.14",
+      "level": 3
+    },
+    {
+      "id": "022.14.03",
+      "title": "Maintenance and monitoring systems",
+      "parentId": "022.14",
+      "level": 3
+    },
+    {
+      "id": "022.15",
+      "title": "Digital Circuits And Computers",
+      "parentId": "022",
+      "level": 2
+    },
+    {
+      "id": "022.15.01",
+      "title": "Digital circuits and computers ",
+      "parentId": "022.15",
+      "level": 3
+    }
+  ],
+  "031": [
+    {
+      "id": "031",
+      "title": "Mass And Balance - Aeroplanes/Helicopters",
+      "parentId": null,
+      "level": 1
+    },
+    {
+      "id": "031.01",
+      "title": "Purpose Of Mass-And-Balance Considerations",
+      "parentId": "031",
+      "level": 2
+    },
+    {
+      "id": "031.01.01",
+      "title": "Mass limitations",
+      "parentId": "031.01",
+      "level": 3
+    },
+    {
+      "id": "031.01.02",
+      "title": "Centre-of-gravity (Cg) limitations",
+      "parentId": "031.01",
+      "level": 3
+    },
+    {
+      "id": "031.02",
+      "title": "Loading",
+      "parentId": "031",
+      "level": 2
+    },
+    {
+      "id": "031.02.01",
+      "title": "Terminology",
+      "parentId": "031.02",
+      "level": 3
+    },
+    {
+      "id": "031.02.02",
+      "title": "Mass limits",
+      "parentId": "031.02",
+      "level": 3
+    },
+    {
+      "id": "031.02.03",
+      "title": "Mass calculations",
+      "parentId": "031.02",
+      "level": 3
+    },
+    {
+      "id": "031.04",
+      "title": "Mass-And-Balance Details Of Aircraft",
+      "parentId": "031",
+      "level": 2
+    },
+    {
+      "id": "031.04.01",
+      "title": "Contents of mass-and-balance documentation",
+      "parentId": "031.04",
+      "level": 3
+    },
+    {
+      "id": "031.04.02",
+      "title": "Determination of aircraft empty mass and Cg position by weighing",
+      "parentId": "031.04",
+      "level": 3
+    },
+    {
+      "id": "031.04.03",
+      "title": "Extraction of basic empty mass (Bem) and Cg data from aircraft documentation",
+      "parentId": "031.04",
+      "level": 3
+    },
+    {
+      "id": "031.05",
+      "title": "Determination Of Cg Position",
+      "parentId": "031",
+      "level": 2
+    },
+    {
+      "id": "031.05.01",
+      "title": "Methods",
+      "parentId": "031.05",
+      "level": 3
+    },
+    {
+      "id": "031.05.02",
+      "title": "Load and trim sheet",
+      "parentId": "031.05",
+      "level": 3
+    },
+    {
+      "id": "031.05.03",
+      "title": "Repositioning of Cg",
+      "parentId": "031.05",
+      "level": 3
+    },
+    {
+      "id": "031.06",
+      "title": "Cargo Handling",
+      "parentId": "031",
+      "level": 2
+    },
+    {
+      "id": "031.06.01",
+      "title": "Types of cargo ",
+      "parentId": "031.06",
+      "level": 3
+    },
+    {
+      "id": "031.06.02",
+      "title": "Floor-area load and running-load limitations ",
+      "parentId": "031.06",
+      "level": 3
+    },
+    {
+      "id": "031.06.03",
+      "title": "Securement of load",
+      "parentId": "031.06",
+      "level": 3
+    }
+  ],
+  "032": [
+    {
+      "id": "032",
+      "title": "Performance - Aeroplanes",
+      "parentId": null,
+      "level": 1
+    },
+    {
+      "id": "032.01",
+      "title": "General ",
+      "parentId": "032",
+      "level": 2
+    },
+    {
+      "id": "032.01.01",
+      "title": "Performance legislation ",
+      "parentId": "032.01",
+      "level": 3
+    },
+    {
+      "id": "032.01.02",
+      "title": "General performance theory ",
+      "parentId": "032.01",
+      "level": 3
+    },
+    {
+      "id": "032.01.03",
+      "title": "Level flight, range and endurance",
+      "parentId": "032.01",
+      "level": 3
+    },
+    {
+      "id": "032.01.04",
+      "title": "Climbing",
+      "parentId": "032.01",
+      "level": 3
+    },
+    {
+      "id": "032.01.05",
+      "title": "Descending ",
+      "parentId": "032.01",
+      "level": 3
+    },
+    {
+      "id": "032.02",
+      "title": "Cs-23/Applicable Operational Requirements Performance Class B - Theory ",
+      "parentId": "032",
+      "level": 2
+    },
+    {
+      "id": "032.02.01",
+      "title": "Airworthiness requirements ",
+      "parentId": "032.02",
+      "level": 3
+    },
+    {
+      "id": "032.02.03",
+      "title": "Take-off and landing",
+      "parentId": "032.02",
+      "level": 3
+    },
+    {
+      "id": "032.02.04",
+      "title": "Climb, cruise and descent ",
+      "parentId": "032.02",
+      "level": 3
+    },
+    {
+      "id": "032.03",
+      "title": "Cs-23/Applicable Operational Requirements Performance Class B - Use Of Aeroplane Performance Data For Single- And Multi-Engine Aeroplanes",
+      "parentId": "032",
+      "level": 2
+    },
+    {
+      "id": "032.03.03",
+      "title": "Use of aeroplane performance data",
+      "parentId": "032.03",
+      "level": 3
+    },
+    {
+      "id": "032.04",
+      "title": "Cs-25/Applicable Operational Requirements Performance Class A - Theory ",
+      "parentId": "032",
+      "level": 2
+    },
+    {
+      "id": "032.04.01",
+      "title": "Take-off ",
+      "parentId": "032.04",
+      "level": 3
+    },
+    {
+      "id": "032.04.02",
+      "title": "Climb",
+      "parentId": "032.04",
+      "level": 3
+    },
+    {
+      "id": "032.04.03",
+      "title": "Cruise",
+      "parentId": "032.04",
+      "level": 3
+    },
+    {
+      "id": "032.04.04",
+      "title": "En-route one-engine-inoperative",
+      "parentId": "032.04",
+      "level": 3
+    },
+    {
+      "id": "032.04.05",
+      "title": "Descent",
+      "parentId": "032.04",
+      "level": 3
+    },
+    {
+      "id": "032.04.06",
+      "title": "Approach and landing",
+      "parentId": "032.04",
+      "level": 3
+    },
+    {
+      "id": "032.05",
+      "title": "Cs-25/Applicable Operational Requirements Performance Class A - Use Of Aeroplane Performance Data ",
+      "parentId": "032",
+      "level": 2
+    },
+    {
+      "id": "032.05.01",
+      "title": "Take-off ",
+      "parentId": "032.05",
+      "level": 3
+    },
+    {
+      "id": "032.05.02",
+      "title": "Drift-down and stabilising altitude",
+      "parentId": "032.05",
+      "level": 3
+    },
+    {
+      "id": "032.05.03",
+      "title": "Landing",
+      "parentId": "032.05",
+      "level": 3
+    }
+  ],
+  "033": [
+    {
+      "id": "033",
+      "title": "Flight Planning And Monitoring",
+      "parentId": null,
+      "level": 1
+    },
+    {
+      "id": "033.01",
+      "title": "Flight Planning For Vfr Flights ",
+      "parentId": "033",
+      "level": 2
+    },
+    {
+      "id": "033.01.01",
+      "title": "Vfr navigation plan",
+      "parentId": "033.01",
+      "level": 3
+    },
+    {
+      "id": "033.02",
+      "title": "Flight Planning For Ifr Flights ",
+      "parentId": "033",
+      "level": 2
+    },
+    {
+      "id": "033.02.01",
+      "title": "Ifr navigation plan",
+      "parentId": "033.02",
+      "level": 3
+    },
+    {
+      "id": "033.03",
+      "title": "Fuel Planning \u2014 Operational Requirements",
+      "parentId": "033",
+      "level": 2
+    },
+    {
+      "id": "033.03.01",
+      "title": "General",
+      "parentId": "033.03",
+      "level": 3
+    },
+    {
+      "id": "033.03.02",
+      "title": "Pre-flight fuel planning for commercial flights",
+      "parentId": "033.03",
+      "level": 3
+    },
+    {
+      "id": "033.03.03",
+      "title": "Specific fuel-calculation procedures ",
+      "parentId": "033.03",
+      "level": 3
+    },
+    {
+      "id": "033.04",
+      "title": "Pre-Flight Preparation",
+      "parentId": "033",
+      "level": 2
+    },
+    {
+      "id": "033.04.01",
+      "title": "Notice to airmen (Notam) briefing",
+      "parentId": "033.04",
+      "level": 3
+    },
+    {
+      "id": "033.04.02",
+      "title": "Meteorological briefing",
+      "parentId": "033.04",
+      "level": 3
+    },
+    {
+      "id": "033.04.03",
+      "title": "Point of equal time (Pet) and point of safe return (Psr)",
+      "parentId": "033.04",
+      "level": 3
+    },
+    {
+      "id": "033.05",
+      "title": "Icao Flight Plan (Ats flight plan (Fpl))",
+      "parentId": "033",
+      "level": 2
+    },
+    {
+      "id": "033.05.01",
+      "title": "Individual Fpl",
+      "parentId": "033.05",
+      "level": 3
+    },
+    {
+      "id": "033.05.02",
+      "title": "Repetitive flight plan (Rpl)",
+      "parentId": "033.05",
+      "level": 3
+    },
+    {
+      "id": "033.06",
+      "title": "Flight Monitoring And In-Flight Replanning",
+      "parentId": "033",
+      "level": 2
+    },
+    {
+      "id": "033.06.01",
+      "title": "Flight monitoring",
+      "parentId": "033.06",
+      "level": 3
+    },
+    {
+      "id": "033.06.02",
+      "title": "In-flight replanning",
+      "parentId": "033.06",
+      "level": 3
+    }
+  ],
+  "034": [
+    {
+      "id": "034",
+      "title": "Performance - Helicopters ",
+      "parentId": null,
+      "level": 1
+    },
+    {
+      "id": "034.01",
+      "title": "General ",
+      "parentId": "034",
+      "level": 2
+    },
+    {
+      "id": "034.01.01",
+      "title": "Performance legislation ",
+      "parentId": "034.01",
+      "level": 3
+    },
+    {
+      "id": "034.01.02",
+      "title": "General performance theory ",
+      "parentId": "034.01",
+      "level": 3
+    },
+    {
+      "id": "034.02",
+      "title": "Performance Class 3 - Single-Engine Helicopters ",
+      "parentId": "034",
+      "level": 2
+    },
+    {
+      "id": "034.02.01",
+      "title": "Effect of variables on single-engine (Se) helicopter performance ",
+      "parentId": "034.02",
+      "level": 3
+    },
+    {
+      "id": "034.02.02",
+      "title": "Take-off and landing",
+      "parentId": "034.02",
+      "level": 3
+    },
+    {
+      "id": "034.02.03",
+      "title": "Climb, cruise and descent ",
+      "parentId": "034.02",
+      "level": 3
+    },
+    {
+      "id": "034.02.04",
+      "title": "Use of helicopter performance data",
+      "parentId": "034.02",
+      "level": 3
+    },
+    {
+      "id": "034.03",
+      "title": "Performance Class 2 General remark:\n-  The Learning Objectives for Performance Class 2 are principally identical with those for Performance Class 1. (See 034 04 00 00) Additional Learning Objectives are shown below.",
+      "parentId": "034",
+      "level": 2
+    },
+    {
+      "id": "034.03.01",
+      "title": "Operations without an assured safe forced landing capability",
+      "parentId": "034.03",
+      "level": 3
+    },
+    {
+      "id": "034.03.02",
+      "title": "Take-off ",
+      "parentId": "034.03",
+      "level": 3
+    },
+    {
+      "id": "034.03.03",
+      "title": "Take-off flight path ",
+      "parentId": "034.03",
+      "level": 3
+    },
+    {
+      "id": "034.03.04",
+      "title": "Landing",
+      "parentId": "034.03",
+      "level": 3
+    },
+    {
+      "id": "034.04",
+      "title": "Performance Class 1 - Helicopters Certified According To Cs-29 Only",
+      "parentId": "034",
+      "level": 2
+    },
+    {
+      "id": "034.04.01",
+      "title": "Take-off ",
+      "parentId": "034.04",
+      "level": 3
+    },
+    {
+      "id": "034.04.02",
+      "title": "Climb",
+      "parentId": "034.04",
+      "level": 3
+    },
+    {
+      "id": "034.04.03",
+      "title": "Cruise",
+      "parentId": "034.04",
+      "level": 3
+    },
+    {
+      "id": "034.04.04",
+      "title": "En-route one-engine-inoperative (Oei) ",
+      "parentId": "034.04",
+      "level": 3
+    },
+    {
+      "id": "034.04.05",
+      "title": "Descent ",
+      "parentId": "034.04",
+      "level": 3
+    },
+    {
+      "id": "034.04.06",
+      "title": "Landing ",
+      "parentId": "034.04",
+      "level": 3
+    }
+  ],
+  "040": [
+    {
+      "id": "040",
+      "title": "Human Performance And Limitations ",
+      "parentId": null,
+      "level": 1
+    },
+    {
+      "id": "040.01",
+      "title": "Human Factors:\n-  Basic Concepts ",
+      "parentId": "040",
+      "level": 2
+    },
+    {
+      "id": "040.01.01",
+      "title": "Human factors in aviation",
+      "parentId": "040.01",
+      "level": 3
+    },
+    {
+      "id": "040.01.03",
+      "title": "Flight safety concepts",
+      "parentId": "040.01",
+      "level": 3
+    },
+    {
+      "id": "040.01.04",
+      "title": "Safety culture",
+      "parentId": "040.01",
+      "level": 3
+    },
+    {
+      "id": "040.02",
+      "title": "Basics of aviation physiology and health maintenance",
+      "parentId": "040",
+      "level": 2
+    },
+    {
+      "id": "040.02.01",
+      "title": "Basics of flight physiology",
+      "parentId": "040.02",
+      "level": 3
+    },
+    {
+      "id": "040.02.02",
+      "title": "People and the environment:\n-  the sensory system",
+      "parentId": "040.02",
+      "level": 3
+    },
+    {
+      "id": "040.02.03",
+      "title": "Health and hygiene",
+      "parentId": "040.02",
+      "level": 3
+    },
+    {
+      "id": "040.03",
+      "title": "Basic Aviation Psychology",
+      "parentId": "040",
+      "level": 2
+    },
+    {
+      "id": "040.03.01",
+      "title": "Human information processing",
+      "parentId": "040.03",
+      "level": 3
+    },
+    {
+      "id": "040.03.02",
+      "title": "Human error and reliability",
+      "parentId": "040.03",
+      "level": 3
+    },
+    {
+      "id": "040.03.03",
+      "title": "Decision-making",
+      "parentId": "040.03",
+      "level": 3
+    },
+    {
+      "id": "040.03.04",
+      "title": "Avoiding and managing errors:\n-  cockpit management",
+      "parentId": "040.03",
+      "level": 3
+    },
+    {
+      "id": "040.03.05",
+      "title": "Human behaviour",
+      "parentId": "040.03",
+      "level": 3
+    },
+    {
+      "id": "040.03.06",
+      "title": "Human overload and underload",
+      "parentId": "040.03",
+      "level": 3
+    },
+    {
+      "id": "040.03.07",
+      "title": "Advanced cockpit automation",
+      "parentId": "040.03",
+      "level": 3
+    }
+  ],
+  "050": [
+    {
+      "id": "050",
+      "title": "Meteorology ",
+      "parentId": null,
+      "level": 1
+    },
+    {
+      "id": "050.01",
+      "title": "The Atmosphere",
+      "parentId": "050",
+      "level": 2
+    },
+    {
+      "id": "050.01.01",
+      "title": "Composition, extent, vertical division",
+      "parentId": "050.01",
+      "level": 3
+    },
+    {
+      "id": "050.01.02",
+      "title": "Air temperature",
+      "parentId": "050.01",
+      "level": 3
+    },
+    {
+      "id": "050.01.03",
+      "title": "Atmospheric pressure",
+      "parentId": "050.01",
+      "level": 3
+    },
+    {
+      "id": "050.01.04",
+      "title": "Air density",
+      "parentId": "050.01",
+      "level": 3
+    },
+    {
+      "id": "050.01.05",
+      "title": "International Standard Atmosphere (Isa)",
+      "parentId": "050.01",
+      "level": 3
+    },
+    {
+      "id": "050.01.06",
+      "title": "Altimetry",
+      "parentId": "050.01",
+      "level": 3
+    },
+    {
+      "id": "050.02",
+      "title": "Wind",
+      "parentId": "050",
+      "level": 2
+    },
+    {
+      "id": "050.02.01",
+      "title": "Definition and measurement of wind",
+      "parentId": "050.02",
+      "level": 3
+    },
+    {
+      "id": "050.02.02",
+      "title": "Primary cause of wind",
+      "parentId": "050.02",
+      "level": 3
+    },
+    {
+      "id": "050.02.03",
+      "title": "General global circulation",
+      "parentId": "050.02",
+      "level": 3
+    },
+    {
+      "id": "050.02.04",
+      "title": "Local winds",
+      "parentId": "050.02",
+      "level": 3
+    },
+    {
+      "id": "050.02.05",
+      "title": "Mountain waves (standing waves, lee waves)",
+      "parentId": "050.02",
+      "level": 3
+    },
+    {
+      "id": "050.02.06",
+      "title": "Turbulence",
+      "parentId": "050.02",
+      "level": 3
+    },
+    {
+      "id": "050.02.07",
+      "title": "Jet streams",
+      "parentId": "050.02",
+      "level": 3
+    },
+    {
+      "id": "050.03",
+      "title": "Thermodynamics",
+      "parentId": "050",
+      "level": 2
+    },
+    {
+      "id": "050.03.01",
+      "title": "Humidity",
+      "parentId": "050.03",
+      "level": 3
+    },
+    {
+      "id": "050.03.02",
+      "title": "Change of state of water",
+      "parentId": "050.03",
+      "level": 3
+    },
+    {
+      "id": "050.03.03",
+      "title": "Adiabatic processes",
+      "parentId": "050.03",
+      "level": 3
+    },
+    {
+      "id": "050.04",
+      "title": "Clouds And Fog",
+      "parentId": "050",
+      "level": 2
+    },
+    {
+      "id": "050.04.01",
+      "title": "Cloud formation and description",
+      "parentId": "050.04",
+      "level": 3
+    },
+    {
+      "id": "050.04.02",
+      "title": "Fog, mist, haze",
+      "parentId": "050.04",
+      "level": 3
+    },
+    {
+      "id": "050.05",
+      "title": "Precipitation",
+      "parentId": "050",
+      "level": 2
+    },
+    {
+      "id": "050.05.01",
+      "title": "Development of precipitation",
+      "parentId": "050.05",
+      "level": 3
+    },
+    {
+      "id": "050.05.02",
+      "title": "Types of precipitation",
+      "parentId": "050.05",
+      "level": 3
+    },
+    {
+      "id": "050.06",
+      "title": "Air Masses And Fronts",
+      "parentId": "050",
+      "level": 2
+    },
+    {
+      "id": "050.06.01",
+      "title": "Air masses",
+      "parentId": "050.06",
+      "level": 3
+    },
+    {
+      "id": "050.06.02",
+      "title": "Fronts",
+      "parentId": "050.06",
+      "level": 3
+    },
+    {
+      "id": "050.07",
+      "title": "Pressure Systems",
+      "parentId": "050",
+      "level": 2
+    },
+    {
+      "id": "050.07.01",
+      "title": "The principal pressure areas",
+      "parentId": "050.07",
+      "level": 3
+    },
+    {
+      "id": "050.07.02",
+      "title": "Anticyclone",
+      "parentId": "050.07",
+      "level": 3
+    },
+    {
+      "id": "050.07.03",
+      "title": "Non-frontal depressions",
+      "parentId": "050.07",
+      "level": 3
+    },
+    {
+      "id": "050.07.04",
+      "title": "Tropical revolving storms",
+      "parentId": "050.07",
+      "level": 3
+    },
+    {
+      "id": "050.08",
+      "title": "Climatology",
+      "parentId": "050",
+      "level": 2
+    },
+    {
+      "id": "050.08.01",
+      "title": "Climatic zones",
+      "parentId": "050.08",
+      "level": 3
+    },
+    {
+      "id": "050.08.02",
+      "title": "Tropical climatology",
+      "parentId": "050.08",
+      "level": 3
+    },
+    {
+      "id": "050.08.03",
+      "title": "Typical weather situations in the mid-latitudes",
+      "parentId": "050.08",
+      "level": 3
+    },
+    {
+      "id": "050.08.04",
+      "title": "Local winds and associated weather",
+      "parentId": "050.08",
+      "level": 3
+    },
+    {
+      "id": "050.09",
+      "title": "Flight Hazards",
+      "parentId": "050",
+      "level": 2
+    },
+    {
+      "id": "050.09.01",
+      "title": "Icing",
+      "parentId": "050.09",
+      "level": 3
+    },
+    {
+      "id": "050.09.02",
+      "title": "Turbulence",
+      "parentId": "050.09",
+      "level": 3
+    },
+    {
+      "id": "050.09.03",
+      "title": "Wind shear",
+      "parentId": "050.09",
+      "level": 3
+    },
+    {
+      "id": "050.09.04",
+      "title": "Thunderstorms",
+      "parentId": "050.09",
+      "level": 3
+    },
+    {
+      "id": "050.09.05",
+      "title": "Tornadoes",
+      "parentId": "050.09",
+      "level": 3
+    },
+    {
+      "id": "050.09.06",
+      "title": "Inversions",
+      "parentId": "050.09",
+      "level": 3
+    },
+    {
+      "id": "050.09.07",
+      "title": "Stratospheric conditions",
+      "parentId": "050.09",
+      "level": 3
+    },
+    {
+      "id": "050.09.08",
+      "title": "Hazards in mountainous areas",
+      "parentId": "050.09",
+      "level": 3
+    },
+    {
+      "id": "050.09.09",
+      "title": "Visibility-reducing phenomena",
+      "parentId": "050.09",
+      "level": 3
+    },
+    {
+      "id": "050.10",
+      "title": "Meteorological Information",
+      "parentId": "050",
+      "level": 2
+    },
+    {
+      "id": "050.10.01",
+      "title": "Observation",
+      "parentId": "050.10",
+      "level": 3
+    },
+    {
+      "id": "050.10.02",
+      "title": "Weather charts",
+      "parentId": "050.10",
+      "level": 3
+    },
+    {
+      "id": "050.10.03",
+      "title": "Information for flight planning",
+      "parentId": "050.10",
+      "level": 3
+    },
+    {
+      "id": "050.10.04",
+      "title": "Meteorological services",
+      "parentId": "050.10",
+      "level": 3
+    }
+  ],
+  "061": [
+    {
+      "id": "061",
+      "title": "General Navigation",
+      "parentId": null,
+      "level": 1
+    },
+    {
+      "id": "061.01",
+      "title": "Basics Of Navigation",
+      "parentId": "061",
+      "level": 2
+    },
+    {
+      "id": "061.01.01",
+      "title": "The Earth",
+      "parentId": "061.01",
+      "level": 3
+    },
+    {
+      "id": "061.01.02",
+      "title": "Position",
+      "parentId": "061.01",
+      "level": 3
+    },
+    {
+      "id": "061.01.03",
+      "title": "Direction",
+      "parentId": "061.01",
+      "level": 3
+    },
+    {
+      "id": "061.01.04",
+      "title": "Distance",
+      "parentId": "061.01",
+      "level": 3
+    },
+    {
+      "id": "061.01.05",
+      "title": "Speed",
+      "parentId": "061.01",
+      "level": 3
+    },
+    {
+      "id": "061.01.06",
+      "title": "Triangle of velocities (Tov)",
+      "parentId": "061.01",
+      "level": 3
+    },
+    {
+      "id": "061.01.07",
+      "title": "Dead reckoning (Dr)",
+      "parentId": "061.01",
+      "level": 3
+    },
+    {
+      "id": "061.01.08",
+      "title": "Navigation in climb and descent",
+      "parentId": "061.01",
+      "level": 3
+    },
+    {
+      "id": "061.02",
+      "title": "Visual Flight Rules (Vfr) Navigation",
+      "parentId": "061",
+      "level": 2
+    },
+    {
+      "id": "061.02.01",
+      "title": "Ground features",
+      "parentId": "061.02",
+      "level": 3
+    },
+    {
+      "id": "061.02.02",
+      "title": "Vfr navigation techniques",
+      "parentId": "061.02",
+      "level": 3
+    },
+    {
+      "id": "061.03",
+      "title": "Great Circles And Rhumb Lines",
+      "parentId": "061",
+      "level": 2
+    },
+    {
+      "id": "061.03.01",
+      "title": "Great circles",
+      "parentId": "061.03",
+      "level": 3
+    },
+    {
+      "id": "061.03.02",
+      "title": "Rhumb lines",
+      "parentId": "061.03",
+      "level": 3
+    },
+    {
+      "id": "061.03.03",
+      "title": "Relationship",
+      "parentId": "061.03",
+      "level": 3
+    },
+    {
+      "id": "061.04",
+      "title": "Charts",
+      "parentId": "061",
+      "level": 2
+    },
+    {
+      "id": "061.04.01",
+      "title": "Chart requirements",
+      "parentId": "061.04",
+      "level": 3
+    },
+    {
+      "id": "061.04.02",
+      "title": "Projections",
+      "parentId": "061.04",
+      "level": 3
+    },
+    {
+      "id": "061.04.03",
+      "title": "Practical use",
+      "parentId": "061.04",
+      "level": 3
+    },
+    {
+      "id": "061.05",
+      "title": "Time",
+      "parentId": "061",
+      "level": 2
+    },
+    {
+      "id": "061.05.01",
+      "title": "Local Mean Time (Lmt)",
+      "parentId": "061.05",
+      "level": 3
+    },
+    {
+      "id": "061.05.02",
+      "title": "Standard time",
+      "parentId": "061.05",
+      "level": 3
+    },
+    {
+      "id": "061.05.03",
+      "title": "Sunrise and sunset",
+      "parentId": "061.05",
+      "level": 3
+    }
+  ],
+  "062": [
+    {
+      "id": "062",
+      "title": "Radio Navigation",
+      "parentId": null,
+      "level": 1
+    },
+    {
+      "id": "062.01",
+      "title": "Basic Radio Propagation Theory",
+      "parentId": "062",
+      "level": 2
+    },
+    {
+      "id": "062.01.01",
+      "title": "Basic principles",
+      "parentId": "062.01",
+      "level": 3
+    },
+    {
+      "id": "062.01.02",
+      "title": "Antennas",
+      "parentId": "062.01",
+      "level": 3
+    },
+    {
+      "id": "062.01.03",
+      "title": "Wave propagation",
+      "parentId": "062.01",
+      "level": 3
+    },
+    {
+      "id": "062.02",
+      "title": "Radio Aids",
+      "parentId": "062",
+      "level": 2
+    },
+    {
+      "id": "062.02.01",
+      "title": "Ground direction finding (Df)",
+      "parentId": "062.02",
+      "level": 3
+    },
+    {
+      "id": "062.02.02",
+      "title": "Non-directional radio beacon (Ndb)/automatic direction finding (Adf)",
+      "parentId": "062.02",
+      "level": 3
+    },
+    {
+      "id": "062.02.03",
+      "title": "Vhf omnidirectional radio range (Vor):\n-  conventional Vor (Cvor) and Doppler Vor (Dvor)",
+      "parentId": "062.02",
+      "level": 3
+    },
+    {
+      "id": "062.02.04",
+      "title": "Distance-measuring equipment (Dme)",
+      "parentId": "062.02",
+      "level": 3
+    },
+    {
+      "id": "062.02.05",
+      "title": "Instrument landing system (Ils)",
+      "parentId": "062.02",
+      "level": 3
+    },
+    {
+      "id": "062.02.06",
+      "title": "Microwave landing system (Mls) ",
+      "parentId": "062.02",
+      "level": 3
+    },
+    {
+      "id": "062.03",
+      "title": "Radar",
+      "parentId": "062",
+      "level": 2
+    },
+    {
+      "id": "062.03.01",
+      "title": "Pulse techniques ",
+      "parentId": "062.03",
+      "level": 3
+    },
+    {
+      "id": "062.03.02",
+      "title": "Ground radar",
+      "parentId": "062.03",
+      "level": 3
+    },
+    {
+      "id": "062.03.03",
+      "title": "Airborne weather radar",
+      "parentId": "062.03",
+      "level": 3
+    },
+    {
+      "id": "062.03.04",
+      "title": "Secondary surveillance radar and transponder",
+      "parentId": "062.03",
+      "level": 3
+    },
+    {
+      "id": "062.06",
+      "title": "Global Navigation Satellite Systems (GNSSs)",
+      "parentId": "062",
+      "level": 2
+    },
+    {
+      "id": "062.06.01",
+      "title": "Global navigation satellite systems (GNSSs)",
+      "parentId": "062.06",
+      "level": 3
+    },
+    {
+      "id": "062.06.02",
+      "title": "Ground-, satellite- and aircraft-based augmentation systems ",
+      "parentId": "062.06",
+      "level": 3
+    },
+    {
+      "id": "062.07",
+      "title": "Performance-Based Navigation (Pbn)",
+      "parentId": "062",
+      "level": 2
+    },
+    {
+      "id": "062.07.01",
+      "title": "Performance-based navigation (Pbn) concept (as described in Icao Doc 9613)",
+      "parentId": "062.07",
+      "level": 3
+    },
+    {
+      "id": "062.07.02",
+      "title": "Navigation specifications",
+      "parentId": "062.07",
+      "level": 3
+    },
+    {
+      "id": "062.07.03",
+      "title": "Use of performance-based navigation (Pbn)",
+      "parentId": "062.07",
+      "level": 3
+    },
+    {
+      "id": "062.07.04",
+      "title": "Performance-based navigation (Pbn) operations",
+      "parentId": "062.07",
+      "level": 3
+    },
+    {
+      "id": "062.07.05",
+      "title": "Requirements of specific Rnav and Rnp specifications",
+      "parentId": "062.07",
+      "level": 3
+    }
+  ],
+  "070": [
+    {
+      "id": "070",
+      "title": "Operational Procedures",
+      "parentId": null,
+      "level": 1
+    },
+    {
+      "id": "071.01",
+      "title": "General Requirements ",
+      "parentId": "070",
+      "level": 2
+    },
+    {
+      "id": "071.01.01",
+      "title": "Icao Annex 6",
+      "parentId": "071.01",
+      "level": 3
+    },
+    {
+      "id": "071.01.02",
+      "title": "Operational requirements ",
+      "parentId": "071.01",
+      "level": 3
+    },
+    {
+      "id": "071.01.03",
+      "title": "Long-range flights",
+      "parentId": "071.01",
+      "level": 3
+    },
+    {
+      "id": "071.02",
+      "title": "Special Operational Procedures And Hazards - General Aspects",
+      "parentId": "070",
+      "level": 2
+    },
+    {
+      "id": "071.02.01",
+      "title": "Operations manual ",
+      "parentId": "071.02",
+      "level": 3
+    },
+    {
+      "id": "071.02.02",
+      "title": "Icing conditions",
+      "parentId": "071.02",
+      "level": 3
+    },
+    {
+      "id": "071.02.03",
+      "title": "Bird-strike risk ",
+      "parentId": "071.02",
+      "level": 3
+    },
+    {
+      "id": "071.02.04",
+      "title": "Noise abatement",
+      "parentId": "071.02",
+      "level": 3
+    },
+    {
+      "id": "071.02.05",
+      "title": "Fire and smoke",
+      "parentId": "071.02",
+      "level": 3
+    },
+    {
+      "id": "071.02.06",
+      "title": "Decompression of pressurised cabin",
+      "parentId": "071.02",
+      "level": 3
+    },
+    {
+      "id": "071.02.07",
+      "title": "Wind shear and microburst",
+      "parentId": "071.02",
+      "level": 3
+    },
+    {
+      "id": "071.02.08",
+      "title": "Wake turbulence",
+      "parentId": "071.02",
+      "level": 3
+    },
+    {
+      "id": "071.02.09",
+      "title": "Security (unlawful events)",
+      "parentId": "071.02",
+      "level": 3
+    },
+    {
+      "id": "071.02.10",
+      "title": "Emergency and precautionary landing, and ditching",
+      "parentId": "071.02",
+      "level": 3
+    },
+    {
+      "id": "071.02.11",
+      "title": "Fuel jettisoning",
+      "parentId": "071.02",
+      "level": 3
+    },
+    {
+      "id": "071.02.12",
+      "title": "Transport of dangerous goods by air",
+      "parentId": "071.02",
+      "level": 3
+    },
+    {
+      "id": "071.02.13",
+      "title": "Contaminated runways",
+      "parentId": "071.02",
+      "level": 3
+    },
+    {
+      "id": "071.02.14",
+      "title": "Rotor downwash",
+      "parentId": "071.02",
+      "level": 3
+    },
+    {
+      "id": "071.02.15",
+      "title": "Operation influence by meteorological conditions (helicopter)",
+      "parentId": "071.02",
+      "level": 3
+    },
+    {
+      "id": "071.03",
+      "title": "Emergency Procedures (Helicopter)",
+      "parentId": "070",
+      "level": 2
+    },
+    {
+      "id": "071.03.01",
+      "title": "Influence of technical problems",
+      "parentId": "071.03",
+      "level": 3
+    },
+    {
+      "id": "071.04",
+      "title": "Specialised Operations",
+      "parentId": "070",
+      "level": 2
+    },
+    {
+      "id": "071.04.01",
+      "title": "Specialised Operations (Regulation (Eu) No 965/2012 on air operations, as amended)",
+      "parentId": "071.04",
+      "level": 3
+    }
+  ],
+  "081": [
+    {
+      "id": "081",
+      "title": "Principles Of Flight - Aeroplanes",
+      "parentId": null,
+      "level": 1
+    },
+    {
+      "id": "081.01",
+      "title": "Subsonic Aerodynamics",
+      "parentId": "081",
+      "level": 2
+    },
+    {
+      "id": "081.01.01",
+      "title": "Basics, laws and definitions",
+      "parentId": "081.01",
+      "level": 3
+    },
+    {
+      "id": "081.01.02",
+      "title": "Two-dimensional airflow around an aerofoil",
+      "parentId": "081.01",
+      "level": 3
+    },
+    {
+      "id": "081.01.03",
+      "title": "Coefficients",
+      "parentId": "081.01",
+      "level": 3
+    },
+    {
+      "id": "081.01.04",
+      "title": "Three-dimensional airflow around an aeroplane",
+      "parentId": "081.01",
+      "level": 3
+    },
+    {
+      "id": "081.01.05",
+      "title": "Total drag",
+      "parentId": "081.01",
+      "level": 3
+    },
+    {
+      "id": "081.01.06",
+      "title": "Ground effect",
+      "parentId": "081.01",
+      "level": 3
+    },
+    {
+      "id": "081.01.07",
+      "title": "The relationship between lift coefficient and speed in steady, straight, and level flight",
+      "parentId": "081.01",
+      "level": 3
+    },
+    {
+      "id": "081.01.09",
+      "title": "Clmax augmentation",
+      "parentId": "081.01",
+      "level": 3
+    },
+    {
+      "id": "081.01.10",
+      "title": "Means to reduce the Cl-Cd ratio",
+      "parentId": "081.01",
+      "level": 3
+    },
+    {
+      "id": "081.01.12",
+      "title": "Aerodynamic degradation",
+      "parentId": "081.01",
+      "level": 3
+    },
+    {
+      "id": "081.02",
+      "title": "High-Speed Aerodynamics",
+      "parentId": "081",
+      "level": 2
+    },
+    {
+      "id": "081.02.01",
+      "title": "Speeds",
+      "parentId": "081.02",
+      "level": 3
+    },
+    {
+      "id": "081.02.02",
+      "title": "Shock waves",
+      "parentId": "081.02",
+      "level": 3
+    },
+    {
+      "id": "081.02.03",
+      "title": "Effects of exceeding the critical Mach number (Mcrit)",
+      "parentId": "081.02",
+      "level": 3
+    },
+    {
+      "id": "081.02.05",
+      "title": "Means to influence critical Mach number (Mcrit)",
+      "parentId": "081.02",
+      "level": 3
+    },
+    {
+      "id": "081.03",
+      "title": "Stall, Mach tuck, and upset prevention and recovery",
+      "parentId": "081",
+      "level": 2
+    },
+    {
+      "id": "081.03.01",
+      "title": "The stall",
+      "parentId": "081.03",
+      "level": 3
+    },
+    {
+      "id": "081.03.02",
+      "title": "Buffet onset boundary",
+      "parentId": "081.03",
+      "level": 3
+    },
+    {
+      "id": "081.03.03",
+      "title": "Situations in which buffet or stall could occur",
+      "parentId": "081.03",
+      "level": 3
+    },
+    {
+      "id": "081.03.04",
+      "title": "Recognition of stalled condition",
+      "parentId": "081.03",
+      "level": 3
+    },
+    {
+      "id": "081.04",
+      "title": "Stability",
+      "parentId": "081",
+      "level": 2
+    },
+    {
+      "id": "081.04.01",
+      "title": "Static and dynamic stability",
+      "parentId": "081.04",
+      "level": 3
+    },
+    {
+      "id": "081.04.03",
+      "title": "Static and dynamic longitudinal stability",
+      "parentId": "081.04",
+      "level": 3
+    },
+    {
+      "id": "081.04.04",
+      "title": "Static directional stability",
+      "parentId": "081.04",
+      "level": 3
+    },
+    {
+      "id": "081.04.05",
+      "title": "Static lateral stability",
+      "parentId": "081.04",
+      "level": 3
+    },
+    {
+      "id": "081.04.06",
+      "title": "Dynamic lateral/directional stability",
+      "parentId": "081.04",
+      "level": 3
+    },
+    {
+      "id": "081.05",
+      "title": "Control",
+      "parentId": "081",
+      "level": 2
+    },
+    {
+      "id": "081.05.01",
+      "title": "General",
+      "parentId": "081.05",
+      "level": 3
+    },
+    {
+      "id": "081.05.02",
+      "title": "Pitch (longitudinal) control",
+      "parentId": "081.05",
+      "level": 3
+    },
+    {
+      "id": "081.05.03",
+      "title": "Yaw (directional) control",
+      "parentId": "081.05",
+      "level": 3
+    },
+    {
+      "id": "081.05.04",
+      "title": "Roll (lateral) control",
+      "parentId": "081.05",
+      "level": 3
+    },
+    {
+      "id": "081.05.05",
+      "title": "Roll/yaw interaction",
+      "parentId": "081.05",
+      "level": 3
+    },
+    {
+      "id": "081.05.06",
+      "title": "Means to reduce control forces",
+      "parentId": "081.05",
+      "level": 3
+    },
+    {
+      "id": "081.05.07",
+      "title": "Fly-by-wire (Fbw)",
+      "parentId": "081.05",
+      "level": 3
+    },
+    {
+      "id": "081.05.08",
+      "title": "Trimming",
+      "parentId": "081.05",
+      "level": 3
+    },
+    {
+      "id": "081.06",
+      "title": "Limitations",
+      "parentId": "081",
+      "level": 2
+    },
+    {
+      "id": "081.06.01",
+      "title": "Operating limitations",
+      "parentId": "081.06",
+      "level": 3
+    },
+    {
+      "id": "081.06.02",
+      "title": "Manoeuvring envelope",
+      "parentId": "081.06",
+      "level": 3
+    },
+    {
+      "id": "081.06.03",
+      "title": "Gust envelope",
+      "parentId": "081.06",
+      "level": 3
+    },
+    {
+      "id": "081.07",
+      "title": "Propellers",
+      "parentId": "081",
+      "level": 2
+    },
+    {
+      "id": "081.07.01",
+      "title": "Conversion of engine torque to thrust",
+      "parentId": "081.07",
+      "level": 3
+    },
+    {
+      "id": "081.07.02",
+      "title": "Engine failure",
+      "parentId": "081.07",
+      "level": 3
+    },
+    {
+      "id": "081.07.03",
+      "title": "Design features for power absorption",
+      "parentId": "081.07",
+      "level": 3
+    },
+    {
+      "id": "081.07.04",
+      "title": "Secondary effects of propellers",
+      "parentId": "081.07",
+      "level": 3
+    },
+    {
+      "id": "081.08",
+      "title": "Flight Mechanics",
+      "parentId": "081",
+      "level": 2
+    },
+    {
+      "id": "081.08.01",
+      "title": "Forces acting on an aeroplane",
+      "parentId": "081.08",
+      "level": 3
+    },
+    {
+      "id": "081.08.02",
+      "title": "Asymmetric thrust",
+      "parentId": "081.08",
+      "level": 3
+    },
+    {
+      "id": "081.08.03",
+      "title": "Significant points on a polar curve",
+      "parentId": "081.08",
+      "level": 3
+    }
+  ],
+  "082": [
+    {
+      "id": "082",
+      "title": "Principles Of Flight - Helicopters",
+      "parentId": null,
+      "level": 1
+    },
+    {
+      "id": "082.01",
+      "title": "Subsonic Aerodynamics ",
+      "parentId": "082",
+      "level": 2
+    },
+    {
+      "id": "082.01.01",
+      "title": "Basic concepts, laws and definitions",
+      "parentId": "082.01",
+      "level": 3
+    },
+    {
+      "id": "082.01.02",
+      "title": "Two-dimensional airflow",
+      "parentId": "082.01",
+      "level": 3
+    },
+    {
+      "id": "082.01.03",
+      "title": "Three-dimensional airflow around a blade ",
+      "parentId": "082.01",
+      "level": 3
+    },
+    {
+      "id": "082.02",
+      "title": "Transonic Aerodynamics and Compressibility Effects",
+      "parentId": "082",
+      "level": 2
+    },
+    {
+      "id": "082.02.01",
+      "title": "Airflow speeds and velocities",
+      "parentId": "082.02",
+      "level": 3
+    },
+    {
+      "id": "082.03",
+      "title": "Rotorcraft Types",
+      "parentId": "082",
+      "level": 2
+    },
+    {
+      "id": "082.03.01",
+      "title": "Rotorcraft",
+      "parentId": "082.03",
+      "level": 3
+    },
+    {
+      "id": "082.03.02",
+      "title": "Helicopters",
+      "parentId": "082.03",
+      "level": 3
+    },
+    {
+      "id": "082.04",
+      "title": "Main-Rotor Aerodynamics",
+      "parentId": "082",
+      "level": 2
+    },
+    {
+      "id": "082.04.01",
+      "title": "Hover flight outside ground effect ",
+      "parentId": "082.04",
+      "level": 3
+    },
+    {
+      "id": "082.04.02",
+      "title": "Vertical climb",
+      "parentId": "082.04",
+      "level": 3
+    },
+    {
+      "id": "082.04.03",
+      "title": "Forward flight",
+      "parentId": "082.04",
+      "level": 3
+    },
+    {
+      "id": "082.04.04",
+      "title": "Hover and forward flight in ground effect ",
+      "parentId": "082.04",
+      "level": 3
+    },
+    {
+      "id": "082.04.05",
+      "title": "Vertical descent",
+      "parentId": "082.04",
+      "level": 3
+    },
+    {
+      "id": "082.04.06",
+      "title": "Forward flight - autorotation",
+      "parentId": "082.04",
+      "level": 3
+    },
+    {
+      "id": "082.05",
+      "title": "Main-Rotor Mechanics",
+      "parentId": "082",
+      "level": 2
+    },
+    {
+      "id": "082.05.01",
+      "title": "Flapping of the blade in hover",
+      "parentId": "082.05",
+      "level": 3
+    },
+    {
+      "id": "082.05.02",
+      "title": "Flapping angles of the blade in forward flight",
+      "parentId": "082.05",
+      "level": 3
+    },
+    {
+      "id": "082.05.03",
+      "title": "Blade-lag motion in forward flight",
+      "parentId": "082.05",
+      "level": 3
+    },
+    {
+      "id": "082.05.04",
+      "title": "Rotor systems",
+      "parentId": "082.05",
+      "level": 3
+    },
+    {
+      "id": "082.05.05",
+      "title": "Blade sailing",
+      "parentId": "082.05",
+      "level": 3
+    },
+    {
+      "id": "082.05.06",
+      "title": "Vibrations due to main rotor",
+      "parentId": "082.05",
+      "level": 3
+    },
+    {
+      "id": "082.06",
+      "title": "Tail Rotors",
+      "parentId": "082",
+      "level": 2
+    },
+    {
+      "id": "082.06.01",
+      "title": "Conventional tail rotor",
+      "parentId": "082.06",
+      "level": 3
+    },
+    {
+      "id": "082.07",
+      "title": "Equilibrium, Stability And Control",
+      "parentId": "082",
+      "level": 2
+    },
+    {
+      "id": "082.07.01",
+      "title": "Equilibrium and helicopter attitudes",
+      "parentId": "082.07",
+      "level": 3
+    },
+    {
+      "id": "082.07.02",
+      "title": "Stability",
+      "parentId": "082.07",
+      "level": 3
+    },
+    {
+      "id": "082.07.03",
+      "title": "Control",
+      "parentId": "082.07",
+      "level": 3
+    },
+    {
+      "id": "082.08",
+      "title": "Helicopter Flight Mechanics",
+      "parentId": "082",
+      "level": 2
+    },
+    {
+      "id": "082.08.01",
+      "title": "Flight limits",
+      "parentId": "082.08",
+      "level": 3
+    },
+    {
+      "id": "082.08.02",
+      "title": "Special conditions",
+      "parentId": "082.08",
+      "level": 3
+    }
+  ],
+  "090": [
+    {
+      "id": "090",
+      "title": "Communications",
+      "parentId": null,
+      "level": 1
+    },
+    {
+      "id": "090.01",
+      "title": "Concepts",
+      "parentId": "090",
+      "level": 2
+    },
+    {
+      "id": "090.01.01",
+      "title": "Associated terms",
+      "parentId": "090.01",
+      "level": 3
+    },
+    {
+      "id": "090.02",
+      "title": "General Operating Procedures",
+      "parentId": "090",
+      "level": 2
+    },
+    {
+      "id": "090.02.01",
+      "title": "Transmission standards",
+      "parentId": "090.02",
+      "level": 3
+    },
+    {
+      "id": "090.03",
+      "title": "Relevant Weather Information ",
+      "parentId": "090",
+      "level": 2
+    },
+    {
+      "id": "090.03.01",
+      "title": "Aerodrome weather",
+      "parentId": "090.03",
+      "level": 3
+    },
+    {
+      "id": "090.04",
+      "title": "Voice Communication Failure",
+      "parentId": "090",
+      "level": 2
+    },
+    {
+      "id": "090.04.01",
+      "title": "Required action",
+      "parentId": "090.04",
+      "level": 3
+    },
+    {
+      "id": "090.05",
+      "title": "Distress And Urgency Procedures",
+      "parentId": "090",
+      "level": 2
+    },
+    {
+      "id": "090.05.01",
+      "title": "Signals and procedures",
+      "parentId": "090.05",
+      "level": 3
+    },
+    {
+      "id": "090.06",
+      "title": "Vhf Propagation And Allocation Of Frequencies",
+      "parentId": "090",
+      "level": 2
+    },
+    {
+      "id": "090.06.01",
+      "title": "General principles",
+      "parentId": "090.06",
+      "level": 3
+    },
+    {
+      "id": "090.07",
+      "title": "Other communications",
+      "parentId": "090",
+      "level": 2
+    },
+    {
+      "id": "090.07.01",
+      "title": "Weather observations, Morse code",
+      "parentId": "090.07",
+      "level": 3
+    }
+  ]
+}
