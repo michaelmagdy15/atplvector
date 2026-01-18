@@ -8,6 +8,7 @@ import { Testimonial } from '../types';
 import Terms from './Terms';
 import Privacy from './Privacy';
 import Contact from './Contact';
+import StudyGuide from './StudyGuide';
 
 type AuthViewMode = 'LOGIN' | 'SIGNUP' | 'FORGOT_PASS' | 'RECOVER_ACCOUNT' | 'RESET_PASSWORD' | 'VERIFY_EMAIL';
 
@@ -303,25 +304,35 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
     const [heroMouse, setHeroMouse] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            // Calculate normalized mouse position (-1 to 1) for tilt
-            const x = (e.clientX / window.innerWidth) * 2 - 1;
-            const y = (e.clientY / window.innerHeight) * 2 - 1;
-            setHeroMouse({ x, y });
+        let rafId: number | null = null;
 
-            // Update CSS variables for the shimmer/slider effect relative to text
-            const hero = document.getElementById('hero-text');
-            if (hero) {
-                const rect = hero.getBoundingClientRect();
-                const relX = e.clientX - rect.left;
-                const relY = e.clientY - rect.top;
-                hero.style.setProperty('--mouse-x', `${relX}px`);
-                hero.style.setProperty('--mouse-y', `${relY}px`);
-            }
+        const handleMouseMove = (e: MouseEvent) => {
+            if (rafId) return;
+
+            rafId = requestAnimationFrame(() => {
+                // Calculate normalized mouse position (-1 to 1) for tilt
+                const x = (e.clientX / window.innerWidth) * 2 - 1;
+                const y = (e.clientY / window.innerHeight) * 2 - 1;
+                setHeroMouse({ x, y });
+
+                // Update CSS variables for the shimmer/slider effect relative to text
+                const hero = document.getElementById('hero-text');
+                if (hero) {
+                    const rect = hero.getBoundingClientRect();
+                    const relX = e.clientX - rect.left;
+                    const relY = e.clientY - rect.top;
+                    hero.style.setProperty('--mouse-x', `${relX}px`);
+                    hero.style.setProperty('--mouse-y', `${relY}px`);
+                }
+                rafId = null;
+            });
         };
 
         window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+            if (rafId) cancelAnimationFrame(rafId);
+        };
     }, []);
 
     const handlePasswordReset = async (e: React.FormEvent) => {
@@ -399,8 +410,8 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                         <div className="absolute inset-0 bg-grid-pattern pointer-events-none"></div>
 
                         {/* Background FX */}
-                        <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] animate-blob pointer-events-none"></div>
-                        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] animate-blob animation-delay-2000 pointer-events-none"></div>
+                        <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[60px] animate-blob pointer-events-none will-change-transform"></div>
+                        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[60px] animate-blob animation-delay-2000 pointer-events-none will-change-transform"></div>
 
                         {/* Left: Value Prop */}
                         <div className="lg:w-1/2 flex flex-col justify-center px-8 lg:px-20 relative z-10 pt-10 lg:pt-0 perspective-1000">
@@ -737,7 +748,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                             <p className="text-slate-400 text-lg leading-relaxed max-w-md">Every subject is an interactive lab. Manipulate controls, simulate physics, and visualize systems in real-time.</p>
                                         </div>
                                         <div className="mt-8 relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group-hover:scale-[1.02] transition-transform duration-700">
-                                            <img src="/assets/walkthroughs/planner_demo.webp" alt="Sim" className="w-full h-64 object-cover" />
+                                            <img src={`${import.meta.env.BASE_URL}assets/walkthroughs/planner_demo.webp`} alt="Sim" className="w-full h-64 object-cover" />
                                             <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
                                             <div className="absolute bottom-4 left-4 flex gap-3">
                                                 <div className="px-3 py-1.5 bg-black/60 backdrop-blur rounded-lg text-xs font-bold text-white border border-white/10 flex items-center gap-2">
@@ -846,13 +857,13 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
 
                                 {/* Background Layer (Dashboard) */}
                                 <div className="absolute top-0 left-0 w-[90%] h-[90%] bg-slate-900 rounded-3xl border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden transform translate-z-0 opacity-40 blur-[2px] group-hover:blur-0 transition-all duration-700">
-                                    <img src="/assets/walkthroughs/planner_demo.webp" className="w-full h-full object-cover opacity-50" alt="Dashboard Layer" />
+                                    <img src={`${import.meta.env.BASE_URL}assets/walkthroughs/planner_demo.webp`} className="w-full h-full object-cover opacity-50" alt="Dashboard Layer" />
                                 </div>
 
                                 {/* Mid Layer (Question Bank) */}
                                 <div className="absolute top-1/2 left-1/2 -translate-x-[45%] -translate-y-[45%] w-[85%] h-[85%] bg-slate-800 rounded-3xl border border-white/20 shadow-2xl overflow-hidden transform translate-z-150 rotate-x-2 rotate-y-n5 hover:translate-z-200 transition-transform duration-500">
                                     <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/20 to-transparent"></div>
-                                    <img src="/assets/walkthroughs/confidence_demo.webp" className="w-full h-full object-cover opacity-80" alt="QB Layer" />
+                                    <img src={`${import.meta.env.BASE_URL}assets/walkthroughs/confidence_demo.webp`} className="w-full h-full object-cover opacity-80" alt="QB Layer" />
                                     <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 flex items-center gap-2">
                                         <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
                                         <span className="text-[10px] font-bold text-white uppercase tracking-wider">Live Analysis</span>
@@ -862,7 +873,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                 {/* Top Layer (Interactive Sim) */}
                                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] bg-white rounded-2xl shadow-[0_100px_150px_-30px_rgba(59,130,246,0.3)] overflow-hidden transform translate-z-300 group-hover:translate-z-450 transition-transform duration-700">
                                     <div className="absolute inset-0 bg-slate-900 group">
-                                        <img src="/assets/walkthroughs/planner_demo.webp" className="w-full h-full object-cover opacity-90 scale-110 group-hover:scale-125 transition-transform duration-[10s]" alt="Simulation Layer" />
+                                        <img src={`${import.meta.env.BASE_URL}assets/walkthroughs/planner_demo.webp`} className="w-full h-full object-cover opacity-90 scale-110 group-hover:scale-125 transition-transform duration-[10s]" alt="Simulation Layer" />
                                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
                                         <div className="absolute inset-0 flex items-center justify-center">
                                             <div className="w-20 h-20 bg-blue-600/20 backdrop-blur-xl rounded-full border border-blue-500/50 flex items-center justify-center text-white scale-90 group-hover:scale-110 transition-transform shadow-2xl shadow-blue-500/50">
