@@ -10,6 +10,7 @@ export enum View {
   ADMIN_DASHBOARD = 'ADMIN_DASHBOARD',
   STUDY_GUIDE = 'STUDY_GUIDE',
   QUESTION_BANK = 'QUESTION_BANK',
+  EXAM_PLANNER = 'EXAM_PLANNER',
 
   // Auth Specific
   AUTH_LOGIN = 'AUTH_LOGIN',
@@ -483,6 +484,9 @@ export interface QBConfig {
     selectedCountries?: string[];
     recentOnly?: boolean;
     difficultyLevels?: ('easy' | 'medium' | 'hard')[];
+    // Smart Filters
+    flaggedOnly?: boolean;
+    wrongAnswersOnly?: boolean;
   };
 }
 
@@ -507,4 +511,7 @@ export interface QBStats {
   questionsSeen: number;
   totalTestsCompleted: number;
   scoreHistory: { date: string, score: number, type: 'study' | 'exam' }[];
+  flaggedQuestionIds: string[];
+  incorrectQuestionIds: string[]; // Set of unique IDs that were ever answered incorrectly
+  seenQuestionIds: string[]; // Set of unique IDs ever seen in a practice session
 }

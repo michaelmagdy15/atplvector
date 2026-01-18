@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { ChevronRight, ChevronDown, CheckSquare, Square, Play, Filter, Book, List, AlertCircle } from 'lucide-react';
+import { ChevronRight, ChevronDown, Database, Globe, History, Layout, Settings, Target, Zap, Sparkles, CheckSquare, Square, AlertCircle, Search, Filter, Book, List, Play } from 'lucide-react';
 import { QBConfig } from '../types';
+import { QBStorage } from '../lib/qb_storage';
 import syllabusMetadata from '../data/qb_metadata.json';
 
 interface Wrapper {
@@ -30,8 +31,18 @@ export const QB_Setup: React.FC<SetupProps> = ({ initialSubject, onStart, onCanc
         incorrect: false,
         selectedAuthorities: [] as string[],
         selectedCountries: [] as string[],
-        recentOnly: false
+        recentOnly: false,
+        flaggedOnly: false,
+        wrongAnswersOnly: false,
+        seenPeriod: 'all' as 'all' | '30' | '60' | '90'
     });
+
+    const [stats, setStats] = useState<any>(null);
+
+    useEffect(() => {
+        const currentStats = QBStorage.getStats();
+        setStats(currentStats);
+    }, []);
 
     const authorities = [
         { id: 'EASA', name: 'EASA Central (ECQB)', flag: '🇪🇺' },
@@ -344,6 +355,55 @@ export const QB_Setup: React.FC<SetupProps> = ({ initialSubject, onStart, onCanc
                         </label>
                     </div>
 
+                    <div>
+                        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <AlertCircle size={18} className="text-amber-400" />
+                            Smart Filters
+                        </h3>
+                        <div className="space-y-3">
+                            <label className="flex items-center justify-between gap-3 text-sm text-slate-300 cursor-pointer hover:bg-white/5 p-2 rounded-lg transition-colors group">
+                                <div className="flex items-center gap-3">
+                                    <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${filters.flaggedOnly ? 'bg-blue-600 border-blue-600' : 'border-slate-600'}`}>
+                                        {filters.flaggedOnly && <CheckSquare size={14} className="text-white" />}
+                                    </div>
+                                    <input type="checkbox" className="hidden" checked={filters.flaggedOnly} onChange={e => setFilters({ ...filters, flaggedOnly: e.target.checked })} />
+                                    <span>Flagged / Bookmarked</span>
+                                </div>
+                                <span className="text-[10px] bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded-full border border-blue-500/20 font-bold">
+                                    {stats?.flaggedQuestionIds?.length || 0}
+                                </span>
+                            </label>
+
+                            <label className="flex items-center justify-between gap-3 text-sm text-slate-300 cursor-pointer hover:bg-white/5 p-2 rounded-lg transition-colors group">
+                                <div className="flex items-center gap-3">
+                                    <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${filters.wrongAnswersOnly ? 'bg-red-600 border-red-600' : 'border-slate-600'}`}>
+                                        {filters.wrongAnswersOnly && <CheckSquare size={14} className="text-white" />}
+                                    </div>
+                                    <input type="checkbox" className="hidden" checked={filters.wrongAnswersOnly} onChange={e => setFilters({ ...filters, wrongAnswersOnly: e.target.checked })} />
+                                    <span>Wrongly Answered (Ever)</span>
+                                </div>
+                                <span className="text-[10px] bg-red-500/10 text-red-400 px-2 py-0.5 rounded-full border border-red-500/20 font-bold">
+                                    {stats?.incorrectQuestionIds?.length || 0}
+                                </span>
+                            </label>
+
+                            <div className="pt-2">
+                                <label className="block text-[10px] font-bold text-slate-500 uppercase mb-2 ml-2">Seen in Exam (Temporal)</label>
+                                <div className="grid grid-cols-4 gap-1 p-1 bg-slate-800/50 rounded-xl border border-white/5">
+                                    {['all', '30', '60', '90'].map(period => (
+                                        <button
+                                            key={period}
+                                            onClick={() => setFilters({ ...filters, seenPeriod: period as any })}
+                                            className={`py-1.5 rounded-lg text-[10px] font-bold transition-all ${filters.seenPeriod === period ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-400 hover:text-slate-300'}`}
+                                        >
+                                            {period === 'all' ? 'ALL' : `${period}D`}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <button
                         onClick={handleStart}
                         disabled={maxQuestions === 0}
@@ -360,6 +420,45 @@ export const QB_Setup: React.FC<SetupProps> = ({ initialSubject, onStart, onCanc
 
             {/* Tree View */}
             <div className="lg:col-span-2 glass-panel p-6 rounded-3xl flex flex-col h-[80vh]">
+                {/* Header with Smart Actions */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+                    <div>
+                        <h2 className="text-4xl font-black text-white mb-2 tracking-tight">Configure Session</h2>
+                        <p className="text-slate-400">Target specific subjects or use smart filters to focus on your weak points.</p>
+                    </div>
+
+                    <div className="flex flex-wrap gap-3">
+                        <button
+                            onClick={() => {
+                                const qbConfig: any = {
+                                    subjectId: selectedSubject || '090', // Fallback or first selected
+                                    mode: 'study',
+                                    topics: selectedTopics,
+                                    count: 50,
+                                    filters: { ...filters, wrongAnswersOnly: true }
+                                };
+                                setFilters({ ...filters, wrongAnswersOnly: true });
+                                if (stats?.incorrectQuestionIds?.length > 0) {
+                                    onStart(qbConfig);
+                                }
+                            }}
+                            className="px-4 py-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/20 rounded-xl text-xs font-bold transition-all flex items-center gap-2"
+                        >
+                            <Zap size={14} />
+                            Study My Mistakes
+                        </button>
+                        <button
+                            onClick={() => {
+                                // Logic for "unseen" would involve passing a filter to onStart
+                                // For now, we'll let the user toggle the regular filters
+                            }}
+                            className="px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/20 rounded-xl text-xs font-bold transition-all flex items-center gap-2"
+                        >
+                            <Sparkles size={14} />
+                            Practice Unseen
+                        </button>
+                    </div>
+                </div>
                 <div className="flex items-center justify-between mb-6 border-b border-white/10 pb-4">
                     <div>
                         <h3 className="text-2xl font-bold text-white">Syllabus Selection</h3>

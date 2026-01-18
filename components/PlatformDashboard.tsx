@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { View, User } from '../types';
-import { Plane, Scale, Clock, Trophy, ChevronRight, Settings, Activity, Weight, TrendingUp, Map, Users, Cloud, Radio, Navigation, Compass, BookOpen, Lock } from 'lucide-react';
+import { Plane, Scale, Clock, Trophy, ChevronRight, Settings, Activity, Weight, TrendingUp, Map, Users, Cloud, Radio, Navigation, Compass, BookOpen, Lock, Calendar } from 'lucide-react';
 
 interface Props {
     onChangeView: (view: View) => void;
@@ -171,6 +171,20 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                         <div>
                             <div className="text-[10px] text-purple-400/60 font-bold uppercase tracking-wider">Practice</div>
                             <div className="text-xl font-bold text-white group-hover:text-purple-200 transition-colors">Question Bank</div>
+                        </div>
+                    </div>
+
+                    {/* Exam Planner Quick Access */}
+                    <div
+                        onClick={() => onChangeView(View.EXAM_PLANNER)}
+                        className="glass-panel px-5 py-3 rounded-2xl flex items-center gap-4 cursor-pointer hover:bg-white/5 transition-colors border border-indigo-500/30 shadow-lg shadow-indigo-500/10 group"
+                    >
+                        <div className="p-2 bg-indigo-500/20 rounded-lg text-indigo-400 group-hover:scale-110 transition-transform">
+                            <Calendar size={20} />
+                        </div>
+                        <div>
+                            <div className="text-[10px] text-indigo-400/60 font-bold uppercase tracking-wider">Planning</div>
+                            <div className="text-xl font-bold text-white group-hover:text-indigo-200 transition-colors">Exam Planner</div>
                         </div>
                     </div>
                 </div>

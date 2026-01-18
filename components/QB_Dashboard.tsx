@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Play, RotateCcw, TrendingUp, Clock, BookOpen, AlertCircle, Trash2 } from 'lucide-react';
+import { Play, RotateCcw, TrendingUp, Clock, BookOpen, AlertCircle, Trash2, ShieldCheck, Target, Zap, Calendar } from 'lucide-react';
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts';
 import { SavedTest, QBStats } from '../types';
 import { QBStorage } from '../lib/qb_storage';
 
 interface DashboardProps {
     onStartNew: () => void;
     onResume: (test: SavedTest) => void;
+    onOpenPlanner: () => void;
 }
 
-export const QB_Dashboard: React.FC<DashboardProps> = ({ onStartNew, onResume }) => {
+export const QB_Dashboard: React.FC<DashboardProps> = ({ onStartNew, onResume, onOpenPlanner }) => {
     const [stats, setStats] = useState<QBStats | null>(null);
     const [savedTests, setSavedTests] = useState<SavedTest[]>([]);
 
@@ -16,6 +18,17 @@ export const QB_Dashboard: React.FC<DashboardProps> = ({ onStartNew, onResume })
         setStats(QBStorage.getStats());
         setSavedTests(QBStorage.getSavedTests());
     }, []);
+
+    const subjectProficiency = [
+        { subject: 'Law', score: 85 },
+        { subject: 'POF', score: 65 },
+        { subject: 'Ops', score: 90 },
+        { subject: 'Met', score: 70 },
+        { subject: 'Nav', score: 60 },
+        { subject: 'Comms', score: 95 },
+    ]; // Placeholder - will link to real stats soon
+
+    const bankCoverage = stats ? Math.min(100, Math.round((stats.seenQuestionIds?.length / 1000) * 100)) : 0; // Assuming 1000 questions total for now
 
     const handleDelete = (id: string, e: React.MouseEvent) => {
         e.stopPropagation();
@@ -50,6 +63,13 @@ export const QB_Dashboard: React.FC<DashboardProps> = ({ onStartNew, onResume })
                                 <Play size={20} fill="currentColor" />
                                 Start New Test
                             </button>
+                            <button
+                                onClick={onOpenPlanner}
+                                className="px-8 py-3 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-xl font-bold transition-all flex items-center gap-2 hover:scale-105 active:scale-95"
+                            >
+                                <Calendar size={20} className="text-indigo-400" />
+                                Exam Planner
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -70,68 +90,103 @@ export const QB_Dashboard: React.FC<DashboardProps> = ({ onStartNew, onResume })
                     </div>
                 </div>
 
-                {/* Daily Updates Card */}
-                <div className="glass-panel p-6 rounded-3xl flex flex-col justify-center space-y-4 border-amber-500/20 shadow-lg shadow-amber-500/5 relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 p-2">
-                        <span className="flex h-2 w-2 relative">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-                        </span>
-                    </div>
+                {/* Bank Coverage Card */}
+                <div className="glass-panel p-6 rounded-3xl flex flex-col justify-center space-y-4 border-blue-500/20 shadow-lg shadow-blue-500/5 relative overflow-hidden group">
                     <div className="flex items-center gap-3 text-slate-400">
-                        <div className="p-2 bg-amber-500/10 rounded-lg text-amber-400">
-                            <Clock size={20} />
+                        <div className="p-2 bg-blue-500/10 rounded-lg text-blue-400">
+                            <ShieldCheck size={20} />
                         </div>
-                        <span className="text-sm font-medium">Daily Updates</span>
+                        <span className="text-sm font-medium">Bank Coverage</span>
                     </div>
                     <div className="text-4xl font-black text-white">
-                        +24
+                        {bankCoverage}%
                     </div>
-                    <div className="text-xs text-slate-400 font-bold uppercase tracking-tighter">
-                        ECQB 2024 Verified
+                    <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                        <div className="h-full bg-blue-500 transition-all duration-1000" style={{ width: `${bankCoverage}%` }}></div>
+                    </div>
+                    <div className="text-[10px] text-slate-500 uppercase font-bold">
+                        {stats?.seenQuestionIds?.length || 0} / 1000 Questions seen
                     </div>
                 </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-                {/* Main Content / Recent Activity Chart Placeholder */}
+                {/* Performance Visualizer */}
                 <div className="lg:col-span-2 space-y-6">
                     <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                        <BookOpen size={20} className="text-purple-400" />
-                        Recent Performance
+                        <Target size={20} className="text-blue-400" />
+                        Proficiency Analysis
                     </h3>
 
-                    <div className="glass-panel p-6 rounded-2xl min-h-[300px] flex items-center justify-center border border-dashed border-white/10">
-                        {stats && stats.scoreHistory.length > 0 ? (
-                            <div className="w-full h-64 flex items-end justify-between gap-2">
-                                {stats.scoreHistory.slice(-10).map((entry, i) => (
-                                    <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
-                                        <div
-                                            className={`w-full rounded-t-lg transition-all duration-500 hover:opacity-80 relative group-hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] ${entry.type === 'exam' ? 'bg-purple-500' : 'bg-blue-500'}`}
-                                            style={{ height: `${entry.score}%` }}
-                                        >
-                                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 pointer-events-none">
-                                                {entry.score}% ({entry.type})
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="glass-panel p-6 rounded-3xl h-[350px]">
+                            <h4 className="text-sm font-bold text-slate-400 mb-6 uppercase tracking-wider">Subject Mastery</h4>
+                            <ResponsiveContainer width="100%" height="80%">
+                                <RadarChart cx="50%" cy="50%" outerRadius="80%" data={subjectProficiency}>
+                                    <PolarGrid stroke="#334155" />
+                                    <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 10 }} />
+                                    <Radar
+                                        name="Proficiency"
+                                        dataKey="score"
+                                        stroke="#3b82f6"
+                                        fill="#3b82f6"
+                                        fillOpacity={0.5}
+                                    />
+                                </RadarChart>
+                            </ResponsiveContainer>
+                        </div>
+
+                        <div className="glass-panel p-6 rounded-3xl h-[350px] flex flex-col">
+                            <h4 className="text-sm font-bold text-slate-400 mb-6 uppercase tracking-wider">Score History</h4>
+                            <div className="flex-1 flex items-end justify-between gap-2">
+                                {stats && stats.scoreHistory.length > 0 ? (
+                                    stats.scoreHistory.slice(-10).map((entry, i) => (
+                                        <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
+                                            <div
+                                                className={`w-full rounded-t-lg transition-all duration-500 hover:opacity-80 relative group-hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] ${entry.type === 'exam' ? 'bg-purple-500' : 'bg-blue-500'}`}
+                                                style={{ height: `${entry.score}%` }}
+                                            >
+                                                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10 pointer-events-none">
+                                                    {entry.score}%
+                                                </div>
+                                            </div>
+                                            <div className="text-[10px] text-slate-500 rotate-45 origin-left -translate-y-1">
+                                                {new Date(entry.date).toLocaleDateString(undefined, { month: 'numeric', day: 'numeric' })}
                                             </div>
                                         </div>
-                                        <div className="text-[10px] text-slate-500 rotate-45 origin-left translate-y-2">
-                                            {new Date(entry.date).toLocaleDateString(undefined, { month: 'numeric', day: 'numeric' })}
-                                        </div>
-                                    </div>
-                                ))}
+                                    ))
+                                ) : (
+                                    <div className="w-full text-center text-slate-600 self-center italic">No data yet</div>
+                                )}
                             </div>
-                        ) : (
-                            <div className="text-center text-slate-500">
-                                <AlertCircle size={48} className="mx-auto mb-4 opacity-50" />
-                                <p>No test history yet. Complete a test to see your progress!</p>
-                            </div>
-                        )}
+                        </div>
                     </div>
                 </div>
 
-                {/* Saved Sessions Sidebar */}
-                <div className="space-y-4">
+                {/* Saved Sessions & Hot Topics */}
+                <div className="space-y-6">
+                    {/* Hot Topics (Weak areas) */}
+                    <div className="glass-panel p-6 rounded-3xl border border-amber-500/20 bg-amber-500/5">
+                        <h3 className="text-sm font-bold text-amber-400 mb-4 flex items-center gap-2 uppercase tracking-wider">
+                            <Zap size={16} />
+                            Weak Areas (Hot Topics)
+                        </h3>
+                        {stats && stats.incorrectQuestionIds.length > 0 ? (
+                            <div className="space-y-3">
+                                <p className="text-xs text-slate-400">You have {stats.incorrectQuestionIds.length} questions to retest. Focus on these topics:</p>
+                                <button
+                                    onClick={onStartNew}
+                                    className="w-full py-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/20 rounded-xl text-xs font-bold transition-all"
+                                >
+                                    Review All Mistakes
+                                </button>
+                            </div>
+                        ) : (
+                            <p className="text-xs text-slate-500 italic">No weak areas identified yet. Keep practicing!</p>
+                        )}
+                    </div>
+
                     <h3 className="text-xl font-bold text-white flex items-center gap-2">
                         <Clock size={20} className="text-amber-400" />
                         Resume Session

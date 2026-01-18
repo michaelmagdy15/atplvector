@@ -22,6 +22,7 @@ import StarfieldBackground from './components/StarfieldBackground';
 import GlowOrbs from './components/GlowOrbs';
 import LoadingScreen from './components/LoadingScreen';
 import QuestionBank from './components/QuestionBank';
+import { ExamPlanner } from './components/ExamPlanner';
 
 // Imports for Subjects...
 import AirLawDashboard from './components/AirLawDashboard';
@@ -871,6 +872,7 @@ const App: React.FC = () => {
                                     onChangeView={navigateTo}
                                 />
                             )}
+                            {currentView === View.EXAM_PLANNER && <ExamPlanner />}
 
                             {/* --- SUBJECT MODULES --- */}
                             {/* Air Law */}

@@ -5,9 +5,10 @@ import { Home, RefreshCw, AlertTriangle, CheckCircle } from 'lucide-react';
 interface ResultsProps {
     result: TestResult;
     onHome: () => void;
+    onRetest: (incorrectIds: string[]) => void;
 }
 
-export const QB_Results: React.FC<ResultsProps> = ({ result, onHome }) => {
+export const QB_Results: React.FC<ResultsProps> = ({ result, onHome, onRetest }) => {
     const percentage = Math.round((result.score / result.totalQuestions) * 100);
 
     // Sort topics by performance (lowest first)
@@ -118,14 +119,23 @@ export const QB_Results: React.FC<ResultsProps> = ({ result, onHome }) => {
                 </div>
             </div>
 
-            <div className="flex justify-center pt-8">
+            <div className="flex justify-center gap-4 pt-8">
                 <button
                     onClick={onHome}
-                    className="px-8 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-bold flex items-center gap-2 transition-all hover:scale-105"
+                    className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold flex items-center gap-2 transition-all"
                 >
                     <Home size={20} />
-                    Back to Dashboard
+                    Dashboard
                 </button>
+                {result.score < result.totalQuestions && (
+                    <button
+                        onClick={() => onRetest([])} // Empty means use the incorrect IDs from storage or parent
+                        className="px-8 py-3 bg-amber-600 hover:bg-amber-500 text-white rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg shadow-amber-600/20"
+                    >
+                        <RefreshCw size={20} />
+                        Retest Mistakes
+                    </button>
+                )}
             </div>
 
         </div>

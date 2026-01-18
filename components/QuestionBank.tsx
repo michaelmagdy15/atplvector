@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Loader2, ArrowRight, HelpCircle, ImageIcon, Check, X, RotateCcw, ChevronLeft, Flag, Save, Sparkles } from 'lucide-react';
+import { Loader2, ArrowRight, HelpCircle, ImageIcon, Check, X, RotateCcw, ChevronLeft, Flag, Save, Sparkles, Bookmark, BookOpen } from 'lucide-react';
 import { Question, View, QBConfig, SavedTest, TestResult, TopicResult } from '../types';
 import { QB_Dashboard } from './QB_Dashboard';
 import { QB_Setup } from './QB_Setup';
@@ -136,6 +136,15 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
                 allQuestions = allQuestions.filter(q => q.isRecent);
             }
 
+            // Smart Filters
+            const stats = QBStorage.getStats();
+            if (config.filters.flaggedOnly) {
+                allQuestions = allQuestions.filter(q => stats.flaggedQuestionIds.includes(q.id));
+            }
+            if (config.filters.wrongAnswersOnly) {
+                allQuestions = allQuestions.filter(q => stats.incorrectQuestionIds.includes(q.id));
+            }
+
             // Topic Filter
             if (config.topics.length > 0) {
                 allQuestions = allQuestions.filter(q =>
@@ -257,10 +266,18 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
         };
 
         // Update Stats
+        const incorrectIds = questions
+            .filter((_, idx) => currentTest.userStatuses[idx] === 'incorrect')
+            .map(q => q.id);
+
+        const seenIds = questions.map(q => q.id);
+
         QBStorage.updateStats({
             score: (result.score / result.totalQuestions) * 100,
             type: currentTest.mode,
-            seenCount: result.totalQuestions
+            seenCount: result.totalQuestions,
+            incorrectIds,
+            seenIds
         });
 
         // Mark complete
@@ -278,7 +295,13 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
     };
 
     if (view === 'DASHBOARD') {
-        return <QB_Dashboard onStartNew={() => setView('SETUP')} onResume={handleResume} />;
+        return (
+            <QB_Dashboard
+                onStartNew={() => setView('SETUP')}
+                onResume={handleResume}
+                onOpenPlanner={() => onChangeView(View.EXAM_PLANNER)}
+            />
+        );
     }
 
     if (view === 'SETUP') {
@@ -286,7 +309,42 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
     }
 
     if (view === 'RESULTS' && result) {
-        return <QB_Results result={result} onHome={() => setView('DASHBOARD')} />;
+        return (
+            <QB_Results
+                result={result}
+                onHome={() => setView('DASHBOARD')}
+                onRetest={(incorrectIds) => {
+                    // Logic to start a new test with only incorrect questions
+                    // If incorrectIds is empty, we derive them from the current result
+                    const stats = QBStorage.getStats();
+                    const idsToRetest = incorrectIds.length > 0
+                        ? incorrectIds
+                        : stats.incorrectQuestionIds.slice(0, 50); // Fallback to last 50 mistakes
+
+                    if (idsToRetest.length === 0) {
+                        alert("No mistakes found to retest!");
+                        return;
+                    }
+
+                    handleStartNew({
+                        subjectId: currentTest?.subjectId || '010',
+                        mode: 'study',
+                        topics: [], // All topics relevant to these questions
+                        count: idsToRetest.length,
+                        filters: {
+                            flaggedOnly: false,
+                            wrongAnswersOnly: true,
+                            recentOnly: false,
+                            onlyRealExam: false,
+                            withAnnexes: false,
+                            withoutAnnexes: false,
+                            unseen: false,
+                            incorrect: true
+                        }
+                    });
+                }}
+            />
+        );
     }
 
     if (view === 'PRACTICE' && currentTest) {
@@ -407,13 +465,22 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
                                 </div>
                             </div>
 
-                            <button
-                                onClick={() => { setReportingQ(currentQ); setReportData({ ...reportData, type: 'seen' }); }}
-                                className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-red-500/10 border border-white/5 hover:border-red-500/20 rounded-xl text-slate-400 hover:text-red-400 text-xs font-bold transition-all"
-                            >
-                                <HelpCircle size={14} />
-                                Report / Seen in Exam
-                            </button>
+                            <div className="flex items-center gap-2">
+                                <button
+                                    onClick={() => QBStorage.toggleFlaggedQuestion(currentQ.id)}
+                                    className={`p-2 rounded-xl border transition-all ${QBStorage.isQuestionFlagged(currentQ.id) ? 'bg-amber-500 border-amber-400 text-white shadow-lg shadow-amber-500/20' : 'bg-slate-800 border-white/5 text-slate-500 hover:text-slate-300'}`}
+                                    title="Flag / Bookmark for later"
+                                >
+                                    <Bookmark size={20} fill={QBStorage.isQuestionFlagged(currentQ.id) ? "currentColor" : "none"} />
+                                </button>
+                                <button
+                                    onClick={() => { setReportingQ(currentQ); setReportData({ ...reportData, type: 'seen' }); }}
+                                    className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-red-500/10 border border-white/5 hover:border-red-500/20 rounded-xl text-slate-400 hover:text-red-400 text-xs font-bold transition-all"
+                                >
+                                    <HelpCircle size={14} />
+                                    Report / Seen
+                                </button>
+                            </div>
                         </div>
 
                         {loading ? (
@@ -500,11 +567,35 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
                                             )}
                                         </p>
                                         <div className="flex flex-wrap gap-2 mt-4">
-                                            {currentQ.learningObjectives.map(lo => (
-                                                <span key={lo} className="text-[10px] font-bold px-2 py-1 rounded bg-slate-800 text-slate-500">
-                                                    LO {lo}
-                                                </span>
-                                            ))}
+                                            {currentQ.learningObjectives.map(lo => {
+                                                // Simple mapping for demonstration
+                                                let targetView: View | null = null;
+                                                if (lo.startsWith('010.01')) targetView = View.AIR_LAW_INT_LAW;
+                                                else if (lo.startsWith('010.06.01')) targetView = View.AIR_LAW_SECURITY;
+                                                else if (lo.startsWith('040')) targetView = View.HPL_HOME;
+                                                else if (lo.startsWith('090.01')) targetView = View.GENERAL_THEORY;
+
+                                                return (
+                                                    <div key={lo} className="flex items-center gap-1">
+                                                        <span className="text-[10px] font-bold px-2 py-1 rounded bg-slate-800 text-slate-500">
+                                                            LO {lo}
+                                                        </span>
+                                                        {targetView && (
+                                                            <button
+                                                                onClick={() => {
+                                                                    if (confirm("This will leave your current session. Continue to theory?")) {
+                                                                        onChangeView(targetView!);
+                                                                    }
+                                                                }}
+                                                                className="flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 transition-all"
+                                                            >
+                                                                <BookOpen size={10} />
+                                                                STUDY THEORY
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                );
+                                            })}
                                         </div>
                                     </div>
                                 )}

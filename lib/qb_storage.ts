@@ -12,13 +12,22 @@ export const QBStorage = {
                 averageScore: 0,
                 questionsSeen: 0,
                 totalTestsCompleted: 0,
-                scoreHistory: []
+                scoreHistory: [],
+                flaggedQuestionIds: [],
+                incorrectQuestionIds: [],
+                seenQuestionIds: []
             };
         }
-        return JSON.parse(data);
+        const stats = JSON.parse(data);
+        return {
+            ...stats,
+            flaggedQuestionIds: stats.flaggedQuestionIds || [],
+            incorrectQuestionIds: stats.incorrectQuestionIds || [],
+            seenQuestionIds: stats.seenQuestionIds || []
+        };
     },
 
-    updateStats: (newResult: { score: number, type: 'study' | 'exam', seenCount: number }) => {
+    updateStats: (newResult: { score: number, type: 'study' | 'exam', seenCount: number, incorrectIds: string[], seenIds: string[] }) => {
         const stats = QBStorage.getStats();
         stats.totalTestsCompleted += 1;
         stats.questionsSeen += newResult.seenCount;
@@ -33,12 +42,35 @@ export const QBStorage = {
             type: newResult.type
         });
 
+        // Add incorrect IDs without duplicates
+        const newIncorrect = new Set([...stats.incorrectQuestionIds, ...newResult.incorrectIds]);
+        stats.incorrectQuestionIds = Array.from(newIncorrect);
+
+        // Add seen IDs without duplicates
+        const newSeen = new Set([...stats.seenQuestionIds, ...newResult.seenIds]);
+        stats.seenQuestionIds = Array.from(newSeen);
+
         // Keep only last 50 for performance
         if (stats.scoreHistory.length > 50) {
             stats.scoreHistory.shift();
         }
 
         localStorage.setItem(QB_STATS_KEY, JSON.stringify(stats));
+    },
+
+    toggleFlaggedQuestion: (id: string) => {
+        const stats = QBStorage.getStats();
+        const set = new Set(stats.flaggedQuestionIds);
+        if (set.has(id)) set.delete(id);
+        else set.add(id);
+        stats.flaggedQuestionIds = Array.from(set);
+        localStorage.setItem(QB_STATS_KEY, JSON.stringify(stats));
+        return stats.flaggedQuestionIds.includes(id);
+    },
+
+    isQuestionFlagged: (id: string): boolean => {
+        const stats = QBStorage.getStats();
+        return stats.flaggedQuestionIds.includes(id);
     },
 
     // Saved Tests
