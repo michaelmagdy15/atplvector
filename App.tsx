@@ -15,6 +15,8 @@ import SubscriptionManagement from './components/SubscriptionManagement';
 import AdminDashboard from './components/AdminDashboard';
 import ContentProtection from './components/ContentProtection';
 import StudyGuide from './components/StudyGuide';
+import ConceptLab from './components/ConceptLab';
+import ForcesOfFlight from './components/concepts/ForcesOfFlight';
 import NavigationBar from './components/NavigationBar';
 import SubjectSidebar from './components/SubjectSidebar';
 import { getSubjectConfig } from './data/sidebarNavigation';
@@ -1287,6 +1289,12 @@ const App: React.FC = () => {
                             )}
                             {currentView === View.MET_ATMOSPHERE && <AtmosphereLayers />}
                             {currentView === View.MET_ALTIMETRY && <Altimetry />}
+
+                            {/* Visual Concept Lab */}
+                            {currentView === View.CONCEPT_LAB && <ConceptLab onChangeView={navigateTo} />}
+                            {currentView === View.CONCEPT_FORCES_OF_FLIGHT && (
+                                <ForcesOfFlight onBack={() => navigateTo(View.CONCEPT_LAB)} />
+                            )}
                         </div>
                     </div>
                 </main>

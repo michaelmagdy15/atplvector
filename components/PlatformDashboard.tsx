@@ -146,6 +146,20 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                         </div>
                     </div>
 
+                    {/* Concept Lab Quick Access (NEW) */}
+                    <div
+                        onClick={() => onChangeView(View.CONCEPT_LAB)}
+                        className="glass-panel px-5 py-3 rounded-2xl flex items-center gap-4 cursor-pointer hover:bg-white/5 transition-colors border border-cyan-500/30 shadow-lg shadow-cyan-500/10 group"
+                    >
+                        <div className="p-2 bg-cyan-500/20 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform">
+                            <Activity size={20} />
+                        </div>
+                        <div>
+                            <div className="text-[10px] text-cyan-400/60 font-bold uppercase tracking-wider">Simulation</div>
+                            <div className="text-xl font-bold text-white group-hover:text-cyan-200 transition-colors">Concept Lab</div>
+                        </div>
+                    </div>
+
                     {/* Study Guide Quick Access */}
                     <div
                         onClick={() => onChangeView(View.STUDY_GUIDE)}
