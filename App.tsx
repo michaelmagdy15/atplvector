@@ -235,7 +235,7 @@ import OpsGeneral from './components/OpsGeneral';
 
 import GenericSubjectDashboard from './components/GenericSubjectDashboard';
 import KSADashboard from './components/KSA/KSADashboard';
-import CoreCompetencies from './components/KSA/CoreCompetencies';
+import KSACoreCompetencies from './components/KSA/KSACoreCompetencies';
 import TEMAdvanced from './components/KSA/TEMAdvanced';
 import MentalMathsLab from './components/KSA/MentalMathsLab';
 import FORDECDecision from './components/KSA/FORDECDecision';
@@ -1148,7 +1148,7 @@ const App: React.FC = () => {
 
                             {/* KSA (100) */}
                             {currentView === View.KSA_HOME && <KSADashboard onChangeView={navigateTo} isLocked={!isSubjectAllowed('100')} />}
-                            {currentView === View.KSA_COMPETENCIES && <CoreCompetencies />}
+                            {currentView === View.KSA_COMPETENCIES && <KSACoreCompetencies />}
                             {currentView === View.KSA_TEM && <TEMAdvanced />}
                             {currentView === View.KSA_MENTAL_MATHS && <MentalMathsLab />}
                             {currentView === View.KSA_FORDEC && <FORDECDecision />}

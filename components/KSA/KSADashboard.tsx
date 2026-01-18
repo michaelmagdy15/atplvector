@@ -20,7 +20,7 @@ const KSADashboard: React.FC<Props> = ({ onChangeView, isLocked }) => {
             modules={[
                 {
                     title: 'Core Competencies',
-                    desc: 'The 8 ICAO core pilot competencies and behavioral indicators.',
+                    desc: 'Instruction and Assessment Performance Indicators (Communication, Teamwork, etc).',
                     view: View.KSA_COMPETENCIES,
                     isLocked
                 },
