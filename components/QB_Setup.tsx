@@ -27,8 +27,39 @@ export const QB_Setup: React.FC<SetupProps> = ({ initialSubject, onStart, onCanc
         withAnnexes: false,
         withoutAnnexes: false,
         unseen: false,
-        incorrect: false
+        incorrect: false,
+        selectedAuthorities: [] as string[],
+        selectedCountries: [] as string[],
+        recentOnly: false
     });
+
+    const authorities = [
+        { id: 'EASA', name: 'EASA Central (ECQB)', flag: '🇪🇺' },
+        { id: 'UKCAA', name: 'UK CAA', flag: '🇬🇧' },
+        { id: 'AUSTRO', name: 'Austro Control', flag: '🇦🇹' },
+        { id: 'IAA', name: 'Irish Aviation Authority', flag: '🇮🇪' },
+        { id: 'TRANSPORT_MALTA', name: 'Transport Malta', flag: '🇲🇹' },
+        { id: 'SACAA', name: 'South African CAA', flag: '🇿🇦' },
+    ];
+
+    const countries = [
+        { id: 'UK', name: 'United Kingdom', flag: '🇬🇧' },
+        { id: 'FR', name: 'France', flag: '🇫🇷' },
+        { id: 'DE', name: 'Germany', flag: '🇩🇪' },
+        { id: 'AT', name: 'Austria', flag: '🇦🇹' },
+        { id: 'ES', name: 'Spain', flag: '🇪🇸' },
+        { id: 'IT', name: 'Italy', flag: '🇮🇹' },
+        { id: 'MT', name: 'Malta', flag: '🇲🇹' },
+    ];
+
+    const toggleAuthority = (id: string) => {
+        setFilters(prev => ({
+            ...prev,
+            selectedAuthorities: prev.selectedAuthorities.includes(id)
+                ? prev.selectedAuthorities.filter(a => a !== id)
+                : [...prev.selectedAuthorities, id]
+        }));
+    };
 
     const currentSyllabus = useMemo(() => {
         return metadata[selectedSubject] || [];
@@ -267,7 +298,36 @@ export const QB_Setup: React.FC<SetupProps> = ({ initialSubject, onStart, onCanc
                         </div>
                     </div>
 
-                    <div className="space-y-3">
+                    <div>
+                        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <Filter size={18} className="text-blue-400" />
+                            Exam Authority
+                        </h3>
+                        <div className="flex flex-wrap gap-2">
+                            {authorities.map(auth => (
+                                <button
+                                    key={auth.id}
+                                    onClick={() => toggleAuthority(auth.id)}
+                                    className={`px-3 py-1.5 text-[10px] font-bold rounded-full border transition-all flex items-center gap-2 ${filters.selectedAuthorities.includes(auth.id) ? 'bg-blue-600 border-blue-500 text-white' : 'bg-slate-800 border-white/5 text-slate-400 hover:bg-slate-700'}`}
+                                >
+                                    <span>{auth.flag}</span>
+                                    {auth.id}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="space-y-3 pt-2 border-t border-white/5">
+                        <label className="flex items-center gap-3 text-sm text-slate-300 cursor-pointer hover:bg-white/5 p-2 rounded-lg transition-colors group">
+                            <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${filters.recentOnly ? 'bg-amber-500 border-amber-500' : 'border-slate-600'}`}>
+                                {filters.recentOnly && <CheckSquare size={14} className="text-white" />}
+                            </div>
+                            <input type="checkbox" className="hidden" checked={filters.recentOnly} onChange={e => setFilters({ ...filters, recentOnly: e.target.checked })} />
+                            <div>
+                                <span className="block font-bold">Hot Points 🔥</span>
+                                <span className="text-[10px] text-slate-500">Only questions seen in the last 90 days</span>
+                            </div>
+                        </label>
                         <label className="flex items-center gap-3 text-sm text-slate-300 cursor-pointer hover:bg-white/5 p-2 rounded-lg transition-colors">
                             <div className={`w-5 h-5 rounded border flex items-center justify-center ${filters.unseen ? 'bg-blue-500 border-blue-500' : 'border-slate-600'}`}>
                                 {filters.unseen && <CheckSquare size={14} className="text-white" />}

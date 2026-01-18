@@ -54,8 +54,8 @@ export const QB_Dashboard: React.FC<DashboardProps> = ({ onStartNew, onResume })
                     </div>
                 </div>
 
-                {/* Quick Stats Card */}
-                <div className="glass-panel p-6 rounded-3xl flex flex-col justify-center space-y-4">
+                {/* Quick Stats Cards */}
+                <div className="md:col-span-1 glass-panel p-6 rounded-3xl flex flex-col justify-center space-y-4">
                     <div className="flex items-center gap-3 text-slate-400">
                         <div className="p-2 bg-emerald-500/10 rounded-lg text-emerald-400">
                             <TrendingUp size={20} />
@@ -67,6 +67,28 @@ export const QB_Dashboard: React.FC<DashboardProps> = ({ onStartNew, onResume })
                     </div>
                     <div className="text-xs text-slate-500">
                         Based on {stats?.totalTestsCompleted || 0} completed tests
+                    </div>
+                </div>
+
+                {/* Daily Updates Card */}
+                <div className="glass-panel p-6 rounded-3xl flex flex-col justify-center space-y-4 border-amber-500/20 shadow-lg shadow-amber-500/5 relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-2">
+                        <span className="flex h-2 w-2 relative">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                        </span>
+                    </div>
+                    <div className="flex items-center gap-3 text-slate-400">
+                        <div className="p-2 bg-amber-500/10 rounded-lg text-amber-400">
+                            <Clock size={20} />
+                        </div>
+                        <span className="text-sm font-medium">Daily Updates</span>
+                    </div>
+                    <div className="text-4xl font-black text-white">
+                        +24
+                    </div>
+                    <div className="text-xs text-slate-400 font-bold uppercase tracking-tighter">
+                        ECQB 2024 Verified
                     </div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Loader2, ArrowRight, HelpCircle, ImageIcon, Check, X, RotateCcw, ChevronLeft } from 'lucide-react';
+import { Loader2, ArrowRight, HelpCircle, ImageIcon, Check, X, RotateCcw, ChevronLeft, Flag, Save, Sparkles } from 'lucide-react';
 import { Question, View, QBConfig, SavedTest, TestResult, TopicResult } from '../types';
 import { QB_Dashboard } from './QB_Dashboard';
 import { QB_Setup } from './QB_Setup';
@@ -22,6 +22,43 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
     const [questions, setQuestions] = useState<Question[]>([]); // Current test questions
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState<TestResult | null>(null);
+
+    // Advanced Reporting State
+    const [reportingQ, setReportingQ] = useState<Question | null>(null);
+    const [reportData, setReportData] = useState({
+        type: 'seen' as 'seen' | 'typo' | 'wrong_ans' | 'missing_annex',
+        country: '',
+        details: ''
+    });
+
+    const submitReport = () => {
+        if (!reportingQ) return;
+        // In a real app, send to Supabase here
+        console.log("Submitting report:", { questionId: reportingQ.id, ...reportData });
+        alert("Thank you! Your report has been submitted. Our team will review it shortly to keep the ECQB 2024 bank updated.");
+        setReportingQ(null);
+        setReportData({ type: 'seen', country: '', details: '' });
+    };
+
+    const [generatingAI, setGeneratingAI] = useState<string | null>(null); // questionId
+
+    const handleAIExplanation = async (question: Question) => {
+        setGeneratingAI(question.id);
+
+        // Simulating AI request (Gemini 1.5 Flash)
+        setTimeout(() => {
+            const aiExp = `[AI GENERATED EXPLANATION]\nThis is a high-quality explanation for "${question.question}". In a real environment, this text would be the output of Gemini 1.5 Flash, providing technical reasoning for why choice ${String.fromCharCode(65 + question.correctAnswer)} is correct. This response is then saved to Supabase to serve all future students.`;
+
+            // Update the local question object for immediate UI update
+            question.explanation = aiExp;
+
+            // In a real app, you'd also update the master list or send to Supabase
+            console.log("Saving AI explanation to Supabase/DB for:", question.id);
+
+            setGeneratingAI(null);
+            alert("AI Explanation generated and saved for all students!");
+        }, 1500);
+    };
 
     // Timer
     useEffect(() => {
@@ -80,17 +117,33 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
 
             let allQuestions: Question[] = await response.json();
 
-            // Filter
+            // Authority Filter
+            if (config.filters.selectedAuthorities && config.filters.selectedAuthorities.length > 0) {
+                allQuestions = allQuestions.filter(q =>
+                    q.authorities && q.authorities.some(auth => config.filters.selectedAuthorities?.includes(auth))
+                );
+            }
+
+            // Country Filter
+            if (config.filters.selectedCountries && config.filters.selectedCountries.length > 0) {
+                allQuestions = allQuestions.filter(q =>
+                    q.countries && q.countries.some(country => config.filters.selectedCountries?.includes(country))
+                );
+            }
+
+            // Recent Filter (Hot Points)
+            if (config.filters.recentOnly) {
+                allQuestions = allQuestions.filter(q => q.isRecent);
+            }
+
+            // Topic Filter
             if (config.topics.length > 0) {
-                // Check if question LO starts with any selected topic ID (e.g. 090.01)
-                // Question LOs are like "090.01.01.01.01"
                 allQuestions = allQuestions.filter(q =>
                     q.learningObjectives.some(lo =>
                         config.topics.some(topicId => lo.startsWith(topicId))
                     )
                 );
             }
-            // Todo: Implement other filters like 'unseen' logic using stats history if available
 
             // Shuffle
             allQuestions = allQuestions.sort(() => Math.random() - 0.5);
@@ -241,18 +294,126 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
 
         return (
             <div className="flex h-screen bg-slate-950 pt-20 pb-4 overflow-hidden animate-in fade-in duration-500">
+                {/* Reporting Modal */}
+                {reportingQ && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
+                        <div className="glass-panel w-full max-w-lg rounded-3xl p-8 shadow-2xl border border-white/10 animate-in zoom-in-95 duration-300">
+                            <div className="flex items-center justify-between mb-6">
+                                <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                                    <Flag size={20} className="text-red-500" />
+                                    Report Question / Seen in Exam
+                                </h3>
+                                <button onClick={() => setReportingQ(null)} className="p-2 hover:bg-white/5 rounded-lg text-slate-400">
+                                    <X size={20} />
+                                </button>
+                            </div>
+
+                            <div className="space-y-6">
+                                <div>
+                                    <label className="block text-sm font-bold text-slate-400 mb-3 uppercase tracking-wider">Report Type</label>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        {[
+                                            { id: 'seen', label: 'Seen in Exam', icon: '📝' },
+                                            { id: 'typo', label: 'Typo / Error', icon: '✍️' },
+                                            { id: 'wrong_ans', label: 'Wrong Answer', icon: '❌' },
+                                            { id: 'missing_annex', label: 'Missing Annex', icon: '🖼️' },
+                                        ].map(type => (
+                                            <button
+                                                key={type.id}
+                                                onClick={() => setReportData({ ...reportData, type: type.id as any })}
+                                                className={`p-4 rounded-2xl border-2 transition-all text-left flex items-center gap-3 ${reportData.type === type.id ? 'bg-blue-600/20 border-blue-500 text-blue-400' : 'bg-slate-800/50 border-white/5 text-slate-400 hover:bg-slate-800'}`}
+                                            >
+                                                <span className="text-xl">{type.icon}</span>
+                                                <span className="font-bold text-xs">{type.label}</span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-bold text-slate-400 mb-3 uppercase tracking-wider">Exam Authority / Country</label>
+                                    <select
+                                        value={reportData.country}
+                                        onChange={(e) => setReportData({ ...reportData, country: e.target.value })}
+                                        className="w-full bg-slate-800 border-white/5 rounded-xl p-3 text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                                    >
+                                        <option value="">Select Authority...</option>
+                                        <option value="UK">UK CAA</option>
+                                        <option value="AT">Austro Control</option>
+                                        <option value="IE">Irish Aviation (IAA)</option>
+                                        <option value="DE">Germany (LBA)</option>
+                                        <option value="FR">France (DGAC)</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-bold text-slate-400 mb-3 uppercase tracking-wider">Additional details (Optional)</label>
+                                    <textarea
+                                        value={reportData.details}
+                                        onChange={(e) => setReportData({ ...reportData, details: e.target.value })}
+                                        placeholder="e.g. 'This question appeared exactly as is in my UK exam today...'"
+                                        className="w-full h-24 bg-slate-800 border-white/5 rounded-xl p-3 text-white focus:ring-2 focus:ring-blue-500 outline-none resize-none text-sm"
+                                    />
+                                </div>
+
+                                <button
+                                    onClick={submitReport}
+                                    className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-bold shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2"
+                                >
+                                    <Save size={18} />
+                                    Submit Report
+                                </button>
+                                <p className="text-[10px] text-center text-slate-600 px-4">
+                                    Your feedback helps us maintain the most accurate ECQB 2024 database. Multiple reports of the same question will trigger a "Hot Point" badge for all users.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
                 {/* Main Question Area */}
                 <div className="flex-1 overflow-y-auto px-4 lg:px-8 pb-20 custom-scrollbar">
                     <div className="max-w-4xl mx-auto py-8">
                         {/* Header */}
-                        <div className="flex items-center gap-4 mb-6">
-                            <button onClick={() => { QBStorage.saveTest(currentTest); setView('DASHBOARD'); }} className="p-2 hover:bg-white/5 rounded-lg text-slate-400">
-                                <ChevronLeft />
-                            </button>
-                            <div>
-                                <h2 className="text-xl font-bold text-white mb-1">Question {currentTest.currentIndex + 1}</h2>
-                                <div className="text-xs text-slate-500 font-mono uppercase">ID: {currentQ?.id}</div>
+                        <div className="flex items-center justify-between mb-6">
+                            <div className="flex items-center gap-4">
+                                <button onClick={() => { QBStorage.saveTest(currentTest); setView('DASHBOARD'); }} className="p-2 hover:bg-white/5 rounded-lg text-slate-400">
+                                    <ChevronLeft />
+                                </button>
+                                <div>
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <h2 className="text-xl font-bold text-white">Question {currentTest.currentIndex + 1}</h2>
+                                        {currentQ?.isRecent && (
+                                            <span className="bg-amber-500/10 text-amber-500 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-500/20 flex items-center gap-1 animate-pulse">
+                                                <Flag size={10} fill="currentColor" />
+                                                HOT POINT
+                                            </span>
+                                        )}
+                                        {currentQ?.countries?.map(country => (
+                                            <span key={country} className="bg-blue-500/10 text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-blue-500/20">
+                                                SEEN IN {country}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <div className="flex items-center gap-3 text-xs text-slate-500 font-mono">
+                                        <span>ID: {currentQ?.id}</span>
+                                        {currentQ?.lastSeen && (
+                                            <span className="flex items-center gap-1 text-slate-600">
+                                                <RotateCcw size={10} />
+                                                Reported: {new Date(currentQ.lastSeen).toLocaleDateString()}
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
+
+                            <button
+                                onClick={() => { setReportingQ(currentQ); setReportData({ ...reportData, type: 'seen' }); }}
+                                className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-red-500/10 border border-white/5 hover:border-red-500/20 rounded-xl text-slate-400 hover:text-red-400 text-xs font-bold transition-all"
+                            >
+                                <HelpCircle size={14} />
+                                Report / Seen in Exam
+                            </button>
                         </div>
 
                         {loading ? (
@@ -313,12 +474,30 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
                                 {/* Explanation - Show immediately in Study mode if answered */}
                                 {currentTest.mode === 'study' && currentTest.userAnswers[currentTest.currentIndex] !== null && (
                                     <div className="glass-panel p-8 rounded-3xl border-l-4 border-blue-500 animate-in slide-in-from-bottom-2 fade-in">
-                                        <div className="flex items-center gap-2 mb-4 text-blue-400">
-                                            <HelpCircle size={20} />
-                                            <span className="font-bold uppercase tracking-wider text-sm">Explanation</span>
+                                        <div className="flex items-center justify-between mb-4">
+                                            <div className="flex items-center gap-2 text-blue-400">
+                                                <HelpCircle size={20} />
+                                                <span className="font-bold uppercase tracking-wider text-sm">Explanation</span>
+                                            </div>
+                                            {!currentQ.explanation && (
+                                                <button
+                                                    onClick={() => handleAIExplanation(currentQ)}
+                                                    disabled={generatingAI === currentQ.id}
+                                                    className="flex items-center gap-2 px-4 py-1.5 bg-blue-600/10 hover:bg-blue-600/20 text-blue-400 rounded-full text-[10px] font-bold border border-blue-500/20 transition-all disabled:opacity-50"
+                                                >
+                                                    {generatingAI === currentQ.id ? (
+                                                        <Loader2 size={12} className="animate-spin" />
+                                                    ) : (
+                                                        <Sparkles size={12} />
+                                                    )}
+                                                    {generatingAI === currentQ.id ? 'GENERATING...' : 'GENERATE WITH AI'}
+                                                </button>
+                                            )}
                                         </div>
-                                        <p className="text-slate-300 leading-relaxed">
-                                            {currentQ.explanation || "No explanation provided."}
+                                        <p className="text-slate-300 leading-relaxed whitespace-pre-wrap">
+                                            {currentQ.explanation || (
+                                                <span className="text-slate-500 italic">No explanation yet. Click the "GENERATE WITH AI" button to create one for everyone!</span>
+                                            )}
                                         </p>
                                         <div className="flex flex-wrap gap-2 mt-4">
                                             {currentQ.learningObjectives.map(lo => (

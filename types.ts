@@ -371,6 +371,12 @@ export interface Question {
   explanation: string;
   learningObjectives: string[];
   annexes: string[];
+  // Advanced ECQB Metadata
+  authorities?: string[]; // e.g., ["UKCAA", "EASA-CENTRAL", "AUSTRO"]
+  lastSeen?: string;      // ISO date of last report in exam
+  isRecent?: boolean;     // Flag for "Hot Points"
+  countries?: string[];   // Specific countries reported
+  difficulty?: 'easy' | 'medium' | 'hard';
 }
 
 // New interfaces for LOs
@@ -472,6 +478,11 @@ export interface QBConfig {
     withoutAnnexes: boolean;
     unseen: boolean;
     incorrect: boolean;
+    // Advanced Filters
+    selectedAuthorities?: string[];
+    selectedCountries?: string[];
+    recentOnly?: boolean;
+    difficultyLevels?: ('easy' | 'medium' | 'hard')[];
   };
 }
 
