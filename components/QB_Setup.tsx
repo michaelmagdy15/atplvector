@@ -130,11 +130,11 @@ export const QB_Setup: React.FC<SetupProps> = ({ initialSubject, onStart, onCanc
         { id: '090', name: 'Communications' },
     ];
 
-    const handleStart = () => {
+    const handleStart = (customMode?: 'study' | 'exam', customCount?: number) => {
         onStart({
             subjectId: selectedSubject,
-            mode,
-            count: questionCount,
+            mode: customMode || mode,
+            count: customCount || questionCount,
             topics: Array.from(selectedTopics),
             filters
         });
@@ -276,10 +276,15 @@ export const QB_Setup: React.FC<SetupProps> = ({ initialSubject, onStart, onCanc
                             </button>
                         </div>
                         {mode === 'exam' && (
-                            <p className="text-xs text-purple-300/60 mt-2 px-2">
-                                <AlertCircle size={10} className="inline mr-1" />
-                                Review answers only at the end.
-                            </p>
+                            <div className="bg-purple-500/10 border border-purple-500/20 rounded-xl p-3 mt-3 space-y-2">
+                                <div className="flex items-center gap-2 text-[10px] font-bold text-purple-300 uppercase tracking-wider">
+                                    <Zap size={10} />
+                                    Strict Exam Mode
+                                </div>
+                                <p className="text-[10px] text-purple-300/60 font-medium leading-relaxed">
+                                    Simulates real exam pressure. Feedback is delayed until completion. Timed session.
+                                </p>
+                            </div>
                         )}
                     </div>
 
@@ -405,7 +410,7 @@ export const QB_Setup: React.FC<SetupProps> = ({ initialSubject, onStart, onCanc
                     </div>
 
                     <button
-                        onClick={handleStart}
+                        onClick={() => handleStart()}
                         disabled={maxQuestions === 0}
                         className="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl font-bold text-lg shadow-xl shadow-blue-500/20 transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
@@ -449,13 +454,20 @@ export const QB_Setup: React.FC<SetupProps> = ({ initialSubject, onStart, onCanc
                         </button>
                         <button
                             onClick={() => {
-                                // Logic for "unseen" would involve passing a filter to onStart
-                                // For now, we'll let the user toggle the regular filters
+                                setFilters(f => ({ ...f, unseen: true }));
+                                handleStart('study');
                             }}
                             className="px-4 py-2 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 border border-blue-500/20 rounded-xl text-xs font-bold transition-all flex items-center gap-2"
                         >
                             <Sparkles size={14} />
                             Practice Unseen
+                        </button>
+                        <button
+                            onClick={() => handleStart('exam', 50)}
+                            className="px-4 py-2 bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 border border-purple-500/20 rounded-xl text-xs font-bold transition-all flex items-center gap-2"
+                        >
+                            <History size={14} />
+                            Exam Simulation
                         </button>
                     </div>
                 </div>

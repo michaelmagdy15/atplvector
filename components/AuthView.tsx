@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { User } from '../types';
-import { Shield, Mail, CheckCircle, Lock, ArrowRight, Plane, Zap, Menu, X, User as UserIcon, HelpCircle, Eye, EyeOff, AlertTriangle, PlayCircle, Star, Globe, BarChart3, Radio, RefreshCw, KeyRound } from 'lucide-react';
+import { Shield, Mail, CheckCircle, Lock, ArrowRight, Plane, Zap, Menu, X, User as UserIcon, HelpCircle, Eye, EyeOff, AlertTriangle, PlayCircle, Star, Globe, BarChart3, Radio, RefreshCw, KeyRound, Target, BookOpen, Layout, Dna, Rocket } from 'lucide-react';
 import { supabase, getSiteUrl } from '../lib/supabase';
 import { TestimonialService } from '../services/TestimonialService';
 import { Testimonial } from '../types';
@@ -19,7 +19,6 @@ interface Props {
 
 const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'LOGIN' }) => {
     const [view, setView] = useState<AuthViewMode>(initialView);
-    const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
     const [activeInfoPage, setActiveInfoPage] = useState<'TERMS' | 'PRIVACY' | 'CONTACT' | null>(null);
 
     // Form State
@@ -72,22 +71,10 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
         setCaptchaInput('');
     };
 
-    // Initialize CAPTCHA on mount
     useEffect(() => {
         generateMathQuestion();
-        fetchTestimonials();
     }, []);
 
-    const fetchTestimonials = async () => {
-        try {
-            const data = await TestimonialService.getApprovedTestimonials();
-            if (data.length > 0) {
-                setTestimonials(data);
-            }
-        } catch (error) {
-            console.error("Failed to fetch testimonials", error);
-        }
-    };
 
     useEffect(() => {
         if (!password) { setPassStrength(0); return; }
@@ -312,6 +299,31 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
         }
     };
 
+    // Hero 3D Interaction State
+    const [heroMouse, setHeroMouse] = useState({ x: 0, y: 0 });
+
+    useEffect(() => {
+        const handleMouseMove = (e: MouseEvent) => {
+            // Calculate normalized mouse position (-1 to 1) for tilt
+            const x = (e.clientX / window.innerWidth) * 2 - 1;
+            const y = (e.clientY / window.innerHeight) * 2 - 1;
+            setHeroMouse({ x, y });
+
+            // Update CSS variables for the shimmer/slider effect relative to text
+            const hero = document.getElementById('hero-text');
+            if (hero) {
+                const rect = hero.getBoundingClientRect();
+                const relX = e.clientX - rect.left;
+                const relY = e.clientY - rect.top;
+                hero.style.setProperty('--mouse-x', `${relX}px`);
+                hero.style.setProperty('--mouse-y', `${relY}px`);
+            }
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, []);
+
     const handlePasswordReset = async (e: React.FormEvent) => {
         e.preventDefault();
         if (password !== confirmPassword) return setErrorMsg("Passwords do not match.");
@@ -352,8 +364,8 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
             {activeInfoPage === null && (
                 <>
                     {/* Nav */}
-                    <nav className="fixed w-full z-50 p-2 md:px-4 md:py-4 animate-in slide-in-from-top-4 duration-700">
-                        <div className="max-w-7xl mx-auto glass-panel rounded-xl md:rounded-2xl h-14 md:h-16 px-4 md:px-6 flex items-center justify-between bg-slate-900/80 backdrop-blur border border-white/10 shadow-2xl">
+                    <nav className="fixed top-6 w-full z-50 flex justify-center pointer-events-none animate-in slide-in-from-top-4 duration-700">
+                        <div className="pointer-events-auto w-[92%] max-w-7xl glass-panel rounded-full h-16 md:h-20 px-6 md:px-10 flex items-center justify-between bg-slate-900/70 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
                             <div className="flex items-center space-x-2 cursor-pointer group" onClick={() => scrollToSection('hero')}>
                                 <div className="p-1.5 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
                                     <Plane className="w-5 h-5 text-white" />
@@ -363,7 +375,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
 
                             <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
                                 <button onClick={() => scrollToSection('features')} className="hover:text-white transition hover:scale-105">Features</button>
-                                <button onClick={() => scrollToSection('testimonials')} className="hover:text-white transition hover:scale-105">Testimonials</button>
+                                <button onClick={() => scrollToSection('experience')} className="hover:text-white transition hover:scale-105">Experience</button>
                                 <button onClick={() => scrollToSection('pricing')} className="hover:text-white transition hover:scale-105">Pricing</button>
                                 <button onClick={() => { scrollToSection('hero'); setView('LOGIN'); }} className="text-white hover:text-blue-300 transition">Login</button>
                                 <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="bg-white/10 hover:bg-white/20 text-white px-5 py-2 rounded-full font-bold transition hover:shadow-lg hover:shadow-blue-500/20 active:scale-95">Get Started</button>
@@ -384,33 +396,78 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
 
                     {/* HERO SECTION */}
                     <div id="hero" className="flex flex-col lg:flex-row min-h-screen pt-20 lg:pt-0 relative overflow-hidden">
+                        <div className="absolute inset-0 bg-grid-pattern pointer-events-none"></div>
 
                         {/* Background FX */}
                         <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] animate-blob pointer-events-none"></div>
                         <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] animate-blob animation-delay-2000 pointer-events-none"></div>
 
                         {/* Left: Value Prop */}
-                        <div className="lg:w-1/2 flex flex-col justify-center px-8 lg:px-20 relative z-10 pt-10 lg:pt-0">
+                        <div className="lg:w-1/2 flex flex-col justify-center px-8 lg:px-20 relative z-10 pt-10 lg:pt-0 perspective-1000">
                             <div className="space-y-8 max-w-xl">
                                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wider backdrop-blur-sm animate-in fade-in slide-in-from-bottom-4 duration-700">
                                     <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> EASA 2026 Ready
                                 </div>
-                                <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
-                                    Master <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">ATPL Theory</span><br />Visually.
+                                <h1
+                                    id="hero-text"
+                                    className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[0.9] tracking-tighter animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150 drop-shadow-2xl transition-transform duration-100 ease-out"
+                                    style={{
+                                        transform: `rotateX(${heroMouse.y * -5}deg) rotateY(${heroMouse.x * 5}deg)`,
+                                        backgroundImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.4), transparent)',
+                                        backgroundClip: 'text',
+                                        WebkitBackgroundClip: 'text',
+                                        color: 'white', // Fallback
+                                        // We mix the gradient with text color using blend mode or just overlaying
+                                    }}
+                                >
+                                    Master <br />
+                                    <span
+                                        className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400 drop-shadow-lg filter relative"
+                                        style={{
+                                            filter: `brightness(${1 + Math.abs(heroMouse.x) * 0.3}) saturate(${1 + Math.abs(heroMouse.y) * 0.2})`
+                                        }}
+                                    >
+                                        ATPL Theory
+                                        {/* Interactive Slider / Shimmer Overlay */}
+                                        <span
+                                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none mix-blend-overlay"
+                                            style={{
+                                                transform: `translateX(${(heroMouse.x + 1) * 50}%) skewX(-20deg)`,
+                                                opacity: 0.5 + Math.abs(heroMouse.x) * 0.5
+                                            }}
+                                        ></span>
+                                    </span>
+                                    <br />Visually.
                                 </h1>
                                 <p className="text-slate-400 text-lg lg:text-xl font-light animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
                                     Interactive simulations, AI-driven roleplay, and immersive systems logic designed for modern pilots. Forget static PDFs.
                                 </p>
                                 <div className="flex gap-4 text-sm text-slate-500 font-mono animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500">
                                     <div className="flex items-center gap-2"><CheckCircle className="text-green-500 w-4 h-4" /> 14 Subjects</div>
-                                    <div className="flex items-center gap-2"><CheckCircle className="text-green-500 w-4 h-4" /> 50+ Simulators</div>
+                                    <div className="flex items-center gap-2"><CheckCircle className="text-green-500 w-4 h-4" /> 65+ Simulators</div>
+                                </div>
+
+                                <div className="pt-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-700">
+                                    <div className="glass-panel px-6 py-4 rounded-2xl border border-amber-500/20 bg-amber-500/5 flex items-center gap-4">
+                                        <div className="p-2 bg-amber-500/10 rounded-lg text-amber-400">
+                                            <Shield size={20} />
+                                        </div>
+                                        <div>
+                                            <div className="text-[10px] text-amber-400 font-bold uppercase tracking-widest">Platform Status</div>
+                                            <div className="text-white font-bold text-sm">Exclusive Invite-Only Beta</div>
+                                            <div className="text-[10px] text-slate-500 mt-1">Codes are required to skip the waitlist and gain immediate access.</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         {/* Right: Auth Form */}
                         <div className="lg:w-1/2 flex items-center justify-center p-6 lg:p-20 relative z-10">
-                            <div className="w-full max-w-md glass-card bg-slate-900/60 backdrop-blur-xl border border-white/10 p-8 rounded-3xl relative overflow-hidden group shadow-2xl animate-in fade-in slide-in-from-right-8 duration-1000">
+                            {/* Cockpit Glow */}
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-blue-600/15 rounded-full blur-[100px] pointer-events-none mix-blend-screen animate-pulse duration-[4000ms]"></div>
+
+                            <div className="w-full max-w-md glass-card bg-slate-900/80 backdrop-blur-2xl border border-white/10 p-8 rounded-[2rem] relative overflow-hidden group shadow-2xl animate-in fade-in slide-in-from-right-8 duration-1000">
                                 <div className="relative z-10">
                                     <div className="mb-8">
                                         <h2 className="text-3xl font-bold text-white mb-2">
@@ -650,88 +707,195 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                         </div>
                     </div>
 
-                    {/* FEATURES SECTION */}
-                    <div id="features" className="py-24 bg-slate-900 relative">
-                        <div className="max-w-7xl mx-auto px-6">
-                            <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-8 duration-700">
-                                <span className="text-indigo-400 font-bold uppercase tracking-widest text-sm">Features</span>
-                                <h2 className="text-3xl md:text-5xl font-black text-white mt-2">More than just questions.</h2>
-                                <p className="text-slate-400 mt-4 max-w-2xl mx-auto">We use interactive visualizers, AI agents, and 3D simulations to help you understand the physics, not just memorize the answers.</p>
+                    {/* FEATURES SHOWCASE */}
+                    <div id="features" className="py-32 bg-slate-900 relative overflow-hidden">
+                        {/* Background Accents */}
+                        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+                        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-600/5 rounded-full blur-[150px] translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
+
+                        <div className="max-w-7xl mx-auto px-6 relative z-10">
+                            <div className="text-center mb-24 animate-in fade-in slide-in-from-bottom-8 duration-700">
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-6">
+                                    <Rocket size={12} /> Complete Pilot Suite
+                                </div>
+                                <h2 className="text-4xl md:text-6xl font-black text-white mt-2 tracking-tight">The ultimate <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">visual</span> study stack.</h2>
+                                <p className="text-slate-400 mt-6 max-w-2xl mx-auto text-lg">We've combined deep interactive theory with a professional-grade question bank and strategic analytics to give you the highest possible chance of passing first time.</p>
                             </div>
 
-                            <div className="grid md:grid-cols-3 gap-8">
-                                <div className="bg-slate-800 p-8 rounded-2xl border border-slate-700 hover:border-blue-500 transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-xl hover:shadow-blue-500/10 group">
-                                    <div className="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center mb-6 text-blue-400 group-hover:scale-110 transition-transform">
-                                        <Radio size={24} />
+                            {/* Bento Grid Layout */}
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+                                {/* Card 1: Visual Theory (Large Interactive) */}
+                                <div className="lg:col-span-7 relative group rounded-[2.5rem] bg-slate-900/50 border border-white/5 overflow-hidden hover:border-blue-500/20 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                                    <div className="p-8 lg:p-10 h-full flex flex-col justify-between relative z-10">
+                                        <div className="space-y-4">
+                                            <div className="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 border border-blue-500/20">
+                                                <Layout size={24} />
+                                            </div>
+                                            <h3 className="text-3xl font-black text-white">Interactive Theory</h3>
+                                            <p className="text-slate-400 text-lg leading-relaxed max-w-md">Every subject is an interactive lab. Manipulate controls, simulate physics, and visualize systems in real-time.</p>
+                                        </div>
+                                        <div className="mt-8 relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group-hover:scale-[1.02] transition-transform duration-700">
+                                            <img src="/assets/walkthroughs/planner_demo.webp" alt="Sim" className="w-full h-64 object-cover" />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
+                                            <div className="absolute bottom-4 left-4 flex gap-3">
+                                                <div className="px-3 py-1.5 bg-black/60 backdrop-blur rounded-lg text-xs font-bold text-white border border-white/10 flex items-center gap-2">
+                                                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                                                    Live Simulation
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">AI ATC Roleplay</h3>
-                                    <p className="text-slate-400">Practice your VFR and IFR radio calls with an intelligent AI controller that corrects your phraseology in real-time.</p>
                                 </div>
-                                <div className="bg-slate-800 p-8 rounded-2xl border border-slate-700 hover:border-purple-500 transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/10 group">
-                                    <div className="w-12 h-12 bg-purple-900/30 rounded-lg flex items-center justify-center mb-6 text-purple-400 group-hover:scale-110 transition-transform">
-                                        <Eye size={24} />
+
+                                {/* Card 2: Psychological Readiness (Tall Stats) */}
+                                <div className="lg:col-span-5 relative group rounded-[2.5rem] bg-slate-900/50 border border-white/5 overflow-hidden hover:border-purple-500/20 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/10">
+                                    <div className="absolute inset-0 bg-gradient-to-bl from-purple-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                                    <div className="p-8 lg:p-10 h-full flex flex-col relative z-10">
+                                        <div className="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-400 border border-purple-500/20 mb-6">
+                                            <BarChart3 size={24} />
+                                        </div>
+                                        <h3 className="text-3xl font-black text-white mb-4">Exam Readiness</h3>
+                                        <p className="text-slate-400 mb-8">We measure 94% accuracy and 45s pacing before we recommend sitting the exam.</p>
+
+                                        <div className="flex-1 grid grid-cols-1 gap-4">
+                                            <div className="p-5 bg-slate-800/40 rounded-2xl border border-white/5 flex items-center justify-between group-hover:bg-slate-800/60 transition-colors">
+                                                <div>
+                                                    <div className="text-purple-400 font-black text-2xl">94%</div>
+                                                    <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Accuracy Goal</div>
+                                                </div>
+                                                <div className="h-10 w-10 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400"><Target size={20} /></div>
+                                            </div>
+                                            <div className="p-5 bg-slate-800/40 rounded-2xl border border-white/5 flex items-center justify-between group-hover:bg-slate-800/60 transition-colors">
+                                                <div>
+                                                    <div className="text-emerald-400 font-black text-2xl">45s</div>
+                                                    <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Avg Pacing</div>
+                                                </div>
+                                                <div className="h-10 w-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400"><Zap size={20} /></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">3D Visualizers</h3>
-                                    <p className="text-slate-400">Don't just read about holding entries or light signals. See them on a 3D radar and interact with the cockpit view.</p>
                                 </div>
-                                <div className="bg-slate-800 p-8 rounded-2xl border border-slate-700 hover:border-emerald-500 transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-xl hover:shadow-emerald-500/10 group">
-                                    <div className="w-12 h-12 bg-emerald-900/30 rounded-lg flex items-center justify-center mb-6 text-emerald-400 group-hover:scale-110 transition-transform">
-                                        <BarChart3 size={24} />
+
+                                {/* Card 3: Question Bank (Wide) */}
+                                <div className="lg:col-span-12 relative group rounded-[2.5rem] bg-slate-900/50 border border-white/5 overflow-hidden hover:border-indigo-500/20 transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-500/10">
+                                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                                    <div className="p-8 lg:p-10 flex flex-col lg:flex-row items-center gap-10 relative z-10">
+                                        <div className="lg:w-1/2 space-y-6">
+                                            <div className="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400 border border-indigo-500/20">
+                                                <BookOpen size={24} />
+                                            </div>
+                                            <h3 className="text-3xl font-black text-white">Modern Question Bank</h3>
+                                            <p className="text-slate-400 text-lg leading-relaxed mb-4">
+                                                Built on **Chair-Flight** open source data. Includes Smart Retest workflows, Error Attribution, and AI-driven explanations.
+                                            </p>
+                                            <div className="bg-gradient-to-r from-indigo-600/20 to-blue-600/20 border border-indigo-500/30 p-4 rounded-xl mb-4 animate-pulse">
+                                                <p className="text-indigo-200 text-xs font-black uppercase tracking-widest text-center">
+                                                    Try now the Chairflight Question Bank on our platform enhanced for free!
+                                                </p>
+                                            </div>
+                                            <div className="flex flex-wrap gap-3">
+                                                <span className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-bold uppercase">ECQB 2026</span>
+                                                <span className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-bold uppercase">15,000+ Questions</span>
+                                                <span className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-bold uppercase">AI Explanation Support</span>
+                                            </div>
+                                        </div>
+                                        <div className="lg:w-1/2 w-full relative">
+                                            <div className="w-full aspect-video bg-slate-950 rounded-2xl border border-white/10 overflow-hidden relative group-hover:scale-[1.01] transition-transform duration-500">
+                                                {/* Simulated UI elements (Bento style) */}
+                                                <div className="absolute inset-0 p-6 flex flex-col gap-4">
+                                                    <div className="w-full h-8 bg-white/5 rounded-lg flex items-center px-4 gap-2">
+                                                        <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
+                                                        <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                                                        <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
+                                                    </div>
+                                                    <div className="flex-1 grid grid-cols-2 gap-4">
+                                                        <div className="bg-white/5 rounded-lg animate-pulse"></div>
+                                                        <div className="bg-white/5 rounded-lg animate-pulse delay-75"></div>
+                                                        <div className="col-span-2 bg-indigo-500/10 rounded-lg border border-indigo-500/20 p-4">
+                                                            <div className="h-2 w-1/3 bg-indigo-500/50 rounded-full mb-2"></div>
+                                                            <div className="h-2 w-2/3 bg-indigo-500/30 rounded-full"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {/* Glow behind */}
+                                            <div className="absolute -inset-4 bg-indigo-500/20 blur-2xl -z-10 opacity-50 group-hover:opacity-80 transition-opacity"></div>
+                                        </div>
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">Smart Progress</h3>
-                                    <p className="text-slate-400">Track your progress against specific EASA Learning Objectives (LOs). Focus on your weak areas automatically.</p>
                                 </div>
+
                             </div>
                         </div>
                     </div>
 
-                    {/* TESTIMONIALS SECTION */}
-                    <div id="testimonials" className="py-24 bg-slate-950">
-                        <div className="max-w-7xl mx-auto px-6">
-                            <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-8 duration-700">
-                                <span className="text-indigo-400 font-bold uppercase tracking-widest text-sm">Community</span>
-                                <h2 className="text-3xl md:text-5xl font-black text-white mt-2">Pilots love the vector.</h2>
-                            </div>
+                    {/* 3D CINEMATIC SHOWCASE */}
+                    <div id="experience" className="py-32 bg-slate-950 relative overflow-hidden flex flex-col items-center">
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-blue-600/10 rounded-full blur-[180px] pointer-events-none"></div>
 
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {testimonials.length > 0 ? (
-                                    testimonials.map((t) => (
-                                        <div key={t.id} className="bg-slate-900 p-6 rounded-xl border border-slate-800 hover:bg-slate-800 transition-all hover:scale-[1.02] duration-300">
-                                            <div className="flex gap-1 text-yellow-500 mb-4 animate-in zoom-in delay-200 duration-500">
-                                                {[...Array(t.rating)].map((_, i) => (
-                                                    <Star key={i} fill="currentColor" size={16} />
-                                                ))}
-                                            </div>
-                                            <p className="text-slate-300 mb-4">"{t.text}"</p>
-                                            <div>
-                                                <p className="font-bold text-white">{t.userName}</p>
-                                                <p className="text-xs text-slate-500 uppercase">{t.userRole}</p>
-                                            </div>
-                                        </div>
-                                    ))
-                                ) : (
-                                    /* Fallback to hardcoded if no DB testimonials yet */
-                                    [
-                                        { name: "Alex M.", role: "ATPL Student", text: "The holding pattern visualizer finally made sector entries click for me. Passed Ops with 95%." },
-                                        { name: "Sarah K.", role: "PPL Holder", text: "I used the VFR comms simulator before my first solo cross-country. Gave me so much confidence on the radio." },
-                                        { name: "Capt. James", role: "CFI", text: "I recommend this to all my students. The interactive diagrams explain systems better than any whiteboard drawing." }
-                                    ].map((t, i) => (
-                                        <div key={i} className="bg-slate-900 p-6 rounded-xl border border-slate-800 hover:bg-slate-800 transition-all hover:scale-[1.02] duration-300">
-                                            <div className="flex gap-1 text-yellow-500 mb-4 animate-in zoom-in delay-200 duration-500">
-                                                <Star fill="currentColor" size={16} />
-                                                <Star fill="currentColor" size={16} />
-                                                <Star fill="currentColor" size={16} />
-                                                <Star fill="currentColor" size={16} />
-                                                <Star fill="currentColor" size={16} />
-                                            </div>
-                                            <p className="text-slate-300 mb-4">"{t.text}"</p>
-                                            <div>
-                                                <p className="font-bold text-white">{t.name}</p>
-                                                <p className="text-xs text-slate-500 uppercase">{t.role}</p>
+                        <div className="max-w-7xl mx-auto px-6 text-center mb-20 relative z-10">
+                            <span className="text-blue-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">The Vector Experience</span>
+                            <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter mb-6">Designed for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 italic">Immersion.</span></h2>
+                            <p className="text-slate-400 max-w-2xl mx-auto text-lg">We've engineered a platform that moves as fast as you do. Experience the most powerful study environment ever built for aviation.</p>
+                        </div>
+
+                        {/* 3D Floating Product Stack */}
+                        <div className="relative w-full max-w-5xl aspect-[16/10] perspective-2000 group cursor-default mb-20">
+                            <div className="relative w-full h-full transition-all duration-1000 transform-gpu preserve-3d group-hover:rotate-x-5 group-hover:rotate-y-n10">
+
+                                {/* Background Layer (Dashboard) */}
+                                <div className="absolute top-0 left-0 w-[90%] h-[90%] bg-slate-900 rounded-3xl border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden transform translate-z-0 opacity-40 blur-[2px] group-hover:blur-0 transition-all duration-700">
+                                    <img src="/assets/walkthroughs/planner_demo.webp" className="w-full h-full object-cover opacity-50" alt="Dashboard Layer" />
+                                </div>
+
+                                {/* Mid Layer (Question Bank) */}
+                                <div className="absolute top-1/2 left-1/2 -translate-x-[45%] -translate-y-[45%] w-[85%] h-[85%] bg-slate-800 rounded-3xl border border-white/20 shadow-2xl overflow-hidden transform translate-z-150 rotate-x-2 rotate-y-n5 hover:translate-z-200 transition-transform duration-500">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/20 to-transparent"></div>
+                                    <img src="/assets/walkthroughs/confidence_demo.webp" className="w-full h-full object-cover opacity-80" alt="QB Layer" />
+                                    <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 flex items-center gap-2">
+                                        <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+                                        <span className="text-[10px] font-bold text-white uppercase tracking-wider">Live Analysis</span>
+                                    </div>
+                                </div>
+
+                                {/* Top Layer (Interactive Sim) */}
+                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] bg-white rounded-2xl shadow-[0_100px_150px_-30px_rgba(59,130,246,0.3)] overflow-hidden transform translate-z-300 group-hover:translate-z-450 transition-transform duration-700">
+                                    <div className="absolute inset-0 bg-slate-900 group">
+                                        <img src="/assets/walkthroughs/planner_demo.webp" className="w-full h-full object-cover opacity-90 scale-110 group-hover:scale-125 transition-transform duration-[10s]" alt="Simulation Layer" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                                        <div className="absolute inset-0 flex items-center justify-center">
+                                            <div className="w-20 h-20 bg-blue-600/20 backdrop-blur-xl rounded-full border border-blue-500/50 flex items-center justify-center text-white scale-90 group-hover:scale-110 transition-transform shadow-2xl shadow-blue-500/50">
+                                                <PlayCircle size={40} className="ml-1" />
                                             </div>
                                         </div>
-                                    ))
-                                )}
+                                        <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+                                            <div>
+                                                <div className="text-[10px] text-blue-400 font-black uppercase tracking-[0.2em] mb-1">Module 01</div>
+                                                <div className="text-white font-black text-xl tracking-tight">VFR Comms Lab</div>
+                                            </div>
+                                            <div className="px-4 py-2 bg-white/10 backdrop-blur rounded-xl border border-white/10 text-xs font-bold text-white">
+                                                4K Simulation
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Floating Decor Elements */}
+                                <div className="absolute top-10 right-20 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl animate-pulse transform translate-z-500"></div>
+                                <div className="absolute bottom-10 left-20 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000 transform translate-z-400"></div>
+                            </div>
+                        </div>
+
+                        {/* Feature Tickers */}
+                        <div className="w-full py-10 bg-white/[0.02] border-y border-white/5 relative z-10">
+                            <div className="max-w-7xl mx-auto px-6 overflow-hidden">
+                                <div className="flex flex-wrap justify-center gap-x-12 gap-y-6 text-slate-500 font-black text-[10px] uppercase tracking-[0.4em]">
+                                    <span className="flex items-center gap-2 hover:text-white transition-colors cursor-default"><Dna size={14} className="text-blue-500" /> Neural Explanations</span>
+                                    <span className="flex items-center gap-2 hover:text-white transition-colors cursor-default"><Rocket size={14} className="text-indigo-500" /> Hyper-Fast UI</span>
+                                    <span className="flex items-center gap-2 hover:text-white transition-colors cursor-default"><Target size={14} className="text-emerald-500" /> Pattern AI</span>
+                                    <span className="flex items-center gap-2 hover:text-white transition-colors cursor-default"><Layout size={14} className="text-purple-500" /> 3D Viewports</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -879,7 +1043,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                             </li>
                                             <li className="flex gap-3 text-sm">
                                                 <X size={18} className="text-slate-500 shrink-0 mt-0.5" />
-                                                <span className="text-slate-500">Repetitive question drilling</span>
+                                                <span className="text-slate-300 text-sm font-medium">65+ Interactive Labs</span>
                                             </li>
                                             <li className="flex gap-3 text-sm">
                                                 <X size={18} className="text-slate-500 shrink-0 mt-0.5" />
@@ -902,28 +1066,65 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                     </div>
 
                     {/* FOOTER */}
-                    <footer className="bg-slate-950 py-12 border-t border-slate-800">
-                        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-                            <div className="flex items-center gap-2 mb-4 md:mb-0 group cursor-pointer" onClick={() => scrollToSection('hero')}>
-                                <div className="p-1.5 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg group-hover:rotate-12 transition-transform duration-500">
-                                    <Plane className="w-4 h-4 text-white" />
+                    <footer className="py-20 bg-slate-950 border-t border-white/5 relative overflow-hidden">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
+                        <div className="max-w-7xl mx-auto px-6 relative z-10">
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                                <div className="col-span-1 md:col-span-2 space-y-6">
+                                    <div className="flex items-center space-x-2">
+                                        <div className="p-1.5 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg">
+                                            <Plane className="w-5 h-5 text-white" />
+                                        </div>
+                                        <span className="text-xl font-black text-white tracking-tighter">ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span></span>
+                                    </div>
+                                    <p className="text-slate-400 text-sm max-w-sm leading-relaxed">
+                                        Advanced visual learning for the next generation of airline pilots. Built for excellence, designed for clarity.
+                                    </p>
+                                    <div className="flex items-center gap-4 pt-2">
+                                        <div className="p-3 bg-white/5 rounded-xl border border-white/5 group hover:border-blue-500/50 transition-colors cursor-pointer">
+                                            <Globe className="w-5 h-5 text-slate-500 group-hover:text-blue-400" />
+                                        </div>
+                                        <div className="p-3 bg-white/5 rounded-xl border border-white/5 group hover:border-blue-500/50 transition-colors cursor-pointer">
+                                            <Shield className="w-5 h-5 text-slate-500 group-hover:text-blue-400" />
+                                        </div>
+                                    </div>
                                 </div>
-                                <span className="font-bold text-white tracking-tight">ATPL<span className="text-slate-400">VECTOR</span></span>
+                                <div className="space-y-4">
+                                    <h4 className="text-white font-bold text-sm uppercase tracking-widest">Platform</h4>
+                                    <ul className="space-y-2 text-sm text-slate-500">
+                                        <li><button onClick={() => scrollToSection('features')} className="hover:text-white transition-colors">Features</button></li>
+                                        <li><button onClick={() => scrollToSection('pricing')} className="hover:text-white transition-colors">Pricing</button></li>
+                                        <li><button onClick={() => setActiveInfoPage('CONTACT')} className="hover:text-white transition-colors">Contact Support</button></li>
+                                    </ul>
+                                </div>
+                                <div className="space-y-4">
+                                    <h4 className="text-white font-bold text-sm uppercase tracking-widest">Legal</h4>
+                                    <ul className="space-y-2 text-sm text-slate-500">
+                                        <li><button onClick={() => setActiveInfoPage('TERMS')} className="hover:text-white transition-colors">Terms of Service</button></li>
+                                        <li><button onClick={() => setActiveInfoPage('PRIVACY')} className="hover:text-white transition-colors">Privacy Policy</button></li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div className="flex gap-8 text-sm text-slate-500">
-                                <button onClick={() => setActiveInfoPage('TERMS')} className="hover:text-white transition">Terms</button>
-                                <button onClick={() => setActiveInfoPage('PRIVACY')} className="hover:text-white transition">Privacy</button>
-                                <button onClick={() => setActiveInfoPage('CONTACT')} className="hover:text-white transition">Contact</button>
-                            </div>
-                            <div className="text-xs text-slate-600 mt-4 md:mt-0 flex flex-col items-end">
-                                <p>© 2026 ATPLVector. All rights reserved.</p>
-                                <p className="mt-1 opacity-50">Platform created by <span className="font-bold text-slate-500">Michael Mitry</span></p>
+
+                            <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                                <div className="text-xs text-slate-600">
+                                    © {new Date().getFullYear()} ATPL Vector. All rights reserved. Built by Michael Mitry.
+                                </div>
+
+                                <div className="flex flex-col items-center md:items-end gap-2">
+                                    <div className="flex items-center gap-2 text-xs text-slate-500 bg-white/5 px-4 py-2 rounded-full border border-white/5">
+                                        <Shield size={12} className="text-blue-400" />
+                                        Question Bank powered by <span className="text-white font-bold">Chair-Flight</span> Open Source
+                                    </div>
+                                    <div className="text-[10px] text-slate-600">
+                                        Explanations augmented by AI.
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </footer>
                 </>
             )}
-
         </div>
     );
 };

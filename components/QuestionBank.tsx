@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Loader2, ArrowRight, HelpCircle, ImageIcon, Check, X, RotateCcw, ChevronLeft, Flag, Save, Sparkles, Bookmark, BookOpen } from 'lucide-react';
+import { Loader2, ArrowRight, HelpCircle, ImageIcon, Check, X, RotateCcw, ChevronLeft, Flag, Save, Sparkles, Bookmark, BookOpen, Target } from 'lucide-react';
 import { Question, View, QBConfig, SavedTest, TestResult, TopicResult } from '../types';
 import { QB_Dashboard } from './QB_Dashboard';
 import { QB_Setup } from './QB_Setup';
@@ -60,19 +60,26 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
         }, 1500);
     };
 
-    // Timer
+    // Timer & Pacing
     useEffect(() => {
         let interval: NodeJS.Timeout;
         if (view === 'PRACTICE' && currentTest && !currentTest.isCompleted) {
             interval = setInterval(() => {
                 setCurrentTest(prev => {
                     if (!prev) return null;
-                    return { ...prev, timeSpent: (prev.timeSpent || 0) + 1 };
+                    const newPacing = [...(prev.questionPacing || new Array(prev.questionIds.length).fill(0))];
+                    newPacing[prev.currentIndex] = (newPacing[prev.currentIndex] || 0) + 1;
+
+                    return {
+                        ...prev,
+                        timeSpent: (prev.timeSpent || 0) + 1,
+                        questionPacing: newPacing
+                    };
                 });
             }, 1000);
         }
         return () => clearInterval(interval);
-    }, [view, currentTest?.isCompleted]);
+    }, [view, currentTest?.isCompleted, currentTest?.currentIndex]);
 
     // Save on unmount or view change
     useEffect(() => {
@@ -169,6 +176,8 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
                 questionIds: selectedQuestions.map(q => q.id),
                 userAnswers: new Array(selectedQuestions.length).fill(null),
                 userStatuses: new Array(selectedQuestions.length).fill('unseen'),
+                userAttributions: new Array(selectedQuestions.length).fill(null),
+                questionPacing: new Array(selectedQuestions.length).fill(0),
                 currentIndex: 0,
                 score: 0,
                 timeSpent: 0,
@@ -272,12 +281,25 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
 
         const seenIds = questions.map(q => q.id);
 
+        // Aggregates for attribution and pacing
+        const attributions: Record<string, number> = {};
+        currentTest.userAttributions?.forEach(attr => {
+            if (attr) {
+                attributions[attr] = (attributions[attr] || 0) + 1;
+            }
+        });
+
+        const totalQuestions = questions.length;
+        const averagePacing = currentTest.timeSpent / totalQuestions;
+
         QBStorage.updateStats({
             score: (result.score / result.totalQuestions) * 100,
             type: currentTest.mode,
             seenCount: result.totalQuestions,
             incorrectIds,
-            seenIds
+            seenIds,
+            attributions,
+            averagePacing
         });
 
         // Mark complete
@@ -539,13 +561,55 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
                                 </div>
 
                                 {/* Explanation - Show immediately in Study mode if answered */}
-                                {currentTest.mode === 'study' && currentTest.userAnswers[currentTest.currentIndex] !== null && (
+                                <div className="space-y-4">
+                                    {/* Attribution Section for Mistakes */}
+                                    {currentTest.userStatuses[currentTest.currentIndex] === 'incorrect' && (
+                                        <div className="glass-panel p-6 rounded-3xl border border-red-500/20 bg-red-500/5 animate-in slide-in-from-top-4 duration-500">
+                                            <div className="flex items-center gap-2 text-red-400 mb-2">
+                                                <Target size={16} />
+                                                <span className="font-bold uppercase tracking-wider text-[10px]">Analyze your mistake</span>
+                                            </div>
+                                            <h4 className="text-white font-bold text-sm mb-4">Why did you miss this? <span className="text-slate-500 font-normal">(Help us identify patterns)</span></h4>
+
+                                            <div className="flex flex-wrap gap-2">
+                                                {(['misread', 'formula', 'concept', 'careless', 'time'] as const).map(type => {
+                                                    const active = currentTest.userAttributions?.[currentTest.currentIndex] === type;
+                                                    return (
+                                                        <button
+                                                            key={type}
+                                                            onClick={() => {
+                                                                const newAttrs = [...(currentTest.userAttributions || [])];
+                                                                newAttrs[currentTest.currentIndex] = type;
+                                                                setCurrentTest({ ...currentTest, userAttributions: newAttrs });
+                                                            }}
+                                                            className={`px-4 py-2 rounded-xl border text-xs font-bold transition-all ${active
+                                                                ? 'bg-red-500 border-red-400 text-white shadow-lg shadow-red-500/20 scale-105'
+                                                                : 'bg-slate-800 border-white/5 text-slate-400 hover:border-red-500/30'
+                                                                }`}
+                                                        >
+                                                            {type.charAt(0).toUpperCase() + type.slice(1)}
+                                                        </button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+
                                     <div className="glass-panel p-8 rounded-3xl border-l-4 border-blue-500 animate-in slide-in-from-bottom-2 fade-in">
                                         <div className="flex items-center justify-between mb-4">
                                             <div className="flex items-center gap-2 text-blue-400">
                                                 <HelpCircle size={20} />
                                                 <span className="font-bold uppercase tracking-wider text-sm">Explanation</span>
                                             </div>
+
+                                            {/* Pacing Feedback */}
+                                            {currentTest.questionPacing?.[currentTest.currentIndex] !== undefined && (
+                                                <div className="flex items-center gap-2 px-3 py-1 bg-slate-800 rounded-full border border-white/5 text-[10px] text-slate-400 font-mono">
+                                                    <RotateCcw size={10} />
+                                                    {currentTest.questionPacing[currentTest.currentIndex]}s spent
+                                                </div>
+                                            )}
+
                                             {!currentQ.explanation && (
                                                 <button
                                                     onClick={() => handleAIExplanation(currentQ)}
@@ -598,7 +662,7 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
                                             })}
                                         </div>
                                     </div>
-                                )}
+                                </div>
 
                                 {/* Navigation Footer */}
                                 <div className="flex justify-between items-center pt-8">

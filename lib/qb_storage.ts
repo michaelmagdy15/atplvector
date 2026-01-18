@@ -15,7 +15,9 @@ export const QBStorage = {
                 scoreHistory: [],
                 flaggedQuestionIds: [],
                 incorrectQuestionIds: [],
-                seenQuestionIds: []
+                seenQuestionIds: [],
+                attributionCounts: { misread: 0, formula: 0, concept: 0, careless: 0, time: 0, unknown: 0 },
+                averagePacing: 0
             };
         }
         const stats = JSON.parse(data);
@@ -23,11 +25,21 @@ export const QBStorage = {
             ...stats,
             flaggedQuestionIds: stats.flaggedQuestionIds || [],
             incorrectQuestionIds: stats.incorrectQuestionIds || [],
-            seenQuestionIds: stats.seenQuestionIds || []
+            seenQuestionIds: stats.seenQuestionIds || [],
+            attributionCounts: stats.attributionCounts || { misread: 0, formula: 0, concept: 0, careless: 0, time: 0, unknown: 0 },
+            averagePacing: stats.averagePacing || 0
         };
     },
 
-    updateStats: (newResult: { score: number, type: 'study' | 'exam', seenCount: number, incorrectIds: string[], seenIds: string[] }) => {
+    updateStats: (newResult: {
+        score: number,
+        type: 'study' | 'exam',
+        seenCount: number,
+        incorrectIds: string[],
+        seenIds: string[],
+        attributions?: Record<string, number>, // { attributionType: count }
+        averagePacing?: number // seconds per question for this test
+    }) => {
         const stats = QBStorage.getStats();
         stats.totalTestsCompleted += 1;
         stats.questionsSeen += newResult.seenCount;
@@ -46,7 +58,22 @@ export const QBStorage = {
         const newIncorrect = new Set([...stats.incorrectQuestionIds, ...newResult.incorrectIds]);
         stats.incorrectQuestionIds = Array.from(newIncorrect);
 
-        // Add seen IDs without duplicates
+        // Update attributions
+        if (newResult.attributions) {
+            Object.entries(newResult.attributions).forEach(([key, count]) => {
+                const attrKey = key as any;
+                stats.attributionCounts[attrKey] = (stats.attributionCounts[attrKey] || 0) + count;
+            });
+        }
+
+        // Update average pacing
+        if (newResult.averagePacing) {
+            const currentTotalQuestions = stats.questionsSeen - newResult.seenCount;
+            const totalPreviousTime = currentTotalQuestions * stats.averagePacing;
+            const totalNewTime = totalPreviousTime + (newResult.seenCount * newResult.averagePacing);
+            stats.averagePacing = totalNewTime / stats.questionsSeen;
+        }
+
         const newSeen = new Set([...stats.seenQuestionIds, ...newResult.seenIds]);
         stats.seenQuestionIds = Array.from(newSeen);
 

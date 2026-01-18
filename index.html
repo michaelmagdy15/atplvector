@@ -58,7 +58,27 @@
             }
           }
         }
-      }
+      },
+      plugins: [
+        function ({ addUtilities }) {
+          addUtilities({
+            '.preserve-3d': { 'transform-style': 'preserve-3d' },
+            '.perspective-2000': { 'perspective': '2000px' },
+            '.rotate-x-2': { 'transform': 'rotateX(2deg)' },
+            '.rotate-x-5': { 'transform': 'rotateX(5deg)' },
+            '.rotate-y-n5': { 'transform': 'rotateY(-5deg)' },
+            '.rotate-y-n10': { 'transform': 'rotateY(-10deg)' },
+            '.translate-z-0': { 'transform': 'translateZ(0px)' },
+            '.translate-z-100': { 'transform': 'translateZ(100px)' },
+            '.translate-z-150': { 'transform': 'translateZ(150px)' },
+            '.translate-z-200': { 'transform': 'translateZ(200px)' },
+            '.translate-z-300': { 'transform': 'translateZ(300px)' },
+            '.translate-z-400': { 'transform': 'translateZ(400px)' },
+            '.translate-z-450': { 'transform': 'translateZ(450px)' },
+            '.translate-z-500': { 'transform': 'translateZ(500px)' },
+          })
+        }
+      ]
     }
   </script>
   <style>
@@ -133,6 +153,14 @@
       html {
         display: none;
       }
+    }
+
+    .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
     }
   </style>
   <script type="importmap">

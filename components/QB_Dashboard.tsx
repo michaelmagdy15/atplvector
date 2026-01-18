@@ -108,6 +108,22 @@ export const QB_Dashboard: React.FC<DashboardProps> = ({ onStartNew, onResume, o
                         {stats?.seenQuestionIds?.length || 0} / 1000 Questions seen
                     </div>
                 </div>
+
+                {/* Pacing Card */}
+                <div className="glass-panel p-6 rounded-3xl flex flex-col justify-center space-y-4 relative overflow-hidden group">
+                    <div className="flex items-center gap-3 text-slate-400">
+                        <div className="p-2 bg-amber-500/10 rounded-lg text-amber-400">
+                            <Clock size={20} />
+                        </div>
+                        <span className="text-sm font-medium">Avg. Pacing</span>
+                    </div>
+                    <div className="text-4xl font-black text-white">
+                        {stats ? Math.round(stats.averagePacing) : 0}s
+                    </div>
+                    <div className="text-[10px] text-slate-500 uppercase font-bold">
+                        Seconds per question
+                    </div>
+                </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -166,6 +182,37 @@ export const QB_Dashboard: React.FC<DashboardProps> = ({ onStartNew, onResume, o
 
                 {/* Saved Sessions & Hot Topics */}
                 <div className="space-y-6">
+                    {/* Error Attribution breakdown */}
+                    <div className="glass-panel p-6 rounded-3xl border border-red-500/20 bg-red-500/5">
+                        <h3 className="text-sm font-bold text-red-400 mb-4 flex items-center gap-2 uppercase tracking-wider">
+                            <Target size={16} />
+                            Failure Patterns
+                        </h3>
+                        {stats && Object.values(stats.attributionCounts).some(v => v > 0) ? (
+                            <div className="space-y-3">
+                                {Object.entries(stats.attributionCounts)
+                                    .filter(([_, count]) => count > 0)
+                                    .sort((a, b) => b[1] - a[1])
+                                    .map(([key, count]) => (
+                                        <div key={key} className="space-y-1">
+                                            <div className="flex justify-between text-[10px] font-bold uppercase">
+                                                <span className="text-slate-400">{key}</span>
+                                                <span className="text-white">{count} times</span>
+                                            </div>
+                                            <div className="w-full h-1 bg-slate-800 rounded-full overflow-hidden">
+                                                <div
+                                                    className="h-full bg-red-500 transition-all"
+                                                    style={{ width: `${(count / Object.values(stats.attributionCounts).reduce((a, b) => a + b, 0)) * 100}%` }}
+                                                ></div>
+                                            </div>
+                                        </div>
+                                    ))}
+                            </div>
+                        ) : (
+                            <p className="text-xs text-slate-500 italic">No attribution data yet. Tag your mistakes in practice sessions!</p>
+                        )}
+                    </div>
+
                     {/* Hot Topics (Weak areas) */}
                     <div className="glass-panel p-6 rounded-3xl border border-amber-500/20 bg-amber-500/5">
                         <h3 className="text-sm font-bold text-amber-400 mb-4 flex items-center gap-2 uppercase tracking-wider">

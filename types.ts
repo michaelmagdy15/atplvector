@@ -460,6 +460,8 @@ export interface SavedTest {
   questionIds: string[];
   userAnswers: (number | null)[]; // Index of selected option
   userStatuses: ('correct' | 'incorrect' | 'skipped' | 'unseen')[];
+  userAttributions?: (ErrorAttribution | null)[]; // Tracking why questions were missed
+  questionPacing?: number[]; // Time spent on each question in seconds
   currentIndex: number;
   score: number;
   timeSpent: number; // in seconds
@@ -467,6 +469,8 @@ export interface SavedTest {
   lastResumedAt: string;
   isCompleted: boolean;
 }
+
+export type ErrorAttribution = 'misread' | 'formula' | 'concept' | 'careless' | 'time' | 'unknown';
 
 export interface QBConfig {
   subjectId: string;
@@ -514,4 +518,6 @@ export interface QBStats {
   flaggedQuestionIds: string[];
   incorrectQuestionIds: string[]; // Set of unique IDs that were ever answered incorrectly
   seenQuestionIds: string[]; // Set of unique IDs ever seen in a practice session
+  attributionCounts: Record<ErrorAttribution, number>;
+  averagePacing: number; // Average seconds per question
 }

@@ -790,6 +790,8 @@ const App: React.FC = () => {
                             <div className="md:hidden border-t border-white/5 p-4 space-y-2 animate-in slide-in-from-top-2 bg-slate-900 rounded-b-2xl pointer-events-auto">
                                 <NavButton view={View.PLATFORM_DASHBOARD} label="Dashboard" />
                                 <NavButton view={View.SYLLABUS_VIEWER} label="Syllabus" />
+                                <NavButton view={View.QUESTION_BANK} label="Question Bank" />
+                                <NavButton view={View.STUDY_GUIDE} label="Study Guide" />
                                 <NavButton view={View.FLASHCARDS} label="Flashcards" />
                                 <NavButton view={View.SUBSCRIPTION_MANAGEMENT} label="Plan" />
                                 <NavButton view={View.PROFILE} label="Profile" />
@@ -799,19 +801,21 @@ const App: React.FC = () => {
                 </div>
 
                 {/* Mobile Subject Sidebar (Drawer) */}
-                {subjectConfig && sidebarOpen && (
-                    <div className="fixed inset-0 z-40 lg:hidden">
-                        <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setSidebarOpen(false)}></div>
-                        <div className="absolute top-0 left-0 bottom-0 w-72 bg-slate-900 border-r border-slate-700 pt-24 pb-safe animate-in slide-in-from-left">
-                            <SubjectSidebar
-                                config={subjectConfig}
-                                currentView={currentView}
-                                onNavigate={navigateTo}
-                                onClose={() => setSidebarOpen(false)}
-                            />
+                {
+                    subjectConfig && sidebarOpen && (
+                        <div className="fixed inset-0 z-40 lg:hidden">
+                            <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setSidebarOpen(false)}></div>
+                            <div className="absolute top-0 left-0 bottom-0 w-72 bg-slate-900 border-r border-slate-700 pt-24 pb-safe animate-in slide-in-from-left">
+                                <SubjectSidebar
+                                    config={subjectConfig}
+                                    currentView={currentView}
+                                    onNavigate={navigateTo}
+                                    onClose={() => setSidebarOpen(false)}
+                                />
+                            </div>
                         </div>
-                    </div>
-                )}
+                    )
+                }
 
                 {/* Main Content Area */}
                 <main className="pt-28 min-h-screen px-4 pb-20">
@@ -1286,8 +1290,8 @@ const App: React.FC = () => {
                         </div>
                     </div>
                 </main>
-            </div>
-        </ContentProtection>
+            </div >
+        </ContentProtection >
     );
 };
 
