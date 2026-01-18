@@ -900,6 +900,27 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                         </div>
                     </div>
 
+                    {/* LIVE STUDY GUIDE DEMO */}
+                    <div className="py-24 bg-slate-900 border-y border-white/5 relative overflow-hidden">
+                        {/* Background Gradients */}
+                        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-900 to-slate-900 pointer-events-none"></div>
+
+                        <div className="max-w-7xl mx-auto px-6 relative z-10">
+                            <div className="text-center mb-12">
+                                <span className="text-blue-400 font-bold uppercase tracking-widest text-sm">Live Demo</span>
+                                <h2 className="text-3xl md:text-5xl font-black text-white mt-2">Try the Analyzer Real-Time.</h2>
+                                <p className="text-slate-400 mt-4 max-w-2xl mx-auto">
+                                    Interact with our actual Study Guide tool below. See which subjects have the highest "Return on Investment" for your study time. No login required.
+                                </p>
+                            </div>
+
+                            <div className="border border-white/10 rounded-3xl overflow-hidden shadow-2xl bg-slate-950/50 backdrop-blur-sm transform hover:scale-[1.01] transition-transform duration-500">
+                                {/* Pass empty callbacks to prevent navigation attempts in demo mode */}
+                                <StudyGuide />
+                            </div>
+                        </div>
+                    </div>
+
                     {/* PRICING SECTION */}
                     <div id="pricing" className="py-24 bg-slate-900">
                         <div className="max-w-7xl mx-auto px-6">
@@ -1125,7 +1146,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                     </footer>
                 </>
             )}
-        </div>
+        </div >
     );
 };
 
