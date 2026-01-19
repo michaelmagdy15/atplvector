@@ -228,7 +228,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                     code="022" title="AGK: Instruments"
                     desc="Sensors, instruments, measurement of air data, gyroscopic instruments and EFIS."
                     icon={Activity} color="amber"
-                    onClick={() => onChangeView(View.AGK_INSTRUMENTS_HOME)}
+                    onClick={() => onChangeView(View.INST_HOME)}
                 />
 
                 {/* 031 Mass & Balance */}
