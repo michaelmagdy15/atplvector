@@ -105,6 +105,18 @@ const WeighingProcedure: React.FC = () => {
                     </div>
                 </div>
             </div>
+            {/* Equipment Standards Note */}
+            <div className="mt-8 bg-slate-700/50 rounded-lg p-4 border border-slate-600 flex items-start gap-3">
+                <Calculator className="w-5 h-5 text-indigo-400 mt-1" />
+                <div className="text-sm text-slate-300">
+                    <p className="font-bold text-white mb-1">Equipment Standards</p>
+                    <ul className="list-disc pl-4 space-y-1">
+                        <li>Capacity: Must be compatible with the mass to be weighed.</li>
+                        <li>Accuracy: Typically better than ±0.5% of the reading.</li>
+                        <li>Graduations: Approximate to the mass (e.g., 5g for small aircraft, up to 20kg for large jets).</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     );
 };
