@@ -397,7 +397,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                         </div>
                         {/* Mobile Menu */}
                         {mobileMenuOpen && (
-                            <div className="absolute top-24 left-4 right-4 bg-slate-900 rounded-2xl border border-white/10 p-4 flex flex-col space-y-4 md:hidden z-50 shadow-2xl animate-in slide-in-from-top-4">
+                            <div className="pointer-events-auto absolute top-24 left-4 right-4 bg-slate-900 rounded-2xl border border-white/10 p-4 flex flex-col space-y-4 md:hidden z-50 shadow-2xl animate-in slide-in-from-top-4">
                                 <button onClick={() => scrollToSection('features')} className="text-left px-4 py-2 hover:bg-white/5 rounded-lg">Features</button>
                                 <button onClick={() => scrollToSection('pricing')} className="text-left px-4 py-2 hover:bg-white/5 rounded-lg">Pricing</button>
                                 <button onClick={() => { scrollToSection('hero'); setView('LOGIN'); }} className="text-left px-4 py-2 hover:bg-white/5 rounded-lg">Login</button>

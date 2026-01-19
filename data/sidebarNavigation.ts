@@ -138,6 +138,13 @@ const NAV_MAP: SubjectConfig[] = [
             { label: 'CG Shift (Move/Add)', view: View.MASS_BAL_CG_SHIFT },
             { label: 'Load Shift (Cargo)', view: View.MASS_BAL_SHIFT },
             { label: 'Unit Converter', view: View.MASS_BAL_CONVERTER },
+            { label: 'Effects of Mass', view: View.MASS_BAL_EFFECTS },
+            { label: 'CG Position Effects', view: View.MASS_BAL_CG_EFFECTS },
+            { label: 'Structural Limits', view: View.MASS_BAL_STRUCTURAL },
+            { label: 'Stall Speed Calc', view: View.MASS_BAL_STALL_SPEED },
+            { label: 'Fleet Weighing', view: View.MASS_BAL_FLEET },
+            { label: 'Cargo Types', view: View.MASS_BAL_CARGO_TYPES },
+            { label: 'Standard Masses', view: View.MASS_BAL_STD_MASSES },
         ]
     },
     {
@@ -149,6 +156,31 @@ const NAV_MAP: SubjectConfig[] = [
             { label: 'Dashboard', view: View.AGK_SYSTEMS_HOME, icon: Settings },
             { label: 'Hydraulics', view: View.AGK_HYDRAULICS },
             { label: 'Gas Turbines', view: View.AGK_JET_ENGINE },
+        ]
+    },
+    {
+        id: '022',
+        title: 'Instrumentation',
+        color: 'slate',
+        dashboardView: View.INST_HOME,
+        items: [
+            { label: 'Dashboard', view: View.INST_HOME, icon: Settings },
+            { label: 'Pitot-Static System', view: View.INST_PITOT_STATIC, icon: Activity },
+            { label: 'Altimeter Lab', view: View.INST_ALTIMETER, icon: TrendingUp },
+            { label: 'Airspeed Indicator', view: View.INST_ASI, icon: Plane },
+            { label: 'Vertical Speed Ind.', view: View.INST_VSI, icon: GitMerge },
+            { label: 'Machmeter', view: View.INST_MACHMETER, icon: Activity },
+            { label: 'Gyro Principles', view: View.INST_GYROS, icon: GitMerge },
+            { label: 'Turn Indicator', view: View.INST_TURN_INDICATOR, icon: Compass },
+            { label: 'Directional Gyro', view: View.INST_DG, icon: Compass },
+            { label: 'Attitude Indicator', view: View.INST_ATTITUDE, icon: Compass },
+            { label: 'Magnetic Compass', view: View.INST_COMPASS, icon: Compass },
+            { label: 'Radio Altimeter', view: View.INST_RADIO_ALT, icon: Radio },
+            { label: 'Nav Systems (IRS/ADC)', view: View.INST_NAV_SYSTEMS, icon: Database },
+            { label: 'FMS & EFIS', view: View.INST_FMS_EFIS, icon: Plane },
+            { label: 'GPWS / EGPWS', view: View.INST_GPWS, icon: AlertCircle },
+            { label: 'Autopilot & AFCS', view: View.INST_AUTOPILOT, icon: Settings },
+            { label: 'Autoland', view: View.INST_AUTOLAND, icon: Plane },
         ]
     },
     {

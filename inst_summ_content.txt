@@ -1,0 +1,325 @@
+INSTRUMENTS)INTRO)–)BASIC)COCKPIT)INSTRUMENTS)
+BASIC)T))Airspeed(Attitude(Altimeter((DI(
+BASIC)6))Airspeed(Attitude(Altimeter((Turn(Cord(DI((VSI(
+PRESSURE))•!"#$$%"#!(!")=!!"#$%!"#$(•Can(be(measured(in:(ohPa((1(hPa(=(100(Pa)(oBar((1(mbar(=(1/1000(bar)(oPSI((Pounds(per(square(inch)(oIn(Hg((Inches(of(mercury)(
+ATMOSPHERIC)VARIATIONS))•Pressure(•Density(•Humidity(•Temperature((•ISA(gives(us(a(datum(point(from(which(we(can(measure.(
+INSTRUMENTS)1)–)PITOT)STATIC)SYSTEMS)
+ISA))•Pressure)MSL(=(1013.25(hPa(/(1013.25(mb(/(29.92(In.Hg(/(14.7(PSI(•Density)MSL)=(1.225(Kg(/(m3(•Temperature)MSL)=(15(0(C((•All(instruments(are(calibrated(to(ISA.(
+STATIC)PRESSURE))•Exerted(in)all)directions,)all)the)time.(•Located(on(side)of(fuselage.(•A(static(port(can(be(fitted(on)each)side:(oBalance(out(errors(from(sideTslipping(oRemoves(need(for(a(standby(vent(oReduced(the(effect(of(turbulence(and(crosswinds.(
+PITOT)PRESSURE))•PITOT)=)STATIC)+)DYNAMIC(•Called(total)pressure.(•Dynamic(can(be(calculated(by(total)–)static.(•Dynamic)Pressure)=)!!!!!!(ov2(is(TAS(
+REDUNDANCY))•Commercial(aircraft(have(3(sets(of(pitotTstatic(ports:(oCaptain(oF/O(oEmergency((Located(on(tail)(
+BLOCKS)AND)LEAKS))•PitotTstatic(system(can(become(blocked(through(ice,(debris,(insects(etc.(•A(blockage(will(trap)the)pressure(in(the(system.(oException(if(the(blockage(is(forward(of(the(drain(hole(=(pressure(dissipates.(•Leaks)can(also(occur(if(the(light(alloy(piping(network(fractures(or(becomes(detached(from(bulkhead(mountings.
+COMBINED)PITOTOSTATIC)HEAD))•Not(often(used(as(turbulent)air)can(form(around(the(static(opening.))(
+GENERAL)ERROR)TYPES))•Applies(to(all(instruments.(•Instrument)–)Due(to(imperfections(in(the(mechanical(construction(/(limitations.(•Manoeurve(–(Due(to(constantly(changing(position.((Unpredictable)(•Position)–)Due(to(location(of(sensors.((Predictable)(
+PITOTOSTATIC)ERRORS))•Position)Error)oDisturbance(from( airflow( around(aircraft.)oWill( vary( with( angle( of( attack( and(airspeed.)•Manoeuvre)Error)oDisturbance( of( airflow( around( the(ports( during( and( shortly( after(manoeuvres.)
+(
+INSTRUMENTS)2)–)PRESSURE)ALTIMETER)
+PURPOSE))•Measures(vertical)distance.(•Ensures(separation)from(other(aircraft.(•Ensures(clearance)from(terrain.(
+ANEROID)CAPSULE))•Sealed)and(partially)evacuated.(•When( climbing,( static(pressure( outside( is(less(than(inside(capsule(and(it(expands.(•A(linkage) system)converts(this(movement(into(a(display(on(the(altimeter.(•Multiple) capsules)can( be( used( to( amplify(the( expansion( and( contraction,( giving(greater(sensitivity.(•‘D)spring’)/)‘Leaf)spring’(used(to(correct(for(cockpit(temperature(variations.(
+PRESSURE)CHANGES))•Altimeter( is( calibrated( for( a(nonOlinear)decrease(in(pressure(with(height.(•A( change( in( the( subTscale( however( will(always) vary) by) 30’(as( the( datum( being(changed(it(at(‘sea(level’.(
+DATUMS))•Altimeter(indicates(vertical(distance(from)a)selected)datum.))•Height)•Altitude)•Flight)Level))•Indicated(altitude(and(true(altitude(are(only(the(same(when(everything(is(perfect((ISA).)
+ALTIMTER)ERRORS))•Instrument)–(Due( to( mechanical(imperfections.(Larger(with(height(as(capsule(changes(become(smaller.)•Pressure)–(Includes(maneuver(and(position(error.(Due(to(error(in(sampling(of(static(air.)•Temperature)–)Corrective(calculus(needed)•Barometric)–)Minimised( by( ensuring(correct(datum(is(set.)•Lag) /) Hysteresis)–(Most(dangerous(during(a(rapid(descent.)•Orographic)–)Pressure(variation(in(vicinity(of(high(ground.(Lower(pressure(on(leeward(side(compared(and(higher(on(winward(side.)•Blockages)/)Leaks)of(static(system.)
+SERVO)ALTIMETER))•Removes( some( of( the( time( lag( and(instrument(error.)•More) sensitive)(especially( at( higher(altitudes))•Easier(to(digitalise)•Capsule(Expands(!(Asymmetry(between(E(&( I( bars(!(DC( Flow( to( servoTmotor(!(Digital( Reading(!(Cam( driven( to( realign(bars)
+
+(
+INSTRUMENTS)2)–)PRESSURE)ALTIMETER)
+ALTERNATE)STATIC)SOURCE))•Cabin( pressure( is( slightly(lower) than)outside)in(an(unpressurised(aircraft.(oDue( to( low( pressure( on( the( outside(creating( a( suction( effect( within( the(cabin.(•Use(of(alternate(static(source(will(therefore(cause( a( slightly( increase( in( altimeter(reading.((
+PRESSURISED)AIRCRAFT)LEAK))•Higher(static(pressure(will(enter(the(system(and( cause( altimeter( to( decrease( to( cabin(pressure(level.(
+SERVO)ALTIMETER)ACCURACY))•Seal(Level:(±(30(ft(•20,000(ft:(±(50(ft(•40,000(ft:(±(100(ft(
+MECHANICAL)(SENSITIVE)TYPE)))•Seal(Level:(±(50(ft(•10,000(ft:(±(175(ft(•40,000(ft:(±(600(ft(
+STATIC)BLOCKAGE)(DUAL)PORTS)))•A(blockage( of(the(left(static(port(will(cause(an(overTread(when(side(slipping(left.(oThe(right(port(is(reading(a(lower(than(normal(pressure((higher(air(velocity)(
+((
+INSTRUMENTS)5)–)VERTICAL)SPEED)INDICATOR)
+THE)VSI))•Measures( the(rate) of) change) of) static)pressure.(•Can(use(either(a(linear)or(logarithmic)scale.(
+CONSTRUCTION))•Metering) unit)creates( a( lag( in( static(pressure(entering(the(case.((•Climb( =( Capsule(contracts((•Descent( =( Capsule(expands(
+METERING)UNIT))•An(orifice) and) capillary) device)compensate(for(changes(in(viscosity((due(to(temperature(and(density(changes).((
+ERRORS))•Instrument)Error(oError(increases(with(altitude(oHysteresis( and( friction(contribute( to(lag(within(the(VSI.((•Pressure)Error(oManoeuvre(–(Sudden( change( in(attitude( disturbs( airflow( around(static( port.( Gives( large,( short( lived(errors.(oPosition(–(Change(of(speed(may(cause(temporary(error(in(VSI.((•Time)Lag)(VSI)(oTakes( time( for( a(pressure( difference(to(occur(between(capsule(and(case.(oVIS(is(slow(to(respond(at(start(or(end(of(a(climb(or(descent.((•Temperature)Error(oCauses(rigidity(and(elasticity.((•Blockage(oVSI(returns(to(zero.(oIVSI(may(fluctuate(with(dashpot((•Leakage(oPressurised(–(Rapid( descent(indicated(as(higher(pressure(enters.(oUnpressurised(–(No(problems.(
+INSTANTANOEUS)VSI)(IVSI)))•A.K.A(Inertia(Lead(VSI(•Small(accelerator(pump((dashpot))is(fitted.(•Creates( an( artificial( pressure( change(immediately(when( vertical( acceleration(occurs.(•EG/(At(start(of(a(climb,(PS(is(decreased(from(within(capsule(and(increased(within(casing.(
+•Lag(has(been(practically(eliminated.(•Steeply) banked) turns)could(create( a( false(reading( as( the( dashpot( is( displaced(however.(
+
+(((
+INSTRUMENTS)3)–)THE)AIRSPEED)INDICATOR)(ASI))
+CONSTRUCTION))•ASI(measures(dynamic(pressure.(•Static(pressure(in(the(casing(cancels(out(the(static(within(the(capsule(to(give(dynamic.((
+ASI)ERRORS))•Instrument)Error)•Pressure)Error)(Manoeurve(+(Position))•Compressibility)Error)•Density)Error)
+AIRSPEED)CORRECTIONS))•Indicated)(IAS))–(Shown(on(the(ASI(•Calibrated)(CAS)/)RAS)–(IAS(corrected(for:(oPosition(error((due(to(location(of(pitot(head(and(static)(oInstrument(error((due(mechanical(workings(of(ASI).(•Equivalent)(EAS))–)CAS(corrected(for:(oCompressibility(Error((when(TAS>300kts(or(ALT>10,000ft).(oNot(applicable(less(than(this(as(air(assumed(incompressible.(•True)(TAS))–)EAS(corrected(for:(oDensity(error((•ICE)O)T(
+TAS)VS)EAS)RELATIONSHIP))!!"#=!!!"#!×!!!!!"#!!"#!!!"#$%&'(
+BLOCKAGES))•Pitot)Block(oUnderTread(during(descent((PUD)(•Static)Block(oOverTread(during(descent((SOD)(
+PRESSURISED)LEAKAGES))•Pitot)Leak(oCapsule(expands(and(overTreads(•Static)Leak(oCapsule(contracts(and(underTreads(
+UNPRESSURISED)LEAKAGES))•Pitot)Leak(oCapsule(contracts(and(underTreads(•Static)Leak(oNo(change(
+ASI)MARKINGS))•White)Arc(oVSO(=(Stall(Speed(Full(Flap(oVFE(=(Max(Flap(Extension(Speed(•Green)Arc(oVS1(=(Stall(Speed(Clean(oVNO(=(Max(Normal(Operating(Speed(•Yellow)Arc)–)Calm(Operating(Range(•Red)Line)T(VNE((Never(Exceed(Speed(
+OTHER)V)SPEEDS))•VRA)=)Max(Speed(Turbulent(Air((Not(on(ASI)(•VLO)=)Max(gear(operating(speed((<(VLE)(•VLE)=)Max(speed(with(landing(gear(down(
+((((
+INSTRUMENTS)4)–)MACHMETER)
+MACHMETER)FORMAULAS))!=!"#!(!"#$!!"#$%&&')!""!(!"#$%!!"##$!!"!!"#$%)((!""!=38.95!×!!!"#$"%&'(%"!(!"#$%&)((!=!!!!!−!!!!!(
+CONSTRUCTION))•It(can(be(seen(the(Machmeter(essential(uses(the(ASI(components( (PT(–(PS)( and( those( of(the(Altimeter((PS).(•Mach(speed(is(unitless.(•Climbing( at( a( constant( IAS( means( the( ASI(capsule(remains(constant(and(the(Altimeter(expands,(thus(increasing(the(mach(number.(•Contains(two(diagraphams(with(only(that(of(the(Altimeter(part(being(of(the(aneroid(type((sealed(and(partially(evacuated)(
+ERRORS))•Compressibility,( density( and( temperature(errors( are( all( cancelled( out( by( the( ratio(calculation.(•Instrument) Error(–(Tolerance( should( not(exceed(M.01(•Pressure) Error(–(Inaccurate( sampling( of(static(pressure.(
+CLIMB)/)DESCENT)WITH)CONSTANT)M))•Climbing(with(constant(mach(means(IAS((PT(–(PS)((must(decrease(as(PS(decreases.(•Descending( with( constant( mach( means( IAS(must(increase(as(PS(increases.(
+CRITICAL)MACH)NUMBER))•Free( stream( mach( number( when(the) local)mach) number) first) becomes) sonic(anywhere(on(an(aircraft.(•Local(mach(is(different(as(air)is)accelerated(over(the(wing(for(example.(•Flight(above(MCR(is(possible.(•MMO((Max(Operating(Mach(Number)(will(be(slightly(higher(and(is(an(absolute(limit.(
+PITOT)/)STATIC)ERRORS))•Same(as(the(ASI(
+OAT)EFFECTS))•Mach( &( CAS( not( affected( by( temperature.(Only(TAS(varies(with(temperature(changes.(
+MAX)TAS))•Occurs(at(CAS(=(VMO(&(M(=(MMO(•“Changeover(point”(
+CAS,)TAS)&)MACH)RELATIONSHIP))•Cover(up(the(one(that(stays(constant.(If(the(line(is(to(the(left(then(it(decreases(in(a(climb(and(increases(in(a(descent.(•If(line(is(to(the(right,(it(increases(in(a(climb(and(decreases(in(a(descent.((
+
+(((((
+INSTRUMENTS)6)–)GYROSCOPES)
+PRINCIPLE)1:)RIGIDITY)IN)SPACE))•Maintains(a(fixed)orientation(•Rigidity)is)dependent(on:(oMass(oMass(Distribution((Radius)(oSpeed(of(Rotation((RPM)(•Rigidity(∝!!(!"#$%&')!!!(!"#$%&'!!"#$%&'()(oInertia(=(Radius(x(mass(
+CONSTRUCTION))•Bearings)oNormally(5(•Gimballs)oDOF(=(Degrees(of(freedom((excludes(the(basic(plane(of(rotation))oX(1(=(1(DOFs((2(Planes))oX(2(=(2(DOFs((3(Planes))
+TYPE)1)O)DISPLACEMENTS)GYRO’S))•2)gimballs)&)2)degrees)of)freedom)•Space)Gyro’s)oFree(to(maintain(their(own(direction)oNot(aligned(to(an(external(datum)oNot(useful(for(aviation)o“Perfect) with) no) influences) of)torque,)or)other)external)forces”)•Tied)Gyro’s)oFixed(orientation)oHorizontal(Gyro((DI))oVertical(Gyro(/(Earth(Tied((AI))
+TYPE)2)O)RATE)GYRO’S))•1)gimball)&)1)degrees)of)freedom)•Turn(Indicator)
+WANDER))•Movement(of(the(gyro(spin(axis(away)from)the)chosen)datum.(•Wander(can(be(real(or(apparent.(•Wander(in(horizontal)plane)=)Drift)•Wander(in(vertical)plane)=)Topple)
+REAL)WANDER))•Movement(of(axis(due)to(an)actual)force.)•Friction)•Mechanical)Imperfections)•Instability)of)gimbals)•Hard)manoeuvres)/)turbulence)•“We)did)it”)(Intentional))
+APPARENT)WANDER))•Movement( of( axis(due) to(earth’s) rotation)and)shape)•Earth)Rotation)•Transport)(Gyro(is(moving))
+APPARENT)(EARTH))WANDER))•Max)Drift:(Polar(Horizontally(Tied)•Max) Topple:(Equator( Vertically( Tied( and(Equator(Horizontally(Tied((With(Parallel))
+APPARENT)(TRANSPORT))WANDER))•Greatest)effect)when)travelling)east)(with(direction(of(the(earth’s(rotation))
+AIR)DRIVEN)(PNEUMATICAL))GYRO))•Suction)Pump)provides(main(drive)•Only(requires(1)power)source)(engine))•Relatively) complex)and( requires( lots( of(construction(parts.)•Depends(on(air)density)•Has(a(longer)startOup)time)
+ELECTRICAL)GYRO))•Electric)motor)provides(main(drive)•Requires(2)power)sources)(engine(+(gen))•Relatively)simple)•Can(achieve(a(higher)rpm)(more(rigidity))•Although(better(than( air(driven,( both( types(are(used(for(redundancy.)
+((((((
+INSTRUMENTS)6)–)GYROSCOPES)
+PRINCIPLE)2:)PRECESSION))•Change(of(direction((angular(change)(of(the(plane( of( rotation( of( the( rotor( cause( by( an(applied(force.(
+ERECTION)JET)METHOD))•The( basic( mechanism( for( driving( the( gyro(will(cause(it(to(selfOlevel.(•A( component( (red)( of(the( air( jet( will(act(at(right(angles(to(the(rotor.(•A(precession(is(induced(which(will(erect(the(gyro.(
+ERECTION)PLATE)METHOD))•Since( the( wedge( is( in( a( fixed( position,( a(precession(will(act(on(the(gyro.(
+ELECTRICAL)DRIVEN)ERECTION))•Torque) motor) and) commutator) motor(are(mounted(on(an(outer(gimball.(
+CAGING)KNOB))•Allows(for(the(initial)erection(•Locks(inner(and(outer(gimbals(at(900(
+ROTATION)SPEEDS))•Air(Driven(=(9,000(–(12,000(rpm(•Electrical(=(22,000(rpm(
+ERECTION)VS)LEVELLING))•Erection)oUsed(on(AI)oMaintains(the(rotor(axis(vertical)oAligns(rotor(with(horizontal(gimball(•Levelling)oUsed(on(DI)oMaintains(the(rotor(axis(horizontal)oAligns(rotor(with(vertical(gimball(
+(((((((
+INSTRUMENTS)7)–)DIRECTIONAL)GYROSCOPE)
+RANDOM)DRIFT)(REAL)))•Mechanical)Imperfections)oFriction( in( gimbal( bearings( and(imbalances.))•Gimballing)Error)oWhen(aircraft’s(heading(is(aligned(with(the( gimbals( (90( degrees),( maneuvers(can(take(place(without(disturbing(gyro.)oWhen( on( any( other( heading( (not( 90(degrees),( maneuvers( cause( forces( that(result(in(small(amounts(of(real(drift.))•A(“mechanically(perfect”(DG(can(be(assumed(to(have(to(random(drift.)
+EARTH)ROTATION)(APPARENT)))•Drift(is(max(at(the(poles(and(zero(at(EQ.)•It(is(assumed(the(earth(rotates(at(15.040(/(hr(which( is( a( combination( of( the( earth’s(rotation(and(the(orbit(round(the(sun.)•ER)(0/hr))=)±)15.04)x)sin(lat))•Subtract(if(NH(/(Add(if(SH)
+T(
++(
+LATITUDE)NUT)(REAL)))•This(is(the(“intentional”(real(error.)•Latitude( nut( can( be( calibrated( to( apply( a(torque(to(the(inner)gimbal.)•Through(precession,(this(will(act(in(opposite(direction(of(the(expected(apparent(drift.)•LN)(0/hr))=)±)15.04)x)sin(lat))•Opposite(signs(compared(with(ER(formula.)
++(
+T(
+TRANSPORT)DRIFT)(APPARENT)))•Will( cause( indicated( heading( to( decrease((like(ER(in(NH)(when(travelling(to(east(in(the(NH((direction(of(earth(rotation).)•Results(from(convergence)of)meridians.)•TD)(0/hr))=)±)GS)/)60)x)tan)(lat)))
++(
+T(
++(
+T(
+TOTAL)DRIFT))•Total)Drift)=)RD)±)ER)±)LN)±)TD)
+“LONGITUDINAL)ACCELERATION”))•Longitudinal(acceleration(does)not)affect)a)DG)as(you(are(travelling(with(the(meridians.)
+((((((((
+INSTRUMENTS)8)–)ATTITUDE)INDICATOR)
+BASIC)CONSTRUCTION))•Casing(mounted(to(the(outer)gimbal.)•For(roll,(the(aircraft(symbol(and(scale(move(around(the(fixed(horizon(bar(and(pointer.)•For(pitch,(the(outer(gimbal(pitches(with(the(aircraft(and(the(horizon(bar(moves.)•A( pendulous( unit( allows( outflow( of( suction(air(from(casing.)
+PENDULOUS)VANE)ERECTION)SYSTEM))•Air( flows( from( Outer( Gimbal(TTT>( Inner(Gimbal((rotor)(TTT>(Pendulous(Unit)•When( vertical,( all( vanes( are(half) covered)and(the(forces(are)balanced.)•When( toppled,( some( are( closed( and( some(open(so(the(force(is(unbalanced.)•Force( is( applied( to( the( pendulous( unit( (1)(and(will(erect(gyro(through(precession((2).)•The( pendulous( vane( also( has( a(slightly)shifted)CoG)so(gyro(rests(in(the(vertical(axis((Aids(in(startTup(orientation).)
+TORQUE)MOTOR)ERECTION)SYSTEM))•Used(on(an(electrical)AI)where(there(is(no(pendulous(unit.)•Mercury) switches(are( used( to(control(two(torque)motors.)•When( the( gyro( topples,( multiple( contacts(are(made(on(the(switch((eg/(B(+(C)(and(the(torque(motors(are(operated.)•Precession)causes( them( to( act( in( the(‘opposite(sense’))vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv(
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^()
+•During(steep) turns,( the( mercury(may(pool(at( the( ends( and( no( contact( is( made,( thus(preventing)erection)if)required.)•Secondary) contacts)are( installed( on( some(AIs(to(provide(a(fast)erection)should(the(AI(topple(in(steep(turns.)oShould(not(be(activated(for(more(than(30(–(60(secs(due(heat(build(up.)oNormal(erection(=(2(–(40(/(min)oFast(erection(=(60(–(1200(/(min))•Low) angle) of) bank) turns) should) be)avoided)as(the(torque(motors(will(cause(an(overcorrection.)
+
+(((((((((
+INSTRUMENTS)8)–)ATTITUDE)INDICATOR)
+ACCELERATION)ERROR))•Pitch)error(is(caused(by(a(lag(in(the(lateral)vanes.)oThey(swing(back(towards(the(pilot(and(close( the( port( slot( whilst( opening( the(starboard(slot.)oPrecession( causes( the( base( to( move(towards(the(pilot(and(results(in(a(pitch)up)indication.)•Roll)error(is( caused( by( a( lag( in( the(weighted)base)due)to)interia.)oPrecession( causes( the( gyro( base( to(move(to(the(right,(causing(a(roll) right)indication.))•So,(Acceleration)=) Pitch) Up) &) Roll) Right(Indication((Approx(2T3(degrees))•Deceleration)=)Pitch)Down)&)Roll)Left)•The(above(assume(an(antiTclockwise(gyro.)
+TURNING)ERROR))•In(a(turn,(a(centripetal)force)exists(towards(the(centre(of(the(turn.(•The(centrifugal)reaction)acts(on(the(vanes)and) weighted) base)causing( pitch( and( roll(errors.)•Magnitude) of) errors)varies( with( speed,(rate(of(turn(and(length(of(turn.)
+ELECTRICAL)VS)AIR)DRIVEN)ERRORS))•Errors( present( in( both( types( although(minimised)with)electrical)type.)oAbsence(of(heavy(base)oHigh(rotor(speeds)oCut(out(switches)
+GIMBALL)LIMITS))•Old)Designs:)±)1110)Roll)&)±)600)Pitch)•New)Designs:)3600)Roll)&)±)850)Pitch)•Gyro(will(topple(when(these(are(exceeded)•Unless(a(fast(erect(is(present,(gyro)will)take)10)O)15)mins)to)reOerect)itself.)
+REMOTE)VERTICAL)GYRO))•Uses(a(syncro) system)to(convert(pitch(and(roll(data(into(a(digital)output.)•Displayed(on(a(Attitude(Director(Indicator)•Can(be(used(by(multiple(systems.)
+((((((((((
+INSTRUMENTS)9)–)TURN)AND)BALANCE)INDICATOR)
+BALANCE)INDICATOR))•For(slip,(think(banking(but(with(no(turn)oCentrifugal(force(not(enough)oBall(falls(to(the(inside(of(the(turn)•For(skid,(think(turning(without(bank)oCentrifugal(force(too(great)oBall(pushes(to(outside(of(turn)•Step)on)the)ball)to)correct)•A(fluid)is(present(within(the(glass(case:)oDamping(agent)oReduces(friction)
+TURN)INDICATOR))•Horizontally)tied)rate)gyro)•Situated(parallel)to)the)lateral)axis)•One(gimball(&(one)DoF)•Denied)freedom)in)yaw)axis)•Measurement( is( accurate( for( the(yaw) rate)at)low)bank)angles.)•Does)not)drift)or)topple)
+RATE)ONE)TURN))•1800)/))Min)=)30)/))Sec)•Angle(of(bank(required(for(rate(one(turn:))!"#=!!"#!"+!))•Turn( indicator( is(calibrated) to) a) fixed)airspeed.)•Above(formula(can(also(be(used(if(given(IAS.)
+PRIMARY)AND)SECONDARY)PRECESSION))•The( gyro( is(denied) movement) in) the)yawing)plane.)•When(a(yaw(to(the(right(occurs,(a(force(F1(is(applied( to( the( gyro( which( results( in( a(precession(P1(causing(the(gyro(to(tilt(left.)•The(spring(force(now(causes(a(force(F2(to(be(applied( which( results( in( precession( P2(acting)in)the)direction)of)yaw.()•Gimball( continues( tilting( until( spring( force(produces(precession(equal(to(rate(of(turn(of(the(aircraft.)•When( balanced,( tilt( stops( and( a( steady(indication(of(turn(rate(is(provided.)
+TURN)INDICATOR)ERRORS))•Any(TAS(different(to(the(calibrated(TAS(will(result(in(an(underTread.)•There(is(also(rotor)speed)and(loop)(pitch))error)that(is(present.)
+TURN)COORDINATOR))•Gimball)is)tilted)upwards)by)300)–)400)•Now(sensitive(to(both(yaw)and)roll)•Can( be( difficult( to( determine( however(whether(indication(is(due(primarily(to(bank(or(yaw.)
+(((((((((((
+INSTRUMENTS)10)–)TERRESTRIAL)MAGNETISM)
+MAGNETIC)FIELD))•Space) around) the) magnet) in) which)magnetic)influence)is)felt.)
+EARTH’S)MAGNETIC)FIELD))•The(magnetic) meridian)is( the( horizontal(component(of(the(earth’s(field.)•A( freely( suspended( magnet( will( align( its(north( seeking( pole( with( the( magnetic(meridian.)•To( keep( our( convention( of( flux( flowing(North(to(South,(it(can(seen(we(must(imagine(the(magnet(to(be(turned(upside(down(within(the(earth.)•The( “earth’s( magnet”( is( slightly( curved( at(the(true(south(pole(=>)not)antiOpodal)
+MAGNETIC)FIELD)CHANGES))•Long)Term)(Secular))Changes)oMoves(approx(10(nm(/(yr)oPoles(swap(positions(every(10,000(yrs)•Short)Term)Changes)O)Predictable)oEarth’s(orbit(around(the(sun((annual))oIonosphere(height(changes((daily))•Short)Term)Changes)O)Random)oSolar(activity(
+TERRAIN)EFFECTS))•Due(to(terrain(magnetism,(magnetic(north(is(not)in)a)fixed)direction.)
+VARIATION))•Westerly(variation(described(as(–(ve)•Easterly(variation(described(as(+(ve)•Isogonal)joins(places(of(equal(variation)•Agonic)line(shows(zero(variation)
+MAGNETIC)DIP))•Total) Field) =) Horizontal) +) Vertical)Component)•The(Horizontal(component(is(the(“directive)force”)•The(vertical)component)causes)dip)•Dip( is( greatest( at( the( poles( where( the(horizontal( component( is( least( and( the(vertical(at(max.)•Isoclinals)–)Lines(of(equal(dip)•Aclinic)–(Line( of( zero( dip( (magnetic(equator))•When( the( horizontal( component( drops(below)6)micro)tesla,(the(compass(becomes(too(unreliable.)oOccurs(above(70(N/S)
+B/E)TYPE)DIRECT)READING)COMPASS))•Circular( compass( card( attached( directly( to(the(magnet(assembly.()
+
+((((((((((((
+INSTRUMENTS)10)–)TERRESTRIAL)MAGNETISM)
+REQUIREMENT)1)O)HORIZONTALITY))•Compass( is( kept( horizontal( by( means( of(pendulous)suspension.)•Centre(of(gravity(of(assembly(is(lower(than(the(supporting(pivot.)•When( magnetic( dip( (force( Z)( occurs,( the(weight( of( the(assembly(will( oppose( the(dip(moment(due(to(the(offset)CoG.)•The(result(of(this(is(that(residual)dip)(actual(dip(experience(by(compass)(is(less(than(the(dip(due(to(the(magnetic(vertical(component.))
+REQUIREMENT)2)O)SESNSITIVITY))•Improved(by(using)more)magnets(•Improved( by( keeping(pivot) friction) to) a)minimum.)•Must)be)within)±)100)
+REQUIREMENT)3)O)APERIODICITY))•Use)of)fluid)to)dampen)oscillations.)
+COMPASS)LIQUID)PROPERTIES))•Low(coefficient(of(expansion)•Low(viscosity)•Transparency)•Low(freezing(point)•High(boiling(point)•NonTcorrosiveness)•Good(lubrication)
+ACCELERATION)ERROR))•Due( to( magnetic( dip,( the(CoG) is) always)displaced)towards)the)equatorial)side)of)the)pivot.)•Inertia(causes(the(magnet(to(swing(around(it’s(pivot(point.)•In(NH,(acceleration)results)in)an)apparent)turn)towards)north.)•In( NH,( deceleration( results( in( an( apparent(turn(towards(south.)•Reserved(for(SH.)•Acceleration( in( north( /( south( results( in( no(error( however( due( to( no( turning( around(pivot.)
+ANDS)–)Accelerate)North)/)Decelerate)South)
+•Size)of)error(depends(on:)oHeading()oMagnitude(of(acceleration)oDesign(of(magnet(system)oMagnetic(latitude)
+TURNING)ERROR))•Centripetal)force)acts(on(pivot)•Centrifugal)force)acts(on(CG)o)Pull(GC(towards(outside(of(the(turn)•Error(is(max(when(turning(through(N(/(S(•Error(is(min(when(turning(through(E(/(W(•Error(increases(with(magnetic(latitude()
+
+(((((((((((((
+INSTRUMENTS)10)–)TERRESTRIAL)MAGNETISM)
+LIQUID)SWIRL))•Will( increase(turning( error( when( turning(through(the(nearer(pole.(•Will( decrease( turning( error( when( turning(through(the(further(pole.)•Liquid(in(compass(bowl(will(tend(to(swirl)in)the)same)direction)of)the)turn.)o)Like(turning(a(glass(full(of(water)
+TURNING)ERROR)–)NORTHERN)HEMIS))
+LIMITATIONS))•Errors)•Closeness(to(sources(of(deviation)•Self(contained(unit)oCannot( be( used( to( feed( readings( to(other(equipment.)
+
+((((((((((((((
+INSTRUMENTS)11)–)AIRCRAFT)MAGNETISM)
+DEVIATION))•Difference( between( compass( north( and(magnetic(north.)•Easterly(deviation(is(expressed(+(ve)•Westerly(deviation(is(expressed(T(ve)
+CAUSES)OF)DEVIATION))•Hard)Iron)Magnetism)(Permanent))oPermanently( present( throughout( the(flight)oNot(affected(by(heading(/(latitude()oEG/(Electrical(circuits)oCan( be( resolved( separately( on( the(longitudinal( (coefficient( B)( and( lateral((coefficient(C)(axis.)•Soft)Iron)Magnetism)(Temporary))oTemporary(by(nature)oInduced(from(flying(through(the(earth’s(
+COEFFICIENT)A))•Due(to(mechanical(misalignment(•Error(the(same(on(all(headings(
+COEFFICIENT)B))•Component( of( permanent( deviation(resolved(on(the(longitudinal)axis(•Maximum(on(East(/(West(Headings(•Zero(on(North(/(South(Headings(•B)=)BMAX)x)sin)(HDG))
+COEFFICIENT)C))•Component( of( permanent( deviation(resolved(on(the(lateral)axis(•Maximum(on(North(/(South(Headings(•Zero(on(East(/(West(Headings(•C)=)CMAX)x)cos)(HDG))
+CALCULATING)THE)COEFFICIENTS))•An( initial( compass( swing(takes( places( in(order(to(calculate(the(coefficients.)•A(datum) compass(is( used( to( align( the(aircraft(with(N(/(E(/(S(/(W.)•The( readings( of( the( aircraft( compass( are(then( noted( and( the( coefficients( are(calculated(as(follows:)
+POSTIVE)/)NEGATIVE)COEFFICIENTS))•Coefficient( A( is( positive( if( the( longitudinal(component(is(towards(the(nose.)•Coefficient(B(is(positive(towards(the(right.)
+
+(((((((((((((((
+INSTRUMENTS)11)–)AIRCRAFT)MAGNETISM)
+DEVIATION)ON)GIVEN)HEADING))A)+)BMAX)sin)(HDG))+)CMAX)cos)(HDG))
+RESIDUAL)DEVIATION))•Even( once( A,( B( and( C( have( been( ‘factored(out’( by( correcting( the( compass( there( will(still(be(some(unexplained)deviation.)•A( second( compass( swing( takes( place( with(the( aircraft( being( turned( through( 300(heading(intervals.)•A(compass) deviation) card(is( then( created(which(summarises(the(residual(deviation.)
+CORRECTING)THE)COMPASS))•Coefficient) A)is(corrected(for(by(physically(realigning(the(compass.)•Coefficient) B) &) C)are( corrected( by(introducing( a( compensating( magnetism( at(the(compass.)
+((((((((((((((((
+INSTRUMENTS)13)–)REMOTE)INDICATING)COMPASS)(RIC))
+REQUIREMENT))•The( RIC( is( an( attempt( at( taking( the( best( of(both(worlds(from(a(DIC(and(DG.)•Long)term)accuracy)of)the)DIC(–(retaining(alignment(with(magnetic(north.)•Short) term) accuracy) of) the)DG)–(unaffected(by(short(term(maneuvers.)
+LOCATION))•Installed(on(the(wings)/)tail)section(where(interference(from(aircraft(is(at(a(minimum.)•Compensation) circuit)can( be( fitted( to(counter( any( magnetism( that( may( remain(even(once(it(has(been(remotely(located.)
+DETECTION)UNIT)(FLUX)VALVE)))•Consists(of(three)flux)valve)legs.)•The(primary) coil)is( excited( with( an( AC(current( and( a( magnetic( flux( is( induced( in(both(the(A(and(B(legs.)•The( flux( in( each( leg( will( be( equal( in(magnitude(but(opposite(in(direction,(so(the(resultant(flux(is(zero.)•No) current(is( induced( in( the( secondary(pickTup(coil(due(to(zero(resultant(flux.)
+()•The(AC(frequency(used(is(carefully(chosen(to(bring(both(legs(just)short)of)saturation.)•When(the(earth’s(magnetic(field(is(present,(it(will( cause( one( of( the( legs( to( become(saturated.)•There(is(now(a(resultant(flux(present.)•An( EMF( is( now( induced( within( the(secondary( pickTup( coil( at( the( points( where(the(resultant) flux) changes((dips( in( green(line).(In(accordance(with(Faraday’s(law.)
+)•The(flux(valve(remains(stationary(when(the(aircraft(turns.)•When( aircrafts( heading( changes,( different(EMFs( are( induced( within( each( of( the( 3(secondary(windings.)
+SYNCHRONISATION))•EMF( changes( from( the( flux( valve( are(transferred( to( coils( on( a(selfsynchronous)(selsyn))unit(which(forms(part(of(the(error)detector.)•This( essentially(replicates(the( flux(detectors(output.)•The(error(detector(checks(the(position(of(the(HSI.)•If(it(detects(the(HSI(is(not(aligned(correctly,(it( operates( a(torque) motor(to( reTalign( the(gyro(as(required.)
+PENDULOUS)COMPENSATION))•The( detection( unit( is( suspended( from( a(Hooke’s)joint.)•Allows(freedom)of)250)in)pitch)and)roll.)•It( is(suspended( within( a( liquid( base( to(provide( damping( and( reduce( the( tilt( that(results(from(maneuvers.)
+DEVIATION))•Max)deviation:)±)10)
+(((((((((((((((((
+INSTRUMENTS)13)–)REMOTE)INDICATING)COMPASS)(RIC))
+MODES))•Slaved)oUses(the(remote(indicating(compass)oTorque( motor( and( leveling( switches(will(automatically(precess(the(gyro(at(a(rate(of(2(T4(degrees(per(minute.)•DG)Mode)oUsed(as(a(reversionary(mode(or(when(operating(close(to(magnetic(poles.)oA(slew(switch(is(used(to(align(the(HSI(manually(every(15(mins.(A(precession(rate(of(60(–(120(degrees(per(minute(is(used.)
+ANNUNCIATOR))•Deviates( from( vertical( alignment( when( HIS(is(not(aligned(with(selsyn(unit.)•AutoTalignment(occurs(in(slaved(mode.)
+ADVANTAGES))•Reduced(deviation)•Reduced(turning(and(acceleration(errors)•Improved(presentation)•Power(output(of(heading)
+DISADVANTAGES))•AC(power(required)•Heavier)•More(expensive)•More(complex(to(maintain)
+SLEW)SWITCH))•As(well(as(using(the(slew(switch(when(in(DG(mode,( it( can( be( used( in( slaved( mode( as( a(fast)erect)method.)•This(is( used(when(manually( reTaligning(the(gyro( in( case( of( gross( misalignment( /((toppling(after(maneuvers(or(on(startTup(for(example.)
+((((((((((((((((((
+INSTRUMENTS)14)–)AIR)DATA)COMPUTER)&)SENSORS)
+AIR)DATA)COMPUTER)ARCHITECTURE)))
+TRANSDUCER))•Device( that(converts) mechanical) /) physical)changes)into)an)electrical)signal.)
+ANALOGUE)/)DIGITAL)CONVERTER)(A/DC)))•Device(that(converts)an)electrical)signal)into)a)digital)output.)
+ADC)REDUNDANCY))•Captain(and(F/O(have(a(separate)ADC(each.)•Each(ADC(is(fed(by(a(separate(set(of(probes.)•In(case(of(discrepancy,(readings(can(be(checked(against( the(standby) instruments(to( confirm(which(ADC(is(functioning(correctly.)oSelector(can(then(be(changed(from(BOTH(to(either(ADC(1(or(ADC(2(as(appropriate.)
+ADC)ADVANATGES))•Improved(displays)•Reduced(instrument(and(lag(error)•Error(correction)•Central(source(for(other(systems)•Clean(design(/(less(maintenance)•Failure(warning)•Modular(replacement(is(possible)
+TEMPERATURE)SENSING)
+HELICAL)BIOMETALLIC)SENSOR))•One( metal( will( expand( more( than( the( other(when(temperature(increases.)•When(wound(into(a(coil(and(fixed(at(one(end,(a(temperature(change(will(cause(it(to(rotate.)•Used(on(small(aircraft(that(do(not(need(to(take(into(account(ram(rise.)
+TAT)PROBE))•Sensing)element)acts(as(a(transducer.)•Radiation)shield)stops(heating(from(the(sun.)•DeOIcing)Heaters)prevent(icing(effects.)(•When( stationary,(engine) bleed) air)is( used( to(induce(an(airflow(into(the(probe.)
+)•The(electrical(output(could(be(interpreted(using(a(Wheatstone(Bridge(design(but(this(requires)a(constant)supply(voltage.)•Instead,(a(ratiometer)thermometer)is(used.)oSupply(voltage(variations(affect(both(coils)oOutput( from( probe( will( change( magnetic(field(around(the(right(coil(thus(causing(the(magnetic(indicator(to(move.)oSubject(to(small(vibrations(in(flight)
+
+(((((((((((((((((((
+INSTRUMENTS)14)–)AIR)DATA)COMPUTER)&)SENSORS)
+SAT,)TAT)AND)RAT))•SAT((Static(Air(Temperature)(is(the(temperature(of(the(free)stream)air(that(we(want(to(measure.)•Due(to(compressibility(at(high(speeds,(there(is(an( increase( in( temperature( due( to(adiabatic)heating.)This(is(known(as(the(Ram)Rise((RR).)•TAT)=)SAT)+)RR((Where(TAT(=(Total(Air(Temp)))•Imperfections(in(probe(mean(it(does(not(pick(up(all(the(ram(rise(however.(The(amount(picked(up(by(the(probe(is(the(MMR)(measured)ram)rise))•The) Recovery) Factor)(Kr))is(the(ability(of(the(probe(to(pick(up(ram(rise.)•MRR)=)Kr)x)RR)(Where(Kr(<(1(|(Usually(0.8)))•The( temperature( as( sensed( by( the( probe( is(called(the(Ram)Air)Temperature)(RAT):)•RAT)=)SAT)+)MRR)
+RAM)RISE)RULE)OF)THUMB))!!!≈!!!"#!""!!)
+CORRECTION)FORMULA))!"#!"!=!!!+(!.!!!!)))!"#!"#=!!!+(!.!!!!!!!)))Temperature)must)be)in)Kelvin)(K))
+ERRORS)IN)TEMPERATURE)MEASURING))•Instrument)Error)oManufacturing(imperfections.)•Environmental)Errors)oSolar(heating(/(ice(accretion.)•Heating)Errors)oRam(Rise( or( frictional( effects( of( being( too(close(to(aircraft(skin.)
+ANGLE)OF)ATTACK)SENSORS)
+ERRORS)IN)TEMPERATURE)MEASURING))•Vane)Type)oOrientates(freely(with(relative(airflow)•Pressure)Differential)Type)•Conical)Probe)Type)oCone( will( rotate( in( order( to( equalize(pressure)
+STALL)WARNING))•Activates)when)within)5%)of)stall)speed)or)5)kts,)whichever)is)greater.)
+STALL)WARNING)SYSTEM))•Warns)flight)crew)of)an)impending)stall.)oStick(Shaker)oAudible(Warning)oWarning(Display)
+STALL)PROTECTION)SYSTEM))•Prevents)the)stall)from)occurring.)•Operates( on(activation) of) the) stall) warning)system.)•Manual)Flight)/)Autopilot)System)oStick(Push)oAuto(deployment(of(leading(edge(devices)•Fly)By)Wire)System)oAP(+(AT(used(to(maintain(appropriate(pitch(attitude(and(keep(speed(above(stall(speed.)
+((((((((((((((((((((
+INSTRUMENTS)15)–)RADIO)ALTIMETER)
+PURPOSE))•Measures( the(height) /) distance) of) aircraft)above)the)ground.)•By(comparison,(the(pressure(altimeter(measures(distance(from(a(set(datum(and(not(the(ground.)•Can(be(used( to(provide(AGL(height( and( rate(of(height(change(to(other(aircraft(systems.()
+PULSE)VS)CONTINOUS)RADAR))•Pulse(radar(has(one)antenna(for(both(receiving(and(transmitting.(It(cannot(do(both(at(the(same(time.(•At( low( altitude,( a( reflection( may(return( to( the(aircraft(before(it(has(switched(to(RX(mode,(thus(missing(the(return.))•Continuous(radar(uses(two)antenna((one(to(TX(and(one(to(RX),(thus(overcoming(this(problem.)
+FMCW)OPERATION))•As( a( continuous( transmission( is( used,( some(method( of( distinguishing( between( returns( is(required.))•Radio( altimeter( transmissions( are( of( the(frequency)modulated)continuous)wave)type.)•Carrier)Wave)=)4300)MHz)(SHF))•FM)Modulated)with)50)MHz)oProduces(a(100(MHz(bandwidth(o4250(–(4350(MHz(•The(time) difference(between( the( transmitted(and( received( frequency( is( measured( to( give(distance.(
+MODULATION)SWEEP)RATE))•If( t1(is( the( time( a( particular( frequency( is(transmitted,(this(will(be(returned(to(the(aircraft(at(both(t2(and(t3(•An(equal)frequency)is(said(to(exist.(•The( time( gap( between( t2(and( t3(needs( to( be(prevented( from( coming( too( close( otherwise(ambiguity(as(to(the(correct(signal(will(exist.((•The(modulation) sweep) rate(is( essentially( the(time(taken(to(complete(one(cycle(•A(low(sweep(rate((longer(time(period)(is(used(to(increase(the(distance(between(t2(and(t3(•Typically)a)sweep)rate)of)0.01s)is)used.)
+DEPTH)OF)MODULATION))•This( is( the( bandwidth( that( results( from(frequency(modulation.(•A(large)depth)of)modulation(is(used(to(prevent(apparent( changes( in( frequency( due( to( the(Doppler)effect.(
+CONE)EMISSION))•In(a(turn,(if(only(one(vertically(aligned(antenna(is(used(the(distance(measured(will(be(greater(than(in(reality(and(an(overTread(will(occur.))•Multiple(antennas(are(used(to(sense(the(return(that(provides(the(lowest(height.)•This( cone( emission( provides( accurate( readings(up(to(±)400)bank)and)±250)in)pitch)
+
+(((((((((((((((((((((
+INSTRUMENTS)16)–)INERTIAL)NAVIGATION)
+INTRODUCTION))•Allows( navigation(independent) of) any)external)aids.(•INS)=)Inertial)Navigation)System)•Given(a(known( starting(point( plus(the( distance(and( direction( travelled,( our( position( can( be(obtained.)•Accelerometers)measure( the( distance( and(direction(travelled.)•IRS)=)Inertial)Reference)System)oINS(+(Attitude(&(Heading(Info(+(Display)
+REDUNDANCY))•2(IRSs(are(installed(for(redundancy.)•Left(IRS(utilised(by(left(FMC.)•Right(IRS(utilised(by(right(FMC)
+STABILISED)PLATFORM))•3)Accelerometers)aligned:)oN/S)oE/W)oVertical)•3)Rate)Integrating)Gyro’s)oSense( displacement( and( drive( torque(motors( as( required( to( ensure(accelerometers(remain(aligned.)•)3)Torque)Motors))•Stabilised(platform(is(orientated(to(true)north)
+RATE)INTEGRATING)GYRO)(RIG)))•A( normal( gyro( (as( fitted( in( a( turn( indicator)(measured(the(rate(of(movement.)•Rate( integrating( gyro(measures) amount) of)movement.)•2(cylinders(are(separated(by(a(viscous)fluid)
+VISCOUS)FLUID))•Allows(for(cylinder)rotation(•Provides( a(calibrated) resistance((like( the(spring(in(a(turn(indicator)(•The(viscous(fluid(is(only(calibrated(when(at(the(correct)temperature.)oWhen(the(gyro’s(are(spun(up,(friction(force(heats(the(fluid(to(the(correct(temperature.)
+GAIN)EFFECT))•The( movement( in( the( input( axis( is(amplified(and(a(large(movement(in(the(output(axis(results.)•This( is(transferred) to) the) torque) motors(which(ensure(the(platform(remains(stabilised.)
+RIG)PROCESS))•Force(applied((F1))•Precession(Occurs((P1))•Reactionary(force(from(viscous(fluid((RF))•Reactionary(precession((RP))•Gyro(cannot(tilt(but(can(only(roll(to(an(equal(and(opposite(force(must(be(applied((F2))•This(is(precessed(and(gyro(movement(is(stopped((P2))
+1ST)GENERATION)INS)
+((((((((((((((((((((((
+INSTRUMENTS)16)–)INERTIAL)NAVIGATION)
+RING)LASER)GYRO)ADVANTAGES))•Reduced(spin(up(time)•Insensitive(to(GTForce)•Small(Size)•Lower(power(consumption)•Greater(MTBF((Mean(time(between(failures))
+RING)LASER)GYRO)DISADVANTAGES))•Laser(lock((prevented(with(dither(motor))•Drift(caused(by(imperfections(in(mirror)
+(((((((((((((((((((((((
+INSTRUMENTS)16)–)INERTIAL)NAVIGATION)
+STBY)CONTROL))•This(is(the(caging(stage(of(the(alignment(process.)•Only(present(on(systems(with(RIGs.)•RLGs(do(not(need(to(be(caged.)
+LATITUDE)LIMITS)DURING)ALIGNMENT))•Topple(is(greatest(at(the(equator((due(to(greater(earth(rotation)(but(negligible(at(the(poles.)•Alignment)not)possible)above)70)N/S(as(gyro(compassing(is(ineffective.)
+POSITION)ENTER)‘DOUBLE)CHECKS’))•When( shutdown,( the( INS( remembers( it’s( last(position.)•If(on(next(alignment(a(LAT(/(LONG(is(input(that(differs( from( this,( it(will( ask( you( to(reTenter( the(LAT(/(LONG(as(a(double(check.)(•The( gyro’s( can( sense( topple( and( compute( the(aircraft’s(latitude.)•If(a(different(latitude(is(entered,(it(will(ask(you(to(reTenter(the(LAT(/(LONG.)•If( the( latitude( still( differs( on( the( second( input,(the(system(will(not(enter(NAV(mode.)
+WANDER)PLATFORM))•The(1st(generation(INS(suffers(from(errors(when(operating(near(to(the(poles.(•Near( the( poles,( the( stabilised( platform( will( be(continuously(reTaligned(with(true(north.(•This(results(in(gimballing(errors.((•The(initial(displacement(from(true(north(can(be(calculated(during(the(alignment.(•Instead(of(continuously(reTaligning(the(platform,(the( initial( ‘error’( can( be( factored( into( the(outputs(and(the(correct(readings(obtained.(•Requires( more( computing( power( but( allows(more(reliable(navigation(in(polar(regions.(
+2ND)GENERATION)–)WANDER)PLATFORM)
+3RD)GENERATION)–)STRAPDOWN)PLATFORM)
+STRAPDOWN)PLATFORM))•This( above( principle( is( taken( one( step( further(and(used(to(correct(for(platform(‘tilt’.(•There(are(now(no)torque)motors)or)platform)required.)•A(box(containing(3)accelerometers)and)3)RLGs(is(strapped(down(to(the(aircraft.(
+INTERTIAL)REFERENCE)SYSTEMS))•This( 3rd(generation( marks( the(beginning( of( the(IRS(system.(•INS(=(Stabilised(/(Wander(Platform(+(RIGs(•IRS(=(Strapdown(System(+(RLGs(
+INTERTIAL)REFERENCE)SYSTEM)
+REDUNDANCY))•2)IRS)units(are(installed(to(redundancy.(•Should(the(axis(in(one(IRS(fail,(the(axis(from(the(other(IRS(can(be(used.(•Failure( of( the( same( axis( in( both( units( can( be(overcome(by(tilting(the(unit(450(
+INOFLIGHT)RE)ALIGNMENT))•Aircraft( fitted( with( GPS( can( reTalign( to( IRS( in(flight(if(required.(
+ADIRU))•Air)Data)Inertial)Reference)Unit)•ADIRU(=(IRS(+(ADC)(•The(IRS(provides(HDG,(TRK(&(G/S(Inputs)•The(ADC(provides(TAS)•Wind(can( now(be(calculated(be( the(ADIRU(and(the( complete( set( of( components( in( the( wind(triangle(is(obtained.()
+LONGITUDE)CALCULATION))•Since( our( distance( is( obtained( via( the( 2nd(integration,(the)departure)formula)is)used)by)the)IRS(to(calculate(the(change(in(longitude(and(obtain( the( correct( LAT( /( LONG( at( any( given(moment(in(time,)•CH(Long(=(Departure(/(cos((lat))
+ALIGNMENT)TIMES))•INS(=(15(Minutes)•IRS(=(10(Minutes)
+((((((((((((((((((((((((
+INSTRUMENTS)16)–)INERTIAL)NAVIGATION)
+IRS)CORRECTIONS))•Coriolis)Effect)oAdjusting( for( the( different( rotational(velocities(at(different(latitudes.))•Centripetal)Effect)oWithout( adjusting( for( the( centripetal( effect((as( the( aircraft( follows( the( curvature( of( the(earth)(the(IRS(will(think(the(aircraft(is(higher(than(it(really(is.))•Schuler)Oscillation)oThe( IRS( position( is( adjusted( for( oscillation(which(occurs(with(a(period(of(84.4(mins.))•Transport)Wander)•Earth)Rotation)
+IRS)ERRORS))•Total)Error)=)Bounded)+)Unbounded)Errors))•Bounded)(Remain(constant(with(time))oInitial(Leveling(Error)o1st(Integration(Error(oFaulty(Accelerometers((•Unbounded)(Get(worse(with(time))oInitial(Alignment(Error)o2nd(Integration(Error)oGyro(Drift)
+TRUE)/)MAGNETIC)HEADING))•An)AUTO) /) MAN)switch( is( provided( to( select(between( true( heading( or( magnetic( heading(output(from(the(IRS.)•In( AUTO( mode,( magnetic( heading( is( used(operating( away( from( the( poles.( The( IRS( uses( a(variation) database(to( convert( from( True( to(Magnetic.)•When( within( a( certain(radius( of( true( north,(heading(output(is(automatically(changed(to(true.)•When( within( an( inner( ‘key( hole’,( MAN( mode(should(be(selected(to(force(true(heading.)
+MODE)SELECTOR)UNIT)(MSU)))•STBY(–(Caging(and(POS(ENTER)•ALIGN)–(Levelling(&(Gyro(Compassing)•READY)NAV)illuminates(once(align(complete)•NAV)–)Selected(after(alignment(and(system(now(ready(to(use.))•ATT)–)Uses( the( gyro’s( to( provide( attitude(information(only(to(instrumentation.(Used(if(IRS(computers( fail( preventing( full( normal( NAV(functioning.)•BATT)–)In(event(of(electrical(failure,(IRS(will(use(it’s( own( battery.( Illuminates( when( the( IRS(battery(is(about(to(die.)))))()
+ADIRU)CONTROLS)
+
+(((((((((((((((((((((((((
+INSTRUMENTS)16)–)INERTIAL)NAVIGATION)
+CONTROL)DISPLAY)UNIT)(CDU)))•TK/GS)–(Track(&(Groundspeed)•HDG)/)DA)–)Heading(&(Drift(Angle)•XTK) /) TKE)–(Cross( Track(Dist( &( Track( Error(Angle)•POS)–)Present(LAT(/(LONG)•WPT)–)Waypoint(Display)•DIS)/)TIME)–)Distance(&(Time((To(next(WP))•WIND)•DSR) TK) /) STS)–)Desired( TRK( (To( next( WP)( &(System(Status(Code))•AUTO) /) MAN(–(Toggles( between( automatic(waypoint(advancing(or(manual.)oMAN(used(to(overfly(a(waypoint)•TK)CHG)–(Allows(manual(selection(of(next(WP))•ALERT)–(Illuminates(2(mins(before(next(WP)•BATT)–(Illuminates(when(running(on(BATT)•WARN)–(Illuminates(when(a(fault(exists))))()
+
+((((((((((((((((((((((((((
+INSTRUMENTS)17)–)FLIGHT)MANAGEMENT)SYSTEM)
+INPUTS)AND)OUTPUTS))•At) the) heart) of) the) FMS) is) the) FMC)(Flight(Management(Computer))•The( FMC(communicates) with) multiple) other)systems(as(in(the(diagram(below.)())))()
+FMS)ARCHITECTURE))•The( FMS( is( comprised( of( two( FMCs( for(redundancy.((•The(FMS(can(operate(in(several(modes.(•DUAL)–)FMC’s(are(in(sync.)•Independent)–)No( communication( between(FMCs)•Single)–)Only(one(FMC(operational)))))()
+COMPOSITE)FIX))•The( FMC( will( compute( the( position( of( the(aircraft(by(taking(inputs(from(the(IRS,(GPS,(DME(and(VOR(fixes.)•IRS( position( is( very( accurate( initially( but( then(decreases(with(time.)•For( the(other( inputs,( GPS( is( the( most( accurate,(followed(by(DME(then(VOR.)•During( earlier( stages( of( the( flight,( more( weight(is(given(to(the(IRS(and(GPS(position(and(in(latter(stages(more(weight(is(given(to(the(GPS,(VOR(and(DME(positions.)•A(kalman) filter(is(used( to( apply( the( correct(weightings(and(derive(a(composite)fix.)•The(system(will(also(indicate(the(accuracy(of(the(aircraft(position(at(any(moment(in(time.(This(is(knows( as( the(ANP) (Actual) Navigation)Performance)))•IRS(+(GPS(+(DME(+(VOR(TTT>(Kalman(Filter(TTTT>(Composite(Fix(TTTT>(ANP(
+AREA)NAVIATION)(RONAV)))•Area( navigation( is( navigation( that( is( not(restricted( to( flying( from( ground( based( aid( to(ground(based(aid.)•Ghost) waypoints(can( be( created( via( LAT( /(LONG,(VOR/VOR(or(VOR/DME(fixes.)
+REQUIRED)NAVIGATION)PERFORMANCE))•Each(block(of(airspace(will(have(a(published(RNP(value.)•To( operate( within( the( airspace( using( area(navigation,( the(ANP) must) be) less) than) the)RNP.)
+BORNAV)&)PORNAV)STANDARDS))•BORNAV)(Basic)Area)Nav)(=(RNP(of(5(miles)•PORNAV)(Precision)Area)Nav)(=(RNP(of(1(mile)
+COST)INDEX))•Fuel(vs(Everything(Else((Flight(Time))•Cheap(Fuel(=(High(CI(=(Fly(Fast)•Expensive(Fuel(=(Low(CI(=(Fly(Slow))•Low(CI(for(max(range)
+EFIS)DISPLAYS))•Boeing(=(EADI(&(EHSI)•Airbus(=(PFD(&(ND)
+FLIGHT)DIRECTORS))•V(Bar((Single(Cue)(•Cross(Bar((Split(Cue)(
+(((((((((((((((((((((((((((
+INSTRUMENTS)17)–)FLIGHT)MANAGEMENT)SYSTEM)
+EHSI)MODES))•MAP)(TRK(/(HDG(Up))•EXP)NAV)(CDI(+(MAP)()•PLAN)(North(Up))•FULL)NAV)(HSI))
+EFIS)COLOURS))•GREEN)–)Low(Priority)•WHITE)–)Scales(&(present(status(info)•MAGENTA)–(Command(Information)•CYAN)–)Off(Route(Waypoints)•RED)–)Warnings)•YELLOW)–(Cautions)•BLACK)–(Blank(Areas)
+((((((((((((((((((((((((((((
+INSTRUMENTS)1)–)INTRODUCTION)TO)AFCS)
+AFCS))•Automatic)Flight)Control)System)•AFCS(=(A/P(+(A/T(+(FD)
+CONTROL)LOOPS))•Closed(loops(have(feedback))•Outer)Loop)=)FD)oControls(flight(guidance)•Inner)Loop)=)Autopilot)oControls(attitude((pitch(+(roll)))•The( flight( director( essentially( decides( on( the(target( attitude( and( the( autopilot( actually( flies(the(target(attitude.(
+CLOSED)VS)OPEN)LOOPS))•Closed(loops(have(feedback)•Outer)Loop)=)FD)oControls(flight(guidance)•Inner)Loop)=)Autopilot)oControls(attitude((pitch(+(roll))
+Loop)Combinations)Inner)Outer)Mode)✗(✗(Hand(Flying(✗(✓(HF(with(FD(✓(✓(Autoflight(✓ ✗(CWS((
+FMA’s))•GREEN(=(Active)•WHITE(=(Armed)•Once(made(active,(the(FMA(is(boxed(for(10s)
+MODE)ENTRY))•Manually(–(MCP(Selection)•Automatically)–(ALT(AQR(T>(ALT(HOLD)•PreOArming)–(Manually( armed( then(automatically(engaged((VOR(LOC))
+MODE)EXIT))•Press(mode(select(a(second(time)•Enter(a(different(mode)
+FD)FUNCTIONALITY))•FD(Display)•FD(Control(Panel)•FD(Computer)
+AUTOTHROTLLE))•Controls(speed)and)thrust(•At( 64( kts,( servos( disengage( and( THR( HOLD( is(entered( in( order( to( prevent( servo’s( moving(throttle(in(case(of(RTO.()
+
+(((((((((((((((((((((((((((((
+INSTRUMENTS)–)AUTOPILOT)MODES)
+LEVEL)CHANGE))
+VERTICAL)SPEED)
+SPEED)REVERSION))•Speed)too)low)•Can(occur(during(a(VS(climb(with(a(too(high(ROC(selected.))•Cautionary) Range)–(Yellow(speed(range(on(speed(tape.(Top(of(range(is(1.3(VS))•Red) Bricks)–(Critical( angle( of(attack))•Speed(reversion(is(triggered(when(airspeed(falls(into(the(cautionary(range.)oSpeed(box(turns(amber)oMCP(speed(window(shows(flashing(‘A’)oA/T(=(N1((((|(((A/P(=(MCP(SPD)oAircraft(will(pitch(to(give(5) kts) above) the)cautionary)range)oOnce( pilot( has( intervened( and( aircraft(accelerates(15) kts) clear(of( the( cautionary(range,(the(flashing(A(disappears.)
+SPEED)LIMITING))•Speed)too)high)•Can( occur( during( a( VS( descent( with( a( too( high(ROD(selected.))•Red)Bricks)–(VMO(/(MMO))))•Speed( limiting( is( triggered( when( airspeed( falls(into(the(cautionary(range.)oFlashing(block(in(MCP()oMCP(speed(window(shows(flashing(block)oClacker(sounds)oA/T(=(RETARD((((|(((A/P(=(MCP(SPD)oAircraft( will( pitch( to( give( 5( kts( below( the(red(bricks)
+
+((((((((((((((((((((((((((((((
+INSTRUMENTS)–)AUTOPILOT)
+AXIS)CONTROL))•Controls(the(pitch)and)roll)axis)•Yaw(damper((separate(system)(controls(yaw)
+SINGLE)PILOT)IFR))•Requires(a(minimum(of:)oAltitude(Hold)oHeading(Hold)
+AUTOPILOT)TYPES))•Standard)O(In(the(event(of(failure,(full(control(is(handed(back(to(the(pilots.))•Operational)–(BuiltTin(redundancy)
+PREVENTING)CONTROL)RUNWAY))•Biggest)danger)with(a(single)autopilot)system))•Authority)Weighting)o)Manual( inputs( are( given( more( weighting(than(autopilot(inputs(so(it(can(be(forcefully(overcome(if(required.))•Comparators)o)If(sensors(feel(a(movement(in(a(plane(that(is(opposite( to( the( actuator( movement,( the(system(is(disconnected.))•Rate)Triggers)o)System( disconnected( when( a( too( rapid(change(in(aircraft(attitude(is(sensed.)
+OTHER)AUTOPILOT)SYSTEM)TYPES))•Duplex)System)o)Not(possible(to(determine(whether(AP1(or(AP2(has(failed.))•Duplex)System)(With)Cross)Coupling))o)AP1( monitors( AP2’s( actuators( and( viceTversa.)o(When(runway(is(sensed,(the(system(in(that(axis(can(now(be(disconnected.)o(Since(control(is(handed(back(to(the(pilot(in(that(axis(this(is(a(standard(autopilot.())•Triplex)System)o)Contains(AP1,(AP2(and(AP3)o(Allows( a( majority( vote( to( be( cast( and( the(faulty(autopilot(disconnected)(•(PseudoOTriplex)o)Adding(a(third(autopilot(is(very(heavy(and(expensive(however.)o(A(computer(is(added(which(can(determine(the( faulty(autopilot( and(disconnect( it( from(the(system.)
+SERVOMECHANISM))•Sense) a) small) movement) and) create) a) large)output)by)applying)gain.)
+SERVOMECHANISM)
+RESPONSE)TIME))•High)Gain)=)Fast)Response)(Lightly)Damped))oOscillates(too(much))•Low)Gain)=)Slow)Response)(Heavily)Damped))oTakes(too(long))•Critical)Gain)oBalance(of(high(and(low(gain)oHighest(gain(that(results(in(no(oscillation))•Optimal)Gain)oCritical(gain(is(still(too(slow)oOptimal( allows( a( slight( but( acceptable(overshoot)
+
+(((((((((((((((((((((((((((((((
+INSTRUMENTS)–)AUTOPILOT)
+GAIN)CONSTANT))Error)x)K)=)Input)(•K(is(the(constant(set(by(the(system(to(determine(to(gain(applied.((•If(K(does(not(vary(=(Constant)System(•If(K(varies(=(Variable)System(oUsed(to(reduce(gain(when(near(to(VOR(for(example.((()
+SERVOOACTUATOR)TYPES)(•Pnuematic(•Mechanical(•System(
+TRIM)RUNAWAY)(•Prevented(by(use(of(two)switches(
+TRIM)SYSTEM)
+STAB)CUTOOFF)SWITCHES)(•Can(be(used(to(disconnect(the(pitch( trim(in(the(event(of(runaway(occurring.)
+AUTOOTRIM)(•When(autopilot(is(in(operation,(autoTtrim(takes(place(in(pitch)only))•Reduces) control) surface) deflection(thus(increasing(efficiency)•Prevents(control) snatch(when( A/P(disconnected))•Fitted(in(parallel)to(servo(control(and(actuators)•If( manual( pitch( trim( is( used( whilst( A/P( is(engaged(the(autopilot(will(be(disconnected)
+MACH)TRIM)(•Helps(prevent(mach)tuck)•As( mach( number( increases,( a( small( amount( of(pitch(up(trim(is(gradually(applied.)
+AUTOPILOT)SYNCRONISATION)(•Allows(for(smooth)engagement)of(the(autopilot)•Prevents(control(snatching)
+INTERLOCKS)(•Set( of(required) parameters(needed( for(autopilot(engagement(and(continued(operation.)
+AUTOPILOT)SELECTION)(•Selection( of( AP2( will( disengage( AP1( unless( in(approach(mode.()
+TOUCH)CONTROL)STEERING)(TCS))(•AFCS(remains)syncronised)during)maneuvers(unlike(CWS.()
+((((((((((((((((((((((((((((((((
+INSTRUMENTS)–)GPWS)
+Mode)Purpose)Warnings)Mode(1(Excessive(Descent(Rate(SINK(RATE(/(WOOP(WOOP(PULL(UP(Mode(2(Excessive((Rising)(Terrain(Closure(TERRAIN(/(WOOP(WOOP(PULL(UP(Mode(3(TOGA(Height(Loss(DON’T(SINK(Mode(4(Terrain(Clearance((Not(in(landing(config)(TOO(LOW(GEAR((4A)(&(TOO(LOW(FLAPS((4B)(/(TOO(LOW(TERRAIN(Mode(5(Glideslope(Deviation(GLIDESLOPE(Mode(6(Advisory(Callouts(ONE(THOUSAND(/(MINIMUMS(/(BANK(ANGLE(Mode(7(Windshear(CAUTION(WINDSHEAR(/(WINDSHEAR((
+WARNING)TYPES)(•Mandatory(Aural(Warnings(•Optional((Additional)(Visual(Warnings(
+SYSTEM)INPUTS)(•Received(from(ADC)
+GPWS)RANGE)(•Ground(–(2500(ft)
+(((((((((((((((((((((((((((((((((((
+INSTRUMENTS)–)AUTOLAND)
+AUTOPILOT)FAILURES)(Fail(Operational(V(Fail(Passive(V(Manual(Flight(
+AUTOLAND)PROCEDURE)(
+

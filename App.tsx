@@ -64,6 +64,23 @@ import EmergencyProcedures from './components/EmergencyProcedures';
 
 import HydraulicSystemAnim from './components/AGK/HydraulicSystemAnim';
 import JetEnginePrinciples from './components/AGK/JetEnginePrinciples';
+import InstrumentationDashboard from './components/Instrumentation/InstrumentationDashboard';
+import PitotStaticSystem from './components/Instrumentation/PitotStaticSystem';
+import InstAltimeterLab from './components/Instrumentation/AltimeterLab';
+import AirspeedIndicator from './components/Instrumentation/AirspeedIndicator';
+import VSILab from './components/Instrumentation/VSILab';
+import Machmeter from './components/Instrumentation/Machmeter';
+import GyroPrinciples from './components/Instrumentation/GyroPrinciples';
+import TurnIndicator from './components/Instrumentation/TurnIndicator';
+import DirectionalGyro from './components/Instrumentation/DirectionalGyro';
+import AttitudeIndicator from './components/Instrumentation/AttitudeIndicator';
+import MagneticCompass from './components/Instrumentation/MagneticCompass';
+import RadioAltimeter from './components/Instrumentation/RadioAltimeter';
+import NavigationSystems from './components/Instrumentation/NavigationSystems';
+import FMSEFIS from './components/Instrumentation/FMSEFIS';
+import GPWSSystem from './components/Instrumentation/GPWSSystem';
+import AutopilotSystem from './components/Instrumentation/AutopilotSystem';
+import AutolandSystem from './components/Instrumentation/AutolandSystem';
 import MassBalanceDashboard from './components/MassBal/MassBalanceDashboard';
 import WeighingProcedure from './components/MassBal/WeighingProcedure';
 import MassDefinitions from './components/MassBal/MassDefinitions';
@@ -77,6 +94,13 @@ import MassBuildUpFlow from './components/MassBal/MassBuildUpFlow';
 import TrimSheetSim from './components/MassBal/TrimSheetSim';
 import CGShiftVisualizer from './components/MassBal/CGShiftVisualizer';
 import UnitConverter from './components/MassBal/UnitConverter';
+import MassEffects from './components/MassBal/MassEffects';
+import CGEffects from './components/MassBal/CGEffects';
+import StructuralLimits from './components/MassBal/StructuralLimits';
+import StallSpeedCalc from './components/MassBal/StallSpeedCalc';
+import FleetMasses from './components/MassBal/FleetMasses';
+import CargoTypes from './components/MassBal/CargoTypes';
+import StandardMasses from './components/MassBal/StandardMasses';
 import HumanPhysiology from './components/HPL/HumanPhysiology';
 import HumanFactorsIntro from './components/HPL/HumanFactorsIntro';
 import SleepAndRhythms from './components/HPL/SleepAndRhythms';
@@ -934,7 +958,24 @@ const App: React.FC = () => {
                             {currentView === View.AGK_HYDRAULICS && <HydraulicSystemAnim />}
                             {currentView === View.AGK_JET_ENGINE && <JetEnginePrinciples />}
 
-
+                            {/* Instrumentation (022) */}
+                            {currentView === View.INST_HOME && <InstrumentationDashboard onChangeView={navigateTo} isLocked={!isSubjectAllowed('022')} />}
+                            {currentView === View.INST_PITOT_STATIC && <PitotStaticSystem />}
+                            {currentView === View.INST_ALTIMETER && <InstAltimeterLab />}
+                            {currentView === View.INST_ASI && <AirspeedIndicator />}
+                            {currentView === View.INST_VSI && <VSILab />}
+                            {currentView === View.INST_MACHMETER && <Machmeter />}
+                            {currentView === View.INST_GYROS && <GyroPrinciples />}
+                            {currentView === View.INST_TURN_INDICATOR && <TurnIndicator />}
+                            {currentView === View.INST_DG && <DirectionalGyro />}
+                            {currentView === View.INST_ATTITUDE && <AttitudeIndicator />}
+                            {currentView === View.INST_COMPASS && <MagneticCompass />}
+                            {currentView === View.INST_RADIO_ALT && <RadioAltimeter />}
+                            {currentView === View.INST_NAV_SYSTEMS && <NavigationSystems />}
+                            {currentView === View.INST_FMS_EFIS && <FMSEFIS />}
+                            {currentView === View.INST_GPWS && <GPWSSystem />}
+                            {currentView === View.INST_AUTOPILOT && <AutopilotSystem />}
+                            {currentView === View.INST_AUTOLAND && <AutolandSystem />}
 
                             {/* HPL */}
                             {currentView === View.HPL_HOME && (
@@ -1238,6 +1279,13 @@ const App: React.FC = () => {
                             {currentView === View.MASS_BAL_TRIM_SHEET && <TrimSheetSim />}
                             {currentView === View.MASS_BAL_CG_SHIFT && <CGShiftVisualizer />}
                             {currentView === View.MASS_BAL_CONVERTER && <UnitConverter />}
+                            {currentView === View.MASS_BAL_EFFECTS && <MassEffects />}
+                            {currentView === View.MASS_BAL_CG_EFFECTS && <CGEffects />}
+                            {currentView === View.MASS_BAL_STRUCTURAL && <StructuralLimits />}
+                            {currentView === View.MASS_BAL_STALL_SPEED && <StallSpeedCalc />}
+                            {currentView === View.MASS_BAL_FLEET && <FleetMasses />}
+                            {currentView === View.MASS_BAL_CARGO_TYPES && <CargoTypes />}
+                            {currentView === View.MASS_BAL_STD_MASSES && <StandardMasses />}
 
                             {currentView === View.OPS_PROC_HOME && (
                                 <GenericSubjectDashboard

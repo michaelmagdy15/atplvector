@@ -78,6 +78,48 @@ const MassBalanceDashboard: React.FC<{ onNavigate: (view: View) => void; isLocke
                     desc: 'Mass (kg/lb) and Volume (L/Gal) conversions.',
                     view: View.MASS_BAL_CONVERTER,
                     isLocked
+                },
+                {
+                    title: 'Effects of Mass',
+                    desc: 'How increased weight affects performance and stall speed.',
+                    view: View.MASS_BAL_EFFECTS,
+                    isLocked
+                },
+                {
+                    title: 'CG Position Effects',
+                    desc: 'Forward vs Aft CG and their effects on handling.',
+                    view: View.MASS_BAL_CG_EFFECTS,
+                    isLocked
+                },
+                {
+                    title: 'Structural Limits',
+                    desc: 'MSTOM, MSLM, MZFM, RTOM, RLM explained visually.',
+                    view: View.MASS_BAL_STRUCTURAL,
+                    isLocked
+                },
+                {
+                    title: 'Stall Speed Calculator',
+                    desc: 'Interactive VS1 = VS0 × √(W1/W0) formula.',
+                    view: View.MASS_BAL_STALL_SPEED,
+                    isLocked
+                },
+                {
+                    title: 'Fleet Weighing',
+                    desc: 'Fleet mass procedures, sampling formulas, tolerances.',
+                    view: View.MASS_BAL_FLEET,
+                    isLocked
+                },
+                {
+                    title: 'Cargo Types',
+                    desc: 'Palletised, bulk, containerised cargo classification.',
+                    view: View.MASS_BAL_CARGO_TYPES,
+                    isLocked
+                },
+                {
+                    title: 'Standard Masses',
+                    desc: 'Crew/Pax standard masses and MOPSC rules.',
+                    view: View.MASS_BAL_STD_MASSES,
+                    isLocked
                 }
             ]}
         />
