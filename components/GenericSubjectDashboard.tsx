@@ -20,20 +20,20 @@ interface Props {
     onChangeView: (view: View) => void;
 }
 
-const GenericSubjectDashboard: React.FC<Props> = ({ 
-    subjectCode, 
-    subjectName, 
-    description, 
-    icon: Icon, 
-    color, 
+const GenericSubjectDashboard: React.FC<Props> = ({
+    subjectCode,
+    subjectName,
+    description,
+    icon: Icon,
+    color,
     modules,
-    onChangeView 
+    onChangeView
 }) => {
-    
+
     // Helper to map color names to Tailwind classes dynamically might be tricky with JIT, 
     // so we use standard classes or a safe mapping if needed. 
     // For simplicity, we assume standard colors are safe or use style objects for specific dynamic colors.
-    
+
     const getColorClasses = (c: string) => {
         const map: Record<string, { bg: string, text: string, border: string, glow: string }> = {
             red: { bg: 'bg-red-600', text: 'text-red-500', border: 'border-red-500', glow: 'shadow-red-500/20' },
@@ -74,15 +74,15 @@ const GenericSubjectDashboard: React.FC<Props> = ({
             </div>
 
             {/* Modules Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+
                 {/* Available Modules */}
                 {modules.map((mod, idx) => (
-                    <div 
+                    <div
                         key={idx}
                         onClick={() => !mod.isLocked && mod.view && onChangeView(mod.view)}
                         className={`bg-slate-800 p-6 rounded-xl border border-slate-700 transition-all group relative overflow-hidden
-                            ${mod.isLocked ? 'opacity-70 cursor-not-allowed' : `cursor-pointer hover:border-${color}-500 hover:shadow-lg`}
+                            ${mod.isLocked ? 'opacity-70 cursor-not-allowed' : `cursor-pointer hover:border-${color}-500 hover:shadow-lg active:scale-[0.98] active:bg-slate-700/80`}
                         `}
                     >
                         <div className="flex justify-between items-start mb-4">
@@ -91,7 +91,7 @@ const GenericSubjectDashboard: React.FC<Props> = ({
                             </div>
                             {mod.isLocked && <span className="text-[10px] uppercase font-bold bg-slate-700 text-slate-400 px-2 py-1 rounded">Locked</span>}
                         </div>
-                        
+
                         <h3 className={`text-xl font-bold text-white mb-2 ${!mod.isLocked && 'group-hover:text-blue-400'} transition-colors`}>
                             {mod.title}
                         </h3>

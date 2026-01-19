@@ -397,10 +397,10 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                         </div>
                         {/* Mobile Menu */}
                         {mobileMenuOpen && (
-                            <div className="pointer-events-auto absolute top-24 left-4 right-4 bg-slate-900 rounded-2xl border border-white/10 p-4 flex flex-col space-y-4 md:hidden z-50 shadow-2xl animate-in slide-in-from-top-4">
-                                <button onClick={() => scrollToSection('features')} className="text-left px-4 py-2 hover:bg-white/5 rounded-lg">Features</button>
-                                <button onClick={() => scrollToSection('pricing')} className="text-left px-4 py-2 hover:bg-white/5 rounded-lg">Pricing</button>
-                                <button onClick={() => { scrollToSection('hero'); setView('LOGIN'); }} className="text-left px-4 py-2 hover:bg-white/5 rounded-lg">Login</button>
+                            <div className="pointer-events-auto absolute top-24 left-4 right-4 bg-slate-900/95 backdrop-blur-xl rounded-2xl border border-white/10 p-2 flex flex-col space-y-2 md:hidden z-50 shadow-2xl animate-in slide-in-from-top-4">
+                                <button type="button" onClick={() => scrollToSection('features')} className="text-left px-6 py-4 text-slate-200 font-medium hover:bg-white/10 rounded-xl active:scale-[0.98] transition-all">Features</button>
+                                <button type="button" onClick={() => scrollToSection('pricing')} className="text-left px-6 py-4 text-slate-200 font-medium hover:bg-white/10 rounded-xl active:scale-[0.98] transition-all">Pricing</button>
+                                <button type="button" onClick={() => { scrollToSection('hero'); setView('LOGIN'); }} className="text-left px-6 py-4 text-white font-bold bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 rounded-xl active:scale-[0.98] transition-all">Login</button>
                             </div>
                         )}
                     </nav>
@@ -588,7 +588,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                                 type="text"
                                                                 value={inviteCode}
                                                                 onChange={e => setInviteCode(e.target.value.toUpperCase())}
-                                                                className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600 font-mono tracking-widest uppercase"
+                                                                className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3.5 pl-12 pr-4 text-base md:text-sm text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600 font-mono tracking-widest uppercase"
                                                                 placeholder="CODE"
                                                                 maxLength={10}
                                                             />

@@ -66,12 +66,12 @@ const ConceptLab: React.FC<Props> = ({ onChangeView }) => {
                 </p>
             </header>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 {concepts.map((concept) => (
                     <div
                         key={concept.id}
                         onClick={() => onChangeView(concept.targetView)} // Use specific view enum
-                        className="group relative overflow-hidden bg-slate-900 border border-white/10 rounded-2xl hover:border-indigo-500/50 transition-all duration-300 cursor-pointer hover:-translate-y-1 shadow-2xl shadow-black/50"
+                        className="group relative overflow-hidden bg-slate-900 border border-white/10 rounded-2xl hover:border-indigo-500/50 transition-all duration-300 cursor-pointer hover:-translate-y-1 shadow-2xl shadow-black/50 active:scale-[0.98] active:bg-slate-800"
                     >
                         {/* Background Gradient */}
                         <div className={`absolute inset-0 bg-gradient-to-br ${concept.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>

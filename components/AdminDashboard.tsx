@@ -706,7 +706,7 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                     </div>
                 ) : (
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left text-sm text-slate-400">
+                        <table className="w-full text-left text-sm text-slate-400 min-w-[800px]">
                             <thead className="bg-slate-900 text-slate-300 uppercase font-bold text-xs">
                                 <tr>
                                     <th className="px-4 py-4 w-10">
@@ -714,14 +714,14 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                                             type="checkbox"
                                             checked={selectedUsers.length === filteredUsers.length && filteredUsers.length > 0}
                                             onChange={selectAllFiltered}
-                                            className="w-4 h-4 rounded"
+                                            className="w-4 h-4 rounded cursor-pointer"
                                         />
                                     </th>
-                                    <th className="px-4 py-4">User</th>
-                                    <th className="px-4 py-4">Status</th>
-                                    <th className="px-4 py-4">Plan</th>
-                                    <th className="px-4 py-4">Role</th>
-                                    <th className="px-4 py-4 text-right">Actions</th>
+                                    <th className="px-4 py-4 whitespace-nowrap">User</th>
+                                    <th className="px-4 py-4 whitespace-nowrap">Status</th>
+                                    <th className="px-4 py-4 whitespace-nowrap">Plan</th>
+                                    <th className="px-4 py-4 whitespace-nowrap">Role</th>
+                                    <th className="px-4 py-4 text-right whitespace-nowrap">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-700">
@@ -774,29 +774,29 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                                             )}
                                         </td>
                                         <td className="px-4 py-4">
-                                            <div className="flex justify-end gap-1">
+                                            <div className="flex justify-end gap-2">
                                                 {(user.status === AuthStatus.PENDING_APPROVAL || user.isApproved === false) && (
                                                     <button
                                                         onClick={() => approveUser(user.id)}
-                                                        className="p-2 bg-green-900/30 hover:bg-green-900/50 text-green-400 rounded"
+                                                        className="p-2.5 bg-green-900/30 hover:bg-green-900/50 text-green-400 rounded-lg transition-colors"
                                                         title="Approve"
                                                     >
-                                                        <UserCheck size={16} />
+                                                        <UserCheck size={18} />
                                                     </button>
                                                 )}
-                                                <button onClick={() => openEditModal(user)} className="p-2 hover:bg-blue-900/30 text-slate-400 hover:text-blue-400 rounded" title="Edit">
-                                                    <Edit2 size={16} />
+                                                <button onClick={() => openEditModal(user)} className="p-2.5 hover:bg-blue-900/30 text-slate-400 hover:text-blue-400 rounded-lg transition-colors" title="Edit">
+                                                    <Edit2 size={18} />
                                                 </button>
-                                                <button onClick={() => handlePasswordReset(user.email)} className="p-2 hover:bg-yellow-900/30 text-slate-400 hover:text-yellow-400 rounded" title="Reset Password">
-                                                    <Key size={16} />
+                                                <button onClick={() => handlePasswordReset(user.email)} className="p-2.5 hover:bg-yellow-900/30 text-slate-400 hover:text-yellow-400 rounded-lg transition-colors" title="Reset Password">
+                                                    <Key size={18} />
                                                 </button>
                                                 {user.status === AuthStatus.SUSPENDED || user.status === AuthStatus.BANNED ? (
-                                                    <button onClick={() => reactivateUser(user.id)} className="p-2 hover:bg-green-900/30 text-slate-400 hover:text-green-400 rounded" title="Reactivate">
-                                                        <RefreshCw size={16} />
+                                                    <button onClick={() => reactivateUser(user.id)} className="p-2.5 hover:bg-green-900/30 text-slate-400 hover:text-green-400 rounded-lg transition-colors" title="Reactivate">
+                                                        <RefreshCw size={18} />
                                                     </button>
                                                 ) : (
-                                                    <button onClick={() => suspendUser(user.id)} className="p-2 hover:bg-orange-900/30 text-slate-400 hover:text-orange-400 rounded" title="Suspend">
-                                                        <UserX size={16} />
+                                                    <button onClick={() => suspendUser(user.id)} className="p-2.5 hover:bg-orange-900/30 text-slate-400 hover:text-orange-400 rounded-lg transition-colors" title="Suspend">
+                                                        <UserX size={18} />
                                                     </button>
                                                 )}
                                                 <button onClick={() => handleDeleteUser(user.id)} className="p-2 hover:bg-red-900/30 text-slate-400 hover:text-red-400 rounded" title="Delete">
