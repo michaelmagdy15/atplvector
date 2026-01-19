@@ -271,6 +271,13 @@ import CRMScenarios from './components/KSA/CRMScenarios';
 import ResilienceTraining from './components/KSA/ResilienceTraining';
 import ProcedureApplication from './components/KSA/ProcedureApplication';
 
+// Removed duplicate imports of View, User, AuthStatus as they are already imported at the top.
+// Removed duplicate imports of View, User, AuthStatus as they are already imported at the top.
+import { ToastProvider } from './components/ui/ToastContext';
+import PageTransition from './components/ui/PageTransition';
+import FocusTimer from './components/study/FocusTimer';
+import Scratchpad from './components/study/Scratchpad';
+import CommandPalette from './components/CommandPalette';
 import {
     Plane as PlaneIcon, Menu, X, BookOpen, Settings, Weight,
     Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog, Wind
@@ -282,6 +289,23 @@ const App: React.FC = () => {
     const [studyTime, setStudyTime] = useState(0);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    // Command Palette State
+    const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+
+    // Global Command Palette Listener
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                setCommandPaletteOpen(prev => !prev);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
     const [authInitialView, setAuthInitialView] = useState<'LOGIN' | 'SIGNUP' | 'RESET_PASSWORD'>('LOGIN');
 
     // Navigation History State
@@ -732,7 +756,7 @@ const App: React.FC = () => {
     // Sidebar Config Logic
     const subjectConfig = getSubjectConfig(currentView);
 
-    return (
+    const appContent = (
         <ContentProtection userId={user.id}>
             <div className="min-h-screen font-sans text-slate-100 selection:bg-blue-500/30 selection:text-white bg-slate-950">
 
@@ -1139,227 +1163,249 @@ const App: React.FC = () => {
                                     ]}
                                 />
                             )}
-                            {currentView === View.NAV_GNSS && <GNSSTheory />}
-                            {currentView === View.RAD_NAV_WAVE_PROP && <WavePropVisualizer />}
-                            {currentView === View.RAD_NAV_SPECTRUM && <SpectrumExplorer />}
-                            {currentView === View.RAD_NAV_IONOSPHERE && <IonosphereSim />}
-                            {currentView === View.RAD_NAV_ANTENNA && <AntennaTheory />}
-                            {currentView === View.RAD_NAV_MODULATION && <Modulation />}
-                            {currentView === View.RAD_NAV_VOR && <VORSystem onNavigate={navigateTo} />}
-                            {currentView === View.RAD_NAV_ADF && <NDBADFSystem onNavigate={navigateTo} />}
-                            {currentView === View.RAD_NAV_DME && <DMESystem onNavigate={navigateTo} />}
-                            {currentView === View.RAD_NAV_ILS && <ILSSystem onNavigate={navigateTo} />}
-                            {currentView === View.RAD_NAV_VDF && <VDF />}
-                            {currentView === View.RAD_NAV_MLS && <MLS />}
-                            {currentView === View.RAD_NAV_RADAR && <RadarTheory />}
-                            {currentView === View.RAD_NAV_WX_RADAR && <WeatherRadar onNavigate={navigateTo} />}
-                            {currentView === View.RAD_NAV_SSR && <SSRTransponder />}
-                            {currentView === View.RAD_NAV_SBAS && <SbasAbas />}
-                            {currentView === View.RAD_NAV_RNAV && <RnavPbn />}
-                            {currentView === View.RAD_NAV_FMS && <FMSTrainer />}
-                            {currentView === View.RAD_NAV_CLASS_1 && <RadioFundamentals onNavigate={navigateTo} />}
+                            <div className="flex-1 min-w-0">
+                                <PageTransition currentView={currentView}>
+                                    {currentView === View.NAV_GNSS && <GNSSTheory />}
+                                    {currentView === View.RAD_NAV_WAVE_PROP && <WavePropVisualizer />}
+                                    {currentView === View.RAD_NAV_SPECTRUM && <SpectrumExplorer />}
+                                    {currentView === View.RAD_NAV_IONOSPHERE && <IonosphereSim />}
+                                    {currentView === View.RAD_NAV_ANTENNA && <AntennaTheory />}
+                                    {currentView === View.RAD_NAV_MODULATION && <Modulation />}
+                                    {currentView === View.RAD_NAV_VOR && <VORSystem onNavigate={navigateTo} />}
+                                    {currentView === View.RAD_NAV_ADF && <NDBADFSystem onNavigate={navigateTo} />}
+                                    {currentView === View.RAD_NAV_DME && <DMESystem onNavigate={navigateTo} />}
+                                    {currentView === View.RAD_NAV_ILS && <ILSSystem onNavigate={navigateTo} />}
+                                    {currentView === View.RAD_NAV_VDF && <VDF />}
+                                    {currentView === View.RAD_NAV_MLS && <MLS />}
+                                    {currentView === View.RAD_NAV_RADAR && <RadarTheory />}
+                                    {currentView === View.RAD_NAV_WX_RADAR && <WeatherRadar onNavigate={navigateTo} />}
+                                    {currentView === View.RAD_NAV_SSR && <SSRTransponder />}
+                                    {currentView === View.RAD_NAV_SBAS && <SbasAbas />}
+                                    {currentView === View.RAD_NAV_RNAV && <RnavPbn />}
+                                    {currentView === View.RAD_NAV_FMS && <FMSTrainer />}
+                                    {currentView === View.RAD_NAV_CLASS_1 && <RadioFundamentals onNavigate={navigateTo} />}
 
-                            {/* PoF */}
-                            {currentView === View.POF_HOME && (
-                                <GenericSubjectDashboard
-                                    subjectCode="081" subjectName="Principles of Flight" color="violet"
-                                    description="Subsonic aerodynamics, stability, control, lift, drag."
-                                    icon={PlaneIcon} onChangeView={navigateTo}
-                                    modules={[
-                                        { title: 'Atmosphere', desc: 'ISA properties: Temperature, Pressure, Density.', view: View.POF_ATMOSPHERE },
-                                        { title: 'Airflow Basics', desc: 'Streamlines, Bernoulli, and Continuity.', view: View.POF_AIRFLOW },
-                                        { title: 'Aerofoil Geometry', desc: 'Camber, Chord, Thickness, Angle of Attack.', view: View.POF_AEROFOIL },
-                                        { title: 'Wing Geometry', desc: 'Aspect Ratio, Taper, Sweep, Planform.', view: View.POF_WING_GEOM },
-                                        { title: 'Lift & Drag', desc: 'Coefficient curves, polar diagrams.', view: View.POF_LIFT_DRAG },
-                                        { title: '3D Airflow', desc: 'Wingtip vortices, Downwash, Induced Drag.', view: View.POF_3D_AIRFLOW },
-                                        { title: 'Total Drag', desc: 'Parasite vs Induced Drag curves.', view: View.POF_DRAG },
-                                        { title: 'Ground Effect', desc: 'Cushioning effect near surface.', view: View.POF_GROUND_EFFECT },
-                                        { title: 'High Lift Devices', desc: 'Flaps and Slats performance.', view: View.POF_HIGH_LIFT },
-                                        { title: 'Stall', desc: 'Stalling characteristics and recovery.', isLocked: true },
-                                        { title: 'Stability', desc: 'Static and Dynamic stability.', isLocked: true },
-                                    ]}
-                                />
-                            )}
-                            {currentView === View.POF_ATMOSPHERE && <AtmosphereProp />}
-                            {currentView === View.POF_AIRFLOW && <AirflowBasics />}
-                            {currentView === View.POF_AEROFOIL && <AerofoilGeom />}
-                            {currentView === View.POF_WING_GEOM && <WingGeom />}
-                            {currentView === View.POF_LIFT_DRAG && <LiftDragCoeff />}
-                            {currentView === View.POF_3D_AIRFLOW && <ThreeDAirflow />}
-                            {currentView === View.POF_DRAG && <TotalDrag />}
-                            {currentView === View.POF_GROUND_EFFECT && <GroundEffect />}
-                            {currentView === View.POF_HIGH_LIFT && <HighLiftDevices />}
+                                    {/* PoF */}
+                                    {currentView === View.POF_HOME && (
+                                        <GenericSubjectDashboard
+                                            subjectCode="081" subjectName="Principles of Flight" color="violet"
+                                            description="Subsonic aerodynamics, stability, control, lift, drag."
+                                            icon={PlaneIcon} onChangeView={navigateTo}
+                                            modules={[
+                                                { title: 'Atmosphere', desc: 'ISA properties: Temperature, Pressure, Density.', view: View.POF_ATMOSPHERE },
+                                                { title: 'Airflow Basics', desc: 'Streamlines, Bernoulli, and Continuity.', view: View.POF_AIRFLOW },
+                                                { title: 'Aerofoil Geometry', desc: 'Camber, Chord, Thickness, Angle of Attack.', view: View.POF_AEROFOIL },
+                                                { title: 'Wing Geometry', desc: 'Aspect Ratio, Taper, Sweep, Planform.', view: View.POF_WING_GEOM },
+                                                { title: 'Lift & Drag', desc: 'Coefficient curves, polar diagrams.', view: View.POF_LIFT_DRAG },
+                                                { title: '3D Airflow', desc: 'Wingtip vortices, Downwash, Induced Drag.', view: View.POF_3D_AIRFLOW },
+                                                { title: 'Total Drag', desc: 'Parasite vs Induced Drag curves.', view: View.POF_DRAG },
+                                                { title: 'Ground Effect', desc: 'Cushioning effect near surface.', view: View.POF_GROUND_EFFECT },
+                                                { title: 'High Lift Devices', desc: 'Flaps and Slats performance.', view: View.POF_HIGH_LIFT },
+                                                { title: 'Stall', desc: 'Stalling characteristics and recovery.', isLocked: true },
+                                                { title: 'Stability', desc: 'Static and Dynamic stability.', isLocked: true },
+                                            ]}
+                                        />
+                                    )}
+                                    {currentView === View.POF_ATMOSPHERE && <AtmosphereProp />}
+                                    {currentView === View.POF_AIRFLOW && <AirflowBasics />}
+                                    {currentView === View.POF_AEROFOIL && <AerofoilGeom />}
+                                    {currentView === View.POF_WING_GEOM && <WingGeom />}
+                                    {currentView === View.POF_LIFT_DRAG && <LiftDragCoeff />}
+                                    {currentView === View.POF_3D_AIRFLOW && <ThreeDAirflow />}
+                                    {currentView === View.POF_DRAG && <TotalDrag />}
+                                    {currentView === View.POF_GROUND_EFFECT && <GroundEffect />}
+                                    {currentView === View.POF_HIGH_LIFT && <HighLiftDevices />}
 
-                            {/* KSA (100) */}
-                            {currentView === View.KSA_HOME && <KSADashboard onChangeView={navigateTo} isLocked={!isSubjectAllowed('100')} />}
-                            {currentView === View.KSA_COMPETENCIES && <KSACoreCompetencies />}
-                            {currentView === View.KSA_TEM && <TEMAdvanced />}
-                            {currentView === View.KSA_MENTAL_MATHS && <MentalMathsLab />}
-                            {currentView === View.KSA_FORDEC && <FORDECDecision />}
-                            {currentView === View.KSA_UPRT && <UPRTConcepts />}
-                            {currentView === View.KSA_CRM && <CRMScenarios />}
-                            {currentView === View.KSA_RESILIENCE && <ResilienceTraining />}
-                            {currentView === View.KSA_PROCEDURES && <ProcedureApplication />}
+                                    {/* KSA (100) */}
+                                    {currentView === View.KSA_HOME && <KSADashboard onChangeView={navigateTo} isLocked={!isSubjectAllowed('100')} />}
+                                    {currentView === View.KSA_COMPETENCIES && <KSACoreCompetencies />}
+                                    {currentView === View.KSA_TEM && <TEMAdvanced />}
+                                    {currentView === View.KSA_MENTAL_MATHS && <MentalMathsLab />}
+                                    {currentView === View.KSA_FORDEC && <FORDECDecision />}
+                                    {currentView === View.KSA_UPRT && <UPRTConcepts />}
+                                    {currentView === View.KSA_CRM && <CRMScenarios />}
+                                    {currentView === View.KSA_RESILIENCE && <ResilienceTraining />}
+                                    {currentView === View.KSA_PROCEDURES && <ProcedureApplication />}
 
-                            {/* Communications (090) */}
-                            {currentView === View.DASHBOARD && <CommsDashboard onChangeView={navigateTo} />}
-                            {currentView === View.GENERAL_THEORY && <GeneralTheory />}
-                            {currentView === View.PROPAGATION_THEORY && <PropagationTheory />}
-                            {currentView === View.TECH_PHYSICS && <TechPhysics />}
-                            {currentView === View.FREQ_EXPLORER && <FrequencyExplorer />}
-                            {currentView === View.SUFFIX_MATCH && <SuffixMatch />}
-                            {currentView === View.QCODE_CARDS && <QCodeFlashcards />}
-                            {currentView === View.Q_COMPASS && <QCodeCompass />}
-                            {currentView === View.WORD_MATCH && <WordMatch />}
-                            {currentView === View.PHONETIC && <PhoneticTrainer />}
-                            {currentView === View.ALT_SPEAK && <AltSpeak />}
-                            {currentView === View.TIME_REPORT && <TimeReport />}
-                            {currentView === View.READABILITY_SIM && <ReadabilitySim />}
-                            {currentView === View.FLIGHT_RULES && <FlightRules />}
-                            {currentView === View.PRIORITY && <PrioritySorter />}
-                            {currentView === View.CALLSIGN_TRAINER && <CallsignTrainer />}
-                            {currentView === View.URGENCY_TRAINER && <UrgencyTrainer />}
-                            {currentView === View.LEVEL_CHANGES && <LevelChanges />}
-                            {currentView === View.ABBREVIATION_GAME && <AbbreviationGame />}
-                            {currentView === View.CPDLC_SIM && <CPDLCSim />}
-                            {currentView === View.READBACK && <ReadbackChallenge />}
-                            {currentView === View.METAR && <MetarDecoder />}
-                            {currentView === View.VOLMET_SIM && <VolmetSimulator />}
-                            {currentView === View.AIREP_SPEC && <AirepSpec />}
-                            {currentView === View.RADIO_NAV_DATA && <NavDataLink />}
-                            {currentView === View.TIME_ZONER && <TimeZoner />}
-                            {currentView === View.EMERGENCY && <EmergencyBuilder />}
-                            {currentView === View.EMERGENCY_OPS && <EmergencyOps />}
-                            {currentView === View.COMM_FAIL && <CommFailure />}
-                            {currentView === View.BLIND_TX && <BlindTrans />}
-                            {currentView === View.TRANSPONDER && <TransponderDojo />}
-                            {currentView === View.VFR_COMMS_SIM && <VfrFlightSim />}
-                            {currentView === View.PHRASEOLOGY_EXPLORER && <PhraseologyExplorer />}
-                            {currentView === View.POS_REPORT && <PositionReport />}
-                            {currentView === View.TRAFFIC_CLOCK && <TrafficClock />}
-                            {currentView === View.AI_ROLEPLAY && <ScenarioRoleplay />}
-                            {currentView === View.AI_QUIZ && <AIQuiz />}
-                            {currentView === View.LIGHT_GUN && <LightGunGame />}
-                            {currentView === View.RADAR_VECTORS && <RadarVectors />}
-                            {currentView === View.TRANSFER_DRILL && <TransferDrill />}
-                            {currentView === View.METAR_BUILDER && <MetarBuilder />}
-                            {currentView === View.MORSE && <MorseMaster />}
-                            {currentView === View.BAND_SPEC && <BandSpectrum />}
-                            {currentView === View.VHF_CALC && <VHFCalculator />}
-                            {currentView === View.ADV_PHRASEOLOGY && <AdvancedPhraseology />}
-                            {currentView === View.RVR_SIM && <RvrSimulator />}
-                            {currentView === View.RVR_CODE && <RvrDecoder />}
-                            {currentView === View.CLOUD_MASTER && <CloudMaster />}
-                            {currentView === View.FLIRT_TRAINER && <FlirtTrainer />}
-                            {currentView === View.PAPI_VIS && <PapiVis />}
-                            {currentView === View.NAV_NDB_VOR && <MorseIdent />}
-                            {currentView === View.WEATHER_MINIMA && <WeatherMinima />}
-                            {currentView === View.HOLDING && <HoldEntryCalc />}
-                            {currentView === View.ALTIMETER && <AltimeterLab />}
-                            {currentView === View.RUNWAY && <RunwayLighting />}
-                            {currentView === View.SURFACE_LIGHT && <SurfaceLighting />}
-                            {currentView === View.TAXIWAY_LIGHT && <TaxiwayLighting />}
-                            {currentView === View.RUNWAY_MARKING && <RunwayQuiz />}
-                            {currentView === View.SNOWTAM && <SnowtamDecoder />}
-                            {currentView === View.SIGMET_DECODER && <SigmetDecoder />}
-                            {currentView === View.WAKE_TURB && <WakeTurbulence />}
-                            {currentView === View.SERVICE_CODES && <ServiceCodes />}
-                            {currentView === View.QCODE_CARDS && <QCodeCards />}
-                            {currentView === View.NUM_TIME_TRANSMIT && <TransmissionDrill />}
-                            {currentView === View.COMMS_DEFINITIONS && <CommsDefinitions />}
-                            {currentView === View.INTERCEPT && <InterceptTrainer />}
+                                    {/* Communications (090) */}
+                                    {currentView === View.DASHBOARD && <CommsDashboard onChangeView={navigateTo} />}
+                                    {currentView === View.GENERAL_THEORY && <GeneralTheory />}
+                                    {currentView === View.PROPAGATION_THEORY && <PropagationTheory />}
+                                    {currentView === View.TECH_PHYSICS && <TechPhysics />}
+                                    {currentView === View.FREQ_EXPLORER && <FrequencyExplorer />}
+                                    {currentView === View.SUFFIX_MATCH && <SuffixMatch />}
+                                    {currentView === View.QCODE_CARDS && <QCodeFlashcards />}
+                                    {currentView === View.Q_COMPASS && <QCodeCompass />}
+                                    {currentView === View.WORD_MATCH && <WordMatch />}
+                                    {currentView === View.PHONETIC && <PhoneticTrainer />}
+                                    {currentView === View.ALT_SPEAK && <AltSpeak />}
+                                    {currentView === View.TIME_REPORT && <TimeReport />}
+                                    {currentView === View.READABILITY_SIM && <ReadabilitySim />}
+                                    {currentView === View.FLIGHT_RULES && <FlightRules />}
+                                    {currentView === View.PRIORITY && <PrioritySorter />}
+                                    {currentView === View.CALLSIGN_TRAINER && <CallsignTrainer />}
+                                    {currentView === View.URGENCY_TRAINER && <UrgencyTrainer />}
+                                    {currentView === View.LEVEL_CHANGES && <LevelChanges />}
+                                    {currentView === View.ABBREVIATION_GAME && <AbbreviationGame />}
+                                    {currentView === View.CPDLC_SIM && <CPDLCSim />}
+                                    {currentView === View.READBACK && <ReadbackChallenge />}
+                                    {currentView === View.METAR && <MetarDecoder />}
+                                    {currentView === View.VOLMET_SIM && <VolmetSimulator />}
+                                    {currentView === View.AIREP_SPEC && <AirepSpec />}
+                                    {currentView === View.RADIO_NAV_DATA && <NavDataLink />}
+                                    {currentView === View.TIME_ZONER && <TimeZoner />}
+                                    {currentView === View.EMERGENCY && <EmergencyBuilder />}
+                                    {currentView === View.EMERGENCY_OPS && <EmergencyOps />}
+                                    {currentView === View.COMM_FAIL && <CommFailure />}
+                                    {currentView === View.BLIND_TX && <BlindTrans />}
+                                    {currentView === View.TRANSPONDER && <TransponderDojo />}
+                                    {currentView === View.VFR_COMMS_SIM && <VfrFlightSim />}
+                                    {currentView === View.PHRASEOLOGY_EXPLORER && <PhraseologyExplorer />}
+                                    {currentView === View.POS_REPORT && <PositionReport />}
+                                    {currentView === View.TRAFFIC_CLOCK && <TrafficClock />}
+                                    {currentView === View.AI_ROLEPLAY && <ScenarioRoleplay />}
+                                    {currentView === View.AI_QUIZ && <AIQuiz />}
+                                    {currentView === View.LIGHT_GUN && <LightGunGame />}
+                                    {currentView === View.RADAR_VECTORS && <RadarVectors />}
+                                    {currentView === View.TRANSFER_DRILL && <TransferDrill />}
+                                    {currentView === View.METAR_BUILDER && <MetarBuilder />}
+                                    {currentView === View.MORSE && <MorseMaster />}
+                                    {currentView === View.BAND_SPEC && <BandSpectrum />}
+                                    {currentView === View.VHF_CALC && <VHFCalculator />}
+                                    {currentView === View.ADV_PHRASEOLOGY && <AdvancedPhraseology />}
+                                    {currentView === View.RVR_SIM && <RvrSimulator />}
+                                    {currentView === View.RVR_CODE && <RvrDecoder />}
+                                    {currentView === View.CLOUD_MASTER && <CloudMaster />}
+                                    {currentView === View.FLIRT_TRAINER && <FlirtTrainer />}
+                                    {currentView === View.PAPI_VIS && <PapiVis />}
+                                    {currentView === View.NAV_NDB_VOR && <MorseIdent />}
+                                    {currentView === View.WEATHER_MINIMA && <WeatherMinima />}
+                                    {currentView === View.HOLDING && <HoldEntryCalc />}
+                                    {currentView === View.ALTIMETER && <AltimeterLab />}
+                                    {currentView === View.RUNWAY && <RunwayLighting />}
+                                    {currentView === View.SURFACE_LIGHT && <SurfaceLighting />}
+                                    {currentView === View.TAXIWAY_LIGHT && <TaxiwayLighting />}
+                                    {currentView === View.RUNWAY_MARKING && <RunwayQuiz />}
+                                    {currentView === View.SNOWTAM && <SnowtamDecoder />}
+                                    {currentView === View.SIGMET_DECODER && <SigmetDecoder />}
+                                    {currentView === View.WAKE_TURB && <WakeTurbulence />}
+                                    {currentView === View.SERVICE_CODES && <ServiceCodes />}
+                                    {currentView === View.QCODE_CARDS && <QCodeCards />}
+                                    {currentView === View.NUM_TIME_TRANSMIT && <TransmissionDrill />}
+                                    {currentView === View.COMMS_DEFINITIONS && <CommsDefinitions />}
+                                    {currentView === View.INTERCEPT && <InterceptTrainer />}
 
 
-                            {currentView === View.MASS_BAL_HOME && <MassBalanceDashboard onNavigate={navigateTo} isLocked={!isSubjectAllowed('031')} />}
-                            {currentView === View.MASS_BAL_DEFINITIONS && <MassDefinitions />}
-                            {currentView === View.MASS_BAL_CG_CALC && <WeighingProcedure />}
-                            {currentView === View.MASS_BAL_LIMITS && <MassDefinitions />} {/* Reusing for limits if no dedicated component yet */}
-                            {currentView === View.MASS_BAL_MAC && <MacVisualizer />}
-                            {currentView === View.MASS_BAL_SHIFT && <CargoHandlingSim />}
-                            {currentView === View.MASS_BAL_FUEL && <FuelDensityCalc />}
-                            {currentView === View.MASS_BAL_LOADSHEET && <LoadSheetSim />}
-                            {currentView === View.MASS_BAL_FLOW_DIAGRAM && <MassBuildUpFlow />}
-                            {currentView === View.MASS_BAL_TRIM_SHEET && <TrimSheetSim />}
-                            {currentView === View.MASS_BAL_CG_SHIFT && <CGShiftVisualizer />}
-                            {currentView === View.MASS_BAL_CONVERTER && <UnitConverter />}
-                            {currentView === View.MASS_BAL_EFFECTS && <MassEffects />}
-                            {currentView === View.MASS_BAL_CG_EFFECTS && <CGEffects />}
-                            {currentView === View.MASS_BAL_STRUCTURAL && <StructuralLimits />}
-                            {currentView === View.MASS_BAL_STALL_SPEED && <StallSpeedCalc />}
-                            {currentView === View.MASS_BAL_FLEET && <FleetMasses />}
-                            {currentView === View.MASS_BAL_CARGO_TYPES && <CargoTypes />}
-                            {currentView === View.MASS_BAL_STD_MASSES && <StandardMasses />}
+                                    {currentView === View.MASS_BAL_HOME && <MassBalanceDashboard onNavigate={navigateTo} isLocked={!isSubjectAllowed('031')} />}
+                                    {currentView === View.MASS_BAL_DEFINITIONS && <MassDefinitions />}
+                                    {currentView === View.MASS_BAL_CG_CALC && <WeighingProcedure />}
+                                    {currentView === View.MASS_BAL_LIMITS && <MassDefinitions />} {/* Reusing for limits if no dedicated component yet */}
+                                    {currentView === View.MASS_BAL_MAC && <MacVisualizer />}
+                                    {currentView === View.MASS_BAL_SHIFT && <CargoHandlingSim />}
+                                    {currentView === View.MASS_BAL_FUEL && <FuelDensityCalc />}
+                                    {currentView === View.MASS_BAL_LOADSHEET && <LoadSheetSim />}
+                                    {currentView === View.MASS_BAL_FLOW_DIAGRAM && <MassBuildUpFlow />}
+                                    {currentView === View.MASS_BAL_TRIM_SHEET && <TrimSheetSim />}
+                                    {currentView === View.MASS_BAL_CG_SHIFT && <CGShiftVisualizer />}
+                                    {currentView === View.MASS_BAL_CONVERTER && <UnitConverter />}
+                                    {currentView === View.MASS_BAL_EFFECTS && <MassEffects />}
+                                    {currentView === View.MASS_BAL_CG_EFFECTS && <CGEffects />}
+                                    {currentView === View.MASS_BAL_STRUCTURAL && <StructuralLimits />}
+                                    {currentView === View.MASS_BAL_STALL_SPEED && <StallSpeedCalc />}
+                                    {currentView === View.MASS_BAL_FLEET && <FleetMasses />}
+                                    {currentView === View.MASS_BAL_CARGO_TYPES && <CargoTypes />}
+                                    {currentView === View.MASS_BAL_STD_MASSES && <StandardMasses />}
 
-                            {currentView === View.OPS_PROC_HOME && (
-                                <GenericSubjectDashboard
-                                    subjectCode="070" subjectName="Operational Procedures" color="indigo"
-                                    description="Special operational procedures, noise abatement, fire/smoke, wind shear and icing."
-                                    icon={BookOpen} onChangeView={navigateTo}
-                                    modules={[
-                                        { title: 'Long Range Ops', desc: 'NAT HLA, ETOPS, Polar.', view: View.OPS_LONG_RANGE, isLocked: !isSubjectAllowed('070') },
-                                        { title: 'Special Procedures', desc: 'Fire, DG, Contamination, Noise.', view: View.OPS_SPECIAL, isLocked: !isSubjectAllowed('070') },
-                                        { title: 'Flight Time Limitations', desc: 'FDP Calculator & Rest Rules.', view: View.OPS_FTL, isLocked: !isSubjectAllowed('070') },
-                                        { title: 'Emergency Ops', desc: 'Fuel dump, TCAS, Distress.', view: View.EMERGENCY_OPS, isLocked: !isSubjectAllowed('070') },
-                                        { title: 'All Weather Ops', desc: 'LVP, Minima, Approach Bans.', view: View.OPS_AWO, isLocked: !isSubjectAllowed('070') },
-                                        { title: 'General Requirements', desc: 'MEL, Equipment, AOC, Safety.', view: View.OPS_GENERAL, isLocked: !isSubjectAllowed('070') }, ,
-                                        { title: 'Ground Ops', desc: 'Marshalling & Safety.', view: View.AIR_LAW_GROUND_OPS, isLocked: !isSubjectAllowed('070') },
-                                    ]}
-                                />
-                            )}
-                            {currentView === View.OPS_LONG_RANGE && <LongRangeOps />}
-                            {currentView === View.OPS_SPECIAL && <SpecialOpsDashboard isLocked={!isSubjectAllowed('070')} />}
-                            {currentView === View.OPS_FTL && <FTLCalculator />}
-                            {currentView === View.OPS_AWO && <AllWeatherOps />}
-                            {currentView === View.OPS_GENERAL && <OpsGeneral />}
-                            {currentView === View.PERF_HOME && (
-                                <GenericSubjectDashboard
-                                    subjectCode="032" subjectName="Performance (A)" color="lime"
-                                    description="Take-off, climb, cruise, descent and landing performance for Class A/B aircraft."
-                                    icon={TrendingUp} onChangeView={navigateTo}
-                                    modules={[]}
-                                />
-                            )}
-                            {currentView === View.FLIGHT_PLAN_HOME && (
-                                <GenericSubjectDashboard
-                                    subjectCode="033" subjectName="Flight Planning" color="green"
-                                    description="VFR/IFR planning, fuel planning, point of equal time, and flight monitoring."
-                                    icon={Map} onChangeView={navigateTo}
-                                    modules={[]}
-                                />
-                            )}
-                            {currentView === View.MET_HOME && (
-                                <GenericSubjectDashboard
-                                    subjectCode="050" subjectName="Meteorology" color="teal"
-                                    description="Atmosphere, Charts, Altimetry, and Weather Hazards."
-                                    icon={Cloud} onChangeView={navigateTo}
-                                    modules={[
-                                        { title: 'Atmosphere', desc: 'Composition, Layers, ISA.', view: View.MET_ATMOSPHERE },
-                                        { title: 'Altimetry', desc: 'Pressure Altitude, QNH/QFE, Errors.', view: View.MET_ALTIMETRY },
-                                    ]}
-                                />
-                            )}
-                            {currentView === View.MET_ATMOSPHERE && <AtmosphereLayers />}
-                            {currentView === View.MET_ALTIMETRY && <Altimetry />}
+                                    {currentView === View.OPS_PROC_HOME && (
+                                        <GenericSubjectDashboard
+                                            subjectCode="070" subjectName="Operational Procedures" color="indigo"
+                                            description="Special operational procedures, noise abatement, fire/smoke, wind shear and icing."
+                                            icon={BookOpen} onChangeView={navigateTo}
+                                            modules={[
+                                                { title: 'Long Range Ops', desc: 'NAT HLA, ETOPS, Polar.', view: View.OPS_LONG_RANGE, isLocked: !isSubjectAllowed('070') },
+                                                { title: 'Special Procedures', desc: 'Fire, DG, Contamination, Noise.', view: View.OPS_SPECIAL, isLocked: !isSubjectAllowed('070') },
+                                                { title: 'Flight Time Limitations', desc: 'FDP Calculator & Rest Rules.', view: View.OPS_FTL, isLocked: !isSubjectAllowed('070') },
+                                                { title: 'Emergency Ops', desc: 'Fuel dump, TCAS, Distress.', view: View.EMERGENCY_OPS, isLocked: !isSubjectAllowed('070') },
+                                                { title: 'All Weather Ops', desc: 'LVP, Minima, Approach Bans.', view: View.OPS_AWO, isLocked: !isSubjectAllowed('070') },
+                                                { title: 'General Requirements', desc: 'MEL, Equipment, AOC, Safety.', view: View.OPS_GENERAL, isLocked: !isSubjectAllowed('070') }, ,
+                                                { title: 'Ground Ops', desc: 'Marshalling & Safety.', view: View.AIR_LAW_GROUND_OPS, isLocked: !isSubjectAllowed('070') },
+                                            ]}
+                                        />
+                                    )}
+                                    {currentView === View.OPS_LONG_RANGE && <LongRangeOps />}
+                                    {currentView === View.OPS_SPECIAL && <SpecialOpsDashboard isLocked={!isSubjectAllowed('070')} />}
+                                    {currentView === View.OPS_FTL && <FTLCalculator />}
+                                    {currentView === View.OPS_AWO && <AllWeatherOps />}
+                                    {currentView === View.OPS_GENERAL && <OpsGeneral />}
+                                    {currentView === View.PERF_HOME && (
+                                        <GenericSubjectDashboard
+                                            subjectCode="032" subjectName="Performance (A)" color="lime"
+                                            description="Take-off, climb, cruise, descent and landing performance for Class A/B aircraft."
+                                            icon={TrendingUp} onChangeView={navigateTo}
+                                            modules={[]}
+                                        />
+                                    )}
+                                    {currentView === View.FLIGHT_PLAN_HOME && (
+                                        <GenericSubjectDashboard
+                                            subjectCode="033" subjectName="Flight Planning" color="green"
+                                            description="VFR/IFR planning, fuel planning, point of equal time, and flight monitoring."
+                                            icon={Map} onChangeView={navigateTo}
+                                            modules={[]}
+                                        />
+                                    )}
+                                    {currentView === View.MET_HOME && (
+                                        <GenericSubjectDashboard
+                                            subjectCode="050" subjectName="Meteorology" color="teal"
+                                            description="Atmosphere, Charts, Altimetry, and Weather Hazards."
+                                            icon={Cloud} onChangeView={navigateTo}
+                                            modules={[
+                                                { title: 'Atmosphere', desc: 'Composition, Layers, ISA.', view: View.MET_ATMOSPHERE },
+                                                { title: 'Altimetry', desc: 'Pressure Altitude, QNH/QFE, Errors.', view: View.MET_ALTIMETRY },
+                                            ]}
+                                        />
+                                    )}
+                                    {currentView === View.MET_ATMOSPHERE && <AtmosphereLayers />}
+                                    {currentView === View.MET_ALTIMETRY && <Altimetry />}
 
-                            {/* Visual Concept Lab */}
-                            {currentView === View.CONCEPT_LAB && <ConceptLab onChangeView={navigateTo} />}
-                            {currentView === View.CONCEPT_FORCES_OF_FLIGHT && (
-                                <ForcesOfFlight onBack={() => navigateTo(View.CONCEPT_LAB)} />
-                            )}
-                            {currentView === View.CONCEPT_HOLD_ENTRY && (
-                                <HoldEntryVisualizer onBack={() => navigateTo(View.CONCEPT_LAB)} />
-                            )}
-                            {currentView === View.CONCEPT_GREAT_CIRCLE && (
-                                <GreatCircleExplorer onBack={() => navigateTo(View.CONCEPT_LAB)} />
-                            )}
-                            {currentView === View.CONCEPT_TURN_PERF && (
-                                <TurnPerformance onBack={() => navigateTo(View.CONCEPT_LAB)} />
-                            )}
+                                    {/* Visual Concept Lab */}
+                                    {currentView === View.CONCEPT_LAB && <ConceptLab onChangeView={navigateTo} />}
+                                    {currentView === View.CONCEPT_FORCES_OF_FLIGHT && (
+                                        <ForcesOfFlight onBack={() => navigateTo(View.CONCEPT_LAB)} />
+                                    )}
+                                    {currentView === View.CONCEPT_HOLD_ENTRY && (
+                                        <HoldEntryVisualizer onBack={() => navigateTo(View.CONCEPT_LAB)} />
+                                    )}
+                                    {currentView === View.CONCEPT_GREAT_CIRCLE && (
+                                        <GreatCircleExplorer onBack={() => navigateTo(View.CONCEPT_LAB)} />
+                                    )}
+                                    {currentView === View.CONCEPT_TURN_PERF && (
+                                        <TurnPerformance onBack={() => navigateTo(View.CONCEPT_LAB)} />
+                                    )}
+                                </PageTransition>
+                            </div>
                         </div>
                     </div>
                 </main>
             </div >
         </ContentProtection >
+    );
+
+
+    return (
+        <ToastProvider>
+            {appContent}
+            {user && (
+                <>
+                    <FocusTimer />
+                    <Scratchpad />
+                    <CommandPalette
+                        isOpen={commandPaletteOpen}
+                        onClose={() => setCommandPaletteOpen(false)}
+                        onNavigate={navigateTo}
+                    />
+                </>
+            )}
+        </ToastProvider>
     );
 };
 
