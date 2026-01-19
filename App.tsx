@@ -1346,6 +1346,15 @@ const App: React.FC = () => {
                             {currentView === View.CONCEPT_FORCES_OF_FLIGHT && (
                                 <ForcesOfFlight onBack={() => navigateTo(View.CONCEPT_LAB)} />
                             )}
+                            {currentView === View.CONCEPT_HOLD_ENTRY && (
+                                <HoldEntryVisualizer onBack={() => navigateTo(View.CONCEPT_LAB)} />
+                            )}
+                            {currentView === View.CONCEPT_GREAT_CIRCLE && (
+                                <GreatCircleExplorer onBack={() => navigateTo(View.CONCEPT_LAB)} />
+                            )}
+                            {currentView === View.CONCEPT_TURN_PERF && (
+                                <TurnPerformance onBack={() => navigateTo(View.CONCEPT_LAB)} />
+                            )}
                         </div>
                     </div>
                 </main>

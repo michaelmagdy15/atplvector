@@ -1,5 +1,5 @@
 import React from 'react';
-import { Play, Wind, Info, ArrowRight } from 'lucide-react';
+import { Play, Wind, Info, ArrowRight, RotateCw, Plane, Globe } from 'lucide-react';
 import { View } from '../types';
 
 interface Props {
@@ -17,6 +17,36 @@ const ConceptLab: React.FC<Props> = ({ onChangeView }) => {
             color: "from-blue-500/20 to-indigo-500/20",
             targetView: View.CONCEPT_FORCES_OF_FLIGHT,
             difficulty: "Fundamental"
+        },
+        {
+            id: 'hold-entry',
+            title: "Hold Entry Visualizer",
+            subject: "IFR Procedures",
+            description: "Direct, Parallel, or Offset? Visualize the three sectors relative to your headline.",
+            icon: <RotateCw className="text-emerald-400" size={32} />,
+            color: "from-emerald-500/20 to-teal-500/20",
+            targetView: View.CONCEPT_HOLD_ENTRY,
+            difficulty: "Intermediate"
+        },
+        {
+            id: 'turn-perf',
+            title: "Turn Performance",
+            subject: "Principles of Flight",
+            description: "Analyze the relationship between Bank Angle, Load Factor (G), and Turn Radius.",
+            icon: <Plane className="text-amber-400" size={32} />,
+            color: "from-amber-500/20 to-orange-500/20",
+            targetView: View.CONCEPT_TURN_PERF,
+            difficulty: "Fundamental"
+        },
+        {
+            id: 'great-circle',
+            title: "Great Circle Explorer",
+            subject: "General Navigation",
+            description: "Compare the shortest Great Circle path vs. a constant-heading Rhumb line on a 3D globe.",
+            icon: <Globe className="text-purple-400" size={32} />,
+            color: "from-purple-500/20 to-pink-500/20",
+            targetView: View.CONCEPT_GREAT_CIRCLE,
+            difficulty: "Advanced"
         },
         // Future concepts...
     ];
