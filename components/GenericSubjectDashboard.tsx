@@ -70,6 +70,10 @@ const GenericSubjectDashboard: React.FC<Props> = ({
                     <h1 className="text-4xl font-black mb-2">{subjectName}</h1>
                     <p className="text-slate-300 max-w-xl text-lg">{description}</p>
                 </div>
+                {/* Brand Watermark */}
+                <div className="absolute right-[-40px] top-[-40px] w-96 h-96 opacity-[0.03] rotate-[-15deg] pointer-events-none select-none">
+                    <img src="/assets/logo.png" alt="" className="w-full h-full object-contain" />
+                </div>
                 <Icon className="absolute right-[-20px] bottom-[-40px] w-64 h-64 text-white opacity-5 rotate-12" />
             </div>
 

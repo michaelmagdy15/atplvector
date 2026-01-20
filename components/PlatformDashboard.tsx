@@ -330,6 +330,11 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                             {/* Background Glow */}
                             <div className="absolute -top-32 -right-32 w-96 h-96 bg-blue-600 rounded-full blur-[100px] opacity-20 group-hover:opacity-30 transition-opacity duration-700"></div>
 
+                            {/* Brand Watermark (NEW) */}
+                            <div className="absolute left-[-5%] top-[-10%] w-[30%] h-[120%] opacity-[0.03] rotate-[15deg] pointer-events-none select-none">
+                                <img src="/assets/logo.png" alt="" className="w-full h-full object-contain" />
+                            </div>
+
                             {/* Icon */}
                             <div className="absolute top-1/2 right-12 -translate-y-1/2 opacity-20 group-hover:opacity-30 transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-12 hidden md:block">
                                 <Navigation size={180} />

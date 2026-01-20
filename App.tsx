@@ -783,8 +783,8 @@ const App: React.FC = () => {
                                     className="flex items-center space-x-3 cursor-pointer group"
                                     onClick={() => navigateTo(View.PLATFORM_DASHBOARD)}
                                 >
-                                    <div className="p-2 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg shadow-lg group-hover:shadow-blue-500/20 transition-all duration-500 group-hover:scale-105">
-                                        <PlaneIcon className="w-5 h-5 text-white" />
+                                    <div className="p-1.5 w-9 h-9 bg-slate-900/50 rounded-lg shadow-lg group-hover:shadow-blue-500/20 transition-all duration-500 group-hover:scale-105 border border-white/10 flex items-center justify-center overflow-hidden">
+                                        <img src="/assets/logo.png" alt="Logo" className="w-full h-full object-contain" />
                                     </div>
                                     <span className="text-lg font-black tracking-tight text-white whitespace-nowrap">
                                         ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span>

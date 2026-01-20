@@ -368,6 +368,7 @@ export interface User {
   isApproved?: boolean; // Manual admin approval status
   trialStartDate?: string; // ISO date string when trial started
   trialSubjects?: string[]; // Subjects available during trial (e.g., ['090', '040'])
+  learningObjectivesRatings?: Record<string, number>; // Map of LO ID to rating (0-5)
 }
 
 export interface QCode {

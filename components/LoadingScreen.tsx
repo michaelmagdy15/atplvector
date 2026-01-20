@@ -31,15 +31,20 @@ const LoadingScreen: React.FC = () => {
                 {/* Center Dot */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-blue-500 rounded-full shadow-lg shadow-blue-500/50"></div>
 
-                {/* Plane Icon */}
+                {/* Logo Icon */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <Plane
-                        className="w-10 h-10 text-blue-400"
+                    <div
+                        className="w-12 h-12 flex items-center justify-center"
                         style={{
                             animation: 'plane-float 3s ease-in-out infinite',
-                            filter: 'drop-shadow(0 0 10px rgba(59, 130, 246, 0.5))'
                         }}
-                    />
+                    >
+                        <img
+                            src="/assets/logo.png"
+                            alt="Logo"
+                            className="w-full h-full object-contain filter drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]"
+                        />
+                    </div>
                 </div>
 
                 {/* Blips */}

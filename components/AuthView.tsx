@@ -378,8 +378,8 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                     <nav className="fixed top-6 w-full z-50 flex justify-center pointer-events-none animate-in slide-in-from-top-4 duration-700">
                         <div className="pointer-events-auto w-[92%] max-w-7xl glass-panel rounded-full h-16 md:h-20 px-6 md:px-10 flex items-center justify-between bg-slate-900/70 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
                             <div className="flex items-center space-x-2 cursor-pointer group" onClick={() => scrollToSection('hero')}>
-                                <div className="p-1.5 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                    <Plane className="w-5 h-5 text-white" />
+                                <div className="p-1 w-8 h-8 bg-slate-900/50 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-300 border border-white/10 flex items-center justify-center overflow-hidden">
+                                    <img src="/assets/logo.png" alt="Logo" className="w-full h-full object-contain" />
                                 </div>
                                 <span className="text-xl font-black text-white tracking-tighter">ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span></span>
                             </div>
