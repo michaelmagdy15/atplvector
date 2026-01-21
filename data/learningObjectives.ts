@@ -7,7 +7,7 @@ interface SyllabusNode {
     code: string;
     title: string;
     children?: SyllabusNode[];
-    los?: { id: string; text: string; details?: string }[];
+    los?: { id: string; text: string; details?: string; full_id?: string }[];
 }
 
 // Recursively count all LOs in a syllabus node
@@ -317,30 +317,88 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
 ];
 
 // Calculate progress by comparing covered LOs to total from syllabus
+// Helper to normalize syllabus codes (e.g., "010 09 00 00" -> "010.09")
+const normalizeCode = (code: string | undefined): string => {
+    if (!code) return '';
+    const parts = code.split(' ');
+    while (parts.length > 0 && parts[parts.length - 1] === '00') {
+        parts.pop();
+    }
+    return parts.join('.');
+};
+
+// Calculate exact progress by traversing the real syllabus tree
 export const calculateProgress = () => {
-    const stats = SUBJECTS.map(sub => {
-        // Find mapped learning objectives for this subject
-        const mappedLOs = LEARNING_OBJECTIVES.filter(lo => lo.subject === sub.id && lo.coveredBy);
+    // defined subject structure to ensure order
+    const subjectsMap: Record<string, SubjectStats> = {
+        '010': { id: '010', name: 'Air Law', totalLOs: 0, coveredLOs: 0 },
+        '021': { id: '021', name: 'AGK (Systems)', totalLOs: 0, coveredLOs: 0 },
+        '022': { id: '022', name: 'Instrumentation', totalLOs: 0, coveredLOs: 0 },
+        '031': { id: '031', name: 'Mass & Balance', totalLOs: 0, coveredLOs: 0 },
+        '032': { id: '032', name: 'Performance (A)', totalLOs: 0, coveredLOs: 0 },
+        '033': { id: '033', name: 'Flight Planning', totalLOs: 0, coveredLOs: 0 },
+        '040': { id: '040', name: 'Human Performance', totalLOs: 0, coveredLOs: 0 },
+        '050': { id: '050', name: 'Meteorology', totalLOs: 0, coveredLOs: 0 },
+        '061': { id: '061', name: 'General Navigation', totalLOs: 0, coveredLOs: 0 },
+        '062': { id: '062', name: 'Radio Navigation', totalLOs: 0, coveredLOs: 0 },
+        '070': { id: '070', name: 'Operational Proc.', totalLOs: 0, coveredLOs: 0 },
+        '081': { id: '081', name: 'Principles of Flight', totalLOs: 0, coveredLOs: 0 },
+        '090': { id: '090', name: 'Communications', totalLOs: 0, coveredLOs: 0 },
+        '100': { id: '100', name: 'KSA', totalLOs: 0, coveredLOs: 0 },
+    };
 
-        // Count the unique modules covering this subject
-        const uniqueModules = new Set(mappedLOs.map(lo => lo.coveredBy)).size;
-
-        // Each interactive module covers approximately 5 official Learning Objectives (LOs)
-        // EXCEPTION: Radio Nav (062) modules are huge (entire chapters), so we weight them higher (18 LOs each)
-        // to reflect that ~18 modules cover the entire ~320 LO syllabus.
-        const weightPerModule = sub.id === '062' ? 18 : 5;
-        const estimatedCoverage = uniqueModules * weightPerModule;
-
-        // Calculate percentage using the actual totalLOs from syllabus.json
-        const percentage = sub.totalLOs > 0
-            ? Math.min(100, Math.round((estimatedCoverage / sub.totalLOs) * 100))
-            : 0;
-
-        return {
-            ...sub,
-            coveredLOs: estimatedCoverage,
-            percentage: percentage
-        };
+    // Set of covered IDs from our manual mapping
+    const coveredIds = new Set<string>();
+    LEARNING_OBJECTIVES.forEach(lo => {
+        if (lo.coveredBy) {
+            coveredIds.add(lo.id); // e.g., '022.01.01'
+        }
     });
-    return stats;
+
+    // Traverse the full syllabus tree
+    const traverse = (node: SyllabusNode, parentCovered: boolean = false) => {
+        const subjectId = getSubjectId(node.code);
+        const normalizedId = normalizeCode(node.code);
+
+        // precise coverage check: is this node explicitly mapped?
+        // OR is a parent node mapped (implying all children are covered)?
+        const isNodeCovered = coveredIds.has(normalizedId) || parentCovered;
+
+        // Count LOs in this node
+        if (node.los && node.los.length > 0) {
+            if (subjectsMap[subjectId]) {
+                subjectsMap[subjectId].totalLOs += node.los.length;
+                if (isNodeCovered) {
+                    subjectsMap[subjectId].coveredLOs += node.los.length;
+                } else {
+                    // Check individual LOs if parent not covered
+                    // (Rare case where we map singular LOs, but we usually map topics)
+                    node.los.forEach(lo => {
+                        const loNormalized = lo.full_id || lo.id; // full_id is like 010.01.01.01
+                        // Check if this specific LO is covered directly
+                        // We don't currently map specific leaf LOs often, but logic supports it
+                        if (coveredIds.has(loNormalized)) {
+                            subjectsMap[subjectId].coveredLOs++;
+                        }
+                    });
+                }
+            }
+        }
+
+        // Recurse
+        if (node.children) {
+            node.children.forEach(child => traverse(child, isNodeCovered));
+        }
+    };
+
+    // Filter out artifacts like empty 030 before traversing
+    const validRoots = (syllabusData as SyllabusNode[]).filter(r => r.code !== '030 00 00 00');
+
+    validRoots.forEach(root => traverse(root));
+
+    // Convert map to array
+    return Object.values(subjectsMap).map(sub => ({
+        ...sub,
+        percentage: sub.totalLOs > 0 ? Math.round((sub.coveredLOs / sub.totalLOs) * 100) : 0
+    }));
 };

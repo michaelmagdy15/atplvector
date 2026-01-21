@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { ChevronRight, ChevronDown, CheckCircle, Circle, BookOpen, Search, Layers, FileText, Check } from 'lucide-react';
+import { ChevronRight, ChevronDown, Circle, BookOpen, Search, Check } from 'lucide-react';
 import { View, User } from '../types';
-import { getUseSyllabusForSubject, SyllabusNode } from '../services/syllabusService';
+import { SyllabusNode } from '../services/syllabusService';
 import { supabase } from '../lib/supabase';
-import { SUBJECTS, LEARNING_OBJECTIVES } from '../data/learningObjectives';
+import { SUBJECTS, LEARNING_OBJECTIVES, calculateProgress } from '../data/learningObjectives';
 import syllabusData from '../data/syllabus.json';
 
 interface SyllabusViewerProps {
@@ -31,6 +31,14 @@ const SyllabusViewer: React.FC<SyllabusViewerProps> = ({ subjectId, currentUser,
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [localRatings, setLocalRatings] = useState<Record<string, number>>({});
+
+    // Calculate Subject Progress for UI badges
+    const subjectProgress = useMemo(() => {
+        const stats = calculateProgress();
+        const map: Record<string, number> = {};
+        stats.forEach(s => map[s.id] = s.percentage);
+        return map;
+    }, []);
 
     // Update filter if prop changes
     useEffect(() => {
@@ -169,27 +177,38 @@ const SyllabusViewer: React.FC<SyllabusViewerProps> = ({ subjectId, currentUser,
     }, [filteredTreeRoots]); // Re-create if roots change (though logic is data-dependent)
 
     // --- Recursive Renderer ---
-    const renderNode = (node: SyllabusNode, level: number = 0, parentMatched: boolean = false) => {
+    const renderNode = (node: SyllabusNode, level: number = 0, parentMatched: boolean = false, inheritedCoverageView?: View) => {
         // Search Logic:
-        // if parentMatched => we show this node (and pass parentMatched=true to children)
-        // else check own match or children match
         const isSelfMatch = matches(node, searchTerm);
         const hasMatchInChildren = hasMatchingDescendant(node, searchTerm);
 
-        // Show if:
-        // 1. No search term
-        // 2. Parent matched (force show subtree)
-        // 3. Self matches
-        // 4. Children match (so we need to show this wrapper)
         const shouldShow = !searchTerm || parentMatched || isSelfMatch || hasMatchInChildren;
 
         if (!shouldShow) return null;
 
         const effectivelyMatched = parentMatched || isSelfMatch;
-        const isExpanded = expandedNodes[node.code] || (!!searchTerm && (hasMatchInChildren || effectivelyMatched)); // Auto-expand
+        const isExpanded = expandedNodes[node.code] || (!!searchTerm && (hasMatchInChildren || effectivelyMatched));
 
         const hasChildren = (node.children && node.children.length > 0) || (node.los && node.los.length > 0);
         const loCount = countNodeLOs(node);
+
+        // --- Determine Coverage for THIS node ---
+        const normalizedId = normalizeCode(node.code);
+        // Check exact match or ID match in LEARING_OBJECTIVES
+        const directCoverage = LEARNING_OBJECTIVES.find(l =>
+            l.id === normalizedId || (node.code && l.id === node.code)
+        );
+
+        // If this node is covered, all children inherit this view.
+        // Otherwise, they keep the parent's coverage.
+        const effectiveCoverageView = directCoverage?.coveredBy || inheritedCoverageView;
+
+        // Get Topic Coverage Percentage (Only for Level 0 Subjects)
+        let subjectCoveragePercent = 0;
+        if (level === 0) {
+            const subjectId = node.code.substring(0, 3);
+            subjectCoveragePercent = subjectProgress[subjectId] || 0;
+        }
 
         return (
             <div key={node.code} className={`mb-2 ${level > 0 ? 'ml-4 pl-4 border-l border-slate-700/50' : ''}`}>
@@ -213,37 +232,58 @@ const SyllabusViewer: React.FC<SyllabusViewerProps> = ({ subjectId, currentUser,
                             <span className={`font-medium ${level === 0 ? 'text-lg text-white' : 'text-slate-300'}`}>
                                 {node.title}
                             </span>
-                            {/* LO Count Badge */}
                             <span className="ml-2 text-[10px] font-bold text-slate-600 bg-slate-900/50 px-2 py-0.5 rounded-full border border-slate-800">
                                 {loCount} LOs
                             </span>
+
+                            {/* Subject Coverage Circle (Level 0 only) */}
+                            {level === 0 && (
+                                <div className="ml-4 flex items-center gap-2" title={`${subjectCoveragePercent}% Coverage implemented`}>
+                                    <div className="relative w-6 h-6 flex items-center justify-center">
+                                        <svg className="w-full h-full transform -rotate-90">
+                                            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="transparent" className="text-slate-700" />
+                                            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="transparent" className="text-blue-500"
+                                                strokeDasharray={2 * Math.PI * 10}
+                                                strokeDashoffset={2 * Math.PI * 10 * (1 - subjectCoveragePercent / 100)}
+                                            />
+                                        </svg>
+                                    </div>
+                                    <span className="text-xs font-bold text-blue-400">{subjectCoveragePercent}%</span>
+                                </div>
+                            )}
+
+                            {/* Show coverage badge on Topic if covered */}
+                            {(effectiveCoverageView && level > 0) && (
+                                <span className="ml-2 text-[10px] font-bold bg-emerald-500/10 text-emerald-400 px-1.5 py-0.5 rounded border border-emerald-500/20 flex items-center gap-1">
+                                    <Check size={10} />
+                                    MAPPED
+                                </span>
+                            )}
                         </div>
                     </div>
                 </div>
 
                 {isExpanded && (
                     <div className="mt-1 animate-in slide-in-from-top-2 duration-200">
-                        {node.children?.map(child => renderNode(child, level + 1, effectivelyMatched))}
+                        {/* Recurse with coverage */}
+                        {node.children?.map(child => renderNode(child, level + 1, effectivelyMatched, effectiveCoverageView))}
+
                         {node.los?.map(lo => {
-                            // Filter LOs
                             const isLOMatch = matches(lo, searchTerm);
-                            // Show LO if: no search OR parent matched OR self matched
-                            // If searching, and parent didn't strictly match text (but children did), we only show matching children.
-                            // BUT 'effectivelyMatched' means parent text matched. 
                             if (searchTerm && !effectivelyMatched && !isLOMatch) return null;
 
-                            const normalizedId = normalizeCode(node.code) || lo.full_id || lo.id;
-
-                            // Check Coverage - try exact ID first, then full string match
-                            const directCoverage = LEARNING_OBJECTIVES.find(l =>
-                                l.id === lo.id ||
-                                (lo.full_id && l.id === lo.full_id) ||
-                                l.id === normalizedId
+                            // Check for specific LO override coverage
+                            const loNormalized = lo.full_id || lo.id;
+                            const loDirectCoverage = LEARNING_OBJECTIVES.find(l =>
+                                l.id === lo.id || (lo.full_id && l.id === lo.full_id)
                             );
-                            const isCovered = !!directCoverage?.coveredBy;
+
+                            // Specific override > Parent topic > Inherited
+                            const loCoverageView = loDirectCoverage?.coveredBy || effectiveCoverageView;
+                            const isCovered = !!loCoverageView;
 
                             return (
-                                <div key={lo.id} className="ml-8 p-3 hover:bg-slate-800/30 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/50 last:border-0">
+                                <div key={lo.id} className="ml-8 p-3 hover:bg-slate-800/30 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/50 last:border-0 hover:border-slate-700 transition-colors">
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2 mb-1">
                                             <span className="text-xs font-mono text-slate-500">{lo.full_id || lo.id}</span>
@@ -258,7 +298,8 @@ const SyllabusViewer: React.FC<SyllabusViewerProps> = ({ subjectId, currentUser,
                                     </div>
 
                                     {/* Actions: Rating + Launch */}
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex items-end md:items-center gap-4">
+                                        {/* Rating Scale */}
                                         <div className="flex items-center gap-1 bg-slate-900/50 p-1.5 rounded-lg border border-slate-800">
                                             {[0, 1, 2, 3, 4, 5].map((rating) => (
                                                 <button
@@ -275,13 +316,25 @@ const SyllabusViewer: React.FC<SyllabusViewerProps> = ({ subjectId, currentUser,
                                                 </button>
                                             ))}
                                         </div>
-                                        {isCovered && onNavigate && (
+
+                                        {/* Launch or Status Button */}
+                                        {isCovered && onNavigate ? (
                                             <button
-                                                onClick={() => onNavigate(directCoverage!.coveredBy!)}
-                                                className="p-2 bg-gradient-to-br from-emerald-600 to-emerald-500 text-white shadow-lg shadow-emerald-900/20 rounded-lg hover:scale-105 transition-all"
+                                                onClick={() => onNavigate(loCoverageView!)}
+                                                className="h-11 px-4 bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20 rounded-lg transition-all flex items-center gap-2 font-medium text-sm whitespace-nowrap"
                                                 title="Launch Module"
                                             >
                                                 <BookOpen size={16} />
+                                                Launch
+                                            </button>
+                                        ) : (
+                                            <button
+                                                disabled
+                                                className="h-11 px-4 bg-slate-800 text-slate-500 rounded-lg cursor-not-allowed border border-slate-700/50 flex items-center gap-2 font-medium text-sm whitespace-nowrap"
+                                                title="Module coming soon"
+                                            >
+                                                <FileText size={16} />
+                                                Not Implemented
                                             </button>
                                         )}
                                     </div>
