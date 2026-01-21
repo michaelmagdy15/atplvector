@@ -12,9 +12,10 @@ import {
 
 interface Props {
     onChangeView: (view: View) => void;
+    onOpenSyllabus?: (id: string) => void;
 }
 
-const CommsDashboard: React.FC<Props> = ({ onChangeView }) => {
+const CommsDashboard: React.FC<Props> = ({ onChangeView, onOpenSyllabus }) => {
 
     const SectionTitle = ({ icon: Icon, title, color }: any) => (
         <div className="col-span-full mt-12 mb-6 flex items-center gap-3 border-b border-slate-700 pb-4">
@@ -60,8 +61,19 @@ const CommsDashboard: React.FC<Props> = ({ onChangeView }) => {
             {/* Hero Section */}
             <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 rounded-3xl p-8 md:p-16 text-white shadow-2xl mb-12 border border-slate-700 relative overflow-hidden">
                 <div className="relative z-20 max-w-3xl">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs font-bold rounded-full mb-6 backdrop-blur-sm">
-                        <Radio size={12} /> EASA SUBJECT 090
+                    <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/20 text-blue-300 border border-blue-500/30 text-xs font-bold rounded-full backdrop-blur-sm">
+                            <Radio size={12} /> EASA SUBJECT 090
+                        </div>
+                        {onOpenSyllabus && (
+                            <button
+                                onClick={() => onOpenSyllabus('090')}
+                                className="flex items-center gap-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/30 text-blue-200 px-4 py-2 rounded-lg transition-all font-bold text-sm"
+                            >
+                                <Book size={16} />
+                                View Syllabus
+                            </button>
+                        )}
                     </div>
                     <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight">
                         VFR & IFR<br />

@@ -6,17 +6,36 @@ import { Scale, Plane, AlertTriangle, Layout, Map, Tag, BookOpen, Layers, Settin
 interface Props {
     onChangeView: (view: View) => void;
     isLocked?: boolean;
+    onOpenSyllabus?: (id: string) => void;
 }
 
-const AirLawDashboard: React.FC<Props> = ({ onChangeView, isLocked = false }) => {
+const AirLawDashboard: React.FC<Props> = ({ onChangeView, isLocked = false, onOpenSyllabus }) => {
     return (
         <div className="max-w-7xl mx-auto p-4 md:p-6 pb-20">
-            <div className="mb-12 text-center">
+            <div className="mb-12 text-center relative">
+                {onOpenSyllabus && (
+                    <button
+                        onClick={() => onOpenSyllabus('010')}
+                        className="absolute right-0 top-0 hidden md:flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white px-4 py-2 rounded-lg transition-all font-bold text-sm shadow-lg"
+                    >
+                        <BookOpen size={16} />
+                        View Syllabus
+                    </button>
+                )}
                 <h1 className="text-3xl md:text-4xl font-black text-white mb-2">
                     Air Law Library (010)
                     {isLocked && <span className="ml-4 text-xs bg-red-500/20 text-red-400 px-2 py-1 rounded-full uppercase tracking-wider border border-red-500/30">Locked</span>}
                 </h1>
-                <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">Comprehensive interactive modules covering International Law, Annexes 1-19, Procedures, and Operations.</p>
+                <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base mb-4">Comprehensive interactive modules covering International Law, Annexes 1-19, Procedures, and Operations.</p>
+                {onOpenSyllabus && (
+                    <button
+                        onClick={() => onOpenSyllabus('010')}
+                        className="md:hidden mx-auto flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white px-4 py-2 rounded-lg transition-all font-bold text-sm shadow-lg"
+                    >
+                        <BookOpen size={16} />
+                        View Syllabus
+                    </button>
+                )}
             </div>
 
             {/* SECTION: International Law & Organization */}

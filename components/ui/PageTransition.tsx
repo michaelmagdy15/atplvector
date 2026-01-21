@@ -8,21 +8,25 @@ interface Props {
 const PageTransition: React.FC<Props> = ({ children, currentView }) => {
     const [displayChildren, setDisplayChildren] = useState(children);
     const [transitionStage, setTransitionStage] = useState<'fadeIn' | 'fadeOut'>('fadeIn');
+    const prevViewRef = React.useRef(currentView);
 
     useEffect(() => {
-        setTransitionStage('fadeOut');
-    }, [currentView, children]);
+        if (currentView !== prevViewRef.current) {
+            // View changed: Animate
+            prevViewRef.current = currentView;
+            setTransitionStage('fadeOut');
 
-    useEffect(() => {
-        if (transitionStage === 'fadeOut') {
             const timeoutId = setTimeout(() => {
                 setTransitionStage('fadeIn');
                 setDisplayChildren(children);
-            }, 200); // Wait for fade out to complete
+            }, 200);
 
             return () => clearTimeout(timeoutId);
+        } else {
+            // View did not change (just props/children update): Update immediately without animation
+            setDisplayChildren(children);
         }
-    }, [transitionStage, children]);
+    }, [currentView, children]);
 
     return (
         <div

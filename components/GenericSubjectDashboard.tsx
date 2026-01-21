@@ -18,6 +18,7 @@ interface Props {
     color: string; // e.g., "emerald", "sky", "orange"
     modules: ModuleItem[];
     onChangeView: (view: View) => void;
+    onOpenSyllabus?: (id: string) => void;
 }
 
 const GenericSubjectDashboard: React.FC<Props> = ({
@@ -27,7 +28,8 @@ const GenericSubjectDashboard: React.FC<Props> = ({
     icon: Icon,
     color,
     modules,
-    onChangeView
+    onChangeView,
+    onOpenSyllabus
 }) => {
 
     // Helper to map color names to Tailwind classes dynamically might be tricky with JIT, 
@@ -64,11 +66,34 @@ const GenericSubjectDashboard: React.FC<Props> = ({
             <div className={`rounded-2xl p-8 text-white shadow-xl mb-8 border border-slate-700 relative overflow-hidden bg-gradient-to-r from-slate-900 to-slate-800`}>
                 <div className={`absolute top-0 left-0 w-2 h-full ${theme.bg}`}></div>
                 <div className="relative z-10">
-                    <div className={`inline-block px-3 py-1 ${theme.bg} bg-opacity-20 ${theme.text} border ${theme.border} border-opacity-30 text-xs font-bold rounded-full mb-3`}>
-                        SUBJECT {subjectCode}
+                    <div className="flex justify-between items-start">
+                        <div>
+                            <div className={`inline-block px-3 py-1 ${theme.bg} bg-opacity-20 ${theme.text} border ${theme.border} border-opacity-30 text-xs font-bold rounded-full mb-3`}>
+                                SUBJECT {subjectCode}
+                            </div>
+                            <h1 className="text-4xl font-black mb-2">{subjectName}</h1>
+                            <p className="text-slate-300 max-w-xl text-lg mb-6">{description}</p>
+                        </div>
+                        {onOpenSyllabus && (
+                            <button
+                                onClick={() => onOpenSyllabus(subjectCode)}
+                                className={`hidden md:flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white px-4 py-2 rounded-lg transition-all font-bold text-sm shadow-lg`}
+                            >
+                                <BookOpen size={16} className={theme.text} />
+                                View Syllabus
+                            </button>
+                        )}
                     </div>
-                    <h1 className="text-4xl font-black mb-2">{subjectName}</h1>
-                    <p className="text-slate-300 max-w-xl text-lg">{description}</p>
+                    {/* Mobile Button */}
+                    {onOpenSyllabus && (
+                        <button
+                            onClick={() => onOpenSyllabus(subjectCode)}
+                            className={`md:hidden w-full flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white px-4 py-3 rounded-lg transition-all font-bold text-sm shadow-lg mb-4`}
+                        >
+                            <BookOpen size={16} className={theme.text} />
+                            View Syllabus
+                        </button>
+                    )}
                 </div>
                 {/* Brand Watermark */}
                 <div className="absolute right-[-40px] top-[-40px] w-96 h-96 opacity-[0.03] rotate-[-15deg] pointer-events-none select-none">

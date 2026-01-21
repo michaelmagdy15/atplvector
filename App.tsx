@@ -9,7 +9,6 @@ import PlatformDashboard from './components/PlatformDashboard';
 import UserProfile from './components/UserProfile';
 import AccountSettings from './components/AccountSettings';
 import PlatformProgress from './components/PlatformProgress';
-import LearningObjectivesViewer from './components/LearningObjectivesViewer';
 import FlashcardSystem from './components/FlashcardSystem';
 import SubscriptionManagement from './components/SubscriptionManagement';
 import AdminDashboard from './components/AdminDashboard';
@@ -273,6 +272,7 @@ import ProcedureApplication from './components/KSA/ProcedureApplication';
 
 // Removed duplicate imports of View, User, AuthStatus as they are already imported at the top.
 // Removed duplicate imports of View, User, AuthStatus as they are already imported at the top.
+import SyllabusViewer from './components/SyllabusViewer';
 import { ToastProvider } from './components/ui/ToastContext';
 import PageTransition from './components/ui/PageTransition';
 import FocusTimer from './components/study/FocusTimer';
@@ -286,6 +286,7 @@ import {
 const App: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
     const [currentView, setCurrentView] = useState<View>(View.PLATFORM_DASHBOARD);
+    const [selectedSubjectId, setSelectedSubjectId] = useState<string>('');
     const [studyTime, setStudyTime] = useState(0);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -529,6 +530,13 @@ const App: React.FC = () => {
     };
 
     // Study Timer Logic with Database Persistence
+    // Keep track of study time for cleanup
+    const studyTimeRef = React.useRef(studyTime);
+    useEffect(() => {
+        studyTimeRef.current = studyTime;
+    }, [studyTime]);
+
+    // Study Timer Logic with Database Persistence
     useEffect(() => {
         if (!user) return;
 
@@ -551,9 +559,9 @@ const App: React.FC = () => {
         return () => {
             clearInterval(interval);
             // Try to save on unmount if possible (best effort)
-            supabase.from('profiles').update({ study_seconds: studyTime }).eq('id', user.id);
+            supabase.from('profiles').update({ study_seconds: studyTimeRef.current }).eq('id', user.id);
         };
-    }, [user]); // user dependency ensures this runs when user logs in/out
+    }, [user?.id]); // Only restart if user ID changes (login/logout), not on every profile update
 
     const handleLogout = async () => {
         // Force save study time before logging out
@@ -753,6 +761,11 @@ const App: React.FC = () => {
         </button>
     );
 
+    const handleOpenSyllabus = (subjectId: string) => {
+        setSelectedSubjectId(subjectId);
+        navigateTo(View.SYLLABUS_VIEWER);
+    };
+
     // Sidebar Config Logic
     const subjectConfig = getSubjectConfig(currentView);
 
@@ -907,7 +920,7 @@ const App: React.FC = () => {
                                 {currentView === View.ACCOUNT_SETTINGS && (
                                     <AccountSettings user={user} onBack={() => setCurrentView(View.PROFILE)} />
                                 )}
-                                {currentView === View.SYLLABUS_VIEWER && <LearningObjectivesViewer onNavigate={navigateTo} />}
+
                                 {currentView === View.FLASHCARDS && <FlashcardSystem />}
                                 {currentView === View.SUBSCRIPTION_MANAGEMENT && (
                                     <SubscriptionManagement
@@ -934,7 +947,7 @@ const App: React.FC = () => {
 
                                 {/* --- SUBJECT MODULES --- */}
                                 {/* Air Law */}
-                                {currentView === View.AIR_LAW_HOME && <AirLawDashboard onChangeView={navigateTo} isLocked={!isSubjectAllowed('010')} />}
+                                {currentView === View.AIR_LAW_HOME && <AirLawDashboard onChangeView={navigateTo} isLocked={!isSubjectAllowed('010')} onOpenSyllabus={handleOpenSyllabus} />}
                                 {currentView === View.AIR_LAW_INT_LAW && <InternationalLaw />}
                                 {currentView === View.AIR_LAW_ORG && <AviationOrganisations />}
                                 {currentView === View.AIR_LAW_LIABILITY && <LiabilityAndRights />}
@@ -1052,6 +1065,7 @@ const App: React.FC = () => {
                                             { title: 'Health & Hygiene', desc: 'Alcohol, Drugs, Diet & Hygiene.', view: View.HPL_HEALTH_HYGIENE },
                                             { title: 'Tropical Diseases', desc: 'Infectious diseases and travel health.', view: View.HPL_TROPICAL_DISEASES },
                                         ]}
+                                        onOpenSyllabus={handleOpenSyllabus}
                                     />
                                 )}
                                 {currentView === View.HPL_PHYSIOLOGY && <HumanPhysiology />}
@@ -1110,6 +1124,7 @@ const App: React.FC = () => {
                                             { title: 'Altimetry', desc: 'QNH, QFE, QFF, True Altitude.', isLocked: true },
                                             { title: 'Clouds', desc: 'Classification, formation, lifting.', isLocked: true },
                                         ]}
+                                        onOpenSyllabus={handleOpenSyllabus}
                                     />
                                 )}
                                 {currentView === View.MET_ATMOSPHERE && <AtmosphereLayers />}
@@ -1155,6 +1170,7 @@ const App: React.FC = () => {
                                             { title: 'RNAV/PBN', desc: 'Area Navigation and Kalman Filtering.', view: View.RAD_NAV_RNAV },
                                             { title: 'FMS Trainer', desc: 'CDU/MCDU Waypoint entry.', view: View.RAD_NAV_FMS },
                                         ]}
+                                        onOpenSyllabus={handleOpenSyllabus}
                                     />
                                 )}
 
@@ -1197,6 +1213,7 @@ const App: React.FC = () => {
                                             { title: 'Stall', desc: 'Stalling characteristics and recovery.', isLocked: true },
                                             { title: 'Stability', desc: 'Static and Dynamic stability.', isLocked: true },
                                         ]}
+                                        onOpenSyllabus={handleOpenSyllabus}
                                     />
                                 )}
                                 {currentView === View.POF_ATMOSPHERE && <AtmosphereProp />}
@@ -1221,7 +1238,7 @@ const App: React.FC = () => {
                                 {currentView === View.KSA_PROCEDURES && <ProcedureApplication />}
 
                                 {/* Communications (090) */}
-                                {currentView === View.DASHBOARD && <CommsDashboard onChangeView={navigateTo} />}
+                                {currentView === View.DASHBOARD && <CommsDashboard onChangeView={navigateTo} onOpenSyllabus={handleOpenSyllabus} />}
                                 {currentView === View.GENERAL_THEORY && <GeneralTheory />}
                                 {currentView === View.PROPAGATION_THEORY && <PropagationTheory />}
                                 {currentView === View.TECH_PHYSICS && <TechPhysics />}
@@ -1323,6 +1340,7 @@ const App: React.FC = () => {
                                             { title: 'General Requirements', desc: 'MEL, Equipment, AOC, Safety.', view: View.OPS_GENERAL, isLocked: !isSubjectAllowed('070') },
                                             { title: 'Ground Ops', desc: 'Marshalling & Safety.', view: View.AIR_LAW_GROUND_OPS, isLocked: !isSubjectAllowed('070') },
                                         ]}
+                                        onOpenSyllabus={handleOpenSyllabus}
                                     />
                                 )}
                                 {currentView === View.OPS_LONG_RANGE && <LongRangeOps />}
@@ -1336,6 +1354,7 @@ const App: React.FC = () => {
                                         description="Take-off, climb, cruise, descent and landing performance for Class A/B aircraft."
                                         icon={TrendingUp} onChangeView={navigateTo}
                                         modules={[]}
+                                        onOpenSyllabus={handleOpenSyllabus}
                                     />
                                 )}
                                 {currentView === View.FLIGHT_PLAN_HOME && (
@@ -1344,6 +1363,7 @@ const App: React.FC = () => {
                                         description="VFR/IFR planning, fuel planning, point of equal time, and flight monitoring."
                                         icon={Map} onChangeView={navigateTo}
                                         modules={[]}
+                                        onOpenSyllabus={handleOpenSyllabus}
                                     />
                                 )}
                                 {currentView === View.MET_ALTIMETRY && <Altimetry />}
@@ -1361,6 +1381,16 @@ const App: React.FC = () => {
                                 )}
                                 {currentView === View.CONCEPT_TURN_PERF && (
                                     <TurnPerformance onBack={() => navigateTo(View.CONCEPT_LAB)} />
+                                )}
+
+                                {currentView === View.SYLLABUS_VIEWER && (
+                                    <SyllabusViewer
+                                        subjectId={selectedSubjectId || 'ALL'} // Default to ALL if no subject selected
+                                        currentUser={user}
+                                        onUpdateUser={handleUserUpdate}
+                                        onBack={goBack}
+                                        onNavigate={navigateTo}
+                                    />
                                 )}
                             </PageTransition>
                         </div>
