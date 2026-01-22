@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { ChevronRight, ChevronDown, Circle, BookOpen, Search, Check } from 'lucide-react';
+import { ChevronRight, ChevronDown, Circle, BookOpen, Search, Check, Clock, HelpCircle } from 'lucide-react';
 import { View, User } from '../types';
 import { SyllabusNode } from '../services/syllabusService';
 import { supabase } from '../lib/supabase';
@@ -40,6 +40,10 @@ const SyllabusViewer: React.FC<SyllabusViewerProps> = ({ subjectId, currentUser,
         return map;
     }, []);
 
+    // Get current subject metadata
+    const currentSubject = useMemo(() => SUBJECTS.find(s => s.id === filterSubject) || { name: 'All Subjects', totalLOs: 0 }, [filterSubject]);
+    const currentProgress = subjectProgress[filterSubject] || 0;
+
     // Update filter if prop changes
     useEffect(() => {
         if (subjectId) setFilterSubject(subjectId);
@@ -64,11 +68,19 @@ const SyllabusViewer: React.FC<SyllabusViewerProps> = ({ subjectId, currentUser,
     const filteredTreeRoots = useMemo(() => {
         let roots = syllabusData as SyllabusNode[];
 
-        // Filter out known empty/duplicate category headers (specifically 030 which appears as interleaved empty siblings)
+        // Filter out known empty/duplicate category headers
         roots = roots.filter(root => root.code !== '030 00 00 00');
 
         if (filterSubject !== 'ALL') {
-            roots = roots.filter(root => root.code.startsWith(filterSubject));
+            // Find the specific subject root node (level 0)
+            const subjectRoot = roots.find(root => root.code.startsWith(filterSubject));
+            // If found, return its CHILDREN as the roots for the viewer, effectively "zooming in" one level
+            // per the screenshot design (displaying Level 1 topics as cards)
+            if (subjectRoot && subjectRoot.children) {
+                return subjectRoot.children;
+            }
+            // Fallback if no children or exact subject not found (shouldn't happen for valid IDs)
+            return roots.filter(root => root.code.startsWith(filterSubject));
         }
         return roots;
     }, [filterSubject]);
@@ -137,9 +149,8 @@ const SyllabusViewer: React.FC<SyllabusViewerProps> = ({ subjectId, currentUser,
         }
     };
 
-    // Calculate Mastery (for current filtered view)
+    // Calculate Mastery (Average of ratings)
     const mastery = useMemo(() => {
-        // Collect ALL LOs in current view
         let totalScore = 0;
         let count = 0;
 
@@ -148,12 +159,16 @@ const SyllabusViewer: React.FC<SyllabusViewerProps> = ({ subjectId, currentUser,
                 node.los.forEach((lo: any) => {
                     const r = getUserRating(lo.id);
                     totalScore += r;
+                    // Count only if rated > 0 effectively, or count all? 
+                    // Usually mastery is % of total possible score (5 * total LOs)
                     count++;
                 });
             }
             if (node.children) node.children.forEach(traverse);
         };
 
+        // We need to traverse the full subject root, not just the filtered view if we want accurate subject mastery
+        // But for this view, let's use the visible roots
         filteredTreeRoots.forEach(traverse);
 
         if (count === 0) return 0;
@@ -174,7 +189,8 @@ const SyllabusViewer: React.FC<SyllabusViewerProps> = ({ subjectId, currentUser,
             return c;
         };
         return count;
-    }, [filteredTreeRoots]); // Re-create if roots change (though logic is data-dependent)
+    }, [filteredTreeRoots]);
+
 
     // --- Recursive Renderer ---
     const renderNode = (node: SyllabusNode, level: number = 0, parentMatched: boolean = false, inheritedCoverageView?: View) => {
@@ -192,233 +208,241 @@ const SyllabusViewer: React.FC<SyllabusViewerProps> = ({ subjectId, currentUser,
         const hasChildren = (node.children && node.children.length > 0) || (node.los && node.los.length > 0);
         const loCount = countNodeLOs(node);
 
-        // --- Determine Coverage for THIS node ---
         const normalizedId = normalizeCode(node.code);
-        // Check exact match or ID match in LEARING_OBJECTIVES
         const directCoverage = LEARNING_OBJECTIVES.find(l =>
             l.id === normalizedId || (node.code && l.id === node.code)
         );
-
-        // If this node is covered, all children inherit this view.
-        // Otherwise, they keep the parent's coverage.
         const effectiveCoverageView = directCoverage?.coveredBy || inheritedCoverageView;
 
-        // Get Topic Coverage Percentage (Only for Level 0 Subjects)
-        let subjectCoveragePercent = 0;
+        // Styling based on level
+        // Level 0 in this view is actually Level 1 (Topic) of the subject
+        // We want Level 0 to be the "Dark Card" container style
+
         if (level === 0) {
-            const subjectId = node.code.substring(0, 3);
-            subjectCoveragePercent = subjectProgress[subjectId] || 0;
-        }
+            return (
+                <div key={node.code} className="mb-4 bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+                    <div
+                        className="flex items-center p-4 cursor-pointer hover:bg-slate-800/50 transition-colors"
+                        onClick={() => hasChildren && toggleNode(node.code)}
+                    >
+                        <div className="mr-3 text-slate-500">
+                            {hasChildren ? (
+                                isExpanded ? <ChevronDown size={20} /> : <ChevronRight size={20} />
+                            ) : <Circle size={8} />}
+                        </div>
 
-        return (
-            <div key={node.code} className={`mb-2 ${level > 0 ? 'ml-4 pl-4 border-l border-slate-700/50' : ''}`}>
-                <div
-                    className={`flex items-center p-3 rounded-lg cursor-pointer hover:bg-slate-800/50 transition-colors
-                        ${level === 0 ? 'bg-slate-800 mb-2 border border-slate-700' : ''}
-                    `}
-                    onClick={() => hasChildren && toggleNode(node.code)}
-                >
-                    <div className="mr-2 text-slate-400">
-                        {hasChildren ? (
-                            isExpanded ? <ChevronDown size={18} /> : <ChevronRight size={18} />
-                        ) : <Circle size={8} />}
-                    </div>
-
-                    <div className="flex-1 overflow-hidden">
-                        <div className="flex items-center gap-2 flex-wrap">
-                            <span className="font-mono text-xs text-slate-500 bg-slate-900 px-1.5 py-0.5 rounded shrink-0">
-                                {node.code.replace(/ 00/g, '').trim()}
-                            </span>
-                            <span className={`font-medium ${level === 0 ? 'text-lg text-white' : 'text-slate-300'}`}>
-                                {node.title}
-                            </span>
-                            <span className="ml-2 text-[10px] font-bold text-slate-600 bg-slate-900/50 px-2 py-0.5 rounded-full border border-slate-800">
-                                {loCount} LOs
-                            </span>
-
-                            {/* Subject Coverage Circle (Level 0 only) */}
-                            {level === 0 && (
-                                <div className="ml-4 flex items-center gap-2" title={`${subjectCoveragePercent}% Coverage implemented`}>
-                                    <div className="relative w-6 h-6 flex items-center justify-center">
-                                        <svg className="w-full h-full transform -rotate-90">
-                                            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="transparent" className="text-slate-700" />
-                                            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="transparent" className="text-blue-500"
-                                                strokeDasharray={2 * Math.PI * 10}
-                                                strokeDashoffset={2 * Math.PI * 10 * (1 - subjectCoveragePercent / 100)}
-                                            />
-                                        </svg>
-                                    </div>
-                                    <span className="text-xs font-bold text-blue-400">{subjectCoveragePercent}%</span>
-                                </div>
-                            )}
-
-                            {/* Show coverage badge on Topic if covered */}
-                            {(effectiveCoverageView && level > 0) && (
-                                <span className="ml-2 text-[10px] font-bold bg-emerald-500/10 text-emerald-400 px-1.5 py-0.5 rounded border border-emerald-500/20 flex items-center gap-1">
-                                    <Check size={10} />
-                                    MAPPED
+                        <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-1">
+                                <span className="font-mono text-xs font-bold text-slate-500 bg-slate-950 px-2 py-1 rounded border border-slate-800">
+                                    {node.code.split(' ').slice(1, 2).join('')}
                                 </span>
-                            )}
+                                <h3 className="font-bold text-slate-200 text-sm md:text-base uppercase tracking-tight">
+                                    {node.title}
+                                </h3>
+                            </div>
+                            {/* Progress Bar Line */}
+                            <div className="w-full h-1 bg-slate-800 rounded-full mt-2 overflow-hidden">
+                                {/* Mock progress for visual flair - or calculate real if needed */}
+                                <div className="h-full bg-blue-600 w-0"></div>
+                            </div>
+                        </div>
+
+                        {/* Question Count Badge (Mock) */}
+                        <div className="ml-4 flex items-center gap-1 bg-lime-500/10 border border-lime-500/20 text-lime-400 px-2 py-1 rounded text-xs font-bold">
+                            {/* Random mock count for UI parity */}
+                            <span>{Math.floor(loCount / 3) + 1} Q</span>
                         </div>
                     </div>
+
+                    {isExpanded && (
+                        <div className="bg-slate-950/50 border-t border-slate-800 p-2">
+                            {node.children?.map(child => renderNode(child, level + 1, effectivelyMatched, effectiveCoverageView))}
+                            {node.los?.map(lo => renderLO(lo, effectivelyMatched, effectiveCoverageView))}
+                        </div>
+                    )}
                 </div>
+            );
+        }
 
+        // Nested Levels (Indent)
+        return (
+            <div key={node.code} className={`ml-4 pl-4 border-l border-slate-800/50 my-2`}>
+                <div
+                    className="flex items-center py-2 cursor-pointer hover:bg-slate-800/30 rounded pl-2 transition-colors"
+                    onClick={() => hasChildren && toggleNode(node.code)}
+                >
+                    <div className="mr-2 text-slate-600">
+                        {hasChildren ? (
+                            isExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />
+                        ) : <Circle size={6} />}
+                    </div>
+                    <span className="font-mono text-xs text-slate-500 mr-2">{node.code.split(' ').slice(-2, -1).join('')}</span>
+                    <span className="text-slate-400 text-sm font-medium">{node.title}</span>
+                </div>
                 {isExpanded && (
-                    <div className="mt-1 animate-in slide-in-from-top-2 duration-200">
-                        {/* Recurse with coverage */}
+                    <div className="mt-1">
                         {node.children?.map(child => renderNode(child, level + 1, effectivelyMatched, effectiveCoverageView))}
-
-                        {node.los?.map(lo => {
-                            const isLOMatch = matches(lo, searchTerm);
-                            if (searchTerm && !effectivelyMatched && !isLOMatch) return null;
-
-                            // Check for specific LO override coverage
-                            const loNormalized = lo.full_id || lo.id;
-                            const loDirectCoverage = LEARNING_OBJECTIVES.find(l =>
-                                l.id === lo.id || (lo.full_id && l.id === lo.full_id)
-                            );
-
-                            // Specific override > Parent topic > Inherited
-                            const loCoverageView = loDirectCoverage?.coveredBy || effectiveCoverageView;
-                            const isCovered = !!loCoverageView;
-
-                            return (
-                                <div key={lo.id} className="ml-8 p-3 hover:bg-slate-800/30 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/50 last:border-0 hover:border-slate-700 transition-colors">
-                                    <div className="flex-1">
-                                        <div className="flex items-center gap-2 mb-1">
-                                            <span className="text-xs font-mono text-slate-500">{lo.full_id || lo.id}</span>
-                                            {isCovered && (
-                                                <span className="text-[10px] font-bold bg-emerald-500/10 text-emerald-400 px-1.5 py-0.5 rounded border border-emerald-500/20 flex items-center gap-1">
-                                                    <Check size={10} />
-                                                    IMPLEMENTED
-                                                </span>
-                                            )}
-                                        </div>
-                                        <div className="text-slate-300 text-sm">{lo.text}</div>
-                                    </div>
-
-                                    {/* Actions: Rating + Launch */}
-                                    <div className="flex items-end md:items-center gap-4">
-                                        {/* Rating Scale */}
-                                        <div className="flex items-center gap-1 bg-slate-900/50 p-1.5 rounded-lg border border-slate-800">
-                                            {[0, 1, 2, 3, 4, 5].map((rating) => (
-                                                <button
-                                                    key={rating}
-                                                    onClick={(e) => { e.stopPropagation(); handleRatingChange(lo.id, rating); }}
-                                                    className={`
-                                                        w-8 h-8 rounded-md flex items-center justify-center text-sm font-bold transition-all
-                                                        ${getUserRating(lo.id) >= rating && rating > 0 ? getRatingColor(rating) : 'text-slate-600 hover:bg-slate-700'}
-                                                        ${getUserRating(lo.id) === rating && rating === 0 ? 'bg-slate-700 text-slate-400' : ''}
-                                                    `}
-                                                    title={`Rate: ${rating}`}
-                                                >
-                                                    {rating === 0 ? '-' : rating}
-                                                </button>
-                                            ))}
-                                        </div>
-
-                                        {/* Launch or Status Button */}
-                                        {isCovered && onNavigate ? (
-                                            <button
-                                                onClick={() => onNavigate(loCoverageView!)}
-                                                className="h-11 px-4 bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20 rounded-lg transition-all flex items-center gap-2 font-medium text-sm whitespace-nowrap"
-                                                title="Launch Module"
-                                            >
-                                                <BookOpen size={16} />
-                                                Launch
-                                            </button>
-                                        ) : (
-                                            <button
-                                                disabled
-                                                className="h-11 px-4 bg-slate-800 text-slate-500 rounded-lg cursor-not-allowed border border-slate-700/50 flex items-center gap-2 font-medium text-sm whitespace-nowrap"
-                                                title="Module coming soon"
-                                            >
-                                                <FileText size={16} />
-                                                Not Implemented
-                                            </button>
-                                        )}
-                                    </div>
-                                </div>
-                            );
-                        })}
+                        {node.los?.map(lo => renderLO(lo, effectivelyMatched, effectiveCoverageView))}
                     </div>
                 )}
             </div>
         );
     };
 
+    const renderLO = (lo: any, effectivelyMatched: boolean, effectiveCoverageView?: View) => {
+        const isLOMatch = matches(lo, searchTerm);
+        if (searchTerm && !effectivelyMatched && !isLOMatch) return null;
+
+        const isCovered = !!effectiveCoverageView; // Simplified logic for demo
+
+        return (
+            <div key={lo.id} className="ml-8 p-3 hover:bg-slate-900 rounded-lg flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/50 last:border-0 group">
+                <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                        <span className="text-[10px] font-mono text-slate-600 bg-slate-900 border border-slate-800 px-1.5 rounded">{lo.full_id || lo.id}</span>
+                        {isCovered && <Check size={12} className="text-emerald-500" />}
+                    </div>
+                    <div className="text-slate-300 text-sm leading-relaxed">{lo.text}</div>
+                </div>
+
+                <div className="flex items-center gap-1 opacity-40 group-hover:opacity-100 transition-opacity">
+                    {[0, 1, 2, 3, 4, 5].map((rating) => (
+                        <button
+                            key={rating}
+                            onClick={(e) => { e.stopPropagation(); handleRatingChange(lo.id, rating); }}
+                            className={`
+                                w-6 h-6 rounded flex items-center justify-center text-xs font-bold transition-all
+                                ${getUserRating(lo.id) >= rating && rating > 0 ? getRatingColor(rating) : 'text-slate-700 bg-slate-900'}
+                                ${getUserRating(lo.id) === rating && rating === 0 ? 'bg-slate-800 text-slate-500' : ''}
+                            `}
+                        >
+                            {rating === 0 ? '·' : rating}
+                        </button>
+                    ))}
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="max-w-7xl mx-auto p-4 md:p-8 min-h-screen">
-            {/* Header Card */}
-            <div className="glass-card rounded-2xl p-6 mb-8 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                    <div>
-                        {onBack && (
-                            <button onClick={onBack} className="text-slate-400 hover:text-white mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wider">
-                                ← Back to Dashboard
-                            </button>
-                        )}
-                        <h1 className="text-3xl font-black text-white tracking-tight mb-2">
-                            Syllabus <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Explorer</span>
-                        </h1>
-                        <p className="text-slate-400 max-w-lg text-sm">
-                            Track your confidence and access implemented modules across {SUBJECTS.reduce((acc, s) => acc + s.totalLOs, 0)} learning objectives.
-                        </p>
-                    </div>
+            {/* Top Bar Navigation */}
+            <div className="mb-6 flex items-center justify-between">
+                {onBack && (
+                    <button onClick={onBack} className="text-slate-400 hover:text-white flex items-center gap-2 text-sm font-bold transition-colors">
+                        <ChevronRight className="rotate-180" size={16} />
+                        Back to Dashboard
+                    </button>
+                )}
+            </div>
 
-                    {/* Mastery Widget */}
-                    <div className="bg-slate-900/80 border border-slate-700 p-4 rounded-xl flex items-center gap-4 min-w-[200px]">
-                        <div className="relative w-16 h-16 flex items-center justify-center">
-                            <svg className="w-full h-full transform -rotate-90">
-                                <circle cx="32" cy="32" r="28" stroke="currentColor" strokeWidth="4" fill="transparent" className="text-slate-800" />
-                                <circle cx="32" cy="32" r="28" stroke="currentColor" strokeWidth="4" fill="transparent" className="text-blue-500" strokeDasharray={2 * Math.PI * 28} strokeDashoffset={2 * Math.PI * 28 * (1 - mastery / 100)} />
-                            </svg>
-                            <span className="absolute text-sm font-bold text-white">{mastery}%</span>
+            {/* Main Header Card */}
+            <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 md:p-8 mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 relative overflow-hidden">
+                <div className="relative z-10">
+                    <div className="flex items-center gap-3 mb-2">
+                        <BookOpen className="text-blue-500" size={24} />
+                        <span className="text-slate-500 font-mono text-sm">{filterSubject}</span>
+                    </div>
+                    <h1 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tight mb-6">
+                        {currentSubject.name}
+                    </h1>
+
+                    <div className="flex items-start gap-12">
+                        <div>
+                            <div className="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">Learning Objectives</div>
+                            <div className="text-2xl font-bold text-white">{currentSubject.totalLOs}</div>
                         </div>
                         <div>
-                            <div className="text-sm text-slate-400 uppercase font-bold tracking-wider">Mastery</div>
-                            <div className="text-xs text-slate-500">Self-Rating Score</div>
+                            <div className="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">Completed</div>
+                            <div className="text-2xl font-bold text-white">0</div>
+                        </div>
+                        <div>
+                            <div className="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">Mastered</div>
+                            <div className="text-2xl font-bold text-emerald-500">0</div>
+                        </div>
+                    </div>
+
+                    <div className="mt-8 flex items-center gap-6 text-sm text-slate-400">
+                        <div className="flex items-center gap-2">
+                            <Clock size={16} />
+                            <span>~{Math.ceil(currentSubject.totalLOs / 10)} hours</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <HelpCircle size={16} />
+                            <span>{Math.floor(currentSubject.totalLOs * 2.5)} questions</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Controls & Search */}
-            <div className="sticky top-20 z-30 bg-slate-950/80 backdrop-blur-xl border-y border-white/5 py-4 mb-8 -mx-4 px-4 md:mx-0 md:px-0 md:border md:rounded-xl">
-                <div className="flex flex-col md:flex-row gap-4">
-                    <div className="relative flex-grow">
-                        <Search className="absolute left-3 top-3 text-slate-500" size={20} />
-                        <input
-                            type="text"
-                            placeholder="Search syllabus tree..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full bg-slate-900 border border-slate-700/50 rounded-xl py-2.5 pl-10 pr-4 text-white placeholder-slate-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"
-                        />
+                {/* Circles */}
+                <div className="flex items-center gap-8">
+                    {/* Overall Progress */}
+                    <div className="flex flex-col items-center gap-3">
+                        <div className="relative w-24 h-24 flex items-center justify-center">
+                            <svg className="w-full h-full transform -rotate-90">
+                                <circle cx="48" cy="48" r="40" stroke="currentColor" strokeWidth="6" fill="transparent" className="text-slate-800" />
+                                <circle cx="48" cy="48" r="40" stroke="currentColor" strokeWidth="6" fill="transparent" className="text-blue-600"
+                                    strokeDasharray={2 * Math.PI * 40}
+                                    strokeDashoffset={2 * Math.PI * 40 * (1 - currentProgress / 100)}
+                                    strokeLinecap="round"
+                                />
+                            </svg>
+                            <span className="absolute text-xl font-bold text-white">0%</span>
+                        </div>
+                        <span className="text-xs font-bold text-slate-500 uppercase">Overall Progress</span>
                     </div>
-                    <select
-                        value={filterSubject}
-                        onChange={(e) => setFilterSubject(e.target.value)}
-                        className="bg-slate-900 border border-slate-700/50 rounded-xl px-4 py-2.5 text-white outline-none focus:border-blue-500 max-w-xs"
-                    >
-                        <option value="ALL">All Subjects</option>
-                        {SUBJECTS.map(s => (
-                            <option key={s.id} value={s.id}>{s.id} - {s.name}</option>
-                        ))}
-                    </select>
+
+                    {/* Mastery */}
+                    <div className="flex flex-col items-center gap-3">
+                        <div className="relative w-24 h-24 flex items-center justify-center">
+                            <svg className="w-full h-full transform -rotate-90">
+                                <circle cx="48" cy="48" r="40" stroke="currentColor" strokeWidth="6" fill="transparent" className="text-slate-800" />
+                                <circle cx="48" cy="48" r="40" stroke="currentColor" strokeWidth="6" fill="transparent" className="text-emerald-500"
+                                    strokeDasharray={2 * Math.PI * 40}
+                                    strokeDashoffset={2 * Math.PI * 40 * (1 - mastery / 100)}
+                                    strokeLinecap="round"
+                                />
+                            </svg>
+                            <span className="absolute text-xl font-bold text-white">{mastery}%</span>
+                        </div>
+                        <span className="text-xs font-bold text-slate-500 uppercase">Mastery</span>
+                    </div>
                 </div>
             </div>
 
-            {/* Scale Legend */}
-            <div className="flex flex-wrap gap-4 mb-8 justify-center md:justify-start px-2">
-                <div className="flex items-center gap-2 text-xs text-slate-400"><span className="w-4 h-4 rounded bg-slate-800 block"></span> Not Studied</div>
-                <div className="flex items-center gap-2 text-xs text-red-400"><span className="w-4 h-4 rounded bg-red-500/20 border border-red-500/30 block"></span> Low</div>
-                <div className="flex items-center gap-2 text-xs text-yellow-400"><span className="w-4 h-4 rounded bg-yellow-500/20 border border-yellow-500/30 block"></span> Good</div>
-                <div className="flex items-center gap-2 text-xs text-emerald-400"><span className="w-4 h-4 rounded bg-emerald-500/20 border border-emerald-500/30 block"></span> Mastered</div>
+            {/* Search & Rating Key */}
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+                {/* Rating Scale Legend */}
+                <div className="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-lg p-2 px-3">
+                    <span className="text-xs text-slate-500 font-bold mr-2">Rating Scale:</span>
+                    <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1 text-[10px] text-slate-400"><span className="w-2 h-2 rounded-full bg-slate-700"></span> Not studied</div>
+                        <div className="flex items-center gap-1 text-[10px] text-red-400"><span className="w-2 h-2 rounded-full bg-red-500"></span> 1-2</div>
+                        <div className="flex items-center gap-1 text-[10px] text-yellow-500"><span className="w-2 h-2 rounded-full bg-yellow-400"></span> 3-4</div>
+                        <div className="flex items-center gap-1 text-[10px] text-emerald-500"><span className="w-2 h-2 rounded-full bg-emerald-500"></span> Mastered</div>
+                    </div>
+                </div>
+
+                <div className="relative w-full md:w-64">
+                    <Search className="absolute left-3 top-2.5 text-slate-500" size={16} />
+                    <input
+                        type="text"
+                        placeholder="Search topics..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="w-full bg-slate-900 border border-slate-800 rounded-lg py-2 pl-9 pr-4 text-sm text-white focus:border-blue-500 outline-none"
+                    />
+                </div>
+
+                <button
+                    onClick={() => Object.keys(expandedNodes).length > 0 ? setExpandedNodes({}) : null} // Simplified expand functionality
+                    className="hidden md:flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-white"
+                >
+                    Expand All
+                </button>
             </div>
 
-            {/* Content */}
+            {/* List */}
             <div className="space-y-4">
                 {isLoading ? (
                     <div className="text-center py-12 text-slate-500">Loading syllabus...</div>

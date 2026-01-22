@@ -273,6 +273,7 @@ import ProcedureApplication from './components/KSA/ProcedureApplication';
 // Removed duplicate imports of View, User, AuthStatus as they are already imported at the top.
 // Removed duplicate imports of View, User, AuthStatus as they are already imported at the top.
 import SyllabusViewer from './components/SyllabusViewer';
+import ProgressDashboard from './components/ProgressDashboard';
 import { ToastProvider } from './components/ui/ToastContext';
 
 import FocusTimer from './components/study/FocusTimer';
@@ -817,6 +818,7 @@ const App: React.FC = () => {
                             <div className="hidden md:flex items-center space-x-2">
                                 <NavButton view={View.PLATFORM_DASHBOARD} label="Hangar" />
                                 <NavButton view={View.SYLLABUS_VIEWER} label="Syllabus" />
+                                <NavButton view={View.PROGRESS_DASHBOARD} label="Your Progress" />
                                 <NavButton view={View.FLASHCARDS} label="Flashcards" />
                                 <NavButton view={View.SUBSCRIPTION_MANAGEMENT} label="Plan" />
                                 {/* New Buttons */}
@@ -943,7 +945,13 @@ const App: React.FC = () => {
                                     onChangeView={navigateTo}
                                 />
                             )}
-                            {currentView === View.EXAM_PLANNER && <ExamPlanner />}
+                            {currentView === View.EXAM_PLANNER && <ExamPlanner currentUser={user} />}
+                            {currentView === View.PROGRESS_DASHBOARD && (
+                                <ProgressDashboard
+                                    onChangeView={navigateTo}
+                                    onOpenSyllabus={handleOpenSyllabus}
+                                />
+                            )}
 
                             {/* --- SUBJECT MODULES --- */}
                             {/* Air Law */}

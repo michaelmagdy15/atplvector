@@ -11,6 +11,7 @@ export enum View {
   STUDY_GUIDE = 'STUDY_GUIDE',
   QUESTION_BANK = 'QUESTION_BANK',
   EXAM_PLANNER = 'EXAM_PLANNER',
+  PROGRESS_DASHBOARD = 'PROGRESS_DASHBOARD',
 
   // Auth Specific
   AUTH_LOGIN = 'AUTH_LOGIN',
@@ -369,6 +370,7 @@ export interface User {
   trialStartDate?: string; // ISO date string when trial started
   trialSubjects?: string[]; // Subjects available during trial (e.g., ['090', '040'])
   learningObjectivesRatings?: Record<string, number>; // Map of LO ID to rating (0-5)
+  exam_plan?: any; // JSONB stored in Supabase
 }
 
 export interface QCode {

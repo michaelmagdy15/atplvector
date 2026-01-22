@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, ChevronRight, AlertCircle, Info, Trash2, CheckCircle2, Layout, Clock, BookOpen, Target, Sparkles, Plus } from 'lucide-react';
+import { supabase } from '../lib/supabase';
+import { User } from '../types';
 
 interface Subject {
     id: string;
@@ -31,26 +33,84 @@ interface Sitting {
     subjects: string[]; // IDs
 }
 
-export const ExamPlanner: React.FC = () => {
+interface ExamPlannerProps {
+    currentUser?: User;
+}
+
+export const ExamPlanner: React.FC<ExamPlannerProps> = ({ currentUser }) => {
     const [sittings, setSittings] = useState<Sitting[]>([]);
     const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
     const [startDate, setStartDate] = useState<string>(new Date().toISOString().split('T')[0]);
+    const [isLoading, setIsLoading] = useState(true);
 
-    // Load from local storage
+    // Load from Supabase (if logged in) or Local Storage
     useEffect(() => {
-        const saved = localStorage.getItem('atpl_exam_plan');
-        if (saved) {
-            const parsed = JSON.parse(saved);
-            setSittings(parsed.sittings || []);
-            setSelectedSubjects(parsed.selectedSubjects || []);
-            setStartDate(parsed.startDate || new Date().toISOString().split('T')[0]);
+        const loadPlan = async () => {
+            setIsLoading(true);
+            let synced = false;
+
+            // 1. Try fetching from Supabase if user exists
+            if (currentUser?.id) {
+                try {
+                    const { data, error } = await supabase
+                        .from('profiles')
+                        .select('exam_plan')
+                        .eq('id', currentUser.id)
+                        .single();
+
+                    if (data?.exam_plan) {
+                        setSittings(data.exam_plan.sittings || []);
+                        setSelectedSubjects(data.exam_plan.selectedSubjects || []);
+                        setStartDate(data.exam_plan.startDate || new Date().toISOString().split('T')[0]);
+                        synced = true;
+                    }
+                } catch (err) {
+                    console.error("Error fetching exam plan:", err);
+                }
+            }
+
+            // 2. Fallback to Local Storage if no Supabase data found
+            if (!synced) {
+                const saved = localStorage.getItem('atpl_exam_plan');
+                if (saved) {
+                    try {
+                        const parsed = JSON.parse(saved);
+                        setSittings(parsed.sittings || []);
+                        setSelectedSubjects(parsed.selectedSubjects || []);
+                        setStartDate(parsed.startDate || new Date().toISOString().split('T')[0]);
+                    } catch (e) {
+                        console.error("Error parsing local exam plan", e);
+                    }
+                }
+            }
+            setIsLoading(false);
+        };
+
+        loadPlan();
+    }, [currentUser?.id]); // Only re-run if user ID changes (e.g. login)
+
+    // Save to Local Storage & Supabase (Debounced)
+    useEffect(() => {
+        if (isLoading) return; // Don't save empty state while loading
+
+        const planData = { sittings, selectedSubjects, startDate };
+
+        // Always save to local storage as backup
+        localStorage.setItem('atpl_exam_plan', JSON.stringify(planData));
+
+        // Sync to Supabase if logged in
+        if (currentUser?.id) {
+            const timer = setTimeout(async () => {
+                try {
+                    await supabase.update({ exam_plan: planData }).eq('id', currentUser.id).from('profiles');
+                } catch (err) {
+                    console.error("Error saving exam plan:", err);
+                }
+            }, 1500); // 1.5s debounce
+
+            return () => clearTimeout(timer);
         }
-    }, []);
-
-    // Save to local storage
-    useEffect(() => {
-        localStorage.setItem('atpl_exam_plan', JSON.stringify({ sittings, selectedSubjects, startDate }));
-    }, [sittings, selectedSubjects, startDate]);
+    }, [sittings, selectedSubjects, startDate, currentUser?.id, isLoading]);
 
     const addSitting = () => {
         if (sittings.length >= 6) {
@@ -121,6 +181,15 @@ export const ExamPlanner: React.FC = () => {
                     <p className="text-slate-400 max-w-2xl">
                         You have <span className="text-white font-bold">6 sittings</span> and <span className="text-white font-bold">18 months</span> to complete all 13 subjects.
                         Use this tool to group subjects strategically based on difficulty and pass rates.
+                        {currentUser ? (
+                            <span className="ml-2 inline-flex items-center gap-1 text-emerald-400 text-xs font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                                <CheckCircle2 size={10} /> Cloud Synced
+                            </span>
+                        ) : (
+                            <span className="ml-2 inline-flex items-center gap-1 text-amber-400 text-xs font-bold bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
+                                <AlertCircle size={10} /> Local Storage Only
+                            </span>
+                        )}
                     </p>
                 </div>
                 <div className="flex gap-3">
@@ -283,6 +352,7 @@ export const ExamPlanner: React.FC = () => {
                         <div className="glass-panel p-8 rounded-3xl space-y-6">
                             <h3 className="text-xl font-bold text-white flex items-center gap-2">
                                 <Target size={20} className="text-emerald-400" />
+                                <CheckCircle2 size={16} className="text-emerald-500" />
                                 Plan Viability Analysis
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
