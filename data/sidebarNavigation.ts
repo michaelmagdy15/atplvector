@@ -246,6 +246,7 @@ const NAV_MAP: SubjectConfig[] = [
             { label: 'Dashboard', view: View.MET_HOME, icon: Cloud },
             { label: 'Atmosphere', view: View.MET_ATMOSPHERE },
             { label: 'Altimetry', view: View.MET_ALTIMETRY },
+            { label: 'Precipitation', view: View.MET_PRECIPITATION },
         ]
     },
     {

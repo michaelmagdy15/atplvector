@@ -1,7 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import { AuthStatus, View, User } from './types';
 import { supabase } from './lib/supabase';
+
+// Define global constant for commit hash
+declare const __COMMIT_HASH__: string;
 
 // Components
 import AuthView from './components/AuthView';
@@ -149,6 +151,7 @@ import HPLIncapacitation from './components/HPL/HPLIncapacitation';
 
 import AtmosphereLayers from './components/Meteorology/AtmosphereLayers';
 import Altimetry from './components/Meteorology/Altimetry';
+import Precipitation from './components/Meteorology/Precipitation';
 import OneInSixty from './components/Nav/OneInSixty';
 import TimeZoner from './components/TimeZoner';
 import GNSSTheory from './components/RadioNav/GNSSTheory';
@@ -1129,13 +1132,16 @@ const App: React.FC = () => {
                                     icon={Cloud} onChangeView={navigateTo}
                                     modules={[
                                         { title: 'The Atmosphere', desc: 'Layers, composition, ISA.', view: View.MET_ATMOSPHERE },
-                                        { title: 'Altimetry', desc: 'QNH, QFE, QFF, True Altitude.', isLocked: true },
+                                        { title: 'Altimetry', desc: 'QNH, QFE, QFF, True Altitude.', view: View.MET_ALTIMETRY },
+                                        { title: 'Precipitation', desc: 'Types, formation, cloud associations.', view: View.MET_PRECIPITATION },
                                         { title: 'Clouds', desc: 'Classification, formation, lifting.', isLocked: true },
                                     ]}
                                     onOpenSyllabus={handleOpenSyllabus}
                                 />
                             )}
                             {currentView === View.MET_ATMOSPHERE && <AtmosphereLayers />}
+                            {currentView === View.MET_ALTIMETRY && <Altimetry />}
+                            {currentView === View.MET_PRECIPITATION && <Precipitation />}
 
                             {(currentView === View.GEN_NAV_HOME || currentView === View.NAV_HOME) && (
                                 <GenNavDashboard currentView={View.GEN_NAV_HOME} setCurrentView={setCurrentView} isLocked={!isSubjectAllowed('061')} />
@@ -1404,6 +1410,13 @@ const App: React.FC = () => {
                         </div>
                     </div>
                 </main>
+
+                {/* Version Footer */}
+                <footer className="w-full py-6 text-center z-10 relative pointer-events-none">
+                    <p className="text-slate-600 text-[10px] font-mono tracking-widest uppercase opacity-40 hover:opacity-100 transition-opacity duration-300 select-none">
+                        System Version: <span className="text-slate-500">{typeof __COMMIT_HASH__ !== 'undefined' ? __COMMIT_HASH__ : 'DEV'}</span>
+                    </p>
+                </footer>
             </div >
         </ContentProtection >
     );

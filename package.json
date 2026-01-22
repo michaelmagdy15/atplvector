@@ -17,6 +17,7 @@
     "@capacitor/core": "^5.7.8",
     "@capacitor/ios": "^5.7.8",
     "@google/genai": "^1.33.0",
+    "@hello-pangea/dnd": "^18.0.1",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.4.2",
     "@supabase/supabase-js": "^2.39.8",

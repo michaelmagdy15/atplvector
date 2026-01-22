@@ -194,6 +194,7 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '050.01.01', subject: '050', text: 'The Atmosphere: Structure', coveredBy: View.MET_ATMOSPHERE },
     { id: '050.01.02', subject: '050', text: 'Altimetry', coveredBy: View.MET_ALTIMETRY },
     { id: '050.02', subject: '050', text: 'Wind', coveredBy: View.MET_CIRCULATION },
+    { id: '050.05', subject: '050', text: 'Precipitation', coveredBy: View.MET_PRECIPITATION },
     { id: '050.06', subject: '050', text: 'Clouds and Fog', coveredBy: View.MET_CLOUDS },
     { id: '050.09', subject: '050', text: 'Fronts', coveredBy: View.MET_FRONTS },
 
