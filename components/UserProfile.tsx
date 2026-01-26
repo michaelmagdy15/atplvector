@@ -77,6 +77,74 @@ const UserProfile: React.FC<Props> = ({ user, studyTime, onLogout, onUpdateUser,
                 </div>
             </div>
 
+            {/* Demo Activation Section */}
+            {(!user.subscriptionTier || user.subscriptionTier === 'CUSTOM') && !user.demoStartDate && !user.isAdmin && (
+                <div className="bg-gradient-to-r from-indigo-900/40 to-blue-900/40 border border-indigo-500/30 rounded-2xl p-6 mb-8 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+
+                    <div className="relative z-10">
+                        <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                            <span className="p-1 bg-indigo-500/20 rounded shadow shadow-indigo-500/10">🚀</span>
+                            Unlock 3-Hour Demo
+                        </h3>
+                        <p className="text-slate-400 text-sm mb-4 max-w-lg">
+                            Get unrestricted access to the entire platform for 3 hours.
+                            Explore simulators, question banks, and AI tools. One-time use only.
+                        </p>
+                        <button
+                            onClick={async () => {
+                                if (confirm("Activate 3-hour demo now? The timer starts immediately.")) {
+                                    try {
+                                        setLoading(true);
+                                        const now = new Date().toISOString();
+                                        const { error } = await supabase
+                                            .from('profiles')
+                                            .update({ demo_start_date: now })
+                                            .eq('id', user.id);
+
+                                        if (error) throw error;
+
+                                        // Force refresh - simplistic but effective for now
+                                        window.location.reload();
+                                    } catch (err) {
+                                        alert("Failed to activate demo. Please try again.");
+                                    } finally {
+                                        setLoading(false);
+                                    }
+                                }
+                            }}
+                            disabled={loading}
+                            className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition shadow-lg shadow-indigo-500/20 flex items-center gap-2"
+                        >
+                            {loading ? "Activating..." : "Activate Now"}
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* Active Demo Timer */}
+            {user.demoStartDate && (
+                <div className="bg-indigo-900/20 border border-indigo-500/30 rounded-2xl p-6 mb-8">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                                <Clock className="text-indigo-400" size={20} />
+                                Demo Active
+                            </h3>
+                            <p className="text-slate-400 text-xs mt-1">
+                                Started: {new Date(user.demoStartDate).toLocaleTimeString()}
+                            </p>
+                        </div>
+                        <div className="text-right">
+                            <div className="text-2xl font-mono font-bold text-indigo-300">
+                                {/* Ideally calculate remaining time here dynamically, but static for profile view is fine for first pass */}
+                                Ends: {new Date(new Date(user.demoStartDate).getTime() + 3 * 60 * 60 * 1000).toLocaleTimeString()}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <button
                 onClick={onLogout}
                 className="w-full py-4 bg-red-900/20 hover:bg-red-900/40 text-red-400 font-bold rounded-xl border border-red-900/50 transition flex items-center justify-center"

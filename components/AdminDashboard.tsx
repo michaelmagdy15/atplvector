@@ -101,6 +101,16 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                     status = AuthStatus.ACTIVE;
                     tier = sub.plan;
                     if (tier?.includes('PRO')) allowed = ['ALL'];
+                } else if (p.demo_start_date) {
+                    // Calculate demo status dynamically for admin view
+                    const demoStart = new Date(p.demo_start_date);
+                    const now = new Date();
+                    const hoursSince = (now.getTime() - demoStart.getTime()) / (1000 * 60 * 60);
+                    if (hoursSince < 3) {
+                        status = AuthStatus.DEMO_PREVIEW;
+                    } else {
+                        status = AuthStatus.DEMO_EXPIRED;
+                    }
                 }
 
                 return {
@@ -113,6 +123,7 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                     allowedSubjects: allowed,
                     isAdmin: p.is_admin,
                     isApproved: p.is_approved,
+                    demoStartDate: p.demo_start_date, // Pass this through
                     createdAt: p.created_at
                 } as User & { createdAt?: string };
             });
@@ -347,6 +358,8 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
             case AuthStatus.PENDING_APPROVAL: return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/50';
             case AuthStatus.SUSPENDED: return 'bg-orange-500/20 text-orange-400 border-orange-500/50';
             case AuthStatus.BANNED: return 'bg-red-500/20 text-red-400 border-red-500/50';
+            case AuthStatus.DEMO_PREVIEW: return 'bg-sky-500/20 text-sky-400 border-sky-500/50';
+            case AuthStatus.DEMO_EXPIRED: return 'bg-slate-500/20 text-slate-400 border-slate-500/50';
             default: return 'bg-slate-500/20 text-slate-400 border-slate-500/50';
         }
     };
@@ -361,6 +374,8 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
             case AuthStatus.SUSPENDED: return 'Suspended';
             case AuthStatus.BANNED: return 'Banned';
             case AuthStatus.SIGNED_UP: return 'Signed Up';
+            case AuthStatus.DEMO_PREVIEW: return 'Demo Active';
+            case AuthStatus.DEMO_EXPIRED: return 'Demo Ended';
             default: return status;
         }
     };
@@ -645,7 +660,10 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                             <option value={AuthStatus.ACTIVE}>Active</option>
                             <option value={AuthStatus.SUSPENDED}>Suspended</option>
                             <option value={AuthStatus.BANNED}>Banned</option>
+                            <option value={AuthStatus.DEMO_PREVIEW}>Demo Active</option>
+                            <option value={AuthStatus.DEMO_EXPIRED}>Demo Expired</option>
                         </select>
+
 
                         <select
                             value={planFilter}
@@ -816,7 +834,7 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                     </div>
                 )}
             </div>
-        </div>
+        </div >
     );
 
     const MembershipsTab = () => (

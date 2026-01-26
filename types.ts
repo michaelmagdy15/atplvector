@@ -163,11 +163,20 @@ export enum View {
   // Meteorology (050)
   MET_HOME = 'MET_HOME',
   MET_ATMOSPHERE = 'MET_ATMOSPHERE',
+  MET_WIND = 'MET_WIND',
+  MET_HUMIDITY = 'MET_HUMIDITY',
   MET_CIRCULATION = 'MET_CIRCULATION',
   MET_FRONTS = 'MET_FRONTS',
   MET_CLOUDS = 'MET_CLOUDS',
   MET_ALTIMETRY = 'MET_ALTIMETRY',
   MET_PRECIPITATION = 'MET_PRECIPITATION',
+  MET_PRESSURE = 'MET_PRESSURE',
+  MET_DENSITY = 'MET_DENSITY',
+  MET_VISIBILITY = 'MET_VISIBILITY',
+  MET_ICING = 'MET_ICING',
+  MET_THUNDERSTORMS = 'MET_THUNDERSTORMS',
+  MET_AIR_MASSES = 'MET_AIR_MASSES',
+  MET_TURBULENCE = 'MET_TURBULENCE',
 
   // Navigation (061/062)
   NAV_HOME = 'NAV_HOME',
@@ -346,7 +355,9 @@ export enum AuthStatus {
   VERIFIED = 'VERIFIED',   // Verified, not paid
   ACTIVE = 'ACTIVE',       // Paid and active
   SUSPENDED = 'SUSPENDED', // Temporarily suspended by admin
-  BANNED = 'BANNED'        // Permanently banned
+  BANNED = 'BANNED',        // Permanently banned
+  DEMO_PREVIEW = 'DEMO_PREVIEW', // 3-hour unrestricted access
+  DEMO_EXPIRED = 'DEMO_EXPIRED'  // Demo period finished
 }
 
 export enum AirspaceClass {
@@ -385,6 +396,7 @@ export interface User {
   isAdmin?: boolean;
   isApproved?: boolean; // Manual admin approval status
   trialStartDate?: string; // ISO date string when trial started
+  demoStartDate?: string; // ISO date string when 3-hour demo started
   trialSubjects?: string[]; // Subjects available during trial (e.g., ['090', '040'])
   learningObjectivesRatings?: Record<string, number>; // Map of LO ID to rating (0-5)
   exam_plan?: any; // JSONB stored in Supabase

@@ -250,6 +250,10 @@ export const NAV_MAP: SubjectConfig[] = [
         items: [
             { label: 'Dashboard', view: View.MET_HOME, icon: Cloud },
             { label: 'Atmosphere', view: View.MET_ATMOSPHERE },
+            { label: 'Wind Systems', view: View.MET_WIND },
+            { label: 'Global Circulation', view: View.MET_CIRCULATION },
+            { label: 'Humidity & Stability', view: View.MET_HUMIDITY },
+            { label: 'Fronts & Systems', view: View.MET_FRONTS },
             { label: 'Altimetry', view: View.MET_ALTIMETRY },
             { label: 'Precipitation', view: View.MET_PRECIPITATION },
         ]

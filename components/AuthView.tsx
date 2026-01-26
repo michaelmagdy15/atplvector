@@ -988,84 +988,43 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                 <p className="text-slate-400 mt-4">Choose your study duration. All plans include every subject and simulator.</p>
                             </div>
 
-                            {/* Duration-based Pricing Grid */}
-                            <div className="grid md:grid-cols-3 xl:grid-cols-6 gap-4 max-w-6xl mx-auto mb-16">
-                                {/* 12 Months - Best Value */}
-                                <div className="bg-slate-800 p-6 rounded-2xl border-2 border-emerald-500 relative flex flex-col hover:scale-105 transition-transform duration-300 shadow-xl shadow-emerald-500/10">
-                                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">Best Value</div>
-                                    <h3 className="font-bold text-white text-lg mt-2">12 Months</h3>
-                                    <div className="my-4">
-                                        <span className="text-slate-500 line-through text-sm">€139</span>
-                                        <span className="text-3xl font-black text-white ml-2">€119</span>
-                                    </div>
-                                    <p className="text-emerald-400 text-xs font-bold">~€10/month</p>
-                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="mt-4 w-full py-2 rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-500 transition text-sm">Get Started</button>
-                                </div>
+                            {/* Coming Soon / Beta Access */}
+                            <div className="max-w-3xl mx-auto bg-slate-800/50 rounded-3xl border border-slate-700 p-12 text-center mb-16 shadow-2xl relative overflow-hidden group">
+                                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+                                <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
 
-                                {/* 9 Months */}
-                                <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 flex flex-col hover:border-blue-500 hover:scale-105 transition-all duration-300">
-                                    <h3 className="font-bold text-white text-lg">9 Months</h3>
-                                    <div className="my-4">
-                                        <span className="text-slate-500 line-through text-sm">€119</span>
-                                        <span className="text-3xl font-black text-white ml-2">€99</span>
+                                <div className="relative z-10 flex flex-col items-center">
+                                    <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 border border-blue-500/20 mb-6 shadow-lg shadow-blue-500/10">
+                                        <Rocket size={32} />
                                     </div>
-                                    <p className="text-blue-400 text-xs font-bold">~€11/month</p>
-                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="mt-4 w-full py-2 rounded-xl border border-slate-600 text-white font-bold hover:bg-slate-700 transition text-sm">Select</button>
-                                </div>
 
-                                {/* 6 Months */}
-                                <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 flex flex-col hover:border-blue-500 hover:scale-105 transition-all duration-300">
-                                    <h3 className="font-bold text-white text-lg">6 Months</h3>
-                                    <div className="my-4">
-                                        <span className="text-slate-500 line-through text-sm">€89</span>
-                                        <span className="text-3xl font-black text-white ml-2">€79</span>
+                                    <h3 className="text-3xl font-black text-white mb-4">Platform currently in active development.</h3>
+                                    <p className="text-slate-400 text-lg mb-8 max-w-xl mx-auto leading-relaxed">
+                                        We are fine-tuning the ultimate visual learning experience for pilots.
+                                        While public signups are paused, we are providing <strong className="text-white">demo access</strong> to select students and flight schools.
+                                    </p>
+
+                                    <div className="flex flex-col sm:flex-row items-center gap-4">
+                                        <button
+                                            onClick={() => { scrollToSection('hero'); setView('LOGIN'); if (onDemoLogin) onDemoLogin(); }}
+                                            className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-500/25 flex items-center gap-2 group-hover:scale-105 duration-300"
+                                        >
+                                            <PlayCircle size={20} />
+                                            Try Demo Access
+                                        </button>
+                                        <button
+                                            onClick={() => setActiveInfoPage('CONTACT')}
+                                            className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl font-bold transition-colors border border-slate-600"
+                                        >
+                                            Contact for Access
+                                        </button>
                                     </div>
-                                    <p className="text-blue-400 text-xs font-bold">~€13/month</p>
-                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="mt-4 w-full py-2 rounded-xl border border-slate-600 text-white font-bold hover:bg-slate-700 transition text-sm">Select</button>
-                                </div>
 
-                                {/* 3 Months */}
-                                <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 flex flex-col hover:border-blue-500 hover:scale-105 transition-all duration-300">
-                                    <h3 className="font-bold text-white text-lg">3 Months</h3>
-                                    <div className="my-4">
-                                        <span className="text-slate-500 line-through text-sm">€59</span>
-                                        <span className="text-3xl font-black text-white ml-2">€49</span>
+                                    <div className="mt-8 pt-8 border-t border-slate-700/50 w-full flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs font-bold text-slate-500 uppercase tracking-widest">
+                                        <span className="flex items-center gap-2"><CheckCircle size={12} className="text-emerald-500" /> Early Access</span>
+                                        <span className="flex items-center gap-2"><CheckCircle size={12} className="text-emerald-500" /> Flight Schools</span>
+                                        <span className="flex items-center gap-2"><CheckCircle size={12} className="text-emerald-500" /> Beta Testing</span>
                                     </div>
-                                    <p className="text-blue-400 text-xs font-bold">~€16/month</p>
-                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="mt-4 w-full py-2 rounded-xl border border-slate-600 text-white font-bold hover:bg-slate-700 transition text-sm">Select</button>
-                                </div>
-
-                                {/* 1 Month */}
-                                <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 flex flex-col hover:border-blue-500 hover:scale-105 transition-all duration-300">
-                                    <h3 className="font-bold text-white text-lg">1 Month</h3>
-                                    <div className="my-4">
-                                        <span className="text-slate-500 line-through text-sm">€25</span>
-                                        <span className="text-3xl font-black text-white ml-2">€19</span>
-                                    </div>
-                                    <p className="text-slate-400 text-xs font-bold">Trial friendly</p>
-                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="mt-4 w-full py-2 rounded-xl border border-slate-600 text-white font-bold hover:bg-slate-700 transition text-sm">Try It</button>
-                                </div>
-
-                                {/* Single Subject */}
-                                <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 flex flex-col hover:border-purple-500 hover:scale-105 transition-all duration-300">
-                                    <h3 className="font-bold text-white text-lg">1 Subject</h3>
-                                    <div className="my-4">
-                                        <span className="text-slate-500 line-through text-sm">€29</span>
-                                        <span className="text-3xl font-black text-white ml-2">€25</span>
-                                    </div>
-                                    <p className="text-purple-400 text-xs font-bold">3 months access</p>
-                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="mt-4 w-full py-2 rounded-xl border border-slate-600 text-white font-bold hover:bg-slate-700 transition text-sm">Focus Mode</button>
-                                </div>
-                            </div>
-
-                            {/* All Plans Include */}
-                            <div className="text-center mb-16">
-                                <p className="text-slate-400 text-sm mb-4">All plans include:</p>
-                                <div className="flex flex-wrap justify-center gap-4 text-xs">
-                                    <span className="flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-full text-slate-300"><CheckCircle size={14} className="text-emerald-500" /> All 14 ATPL Subjects</span>
-                                    <span className="flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-full text-slate-300"><CheckCircle size={14} className="text-emerald-500" /> 50+ Interactive Simulators</span>
-                                    <span className="flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-full text-slate-300"><CheckCircle size={14} className="text-emerald-500" /> AI ATC Roleplay</span>
-                                    <span className="flex items-center gap-2 bg-slate-800 px-4 py-2 rounded-full text-slate-300"><CheckCircle size={14} className="text-emerald-500" /> EASA 2026 Aligned</span>
                                 </div>
                             </div>
 
