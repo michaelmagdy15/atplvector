@@ -69,6 +69,8 @@ import SearchAndRescue from './components/SearchAndRescue';
 import EmergencyProcedures from './components/EmergencyProcedures';
 
 import HydraulicSystemAnim from './components/AGK/HydraulicSystemAnim';
+import AGKLayout from './components/AGK/AGKLayout';
+import AGKSystemsDashboard from './components/AGK/AGKSystemsDashboard';
 import JetEnginePrinciples from './components/AGK/JetEnginePrinciples';
 import ElectricsSystem from './components/AGK/ElectricsSystem';
 import PistonEnginePrinciples from './components/AGK/PistonEnginePrinciples';
@@ -174,6 +176,7 @@ import Icing from './components/Meteorology/Icing';
 import Thunderstorms from './components/Meteorology/Thunderstorms';
 import AirMasses from './components/Meteorology/AirMasses';
 import Turbulence from './components/Meteorology/Turbulence';
+import MeteorologyLayout from './components/Meteorology/MeteorologyLayout';
 import TimeZoner from './components/TimeZoner';
 import GNSSTheory from './components/RadioNav/GNSSTheory';
 import WavePropVisualizer from './components/RadioNav/WavePropVisualizer';
@@ -1122,10 +1125,25 @@ const App: React.FC = () => {
                                             ]}
                                         />
                                     )}
-                                    {currentView === View.AGK_HYDRAULICS && <HydraulicSystemAnim />}
-                                    {currentView === View.AGK_JET_ENGINE && <JetEnginePrinciples />}
-                                    {currentView === View.AGK_ELECTRICS && <ElectricsSystem />}
-                                    {currentView === View.AGK_PISTON_ENGINE && <PistonEnginePrinciples />}
+                                    {/* --- AGK (021) Systems (Wrapped in Layout) --- */}
+                                    {[
+                                        View.AGK_SYSTEMS_HOME, View.AGK_PISTON_ENGINE, View.AGK_JET_ENGINE,
+                                        View.AGK_ELECTRICS, View.AGK_HYDRAULICS
+                                    ].includes(currentView) ? (
+                                        <AGKLayout currentView={currentView} onNavigate={navigateTo}>
+                                            {currentView === View.AGK_SYSTEMS_HOME && (
+                                                <AGKSystemsDashboard
+                                                    currentView={currentView}
+                                                    setCurrentView={navigateTo}
+                                                    isLocked={!isSubjectAllowed('021')}
+                                                />
+                                            )}
+                                            {currentView === View.AGK_HYDRAULICS && <HydraulicSystemAnim />}
+                                            {currentView === View.AGK_JET_ENGINE && <JetEnginePrinciples />}
+                                            {currentView === View.AGK_ELECTRICS && <ElectricsSystem />}
+                                            {currentView === View.AGK_PISTON_ENGINE && <PistonEnginePrinciples />}
+                                        </AGKLayout>
+                                    ) : null}
 
                                     {/* Instrumentation (022) */}
                                     {currentView === View.INST_HOME && <InstrumentationDashboard onChangeView={navigateTo} isLocked={!isSubjectAllowed('022')} />}
@@ -1243,23 +1261,33 @@ const App: React.FC = () => {
 
                                     {/* Gen Nav (061) */}
                                     {currentView === View.GEN_NAV_HOME && <GenNavDashboard currentView={currentView} setCurrentView={navigateTo} isLocked={!isSubjectAllowed('061')} />}
-                                    {currentView === View.MET_HOME && <MetDashboard onChangeView={navigateTo} />}
-                                    {currentView === View.MET_CIRCULATION && <GeneralCirculation />}
-                                    {currentView === View.MET_FRONTS && <FrontalSystems />}
-                                    {currentView === View.MET_ATMOSPHERE && <AtmosphereLayers />}
-                                    {currentView === View.MET_ALTIMETRY && <Altimetry />}
-                                    {currentView === View.MET_PRECIPITATION && <Precipitation />}
-                                    {currentView === View.MET_HUMIDITY && <HumidityLab />}
-                                    {currentView === View.MET_WIND && <WindSystems />}
-                                    {currentView === View.MET_PRESSURE && <PressureSystems />}
-                                    {currentView === View.MET_DENSITY && <Density />}
-                                    {currentView === View.MET_VISIBILITY && <VisibilityFog />}
-                                    {currentView === View.MET_ICING && <Icing />}
-                                    {currentView === View.MET_THUNDERSTORMS && <Thunderstorms />}
-                                    {currentView === View.MET_AIR_MASSES && <AirMasses />}
-                                    {currentView === View.MET_TURBULENCE && <Turbulence />}
+                                    {/* --- METEOROLOGY SECTION (Wrapped in Layout) --- */}
+                                    {[
+                                        View.MET_HOME, View.MET_ATMOSPHERE, View.MET_PRESSURE, View.MET_DENSITY,
+                                        View.MET_ALTIMETRY, View.MET_WIND, View.MET_CIRCULATION, View.MET_HUMIDITY,
+                                        View.MET_PRECIPITATION, View.MET_FRONTS, View.MET_THUNDERSTORMS, View.MET_ICING,
+                                        View.MET_VISIBILITY, View.MET_AIR_MASSES, View.MET_TURBULENCE
+                                    ].includes(currentView) ? (
+                                        <MeteorologyLayout currentView={currentView} onNavigate={navigateTo}>
+                                            {currentView === View.MET_HOME && <MetDashboard onChangeView={navigateTo} />}
+                                            {currentView === View.MET_ATMOSPHERE && <AtmosphereLayers />}
+                                            {currentView === View.MET_PRESSURE && <PressureSystems />}
+                                            {currentView === View.MET_DENSITY && <Density />}
+                                            {currentView === View.MET_ALTIMETRY && <Altimetry />}
+                                            {currentView === View.MET_WIND && <WindSystems />}
+                                            {currentView === View.MET_CIRCULATION && <GeneralCirculation />}
+                                            {currentView === View.MET_HUMIDITY && <HumidityLab />}
+                                            {currentView === View.MET_PRECIPITATION && <Precipitation />}
+                                            {currentView === View.MET_FRONTS && <FrontalSystems />}
+                                            {currentView === View.MET_THUNDERSTORMS && <Thunderstorms />}
+                                            {currentView === View.MET_ICING && <Icing />}
+                                            {currentView === View.MET_VISIBILITY && <VisibilityFog />}
+                                            {currentView === View.MET_AIR_MASSES && <AirMasses />}
+                                            {currentView === View.MET_TURBULENCE && <Turbulence />}
+                                        </MeteorologyLayout>
+                                    ) : null}
 
-                                    {currentView === View.GEN_NAV_EARTH && <EarthGeometry onNavigate={navigateTo} />}
+                                    {/* --- GEN NAV / RADIO NAV --- */}
                                     {currentView === View.GEN_NAV_SOLAR && <SolarCalc onNavigate={navigateTo} />}
                                     {currentView === View.GEN_NAV_MAPS && <MapProjections onNavigate={navigateTo} />}
                                     {currentView === View.GEN_NAV_WIND_TRIANGLE && <WindTriangle onNavigate={navigateTo} />}
