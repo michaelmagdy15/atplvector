@@ -120,14 +120,14 @@ const AirspeedIndicator: React.FC = () => {
 
                 {/* Main Instrument Display */}
                 <div className="lg:col-span-2 space-y-8">
-                    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-12 flex flex-col items-center relative overflow-hidden min-h-[500px]">
+                    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 md:p-12 flex flex-col items-center relative overflow-hidden min-h-[400px] md:min-h-[500px]">
 
                         {/* Speed Chain Visualizer */}
                         {showCorrection && (
                             <motion.div
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                className="absolute left-8 top-12 bottom-12 w-48 bg-black/40 backdrop-blur-md rounded-2xl p-4 border border-white/5 z-20 flex flex-col justify-between"
+                                className="absolute left-4 md:left-8 top-12 bottom-12 w-40 md:w-48 bg-black/40 backdrop-blur-md rounded-2xl p-4 border border-white/5 z-20 flex flex-col justify-between"
                             >
                                 <div className="space-y-1">
                                     <div className="text-[8px] font-black text-slate-500 uppercase">Indicated</div>
@@ -152,7 +152,7 @@ const AirspeedIndicator: React.FC = () => {
                         )}
 
                         {/* ASI Face */}
-                        <div className="w-72 h-72 rounded-full bg-slate-950 border-[12px] border-slate-800 shadow-2xl relative flex items-center justify-center">
+                        <div className="w-64 h-64 md:w-72 md:h-72 rounded-full bg-slate-950 border-[12px] border-slate-800 shadow-2xl relative flex items-center justify-center transform scale-95 md:scale-100">
                             {/* Color Arcs */}
                             <svg className="absolute inset-0 w-full h-full -rotate-90">
                                 {/* White Arc (Flaps) */}
@@ -197,13 +197,13 @@ const AirspeedIndicator: React.FC = () => {
                             {/* Pointer */}
                             <motion.div
                                 animate={{ rotate: ias * 1.5 }}
-                                className="absolute w-1.5 h-32 bg-white origin-bottom bottom-1/2 rounded-full shadow-lg z-10"
+                                className="absolute w-1.5 h-28 md:h-32 bg-white origin-bottom bottom-1/2 rounded-full shadow-lg z-10"
                             />
 
                             {/* TAS Pointer (Optional/Secondary) */}
                             <motion.div
                                 animate={{ rotate: tas * 1.5 }}
-                                className="absolute w-1 h-32 bg-orange-500/40 origin-bottom bottom-1/2 rounded-full z-0"
+                                className="absolute w-1 h-28 md:h-32 bg-orange-500/40 origin-bottom bottom-1/2 rounded-full z-0"
                             />
 
                             <div className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-slate-800 rounded-full border-2 border-slate-900 z-20"></div>

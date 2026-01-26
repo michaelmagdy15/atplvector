@@ -129,14 +129,14 @@ const AltimeterLab: React.FC = () => {
                 {/* Display Area */}
                 <div className="lg:col-span-2 space-y-8">
                     {/* Altimeter Face */}
-                    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-12 flex flex-col items-center justify-center relative overflow-hidden">
-                        <div className="absolute top-0 right-0 p-6 flex flex-col items-end gap-1">
+                    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 md:p-12 flex flex-col items-center justify-center relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-4 md:p-6 flex flex-col items-end gap-1">
                             <div className="text-[10px] font-bold text-slate-500 uppercase">Actual QNH</div>
-                            <div className="text-2xl font-black text-white font-mono tracking-tighter">{qnh}</div>
+                            <div className="text-xl md:text-2xl font-black text-white font-mono tracking-tighter">{qnh}</div>
                         </div>
 
                         {/* 3-Pointer Altimeter Representation */}
-                        <div className="w-64 h-64 rounded-full border-[10px] border-slate-800 shadow-2xl relative flex items-center justify-center bg-slate-950">
+                        <div className="w-56 h-56 md:w-64 md:h-64 rounded-full border-[10px] border-slate-800 shadow-2xl relative flex items-center justify-center bg-slate-950">
                             {/* Dial Numbers */}
                             {[...Array(10)].map((_, i) => (
                                 <div key={i} className="absolute inset-2 text-center" style={{ transform: `rotate(${i * 36}deg)` }}>
@@ -147,17 +147,17 @@ const AltimeterLab: React.FC = () => {
                             {/* 10,000 ft Hand (Thick) */}
                             <motion.div
                                 animate={{ rotate: (indicatedAlt / 100000) * 360 }}
-                                className="absolute w-2 h-16 bg-white/20 origin-bottom bottom-1/2 rounded-full"
+                                className="absolute w-2 h-14 md:h-16 bg-white/20 origin-bottom bottom-1/2 rounded-full"
                             />
                             {/* 1,000 ft Hand (Broad) */}
                             <motion.div
                                 animate={{ rotate: (indicatedAlt / 10000) * 360 }}
-                                className="absolute w-2 h-24 bg-white origin-bottom bottom-1/2 rounded-full shadow-lg"
+                                className="absolute w-2 h-20 md:h-24 bg-white origin-bottom bottom-1/2 rounded-full shadow-lg"
                             />
                             {/* 100 ft Hand (Thin) */}
                             <motion.div
                                 animate={{ rotate: (indicatedAlt / 1000) * 360 }}
-                                className="absolute w-1 h-[110px] bg-white origin-bottom bottom-1/2 rounded-full"
+                                className="absolute w-1 h-[100px] md:h-[110px] bg-white origin-bottom bottom-1/2 rounded-full"
                             />
 
                             {/* Center Nut */}
@@ -165,17 +165,17 @@ const AltimeterLab: React.FC = () => {
                         </div>
 
                         {/* Digital Readout */}
-                        <div className="mt-8 grid grid-cols-2 gap-12 text-center w-full max-w-sm">
+                        <div className="mt-8 grid grid-cols-2 gap-4 md:gap-12 text-center w-full max-w-sm">
                             <div>
                                 <h5 className="text-[10px] font-bold text-slate-500 uppercase mb-1">Indicated</h5>
-                                <div className="text-4xl font-black text-white font-mono tracking-tighter">
+                                <div className="text-3xl md:text-4xl font-black text-white font-mono tracking-tighter">
                                     {indicatedAlt.toLocaleString()}
                                 </div>
                                 <div className="text-[10px] text-slate-600 mt-1 uppercase">Feet</div>
                             </div>
                             <div>
                                 <h5 className="text-[10px] font-bold text-emerald-500/50 uppercase mb-1">True (Calc)</h5>
-                                <div className="text-4xl font-black text-emerald-400 font-mono tracking-tighter">
+                                <div className="text-3xl md:text-4xl font-black text-emerald-400 font-mono tracking-tighter">
                                     {Math.round(trueAlt).toLocaleString()}
                                 </div>
                                 <div className="text-[10px] text-emerald-500/30 mt-1 uppercase">Feet</div>

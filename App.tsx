@@ -98,6 +98,7 @@ import MassDefinitions from './components/MassBal/MassDefinitions';
 import CgCalculator from './components/MassBal/CgCalculator';
 import LoadingLimits from './components/MassBal/LoadingLimits';
 import MacVisualizer from './components/MassBal/MacVisualizer';
+import MetDashboard from './components/Meteorology/MetDashboard';
 import FuelDensityCalc from './components/MassBal/FuelDensityCalc';
 import CargoHandlingSim from './components/MassBal/CargoHandlingSim';
 import LoadSheetSim from './components/MassBal/LoadSheetSim';
@@ -1413,6 +1414,7 @@ const App: React.FC = () => {
                                     onOpenSyllabus={handleOpenSyllabus}
                                 />
                             )}
+                            {currentView === View.MET_HOME && <MetDashboard />}
                             {currentView === View.MET_ALTIMETRY && <Altimetry />}
 
                             {/* Visual Concept Lab */}

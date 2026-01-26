@@ -94,10 +94,10 @@ const GyroPrinciples: React.FC = () => {
 
                 {/* Animation Area */}
                 <div className="lg:col-span-2 space-y-8">
-                    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-12 min-h-[500px] flex flex-col items-center justify-center relative overflow-hidden">
+                    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 md:p-12 min-h-[500px] flex flex-col items-center justify-center relative overflow-hidden">
 
                         {/* 3D-ish Rotor Representation */}
-                        <div className="relative w-80 h-80 flex items-center justify-center">
+                        <div className="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
                             {/* Outer Gimbals (Static-ish) */}
                             <div className="absolute w-full h-full border-4 border-slate-800 rounded-full opacity-30"></div>
 
@@ -105,7 +105,7 @@ const GyroPrinciples: React.FC = () => {
                             <motion.div
                                 animate={{ rotate: 360 }}
                                 transition={{ repeat: Infinity, duration: 2 / (spinSpeed / 50), ease: "linear" }}
-                                className="w-64 h-64 border-[24px] border-slate-700 rounded-full relative shadow-2xl flex items-center justify-center"
+                                className="w-48 h-48 md:w-64 md:h-64 border-[16px] md:border-[24px] border-slate-700 rounded-full relative shadow-2xl flex items-center justify-center"
                             >
                                 {/* Rotor Spokes */}
                                 <div className="absolute w-full h-2 bg-slate-800"></div>

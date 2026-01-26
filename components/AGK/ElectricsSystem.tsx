@@ -21,7 +21,7 @@ const ElectricsSystem: React.FC = () => {
             </div>
 
             {/* Navigation Tabs */}
-            <div className="flex gap-2 bg-slate-900/50 p-1 rounded-xl w-fit border border-slate-800">
+            <div className="flex flex-wrap gap-2 bg-slate-900/50 p-1 rounded-xl w-full md:w-fit border border-slate-800">
                 {[
                     { id: 'ac', label: 'AC Generation', icon: RefreshCw },
                     { id: 'dc', label: 'DC & Batteries', icon: Battery },
@@ -30,9 +30,9 @@ const ElectricsSystem: React.FC = () => {
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id as any)}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === tab.id
-                                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
-                                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === tab.id
+                            ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
+                            : 'text-slate-400 hover:text-white hover:bg-white/5'
                             }`}
                     >
                         <tab.icon size={16} />
@@ -409,8 +409,8 @@ const ControlSwitch = ({ label, active, onClick, color = 'bg-emerald-500' }: any
         <button
             onClick={onClick}
             className={`w-16 h-10 rounded border-2 transition-all shadow-lg ${active
-                    ? `${color} border-white/20 shadow-${color.replace('bg-', '')}/40 translate-y-0.5`
-                    : 'bg-slate-800 border-slate-600 hover:border-slate-500'
+                ? `${color} border-white/20 shadow-${color.replace('bg-', '')}/40 translate-y-0.5`
+                : 'bg-slate-800 border-slate-600 hover:border-slate-500'
                 }`}
         >
             <div className={`w-full h-1/2 ${active ? 'bg-black/10' : 'bg-transparent'}`}></div>

@@ -207,40 +207,40 @@ const PitotStaticSystem: React.FC = () => {
                     </div>
 
                     {/* Gauges Row */}
-                    <div className="grid grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
                         {/* ASI */}
-                        <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl flex flex-col items-center">
-                            <h4 className="text-[10px] font-bold text-slate-500 mb-4 uppercase">ASI</h4>
-                            <div className="w-24 h-24 rounded-full border-4 border-slate-800 flex items-center justify-center relative">
+                        <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl flex flex-row sm:flex-col items-center justify-between sm:justify-center gap-4">
+                            <h4 className="text-[10px] font-bold text-slate-500 mb-0 sm:mb-4 uppercase">ASI</h4>
+                            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-slate-800 flex items-center justify-center relative flex-shrink-0">
                                 <motion.div
                                     animate={{ rotate: (getASIIndication() / 400) * 360 }}
-                                    className="w-1 h-10 bg-white origin-bottom rounded-full absolute bottom-1/2"
+                                    className="w-1 h-8 md:h-10 bg-white origin-bottom rounded-full absolute bottom-1/2"
                                 />
-                                <div className="text-xl font-black text-white z-10">{Math.round(getASIIndication())}</div>
+                                <div className="text-lg md:text-xl font-black text-white z-10">{Math.round(getASIIndication())}</div>
                             </div>
-                            <div className="mt-2 text-[10px] text-slate-400 font-medium">KNOTS</div>
+                            <div className="mt-0 sm:mt-2 text-[10px] text-slate-400 font-medium">KNOTS</div>
                         </div>
 
                         {/* Altimeter */}
-                        <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl flex flex-col items-center text-center">
-                            <h4 className="text-[10px] font-bold text-slate-500 mb-4 uppercase">ALT</h4>
-                            <div className="w-24 h-24 rounded-full border-4 border-slate-800 flex items-center justify-center relative">
-                                <div className="text-lg font-black text-white">{Math.round(getAltIndication())}</div>
+                        <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl flex flex-row sm:flex-col items-center justify-between sm:justify-center gap-4">
+                            <h4 className="text-[10px] font-bold text-slate-500 mb-0 sm:mb-4 uppercase">ALT</h4>
+                            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-slate-800 flex items-center justify-center relative flex-shrink-0">
+                                <div className="text-base md:text-lg font-black text-white">{Math.round(getAltIndication())}</div>
                             </div>
-                            <div className="mt-2 text-[10px] text-slate-400 font-medium">FEET</div>
+                            <div className="mt-0 sm:mt-2 text-[10px] text-slate-400 font-medium">FEET</div>
                         </div>
 
                         {/* VSI */}
-                        <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl flex flex-col items-center">
-                            <h4 className="text-[10px] font-bold text-slate-500 mb-4 uppercase">VSI</h4>
-                            <div className="w-24 h-24 rounded-full border-4 border-slate-800 flex items-center justify-center relative">
+                        <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl flex flex-row sm:flex-col items-center justify-between sm:justify-center gap-4">
+                            <h4 className="text-[10px] font-bold text-slate-500 mb-0 sm:mb-4 uppercase">VSI</h4>
+                            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-slate-800 flex items-center justify-center relative flex-shrink-0">
                                 <motion.div
                                     animate={{ rotate: (getVSIIndication() / 2000) * 180 }}
-                                    className="w-1 h-10 bg-emerald-400 origin-bottom rounded-full absolute bottom-1/2"
+                                    className="w-1 h-8 md:h-10 bg-emerald-400 origin-bottom rounded-full absolute bottom-1/2"
                                 />
-                                <div className="text-lg font-black text-white">{getVSIIndication() / 100}</div>
+                                <div className="text-base md:text-lg font-black text-white">{getVSIIndication() / 100}</div>
                             </div>
-                            <div className="mt-2 text-[10px] text-slate-400 font-medium">100 FT/MIN</div>
+                            <div className="mt-0 sm:mt-2 text-[10px] text-slate-400 font-medium">100 FT/MIN</div>
                         </div>
                     </div>
 

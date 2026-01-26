@@ -21,7 +21,7 @@ const PistonEnginePrinciples: React.FC = () => {
             </div>
 
             {/* Navigation Tabs */}
-            <div className="flex gap-2 bg-slate-900/50 p-1 rounded-xl w-fit border border-slate-800">
+            <div className="flex flex-wrap gap-2 bg-slate-900/50 p-1 rounded-xl w-full md:w-fit border border-slate-800">
                 {[
                     { id: 'cycle', label: 'The Otto Cycle', icon: RotateCw },
                     { id: 'mixture', label: 'Mixture & EGT', icon: Fuel },
@@ -30,7 +30,7 @@ const PistonEnginePrinciples: React.FC = () => {
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id as any)}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === tab.id
+                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === tab.id
                             ? 'bg-orange-600 text-white shadow-lg shadow-orange-500/20'
                             : 'text-slate-400 hover:text-white hover:bg-white/5'
                             }`}
@@ -355,7 +355,7 @@ const IgnitionSystem = () => {
                     <div className="space-y-6">
                         {/* Ignition Switch Viz */}
                         <div className="flex justify-center">
-                            <div className="bg-slate-950 p-4 rounded-full border-4 border-slate-700 w-48 h-48 relative flex items-center justify-center shadow-2xl">
+                            <div className="bg-slate-950 p-4 rounded-full border-4 border-slate-700 w-48 h-48 relative flex items-center justify-center shadow-2xl scale-90 md:scale-100 origin-center">
                                 {/* Labels */}
                                 <span className="absolute top-4 font-black text-slate-500 text-xs">OFF</span>
                                 <span className="absolute top-8 right-8 font-black text-slate-500 text-xs">R</span>
@@ -375,7 +375,7 @@ const IgnitionSystem = () => {
                             </div>
                         </div>
 
-                        <div className="flex justify-center gap-2">
+                        <div className="flex justify-center gap-2 flex-wrap">
                             {['OFF', 'R', 'L', 'BOTH', 'START'].map(pos => (
                                 <button
                                     key={pos}
@@ -391,7 +391,7 @@ const IgnitionSystem = () => {
             </div>
 
             <div className="bg-slate-900 border border-slate-800 p-8 rounded-2xl flex flex-col items-center justify-center">
-                <div className="grid grid-cols-2 gap-12 relative">
+                <div className="grid grid-cols-2 gap-4 md:gap-12 relative">
                     {/* Left Mag */}
                     <div className={`flex flex-col items-center gap-2 transition-opacity ${sw === 'L' || sw === 'BOTH' || sw === 'START' ? 'opacity-100' : 'opacity-30 grayscale'}`}>
                         <div className="w-20 h-24 bg-slate-700 rounded-lg flex items-center justify-center border-b-4 border-slate-600 relative">
