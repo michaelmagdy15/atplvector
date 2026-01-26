@@ -3,7 +3,12 @@ import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { execSync } from 'child_process';
 
-const commitHash = execSync('git rev-parse --short HEAD').toString().trim();
+let commitHash = 'DEV';
+try {
+  commitHash = execSync('git rev-parse --short HEAD').toString().trim();
+} catch (e) {
+  console.warn('Could not get commit hash, defaulting to DEV');
+}
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
