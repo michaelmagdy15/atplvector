@@ -150,7 +150,7 @@ const SimpleDiagram = ({ type }: { type: string }) => {
                     <line x1="100" y1="60" x2="100" y2="200" stroke="#3b82f6" strokeWidth="2" strokeDasharray="5,5" className="animate-dash" />
                     <line x1="150" y1="60" x2="150" y2="200" stroke="#3b82f6" strokeWidth="2" strokeDasharray="8,8" className="animate-dash" />
                     <line x1="200" y1="60" x2="200" y2="200" stroke="#3b82f6" strokeWidth="2" strokeDasharray="5,5" className="animate-dash" />
-                    <text x="20" y="230" fill="#3b82f6" fontSize="12">+ Temp > 0°C</text>
+                    <text x="20" y="230" fill="#3b82f6" fontSize="12">+ Temp &gt; 0°C</text>
                 </g>
             )}
 
@@ -161,7 +161,7 @@ const SimpleDiagram = ({ type }: { type: string }) => {
                     <text x="150" y="140" fill="white" fontSize="20" className="animate-fall-delayed">*</text>
                     <text x="200" y="120" fill="white" fontSize="20" className="animate-fall">*</text>
                     <rect x="0" y="0" width="400" height="250" fill="transparent" stroke="white" strokeOpacity="0.1" />
-                    <text x="20" y="230" fill="white" fontSize="12">- Temp < 0°C</text>
+                    <text x="20" y="230" fill="white" fontSize="12">- Temp &lt; 0°C</text>
                 </g>
             )}
 
