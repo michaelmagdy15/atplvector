@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { View } from '../types';
-import { Scale, Plane, AlertTriangle, Layout, Map, Tag, BookOpen, Layers, Settings, Compass, ArrowRight, Globe, UserCheck, Shield, Siren, AlertOctagon, Lightbulb, ThermometerSnowflake, Signpost, Cloud, Briefcase, Radio, PlaneLanding, RotateCcw, Crosshair, PenTool, Mountain, Gavel, Truck } from 'lucide-react';
+import { Scale, Plane, AlertTriangle, Layout, Map, Tag, BookOpen, Layers, Settings, Compass, ArrowRight, Globe, UserCheck, Shield, Siren, AlertOctagon, Lightbulb, ThermometerSnowflake, Signpost, Cloud, Briefcase, Radio, PlaneLanding, RotateCcw, Crosshair, PenTool, Mountain, Gavel, Truck, GitMerge, Database, UserPlus } from 'lucide-react';
 
 interface Props {
     onChangeView: (view: View) => void;
@@ -73,6 +73,14 @@ const AirLawDashboard: React.FC<Props> = ({ onChangeView, isLocked = false, onOp
                         </div>
                         <h3 className="text-xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">The 19 Annexes</h3>
                         <p className="text-slate-400 text-sm">Overview of all ICAO Annexes from Personnel Licensing to SMS.</p>
+                    </div>
+                    <div onClick={() => onChangeView(View.AIR_LAW_CONVENTIONS)} className="bg-slate-900 border border-red-500/30 p-6 rounded-xl cursor-pointer group transition-all shadow-xl shadow-red-500/5">
+                        <div className="flex justify-between items-start mb-4">
+                            <div className="p-3 bg-red-500/20 rounded-lg text-red-500"><Scale /></div>
+                            <span className="text-xs font-bold text-red-500">LAB: LIABILITY</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-red-400 transition-colors">Conventions Lab</h3>
+                        <p className="text-slate-400 text-sm">Montreal vs Warsaw comparison & interactive SDR liability calculator.</p>
                     </div>
                 </div>
             </div>
@@ -215,6 +223,14 @@ const AirLawDashboard: React.FC<Props> = ({ onChangeView, isLocked = false, onOp
                         <h3 className="text-xl font-bold text-white mb-2 group-hover:text-lime-400 transition-colors">Altimeter Settings</h3>
                         <p className="text-slate-400 text-sm">Transition Altitude vs Transition Level logic visualization.</p>
                     </div>
+                    <div onClick={() => onChangeView(View.AIR_LAW_PARALLEL_RWY)} className="bg-slate-900 border border-blue-500/30 p-6 rounded-xl cursor-pointer group transition-all shadow-xl shadow-blue-500/5">
+                        <div className="flex justify-between items-start mb-4">
+                            <div className="p-3 bg-blue-500/20 rounded-lg text-blue-500"><GitMerge /></div>
+                            <span className="text-xs font-bold text-blue-500">LAB: 3D SIM</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">Parallel Runway Ops</h3>
+                        <p className="text-slate-400 text-sm">3D interactive simulator for independent and dependent approaches.</p>
+                    </div>
                 </div>
             </div>
 
@@ -304,10 +320,26 @@ const AirLawDashboard: React.FC<Props> = ({ onChangeView, isLocked = false, onOp
                     <div onClick={() => onChangeView(View.AIR_LAW_OPS_INFO)} className="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-cyan-500 cursor-pointer group transition-all shadow-lg">
                         <div className="flex justify-between items-start mb-4">
                             <div className="p-3 bg-cyan-500/20 rounded-lg text-cyan-500"><Globe /></div>
-                            <span className="text-xs font-bold text-slate-500">ANNEX 9 / 15</span>
+                            <span className="text-xs font-bold text-slate-500">ANNEX 15</span>
                         </div>
                         <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">Operational Info</h3>
-                        <p className="text-slate-400 text-sm">AIS, NOTAMs, SNOWTAMs, and Facilitation (Customs/Immigration).</p>
+                        <p className="text-slate-400 text-sm">AIS overview, NOTAMs, SNOWTAMs, and regulatory reporting.</p>
+                    </div>
+                    <div onClick={() => onChangeView(View.AIR_LAW_AIS_DEEP_DIVE)} className="bg-slate-900 border border-emerald-500/30 p-6 rounded-xl cursor-pointer group transition-all shadow-xl shadow-emerald-500/5">
+                        <div className="flex justify-between items-start mb-4">
+                            <div className="p-3 bg-emerald-500/20 rounded-lg text-emerald-500"><Database /></div>
+                            <span className="text-xs font-bold text-emerald-500">LAB: TIMELINE</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">AIS & AIRAC Cycle</h3>
+                        <p className="text-slate-400 text-sm">Interactive "Time Traveler" to visualize the 56-day AIRAC cycle.</p>
+                    </div>
+                    <div onClick={() => onChangeView(View.AIR_LAW_FACILITATION)} className="bg-slate-900 border border-violet-500/30 p-6 rounded-xl cursor-pointer group transition-all shadow-xl shadow-violet-500/5">
+                        <div className="flex justify-between items-start mb-4">
+                            <div className="p-3 bg-violet-500/20 rounded-lg text-violet-500"><UserPlus /></div>
+                            <span className="text-xs font-bold text-violet-500">ANNEX 9</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-violet-400 transition-colors">Facilitation</h3>
+                        <p className="text-slate-400 text-sm">International entry/departure formalities for aircraft, crew and cargo.</p>
                     </div>
                     <div onClick={() => onChangeView(View.AIR_LAW_SECURITY)} className="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-emerald-500 cursor-pointer group transition-all shadow-lg">
                         <div className="flex justify-between items-start mb-4">

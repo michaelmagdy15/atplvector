@@ -222,6 +222,62 @@ const AltimeterLab: React.FC = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Advanced Altimeter Theory (NEW) */}
+            <div className="mt-12 pt-12 border-t border-slate-800 grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 className="text-xl font-bold text-white mb-6">Types of Altimeters</h3>
+                    <div className="space-y-4">
+                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-emerald-500/30 transition-colors">
+                            <h4 className="font-bold text-white text-sm mb-1 uppercase tracking-wider">Simple Altimeter</h4>
+                            <p className="text-xs text-slate-400">Uses a <strong>single</strong> capsule. Suitable only for low altitudes due to limited sensitivity.</p>
+                        </div>
+                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-emerald-500/30 transition-colors">
+                            <h4 className="font-bold text-white text-sm mb-1 uppercase tracking-wider">Sensitive Altimeter</h4>
+                            <p className="text-xs text-slate-400">Uses <strong>three</strong> capsules to increase sensitivity. Typically accurate up to 25,000 ft.</p>
+                        </div>
+                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-emerald-500/30 transition-colors">
+                            <h4 className="font-bold text-white text-sm mb-1 uppercase tracking-wider font-highlight text-emerald-400">Servo Altimeter</h4>
+                            <p className="text-xs text-slate-400">Uses an <strong>I-bar</strong> and electromagnetic induction. Offers highest accuracy, no lag, and reduced friction. Good for all altitudes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 className="text-xl font-bold text-white mb-6">Error Case Studies</h3>
+                    <div className="space-y-4">
+                        <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+                            <div className="flex justify-between items-center mb-2">
+                                <h4 className="text-xs font-black text-slate-200 uppercase">Hysteresis Error</h4>
+                                <span className="text-[10px] bg-amber-500/20 text-amber-500 px-2 py-0.5 rounded">ELASTICITY</span>
+                            </div>
+                            <p className="text-[11px] text-slate-400">
+                                After prolonged time at a constant altitude, the capsule loses elasticity. It becomes "laggy" during subsequent climbs or descents.
+                            </p>
+                        </div>
+                        <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+                            <div className="flex justify-between items-center mb-2">
+                                <h4 className="text-xs font-black text-slate-200 uppercase">Instrument Tolerances</h4>
+                                <span className="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded font-mono">STANDARDS</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-2 text-[10px] text-slate-500 font-mono">
+                                <div className="flex justify-between border-b border-slate-800 pb-1"><span>Sea Level</span> <span className="text-white">± 50 ft</span></div>
+                                <div className="flex justify-between border-b border-slate-800 pb-1"><span>10,000 ft</span> <span className="text-white">± 175 ft</span></div>
+                                <div className="flex justify-between border-b border-slate-800 pb-1"><span>40,000 ft</span> <span className="text-white">± 600 ft</span></div>
+                            </div>
+                        </div>
+                        <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+                            <div className="flex justify-between items-center mb-2">
+                                <h4 className="text-xs font-black text-slate-200 uppercase">Density Altitude</h4>
+                            </div>
+                            <p className="text-[11px] text-slate-400 mb-2">The altitude in the ISA at which air density would be equal to the current density.</p>
+                            <div className="p-2 bg-black/40 rounded text-center font-mono text-emerald-500 font-bold text-xs">
+                                DA = PA ± (120 ft × ΔISA)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

@@ -12,6 +12,20 @@ import StudyGuide from './StudyGuide';
 
 type AuthViewMode = 'LOGIN' | 'SIGNUP' | 'FORGOT_PASS' | 'RECOVER_ACCOUNT' | 'RESET_PASSWORD' | 'VERIFY_EMAIL';
 
+const LazyImage = ({ src, alt, className, fallback }: { src: string, alt: string, className?: string, fallback?: React.ReactNode }) => {
+    const [isDesktop, setIsDesktop] = useState(false);
+
+    useEffect(() => {
+        const checkResolution = () => setIsDesktop(window.innerWidth >= 768);
+        checkResolution();
+        window.addEventListener('resize', checkResolution);
+        return () => window.removeEventListener('resize', checkResolution);
+    }, []);
+
+    if (!isDesktop) return <div className={className}>{fallback}</div>;
+    return <img src={src} alt={alt} className={className} loading="lazy" />;
+};
+
 interface Props {
     onAuthChange: (user: User) => void;
     onDemoLogin?: () => void;
@@ -384,20 +398,20 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                 <span className="text-xl font-black text-white tracking-tighter">ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span></span>
                             </div>
 
-                            <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                            <div className="hidden lg:flex items-center space-x-4 xl:space-x-8 text-sm font-medium text-slate-300">
                                 <button onClick={() => scrollToSection('features')} className="hover:text-white transition hover:scale-105">Features</button>
                                 <button onClick={() => scrollToSection('experience')} className="hover:text-white transition hover:scale-105">Experience</button>
                                 <button onClick={() => scrollToSection('pricing')} className="hover:text-white transition hover:scale-105">Pricing</button>
                                 <button onClick={() => { scrollToSection('hero'); setView('LOGIN'); }} className="text-white hover:text-blue-300 transition">Login</button>
                                 <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="bg-white/10 hover:bg-white/20 text-white px-5 py-2 rounded-full font-bold transition hover:shadow-lg hover:shadow-blue-500/20 active:scale-95">Get Started</button>
                             </div>
-                            <div className="md:hidden">
+                            <div className="lg:hidden">
                                 <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-white">{mobileMenuOpen ? <X /> : <Menu />}</button>
                             </div>
                         </div>
                         {/* Mobile Menu */}
                         {mobileMenuOpen && (
-                            <div className="pointer-events-auto absolute top-24 left-4 right-4 bg-slate-900/95 backdrop-blur-xl rounded-2xl border border-white/10 p-2 flex flex-col space-y-2 md:hidden z-50 shadow-2xl animate-in slide-in-from-top-4">
+                            <div className="pointer-events-auto absolute top-24 left-4 right-4 bg-slate-900/95 backdrop-blur-xl rounded-2xl border border-white/10 p-2 flex flex-col space-y-2 lg:hidden z-50 shadow-2xl animate-in slide-in-from-top-4">
                                 <button type="button" onClick={() => scrollToSection('features')} className="text-left px-6 py-4 text-slate-200 font-medium hover:bg-white/10 rounded-xl active:scale-[0.98] transition-all">Features</button>
                                 <button type="button" onClick={() => scrollToSection('pricing')} className="text-left px-6 py-4 text-slate-200 font-medium hover:bg-white/10 rounded-xl active:scale-[0.98] transition-all">Pricing</button>
                                 <button type="button" onClick={() => { scrollToSection('hero'); setView('LOGIN'); }} className="text-left px-6 py-4 text-white font-bold bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 rounded-xl active:scale-[0.98] transition-all">Login</button>
@@ -414,14 +428,14 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                         <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[60px] animate-blob animation-delay-2000 pointer-events-none will-change-transform"></div>
 
                         {/* Left: Value Prop */}
-                        <div className="lg:w-1/2 flex flex-col justify-center px-8 lg:px-20 relative z-10 pt-10 lg:pt-0 perspective-1000">
+                        <div className="lg:w-1/2 flex flex-col justify-center px-8 lg:px-12 xl:px-20 relative z-10 pt-10 lg:pt-0 perspective-1000">
                             <div className="space-y-8 max-w-xl">
                                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wider backdrop-blur-sm animate-in fade-in slide-in-from-bottom-4 duration-700">
                                     <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> EASA 2026 Ready
                                 </div>
                                 <h1
                                     id="hero-text"
-                                    className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[0.9] tracking-tighter animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150 drop-shadow-2xl transition-transform duration-100 ease-out"
+                                    className="text-5xl md:text-7xl xl:text-8xl font-black text-white leading-[0.9] tracking-tighter animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150 drop-shadow-2xl transition-transform duration-100 ease-out"
                                     style={{
                                         transform: `rotateX(${heroMouse.y * -5}deg) rotateY(${heroMouse.x * 5}deg)`,
                                         backgroundImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.4), transparent)',
@@ -474,7 +488,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                         </div>
 
                         {/* Right: Auth Form */}
-                        <div className="lg:w-1/2 flex items-center justify-center p-6 lg:p-20 relative z-10">
+                        <div className="lg:w-1/2 flex items-center justify-center p-6 lg:p-12 xl:p-20 relative z-10">
                             {/* Cockpit Glow */}
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-blue-600/15 rounded-full blur-[100px] pointer-events-none mix-blend-screen animate-pulse duration-[4000ms]"></div>
 
@@ -613,8 +627,8 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                     <div className="relative">
                                                         <Lock className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
                                                         <input required type={showPassword ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-10 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600" placeholder="••••••••" />
-                                                        <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-3.5 text-slate-500 hover:text-white">
-                                                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                                        <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-2 top-2 p-2 text-slate-500 hover:text-white transition-colors">
+                                                            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                                                         </button>
                                                     </div>
                                                     {/* Strength Meter for Signup */}
@@ -729,7 +743,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-6">
                                     <Rocket size={12} /> Complete Pilot Suite
                                 </div>
-                                <h2 className="text-4xl md:text-6xl font-black text-white mt-2 tracking-tight">The ultimate <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">visual</span> study stack.</h2>
+                                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mt-2 tracking-tight">The ultimate <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">visual</span> study stack.</h2>
                                 <p className="text-slate-400 mt-6 max-w-2xl mx-auto text-lg">We've combined deep interactive theory with a professional-grade question bank and strategic analytics to give you the highest possible chance of passing first time.</p>
                             </div>
 
@@ -748,7 +762,16 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                             <p className="text-slate-400 text-lg leading-relaxed max-w-md">Every subject is an interactive lab. Manipulate controls, simulate physics, and visualize systems in real-time.</p>
                                         </div>
                                         <div className="mt-8 relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group-hover:scale-[1.02] transition-transform duration-700">
-                                            <img src={`${import.meta.env.BASE_URL}assets/walkthroughs/planner_demo.webp`} alt="Sim" className="w-full h-64 object-cover" />
+                                            <LazyImage
+                                                src={`${import.meta.env.BASE_URL}assets/walkthroughs/planner_demo.webp`}
+                                                alt="Sim"
+                                                className="w-full h-64 object-cover"
+                                                fallback={
+                                                    <div className="w-full h-full bg-gradient-to-br from-blue-600/40 to-indigo-900/40 flex items-center justify-center">
+                                                        <Plane size={64} className="text-blue-400/20" />
+                                                    </div>
+                                                }
+                                            />
                                             <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
                                             <div className="absolute bottom-4 left-4 flex gap-3">
                                                 <div className="px-3 py-1.5 bg-black/60 backdrop-blur rounded-lg text-xs font-bold text-white border border-white/10 flex items-center gap-2">
@@ -847,23 +870,39 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
 
                         <div className="max-w-7xl mx-auto px-6 text-center mb-20 relative z-10">
                             <span className="text-blue-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">The Vector Experience</span>
-                            <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter mb-6">Designed for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 italic">Immersion.</span></h2>
+                            <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tighter mb-6">Designed for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 italic">Immersion.</span></h2>
                             <p className="text-slate-400 max-w-2xl mx-auto text-lg">We've engineered a platform that moves as fast as you do. Experience the most powerful study environment ever built for aviation.</p>
                         </div>
 
                         {/* 3D Floating Product Stack */}
-                        <div className="relative w-full max-w-5xl aspect-[16/10] perspective-2000 group cursor-default mb-20">
+                        <div className="relative w-full lg:max-w-4xl xl:max-w-5xl aspect-[16/10] perspective-2000 group cursor-default mb-20">
                             <div className="relative w-full h-full transition-all duration-1000 transform-gpu preserve-3d group-hover:rotate-x-5 group-hover:rotate-y-n10">
 
                                 {/* Background Layer (Dashboard) */}
-                                <div className="absolute top-0 left-0 w-[90%] h-[90%] bg-slate-900 rounded-3xl border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden transform translate-z-0 opacity-40 blur-[2px] group-hover:blur-0 transition-all duration-700">
-                                    <img src={`${import.meta.env.BASE_URL}assets/walkthroughs/planner_demo.webp`} className="w-full h-full object-cover opacity-50" alt="Dashboard Layer" />
+                                <div
+                                    className="absolute top-1/2 left-1/2 w-[85%] h-[85%] bg-slate-900 rounded-3xl border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden opacity-40 blur-[2px] group-hover:blur-0 transition-all duration-700"
+                                    style={{ transform: 'translate(-50%, -50%) translateZ(0px)' }}
+                                >
+                                    <LazyImage
+                                        src={`${import.meta.env.BASE_URL}assets/walkthroughs/planner_demo.webp`}
+                                        className="w-full h-full object-cover opacity-50"
+                                        alt="Dashboard Layer"
+                                        fallback={<div className="w-full h-full bg-slate-800"></div>}
+                                    />
                                 </div>
 
                                 {/* Mid Layer (Question Bank) */}
-                                <div className="absolute top-1/2 left-1/2 -translate-x-[45%] -translate-y-[45%] w-[85%] h-[85%] bg-slate-800 rounded-3xl border border-white/20 shadow-2xl overflow-hidden transform translate-z-150 rotate-x-2 rotate-y-n5 hover:translate-z-200 transition-transform duration-500">
+                                <div
+                                    className="absolute top-1/2 left-1/2 w-[80%] h-[80%] bg-slate-800 rounded-3xl border border-white/20 shadow-2xl overflow-hidden transition-transform duration-500"
+                                    style={{ transform: 'translate(-50%, -50%) translateZ(100px) rotateX(2deg) rotateY(-5deg)' }}
+                                >
                                     <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/20 to-transparent"></div>
-                                    <img src={`${import.meta.env.BASE_URL}assets/walkthroughs/confidence_demo.webp`} className="w-full h-full object-cover opacity-80" alt="QB Layer" />
+                                    <LazyImage
+                                        src={`${import.meta.env.BASE_URL}assets/walkthroughs/confidence_demo.webp`}
+                                        className="w-full h-full object-cover opacity-80"
+                                        alt="QB Layer"
+                                        fallback={<div className="w-full h-full bg-indigo-900/20"></div>}
+                                    />
                                     <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 flex items-center gap-2">
                                         <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
                                         <span className="text-[10px] font-bold text-white uppercase tracking-wider">Live Analysis</span>
@@ -871,9 +910,17 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                 </div>
 
                                 {/* Top Layer (Interactive Sim) */}
-                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] bg-white rounded-2xl shadow-[0_100px_150px_-30px_rgba(59,130,246,0.3)] overflow-hidden transform translate-z-300 group-hover:translate-z-450 transition-transform duration-700">
+                                <div
+                                    className="absolute top-1/2 left-1/2 w-[70%] h-[70%] bg-white rounded-2xl shadow-[0_100px_150px_-30px_rgba(59,130,246,0.3)] overflow-hidden transition-transform duration-700"
+                                    style={{ transform: 'translate(-50%, -50%) translateZ(250px)' }}
+                                >
                                     <div className="absolute inset-0 bg-slate-900 group">
-                                        <img src={`${import.meta.env.BASE_URL}assets/walkthroughs/planner_demo.webp`} className="w-full h-full object-cover opacity-90 scale-110 group-hover:scale-125 transition-transform duration-[10s]" alt="Simulation Layer" />
+                                        <LazyImage
+                                            src={`${import.meta.env.BASE_URL}assets/walkthroughs/planner_demo.webp`}
+                                            className="w-full h-full object-cover opacity-90 scale-110 group-hover:scale-125 transition-transform duration-[10s]"
+                                            alt="Simulation Layer"
+                                            fallback={<div className="w-full h-full bg-blue-900/40"></div>}
+                                        />
                                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
                                         <div className="absolute inset-0 flex items-center justify-center">
                                             <div className="w-20 h-20 bg-blue-600/20 backdrop-blur-xl rounded-full border border-blue-500/50 flex items-center justify-center text-white scale-90 group-hover:scale-110 transition-transform shadow-2xl shadow-blue-500/50">
@@ -942,7 +989,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                             </div>
 
                             {/* Duration-based Pricing Grid */}
-                            <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-6xl mx-auto mb-16">
+                            <div className="grid md:grid-cols-3 xl:grid-cols-6 gap-4 max-w-6xl mx-auto mb-16">
                                 {/* 12 Months - Best Value */}
                                 <div className="bg-slate-800 p-6 rounded-2xl border-2 border-emerald-500 relative flex flex-col hover:scale-105 transition-transform duration-300 shadow-xl shadow-emerald-500/10">
                                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">Best Value</div>

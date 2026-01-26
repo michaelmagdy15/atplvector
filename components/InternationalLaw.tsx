@@ -107,6 +107,39 @@ const InternationalLaw: React.FC = () => {
           </div>
         </div>
 
+        {/* ICAO Structure Section (NEW) */}
+        <div className="bg-slate-900 rounded-xl p-6 border border-slate-700 md:col-span-2">
+          <h3 className="font-bold text-white mb-4 flex items-center gap-2">
+            <Globe className="text-indigo-400" /> ICAO Structure
+          </h3>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="bg-slate-800 p-4 rounded-lg border border-slate-700 hover:border-indigo-500/50 transition-colors">
+              <h4 className="font-bold text-white text-sm mb-2 text-indigo-400 uppercase tracking-wider">The Assembly</h4>
+              <ul className="text-[11px] text-slate-400 space-y-2">
+                <li>• Main body - All 193 Member States represented.</li>
+                <li>• Meets <strong>every 3 years</strong> in Montreal.</li>
+                <li>• Reviews work, sets policy, and votes for Council members.</li>
+              </ul>
+            </div>
+            <div className="bg-slate-800 p-4 rounded-lg border border-slate-700 hover:border-indigo-500/50 transition-colors">
+              <h4 className="font-bold text-white text-sm mb-2 text-indigo-400 uppercase tracking-wider">The Council</h4>
+              <ul className="text-[11px] text-slate-400 space-y-2">
+                <li>• Executive body - <strong>36 Member States</strong> elected for 3 years.</li>
+                <li>• Adopts SARPs (Annexes) and acts as arbiter in disputes.</li>
+                <li>• Maintains safety and regularity of international transport.</li>
+              </ul>
+            </div>
+            <div className="bg-slate-800 p-4 rounded-lg border border-slate-700 hover:border-indigo-500/50 transition-colors">
+              <h4 className="font-bold text-white text-sm mb-2 text-indigo-400 uppercase tracking-wider">The Secretariat</h4>
+              <ul className="text-[11px] text-slate-400 space-y-2">
+                <li>• Led by the Secretary General.</li>
+                <li>• Handles daily administrative tasks and technical support.</li>
+                <li>• Five main bureaus: Navigation, Transport, Legal, etc.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         {/* Conventions Detailed list */}
         <div className="space-y-4">
           <h3 className="font-bold text-white flex items-center gap-2">

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlertCircle, Wind, Droplets, Info, ShieldCheck, Zap } from 'lucide-react';
+import { AlertCircle, Wind, Droplets, Info, ShieldCheck, Zap, Plane } from 'lucide-react';
 
 const PitotStaticSystem: React.FC = () => {
     const [pitotBlocked, setPitotBlocked] = useState(false);
@@ -270,6 +270,65 @@ const PitotStaticSystem: React.FC = () => {
                             </motion.div>
                         )}
                     </AnimatePresence>
+                </div>
+            </div>
+
+            {/* Error Theory Section (NEW) */}
+            <div className="mt-12 grid md:grid-cols-2 gap-8 pt-12 border-t border-slate-800">
+                <div>
+                    <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                        <ShieldCheck className="text-emerald-400" />
+                        System Errors & Theory
+                    </h3>
+                    <div className="space-y-4">
+                        <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+                            <h4 className="text-sm font-bold text-white mb-2 uppercase tracking-wider">Position Error</h4>
+                            <p className="text-xs text-slate-400 leading-relaxed">
+                                Streamlines around the aircraft are affected by its presence (Bernoulli's Theorem). There is <strong>no single point</strong> on a fuselage where local pressure equals free-stream pressure for all angles of attack.
+                            </p>
+                        </div>
+                        <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+                            <h4 className="text-sm font-bold text-white mb-2 uppercase tracking-wider">Maneuver Error</h4>
+                            <p className="text-xs text-slate-400 leading-relaxed">
+                                Short-duration errors induced during maneuvers as airflow around the aircraft (ailerons, configuration changes) is temporarily altered.
+                            </p>
+                        </div>
+                        <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-800">
+                            <h4 className="text-sm font-bold text-white mb-2 uppercase tracking-wider">Static Unbalanced</h4>
+                            <p className="text-xs text-slate-400 leading-relaxed">
+                                Occurs during sideslips. Modern aircraft use ports on <strong>both sides</strong> of the fuselage to balance the extra pressure on the windward side with the leeward side.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="space-y-6">
+                    <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                        <Zap className="text-sky-400" />
+                        Alternate Static Source
+                    </h3>
+                    <div className="bg-slate-900 p-6 rounded-2xl border border-slate-700 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-4 opacity-10">
+                            <Plane size={80} />
+                        </div>
+                        <p className="text-sm text-slate-300 mb-4">
+                            Usable if the outside static port gets blocked (usually in the cabin on light aircraft).
+                        </p>
+                        <div className="bg-sky-500/10 border-l-4 border-sky-500 p-4 rounded">
+                            <h5 className="font-bold text-white text-xs mb-1 uppercase">Aerodynamic Suction Effect</h5>
+                            <p className="text-xs text-slate-300">
+                                Inside the aircraft, static pressure is <strong>slightly less</strong> than outside due to air acceleration around the fuselage.
+                            </p>
+                            <ul className="mt-3 space-y-2 text-[11px] font-bold text-sky-400">
+                                <li>• Altimeter: OVERREADS</li>
+                                <li>• ASI: OVERREADS</li>
+                                <li>• VSI: Momentary CLIMB indication</li>
+                            </ul>
+                        </div>
+                        <p className="mt-4 text-[10px] text-slate-500 italic">
+                            "If no alternate source is fitted, breaking the VSI glass can restore static pressure to the other instruments."
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

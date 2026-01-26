@@ -335,6 +335,20 @@ const FlashcardSystem: React.FC = () => {
         }, 150);
     };
 
+    // Pagination State
+    const CARDS_PER_PAGE = 9;
+    const [currentPage, setCurrentPage] = useState(1);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [filterSub]);
+
+    const totalPages = Math.ceil(activeDeck.length / CARDS_PER_PAGE);
+    const paginatedCards = activeDeck.slice(
+        (currentPage - 1) * CARDS_PER_PAGE,
+        currentPage * CARDS_PER_PAGE
+    );
+
     return (
         <div className="max-w-6xl mx-auto p-6">
             <div className="mb-8 flex flex-col md:flex-row justify-between items-end gap-4">
@@ -433,28 +447,80 @@ const FlashcardSystem: React.FC = () => {
 
                     {/* Card List Column */}
                     <div className="lg:col-span-2">
-                        <div className="bg-slate-900 rounded-xl p-6 border border-slate-700 min-h-[500px]">
+                        <div className="bg-slate-900 rounded-xl p-6 border border-slate-700 flex flex-col min-h-[600px]">
                             <h3 className="font-bold text-slate-400 uppercase text-xs mb-4">Your Cards ({activeDeck.length})</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {activeDeck.length === 0 && (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
+                                {activeDeck.length === 0 ? (
                                     <div className="col-span-full text-center py-20 text-slate-500">No cards in this deck. Add one!</div>
-                                )}
-                                {activeDeck.map(card => (
-                                    <div key={card.id} className="bg-slate-800 p-4 rounded-lg border border-slate-700 flex flex-col justify-between group hover:border-slate-500 transition-colors">
-                                        <div>
-                                            <div className="flex justify-between items-start mb-2">
-                                                <span className="text-[10px] bg-slate-900 text-slate-400 px-2 py-1 rounded border border-slate-700">Subject {card.subjectId}</span>
-                                                {/* Only show delete for non-system cards */}
-                                                {!card.id.startsWith('sys-') && (
-                                                    <button onClick={() => handleDelete(card.id)} className="text-slate-600 hover:text-red-500 transition-colors"><Trash2 size={16} /></button>
-                                                )}
+                                ) : (
+                                    paginatedCards.map(card => (
+                                        <div key={card.id} className="bg-slate-800 p-4 rounded-lg border border-slate-700 flex flex-col justify-between group hover:border-slate-500 transition-colors">
+                                            <div>
+                                                <div className="flex justify-between items-start mb-2">
+                                                    <span className="text-[10px] bg-slate-900 text-slate-400 px-2 py-1 rounded border border-slate-700">Subject {card.subjectId}</span>
+                                                    {/* Only show delete for non-system cards */}
+                                                    {!card.id.startsWith('sys-') && (
+                                                        <button onClick={() => handleDelete(card.id)} className="text-slate-600 hover:text-red-500 transition-colors"><Trash2 size={16} /></button>
+                                                    )}
+                                                </div>
+                                                <p className="font-bold text-white mb-2 line-clamp-2">{card.front}</p>
+                                                <p className="text-sm text-slate-400 line-clamp-3 border-t border-slate-700 pt-2">{card.back}</p>
                                             </div>
-                                            <p className="font-bold text-white mb-2 line-clamp-2">{card.front}</p>
-                                            <p className="text-sm text-slate-400 line-clamp-3 border-t border-slate-700 pt-2">{card.back}</p>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))
+                                )}
                             </div>
+
+                            {/* Pagination Controls */}
+                            {totalPages > 1 && (
+                                <div className="mt-8 pt-6 border-t border-slate-800 flex items-center justify-between">
+                                    <div className="text-xs font-bold text-slate-500 uppercase tracking-widest">
+                                        Page {currentPage} of {totalPages}
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <button
+                                            disabled={currentPage === 1}
+                                            onClick={() => setCurrentPage(prev => prev - 1)}
+                                            className="p-2 bg-slate-800 text-white rounded-lg hover:bg-slate-700 disabled:opacity-30 transition-all border border-slate-700"
+                                        >
+                                            <ChevronLeft size={20} />
+                                        </button>
+                                        <div className="flex gap-1">
+                                            {/* Show a few page numbers for convenience */}
+                                            {(() => {
+                                                const maxButtons = 5;
+                                                let startPage = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+                                                let endPage = Math.min(totalPages, startPage + maxButtons - 1);
+
+                                                if (endPage - startPage + 1 < maxButtons) {
+                                                    startPage = Math.max(1, endPage - maxButtons + 1);
+                                                }
+
+                                                const pages = [];
+                                                for (let i = startPage; i <= endPage; i++) {
+                                                    pages.push(
+                                                        <button
+                                                            key={i}
+                                                            onClick={() => setCurrentPage(i)}
+                                                            className={`w-10 h-10 rounded-lg text-xs font-bold transition-all border ${currentPage === i ? 'bg-indigo-600 border-indigo-500 text-white' : 'bg-slate-800 border-slate-700 text-slate-400 hover:text-white hover:bg-slate-700'}`}
+                                                        >
+                                                            {i}
+                                                        </button>
+                                                    );
+                                                }
+                                                return pages;
+                                            })()}
+                                        </div>
+                                        <button
+                                            disabled={currentPage === totalPages}
+                                            onClick={() => setCurrentPage(prev => prev + 1)}
+                                            className="p-2 bg-slate-800 text-white rounded-lg hover:bg-slate-700 disabled:opacity-30 transition-all border border-slate-700"
+                                        >
+                                            <ChevronRight size={20} />
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

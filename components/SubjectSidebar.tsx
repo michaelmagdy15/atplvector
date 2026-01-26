@@ -1,8 +1,8 @@
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { View } from '../types';
 import { SubjectConfig } from '../data/sidebarNavigation';
-import { ChevronLeft, Circle, CheckCircle2, X } from 'lucide-react';
+import { ChevronLeft, Circle, CheckCircle2, X, Search } from 'lucide-react';
 
 interface Props {
     config: SubjectConfig;
@@ -12,6 +12,15 @@ interface Props {
 }
 
 const SubjectSidebar: React.FC<Props> = ({ config, currentView, onNavigate, onClose }) => {
+    const [searchQuery, setSearchQuery] = useState('');
+
+    // Filter items based on search query
+    const filteredItems = useMemo(() => {
+        if (!searchQuery.trim()) return config.items;
+        return config.items.filter(item =>
+            item.label.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+    }, [config.items, searchQuery]);
 
     // Dynamic color classes based on config.color
     const getColorClass = (isActive: boolean) => {
@@ -60,29 +69,65 @@ const SubjectSidebar: React.FC<Props> = ({ config, currentView, onNavigate, onCl
                     )}
                 </div>
                 <h2 className="text-xl font-black text-white tracking-tight">{config.title}</h2>
-                <p className="text-xs text-slate-400 font-mono mt-1">SUBJECT {config.id}</p>
+                <div className="flex items-center justify-between mt-1">
+                    <p className="text-xs text-slate-400 font-mono">SUBJECT {config.id}</p>
+                </div>
+
+                {/* Search Bar */}
+                <div className="mt-4 relative group">
+                    <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                        <Search className={`w-4 h-4 transition-colors ${searchQuery ? 'text-indigo-400' : 'text-slate-500 group-focus-within:text-slate-300'}`} />
+                    </div>
+                    <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Search topics..."
+                        className="w-full bg-slate-800/50 border border-white/5 rounded-lg py-2 pl-10 pr-8 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/50 focus:bg-slate-800 transition-all"
+                    />
+                    {searchQuery && (
+                        <button
+                            onClick={() => setSearchQuery('')}
+                            className="absolute inset-y-0 right-2 flex items-center px-1 text-slate-500 hover:text-white transition-colors"
+                        >
+                            <X size={16} />
+                        </button>
+                    )}
+                </div>
             </div>
 
             {/* Scrollable List */}
             <div className="flex-1 overflow-y-auto px-4 pb-4 space-y-1 scrollbar-thin scrollbar-thumb-slate-700">
-                {config.items.map((item, idx) => {
-                    const isActive = currentView === item.view;
-                    const Icon = item.icon || (isActive ? CheckCircle2 : Circle);
-
-                    return (
+                {filteredItems.length === 0 ? (
+                    <div className="py-8 text-center">
+                        <p className="text-xs text-slate-500 italic">No topics match your search</p>
                         <button
-                            key={idx}
-                            onClick={() => {
-                                onNavigate(item.view);
-                                if (onClose) onClose();
-                            }}
-                            className={getColorClass(isActive)}
+                            onClick={() => setSearchQuery('')}
+                            className="mt-2 text-[10px] font-bold text-indigo-400 hover:text-indigo-300 uppercase tracking-wider"
                         >
-                            <Icon size={16} className={isActive ? "opacity-100" : "opacity-50"} />
-                            <span className="truncate">{item.label}</span>
+                            Clear search
                         </button>
-                    );
-                })}
+                    </div>
+                ) : (
+                    filteredItems.map((item, idx) => {
+                        const isActive = currentView === item.view;
+                        const Icon = item.icon || (isActive ? CheckCircle2 : Circle);
+
+                        return (
+                            <button
+                                key={idx}
+                                onClick={() => {
+                                    onNavigate(item.view);
+                                    if (onClose) onClose();
+                                }}
+                                className={getColorClass(isActive)}
+                            >
+                                <Icon size={18} className={isActive ? "opacity-100" : "opacity-50"} />
+                                <span className="truncate">{item.label}</span>
+                            </button>
+                        );
+                    })
+                )}
             </div>
         </div>
     );

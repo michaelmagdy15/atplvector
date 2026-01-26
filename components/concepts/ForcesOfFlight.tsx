@@ -244,7 +244,9 @@ const ForcesOfFlight: React.FC<Props> = ({ onBack }) => {
 
                 {/* Overlay Hint */}
                 <div className="absolute bottom-6 right-6 bg-black/50 backdrop-blur px-4 py-2 rounded-full border border-white/10 text-xs text-white flex items-center gap-2 pointer-events-none">
-                    <Info size={14} /> Drag to Rotate • Scroll to Zoom
+                    <Info size={14} />
+                    <span className="hidden md:inline">Drag to Rotate • Scroll to Zoom</span>
+                    <span className="md:hidden">Drag to Rotate • Pinch to Zoom</span>
                 </div>
             </div>
         </div>

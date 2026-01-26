@@ -208,6 +208,66 @@ const GyroPrinciples: React.FC = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Advanced Theory Section (NEW) */}
+            <div className="mt-12 pt-12 border-t border-slate-800 grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 className="text-xl font-bold text-white mb-6">Gyroscopic Wander</h3>
+                    <div className="space-y-4">
+                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-orange-500/30 transition-colors">
+                            <h4 className="font-bold text-white text-sm mb-1 uppercase tracking-wider">Wander (Horizontal)</h4>
+                            <p className="text-xs text-slate-400 leading-relaxed">
+                                The drift of the spin axis in the <strong>horizontal</strong> plane.
+                                Drift = Real Wander + Apparent Wander.
+                            </p>
+                        </div>
+                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-orange-500/30 transition-colors">
+                            <h4 className="font-bold text-white text-sm mb-1 uppercase tracking-wider">Topple (Vertical)</h4>
+                            <p className="text-xs text-slate-400 leading-relaxed">
+                                The drift of the spin axis in the <strong>vertical</strong> plane.
+                                Max at the Poles. Zero at Equator.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 className="text-xl font-bold text-white mb-6">Apparent Wander Factors</h3>
+                    <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-700 relative overflow-hidden">
+                        <p className="text-[10px] font-bold text-slate-500 uppercase mb-4 tracking-widest">The "R.E.S.T" Mnemonic</p>
+                        <ul className="space-y-3">
+                            <li className="flex items-start gap-3">
+                                <span className="bg-orange-500/20 text-orange-400 font-black px-2 rounded text-xs">R</span>
+                                <div>
+                                    <strong className="text-white text-xs block">Earth Rotation</strong>
+                                    <span className="text-[10px] text-slate-400">15°/hr × sin(Lat). Real gyro stays fixed, earth moves.</span>
+                                </div>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <span className="bg-blue-500/20 text-blue-400 font-black px-2 rounded text-xs">E</span>
+                                <div>
+                                    <strong className="text-white text-xs block">Earth Rate</strong>
+                                    <span className="text-[10px] text-slate-400">Effect due to Earth's rotation (same as above).</span>
+                                </div>
+                            </li>
+                            <li className="flex items-start gap-3 opacity-50">
+                                <span className="bg-slate-700 text-slate-400 font-black px-2 rounded text-xs">S</span>
+                                <div>
+                                    <strong className="text-slate-500 text-xs block">Speed</strong>
+                                    <span className="text-[10px] text-slate-600">Transport Wander (Velocity effect).</span>
+                                </div>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <span className="bg-purple-500/20 text-purple-400 font-black px-2 rounded text-xs">T</span>
+                                <div>
+                                    <strong className="text-white text-xs block">Transport Wander</strong>
+                                    <span className="text-[10px] text-slate-400">Caused by moving the gyro across longitudes (E/W movement).</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

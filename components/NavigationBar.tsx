@@ -15,30 +15,30 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
     onForward
 }) => {
     return (
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
             <button
                 onClick={onBack}
                 disabled={!canGoBack}
-                className={`p-2 rounded-lg transition-all duration-200 ${canGoBack
-                        ? 'text-slate-300 hover:text-white hover:bg-white/10 active:scale-95'
-                        : 'text-slate-600 cursor-not-allowed'
+                className={`p-2.5 rounded-lg transition-all duration-200 ${canGoBack
+                    ? 'text-slate-300 hover:text-white hover:bg-white/10 active:scale-95'
+                    : 'text-slate-600 cursor-not-allowed'
                     }`}
                 title="Go back"
                 aria-label="Go back"
             >
-                <ChevronLeft size={20} />
+                <ChevronLeft size={22} />
             </button>
             <button
                 onClick={onForward}
                 disabled={!canGoForward}
-                className={`p-2 rounded-lg transition-all duration-200 ${canGoForward
-                        ? 'text-slate-300 hover:text-white hover:bg-white/10 active:scale-95'
-                        : 'text-slate-600 cursor-not-allowed'
+                className={`p-2.5 rounded-lg transition-all duration-200 ${canGoForward
+                    ? 'text-slate-300 hover:text-white hover:bg-white/10 active:scale-95'
+                    : 'text-slate-600 cursor-not-allowed'
                     }`}
                 title="Go forward"
                 aria-label="Go forward"
             >
-                <ChevronRight size={20} />
+                <ChevronRight size={22} />
             </button>
         </div>
     );

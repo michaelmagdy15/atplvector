@@ -278,6 +278,74 @@ const AirspeedIndicator: React.FC = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Advanced ASI Theory (NEW) */}
+            <div className="mt-12 pt-12 border-t border-slate-800 grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 className="text-xl font-bold text-white mb-6">The Speed Chain</h3>
+                    <div className="space-y-4">
+                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-sky-500/30 transition-colors">
+                            <h4 className="font-bold text-white text-sm mb-1 uppercase tracking-wider">IAS &rarr; CAS</h4>
+                            <p className="text-xs text-slate-400 leading-relaxed">
+                                Corrected for <strong>Instrument</strong> (manufacturing) and <strong>Position</strong> (airflow around fuselage) errors. Usually very small difference in modern jets.
+                            </p>
+                        </div>
+                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-sky-500/30 transition-colors">
+                            <h4 className="font-bold text-white text-sm mb-1 uppercase tracking-wider">CAS &rarr; EAS</h4>
+                            <p className="text-xs text-slate-400 leading-relaxed">
+                                Corrected for <strong>Compressibility</strong>. Crucial above 260 kts / Mach 0.4. IAS will overread as air particles compress into the probe.
+                            </p>
+                        </div>
+                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-sky-500/30 transition-colors">
+                            <h4 className="font-bold text-white text-sm mb-1 uppercase tracking-wider">EAS &rarr; TAS</h4>
+                            <p className="text-xs text-slate-400 leading-relaxed">
+                                Corrected for <strong>Density</strong>. Since density (ρ) decreases with altitude, TAS is always higher than IAS at height (Ice Cold Beer &rarr; IAS CAS EAS TAS).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 className="text-xl font-bold text-white mb-6">Failure & Mach Theory</h3>
+                    <div className="space-y-4">
+                        <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-600">
+                            <div className="flex justify-between items-center mb-2">
+                                <h4 className="text-xs font-black text-slate-200 uppercase">Pitot Blockage</h4>
+                                <span className="text-[10px] bg-red-500/20 text-red-500 px-2 py-0.5 rounded font-bold italic">ACTS AS ALTIMETER</span>
+                            </div>
+                            <p className="text-[11px] text-slate-400">
+                                In a climb, trapped air in the capsule expands against lower ambient static pressure &rarr; <strong>ASI Overreads</strong>. PUD: Underreads in Descent.
+                            </p>
+                        </div>
+
+                        <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-600">
+                            <div className="flex justify-between items-center mb-2">
+                                <h4 className="text-xs font-black text-slate-200 uppercase">Mach Number (M)</h4>
+                            </div>
+                            <p className="text-[11px] text-slate-400 mb-2">Ratio of True Airspeed (TAS) to Local Speed of Sound (LSS).</p>
+                            <div className="grid grid-cols-2 gap-2 text-center">
+                                <div className="p-2 bg-black/40 rounded border border-white/5">
+                                    <p className="text-[8px] text-slate-500 uppercase">Mach</p>
+                                    <p className="text-xs font-bold text-white font-mono">TAS / LSS</p>
+                                </div>
+                                <div className="p-2 bg-black/40 rounded border border-white/5">
+                                    <p className="text-[8px] text-slate-500 uppercase">LSS @ SL (ISA)</p>
+                                    <p className="text-xs font-bold text-white font-mono">661 KTS</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-sky-900/10 p-4 rounded-xl border border-sky-900/50">
+                            <h4 className="text-xs font-bold text-sky-400 mb-2 uppercase flex items-center gap-2">
+                                <Thermometer size={14} /> Critical Mach
+                            </h4>
+                            <p className="text-[10px] text-slate-300 leading-relaxed">
+                                <strong>M<sub>CRIT</sub>:</strong> The speed at which airflow over any part of the wing first reaches the speed of sound.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

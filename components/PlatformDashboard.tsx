@@ -46,8 +46,8 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
     };
 
     // Card Helper Component
-    const SubjectCard = ({ id, code, title, desc, icon: Icon, color, onClick, progress }: any) => {
-        const locked = isLocked(code);
+    const SubjectCard = ({ id, code, title, desc, icon: Icon, color, onClick, progress, isComingSoon }: any) => {
+        const locked = isLocked(code) || isComingSoon;
         const gradient = getColorStyles(color);
 
         return (
@@ -56,11 +56,17 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                 className={`group relative glass-card rounded-2xl p-1 overflow-hidden transition-all duration-300 ${locked ? 'opacity-80 cursor-not-allowed' : 'hover:scale-[1.01] cursor-pointer'}`}
             >
                 {locked && (
-                    <div className="absolute inset-0 z-30 bg-slate-950/60 backdrop-blur-[4px] flex flex-col items-center justify-center transition-opacity hover:bg-slate-950/50">
-                        <div className="p-3 bg-slate-900/80 rounded-full border border-white/10 shadow-xl mb-2 backdrop-blur-md">
-                            <Lock className="w-6 h-6 text-slate-400" />
+                    <div className="absolute inset-0 z-30 bg-slate-950/70 backdrop-blur-[4px] flex flex-col items-center justify-center transition-opacity hover:bg-slate-950/60">
+                        <div className="p-3 bg-slate-900/90 rounded-full border border-white/10 shadow-xl mb-3 backdrop-blur-md">
+                            {isComingSoon ? (
+                                <Calendar className="w-6 h-6 text-amber-500 animate-pulse" />
+                            ) : (
+                                <Lock className="w-6 h-6 text-slate-400" />
+                            )}
                         </div>
-                        <span className="text-white font-bold text-xs tracking-wider uppercase bg-black/40 px-3 py-1 rounded-full border border-white/10">Locked</span>
+                        <span className={`text-white font-black text-[10px] tracking-[0.2em] uppercase bg-black/60 px-4 py-1.5 rounded-full border ${isComingSoon ? 'border-amber-500/50 text-amber-400' : 'border-white/10 text-slate-300'}`}>
+                            {isComingSoon ? 'Coming Soon' : 'Locked'}
+                        </span>
                     </div>
                 )}
 
@@ -79,7 +85,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                                 Subject {code}
                             </div>
                             <div className={`p-2 rounded-lg bg-gradient-to-br ${gradient} shadow-lg opacity-80 group-hover:opacity-100 transition-opacity`}>
-                                <Icon size={20} className="text-white" />
+                                <Icon size={24} className="text-white" />
                             </div>
                         </div>
 
@@ -107,7 +113,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
 
                         <div className="flex items-center text-sm font-bold text-white/80 group-hover:text-white transition-colors pt-4 border-t border-white/5 mt-auto">
                             <span>Open Module</span>
-                            <ChevronRight className="ml-auto w-4 h-4 text-white/50 group-hover:text-white group-hover:translate-x-1 transition-all" />
+                            <ChevronRight className="ml-auto w-5 h-5 text-white/50 group-hover:text-white group-hover:translate-x-1 transition-all" />
                         </div>
                     </div>
                 </div>
@@ -120,7 +126,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
     return (
         <div className="max-w-7xl mx-auto p-4 md:p-8">
             {/* Header / Stats */}
-            <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-6">
+            <div className="flex flex-col xl:flex-row justify-between items-start xl:items-end mb-12 gap-8">
                 <div>
                     <h1 className="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">Pilot Dashboard</h1>
                     <p className="text-slate-400 text-sm md:text-base">Ready for briefing, Captain. Select a module to begin.</p>
@@ -129,7 +135,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                 <div className="flex flex-wrap gap-4">
                     <div className="glass-panel px-5 py-3 rounded-2xl flex items-center gap-4">
                         <div className="p-2 bg-blue-500/20 rounded-lg text-blue-400">
-                            <Clock size={20} />
+                            <Clock size={24} />
                         </div>
                         <div>
                             <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Flight Time</div>
@@ -138,7 +144,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                     </div>
                     <div className="glass-panel px-5 py-3 rounded-2xl flex items-center gap-4">
                         <div className="p-2 bg-yellow-500/20 rounded-lg text-yellow-400">
-                            <Trophy size={20} />
+                            <Trophy size={24} />
                         </div>
                         <div>
                             <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Rank</div>
@@ -146,66 +152,11 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                         </div>
                     </div>
 
-                    {/* Concept Lab Quick Access (NEW) */}
-                    <div
-                        onClick={() => onChangeView(View.CONCEPT_LAB)}
-                        className="glass-panel px-5 py-3 rounded-2xl flex items-center gap-4 cursor-pointer hover:bg-white/5 transition-colors border border-cyan-500/30 shadow-lg shadow-cyan-500/10 group"
-                    >
-                        <div className="p-2 bg-cyan-500/20 rounded-lg text-cyan-400 group-hover:scale-110 transition-transform">
-                            <Activity size={20} />
-                        </div>
-                        <div>
-                            <div className="text-[10px] text-cyan-400/60 font-bold uppercase tracking-wider">Simulation</div>
-                            <div className="text-xl font-bold text-white group-hover:text-cyan-200 transition-colors">Concept Lab</div>
-                        </div>
-                    </div>
-
-                    {/* Study Guide Quick Access */}
-                    <div
-                        onClick={() => onChangeView(View.STUDY_GUIDE)}
-                        className="glass-panel px-5 py-3 rounded-2xl flex items-center gap-4 cursor-pointer hover:bg-white/5 transition-colors border border-blue-500/30 shadow-lg shadow-blue-500/10 group"
-                    >
-                        <div className="p-2 bg-blue-500/20 rounded-lg text-blue-400 group-hover:scale-110 transition-transform">
-                            <TrendingUp size={20} />
-                        </div>
-                        <div>
-                            <div className="text-[10px] text-blue-400/60 font-bold uppercase tracking-wider">Strategy</div>
-                            <div className="text-xl font-bold text-white group-hover:text-blue-200 transition-colors">Study Guide</div>
-                        </div>
-                    </div>
-
-                    {/* Question Bank Quick Access */}
-                    <div
-                        onClick={() => onChangeView(View.QUESTION_BANK)}
-                        className="glass-panel px-5 py-3 rounded-2xl flex items-center gap-4 cursor-pointer hover:bg-white/5 transition-colors border border-purple-500/30 shadow-lg shadow-purple-500/10 group"
-                    >
-                        <div className="p-2 bg-purple-500/20 rounded-lg text-purple-400 group-hover:scale-110 transition-transform">
-                            <BookOpen size={20} />
-                        </div>
-                        <div>
-                            <div className="text-[10px] text-purple-400/60 font-bold uppercase tracking-wider">Practice</div>
-                            <div className="text-xl font-bold text-white group-hover:text-purple-200 transition-colors">Question Bank</div>
-                        </div>
-                    </div>
-
-                    {/* Exam Planner Quick Access */}
-                    <div
-                        onClick={() => onChangeView(View.EXAM_PLANNER)}
-                        className="glass-panel px-5 py-3 rounded-2xl flex items-center gap-4 cursor-pointer hover:bg-white/5 transition-colors border border-indigo-500/30 shadow-lg shadow-indigo-500/10 group"
-                    >
-                        <div className="p-2 bg-indigo-500/20 rounded-lg text-indigo-400 group-hover:scale-110 transition-transform">
-                            <Calendar size={20} />
-                        </div>
-                        <div>
-                            <div className="text-[10px] text-indigo-400/60 font-bold uppercase tracking-wider">Planning</div>
-                            <div className="text-xl font-bold text-white group-hover:text-indigo-200 transition-colors">Exam Planner</div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
             {/* Subjects Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
 
                 {/* 010 Air Law */}
                 <SubjectCard
@@ -245,6 +196,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                     desc="Take-off, climb, cruise, descent and landing performance for Class A/B aircraft."
                     icon={TrendingUp} color="lime"
                     onClick={() => onChangeView(View.PERF_HOME)}
+                    isComingSoon={true}
                 />
 
                 {/* 033 Flight Planning */}
@@ -253,6 +205,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                     desc="VFR/IFR planning, fuel planning, point of equal time, and flight monitoring."
                     icon={Map} color="green"
                     onClick={() => onChangeView(View.FLIGHT_PLAN_HOME)}
+                    isComingSoon={true}
                 />
 
                 {/* 040 Human Performance */}

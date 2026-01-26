@@ -17,7 +17,7 @@ export interface SubjectConfig {
 }
 
 // Helper to define navigation structure
-const NAV_MAP: SubjectConfig[] = [
+export const NAV_MAP: SubjectConfig[] = [
     {
         id: '010',
         title: 'Air Law',
@@ -33,6 +33,7 @@ const NAV_MAP: SubjectConfig[] = [
             { label: 'Airworthiness', view: View.AIR_LAW_AIRWORTHINESS },
             { label: 'Registration', view: View.AIR_LAW_REGISTRATION },
             { label: 'Docs Onboard', view: View.AIR_LAW_DOCS },
+            { label: 'Facilitation (Annex 9)', view: View.AIR_LAW_FACILITATION, icon: UserPlus },
             { label: 'Rules of the Air', view: View.AIR_LAW_RULES_DETAILS },
             { label: 'VFR vs IFR', view: View.AIR_LAW_RULES_OF_AIR },
             { label: 'Cruising Levels', view: View.AIR_LAW_CRUISING },
@@ -41,6 +42,7 @@ const NAV_MAP: SubjectConfig[] = [
             { label: 'Airspace Classes', view: View.AIR_LAW_LAYERS },
             { label: 'IFR/VFR Explorer', view: View.AIR_LAW_IFR_VFR },
             { label: 'Instrument Appr.', view: View.AIR_LAW_INSTRUMENT },
+            { label: 'Parallel Runway Ops', view: View.AIR_LAW_PARALLEL_RWY, icon: GitMerge },
             { label: 'PANS-OPS', view: View.AIR_LAW_PANS_OPS },
             { label: 'Holding Patterns', view: View.AIR_LAW_HOLDING },
             { label: 'Altimetry', view: View.AIR_LAW_ALTIMETER },
@@ -54,6 +56,9 @@ const NAV_MAP: SubjectConfig[] = [
             { label: 'T-VASIS', view: View.AIR_LAW_TVASIS },
             { label: 'Declared Dist.', view: View.AIR_LAW_DECLARED_DIST },
             { label: 'Ops Info (AIS)', view: View.AIR_LAW_OPS_INFO },
+            { label: 'AIS Deep Dive', view: View.AIR_LAW_AIS_DEEP_DIVE, icon: Database },
+            { label: 'Montreal/Warsaw', view: View.AIR_LAW_CONVENTIONS, icon: Shield },
+            { label: 'Liability & Rights', view: View.AIR_LAW_LIABILITY },
             { label: 'Security', view: View.AIR_LAW_SECURITY },
             { label: 'Accident Invest.', view: View.AIR_LAW_ACCIDENT },
             { label: 'Search & Rescue', view: View.AIR_LAW_SAR },

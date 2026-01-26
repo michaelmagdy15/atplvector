@@ -68,6 +68,13 @@ import EmergencyProcedures from './components/EmergencyProcedures';
 
 import HydraulicSystemAnim from './components/AGK/HydraulicSystemAnim';
 import JetEnginePrinciples from './components/AGK/JetEnginePrinciples';
+import ElectricsSystem from './components/AGK/ElectricsSystem';
+import PistonEnginePrinciples from './components/AGK/PistonEnginePrinciples';
+import AirLawFacilitation from './components/AirLawFacilitation';
+import AirLawParallelRunway from './components/AirLawParallelRunway';
+import AirLawAISDeepDive from './components/AirLawAISDeepDive';
+import AirLawConventions from './components/AirLawConventions';
+import AirLawRightOfWay from './components/AirLawRightOfWay';
 import InstrumentationDashboard from './components/Instrumentation/InstrumentationDashboard';
 import PitotStaticSystem from './components/Instrumentation/PitotStaticSystem';
 import InstAltimeterLab from './components/Instrumentation/AltimeterLab';
@@ -284,7 +291,7 @@ import Scratchpad from './components/study/Scratchpad';
 import CommandPalette from './components/CommandPalette';
 import {
     Plane as PlaneIcon, Menu, X, BookOpen, Settings, Weight,
-    Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog, Wind
+    Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog, Wind, Search, Activity, Calendar
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -293,9 +300,8 @@ const App: React.FC = () => {
     const [selectedSubjectId, setSelectedSubjectId] = useState<string>('');
     const [studyTime, setStudyTime] = useState(0);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [mainMenuOpen, setMainMenuOpen] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
-
-    // Command Palette State
     const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
 
     // Global Command Palette Listener
@@ -595,7 +601,25 @@ const App: React.FC = () => {
     }
 
     if (!user) {
-        return <AuthView onAuthChange={setUser} initialView={authInitialView} />;
+        return (
+            <AuthView
+                onAuthChange={setUser}
+                initialView={authInitialView}
+                onDemoLogin={() => {
+                    setUser({
+                        id: 'demo-user',
+                        email: 'demo@atplvector.com',
+                        fullName: 'Captain Demo',
+                        status: AuthStatus.ACTIVE,
+                        studySeconds: 3600,
+                        subscriptionTier: 'PRO_MONTHLY',
+                        allowedSubjects: ['ALL'],
+                        isAdmin: false,
+                        isApproved: true
+                    });
+                }}
+            />
+        );
     }
 
     // Show pending approval screen for unapproved users
@@ -749,21 +773,43 @@ const App: React.FC = () => {
         );
     }
 
-    const NavButton = ({ view, label, icon: Icon }: any) => (
+    const NavButton = ({ view, label, icon: Icon, labelClassName = "" }: any) => (
         <button
             onClick={() => {
                 navigateTo(view);
                 setMobileMenuOpen(false);
             }}
-            className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 text-sm font-medium ${currentView === view
+            className={`flex items-center space-x-2 px-3 xl:px-4 py-2 rounded-full transition-all duration-300 text-sm font-medium ${currentView === view
                 ? 'bg-blue-600/90 text-white shadow-lg shadow-blue-500/30 ring-1 ring-blue-400/50'
                 : 'text-slate-400 hover:text-white hover:bg-white/5'
                 }`}
         >
             {Icon && <Icon size={16} />}
-            <span>{label}</span>
+            <span className={labelClassName}>{label}</span>
         </button>
     );
+
+    const MenuNavItem = ({ view, label, icon: Icon, color = "text-slate-300", bgColor = "bg-transparent" }: any) => {
+        const active = currentView === view;
+        return (
+            <button
+                onClick={() => {
+                    navigateTo(view);
+                    setMainMenuOpen(false);
+                }}
+                className={`w-full flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-300 group ${active
+                    ? 'bg-blue-600 text-white shadow-xl shadow-blue-500/20'
+                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                    }`}
+            >
+                <div className={`p-2 rounded-xl transition-colors ${active ? 'bg-white/20' : `${bgColor} ${color} group-hover:bg-white/10`}`}>
+                    <Icon size={18} />
+                </div>
+                <span className={`text-sm font-bold tracking-tight ${active ? 'text-white' : 'text-slate-300 group-hover:text-white'}`}>{label}</span>
+                {active && <div className="ml-auto w-1.5 h-1.5 bg-white rounded-full"></div>}
+            </button>
+        );
+    };
 
     const handleOpenSyllabus = (subjectId: string) => {
         setSelectedSubjectId(subjectId);
@@ -817,57 +863,38 @@ const App: React.FC = () => {
                                 />
                             </div>
 
-                            {/* Desktop Nav */}
-                            <div className="hidden md:flex items-center space-x-2">
-                                <NavButton view={View.PLATFORM_DASHBOARD} label="Hangar" />
-                                <NavButton view={View.SYLLABUS_VIEWER} label="Syllabus" />
-                                <NavButton view={View.PROGRESS_DASHBOARD} label="Your Progress" />
-                                <NavButton view={View.FLASHCARDS} label="Flashcards" />
-                                <NavButton view={View.SUBSCRIPTION_MANAGEMENT} label="Plan" />
-                                {/* New Buttons */}
-                                <NavButton view={View.STUDY_GUIDE} label="Study Guide" />
-                                <NavButton view={View.QUESTION_BANK} label="Question Bank" />
-                                {user.isAdmin && (
-                                    <button
-                                        onClick={() => navigateTo(View.ADMIN_DASHBOARD)}
-                                        className="text-red-400 hover:text-red-300 font-bold text-xs uppercase px-4"
-                                    >
-                                        Admin
-                                    </button>
-                                )}
+                            {/* Global Action Bar */}
+                            <div className="flex items-center gap-2">
+                                <button
+                                    onClick={() => setCommandPaletteOpen(true)}
+                                    className="hidden sm:flex p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-xl transition-all items-center gap-2 px-3 border border-white/5"
+                                    title="Command Palette (Ctrl+K)"
+                                >
+                                    <Search size={18} />
+                                    <span className="text-[10px] font-bold uppercase tracking-widest hidden lg:inline">Search</span>
+                                </button>
 
-                                <div className="h-6 w-px bg-white/10 mx-2"></div>
+                                <div className="h-8 w-px bg-white/10 mx-1 hidden sm:block"></div>
 
                                 <div
                                     onClick={() => navigateTo(View.PROFILE)}
                                     className="flex items-center space-x-3 cursor-pointer group pl-2"
                                 >
-                                    <div className="w-9 h-9 bg-gradient-to-br from-slate-700 to-slate-800 rounded-full flex items-center justify-center text-xs font-bold text-white border border-white/10 group-hover:border-blue-500/50 transition-colors shadow-lg">
+                                    <div className="w-9 h-9 bg-gradient-to-br from-slate-700 to-slate-800 rounded-xl flex items-center justify-center text-xs font-bold text-white border border-white/10 group-hover:border-blue-500/50 transition-colors shadow-lg">
                                         {user.email.substring(0, 2).toUpperCase()}
                                     </div>
                                 </div>
-                            </div>
 
-                            {/* Mobile Menu Toggle */}
-                            <div className="md:hidden">
-                                <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 text-slate-300">
-                                    {mobileMenuOpen ? <X /> : <Menu />}
+                                <button
+                                    onClick={() => setMainMenuOpen(true)}
+                                    className="p-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl shadow-lg shadow-blue-500/20 transition-all flex items-center gap-2 group ml-2 active:scale-95"
+                                >
+                                    <Menu size={20} className="group-hover:rotate-180 transition-transform duration-500" />
+                                    <span className="text-xs font-bold uppercase tracking-widest hidden sm:inline">Portal</span>
                                 </button>
                             </div>
                         </div>
 
-                        {/* Mobile Nav Dropdown */}
-                        {mobileMenuOpen && (
-                            <div className="md:hidden border-t border-white/5 p-4 space-y-2 animate-in slide-in-from-top-2 bg-slate-900 rounded-b-2xl pointer-events-auto">
-                                <NavButton view={View.PLATFORM_DASHBOARD} label="Dashboard" />
-                                <NavButton view={View.SYLLABUS_VIEWER} label="Syllabus" />
-                                <NavButton view={View.QUESTION_BANK} label="Question Bank" />
-                                <NavButton view={View.STUDY_GUIDE} label="Study Guide" />
-                                <NavButton view={View.FLASHCARDS} label="Flashcards" />
-                                <NavButton view={View.SUBSCRIPTION_MANAGEMENT} label="Plan" />
-                                <NavButton view={View.PROFILE} label="Profile" />
-                            </div>
-                        )}
                     </nav>
                 </div>
 
@@ -907,10 +934,10 @@ const App: React.FC = () => {
                             {/* --- PLATFORM LEVEL --- */}
                             {currentView === View.PLATFORM_DASHBOARD && (
                                 <div className="animate-in fade-in duration-500">
-                                    <div className="px-2 md:px-0 mb-8">
+                                    <PlatformDashboard onChangeView={navigateTo} studyTime={studyTime} user={user} />
+                                    <div className="px-2 md:px-0 mt-12 mb-8">
                                         <PlatformProgress />
                                     </div>
-                                    <PlatformDashboard onChangeView={navigateTo} studyTime={studyTime} user={user} />
                                 </div>
                             )}
                             {currentView === View.PROFILE && (
@@ -968,7 +995,7 @@ const App: React.FC = () => {
                             {currentView === View.AIR_LAW_REGISTRATION && <AircraftRegistration />}
                             {currentView === View.AIR_LAW_DOCS && <DocumentsOnboard />}
                             {currentView === View.AIR_LAW_RULES_DETAILS && <RulesOfTheAirDetails />}
-                            {currentView === View.AIR_LAW_RULES_OF_AIR && <CockpitToggle />}
+                            {currentView === View.AIR_LAW_RULES_OF_AIR && <AirLawRightOfWay />}
                             {currentView === View.AIR_LAW_CRUISING && <CruisingLevelTool />}
                             {currentView === View.AIR_LAW_INTERCEPT && <InterceptionProcedures />}
                             {currentView === View.AIR_LAW_LIGHTGUN && <LightGunSignals />}
@@ -992,6 +1019,10 @@ const App: React.FC = () => {
                             {currentView === View.AIR_LAW_ACCIDENT && <AccidentInvestigation />}
                             {currentView === View.AIR_LAW_SAR && <SearchAndRescue />}
                             {currentView === View.AIR_LAW_EMERGENCY && <EmergencyProcedures />}
+                            {currentView === View.AIR_LAW_FACILITATION && <AirLawFacilitation />}
+                            {currentView === View.AIR_LAW_PARALLEL_RWY && <AirLawParallelRunway />}
+                            {currentView === View.AIR_LAW_AIS_DEEP_DIVE && <AirLawAISDeepDive />}
+                            {currentView === View.AIR_LAW_CONVENTIONS && <AirLawConventions />}
 
                             {/* AGK */}
                             {currentView === View.AGK_SYSTEMS_HOME && (
@@ -1002,13 +1033,15 @@ const App: React.FC = () => {
                                     modules={[
                                         { title: 'Hydraulics', desc: 'Pascal’s Law, actuators, pumps and reservoirs.', view: View.AGK_HYDRAULICS, isLocked: !isSubjectAllowed('021') },
                                         { title: 'Gas Turbines', desc: 'The Brayton Cycle, intake, compression, combustion, exhaust.', view: View.AGK_JET_ENGINE, isLocked: !isSubjectAllowed('021') },
-                                        { title: 'Electrics', desc: 'DC/AC generation, batteries, and distribution.', isLocked: true },
-                                        { title: 'Piston Engines', desc: 'Four stroke cycle, mixture, ignition.', isLocked: true },
+                                        { title: 'Electrics', desc: 'DC/AC generation, batteries, and distribution.', view: View.AGK_ELECTRICS, isLocked: !isSubjectAllowed('021') },
+                                        { title: 'Piston Engines', desc: 'The Otto Cycle (4-Stroke), Mixture, and Ignition.', view: View.AGK_PISTON_ENGINE, isLocked: !isSubjectAllowed('021') },
                                     ]}
                                 />
                             )}
                             {currentView === View.AGK_HYDRAULICS && <HydraulicSystemAnim />}
                             {currentView === View.AGK_JET_ENGINE && <JetEnginePrinciples />}
+                            {currentView === View.AGK_ELECTRICS && <ElectricsSystem />}
+                            {currentView === View.AGK_PISTON_ENGINE && <PistonEnginePrinciples />}
 
                             {/* Instrumentation (022) */}
                             {currentView === View.INST_HOME && <InstrumentationDashboard onChangeView={navigateTo} isLocked={!isSubjectAllowed('022')} />}
@@ -1417,8 +1450,86 @@ const App: React.FC = () => {
                         System Version: <span className="text-slate-500">{typeof __COMMIT_HASH__ !== 'undefined' ? __COMMIT_HASH__ : 'DEV'}</span>
                     </p>
                 </footer>
-            </div >
-        </ContentProtection >
+
+                {/* Unified Navigation Drawer */}
+                {mainMenuOpen && (
+                    <div className="fixed inset-0 z-[9999] flex justify-end pointer-events-auto">
+                        <div
+                            className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm animate-in fade-in duration-300"
+                            onClick={() => setMainMenuOpen(false)}
+                        ></div>
+                        <div className="relative w-full max-w-sm bg-slate-900 border-l border-white/10 shadow-2xl animate-in slide-in-from-right duration-500 flex flex-col h-full">
+                            <div className="p-6 border-b border-white/5 flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <div className="p-2 bg-blue-500/20 rounded-lg">
+                                        <PlaneIcon className="text-blue-400" size={20} />
+                                    </div>
+                                    <span className="font-black text-white tracking-tight">MISSION CONTROL</span>
+                                </div>
+                                <button
+                                    onClick={() => setMainMenuOpen(false)}
+                                    className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+                                >
+                                    <X size={20} />
+                                </button>
+                            </div>
+
+                            <div className="flex-1 overflow-y-auto p-4 space-y-6">
+                                {/* Main Navigation */}
+                                <div>
+                                    <h3 className="px-4 text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-3">Principal</h3>
+                                    <div className="space-y-1">
+                                        <MenuNavItem icon={PlaneIcon} label="Hangar" view={View.PLATFORM_DASHBOARD} />
+                                        <MenuNavItem icon={BookOpen} label="Syllabus" view={View.SYLLABUS_VIEWER} />
+                                        <MenuNavItem icon={TrendingUp} label="Progress" view={View.PROGRESS_DASHBOARD} />
+                                    </div>
+                                </div>
+
+                                {/* Integrated Quick Access Tools */}
+                                <div>
+                                    <h3 className="px-4 text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-3">Study Suite</h3>
+                                    <div className="space-y-1 grid grid-cols-1">
+                                        <MenuNavItem icon={Search} label="Question Bank" view={View.QUESTION_BANK} color="text-purple-400" bgColor="bg-purple-500/10" />
+                                        <MenuNavItem icon={Map} label="Study Guide" view={View.STUDY_GUIDE} color="text-blue-400" bgColor="bg-blue-500/10" />
+                                        <MenuNavItem icon={Activity} label="Concept Lab" view={View.CONCEPT_LAB} color="text-cyan-400" bgColor="bg-cyan-500/10" />
+                                        <MenuNavItem icon={Calendar} label="Exam Planner" view={View.EXAM_PLANNER} color="text-indigo-400" bgColor="bg-indigo-500/10" />
+                                        <MenuNavItem icon={FolderCog} label="Flashcards" view={View.FLASHCARDS} />
+                                    </div>
+                                </div>
+
+                                {/* Account */}
+                                <div>
+                                    <h3 className="px-4 text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-3">Management</h3>
+                                    <div className="space-y-1">
+                                        <MenuNavItem icon={Settings} label="Subscription Plan" view={View.SUBSCRIPTION_MANAGEMENT} />
+                                        {user.isAdmin && <MenuNavItem icon={TrendingUp} label="Admin Dashboard" view={View.ADMIN_DASHBOARD} color="text-red-400" />}
+                                        <button
+                                            onClick={handleLogout}
+                                            className="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-red-400 hover:bg-red-500/5 rounded-xl transition-all"
+                                        >
+                                            <X size={18} />
+                                            <span className="text-sm font-medium">Safe Exit (Sign Out)</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="p-6 border-t border-white/5 bg-slate-950/50">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-10 h-10 bg-slate-800 rounded-xl border border-white/10 flex items-center justify-center font-bold text-blue-400">
+                                        {user.email.substring(0, 2).toUpperCase()}
+                                    </div>
+                                    <div>
+                                        <div className="text-sm font-bold text-white">{user.fullName || 'Aviator'}</div>
+                                        <div className="text-[10px] text-slate-500 font-mono">{user.email}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </ContentProtection>
     );
 
 

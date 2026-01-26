@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Plane, AlertTriangle, ArrowRight, Mountain, FileText } from 'lucide-react';
 
 const RulesOfTheAirDetails: React.FC = () => {
-    const [tab, setTab] = useState<'row' | 'heights' | 'fpl'>('row');
+    const [tab, setTab] = useState<'row' | 'heights' | 'fpl' | 'general' | 'signals'>('row');
 
     return (
         <div className="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700 mt-8">
@@ -16,16 +16,20 @@ const RulesOfTheAirDetails: React.FC = () => {
                     <p className="text-slate-400 text-sm">Collision Avoidance, Minimum Heights, and Flight Plans.</p>
                 </div>
 
-                <div className="flex bg-slate-900 p-1 rounded-lg">
+                <div className="flex bg-slate-900 p-1 rounded-lg flex-wrap">
+                    <button onClick={() => setTab('general')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'general' ? 'bg-sky-600 text-white' : 'text-slate-400 hover:text-white'}`}>General</button>
                     <button onClick={() => setTab('row')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'row' ? 'bg-sky-600 text-white' : 'text-slate-400 hover:text-white'}`}>Right of Way</button>
                     <button onClick={() => setTab('heights')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'heights' ? 'bg-sky-600 text-white' : 'text-slate-400 hover:text-white'}`}>Min Heights</button>
                     <button onClick={() => setTab('fpl')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'fpl' ? 'bg-sky-600 text-white' : 'text-slate-400 hover:text-white'}`}>Flight Plans</button>
+                    <button onClick={() => setTab('signals')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'signals' ? 'bg-sky-600 text-white' : 'text-slate-400 hover:text-white'}`}>Signals</button>
                 </div>
             </div>
 
+            {tab === 'general' && <GeneralApplicability />}
             {tab === 'row' && <RightOfWay />}
             {tab === 'heights' && <MinimumHeights />}
             {tab === 'fpl' && <FlightPlans />}
+            {tab === 'signals' && <Signals />}
         </div>
     );
 };
@@ -244,6 +248,156 @@ const FlightPlans = () => (
                 <p className="text-xs font-bold text-slate-400 uppercase mb-2">VFR Requirement</p>
                 <p className="text-white font-bold">Crossing Borders</p>
                 <p className="text-[10px] text-slate-500 mt-1">Or entering Class B/C/D airspace.</p>
+            </div>
+        </div>
+    </div>
+);
+
+const GeneralApplicability = () => (
+    <div className="grid md:grid-cols-2 gap-6 animate-in fade-in">
+        <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+            <h3 className="font-bold text-white mb-4 flex items-center gap-2">
+                <FileText className="text-sky-400" /> Responsibility & Authority
+            </h3>
+            <div className="space-y-4">
+                <div className="bg-slate-800 p-4 rounded-lg border-l-4 border-sky-500">
+                    <h4 className="font-bold text-white text-sm mb-1">PIC Responsibility</h4>
+                    <p className="text-xs text-slate-300">Responsible for operation in accordance with Rules of the Air. May deviate <strong>ONLY</strong> in the interests of safety.</p>
+                </div>
+                <div className="bg-slate-800 p-4 rounded-lg border-l-4 border-indigo-500">
+                    <h4 className="font-bold text-white text-sm mb-1">Final Authority</h4>
+                    <p className="text-xs text-slate-300">The PIC has final authority as to the disposition of the aircraft while in command.</p>
+                </div>
+                <div className="bg-slate-800 p-4 rounded-lg border-l-4 border-amber-500">
+                    <h4 className="font-bold text-white text-sm mb-1">Pre-flight Action</h4>
+                    <p className="text-xs text-slate-300">PIC must become familiar with all available information: weather, fuel, and alternatives.</p>
+                </div>
+            </div>
+        </div>
+
+        <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+            <h3 className="font-bold text-white mb-4 flex items-center gap-2">
+                <Plane className="text-emerald-400" /> Territorial Application
+            </h3>
+            <div className="space-y-3">
+                <div className="flex items-start gap-3 p-3 bg-slate-800/50 rounded border border-slate-700">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0"></div>
+                    <p className="text-xs text-slate-300">Must comply with rules of the <strong>State of Registration</strong> wherever they are.</p>
+                </div>
+                <div className="flex items-start gap-3 p-3 bg-slate-800/50 rounded border border-slate-700">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0"></div>
+                    <p className="text-xs text-slate-300">If local rules differ, the <strong>most restrictive</strong> applies.</p>
+                </div>
+                <div className="flex items-start gap-3 p-3 bg-slate-800/50 rounded border border-slate-700">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0"></div>
+                    <p className="text-xs text-slate-300">Over <strong>High Seas</strong>: ICAO Rules apply, or rules of the State that has taken responsibility for that airspace.</p>
+                </div>
+            </div>
+
+            <h3 className="font-bold text-white mt-6 mb-4 flex items-center gap-2">
+                <AlertTriangle className="text-amber-500" size={18} /> Proximity & Formation
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+                <div className="bg-slate-800 p-3 rounded border border-slate-700">
+                    <span className="text-[10px] font-bold text-slate-500 uppercase">Formation</span>
+                    <p className="text-[11px] text-slate-300 mt-1">Pre-arranged by PICs. Operates as <strong>single aircraft</strong> for ATC.</p>
+                </div>
+                <div className="bg-slate-800 p-3 rounded border border-slate-700">
+                    <span className="text-[10px] font-bold text-slate-500 uppercase">Proximity</span>
+                    <p className="text-[11px] text-slate-300 mt-1">Shall not be operated so as to create a <strong>collision hazard</strong>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+);
+
+const Signals = () => (
+    <div className="space-y-6 animate-in fade-in">
+        <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+            <h3 className="font-bold text-white mb-4 flex items-center gap-2">
+                <AlertTriangle className="text-red-500" /> Interception Signals
+            </h3>
+            <div className="grid md:grid-cols-2 gap-4">
+                <div className="bg-slate-800 p-4 rounded-lg">
+                    <h4 className="text-xs font-bold text-red-400 uppercase mb-3">Interceptor Actions</h4>
+                    <div className="space-y-3">
+                        <div className="flex justify-between items-center text-[11px] border-b border-slate-700 pb-2">
+                            <span className="text-slate-300">Rock wings + slow turn</span>
+                            <span className="text-white font-bold">Follow Me</span>
+                        </div>
+                        <div className="flex justify-between items-center text-[11px] border-b border-slate-700 pb-2">
+                            <span className="text-slate-300">Abrupt break-off turn</span>
+                            <span className="text-white font-bold">Proceed</span>
+                        </div>
+                        <div className="flex justify-between items-center text-[11px] border-b border-slate-700 pb-2">
+                            <span className="text-slate-300">Lower gear + overfly rwy</span>
+                            <span className="text-white font-bold">Land Here</span>
+                        </div>
+                    </div>
+                </div>
+                <div className="bg-slate-800 p-4 rounded-lg">
+                    <h4 className="text-xs font-bold text-emerald-400 uppercase mb-3">Intercepted Actions</h4>
+                    <div className="space-y-3">
+                        <div className="flex justify-between items-center text-[11px] border-b border-slate-700 pb-2">
+                            <span className="text-slate-300">Rock wings + flash lights</span>
+                            <span className="text-white font-bold">Understood / Wilco</span>
+                        </div>
+                        <div className="flex justify-between items-center text-[11px] border-b border-slate-700 pb-2">
+                            <span className="text-slate-300">Irregular flash (all lights)</span>
+                            <span className="text-white font-bold">In Distress</span>
+                        </div>
+                        <div className="flex justify-between items-center text-[11px] border-b border-slate-700 pb-2">
+                            <span className="text-slate-300">Switching on/off (regular)</span>
+                            <span className="text-white font-bold">Unable to Comply</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="mt-4 p-3 bg-red-900/20 border border-red-900/50 rounded flex gap-3 items-center">
+                <AlertTriangle className="text-red-500 shrink-0" size={16} />
+                <p className="text-[10px] text-red-200">Set transponder to <strong>7700</strong> (Emergency) and attempt contact on <strong>121.5 MHz</strong>.</p>
+            </div>
+        </div>
+
+        <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+            <h3 className="font-bold text-white mb-4">Light Gun Signals (Ground/Air)</h3>
+            <div className="overflow-x-auto">
+                <table className="w-full text-[11px] text-left">
+                    <thead>
+                        <tr className="border-b border-slate-700 text-slate-500 uppercase font-black tracking-tighter">
+                            <th className="py-2 px-1">Signal Type</th>
+                            <th className="py-2 px-1">In Flight</th>
+                            <th className="py-2 px-1">On Ground</th>
+                        </tr>
+                    </thead>
+                    <tbody className="text-slate-300">
+                        <tr className="border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors">
+                            <td className="py-3 px-1 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></div> Steady Green</td>
+                            <td className="py-2 px-1 text-emerald-400 font-bold">Cleared to Land</td>
+                            <td className="py-2 px-1 text-emerald-400 font-bold">Cleared for Take-off</td>
+                        </tr>
+                        <tr className="border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors">
+                            <td className="py-3 px-1 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div> Flashing Green</td>
+                            <td className="py-2 px-1">Return for Landing</td>
+                            <td className="py-2 px-1 text-emerald-400">Cleared to Taxi</td>
+                        </tr>
+                        <tr className="border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors">
+                            <td className="py-3 px-1 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"></div> Steady Red</td>
+                            <td className="py-2 px-1 text-red-400">Give way / Circle</td>
+                            <td className="py-2 px-1 text-red-400 font-bold">STOP</td>
+                        </tr>
+                        <tr className="border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors">
+                            <td className="py-3 px-1 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div> Flashing Red</td>
+                            <td className="py-2 px-1 text-red-400">Aerodrome Unsafe</td>
+                            <td className="py-2 px-1 text-red-400">Taxi clear of rwy</td>
+                        </tr>
+                        <tr className="border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors">
+                            <td className="py-3 px-1 flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-white animate-pulse"></div> Flashing White</td>
+                            <td className="py-2 px-1">Land and Proceed</td>
+                            <td className="py-2 px-1">Return to Start</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
