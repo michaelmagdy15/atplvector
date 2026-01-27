@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CloudRain, Wind, Thermometer, Layers, ArrowRight, Droplets, Sun, Activity, Globe, CloudLightning } from 'lucide-react';
+import { CloudRain, Wind, Thermometer, Layers, ArrowRight, Droplets, Sun, Activity, Globe, CloudLightning, Gauge, Zap, Map, FileText, Waves, AlertTriangle, Radio } from 'lucide-react';
 import { View } from '../../types';
 
 interface Props {
@@ -13,172 +13,225 @@ const MetDashboard: React.FC<Props> = ({ onChangeView }) => {
         {
             title: 'The Atmosphere',
             icon: Layers,
-            description: 'Layers, Composition, and Temperature profile.',
-            color: 'bg-blue-500',
-            view: View.MET_ATMOSPHERE
+            description: 'Composition, layers, and transition zones.',
+            view: View.MET_ATMOSPHERE,
+            color: 'from-blue-500/20 to-blue-600/5'
+        },
+        {
+            title: 'ISA & Temperature',
+            icon: Thermometer,
+            description: 'Lapse rates, ISA calcs, and heat transfer.',
+            view: View.MET_TEMPERATURE,
+            color: 'from-orange-500/20 to-orange-600/5'
         },
         {
             title: 'Pressure Systems',
-            icon: Activity,
-            description: 'Highs, Lows, Q-Codes (QNH/QFE), and Isobars.',
-            color: 'bg-indigo-500',
-            view: View.MET_PRESSURE
+            icon: Gauge,
+            description: 'Isobars, Pressure gradients, and systems.',
+            view: View.MET_PRESSURE,
+            color: 'from-indigo-500/20 to-indigo-600/5'
         },
         {
-            title: 'Density & Altitude',
-            icon: Thermometer,
-            description: 'Density Altitude, ISA deviation, and performance impacts.',
-            color: 'bg-orange-500',
-            view: View.MET_DENSITY
+            title: 'Density Altitude',
+            icon: Activity,
+            description: 'Performance impacts and calculations.',
+            view: View.MET_DENSITY,
+            color: 'from-emerald-500/20 to-emerald-600/5'
         },
         {
             title: 'Altimetry',
             icon: Activity,
-            description: 'Altimeter settings, calculations, and errors.',
-            color: 'bg-emerald-500',
-            view: View.MET_ALTIMETRY
+            description: 'QNH, QFE, QNE and altimeter errors.',
+            view: View.MET_ALTIMETRY,
+            color: 'from-purple-500/20 to-purple-600/5'
         },
         {
             title: 'Wind Systems',
             icon: Wind,
-            description: 'Coriolis, geostrophic wind, and local effects.',
-            color: 'bg-teal-500',
-            view: View.MET_WIND
+            description: 'Coriolis force, Friction, and Geostrophic flow.',
+            view: View.MET_WIND,
+            color: 'from-teal-500/20 to-teal-600/5'
+        },
+        {
+            title: 'Local Winds',
+            icon: Wind,
+            description: 'Sea breezes, Foehn winds, and Catabatics.',
+            view: View.MET_LOCAL_WINDS,
+            color: 'from-emerald-500/20 to-emerald-600/5'
         },
         {
             title: 'Global Circulation',
             icon: Globe,
-            description: 'Three-cell model, ITCZ, and global pressure belts.',
-            color: 'bg-cyan-600',
-            view: View.MET_CIRCULATION
+            description: 'Hadley cells, ITCZ, and global patterns.',
+            view: View.MET_CIRCULATION,
+            color: 'from-cyan-500/20 to-cyan-600/5'
         },
         {
-            title: 'Humidity & Stability',
+            title: 'Depressions',
+            icon: Wind,
+            description: 'Cyclogenesis and Anticyclonic systems.',
+            view: View.MET_DEPRESSIONS_ANTICYCLONES,
+            color: 'from-indigo-600/20 to-indigo-700/5'
+        },
+        {
+            title: 'Humidity & Moisture',
             icon: Droplets,
-            description: 'Latent Heat, Dew Point, Adiabatics (DALR/SALR).',
-            color: 'bg-sky-500',
-            view: View.MET_HUMIDITY
+            description: 'Vapor pressure, Dewpoint, and Adiabatics.',
+            view: View.MET_HUMIDITY,
+            color: 'from-blue-400/20 to-blue-500/5'
         },
         {
-            title: 'Clouds & Precip',
+            title: 'Clouds & Fog',
+            icon: Sun,
+            description: 'Formation, Classification, and Fog types.',
+            view: View.MET_CLOUD_TYPES,
+            color: 'from-slate-400/20 to-slate-500/5'
+        },
+        {
+            title: 'Precipitation',
             icon: CloudRain,
-            description: 'Cloud types, formation triggers, and precipitation.',
-            color: 'bg-blue-600',
-            view: View.MET_PRECIPITATION
+            description: 'Rain, Snow, Hail, and formation models.',
+            view: View.MET_PRECIPITATION,
+            color: 'from-indigo-400/20 to-indigo-500/5'
         },
         {
             title: 'Frontal Systems',
-            icon: CloudLightning,
-            description: 'Warm, Cold, and Occluded fronts. Polar Front Theory.',
-            color: 'bg-violet-500',
-            view: View.MET_FRONTS
-        },
-        {
-            title: 'Thunderstorms',
-            icon: CloudLightning,
-            description: 'Life cycle, hazards, lightning, and avoidance.',
-            color: 'bg-purple-600',
-            view: View.MET_THUNDERSTORMS
-        },
-        {
-            title: 'Icing',
-            icon: Droplets,
-            description: 'Ice accretion types, intensity, and hazards.',
-            color: 'bg-blue-400',
-            view: View.MET_ICING
-        },
-        {
-            title: 'Visibility & Fog',
-            icon: Sun,
-            description: 'Fog types (Radiation, Advection), Haze, and RVR.',
-            color: 'bg-amber-500',
-            view: View.MET_VISIBILITY
+            icon: ArrowRight,
+            description: 'Warm, Cold, and Occluded fronts.',
+            view: View.MET_FRONTS,
+            color: 'from-red-500/20 to-red-600/5'
         },
         {
             title: 'Air Masses',
             icon: Globe,
-            description: 'Source regions and classification (mPw, cTc, etc).',
-            color: 'bg-rose-500',
-            view: View.MET_AIR_MASSES
+            description: 'Polar, Tropical, and Stability profiles.',
+            view: View.MET_AIR_MASSES,
+            color: 'from-emerald-500/20 to-emerald-600/5'
+        },
+        {
+            title: 'Thunderstorms',
+            icon: CloudLightning,
+            description: 'Lifecycle, Hazards, and Avoidance.',
+            view: View.MET_THUNDERSTORMS,
+            color: 'from-yellow-500/20 to-yellow-600/5'
+        },
+        {
+            title: 'Icing',
+            icon: Droplets,
+            description: 'Structural icing types and prevention.',
+            view: View.MET_ICING,
+            color: 'from-blue-300/20 to-blue-400/5'
         },
         {
             title: 'Turbulence',
-            icon: Wind,
-            description: 'CAT, Mountain Waves, and Windshear.',
-            color: 'bg-red-500',
-            view: View.MET_TURBULENCE
+            icon: Activity,
+            description: 'Mechanical, Convective, and CAT.',
+            view: View.MET_TURBULENCE,
+            color: 'from-orange-400/20 to-orange-500/5'
+        },
+        {
+            title: 'Jet Streams',
+            icon: Zap,
+            description: 'PFJ, STJ, and associated CAT zones.',
+            view: View.MET_JET_STREAMS,
+            color: 'from-purple-400/20 to-purple-500/5'
+        },
+        {
+            title: 'Visibility',
+            icon: Sun,
+            description: 'RVR, Slant visibility, and obscurations.',
+            view: View.MET_VISIBILITY,
+            color: 'from-slate-300/20 to-slate-400/5'
+        },
+        {
+            title: 'Climatology',
+            icon: Map,
+            description: 'Regional winds, Monsoons, and Waves.',
+            view: View.MET_CLIMATOLOGY,
+            color: 'from-amber-600/20 to-amber-700/5'
+        },
+        {
+            title: 'Weather Charts',
+            icon: Map,
+            description: 'SIGWX and Upper air chart decoding.',
+            view: View.MET_CHARTS,
+            color: 'from-blue-600/20 to-blue-700/5'
+        },
+        {
+            title: 'Tropical Storms',
+            icon: Waves,
+            description: 'TRS Structure, Avoidance, and Regions.',
+            view: View.MET_TRS,
+            color: 'from-cyan-600/20 to-cyan-700/5'
+        },
+        {
+            title: 'Special Hazards',
+            icon: AlertTriangle,
+            description: 'Volcanic Ash, Microbursts, and Space Wx.',
+            view: View.MET_SPECIAL_HAZARDS,
+            color: 'from-red-600/20 to-red-700/5'
+        },
+        {
+            title: 'Satellite & Radar',
+            icon: Radio,
+            description: 'Imagery analysis and radar principles.',
+            view: View.MET_SATELLITE,
+            color: 'from-emerald-600/20 to-emerald-700/5'
+        },
+        {
+            title: 'Reporting',
+            icon: FileText,
+            description: 'METAR, TAF, and SIGMET interpretation.',
+            view: View.MET_METAR_TAF,
+            color: 'from-slate-500/20 to-slate-600/5'
         }
     ];
 
-    const handleNavigate = (view: View) => {
-        if (onChangeView) {
-            onChangeView(view);
-        }
-    };
-
     return (
-        <div className="max-w-7xl mx-auto p-4 md:p-6">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mb-12"
-            >
-                <h1 className="text-4xl md:text-5xl font-black text-white mb-4 flex items-center gap-4">
-                    <Sun className="text-yellow-500 w-12 h-12 animate-pulse" />
-                    Meteorology
-                </h1>
-                <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
-                    Master the elements. Understand the physical processes driving global weather patterns, from the molecular behavior of water vapor to the dynamics of jet streams.
+        <div className="p-8 max-w-7xl mx-auto">
+            <div className="mb-12">
+                <h1 className="text-4xl font-black text-white mb-4 tracking-tight">Meteorology (050)</h1>
+                <p className="text-slate-400 text-lg max-w-2xl leading-relaxed">
+                    A comprehensive visual curriculum for the EASA ATPL Meteorology syllabus.
                 </p>
-            </motion.div>
+            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {modules.map((mod, idx) => (
-                    <motion.button
-                        key={idx}
-                        onClick={() => handleNavigate(mod.view)}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: idx * 0.05 }}
-                        whileHover={{ scale: 1.02, y: -5 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="group relative overflow-hidden bg-slate-900 border border-slate-800 rounded-3xl p-8 text-left transition-all hover:border-slate-600 hover:shadow-2xl hover:shadow-blue-900/10"
-                    >
-                        <div className={`absolute top-0 right-0 w-32 h-32 ${mod.color} opacity-5 rounded-bl-full md:group-hover:opacity-10 transition-opacity`} />
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                {modules.map((module, index) => {
+                    const Icon = module.icon;
+                    return (
+                        <motion.div
+                            key={index}
+                            whileHover={{ y: -4, scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            onClick={() => onChangeView?.(module.view)}
+                            className={`group relative p-6 rounded-[2rem] border border-white/5 bg-gradient-to-br ${module.color} hover:bg-white/5 cursor-pointer transition-all duration-300 shadow-xl`}
+                        >
+                            <div className="relative z-10 text-center">
+                                <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center mb-4 mx-auto group-hover:scale-110 group-hover:bg-white/20 transition-all">
+                                    <Icon className="text-white" size={24} />
+                                </div>
+                                <h3 className="text-sm font-bold text-white mb-2 line-clamp-1">{module.title}</h3>
+                                <p className="text-[10px] text-slate-400 leading-tight line-clamp-2">{module.description}</p>
+                            </div>
+                        </motion.div>
+                    );
+                })}
+            </div>
 
-                        <div className={`w-14 h-14 rounded-2xl ${mod.color} flex items-center justify-center mb-6 shadow-lg`}>
-                            <mod.icon className="text-white w-8 h-8" strokeWidth={1.5} />
-                        </div>
-
-                        <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors">
-                            {mod.title}
-                        </h3>
-                        <p className="text-slate-400 text-sm leading-relaxed mb-8 min-h-[40px]">
-                            {mod.description}
-                        </p>
-
-                        <div className="flex items-center gap-2 text-sm font-bold text-white/50 group-hover:text-white transition-colors">
-                            <span>Launch Module</span>
-                            <ArrowRight size={16} />
-                        </div>
-                    </motion.button>
-                ))}
-
-                {/* Coming Soon */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.4 }}
-                    className="bg-slate-900/30 border border-slate-800/50 border-dashed rounded-3xl p-8 flex flex-col items-center justify-center text-center group"
-                >
-                    <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center mb-4 group-hover:bg-slate-700 transition-colors">
-                        <Thermometer className="text-slate-600" size={20} />
+            <div className="mt-16 bg-slate-900/50 rounded-[3rem] p-10 border border-white/5">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+                    <div>
+                        <h4 className="text-2xl font-bold text-white mb-2">Ready for the Exam?</h4>
+                        <p className="text-slate-400">Master the 050 syllabus with our integrated question bank.</p>
                     </div>
-                    <h3 className="text-lg font-bold text-slate-500 mb-2">More Coming Soon</h3>
-                    <p className="text-sm text-slate-600 max-w-xs">
-                        Climatology, Flight Hazards, and Met Reports.
-                    </p>
-                </motion.div>
+                    <button
+                        onClick={() => onChangeView?.(View.QUESTION_BANK)}
+                        className="px-8 py-4 bg-white text-black font-black rounded-2xl hover:bg-slate-200 transition-colors shadow-2xl"
+                    >
+                        PRACTICE EXAM
+                    </button>
+                </div>
             </div>
         </div>
     );

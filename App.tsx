@@ -162,6 +162,7 @@ import HPLIncidents from './components/HPL/HPLIncidents';
 import HPLIncapacitation from './components/HPL/HPLIncapacitation';
 
 import AtmosphereLayers from './components/Meteorology/AtmosphereLayers';
+import AtmosphereMaster from './components/Meteorology/AtmosphereMaster';
 import Altimetry from './components/Meteorology/Altimetry';
 import Precipitation from './components/Meteorology/Precipitation';
 import HumidityLab from './components/Meteorology/HumidityLab';
@@ -176,6 +177,16 @@ import Icing from './components/Meteorology/Icing';
 import Thunderstorms from './components/Meteorology/Thunderstorms';
 import AirMasses from './components/Meteorology/AirMasses';
 import Turbulence from './components/Meteorology/Turbulence';
+import JetStreams from './components/Meteorology/JetStreams';
+import Climatology from './components/Meteorology/Climatology';
+import LocalWinds from './components/Meteorology/LocalWinds';
+import DepressionsAnticyclones from './components/Meteorology/DepressionsAnticyclones';
+import CloudTypes from './components/Meteorology/CloudTypes';
+import MetarTafDecoder from './components/Meteorology/MetarTafDecoder';
+import WeatherCharts from './components/Meteorology/WeatherCharts';
+import TropicalStorms from './components/Meteorology/TropicalStorms';
+import SpecialHazards from './components/Meteorology/SpecialHazards';
+import SatelliteRadar from './components/Meteorology/SatelliteRadar';
 import MeteorologyLayout from './components/Meteorology/MeteorologyLayout';
 import TimeZoner from './components/TimeZoner';
 import GNSSTheory from './components/RadioNav/GNSSTheory';
@@ -308,7 +319,7 @@ import Scratchpad from './components/study/Scratchpad';
 import CommandPalette from './components/CommandPalette';
 import {
     Plane as PlaneIcon, Menu, X, BookOpen, Settings, Weight,
-    Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog, Wind, Search, Activity, Calendar
+    Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog, Wind, Search, Activity, Calendar, Clock
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -1264,13 +1275,17 @@ const App: React.FC = () => {
                                     {/* --- METEOROLOGY SECTION (Wrapped in Layout) --- */}
                                     {[
                                         View.MET_HOME, View.MET_ATMOSPHERE, View.MET_PRESSURE, View.MET_DENSITY,
-                                        View.MET_ALTIMETRY, View.MET_WIND, View.MET_CIRCULATION, View.MET_HUMIDITY,
+                                        View.MET_TEMPERATURE, View.MET_ALTIMETRY, View.MET_WIND, View.MET_CIRCULATION, View.MET_HUMIDITY,
                                         View.MET_PRECIPITATION, View.MET_FRONTS, View.MET_THUNDERSTORMS, View.MET_ICING,
-                                        View.MET_VISIBILITY, View.MET_AIR_MASSES, View.MET_TURBULENCE
+                                        View.MET_VISIBILITY, View.MET_AIR_MASSES, View.MET_TURBULENCE,
+                                        View.MET_JET_STREAMS, View.MET_CLIMATOLOGY, View.MET_LOCAL_WINDS,
+                                        View.MET_DEPRESSIONS_ANTICYCLONES, View.MET_CLOUD_TYPES, View.MET_METAR_TAF,
+                                        View.MET_CHARTS, View.MET_TRS, View.MET_SPECIAL_HAZARDS, View.MET_SATELLITE
                                     ].includes(currentView) ? (
                                         <MeteorologyLayout currentView={currentView} onNavigate={navigateTo}>
                                             {currentView === View.MET_HOME && <MetDashboard onChangeView={navigateTo} />}
                                             {currentView === View.MET_ATMOSPHERE && <AtmosphereLayers />}
+                                            {currentView === View.MET_TEMPERATURE && <AtmosphereMaster />}
                                             {currentView === View.MET_PRESSURE && <PressureSystems />}
                                             {currentView === View.MET_DENSITY && <Density />}
                                             {currentView === View.MET_ALTIMETRY && <Altimetry />}
@@ -1284,6 +1299,16 @@ const App: React.FC = () => {
                                             {currentView === View.MET_VISIBILITY && <VisibilityFog />}
                                             {currentView === View.MET_AIR_MASSES && <AirMasses />}
                                             {currentView === View.MET_TURBULENCE && <Turbulence />}
+                                            {currentView === View.MET_JET_STREAMS && <JetStreams />}
+                                            {currentView === View.MET_CLIMATOLOGY && <Climatology />}
+                                            {currentView === View.MET_LOCAL_WINDS && <LocalWinds />}
+                                            {currentView === View.MET_DEPRESSIONS_ANTICYCLONES && <DepressionsAnticyclones />}
+                                            {currentView === View.MET_CLOUD_TYPES && <CloudTypes />}
+                                            {currentView === View.MET_METAR_TAF && <MetarTafDecoder />}
+                                            {currentView === View.MET_CHARTS && <WeatherCharts />}
+                                            {currentView === View.MET_TRS && <TropicalStorms />}
+                                            {currentView === View.MET_SPECIAL_HAZARDS && <SpecialHazards />}
+                                            {currentView === View.MET_SATELLITE && <SatelliteRadar />}
                                         </MeteorologyLayout>
                                     ) : null}
 
