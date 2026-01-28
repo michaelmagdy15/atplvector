@@ -69,7 +69,7 @@ import SearchAndRescue from './components/SearchAndRescue';
 import EmergencyProcedures from './components/EmergencyProcedures';
 
 import HydraulicSystemAnim from './components/AGK/HydraulicSystemAnim';
-import AGKLayout from './components/AGK/AGKLayout';
+
 import AGKSystemsDashboard from './components/AGK/AGKSystemsDashboard';
 import JetEnginePrinciples from './components/AGK/JetEnginePrinciples';
 import ElectricsSystem from './components/AGK/ElectricsSystem';
@@ -187,7 +187,7 @@ import WeatherCharts from './components/Meteorology/WeatherCharts';
 import TropicalStorms from './components/Meteorology/TropicalStorms';
 import SpecialHazards from './components/Meteorology/SpecialHazards';
 import SatelliteRadar from './components/Meteorology/SatelliteRadar';
-import MeteorologyLayout from './components/Meteorology/MeteorologyLayout';
+
 import TimeZoner from './components/TimeZoner';
 import GNSSTheory from './components/RadioNav/GNSSTheory';
 import WavePropVisualizer from './components/RadioNav/WavePropVisualizer';
@@ -1013,11 +1013,11 @@ const App: React.FC = () => {
                 }
 
                 {/* Main Content Area */}
-                <main className="pt-28 min-h-screen px-4 pb-20">
+                <main className="pt-32 md:pt-36 min-h-screen px-4 pb-20">
                     <div className="max-w-7xl mx-auto flex gap-8">
                         {/* Desktop Sidebar */}
                         {subjectConfig && (
-                            <div className="hidden lg:block w-64 shrink-0 sticky top-28 h-[calc(100vh-140px)]">
+                            <div className="hidden lg:block w-64 shrink-0 sticky top-36 h-[calc(100vh-140px)]">
                                 <SubjectSidebar
                                     config={subjectConfig}
                                     currentView={currentView}
@@ -1123,25 +1123,13 @@ const App: React.FC = () => {
                                     {currentView === View.AIR_LAW_CONVENTIONS && <AirLawConventions />}
 
                                     {/* AGK */}
-                                    {currentView === View.AGK_SYSTEMS_HOME && (
-                                        <GenericSubjectDashboard
-                                            subjectCode="021" subjectName="AGK: Airframe & Systems" color="orange"
-                                            description="Fuselage, hydraulics, landing gear, flight controls, pneumatics and electrics."
-                                            icon={Settings} onChangeView={navigateTo}
-                                            modules={[
-                                                { title: 'Hydraulics', desc: 'Pascal’s Law, actuators, pumps and reservoirs.', view: View.AGK_HYDRAULICS, isLocked: !isSubjectAllowed('021') },
-                                                { title: 'Gas Turbines', desc: 'The Brayton Cycle, intake, compression, combustion, exhaust.', view: View.AGK_JET_ENGINE, isLocked: !isSubjectAllowed('021') },
-                                                { title: 'Electrics', desc: 'DC/AC generation, batteries, and distribution.', view: View.AGK_ELECTRICS, isLocked: !isSubjectAllowed('021') },
-                                                { title: 'Piston Engines', desc: 'The Otto Cycle (4-Stroke), Mixture, and Ignition.', view: View.AGK_PISTON_ENGINE, isLocked: !isSubjectAllowed('021') },
-                                            ]}
-                                        />
-                                    )}
+
                                     {/* --- AGK (021) Systems (Wrapped in Layout) --- */}
                                     {[
                                         View.AGK_SYSTEMS_HOME, View.AGK_PISTON_ENGINE, View.AGK_JET_ENGINE,
                                         View.AGK_ELECTRICS, View.AGK_HYDRAULICS
                                     ].includes(currentView) ? (
-                                        <AGKLayout currentView={currentView} onNavigate={navigateTo}>
+                                        <div className="w-full animate-in fade-in duration-500">
                                             {currentView === View.AGK_SYSTEMS_HOME && (
                                                 <AGKSystemsDashboard
                                                     currentView={currentView}
@@ -1153,7 +1141,7 @@ const App: React.FC = () => {
                                             {currentView === View.AGK_JET_ENGINE && <JetEnginePrinciples />}
                                             {currentView === View.AGK_ELECTRICS && <ElectricsSystem />}
                                             {currentView === View.AGK_PISTON_ENGINE && <PistonEnginePrinciples />}
-                                        </AGKLayout>
+                                        </div>
                                     ) : null}
 
                                     {/* Instrumentation (022) */}
@@ -1282,7 +1270,7 @@ const App: React.FC = () => {
                                         View.MET_DEPRESSIONS_ANTICYCLONES, View.MET_CLOUD_TYPES, View.MET_METAR_TAF,
                                         View.MET_CHARTS, View.MET_TRS, View.MET_SPECIAL_HAZARDS, View.MET_SATELLITE
                                     ].includes(currentView) ? (
-                                        <MeteorologyLayout currentView={currentView} onNavigate={navigateTo}>
+                                        <div className="w-full animate-in fade-in duration-500">
                                             {currentView === View.MET_HOME && <MetDashboard onChangeView={navigateTo} />}
                                             {currentView === View.MET_ATMOSPHERE && <AtmosphereLayers />}
                                             {currentView === View.MET_TEMPERATURE && <AtmosphereMaster />}
@@ -1309,7 +1297,7 @@ const App: React.FC = () => {
                                             {currentView === View.MET_TRS && <TropicalStorms />}
                                             {currentView === View.MET_SPECIAL_HAZARDS && <SpecialHazards />}
                                             {currentView === View.MET_SATELLITE && <SatelliteRadar />}
-                                        </MeteorologyLayout>
+                                        </div>
                                     ) : null}
 
                                     {/* --- GEN NAV / RADIO NAV --- */}

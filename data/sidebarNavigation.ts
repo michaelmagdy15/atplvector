@@ -1,6 +1,6 @@
 
 import { View } from '../types';
-import { Scale, Settings, Weight, TrendingUp, Map, Users, Cloud, Compass, Radio, BookOpen, Plane, Wifi, Activity, AlertCircle, Database, Phone, ShieldAlert, Mic, Play, MessageSquare, Brain, Moon, Shield, GitMerge, MessageCircle, HeartPulse, UserPlus, FolderCog } from 'lucide-react';
+import { Scale, Settings, Weight, TrendingUp, Map, Users, Cloud, Compass, Radio, BookOpen, Plane, Wifi, Activity, AlertCircle, Database, Phone, ShieldAlert, Mic, Play, MessageSquare, Brain, Moon, Shield, GitMerge, MessageCircle, HeartPulse, UserPlus, FolderCog, Thermometer, Wind, Droplets, Sun, Layers, Globe, CloudRain, CloudLightning, Zap, Waves, AlertTriangle, Fan, Gauge } from 'lucide-react';
 
 export interface SidebarItem {
     label: string;
@@ -159,8 +159,11 @@ export const NAV_MAP: SubjectConfig[] = [
         dashboardView: View.AGK_SYSTEMS_HOME,
         items: [
             { label: 'Dashboard', view: View.AGK_SYSTEMS_HOME, icon: Settings },
-            { label: 'Hydraulics', view: View.AGK_HYDRAULICS },
-            { label: 'Gas Turbines', view: View.AGK_JET_ENGINE },
+            { label: 'Piston Engines', view: View.AGK_PISTON_ENGINE, icon: Settings },
+            { label: 'Jet Engines', view: View.AGK_JET_ENGINE, icon: Fan },
+            { label: 'Electrics', view: View.AGK_ELECTRICS, icon: Zap },
+            { label: 'Hydraulics', view: View.AGK_HYDRAULICS, icon: Droplets },
+            { label: 'Instruments', view: View.AGK_INSTRUMENTS_HOME, icon: Gauge },
         ]
     },
     {
@@ -239,7 +242,6 @@ export const NAV_MAP: SubjectConfig[] = [
             { label: 'Atmosphere', view: View.HPL_ATMOSPHERE },
             { label: 'Health & Hygiene', view: View.HPL_HEALTH_HYGIENE },
             { label: 'Incidents', view: View.HPL_INCIDENTS },
-
         ]
     },
     {
@@ -249,13 +251,31 @@ export const NAV_MAP: SubjectConfig[] = [
         dashboardView: View.MET_HOME,
         items: [
             { label: 'Dashboard', view: View.MET_HOME, icon: Cloud },
-            { label: 'Atmosphere', view: View.MET_ATMOSPHERE },
-            { label: 'Wind Systems', view: View.MET_WIND },
-            { label: 'Global Circulation', view: View.MET_CIRCULATION },
-            { label: 'Humidity & Stability', view: View.MET_HUMIDITY },
-            { label: 'Fronts & Systems', view: View.MET_FRONTS },
-            { label: 'Altimetry', view: View.MET_ALTIMETRY },
-            { label: 'Precipitation', view: View.MET_PRECIPITATION },
+            { label: 'Atmosphere', view: View.MET_ATMOSPHERE, icon: Layers },
+            { label: 'ISA & Temp', view: View.MET_TEMPERATURE, icon: Thermometer },
+            { label: 'Pressure', view: View.MET_PRESSURE, icon: Activity },
+            { label: 'Density Alt', view: View.MET_DENSITY, icon: Activity },
+            { label: 'Altimetry', view: View.MET_ALTIMETRY, icon: Activity },
+            { label: 'Wind Systems', view: View.MET_WIND, icon: Wind },
+            { label: 'Local Winds', view: View.MET_LOCAL_WINDS, icon: Wind },
+            { label: 'Circulation', view: View.MET_CIRCULATION, icon: Globe },
+            { label: 'Depressions', view: View.MET_DEPRESSIONS_ANTICYCLONES, icon: Wind },
+            { label: 'Humidity', view: View.MET_HUMIDITY, icon: Droplets },
+            { label: 'Clouds', view: View.MET_CLOUD_TYPES, icon: Sun },
+            { label: 'Precipitation', view: View.MET_PRECIPITATION, icon: CloudRain },
+            { label: 'Fronts', view: View.MET_FRONTS, icon: GitMerge },
+            { label: 'Air Masses', view: View.MET_AIR_MASSES, icon: Globe },
+            { label: 'Thunderstorms', view: View.MET_THUNDERSTORMS, icon: CloudLightning },
+            { label: 'Icing', view: View.MET_ICING, icon: Droplets },
+            { label: 'Turbulence', view: View.MET_TURBULENCE, icon: Activity },
+            { label: 'Jet Streams', view: View.MET_JET_STREAMS, icon: Zap },
+            { label: 'Visibility', view: View.MET_VISIBILITY, icon: Sun },
+            { label: 'Climatology', view: View.MET_CLIMATOLOGY, icon: Map },
+            { label: 'Wx Charts', view: View.MET_CHARTS, icon: Map },
+            { label: 'Tropical Wx', view: View.MET_TRS, icon: Waves },
+            { label: 'Hazards', view: View.MET_SPECIAL_HAZARDS, icon: AlertTriangle },
+            { label: 'Sat & Radar', view: View.MET_SATELLITE, icon: Radio },
+            { label: 'Reporting', view: View.MET_METAR_TAF, icon: Database },
         ]
     },
     {
@@ -312,7 +332,7 @@ export const NAV_MAP: SubjectConfig[] = [
             { label: 'Airflow Basics', view: View.POF_AIRFLOW },
             { label: 'Aerofoil Geom', view: View.POF_AEROFOIL },
             { label: 'Wing Geom', view: View.POF_WING_GEOM },
-            { label: 'Lift & Drag Coeff', view: View.POF_LIFT_DRAG }, // Using existing/new shared view if appropriate, or mapped to Coeff
+            { label: 'Lift & Drag Coeff', view: View.POF_LIFT_DRAG },
             { label: '3D Airflow', view: View.POF_3D_AIRFLOW },
             { label: 'Total Drag', view: View.POF_DRAG },
             { label: 'Ground Effect', view: View.POF_GROUND_EFFECT },
