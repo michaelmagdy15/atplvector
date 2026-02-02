@@ -72,6 +72,8 @@ export enum View {
   AGK_JET_ENGINE = 'AGK_JET_ENGINE',
   AGK_PISTON_ENGINE = 'AGK_PISTON_ENGINE',
   AGK_ELECTRICS = 'AGK_ELECTRICS',
+  AGK_LANDING_GEAR = 'AGK_LANDING_GEAR',
+  AGK_FLIGHT_CONTROLS = 'AGK_FLIGHT_CONTROLS',
   AGK_ASI = 'AGK_ASI',
   AGK_GYROS = 'AGK_GYROS',
 
@@ -221,11 +223,15 @@ export enum View {
 
   // General Navigation (061)
   GEN_NAV_HOME = 'GEN_NAV_HOME',
-  GEN_NAV_EARTH = 'GEN_NAV_EARTH', // Earth Geometry
-  GEN_NAV_SOLAR = 'GEN_NAV_SOLAR', // Time & Seasons
-  GEN_NAV_MAPS = 'GEN_NAV_MAPS', // Projections
-  GEN_NAV_WIND_TRIANGLE = 'GEN_NAV_WIND_TRIANGLE', // Dead Reckoning
-  GEN_NAV_POLAR = 'GEN_NAV_POLAR', // Grid Nav
+  GEN_NAV_BASICS = 'GEN_NAV_BASICS', // 061.01 Basics of Navigation
+  GEN_NAV_VFR = 'GEN_NAV_VFR', // 061.02 VFR Navigation (Dead Reckoning)
+  GEN_NAV_EARTH = 'GEN_NAV_EARTH', // 061.03 Great Circles and Rhumb Lines
+  GEN_NAV_CHARTS = 'GEN_NAV_CHARTS', // 061.04 Charts
+  GEN_NAV_TIME = 'GEN_NAV_TIME', // 061.05 Time
+  GEN_NAV_WIND_TRIANGLE = 'GEN_NAV_WIND_TRIANGLE', // Wind triangle problems
+  GEN_NAV_MAPS = 'GEN_NAV_MAPS', // Map reading
+  GEN_NAV_SOLAR = 'GEN_NAV_SOLAR', // Solar time and position
+  GEN_NAV_POLAR = 'GEN_NAV_POLAR', // Polar navigation
 
   // Ops Procedures (070)
   OPS_PROC_HOME = 'OPS_PROC_HOME',
@@ -249,6 +255,11 @@ export enum View {
   POF_LIFT_DRAG = 'POF_LIFT_DRAG',
   POF_STALL = 'POF_STALL',
   POF_STABILITY = 'POF_STABILITY',
+  POF_CONTROL = 'POF_CONTROL',
+  POF_LIMITATIONS = 'POF_LIMITATIONS',
+  POF_PROPELLERS = 'POF_PROPELLERS',
+  POF_FLIGHT_MECHANICS = 'POF_FLIGHT_MECHANICS',
+  POF_HIGH_SPEED = 'POF_HIGH_SPEED',
 
 
 

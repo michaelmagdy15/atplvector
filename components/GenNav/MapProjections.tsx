@@ -7,7 +7,7 @@ interface Props {
 }
 
 const MapProjections: React.FC<Props> = ({ onNavigate }) => {
-    const [proj, setProj] = useState<'MERCATOR' | 'LAMBERT'>('MERCATOR');
+    const [proj, setProj] = useState<'MERCATOR' | 'LAMBERT' | 'POLAR'>('MERCATOR');
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     // Theory:
@@ -78,7 +78,7 @@ const MapProjections: React.FC<Props> = ({ onNavigate }) => {
             ctx.quadraticCurveTo(cx, cy - 80, w - 100, cy - 50);
             ctx.stroke();
 
-        } else {
+        } else if (proj === 'LAMBERT') {
             // LAMBERT (Conic)
             // Fan shape
             ctx.strokeStyle = '#334155';
@@ -123,6 +123,47 @@ const MapProjections: React.FC<Props> = ({ onNavigate }) => {
             ctx.moveTo(originX - 150, 350);
             ctx.quadraticCurveTo(originX, 380, originX + 150, 350); // Dips down away from pole
             ctx.stroke();
+        } else {
+            // POLAR STEREOGRAPHIC
+            // Center is Pole
+            const cx = w / 2;
+            const cy = h / 2;
+
+            ctx.strokeStyle = '#334155';
+
+            // Meridians (Radiating Straight Lines)
+            for (let deg = 0; deg < 360; deg += 30) {
+                const angle = deg * Math.PI / 180;
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(cx + Math.cos(angle) * 200, cy + Math.sin(angle) * 200);
+                ctx.stroke();
+            }
+
+            // Parallels (Concentric Circles)
+            for (let r = 50; r <= 150; r += 50) {
+                ctx.beginPath();
+                ctx.arc(cx, cy, r, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            // Great Circle (Straight if through pole, slightly curved otherwise)
+            // Visual approx: Straight line nearby to pole
+            ctx.strokeStyle = '#38bdf8';
+            ctx.setLineDash([]);
+            ctx.beginPath();
+            ctx.moveTo(cx - 100, cy + 50);
+            ctx.lineTo(cx + 100, cy + 50);
+            ctx.stroke();
+
+            // Rhumb Line (Concave to pole = Spirals, but locally curved)
+            ctx.strokeStyle = '#facc15';
+            ctx.setLineDash([5, 5]);
+            ctx.beginPath();
+            ctx.moveTo(cx - 100, cy + 50);
+            // Rhumb line on polar chart is a spiral, concave to pole
+            ctx.quadraticCurveTo(cx, cy + 100, cx + 100, cy + 50);
+            ctx.stroke();
         }
 
     }, [proj]);
@@ -150,7 +191,8 @@ const MapProjections: React.FC<Props> = ({ onNavigate }) => {
                     <div className="glass-panel p-6 rounded-xl space-y-4">
                         <div className="flex bg-slate-950 p-1 rounded-lg mb-4">
                             <button onClick={() => setProj('MERCATOR')} className={`flex-1 py-2 text-xs font-bold rounded ${proj === 'MERCATOR' ? 'bg-sky-500 text-black' : 'text-slate-500'}`}>Mercator</button>
-                            <button onClick={() => setProj('LAMBERT')} className={`flex-1 py-2 text-xs font-bold rounded ${proj === 'LAMBERT' ? 'bg-indigo-500 text-white' : 'text-slate-500'}`}>Lambert Conformal</button>
+                            <button onClick={() => setProj('LAMBERT')} className={`flex-1 py-2 text-xs font-bold rounded ${proj === 'LAMBERT' ? 'bg-indigo-500 text-white' : 'text-slate-500'}`}>Lambert</button>
+                            <button onClick={() => setProj('POLAR')} className={`flex-1 py-2 text-xs font-bold rounded ${proj === 'POLAR' ? 'bg-purple-500 text-white' : 'text-slate-500'}`}>Polar</button>
                         </div>
 
                         {proj === 'MERCATOR' ? (
@@ -161,13 +203,21 @@ const MapProjections: React.FC<Props> = ({ onNavigate }) => {
                                 <p><strong>Great Circles:</strong> Curved towards the nearest pole.</p>
                                 <p><strong>Scale:</strong> Expands with secant of latitude (incorrect areas).</p>
                             </div>
-                        ) : (
+                        ) : proj === 'LAMBERT' ? (
                             <div className="space-y-2 text-sm text-slate-300">
                                 <p><strong>Geometry:</strong> Conic projection (secant to Earth).</p>
                                 <p><strong>Meridians:</strong> Straight lines converging at pole.</p>
                                 <p><strong>Great Circles:</strong> Approximate straight lines (Good for radio nav).</p>
                                 <p><strong>Rhumb Lines:</strong> Curves concave to the pole.</p>
                                 <p><strong>Scale:</strong> Constant at Standard Parallels.</p>
+                            </div>
+                        ) : (
+                            <div className="space-y-2 text-sm text-slate-300">
+                                <p><strong>Geometry:</strong> Planar projection (tangent at pole).</p>
+                                <p><strong>Meridians:</strong> Straight lines radiating from pole.</p>
+                                <p><strong>Parallels:</strong> Concentric circles.</p>
+                                <p><strong>Great Circles:</strong> Straight lines (if passing through pole), otherwise curved concave to pole.</p>
+                                <p><strong>Use:</strong> Polar navigation (Grid Navigation).</p>
                             </div>
                         )}
                     </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Settings, Zap, Droplets, Fan, ArrowRight, Gauge } from 'lucide-react';
+import { Settings, Zap, Droplets, Fan, ArrowRight, Gauge, ArrowDown } from 'lucide-react';
 import { View } from '../../types';
 
 interface Props {
@@ -41,11 +41,11 @@ const AGKSystemsDashboard: React.FC<Props> = ({ setCurrentView, isLocked = false
             view: View.AGK_HYDRAULICS
         },
         {
-            title: 'Instrumentation',
-            icon: Gauge,
-            description: 'Flight instruments, gyroscopes, pitot-static systems, and EFIS.',
-            color: 'bg-emerald-500',
-            view: View.INST_HOME
+            title: 'Landing Gear',
+            icon: ArrowDown,
+            description: 'Retraction logic, indications (3 Green), squat switches, and braking systems.',
+            color: 'bg-zinc-500',
+            view: View.AGK_LANDING_GEAR
         }
     ];
 

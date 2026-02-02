@@ -167,8 +167,9 @@ const HPLAtmosphere = React.lazy(() => import('./components/HPL/HPLAtmosphere'))
 const HPLIncidents = React.lazy(() => import('./components/HPL/HPLIncidents'));
 const HPLIncapacitation = React.lazy(() => import('./components/HPL/HPLIncapacitation'));
 
-const AtmosphereLayers = React.lazy(() => import('./components/Meteorology/AtmosphereLayers'));
+
 const AtmosphereMaster = React.lazy(() => import('./components/Meteorology/AtmosphereMaster'));
+const MetThermodynamics = React.lazy(() => import('./components/Meteorology/MetThermodynamics'));
 const Altimetry = React.lazy(() => import('./components/Meteorology/Altimetry'));
 const Precipitation = React.lazy(() => import('./components/Meteorology/Precipitation'));
 const HumidityLab = React.lazy(() => import('./components/Meteorology/HumidityLab'));
@@ -225,6 +226,11 @@ const ThreeDAirflow = React.lazy(() => import('./components/PoF/ThreeDAirflow'))
 const TotalDrag = React.lazy(() => import('./components/PoF/TotalDrag'));
 const GroundEffect = React.lazy(() => import('./components/PoF/GroundEffect'));
 const HighLiftDevices = React.lazy(() => import('./components/PoF/HighLiftDevices'));
+const PoFHighSpeed = React.lazy(() => import('./components/PoF/PoFHighSpeed'));
+const PoFControl = React.lazy(() => import('./components/PoF/PoFControl'));
+const PoFLimitations = React.lazy(() => import('./components/PoF/PoFLimitations'));
+const PoFPropellers = React.lazy(() => import('./components/PoF/PoFPropellers'));
+const PoFFlightMechanics = React.lazy(() => import('./components/PoF/PoFFlightMechanics'));
 const RadioFundamentals = React.lazy(() => import('./components/RadioNav/RadioFundamentals'));
 const WeatherRadar = React.lazy(() => import('./components/RadioNav/WeatherRadar'));
 
@@ -247,6 +253,8 @@ const CallsignTrainer = React.lazy(() => import('./components/Comms/CallsignTrai
 const TransmissionDrill = React.lazy(() => import('./components/Comms/TransmissionDrill'));
 const CommsDefinitions = React.lazy(() => import('./components/Comms/CommsDefinitions'));
 const QCodeCards = React.lazy(() => import('./components/Comms/QCodeCards'));
+const LandingGearSystem = React.lazy(() => import('./components/AGK/LandingGearSystem'));
+const FlightControlsSystem = React.lazy(() => import('./components/AGK/FlightControlsSystem'));
 const UrgencyTrainer = React.lazy(() => import('./components/Comms/UrgencyTrainer'));
 const LevelChanges = React.lazy(() => import('./components/Comms/LevelChanges'));
 const AbbreviationGame = React.lazy(() => import('./components/Comms/AbbreviationGame'));
@@ -1153,6 +1161,8 @@ const App: React.FC = () => {
                                                 {currentView === View.AGK_HYDRAULICS && <HydraulicSystemAnim />}
                                                 {currentView === View.AGK_JET_ENGINE && <JetEnginePrinciples />}
                                                 {currentView === View.AGK_ELECTRICS && <ElectricsSystem />}
+                                                {currentView === View.AGK_LANDING_GEAR && <LandingGearSystem />}
+                                                {currentView === View.AGK_FLIGHT_CONTROLS && <FlightControlsSystem />}
                                                 {currentView === View.AGK_PISTON_ENGINE && <PistonEnginePrinciples />}
                                             </div>
                                         ) : null}
@@ -1286,8 +1296,8 @@ const App: React.FC = () => {
                                         ].includes(currentView) ? (
                                             <div className="w-full animate-in fade-in duration-500">
                                                 {currentView === View.MET_HOME && <MetDashboard onChangeView={navigateTo} />}
-                                                {currentView === View.MET_ATMOSPHERE && <AtmosphereLayers />}
-                                                {currentView === View.MET_TEMPERATURE && <AtmosphereMaster />}
+                                                {currentView === View.MET_ATMOSPHERE && <AtmosphereMaster initialView="layers" />}
+                                                {currentView === View.MET_TEMPERATURE && <MetThermodynamics />}
                                                 {currentView === View.MET_PRESSURE && <PressureSystems />}
                                                 {currentView === View.MET_DENSITY && <Density />}
                                                 {currentView === View.MET_ALTIMETRY && <Altimetry />}
@@ -1317,10 +1327,10 @@ const App: React.FC = () => {
                                         ) : null}
 
                                         {/* --- GEN NAV / RADIO NAV --- */}
-                                        {currentView === View.GEN_NAV_SOLAR && <SolarCalc onNavigate={navigateTo} />}
-                                        {currentView === View.GEN_NAV_MAPS && <MapProjections onNavigate={navigateTo} />}
-                                        {currentView === View.GEN_NAV_WIND_TRIANGLE && <WindTriangle onNavigate={navigateTo} />}
-                                        {currentView === View.GEN_NAV_POLAR && <PolarGrid onNavigate={navigateTo} />}
+                                        {currentView === View.GEN_NAV_TIME && <SolarCalc onNavigate={navigateTo} />}
+                                        {currentView === View.GEN_NAV_CHARTS && <MapProjections onNavigate={navigateTo} />}
+                                        {currentView === View.GEN_NAV_VFR && <WindTriangle onNavigate={navigateTo} />}
+                                        {(currentView === View.GEN_NAV_EARTH || currentView === View.GEN_NAV_BASICS) && <EarthGeometry view={currentView} onNavigate={navigateTo} />}
                                         {currentView === View.NAV_60_1 && <OneInSixty />}
                                         {/* Radio Nav */}
                                         {currentView === View.RAD_NAV_HOME && (
@@ -1394,8 +1404,13 @@ const App: React.FC = () => {
                                                     { title: 'Total Drag', desc: 'Parasite vs Induced Drag curves.', view: View.POF_DRAG },
                                                     { title: 'Ground Effect', desc: 'Cushioning effect near surface.', view: View.POF_GROUND_EFFECT },
                                                     { title: 'High Lift Devices', desc: 'Flaps and Slats performance.', view: View.POF_HIGH_LIFT },
-                                                    { title: 'Stall', desc: 'Stalling characteristics and recovery.', isLocked: true },
-                                                    { title: 'Stability', desc: 'Static and Dynamic stability.', isLocked: true },
+                                                    { title: 'Stall', desc: 'Stalling characteristics and recovery.', view: View.POF_STALL },
+                                                    { title: 'Stability', desc: 'Static and Dynamic stability.', view: View.POF_STABILITY },
+                                                    { title: 'Control', desc: 'Primary controls, balancing.', view: View.POF_CONTROL },
+                                                    { title: 'Flight Mechanics', desc: 'Climb, Descent, Turn.', view: View.POF_FLIGHT_MECHANICS },
+                                                    { title: 'High Speed Flight', desc: 'Mach number, shockwaves.', view: View.POF_HIGH_SPEED },
+                                                    { title: 'Limitations', desc: 'V-g envelope, flutter.', view: View.POF_LIMITATIONS },
+                                                    { title: 'Propellers', desc: 'Blade element theory.', view: View.POF_PROPELLERS },
                                                 ]}
                                                 onOpenSyllabus={handleOpenSyllabus}
                                             />
@@ -1409,6 +1424,11 @@ const App: React.FC = () => {
                                         {currentView === View.POF_DRAG && <TotalDrag />}
                                         {currentView === View.POF_GROUND_EFFECT && <GroundEffect />}
                                         {currentView === View.POF_HIGH_LIFT && <HighLiftDevices />}
+                                        {currentView === View.POF_HIGH_SPEED && <PoFHighSpeed />}
+                                        {currentView === View.POF_CONTROL && <PoFControl />}
+                                        {currentView === View.POF_LIMITATIONS && <PoFLimitations />}
+                                        {currentView === View.POF_PROPELLERS && <PoFPropellers />}
+                                        {currentView === View.POF_FLIGHT_MECHANICS && <PoFFlightMechanics />}
 
                                         {/* KSA (100) */}
                                         {currentView === View.KSA_HOME && <KSADashboard onChangeView={navigateTo} isLocked={!isSubjectAllowed('100')} />}

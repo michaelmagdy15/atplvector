@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Globe, Thermometer, CloudRain, Sun, Compass, Info, Map as MapIcon } from 'lucide-react';
+import { Globe, Thermometer, CloudRain, Sun, Compass, Info, Map as MapIcon, AlertTriangle } from 'lucide-react';
 
 const Climatology: React.FC = () => {
     const [view, setView] = useState<'Koppen' | 'Pressure' | 'ITCZ'>('Koppen');
@@ -23,8 +23,8 @@ const Climatology: React.FC = () => {
                             key={v}
                             onClick={() => setView(v)}
                             className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${view === v
-                                    ? 'bg-emerald-600 text-white shadow-lg'
-                                    : 'text-slate-500 hover:text-white'
+                                ? 'bg-emerald-600 text-white shadow-lg'
+                                : 'text-slate-500 hover:text-white'
                                 }`}
                         >
                             {v === 'Koppen' ? 'Köppen Classes' : v === 'Pressure' ? 'Global Pressure' : 'ITCZ'}

@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Cloud, Sun, ArrowUp, Thermometer, Layers, Info } from 'lucide-react';
 
-const AtmosphereMaster: React.FC = () => {
+interface Props {
+    initialView?: 'layers' | 'isa' | 'heat';
+}
+
+const AtmosphereMaster: React.FC<Props> = ({ initialView = 'layers' }) => {
     const [altitude, setAltitude] = useState(0); // Feet
-    const [view, setView] = useState<'layers' | 'isa' | 'heat'>('layers');
+    const [view, setView] = useState<'layers' | 'isa' | 'heat'>(initialView);
 
     // ISA CALCS
     // T = 15 - 1.98 * alt/1000 (up to 36090)

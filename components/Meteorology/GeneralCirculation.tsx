@@ -18,7 +18,7 @@ const GeneralCirculation: React.FC = () => {
     }, [view]);
 
     // Animation constants
-    const flowTransition = { repeat: Infinity, duration: 3, ease: "linear" };
+    const flowTransition = { repeat: Infinity, duration: 3, ease: "linear" as const };
 
     return (
         <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-8">

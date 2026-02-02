@@ -20,33 +20,33 @@ const GenNavDashboard: React.FC<Props> = ({ currentView, setCurrentView, isLocke
             onChangeView={setCurrentView}
             modules={[
                 {
-                    title: 'Earth Geometry',
-                    desc: 'Great Circles, Rhumb Lines, Latitude & Longitude.',
+                    title: '061.01 Basics of Navigation',
+                    desc: 'Fundamental concepts, direction, distance, and speed.',
+                    view: View.GEN_NAV_BASICS,
+                    isLocked
+                },
+                {
+                    title: '061.02 VFR Navigation',
+                    desc: 'Dead Reckoning, Wind Triangle, and Flight Computer (CRP-5).',
+                    view: View.GEN_NAV_VFR,
+                    isLocked
+                },
+                {
+                    title: '061.03 Great Circles & Rhumb Lines',
+                    desc: 'Earth geometry, convergency, and path properties.',
                     view: View.GEN_NAV_EARTH,
                     isLocked
                 },
                 {
-                    title: 'Solar System & Time',
-                    desc: 'Seasons, Equation of Time, UTC/LMT conversions.',
-                    view: View.GEN_NAV_SOLAR,
+                    title: '061.04 Charts',
+                    desc: 'Projections, Mercator, Lambert, and Polar Stereographic.',
+                    view: View.GEN_NAV_CHARTS,
                     isLocked
                 },
                 {
-                    title: 'Map Projections',
-                    desc: 'Mercator vs Lambert Conformal Conic charts.',
-                    view: View.GEN_NAV_MAPS,
-                    isLocked
-                },
-                {
-                    title: 'Dead Reckoning',
-                    desc: 'The Wind Triangle and E-6B Flight Computer.',
-                    view: View.GEN_NAV_WIND_TRIANGLE,
-                    isLocked
-                },
-                {
-                    title: 'Polar Navigation',
-                    desc: 'Grid Heading and Polar Stereographic charts.',
-                    view: View.GEN_NAV_POLAR,
+                    title: '061.05 Time',
+                    desc: 'Solar system, UTC, LMT, and sunrise/sunset.',
+                    view: View.GEN_NAV_TIME,
                     isLocked
                 },
             ]}

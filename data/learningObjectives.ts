@@ -98,6 +98,9 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
 
     // --- 021 AGK SYSTEMS ---
     { id: '021.03.01', subject: '021', text: 'Hydromechanics: Principles', coveredBy: View.AGK_HYDRAULICS },
+    { id: '021.04', subject: '021', text: 'Landing Gear', coveredBy: View.AGK_LANDING_GEAR },
+    { id: '021.04.01', subject: '021', text: 'Landing gear sytems', coveredBy: View.AGK_LANDING_GEAR },
+    { id: '021.04.02', subject: '021', text: 'Wheels, Tyres, Brakes', coveredBy: View.AGK_LANDING_GEAR },
     { id: '021.09', subject: '021', text: 'Electrics', coveredBy: View.AGK_ELECTRICS },
     { id: '021.10', subject: '021', text: 'Piston Engines', coveredBy: View.AGK_PISTON_ENGINE },
     { id: '021.11.01', subject: '021', text: 'Gas Turbines: Basic Principles', coveredBy: View.AGK_JET_ENGINE },
@@ -191,12 +194,53 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '040.03.07.04', subject: '040', text: 'Metabolism and nutrition', coveredBy: View.HPL_METABOLISM },
 
     // --- 050 METEOROLOGY ---
-    { id: '050.01.01', subject: '050', text: 'The Atmosphere: Structure', coveredBy: View.MET_ATMOSPHERE },
+    // 050.01 The Atmosphere
+    { id: '050.01.01', subject: '050', text: 'Structure of the Atmosphere', coveredBy: View.MET_ATMOSPHERE },
     { id: '050.01.02', subject: '050', text: 'Altimetry', coveredBy: View.MET_ALTIMETRY },
-    { id: '050.02', subject: '050', text: 'Wind', coveredBy: View.MET_CIRCULATION },
+
+    // 050.02 Wind
+    { id: '050.02', subject: '050', text: 'Wind', coveredBy: View.MET_WIND },
+    { id: '050.02.01', subject: '050', text: 'Local Winds', coveredBy: View.MET_LOCAL_WINDS },
+    { id: '050.02.02', subject: '050', text: 'General Circulation', coveredBy: View.MET_CIRCULATION },
+    { id: '050.02.03', subject: '050', text: 'Turbulence', coveredBy: View.MET_TURBULENCE },
+    { id: '050.02.04', subject: '050', text: 'Jet Streams', coveredBy: View.MET_JET_STREAMS },
+
+    // 050.03 Thermodynamics
+    { id: '050.03', subject: '050', text: 'Thermodynamics', coveredBy: View.MET_TEMPERATURE },
+    { id: '050.03.01', subject: '050', text: 'Humidity', coveredBy: View.MET_HUMIDITY },
+
+    // 050.04 Clouds and Fog
+    { id: '050.04', subject: '050', text: 'Clouds and Fog', coveredBy: View.MET_CLOUDS },
+    { id: '050.04.01', subject: '050', text: 'Cloud Types', coveredBy: View.MET_CLOUD_TYPES },
+    { id: '050.04.02', subject: '050', text: 'Fog, Mist, Haze', coveredBy: View.MET_VISIBILITY },
+
+    // 050.05 Precipitation
     { id: '050.05', subject: '050', text: 'Precipitation', coveredBy: View.MET_PRECIPITATION },
-    { id: '050.06', subject: '050', text: 'Clouds and Fog', coveredBy: View.MET_CLOUDS },
-    { id: '050.09', subject: '050', text: 'Fronts', coveredBy: View.MET_FRONTS },
+
+    // 050.06 Air Masses and Fronts
+    { id: '050.06', subject: '050', text: 'Air Masses and Fronts', coveredBy: View.MET_AIR_MASSES },
+    { id: '050.06.01', subject: '050', text: 'Air Masses', coveredBy: View.MET_AIR_MASSES },
+    { id: '050.06.02', subject: '050', text: 'Fronts', coveredBy: View.MET_FRONTS },
+
+    // 050.07 Pressure Systems
+    { id: '050.07', subject: '050', text: 'Pressure Systems', coveredBy: View.MET_PRESSURE },
+    { id: '050.07.01', subject: '050', text: 'Depressions', coveredBy: View.MET_DEPRESSIONS_ANTICYCLONES },
+    { id: '050.07.02', subject: '050', text: 'Anticyclones', coveredBy: View.MET_DEPRESSIONS_ANTICYCLONES },
+    { id: '050.07.03', subject: '050', text: 'Tropical Revolving Storms', coveredBy: View.MET_TRS },
+
+    // 050.08 Climatology
+    { id: '050.08', subject: '050', text: 'Climatology', coveredBy: View.MET_CLIMATOLOGY },
+
+    // 050.09 Flight Hazards
+    { id: '050.09', subject: '050', text: 'Flight Hazards', coveredBy: View.MET_SPECIAL_HAZARDS },
+    { id: '050.09.01', subject: '050', text: 'Icing', coveredBy: View.MET_ICING },
+    { id: '050.09.02', subject: '050', text: 'Thunderstorms', coveredBy: View.MET_THUNDERSTORMS },
+    { id: '050.09.03', subject: '050', text: 'Wind Shear', coveredBy: View.MET_TURBULENCE },
+
+    // 050.10 Meteorological Information
+    { id: '050.10', subject: '050', text: 'Meteorological Information', coveredBy: View.MET_METAR_TAF },
+    { id: '050.10.01', subject: '050', text: 'Observation', coveredBy: View.MET_SATELLITE },
+    { id: '050.10.02', subject: '050', text: 'Weather Charts', coveredBy: View.MET_CHARTS },
 
     // --- 061 GEN NAV ---
     { id: '061.01.01', subject: '061', text: 'Solar System', coveredBy: View.GEN_NAV_EARTH },

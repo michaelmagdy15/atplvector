@@ -288,13 +288,12 @@ export const NAV_MAP: SubjectConfig[] = [
         dashboardView: View.GEN_NAV_HOME,
         items: [
             { label: 'Dashboard', view: View.GEN_NAV_HOME, icon: Compass },
-            { label: 'Earth Geometry', view: View.GEN_NAV_EARTH },
-            { label: 'Solar Time', view: View.GEN_NAV_SOLAR },
-            { label: 'Map Projections', view: View.GEN_NAV_MAPS },
+            { label: 'Basics of Nav', view: View.GEN_NAV_BASICS },
+            { label: 'VFR Navigation', view: View.GEN_NAV_VFR },
+            { label: 'Great Circles', view: View.GEN_NAV_EARTH },
+            { label: 'Charts', view: View.GEN_NAV_CHARTS },
+            { label: 'Time', view: View.GEN_NAV_TIME },
             { label: '1 in 60 Rule', view: View.NAV_60_1 },
-            { label: 'Wind Triangle', view: View.GEN_NAV_WIND_TRIANGLE },
-            { label: 'Time Zones', view: View.NAV_TIME },
-            { label: 'Polar Nav', view: View.GEN_NAV_POLAR },
         ]
     },
     {
@@ -340,6 +339,13 @@ export const NAV_MAP: SubjectConfig[] = [
             { label: 'Total Drag', view: View.POF_DRAG },
             { label: 'Ground Effect', view: View.POF_GROUND_EFFECT },
             { label: 'High Lift Devices', view: View.POF_HIGH_LIFT },
+            { label: 'Stall & Spin', view: View.POF_STALL },
+            { label: 'Stability', view: View.POF_STABILITY },
+            { label: 'Control', view: View.POF_CONTROL },
+            { label: 'Flight Mechanics', view: View.POF_FLIGHT_MECHANICS },
+            { label: 'High Speed Flight', view: View.POF_HIGH_SPEED },
+            { label: 'Limitations', view: View.POF_LIMITATIONS },
+            { label: 'Propellers', view: View.POF_PROPELLERS },
         ]
     },
     {
