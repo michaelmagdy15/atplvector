@@ -52,6 +52,69 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
                     required: ["approachType"],
                 },
             },
+            {
+                name: "fetch_url",
+                description: "Fetch content from a URL (Mock).",
+                inputSchema: {
+                    type: "object",
+                    properties: {
+                        url: { type: "string", description: "URL to fetch" },
+                    },
+                    required: ["url"],
+                },
+            },
+            {
+                name: "gke_list_clusters",
+                description: "List Google Kubernetes Engine clusters (Mock).",
+                inputSchema: {
+                    type: "object",
+                    properties: {},
+                },
+            },
+            {
+                name: "msfs_sdk_search",
+                description: "Search the Microsoft Flight Simulator SDK (Mock).",
+                inputSchema: {
+                    type: "object",
+                    properties: {
+                        query: { type: "string", description: "Search query" },
+                    },
+                    required: ["query"],
+                },
+            },
+            {
+                name: "sentry_issue",
+                description: "Interact with Sentry issues (Mock).",
+                inputSchema: {
+                    type: "object",
+                    properties: {
+                        action: { type: "string", description: "Action to perform (e.g., 'create', 'list')" },
+                    },
+                    required: ["action"],
+                },
+            },
+            {
+                name: "supabase_query",
+                description: "Run a query against Supabase (Mock).",
+                inputSchema: {
+                    type: "object",
+                    properties: {
+                        query: { type: "string", description: "SQL or Supabase client query" },
+                    },
+                    required: ["query"],
+                },
+            },
+            {
+                name: "threejs_docs",
+                description: "Get Three.js documentation or snippets (Mock).",
+                inputSchema: {
+                    type: "object",
+                    properties: {
+                        topic: { type: "string", description: "Three.js topic (e.g., 'BoxGeometry')" },
+                    },
+                    required: ["topic"],
+                },
+            },
         ],
     };
 });
@@ -103,6 +166,49 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                     text: `Calculated Minima for ${approachType}: RVR ${rvr}m, DH ${dh}ft.`,
                 },
             ],
+        };
+    }
+
+    // --- New Tools Implementation ---
+
+    if (name === "fetch_url") {
+        const url = args?.url as string;
+        return {
+            content: [{ type: "text", text: `[Mock] Fetched content from ${url}: <html><body><h1>Mock Content</h1></body></html>` }]
+        };
+    }
+
+    if (name === "gke_list_clusters") {
+        return {
+            content: [{ type: "text", text: `[Mock] GKE Clusters: \n- cluster-europe-west1-prod (Running)\n- cluster-us-central1-dev (Running)` }]
+        };
+    }
+
+    if (name === "msfs_sdk_search") {
+        const query = args?.query as string;
+        return {
+            content: [{ type: "text", text: `[Mock] MSFS SDK results for "${query}":\n- SimConnect API Reference\n- Gauge API Documentation` }]
+        };
+    }
+
+    if (name === "sentry_issue") {
+        const action = args?.action as string;
+        return {
+            content: [{ type: "text", text: `[Mock] Sentry action "${action}" completed successfully.` }]
+        };
+    }
+
+    if (name === "supabase_query") {
+        const query = args?.query as string;
+        return {
+            content: [{ type: "text", text: `[Mock] Supabase query executed: ${query}\nResult: [{ "id": 1, "data": "test" }]` }]
+        };
+    }
+
+    if (name === "threejs_docs") {
+        const topic = args?.topic as string;
+        return {
+            content: [{ type: "text", text: `[Mock] Three.js docs for "${topic}":\nRef: https://threejs.org/docs/#api/en/${topic}` }]
         };
     }
 
