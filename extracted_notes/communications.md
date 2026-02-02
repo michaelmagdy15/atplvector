@@ -1,5 +1,41 @@
 # COMMUNICATIONS
 
+## 0. Introduction and General Principles
+
+### MEANINGS AND SIGNIFICANCE
+- **Clearance**: Authorization for an aircraft to proceed under conditions specified by an air traffic control unit.
+- **Readback**: The procedure whereby the receiving station repeats a received message or an appropriate part thereof back to the transmitting station so as to obtain confirmation of correct reception.
+- **Standby**: Wait and I will call you.
+- **Monitor**: Listen out on (frequency).
+- **Verify**: Check and confirm with originator.
+
+### ABBREVIATIONS
+| Abbreviation | Meaning |
+|---|---|
+| **ATS** | Air Traffic Services |
+| **ATIS** | Automatic Terminal Information Service |
+| **CTR** | Control Zone |
+| **CTA** | Control Area |
+| **ETD/ETA** | Estimated Time of Departure / Arrival |
+| **IFR/VFR** | Instrument / Visual Flight Rules |
+| **RVR** | Runway Visual Range |
+| **UTC** | Coordinated Universal Time |
+
+### SPECTRUM, BANDS, RANGE
+- **VHF Band**: 118.000 - 136.975 MHz (Civil Aviation).
+- **Channel Spacing**: 25 kHz or 8.33 kHz.
+- **Range**: Line-of-sight propagation.
+  - Formula: Distance (NM) = 1.23 × (√H_tx + √H_rx) (Height in feet).
+
+### USE OF MORSE CODE
+- **Morse Code**: Used for identifying radio navigation aids (VOR, ILS, NDB). Identification is sent via 1000 Hz tone.
+
+### METEOROLOGICAL OBSERVATIONS
+- Aircraft shall make meteorological observations when encountering significant weather.
+
+
+
+
 ## 1. General operating procedures
 
 ### TRANSMITTING GUIDELINES
@@ -121,6 +157,14 @@
 
 · Radio callsigns can be changed in flight if there's likelihood that confusion may occur because of similar callsigns.
 
+### TRANSFER OF COMMUNICATION
+- **CONTACT**: Change frequency and establish communication (call) the new station.
+  - "Contact Control 124.7" -> "124.7, [Callsign]"
+- **MONITOR**: Change frequency and listen (do not call until called or necessary).
+  - "Monitor Tower 118.1" -> "Monitoring 118.1, [Callsign]"
+- An aircraft shall advise the station if it is unable to establish contact on the assigned frequency and request instructions.
+
+
 ### HEAVY AIRCRAFT
 
 · Aircraft more than 136.000 kg MTOM must include the word HEAVY immediately after the aircraft callsign in the initial call
@@ -237,6 +281,14 @@
 - QNH 1003
 - QNH 995 hectopascals
 
+### LEVEL CHANGES AND REPORTS
+- Report leaving a level: "Leaving FL120 for FL080"
+- Report reaching a level: "Reaching FL240" (or "Maintaing FL240" if stable)
+- Report passing a level: "Passing FL100 climbing FL190"
+- Vertical speed rates: "Rate 1000 feet per minute"
+
+### FLIGHT PLANS
+
 ### FLIGHT PLANS
 
 · Pilots may file a flight plan in-flight in a discrete frequency separate from the busy control frequencies (usually the FIS frequency is used)
@@ -305,6 +357,17 @@
 - Departure and destination aerodromes
 - Present position and flight level
 - Additional details and intentions
+
+- Present position and flight level
+- Additional details and intentions
+
+### DATA LINK MESSAGES (CPDLC)
+- **CPDLC**: Controller-Pilot Data Link Communications.
+- Used for non-urgent messages (clearances, requests, reports) to reduce frequency congestion.
+- Key terms:
+  - **LOGON**: Initiation of data link session.
+  - **CONNECT**: Active data link connection established.
+  - **DISCONNECT**: Termination of data link.
 
 ### IFR DEPARTURES
 
@@ -475,6 +538,28 @@
 · If comms failure is suspected to be caused by a faulty receiver, pilot must say "TRANSMITTING BLIND DUE TO RECEIVER FAILURE" along with intentions twice
 
 · Further procedures will be discussed in Air Law
+
+### ACTION REQUIRED IN CASE OF COMMS FAILURE
+- **VFR Flight**:
+  - Squawk 7600.
+  - Continue in VMC.
+  - Land at nearest suitable aerodrome.
+  - Report arrival by most expeditious means.
+- **IFR Flight** (Instrument Met Conditions):
+  - Squawk 7600.
+  - Maintain last assigned speed and level for 7 minutes (from Failure or Last Assignment), then adjust to Flight Plan.
+  - Proceed to destination aid, hold, and commence approach at EAT (Estimated Approach Time) or ETA.
+  - Transmit actions "Blind".
+
+### AERODROME WEATHER TERMS
+- **CAVOK**: Ceiling and Visibility OK (Vis > 10km, No clouds < 5000ft/MSA, No CB/TCU, No Sig Weather).
+- **NOSIG**: No Significant Change expected (next 2 hours).
+- **NSC**: No Significant Clouds.
+- **SKC**: Sky Clear.
+- **VRB**: Variable wind direction (< 3 knots).
+- **NSW**: No Significant Weather.
+
+
 
 ## 7. Other information
 

@@ -1,0 +1,980 @@
+# Missing Syllabus Topics Report
+
+This report lists syllabus topics where neither the exact Title key-phrase nor significant Learning Objectives content were found in the extracted notes.
+
+## Subject 010 (air-law.md)
+
+**Total Missing Topics: 94**
+
+- **[010 01 01 01]** The establishment of the Convention on International Civil Aviation, Chicago, 7 December
+- **[010 01 01 02]** Part I — Air navigation
+- **[010 01 01 03]** Part II — The International Civil Aviation Organization (ICAO)
+- **[010 01 02 01]** The International Air Services Transit Agreement (ICAO Doc 7500)
+- **[010 01 02 02]** The International Air Transport Agreement (ICAO Doc 9626)
+- **[010 01 02 03]** Suppression of Unlawful Acts Against the Safety of Civil Aviation — The Tokyo Convention of 1963
+- **[010 01 02 05]** Private international law
+- **[010 01 03 01]** The International Air Transport Association (IATA)
+- **[010 01 04 01]** European Union Aviation Safety Agency (EASA) Regulation (EU) 2018/1139
+- **[010 01 04 02]** EUROCONTROL
+- **[010 02 02 01]** Certificate of Airworthiness (CofA) — Details
+- **[010 02 03 01]** ICAO Annex 7 — Definitions
+- **[010 02 04 01]** Nationality marks, common marks and registration marks — assignment and location
+- **[010 04 01 01]** Differences between ICAO Annex 1 and Regulation (EU) No 1178/2011 (hereinafter: Aircrew Regulation)
+- **[010 04 02 02]** Content and structure
+- **[010 04 02 03]** Commercial pilot licence (CPL)
+- **[010 04 02 04]** Airline transport pilot licence (ATPL) and multi-crew pilot licence (MPL)
+- **[010 04 03 01]** Aircrew Regulation — Annex IV (Part-MED) — Details
+- **[010 05 01 01]** ICAO Annex 2 and SERA — Relationship and content
+- **[010 05 03 01]** General rules — Collision avoidance — SERA
+- **[010 05 04 01]** Visual flight rules (VFR) — SERA
+- **[010 05 05 01]** Instrument flight rules (IFR) — SERA No 1178/2011)
+- **[010 05 06 01]** Interception of civil aircraft — SERA
+- **[010 06 02 01]** Definitions and abbreviations — ICAO Doc 8168, Volume I
+- **[010 06 03 01]** General criteria (assuming all engines operating)
+- **[010 06 03 02]** Standard instrument departures (SIDs)
+- **[010 06 04 03]** Arrival and approach segments
+- **[010 06 04 05]** Visual manoeuvring (circling) in the vicinity of the aerodrome (AD)
+- **[010 06 05 01]** Entry and holding
+- **[010 06 06 01]** Basic requirements and procedures No 1178/2011)
+- **[010 06 06 02]** Procedures for operators and pilots
+- **[010 06 07 01]** Simultaneous operation on parallel or near-parallel instrument RWYs
+- **[010 06 08 01]** Operation of transponders
+- **[010 06 08 02]** Operation of airborne collision avoidance system (ACAS) equipment
+- **[010 06 09 01]** Regulation structure
+- **[010 06 09 02]** Definitions (Annex I)
+- **[010 06 09 03]** Part-SPA (Annex V), Part-NCC (Annex VI) and Part- NCO (Annex VII)
+- **[010 07 01 04]** Air traffic control (ATC) services
+- **[010 07 01 05]** Flight information service (FIS)
+- **[010 07 01 07]** Principles governing required navigation performance (RNP) and air traffic service (ATS) route
+- **[010 07 02 01]** Foreword (Scope and purpose)
+- **[010 07 02 02]** Definitions No 1178/2011)
+- **[010 07 02 03]** ATS system capacity and air traffic flow management (ATFM)
+- **[010 07 02 04]** General provisions for air traffic services (ATS)
+- **[010 07 02 06]** Horizontal speed control instructions
+- **[010 07 02 07]** Change from IFR to VFR flight
+- **[010 07 02 09]** Altimeter-setting procedures No 1178/2011)
+- **[010 07 02 13]** Separation in the vicinity of aerodromes (ADs)
+- **[010 07 02 14]** Miscellaneous separation procedures
+- **[010 07 02 15]** Arriving and departing aircraft
+- **[010 07 02 16]** Procedures for aerodrome (AD) control service No 1178/2011)
+- **[010 07 02 17]** Radar services
+- **[010 07 02 18]** Air traffic advisory service
+- **[010 07 02 19]** Procedures related to emergencies, communication (COM) failure and contingencies
+- **[010 07 02 20]** Miscellaneous procedures
+- **[010 08 01 01]** Introduction to ICAO Annex 15 — Aeronautical Information Service (AIS)
+- **[010 08 02 01]** Definitions of ICAO Annex 15
+- **[010 08 03 01]** General — AIS responsibilities and functions
+- **[010 08 04 01]** Aeronautical information publication (AIP)
+- **[010 08 04 02]** Notices to airmen (NOTAMs)
+- **[010 08 04 03]** Aeronautical information regulation and control (AIRAC)
+- **[010 08 04 04]** Aeronautical information circulars (AICs)
+- **[010 08 04 05]** Pre-flight and post-flight information/data
+- **[010 09 01 01]** General — AD reference code No 1178/2011)
+- **[010 09 02 01]** Aerodrome (AD) reference point
+- **[010 09 02 02]** Pavement strengths
+- **[010 09 03 01]** Runways (RWYs)
+- **[010 09 03 02]** Runway (RWY) strips
+- **[010 09 03 04]** Clearway (CWY)
+- **[010 09 03 05]** Stopway (SWY)
+- **[010 09 03 07]** Taxiways (TWYs)
+- **[010 09 04 04]** Signs No 1178/2011)
+- **[010 09 05 02]** Lighting of objects No 1178/2011)
+- **[010 09 06 01]** Visual aids for denoting restricted use of areas on RWYs and TWYs
+- **[010 09 07 01]** Rescue and firefighting (RFF)
+- **[010 09 07 02]** Apron management service
+- **[010 09 07 03]** Ground-servicing of aircraft
+- **[010 09 08 03]** Approach lighting systems
+- **[010 10 02 02]** Entry and departure of crew
+- **[010 10 02 03]** Entry and departure of passengers and baggage
+- **[010 11 01 01]** Essential SAR definitions — ICAO Annex 12
+- **[010 11 02 01]** SAR — Organisation — Establishment and provision
+- **[010 11 03 01]** Operating procedures for non-SAR crews — PIC
+- **[010 11 04 01]** Search and rescue signals — Survivors
+- **[010 12 01 01]** Essential definitions of ICAO Annex 17
+- **[010 12 02 01]** General principles — Objectives of security
+- **[010 12 05 01]** Management of response to acts of unlawful interference
+- **[010 12 06 01]** Operators’ security programme — Principles
+- **[010 12 07 01]** ICAO Annex 2 — Rules of the Air, including Attachment B — Unlawful interference
+- **[010 12 07 02]** ICAO Annex 6 — Operation of Aircraft — Security
+- **[010 12 07 03]** ICAO Annex 14 Volume I — Aerodromes — Physical characteristics
+- **[010 12 07 04]** ICAO Doc 4444 — Air Traffic Management
+- **[010 13 01 01]** Definitions and descriptions
+- **[010 13 02 01]** Objectives and procedures
+
+## Subject 021 (systems.md, electrics.md, engines.md, jet-turbine-engines.md)
+
+**Total Missing Topics: 115**
+
+- **[021 01 01 01]** Design concepts
+- **[021 01 01 02]** Level of certification
+- **[021 01 02 01]** Stress, strain and loads
+- **[021 01 03 01]** Describe and explain fatigue and corrosion
+- **[021 01 05 01]** Maintenance methods: hard-time and on-condition monitoring
+- **[021 02 01 01]** Attachment methods and detecting the development of faulty attachments
+- **[021 02 02 01]** Composite and other materials
+- **[021 02 03 03]** Loads, stresses and aeroelastic vibrations (flutter)
+- **[021 02 04 01]** Construction, functions, loads
+- **[021 02 05 01]** Design and construction
+- **[021 02 05 02]** Structural components and materials
+- **[021 02 05 03]** Loads, stresses and aeroelastic vibrations
+- **[021 02 06 01]** Maximum structural masses
+- **[021 03 01 01]** Concepts and basic principles
+- **[021 03 02 01]** Hydraulic fluids: types, characteristics, limitations
+- **[021 03 02 02]** System components: design, operation, degraded modes of operation, indications and warnings
+- **[021 04 01 02]** System components, design, operation, indications and warnings, on-ground/in-flight protections,
+- **[021 04 02 01]** Design, operation
+- **[021 04 03 01]** Types and materials
+- **[021 04 03 02]** System components, design, operation, indications and warnings
+- **[021 04 03 03]** Anti-skid
+- **[021 04 04 01]** Types, structural components and materials, operational limitations, thermal plugs
+- **[021 04 05 01]** Flotation devices
+- **[021 05 01 01]** Definition and control surfaces
+- **[021 05 01 02]** Manual controls
+- **[021 05 01 03]** Fully powered controls (irreversible)
+- **[021 05 01 04]** Partially powered controls (reversible)
+- **[021 05 01 05]** System components, design, operation, indications and warnings, degraded modes of operation,
+- **[021 05 02 01]** System components, design, operation, degraded modes of operation, indications and warnings
+- **[021 05 03 01]** Droop stops, control systems, trim systems, control stops
+- **[021 05 04 01]** Composition, explanation of operation, modes of operation
+- **[021 06 01 01]** Piston-engine air supply
+- **[021 06 01 02]** Gas turbine engine: bleed-air supply
+- **[021 06 02 01]** Types, system components, design, operation, degraded modes of operation, indications and
+- **[021 06 03 01]** System components, design, operation, degraded modes of operation, indications and warnings
+- **[021 07 01 01]** Types, design, operation, indications and warnings, operational limitations
+- **[021 07 02 01]** Types, operation, and indications
+- **[021 08 01 01]** Fuel: types, characteristics, limitations
+- **[021 08 01 02]** Design, operation, system components, indications
+- **[021 08 02 01]** Fuel: types, characteristics, limitations
+- **[021 09 01 02]** Direct current (DC)
+- **[021 09 01 03]** Alternating current (AC)
+- **[021 09 01 07]** Circuit protection
+- **[021 09 01 08]** Semiconductors and logic circuits
+- **[021 09 02 01]** Types, characteristics and limitations
+- **[021 09 03 01]** DC generation
+- **[021 09 03 02]** AC generation
+- **[021 09 03 03]** Constant speed drive (CSD) and integrated drive generator (IDG) systems
+- **[021 09 03 04]** Transformers, transformer rectifier units (TRUs), static inverters
+- **[021 09 04 02]** DC distribution
+- **[021 09 04 03]** AC distribution
+- **[021 09 04 04]** Electrical load management and monitoring systems: automatic generators and bus switching during
+- **[021 09 05 02]** Operating principle
+- **[021 10 01 01]** Types of internal-combustion engines: basic principles, definitions
+- **[021 10 01 02]** Engine: design, operation, components
+- **[021 10 02 01]** Types, grades, characteristics, limitations
+- **[021 10 03 01]** Engine-driven fuel pump
+- **[021 10 04 01]** Carburettor: design, operation, degraded modes of operation, indications and warnings
+- **[021 10 04 02]** Injection: design, operation, degraded modes of operation, indications and warnings
+- **[021 10 05 01]** Design, operation, indications and warnings
+- **[021 10 06 01]** Lubricants: characteristics, limitations
+- **[021 10 06 02]** Design, operation, indications and warnings
+- **[021 10 07 01]** Design, operation No 1178/2011)
+- **[021 10 08 01]** Definition, characteristic mixtures, control instruments, associated control levers, indications
+- **[021 10 09 02]** Constant-speed propeller: design, operation, system components
+- **[021 10 09 03]** Reduction gearing: design
+- **[021 10 09 04]** Propeller handling: associated control levers, degraded modes of operation, indications and
+- **[021 10 10 02]** Engine handling
+- **[021 11 01 01]** Basic generation of thrust and the thrust formula No 1178/2011)
+- **[021 11 01 02]** Design, types and components of turbine engines
+- **[021 11 01 03]** Coupled turbine engine: design, operation, components and materials
+- **[021 11 01 04]** Free-turbine engine: design, components and materials
+- **[021 11 02 01]** Aeroplane: air intake
+- **[021 11 02 02]** Compressor and diffuser
+- **[021 11 02 05]** Aeroplane: exhaust
+- **[021 11 02 06]** Helicopter: air intake
+- **[021 11 02 07]** Helicopter: exhaust
+- **[021 11 03 01]** Engine fuel system
+- **[021 11 03 03]** Engine lubrication
+- **[021 11 03 04]** Engine auxiliary gearbox
+- **[021 11 03 05]** Engine ignition
+- **[021 11 03 08]** Helicopter specifics on design, operation and components for additional components and systems
+- **[021 11 04 02]** Starting malfunctions
+- **[021 11 04 03]** Relight envelope
+- **[021 11 05 01]** Thrust, performance aspects, and limitations
+- **[021 11 05 02]** Helicopter engine ratings, engine performance and limitations, engine handling: torque, performance
+- **[021 11 06 01]** Design, operation, functions, operational limitations
+- **[021 12 01 01]** Types, design, operation, indications and warnings
+- **[021 12 02 01]** Fire extinguishing (engine and cargo compartments)
+- **[021 12 03 01]** Principle and method of operation
+- **[021 13 01 01]** Operating principles, actuation methods, comparison
+- **[021 14 01 01]** Variable rotor speed
+- **[021 14 01 02]** Active vibration suppression
+- **[021 15 01 02]** Structural components and materials, stresses, structural limitations
+- **[021 15 01 03]** Design and construction
+- **[021 15 02 02]** Design and construction
+- **[021 16 01 01]** Different types, design, operation, limitations
+- **[021 16 02 01]** Types, operational considerations
+- **[021 16 03 01]** Powering the air-conditioning system
+- **[021 16 04 01]** Power, construction, materials, speed and torque
+- **[021 16 05 01]** Lubrication, gearing
+- **[021 16 06 01]** Purpose, operation, components, serviceability No 1178/2011)
+- **[021 16 07 01]** Purpose, operation, components, location
+- **[021 17 01 01]** Design, construction
+- **[021 17 01 02]** Structural components and materials
+- **[021 17 01 03]** Forces and stresses
+- **[021 17 01 04]** Structural limitations
+- **[021 17 01 06]** Tip shape
+- **[021 17 01 07]** Origins of the vertical vibrations
+- **[021 17 01 08]** Lateral vibrations
+- **[021 17 02 01]** Design, construction No 1178/2011)
+- **[021 17 02 03]** Stresses, vibrations and balancing
+- **[021 17 02 04]** Structural limitations
+- **[021 17 02 06]** The Fenestron No 1178/2011)
+- **[021 17 02 07]** No tail rotor (NOTAR)
+
+## Subject 022 (instruments.md)
+
+**Total Missing Topics: 83**
+
+- **[022 01 01 01]** Units for pressure, sensor types, measurements
+- **[022 01 02 01]** Units for temperature, measurements
+- **[022 01 03 01]** Units for fuel, measurements, fuel gauges
+- **[022 01 04 01]** Fuel flow, units for fuel flow, total fuel consumption
+- **[022 01 05 01]** Types, operating principles, units for engine speed
+- **[022 01 06 01]** Parameters, operating principle
+- **[022 01 07 01]** Torque, torquemeters
+- **[022 01 08 01]** Purpose, operating principle, display No 1178/2011)
+- **[022 01 09 01]** Purpose, operating principle of a vibration-monitoring system, display
+- **[022 01 10 01]** On-board clock
+- **[022 02 01 02]** Pitot/static system: design and errors
+- **[022 02 02 02]** Design and operation
+- **[022 02 03 01]** Sensor types, operating principles, ice protection, displays, incorrect indications
+- **[022 02 04 01]** Units, terms, types, operating principles, displays, errors, corrections
+- **[022 02 05 01]** VSI and instantaneous vertical speed indicator (IVSI)
+- **[022 02 06 01]** Units, errors, operating principles, displays, position errors, unreliable airspeed indications
+- **[022 02 07 01]** Operating principle, display, CAS, TAS and Mach number
+- **[022 02 08 01]** Operating principle, data, errors, air-data inertial reference unit
+- **[022 03 01 01]** Magnetic field, variation, dip No 1178/2011)
+- **[022 03 02 01]** Permanent magnetism, electromagnetism, deviation
+- **[022 03 03 01]** Purpose, errors, timed turns, serviceability
+- **[022 03 04 01]** Purpose, operating principle, location, errors
+- **[022 04 01 01]** Gyroscopic forces, degrees of freedom, gyro wander, driving gyroscopes
+- **[022 04 02 01]** Indications, relation between bank angle, rate of turn and TAS
+- **[022 04 03 01]** Purpose, types, effect of aircraft acceleration, display
+- **[022 04 04 01]** Purpose, types, drift, alignment to compass heading
+- **[022 04 05 01]** Operating principles, components, comparison with a direct-reading magnetic compass
+- **[022 04 06 01]** Components, indications
+- **[022 05 01 01]** Systems No 1178/2011)
+- **[022 05 02 01]** Alignment process, incorrect data entry, and control panels
+- **[022 06 01 01]** Definitions and control loops
+- **[022 06 02 01]** Design and operation
+- **[022 06 03 01]** Purpose, use, indications, modes, data
+- **[022 06 04 01]** Purpose, modes, display scenarios
+- **[022 06 05 01]** Design and operation
+- **[022 07 01 01]** Stabilisation
+- **[022 07 01 02]** Reduction of pilot workload
+- **[022 07 01 03]** Enhancement of helicopter capability
+- **[022 07 02 01]** Basic sensors
+- **[022 07 02 02]** Specific sensors
+- **[022 07 02 04]** Pilot–system interface: control panels, system indications, warnings
+- **[022 07 03 01]** General principles and operation
+- **[022 07 04 01]** General principles
+- **[022 07 04 02]** Basic modes (3/4 axes)
+- **[022 07 04 03]** Automatic guidance (upper modes of AFCS)
+- **[022 07 04 04]** Flight director: design and operation
+- **[022 07 04 05]** Automatic flight control panel (AFCP) No 1178/2011)
+- **[022 08 01 01]** Design and operation
+- **[022 08 02 01]** Design and operation
+- **[022 08 03 01]** Purpose, input parameters, functions
+- **[022 09 01 01]** Purpose, operation, overcompensation, speed control
+- **[022 10 01 01]** Definitions and transmission modes
+- **[022 10 01 02]** Systems: architecture, design and operation
+- **[022 10 02 01]** Versions, applications, CPDLC messages, ADS contracts
+- **[022 11 01 01]** Purpose, architecture, failures, functions
+- **[022 11 02 02]** Aircraft performance database
+- **[022 11 03 01]** Data, calculations, position inputs, raw data
+- **[022 11 04 01]** Purpose, scratchpad, data input, set-up process
+- **[022 12 01 01]** Alerting systems according to CS-25 and CS-29
+- **[022 12 02 01]** Annunciations, master warning, master caution, advisory
+- **[022 12 03 01]** Function, types, components
+- **[022 12 04 01]** Function, types
+- **[022 12 05 01]** Purpose, aural warning, VMO/MMO pointer
+- **[022 12 07 01]** Function, displays, alerts
+- **[022 12 08 01]** Purpose, range, displays, incorrect indications
+- **[022 12 09 01]** GPWSs: design, operation, indications
+- **[022 12 09 02]** Terrain-avoidance warning system (TAWS); other name: enhanced GPWS (EGPWS)
+- **[022 12 10 01]** Principles and operations
+- **[022 12 11 01]** Design, operation, displays, alarms
+- **[022 13 01 01]** Design, limitations
+- **[022 13 02 01]** Attitude and director indicator (ADI)/ horizontal situation indicator (HSI)
+- **[022 13 03 01]** Design, operation
+- **[022 13 03 02]** Primary flight display (PFD), electronic attitude director indicator (EADI)
+- **[022 13 03 03]** Navigation display (ND), electronic horizontal situation indicator (EHSI)
+- **[022 13 04 01]** Purposes of systems, display systems, checklists
+- **[022 13 05 01]** Design, operation, information on display
+- **[022 13 06 01]** Purpose, certification, malfunctions
+- **[022 14 01 01]** Purpose, components, parameters
+- **[022 14 02 01]** Purpose, components, parameters
+- **[022 14 03 01]** Helicopter operations monitoring program (HOMP): design, operation, performance
+- **[022 14 03 02]** Integrated health and usage monitoring system (IHUMS): design, operation, performance
+- **[022 14 03 03]** Aeroplane condition monitoring system (ACMS): general, design, operation
+- **[022 15 01 01]** General, definitions and design
+
+## Subject 031 (mass-and-balance.md)
+
+**Total Missing Topics: 37**
+
+- **[031 01 01 01]** Importance with regard to structural limitations
+- **[031 01 01 02]** Importance with regard to performance Remark: See also Subjects 032/034 and 081/082.
+- **[031 01 02 01]** Importance with regard to stability and controllability
+- **[031 01 02 02]** Importance with regard to performance Remark: See also Subjects 032/034 and 081/082.
+- **[031 02 01 01]** Mass terms
+- **[031 02 01 02]** Load terms (including fuel terms) Remark: See also Subject 033.
+- **[031 02 02 01]** Structural limitations
+- **[031 02 02 02]** Performance and regulated limitations
+- **[031 02 02 03]** Cargo compartment limitations
+- **[031 02 03 01]** Maximum masses for take-off and landing
+- **[031 02 03 02]** Allowed traffic load and fuel load
+- **[031 02 03 03]** Use of standard masses for passengers, baggage and crew
+- **[031 04 01 01]** Datum, moment arm
+- **[031 04 01 02]** CG position as distance from datum
+- **[031 04 01 03]** CG position as percentage of mean aerodynamic chord (% MAC)
+- **[031 04 01 04]** Longitudinal CG limits
+- **[031 04 01 05]** Lateral CG limits
+- **[031 04 01 06]** Details of passenger and cargo compartments
+- **[031 04 01 07]** Details of fuel system relevant to mass-and-balance considerations
+- **[031 04 02 01]** Weighing of aircraft (general aspects)
+- **[031 04 02 02]** Calculation of mass and CG position of an aircraft using weighing data
+- **[031 04 03 01]** BEM or dry operating mass (DOM)
+- **[031 04 03 02]** CG position or moment at BEM/DOM
+- **[031 04 03 03]** Deviations from standard configuration
+- **[031 05 01 01]** Arithmetic method
+- **[031 05 01 02]** Graphic method
+- **[031 05 01 03]** Index method
+- **[031 05 02 01]** General considerations
+- **[031 05 02 02]** Load sheet/balance schedule and CG envelope for light aeroplanes and for helicopters
+- **[031 05 02 03]** Load sheet for large aeroplanes
+- **[031 05 02 04]** Trim sheet for large aeroplanes
+- **[031 05 02 06]** Other methods to present load and trim information
+- **[031 05 03 01]** Repositioning of CG by shifting the load
+- **[031 05 03 02]** Repositioning of CG by additional load or ballast or by load or ballast removal
+- **[031 06 01 01]** Types of cargo (general aspects)
+- **[031 06 02 01]** Floor-area load and running-load limitations in cargo compartments
+- **[031 06 03 01]** Securement of load (reasons and methods)
+
+## Subject 032 (aircraft-performance.md)
+
+**Total Missing Topics: 41**
+
+- **[032 01 01 01]** Applicability of airworthiness requirements of CS-23 and CS-25
+- **[032 01 01 02]** Operational regulations and safety
+- **[032 01 01 03]** Performance and safety
+- **[032 01 01 04]** Performance definitions and safety factors
+- **[032 01 02 02]** Definitions and terms
+- **[032 01 02 03]** Variables influencing performance
+- **[032 01 03 01]** Steady level flight
+- **[032 01 04 01]** Climbing (climb performance)
+- **[032 01 05 01]** Descending (descent performance)
+- **[032 02 01 01]** Airworthiness requirements and definitions
+- **[032 02 03 01]** Take-off and landing (definitions and effects)
+- **[032 02 04 01]** Climb, cruise and descent (requirements and calculations)
+- **[032 04 01 01]** Take-off performance, definitions of and relationships between terms
+- **[032 04 01 02]** Take-off distances
+- **[032 04 01 03]** Accelerate-stop distance
+- **[032 04 01 04]** Balanced field length concept
+- **[032 04 01 05]** Unbalanced field length concept
+- **[032 04 01 06]** Field-length-limited take-off mass (FLLTOM)
+- **[032 04 01 07]** Contaminated runways Remark: See 010 09 02 04 and 071 02 13 02
+- **[032 04 01 08]** Take-off climb
+- **[032 04 01 09]** Obstacle-limited take-off
+- **[032 04 01 10]** Performance-limited take-off mass (PLTOM) and regulated take-off mass (RTOM) tables
+- **[032 04 01 11]** Take-off performance on wet and contaminated runways
+- **[032 04 01 12]** Use of reduced (flexible or flex) and derated thrust
+- **[032 04 01 13]** Take-off performance using different take-off flap settings
+- **[032 04 01 14]** Take-off performance using increased V2 speeds (‘improved climb performance’)
+- **[032 04 01 15]** Brake-energy and tyre-speed limit
+- **[032 04 02 01]** Climb techniques
+- **[032 04 02 02]** Influence of variables on climb performance
+- **[032 04 03 07]** Cost index (CI)
+- **[032 04 04 01]** Drift-down
+- **[032 04 04 02]** Influence of variables on the en-route one-engine-inoperative performance
+- **[032 04 05 01]** Descent techniques
+- **[032 04 05 02]** Energy management in the descent
+- **[032 04 06 01]** Approach requirements
+- **[032 04 06 02]** Landing-field-length and landing-speed requirements
+- **[032 04 06 03]** Influence of variables on landing performance
+- **[032 04 06 04]** Quick turnaround limit
+- **[032 05 01 01]** Take-off (performance data)
+- **[032 05 02 01]** Drift-down and stabilising altitude (performance data)
+- **[032 05 03 01]** Landing (performance data)
+
+## Subject 033 (flight-planning.md)
+
+**Total Missing Topics: 27**
+
+- **[033 01 01 01]** Airspace, communication, visual and radio-navigation data from VFR charts
+- **[033 01 01 02]** Planning courses, distances and cruising levels with VFR charts
+- **[033 01 01 03]** Aerodrome charts and aerodrome directory No 1178/2011)
+- **[033 01 01 05]** Completion of navigation plan
+- **[033 02 01 01]** Air traffic service (ATS) routes
+- **[033 02 01 02]** Courses and distances from en-route charts
+- **[033 02 01 04]** Standard instrument departure (SID) and standard instrument arrival (STAR) routes
+- **[033 02 01 05]** Instrument-approach charts
+- **[033 02 01 06]** Communications and radio-navigation planning data
+- **[033 02 01 07]** Completion of a manual navigation plan
+- **[033 03 01 01]** Fuel planning (general)
+- **[033 03 02 03]** Reserve fuel and its components Contingency fuel
+- **[033 03 02 05]** Calculation of total fuel and completion of the fuel section of the navigation plan (fuel plan)
+- **[033 03 03 02]** Isolated aerodrome or heliport procedure
+- **[033 04 01 01]** Ground- and satellite-based facilities and services No 1178/2011)
+- **[033 04 01 02]** Departure, destination and alternate aerodromes
+- **[033 04 01 03]** Airway routings and airspace structure
+- **[033 04 01 04]** Pre-flight preparation of GNSS achievability
+- **[033 04 02 02]** Update of navigation plan using the latest meteorological information
+- **[033 04 02 05]** Update of fuel plan
+- **[033 04 03 01]** Point of equal time (PET)
+- **[033 04 03 02]** Point of safe return (PSR)
+- **[033 05 01 01]** Format of FPL
+- **[033 05 02 01]** Repetitive flight plan (RPL)
+- **[033 06 01 01]** Monitoring of track and time
+- **[033 06 01 02]** In-flight fuel management
+- **[033 06 02 01]** Deviation from planned data
+
+## Subject 034 (aircraft-performance.md)
+
+**Total Missing Topics: 31**
+
+- **[034 01 01 01]** Airworthiness requirements
+- **[034 01 01 02]** Operational regulations
+- **[034 01 02 01]** Phases of flight
+- **[034 01 02 02]** Definitions and terms
+- **[034 01 02 03]** Power required/power available curves
+- **[034 01 02 04]** Height–velocity graphs
+- **[034 01 02 05]** Influencing variables on performance
+- **[034 02 01 01]** Effect of variables on SE helicopter performance
+- **[034 02 02 01]** Take-off and landing (including hover)
+- **[034 02 03 01]** Climb, cruise and descent (capabilities)
+- **[034 02 04 01]** Take-off (including hover)
+- **[034 02 04 03]** Cruise No 1178/2011)
+- **[034 02 04 04]** Landing (including hover)
+- **[034 03 01 01]** Responsibility for operations without an assured safe forced landing capability
+- **[034 03 02 01]** Take-off requirements
+- **[034 03 03 01]** Take-off flight path requirements No 1178/2011)
+- **[034 04 01 01]** Take-off distances
+- **[034 04 01 02]** Rejected take-off distance required (helicopter) (RTODR(H))
+- **[034 04 01 04]** Take-off climb
+- **[034 04 01 05]** Obstacle-limited take-off
+- **[034 04 01 06]** Use of helicopter performance data
+- **[034 04 02 01]** Climb techniques
+- **[034 04 02 02]** Use of helicopter flight data
+- **[034 04 03 01]** Cruise techniques
+- **[034 04 03 04]** Maximum cruise
+- **[034 04 03 06]** Use of helicopter performance data
+- **[034 04 04 01]** Requirements for en-route flights with OEI
+- **[034 04 04 02]** Use of helicopter flight data
+- **[034 04 05 01]** Use of helicopter flight data
+- **[034 04 06 02]** Landing procedures
+- **[034 04 06 03]** Use of helicopter performance data
+
+## Subject 040 (human-performance.md)
+
+**Total Missing Topics: 29**
+
+- **[040 01 03 01]** Threat and error management (TEM) model and SHELL model
+- **[040 01 04 01]** Safety culture and safety management
+- **[040 02 01 01]** The atmosphere
+- **[040 02 01 02]** Respiratory and circulatory system
+- **[040 02 02 01]** The different senses
+- **[040 02 02 02]** Central, peripheral and autonomic nervous system
+- **[040 02 02 03]** Vision Functional anatomy
+- **[040 02 02 04]** Hearing Descriptive and functional anatomy
+- **[040 02 02 05]** Equilibrium Functional anatomy
+- **[040 02 02 06]** Integration of sensory inputs
+- **[040 02 03 02]** Body rhythm and sleep
+- **[040 02 03 03]** Problem areas for pilots Common minor ailments
+- **[040 02 03 04]** Intoxication Tobacco
+- **[040 02 03 05]** Incapacitation in flight
+- **[040 03 01 01]** Attention and vigilance
+- **[040 03 01 04]** Response selection Learning principles and techniques
+- **[040 03 02 01]** Reliability of human behaviour
+- **[040 03 02 02]** Mental models and situation awareness No 1178/2011)
+- **[040 03 02 03]** Theory and model of human error
+- **[040 03 02 04]** Error generation
+- **[040 03 03 01]** Decision-making concepts
+- **[040 03 04 01]** Safety awareness
+- **[040 03 04 02]** Coordination (multi-crew concepts)
+- **[040 03 05 01]** Personality, attitude and behaviour
+- **[040 03 05 02]** Individual differences in personality and motivation
+- **[040 03 05 03]** Identification of hazardous attitudes (error proneness)
+- **[040 03 06 05]** Fatigue and stress management
+- **[040 03 07 01]** Advantages and disadvantages
+- **[040 03 07 03]** Working concepts No 1178/2011)
+
+## Subject 050 (meteorology.md)
+
+**Total Missing Topics: 100**
+
+- **[050 01 01 01]** Structure of the atmosphere
+- **[050 01 01 02]** Troposphere No 1178/2011)
+- **[050 01 02 01]** Definition and units
+- **[050 01 02 02]** Vertical distribution of temperature
+- **[050 01 02 05]** Development of inversions, types of inversions
+- **[050 01 02 06]** Temperature near the Earth’s surface, insolation, surface effects, effect of clouds, effect of wind
+- **[050 01 03 01]** Barometric pressure, isobars
+- **[050 01 03 02]** Pressure variation with height, contours (isohypses)
+- **[050 01 03 03]** Reduction of pressure to QFF (MSL)
+- **[050 01 03 04]** Relationship between surface pressure centres and pressure centres aloft
+- **[050 01 04 01]** Relationship between pressure, temperature and density
+- **[050 01 05 01]** International Standard Atmosphere (ISA)
+- **[050 01 06 01]** Terminology and definitions
+- **[050 01 06 02]** Altimeter settings
+- **[050 01 06 03]** Calculations No 1178/2011)
+- **[050 01 06 04]** Effect of accelerated airflow due to topography
+- **[050 02 01 01]** Definition and measurement
+- **[050 02 02 01]** Primary cause of wind, pressure gradient, Coriolis force, gradient wind
+- **[050 02 02 02]** Variation of wind in the friction layer
+- **[050 02 02 03]** Effects of convergence and divergence No 1178/2011)
+- **[050 02 03 01]** General circulation around the globe
+- **[050 02 04 01]** Anabatic and katabatic winds, mountain and valley winds, Venturi effects, land and sea
+- **[050 02 05 01]** Origin and characteristics
+- **[050 02 06 01]** Description and types of turbulence
+- **[050 02 06 02]** Formation and location of turbulence
+- **[050 02 06 03]** Clear-air turbulence (CAT) — description, cause and location
+- **[050 02 07 01]** Description
+- **[050 02 07 02]** Formation and properties of jet streams
+- **[050 02 07 03]** Location of jet streams and associated CAT areas
+- **[050 03 01 01]** Water vapour in the atmosphere
+- **[050 03 01 03]** Temperature/dew point, relative humidity
+- **[050 03 02 01]** Condensation, evaporation, sublimation, freezing and melting, latent heat
+- **[050 03 03 01]** Adiabatic processes, stability of the atmosphere
+- **[050 04 01 02]** Cloud types and cloud classification
+- **[050 04 01 03]** Influence of inversions on cloud development
+- **[050 04 01 04]** Flying conditions in each cloud type
+- **[050 04 02 01]** General aspects
+- **[050 04 02 04]** Sea smoke
+- **[050 04 02 06]** Orographic fog (hill fog)
+- **[050 05 01 01]** Process of development of precipitation
+- **[050 05 02 01]** Types of precipitation, relationship with cloud types
+- **[050 06 01 01]** Description, classification and source regions of air masses
+- **[050 06 01 02]** Modifications of air masses
+- **[050 06 02 01]** General aspects
+- **[050 06 02 02]** Warm front, associated clouds and weather
+- **[050 06 02 03]** Cold front, associated clouds and weather
+- **[050 06 02 04]** Warm sector, associated clouds and weather
+- **[050 06 02 05]** Weather behind the cold front
+- **[050 06 02 06]** Occlusions, associated clouds and weather
+- **[050 06 02 07]** Stationary front, associated clouds and weather
+- **[050 06 02 08]** Movement of fronts and pressure systems, life cycle
+- **[050 06 02 09]** Changes of meteorological elements at a frontal wave
+- **[050 07 01 01]** Location of the principal pressure areas
+- **[050 07 02 01]** Anticyclones, types, general properties, cold and warm anticyclones, ridges and subsidence
+- **[050 07 03 01]** Thermal, orographic, polar and secondary depressions; troughs
+- **[050 07 04 01]** Characteristics of tropical revolving storms
+- **[050 07 04 02]** Origin and local names, location and period of occurrence
+- **[050 08 01 01]** General circulation in the troposphere and lower stratosphere
+- **[050 08 01 02]** Climatic classification
+- **[050 08 02 01]** Cause and development of tropical showers and thunderstorms: humidity, temperature,
+- **[050 08 02 02]** Seasonal variations of weather and wind, typical synoptic situations
+- **[050 08 02 03]** Intertropical Convergence Zone (ITCZ), weather in the ITCZ, general seasonal movement
+- **[050 08 02 04]** Monsoon, sandstorms, cold-air outbreaks
+- **[050 08 03 01]** Westerly situation (westerlies) No 1178/2011)
+- **[050 08 03 04]** Cold-air drop
+- **[050 08 04 01]** Foehn, Mistral, Bora
+- **[050 09 01 01]** Conditions for ice accretion No 1178/2011)
+- **[050 09 01 03]** Hazards of ice accretion, avoidance
+- **[050 09 01 04]** Ice crystal icing
+- **[050 09 02 01]** Effects on flight, avoidance
+- **[050 09 02 02]** Clear-air turbulence (CAT): effects on flight, avoidance
+- **[050 09 03 01]** Definition of wind shear
+- **[050 09 03 02]** Weather conditions for wind shear
+- **[050 09 03 03]** Effects on flight, avoidance
+- **[050 09 04 01]** Conditions for and process of development, forecast, location, type specification
+- **[050 09 04 02]** Structure of thunderstorms, life cycle No 1178/2011)
+- **[050 09 04 03]** Electrical discharges
+- **[050 09 04 04]** Development and effects of downbursts
+- **[050 09 04 05]** Thunderstorm avoidance
+- **[050 09 05 01]** Properties and occurrence
+- **[050 09 06 01]** Influence on aircraft performance
+- **[050 09 07 01]** Influence on aircraft performance
+- **[050 09 08 01]** Influence of terrain on clouds and precipitation, frontal passage
+- **[050 09 08 02]** Vertical movements, mountain waves, wind shear, turbulence, ice accretion
+- **[050 09 08 03]** Development and effect of valley inversions
+- **[050 09 09 01]** Reduction of visibility caused by precipitation and obscurations
+- **[050 09 09 02]** Reduction of visibility caused by other phenomena
+- **[050 10 01 01]** Surface observations
+- **[050 10 01 02]** Radiosonde observations
+- **[050 10 01 03]** Satellite observations
+- **[050 10 01 04]** Weather radar observations (Refer to Subject 050 09 04 05)
+- **[050 10 01 05]** Aircraft observations and reporting
+- **[050 10 02 03]** Upper-air charts
+- **[050 10 02 04]** Gridded forecast products No 1178/2011)
+- **[050 10 03 01]** Aviation weather messages
+- **[050 10 03 02]** Meteorological broadcasts for aviation
+- **[050 10 03 03]** Use of meteorological documents
+- **[050 10 03 04]** Meteorological warnings
+- **[050 10 04 01]** World area forecast system and meteorological offices
+- **[050 10 04 02]** International organisations
+
+## Subject 061 (general-navigation.md)
+
+**Total Missing Topics: 33**
+
+- **[061 01 01 02]** Earth rotation
+- **[061 01 02 01]** Position reference system
+- **[061 01 03 01]** Datums
+- **[061 01 03 02]** Track and heading
+- **[061 01 04 01]** WGS-84 ellipsoid
+- **[061 01 04 03]** Graticule distances
+- **[061 01 05 01]** True airspeed (TAS)
+- **[061 01 05 02]** Mach number (M) No 1178/2011)
+- **[061 01 05 03]** CAS/TAS/M relationship
+- **[061 01 05 04]** Ground speed (GS)
+- **[061 01 05 05]** Flight log
+- **[061 01 05 06]** Gradient versus rate of climb/descent
+- **[061 01 06 01]** Construction
+- **[061 01 06 02]** Solutions
+- **[061 01 07 01]** Dead reckoning (DR) technique
+- **[061 01 08 01]** Average airspeed
+- **[061 01 08 02]** Average wind velocity (WV) No 1178/2011)
+- **[061 01 08 03]** Ground speed (GS)/distance covered during climb or descent
+- **[061 02 01 01]** Ground features
+- **[061 02 01 02]** Visual identification
+- **[061 02 02 01]** Use of visual observations and application to in- flight navigation
+- **[061 02 02 02]** Unplanned events No 1178/2011)
+- **[061 03 01 02]** Convergence
+- **[061 04 01 01]** ICAO Annex 4 ‘Aeronautical Charts’
+- **[061 04 01 02]** Convergence
+- **[061 04 02 01]** Methods of projection
+- **[061 04 02 03]** Direct Mercator
+- **[061 04 03 01]** Symbology
+- **[061 04 03 02]** Plotting
+- **[061 05 01 02]** Local Mean Time (LMT) and Universal Time Coordinated (UTC)
+- **[061 05 02 01]** Standard time and daylight saving time
+- **[061 05 02 02]** International Date Line
+- **[061 05 03 01]** Sunrise and sunset times
+
+## Subject 062 (radio-navigation.md)
+
+**Total Missing Topics: 56**
+
+- **[062 01 01 01]** Electromagnetic waves
+- **[062 01 01 02]** Frequency, wavelength, amplitude, phase
+- **[062 01 01 03]** Frequency bands, sidebands, single
+- **[062 01 01 04]** Pulse characteristics
+- **[062 01 01 05]** Carrier, modulation
+- **[062 01 01 06]** Kinds of modulation (amplitude, frequency,
+- **[062 01 02 02]** Polarisation
+- **[062 01 02 03]** Types of antennas
+- **[062 01 03 01]** Structure of the ionosphere and its effect on
+- **[062 01 03 02]** Ground waves
+- **[062 01 03 04]** Propagation with the frequency bands
+- **[062 02 01 02]** Presentation and interpretation
+- **[062 02 01 03]** Coverage and range
+- **[062 02 01 04]** Errors and accuracy
+- **[062 02 02 02]** Presentation and interpretation
+- **[062 02 02 03]** Coverage and range
+- **[062 02 02 04]** Errors and accuracy
+- **[062 02 02 05]** Factors affecting range and accuracy
+- **[062 02 03 02]** Presentation and interpretation
+- **[062 02 03 04]** Errors and accuracy
+- **[062 02 04 02]** Presentation and interpretation
+- **[062 02 04 03]** Coverage and range
+- **[062 02 04 05]** Factors affecting range and accuracy
+- **[062 02 05 02]** Presentation and interpretation
+- **[062 02 05 03]** Coverage and range
+- **[062 02 05 04]** Errors and accuracy
+- **[062 02 05 05]** Factors affecting range and accuracy
+- **[062 02 06 02]** Presentation and interpretation
+- **[062 02 06 03]** Coverage and range
+- **[062 03 01 01]** Pulse techniques and associated terms
+- **[062 03 02 02]** Presentation and interpretation
+- **[062 03 03 02]** Presentation and interpretation
+- **[062 03 03 03]** Coverage and range
+- **[062 03 03 04]** Errors, accuracy, limitations
+- **[062 03 03 05]** Factors affecting range and accuracy
+- **[062 03 03 06]** Application for navigation
+- **[062 03 04 02]** Modes and codes
+- **[062 03 04 03]** Presentation and interpretation
+- **[062 06 01 03]** Errors and factors affecting accuracy
+- **[062 06 02 01]** Ground-based augmentation systems
+- **[062 06 02 02]** Satellite-based augmentation systems
+- **[062 06 02 04]** Aircraft-based augmentation systems
+- **[062 07 01 01]** PBN principles
+- **[062 07 01 03]** PBN scope
+- **[062 07 02 01]** Area navigation (RNAV) and required
+- **[062 07 02 02]** Navigation functional requirements
+- **[062 07 02 03]** Designation of RNP and RNAV specifications
+- **[062 07 03 03]** Specific RNAV and RNP system functions
+- **[062 07 04 01]** Performance-based navigation (PBN)
+- **[062 07 04 02]** On-board performance monitoring and
+- **[062 07 04 03]** Abnormal situations
+- **[062 07 05 03]** RNAV 1/RNAV 2/RNP 1/RNP 2
+- **[062 07 05 05]** Required navigation performance approach
+- **[062 07 05 07]** Advanced required navigation performance
+- **[062 07 05 08]** PBN point-in-space (PinS) departure
+- **[062 07 05 09]** PBN point-in-space (PinS) approach
+
+## Subject 071 (operational-procedures.md)
+
+**Total Missing Topics: 60**
+
+- **[071 01 02 04]** Operational procedures (except preparation for long-range flight)
+- **[071 01 02 05]** All-weather operations No 1178/2011)
+- **[071 01 02 06]** Instruments and equipment
+- **[071 01 02 10]** Cabin crew/crew members other than flight crew
+- **[071 01 02 12]** Flight and duty time limitations and rest requirements
+- **[071 01 03 01]** Flight management
+- **[071 01 03 02]** Transoceanic and polar flights No 1178/2011)
+- **[071 01 03 03]** North Atlantic High Level Airspace (NAT HLA) NAT Region
+- **[071 01 03 04]** Extended-range operations with two-engined aeroplanes (ETOPS)
+- **[071 02 01 02]** Aeroplane/helicopter operating matters — type-related
+- **[071 02 01 03]** Minimum equipment list (MEL) and master minimum equipment list (MMEL)
+- **[071 02 02 01]** On-ground de-icing/anti-icing procedures, types of de-icing/anti-icing fluids
+- **[071 02 02 02]** Procedure to apply in case of performance deterioration, on ground/in flight
+- **[071 02 03 01]** Bird-strike risk and avoidance
+- **[071 02 04 02]** Influence of the flight procedure (departure, cruise, approach)
+- **[071 02 04 03]** Influence by the pilot (power setting, low drag) No 1178/2011)
+- **[071 02 04 04]** Influence by the pilot (power setting, track of helicopter)
+- **[071 02 05 01]** Carburettor fire
+- **[071 02 05 02]** Engine fire
+- **[071 02 05 03]** Fire in the cabin, in the flight crew compartment and in the cargo compartment
+- **[071 02 05 04]** Smoke in the flight crew compartment and in the cabin
+- **[071 02 05 05]** Actions in case of overheated brakes
+- **[071 02 06 01]** Slow decompression
+- **[071 02 06 02]** Rapid and explosive decompression
+- **[071 02 06 03]** Dangers and action to be taken
+- **[071 02 07 01]** Effects and recognition during departure and approach
+- **[071 02 07 02]** Actions to avoid and actions to take when encountering wind shear
+- **[071 02 08 02]** List of relevant parameters
+- **[071 02 08 03]** Actions to be taken when crossing traffic, during take-off and landing
+- **[071 02 09 01]** ICAO Annex 17 and Regulation (EC) No 300/2008
+- **[071 02 09 02]** Use of secondary surveillance radar (SSR)
+- **[071 02 09 03]** Security (Regulation (EC) No 300/2008 and ICAO Annex 17)
+- **[071 02 10 01]** Descriptions
+- **[071 02 10 03]** Passenger information
+- **[071 02 10 04]** Action after a precautionary/emergency landing or ditching
+- **[071 02 11 01]** Safety aspects
+- **[071 02 12 01]** ICAO Annex 18
+- **[071 02 12 02]** Technical Instructions for the Safe Transport of Dangerous Goods by Air (ICAO Doc 9284)
+- **[071 02 12 03]** Regulation (EU) No 965/2012 — Annex IV (Part- CAT) and Annex V (Part-SPA)
+- **[071 02 13 02]** Runway condition, braking action
+- **[071 02 13 03]** Hydroplaning principles and effects
+- **[071 02 13 05]** SNOWTAM and contamination on the aerodrome
+- **[071 02 14 01]** Describe downwash
+- **[071 02 14 02]** Effects
+- **[071 02 15 01]** White-out/sand/dust
+- **[071 02 15 02]** Strong winds
+- **[071 02 15 03]** Mountain environment
+- **[071 03 01 02]** Fire in the cabin, in the flight crew compartment and in the engine(s)
+- **[071 03 01 03]** Tail-rotor directional control failure
+- **[071 03 01 04]** Ground resonance
+- **[071 03 01 05]** Blade stall
+- **[071 03 01 06]** Settling with power (vortex ring)
+- **[071 03 01 07]** Overpitch No 1178/2011)
+- **[071 03 01 08]** Overspeed: rotor/engine
+- **[071 03 01 09]** Dynamic rollover
+- **[071 03 01 10]** Mast bumping
+- **[071 04 01 01]** Additional requirements for commercial specialised operations and CAT operations
+- **[071 04 01 02]** General requirements (Annex VIII (Part-SPO), Subpart A)
+- **[071 04 01 03]** Helicopter external sling load operations (HESLO) (Annex VIII (Part-SPO), Subpart E)
+- **[071 04 01 04]** Human external cargo operations (HEC) (Annex VIII (Part-SPO), Subpart E)
+
+## Subject 081 (principles-of-flight.md)
+
+**Total Missing Topics: 114**
+
+- **[081 01 01 01]** Laws and definitions No 1178/2011)
+- **[081 01 01 03]** Aerodynamic forces on aerofoils
+- **[081 01 01 04]** Shape of an aerofoil section
+- **[081 01 02 01]** Streamline pattern
+- **[081 01 02 04]** Centre of pressure (CP) and aerodynamic centre (AC)
+- **[081 01 02 06]** Drag and wake
+- **[081 01 02 07]** Influence of angle of attack (α)
+- **[081 01 02 09]** The lift coefficient (CL) – angle of attack () graph
+- **[081 01 03 01]** General use of coefficients
+- **[081 01 03 02]** The lift coefficient (CL)
+- **[081 01 04 02]** Streamline pattern
+- **[081 01 05 01]** Total drag in relation to parasite drag and induced drag
+- **[081 01 05 03]** Parasite drag and speed
+- **[081 01 05 07]** Variables affecting the total drag–speed graph
+- **[081 01 06 01]** Influence of ground effect
+- **[081 01 06 02]** Effect on stalling angle of attack (αCRIT)
+- **[081 01 06 03]** Effect on lift coefficient (CL)
+- **[081 01 06 04]** Effect on take-off and landing characteristics of an aeroplane
+- **[081 01 07 01]** Represented by an equation
+- **[081 01 07 02]** Represented by a graph
+- **[081 01 09 01]** Trailing-edge flaps and the reasons for their use in take-off and landing
+- **[081 01 09 02]** Leading-edge devices and the reasons for their use in take-off and landing
+- **[081 01 10 01]** Spoilers and the reasons for their use in the different phases of flight
+- **[081 01 10 02]** Speed brakes and the reasons for their use in the different phases of flight
+- **[081 01 12 01]** Ice and other contaminants
+- **[081 01 12 02]** Deformation and modification of airframe, ageing aeroplanes
+- **[081 02 01 03]** Influence of temperature and altitude on Mach number
+- **[081 02 01 05]** Subdivision of aerodynamic flow
+- **[081 02 02 01]** Definition of shock wave
+- **[081 02 03 01]** Critical Mach number (MCRIT)
+- **[081 02 03 02]** Effect on lift
+- **[081 02 03 03]** Effect on drag
+- **[081 02 03 04]** Effect on pitching moment
+- **[081 02 03 05]** Effect on control effectiveness
+- **[081 03 01 01]** Flow separation at increasing α
+- **[081 03 01 03]** The initial stall in spanwise direction
+- **[081 03 01 05]** Special phenomena of stall
+- **[081 03 02 01]** Mach buffet
+- **[081 03 02 02]** Buffet onset No 1178/2011)
+- **[081 03 03 01]** Explain why buffet or stall occurs
+- **[081 03 04 01]** Recognition and explanation of stalled condition
+- **[081 04 01 01]** Basics and definitions
+- **[081 04 01 02]** Precondition for static stability
+- **[081 04 01 03]** Sum of forces No 1178/2011)
+- **[081 04 01 04]** Sum of moments
+- **[081 04 03 01]** Methods for achieving balance
+- **[081 04 03 02]** Static longitudinal stability
+- **[081 04 03 04]** Factors affecting neutral point
+- **[081 04 03 05]** Location of centre of gravity (CG)
+- **[081 04 03 06]** The Cm– graph
+- **[081 04 03 07]** Factors affecting the Cm– graph
+- **[081 04 03 10]** The stick force versus speed graph (IAS)
+- **[081 04 03 12]** The manoeuvring stability/stick force per g
+- **[081 04 03 14]** Factors affecting the manoeuvring stability/stick force per g
+- **[081 04 03 16]** Dynamic longitudinal stability
+- **[081 04 04 01]** Definition and effects of static directional stability
+- **[081 04 04 02]** Sideslip angle
+- **[081 04 04 03]** Yaw-moment coefficient Cn
+- **[081 04 04 04]** Cn–β graph
+- **[081 04 04 05]** Factors affecting static directional stability
+- **[081 04 05 01]** Definition and effects of static lateral stability
+- **[081 04 05 03]** The roll-moment coefficient Cl
+- **[081 04 05 04]** Contribution of sideslip angle (β)
+- **[081 04 05 05]** The Cl–β graph
+- **[081 04 05 06]** Factors affecting static lateral stability
+- **[081 04 06 02]** Tendency to spiral dive
+- **[081 04 06 04]** Effects of altitude on dynamic stability
+- **[081 05 01 01]** Basics — The three planes and three axes
+- **[081 05 01 02]** Camber change
+- **[081 05 01 03]** Angle-of-attack (α) change
+- **[081 05 02 01]** Elevator/all-flying tails
+- **[081 05 02 02]** Downwash effects
+- **[081 05 02 04]** Location of centre of gravity (CG)
+- **[081 05 02 05]** Moments due to engine thrust
+- **[081 05 03 02]** Rudder limiting
+- **[081 05 04 04]** Adverse yaw No 1178/2011)
+- **[081 05 04 05]** Means to avoid adverse yaw
+- **[081 05 05 01]** Explain roll/yaw interaction
+- **[081 05 06 02]** Artificial means No 1178/2011)
+- **[081 05 07 01]** Control laws
+- **[081 05 08 01]** Reasons to trim
+- **[081 05 08 03]** Stabiliser trim
+- **[081 06 01 02]** Intentionally left blank
+- **[081 06 01 03]** Landing gear/flap operating
+- **[081 06 01 04]** VMO, VNO, and VNE
+- **[081 06 02 01]** Manoeuvring–load diagram
+- **[081 06 02 02]** Factors affecting the manoeuvring–load diagram
+- **[081 06 03 01]** Gust–load diagram
+- **[081 06 03 02]** Factors affecting the gust–load diagram
+- **[081 07 01 01]** Explain conversion of aerodynamic force on a propeller blade
+- **[081 07 01 02]** Relevant propeller parameters
+- **[081 07 01 04]** Fixed pitch and variable pitch/constant speed
+- **[081 07 01 05]** Propeller efficiency versus speed
+- **[081 07 01 06]** Effects of ice on propeller
+- **[081 07 02 01]** Windmilling drag
+- **[081 07 03 01]** Propeller design characteristics that increase power absorption
+- **[081 07 03 02]** Diameter of propeller
+- **[081 07 03 04]** Propeller noise
+- **[081 07 04 03]** Slipstream effect
+- **[081 07 04 05]** Consideration of propeller effects
+- **[081 08 01 01]** Straight, horizontal, steady flight
+- **[081 08 01 02]** Straight, steady climb
+- **[081 08 01 03]** Straight, steady descent
+- **[081 08 01 04]** Straight, steady glide
+- **[081 08 01 05]** Steady, coordinated turn
+- **[081 08 02 01]** Jet-engined and propeller-driven aeroplanes
+- **[081 08 02 02]** Balanced moments about the normal axis
+- **[081 08 02 03]** Forces parallel to the lateral axis
+- **[081 08 02 04]** Influence of aeroplane mass
+- **[081 08 02 08]** Minimum control speed (VMC)
+- **[081 08 02 09]** Minimum control speed during approach and landing (VMCL)
+- **[081 08 02 10]** Minimum control speed on the ground (VMCG)
+- **[081 08 02 11]** Influence of density
+- **[081 08 03 01]** Identify and explain
+
+## Subject 082 (principles-of-flight.md)
+
+**Total Missing Topics: 54**
+
+- **[082 01 01 01]** International system of units of measurement (SI) and conversion of SI units
+- **[082 01 01 02]** Definitions and basic concepts of air
+- **[082 01 01 03]** Newton’s laws
+- **[082 01 01 04]** Basic concepts of airflow
+- **[082 01 02 01]** Aerofoil section geometry
+- **[082 01 02 02]** Aerodynamic forces on aerofoil elements
+- **[082 01 02 04]** Disturbances due to profile contamination
+- **[082 01 03 02]** Airflow pattern and influence on lift (L)
+- **[082 01 03 04]** The airflow around the fuselage
+- **[082 02 01 01]** Speeds and Mach number No 1178/2011)
+- **[082 02 01 03]** Influence of aerofoil section and blade planform
+- **[082 03 01 01]** Rotorcraft types
+- **[082 03 02 01]** Helicopter configurations
+- **[082 03 02 02]** The helicopter, characteristics and associated terminology
+- **[082 04 01 01]** Airflow through the rotor disc and around the blades
+- **[082 04 01 02]** Anti-torque force and tail rotor
+- **[082 04 01 03]** Total power required and hover outside ground effect (HOGE)
+- **[082 04 02 01]** Relative airflow and angles of attack (α)
+- **[082 04 02 02]** Power and vertical speed
+- **[082 04 03 01]** Airflow and forces in uniform inflow distribution
+- **[082 04 03 02]** The flare (powered flight)
+- **[082 04 03 03]** Non-uniform inflow distribution in relation to inflow roll
+- **[082 04 03 04]** Power and maximum speed
+- **[082 04 04 01]** Airflow in ground effect, downwash No 1178/2011)
+- **[082 04 05 01]** Vertical descent, power on
+- **[082 04 05 02]** Autorotation
+- **[082 04 06 01]** Airflow at the rotor disc
+- **[082 04 06 02]** Flight and landing
+- **[082 05 01 02]** Centrifugal turning moment (CTM)
+- **[082 05 01 03]** Coning angle in the hover
+- **[082 05 02 01]** Forces on the blade in forward flight without cyclic feathering
+- **[082 05 02 02]** Cyclic pitch (feathering) in forward flight
+- **[082 05 03 01]** Forces on the blade in the disc plane (tip path plane) in forward flight
+- **[082 05 03 03]** Ground resonance
+- **[082 05 04 01]** See-saw or teetering rotor
+- **[082 05 04 03]** Hingeless rotor, bearingless rotor
+- **[082 05 05 01]** Blade sailing and causes No 1178/2011)
+- **[082 05 05 02]** Minimising the danger
+- **[082 05 05 03]** Droop stops
+- **[082 06 01 02]** Tail-rotor aerodynamics
+- **[082 06 01 03]** Strakes on the tail boom
+- **[082 07 01 01]** Hover
+- **[082 07 01 02]** Forward flight
+- **[082 07 02 01]** Static longitudinal, roll and directional stability
+- **[082 07 02 02]** Static stability in the hover No 1178/2011)
+- **[082 07 02 05]** Roll stability and directional stability
+- **[082 07 03 01]** Manoeuvre stability
+- **[082 07 03 02]** Control power
+- **[082 07 03 03]** Static and dynamic rollover No 1178/2011)
+- **[082 08 01 01]** Hover and vertical flight
+- **[082 08 01 02]** Forward flight
+- **[082 08 01 03]** Manoeuvring No 1178/2011)
+- **[082 08 02 01]** Operating with limited power
+- **[082 08 02 02]** Overpitch, overtorque
+
+## Subject 090 (communications.md)
+
+**Total Missing Topics: 13**
+
+- **[090 01 01 02]** Air traffic services (ATS) abbreviations
+- **[090 01 01 03]** Q-code groups commonly used in radiotelephony (RT) air-ground communications
+- **[090 01 01 04]** Categories of messages
+- **[090 02 01 04]** Transmission techniques
+- **[090 02 01 05]** Standard words and phrases
+- **[090 02 01 06]** RT call signs for aeronautical stations including use of abbreviated call signs
+- **[090 02 01 07]** RT call signs for aircraft including use of abbreviated call signs
+- **[090 02 01 09]** Test procedures including readability scale
+- **[090 02 01 10]** Read-back and acknowledgement requirements
+- **[090 02 01 11]** Radar procedural phraseology
+- **[090 03 01 02]** Weather broadcast
+- **[090 04 01 01]** Action required to be taken in case of communication failure
+- **[090 06 01 01]** Spectrum, bands, range
+
+## Subject 100 (Unknown)
+
+**Total Missing Topics: 9**
+
+- **[100 01 00 00]** ICAO CORE COMPETENCIES
+- **[100 02 01 00]** Communication
+- **[100 02 02 00]** Leadership and teamwork
+- **[100 02 03 00]** Problem-solving and decision-making
+- **[100 02 04 00]** Situation awareness No 1178/2011)
+- **[100 02 05 00]** Workload management
+- **[100 03 01 00]** Application of knowledge
+- **[100 03 02 00]** Upset prevention and recovery training (UPRT) and resilience Note: Resilience is defined as ‘the ability to recognise, absorb and adapt to disruptions’.
+- **[100 04 00 00]** MENTAL MATHS Note: Demonstrate, in non-calculator test scenarios or scenario exercises, the ability in a time-efficient manner
+
