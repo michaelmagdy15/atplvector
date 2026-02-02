@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CloudRain, Wind, Thermometer, Layers, ArrowRight, Droplets, Sun, Activity, Globe, CloudLightning, Gauge, Zap, Map, FileText, Waves, AlertTriangle, Radio } from 'lucide-react';
+import { CloudRain, Wind, Thermometer, Layers, ArrowRight, Droplets, Sun, Activity, Globe, CloudLightning, Gauge, Zap, Map, FileText, Waves, AlertTriangle, Radio, Eye } from 'lucide-react';
 import { View } from '../../types';
 
 interface Props {
@@ -184,6 +184,20 @@ const MetDashboard: React.FC<Props> = ({ onChangeView }) => {
             description: 'METAR, TAF, and SIGMET interpretation.',
             view: View.MET_METAR_TAF,
             color: 'from-slate-500/20 to-slate-600/5'
+        },
+        {
+            title: 'Optical Phenom.',
+            icon: Eye,
+            description: 'Rainbows, Halos, and Mirages.',
+            view: View.MET_OPTICAL,
+            color: 'from-purple-500/20 to-purple-600/5'
+        },
+        {
+            title: 'Station Models',
+            icon: Gauge,
+            description: 'Synoptic chart plotting and decoding.',
+            view: View.MET_STATION_MODEL,
+            color: 'from-emerald-500/20 to-emerald-600/5'
         }
     ];
 

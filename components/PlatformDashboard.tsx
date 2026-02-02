@@ -53,13 +53,13 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
         return (
             <div
                 onClick={() => !locked && onClick()}
-                className={`group relative glass-card rounded-2xl p-1 overflow-hidden transition-all duration-300 ${locked ? 'opacity-80 cursor-not-allowed' : 'hover:scale-[1.01] cursor-pointer'}`}
+                className={`group relative glass-card rounded-2xl p-1 overflow-hidden transition-all duration-300 will-change-transform ${locked ? 'opacity-80 cursor-not-allowed' : 'hover:scale-[1.01] cursor-pointer'}`}
             >
                 {locked && (
-                    <div className="absolute inset-0 z-30 bg-slate-950/70 backdrop-blur-[4px] flex flex-col items-center justify-center transition-opacity hover:bg-slate-950/60">
-                        <div className="p-3 bg-slate-900/90 rounded-full border border-white/10 shadow-xl mb-3 backdrop-blur-md">
+                    <div className="absolute inset-0 z-30 bg-slate-950/80 flex flex-col items-center justify-center transition-opacity hover:bg-slate-950/70">
+                        <div className="p-3 bg-slate-900 border border-white/10 shadow-lg mb-3">
                             {isComingSoon ? (
-                                <Calendar className="w-6 h-6 text-amber-500 animate-pulse" />
+                                <Calendar className="w-6 h-6 text-amber-500" />
                             ) : (
                                 <Lock className="w-6 h-6 text-slate-400" />
                             )}
@@ -71,8 +71,8 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                 )}
 
                 <div className="bg-slate-900/40 rounded-xl h-full p-6 md:p-8 relative overflow-hidden flex flex-col">
-                    {/* Background Glow */}
-                    <div className={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${gradient} rounded-full blur-[80px] opacity-20 group-hover:opacity-30 transition-opacity duration-500`}></div>
+                    {/* Background Glow - Reduced blur */}
+                    <div className={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${gradient} rounded-full blur-[40px] opacity-20 group-hover:opacity-30 transition-opacity duration-500`}></div>
 
                     {/* Icon */}
                     <div className={`absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-12`}>
@@ -84,7 +84,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                             <div className={`inline-flex items-center px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider border bg-white/5 border-white/10 text-slate-300 shadow-sm`}>
                                 Subject {code}
                             </div>
-                            <div className={`p-2 rounded-lg bg-gradient-to-br ${gradient} shadow-lg opacity-80 group-hover:opacity-100 transition-opacity`}>
+                            <div className={`p-2 rounded-lg bg-gradient-to-br ${gradient} shadow-md opacity-80 group-hover:opacity-100 transition-opacity`}>
                                 <Icon size={24} className="text-white" />
                             </div>
                         </div>
@@ -104,8 +104,8 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                                 </div>
                                 <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
                                     <div
-                                        className={`h-full bg-gradient-to-r ${gradient} transition-all duration-1000`}
-                                        style={{ width: `${progress}%` }}
+                                        className={`h-full bg-gradient-to-r ${gradient} transition-transform duration-1000 origin-left will-change-transform`}
+                                        style={{ transform: `scaleX(${progress / 100})` }}
                                     ></div>
                                 </div>
                             </div>
@@ -268,11 +268,11 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                 <div className="md:col-span-2 xl:col-span-3">
                     <div
                         onClick={() => !commsLocked && onChangeView(View.DASHBOARD)}
-                        className={`group relative glass-card rounded-2xl p-1 overflow-hidden transition-all duration-300 ${commsLocked ? 'opacity-80 cursor-not-allowed' : 'hover:scale-[1.005] cursor-pointer'}`}
+                        className={`group relative glass-card rounded-2xl p-1 overflow-hidden transition-all duration-300 will-change-transform ${commsLocked ? 'opacity-80 cursor-not-allowed' : 'hover:scale-[1.005] cursor-pointer'}`}
                     >
                         {commsLocked && (
-                            <div className="absolute inset-0 z-30 bg-slate-950/60 backdrop-blur-[4px] flex flex-col items-center justify-center transition-opacity hover:bg-slate-950/50">
-                                <div className="p-3 bg-slate-900/80 rounded-full border border-white/10 shadow-xl mb-2 backdrop-blur-md">
+                            <div className="absolute inset-0 z-30 bg-slate-950/80 flex flex-col items-center justify-center transition-opacity hover:bg-slate-950/70">
+                                <div className="p-3 bg-slate-900/80 rounded-full border border-white/10 shadow-lg mb-2">
                                     <Lock className="w-6 h-6 text-slate-400" />
                                 </div>
                                 <span className="text-white font-bold text-xs tracking-wider uppercase bg-black/40 px-3 py-1 rounded-full border border-white/10">Locked</span>
@@ -294,7 +294,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                             </div>
 
                             <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
-                                <div className="p-4 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-xl shadow-blue-500/20">
+                                <div className="p-4 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg shadow-blue-500/20">
                                     <Navigation size={40} className="text-white" />
                                 </div>
                                 <div className="flex-1 text-center md:text-left">

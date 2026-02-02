@@ -8,305 +8,313 @@ import AnimatedPageWrapper from './components/AnimatedPageWrapper';
 declare const __COMMIT_HASH__: string;
 
 // Components
-import AuthView from './components/AuthView';
-import PlatformDashboard from './components/PlatformDashboard';
-import UserProfile from './components/UserProfile';
-import AccountSettings from './components/AccountSettings';
-import PlatformProgress from './components/PlatformProgress';
-import FlashcardSystem from './components/FlashcardSystem';
-import SubscriptionManagement from './components/SubscriptionManagement';
-import AdminDashboard from './components/AdminDashboard';
+// Lazy Load Components
+const AuthView = React.lazy(() => import('./components/AuthView'));
+const PlatformDashboard = React.lazy(() => import('./components/PlatformDashboard'));
+const UserProfile = React.lazy(() => import('./components/UserProfile'));
+const AccountSettings = React.lazy(() => import('./components/AccountSettings'));
+const PlatformProgress = React.lazy(() => import('./components/PlatformProgress'));
+const FlashcardSystem = React.lazy(() => import('./components/FlashcardSystem'));
+const SubscriptionManagement = React.lazy(() => import('./components/SubscriptionManagement'));
+const AdminDashboard = React.lazy(() => import('./components/AdminDashboard'));
+const StudyGuide = React.lazy(() => import('./components/StudyGuide'));
+const ConceptLab = React.lazy(() => import('./components/ConceptLab'));
+const QuestionBank = React.lazy(() => import('./components/QuestionBank'));
+const ExamPlanner = React.lazy(() => import('./components/ExamPlanner').then(module => ({ default: module.ExamPlanner })));
+
+// Concepts
+const ForcesOfFlight = React.lazy(() => import('./components/concepts/ForcesOfFlight'));
+const HoldEntryVisualizer = React.lazy(() => import('./components/concepts/HoldEntryVisualizer'));
+const GreatCircleExplorer = React.lazy(() => import('./components/concepts/GreatCircleExplorer'));
+const TurnPerformance = React.lazy(() => import('./components/concepts/TurnPerformance'));
+
+// Critical Imports (Static)
 import ContentProtection from './components/ContentProtection';
-import StudyGuide from './components/StudyGuide';
-import ConceptLab from './components/ConceptLab';
-import ForcesOfFlight from './components/concepts/ForcesOfFlight';
-import HoldEntryVisualizer from './components/concepts/HoldEntryVisualizer';
-import GreatCircleExplorer from './components/concepts/GreatCircleExplorer';
-import TurnPerformance from './components/concepts/TurnPerformance';
 import NavigationBar from './components/NavigationBar';
 import SubjectSidebar from './components/SubjectSidebar';
 import { getSubjectConfig } from './data/sidebarNavigation';
-import StarfieldBackground from './components/StarfieldBackground';
-import GlowOrbs from './components/GlowOrbs';
+// import StarfieldBackground from './components/StarfieldBackground';
+// import GlowOrbs from './components/GlowOrbs';
 import LoadingScreen from './components/LoadingScreen';
-import QuestionBank from './components/QuestionBank';
-import { ExamPlanner } from './components/ExamPlanner';
 
 // Imports for Subjects...
-import AirLawDashboard from './components/AirLawDashboard';
-import AviationOrganisations from './components/AviationOrganisations';
-import InternationalLaw from './components/InternationalLaw';
-import LiabilityAndRights from './components/LiabilityAndRights';
-import AnnexList from './components/AnnexList';
-import PersonnelLicensing from './components/PersonnelLicensing';
-import AirworthinessAndOps from './components/AirworthinessAndOps';
-import AircraftRegistration from './components/AircraftRegistration';
-import DocumentsOnboard from './components/DocumentsOnboard';
-import RulesOfTheAirDetails from './components/RulesOfTheAirDetails';
-import CockpitToggle from './components/CockpitToggle';
-import CruisingLevelTool from './components/CruisingLevelTool';
-import InterceptionProcedures from './components/InterceptionProcedures';
-import LightGunSignals from './components/LightGunSignals';
-import AirspaceLayers from './components/AirspaceLayers';
-import IFRVFRExplorer from './components/IFRVFRExplorer';
-import InstrumentApproach from './components/InstrumentApproach';
-import PansOpsProcedures from './components/PansOpsProcedures';
-import HoldingPatternEntry from './components/HoldingPatternEntry';
-import AltimeterVisualizer from './components/AltimeterVisualizer';
-import AerodromeReferenceCode from './components/AerodromeReferenceCode';
-import SurfaceContamination from './components/SurfaceContamination';
-import AerodromeLightingSummary from './components/AerodromeLightingSummary';
-import AerodromeVisualizer from './components/AerodromeVisualizer';
-import SignsAndSignals from './components/SignsAndSignals';
-import GroundOperations from './components/GroundOperations';
-import RWSL from './components/RWSL';
-import TVasisVisualizer from './components/TVasisVisualizer';
-import DeclaredDistances from './components/DeclaredDistances';
-import OperationalInfo from './components/OperationalInfo';
-import SecuritySection from './components/SecuritySection';
-import AccidentInvestigation from './components/AccidentInvestigation';
-import SearchAndRescue from './components/SearchAndRescue';
-import EmergencyProcedures from './components/EmergencyProcedures';
+// Lazy Load Subject Dashboards
+const AirLawDashboard = React.lazy(() => import('./components/AirLawDashboard'));
+const AviationOrganisations = React.lazy(() => import('./components/AviationOrganisations'));
+const InternationalLaw = React.lazy(() => import('./components/InternationalLaw'));
+const LiabilityAndRights = React.lazy(() => import('./components/LiabilityAndRights'));
+const AnnexList = React.lazy(() => import('./components/AnnexList'));
+const PersonnelLicensing = React.lazy(() => import('./components/PersonnelLicensing'));
+const AirworthinessAndOps = React.lazy(() => import('./components/AirworthinessAndOps'));
+const AircraftRegistration = React.lazy(() => import('./components/AircraftRegistration'));
+const DocumentsOnboard = React.lazy(() => import('./components/DocumentsOnboard'));
+const RulesOfTheAirDetails = React.lazy(() => import('./components/RulesOfTheAirDetails'));
+const CockpitToggle = React.lazy(() => import('./components/CockpitToggle'));
+const CruisingLevelTool = React.lazy(() => import('./components/CruisingLevelTool'));
+const InterceptionProcedures = React.lazy(() => import('./components/InterceptionProcedures'));
+const LightGunSignals = React.lazy(() => import('./components/LightGunSignals'));
+const AirspaceLayers = React.lazy(() => import('./components/AirspaceLayers'));
+const IFRVFRExplorer = React.lazy(() => import('./components/IFRVFRExplorer'));
+const InstrumentApproach = React.lazy(() => import('./components/InstrumentApproach'));
+const PansOpsProcedures = React.lazy(() => import('./components/PansOpsProcedures'));
+const HoldingPatternEntry = React.lazy(() => import('./components/HoldingPatternEntry'));
+const AltimeterVisualizer = React.lazy(() => import('./components/AltimeterVisualizer'));
+const AerodromeReferenceCode = React.lazy(() => import('./components/AerodromeReferenceCode'));
+const SurfaceContamination = React.lazy(() => import('./components/SurfaceContamination'));
+const AerodromeLightingSummary = React.lazy(() => import('./components/AerodromeLightingSummary'));
+const AerodromeVisualizer = React.lazy(() => import('./components/AerodromeVisualizer'));
+const SignsAndSignals = React.lazy(() => import('./components/SignsAndSignals'));
+const GroundOperations = React.lazy(() => import('./components/GroundOperations'));
+const RWSL = React.lazy(() => import('./components/RWSL'));
+const TVasisVisualizer = React.lazy(() => import('./components/TVasisVisualizer'));
+const DeclaredDistances = React.lazy(() => import('./components/DeclaredDistances'));
+const OperationalInfo = React.lazy(() => import('./components/OperationalInfo'));
+const SecuritySection = React.lazy(() => import('./components/SecuritySection'));
+const AccidentInvestigation = React.lazy(() => import('./components/AccidentInvestigation'));
+const SearchAndRescue = React.lazy(() => import('./components/SearchAndRescue'));
+const EmergencyProcedures = React.lazy(() => import('./components/EmergencyProcedures'));
 
-import HydraulicSystemAnim from './components/AGK/HydraulicSystemAnim';
+const HydraulicSystemAnim = React.lazy(() => import('./components/AGK/HydraulicSystemAnim'));
 
-import AGKSystemsDashboard from './components/AGK/AGKSystemsDashboard';
-import JetEnginePrinciples from './components/AGK/JetEnginePrinciples';
-import ElectricsSystem from './components/AGK/ElectricsSystem';
-import PistonEnginePrinciples from './components/AGK/PistonEnginePrinciples';
-import AirLawFacilitation from './components/AirLawFacilitation';
-import AirLawParallelRunway from './components/AirLawParallelRunway';
-import AirLawAISDeepDive from './components/AirLawAISDeepDive';
-import AirLawConventions from './components/AirLawConventions';
-import AirLawRightOfWay from './components/AirLawRightOfWay';
-import InstrumentationDashboard from './components/Instrumentation/InstrumentationDashboard';
-import PitotStaticSystem from './components/Instrumentation/PitotStaticSystem';
-import InstAltimeterLab from './components/Instrumentation/AltimeterLab';
-import AirspeedIndicator from './components/Instrumentation/AirspeedIndicator';
-import VSILab from './components/Instrumentation/VSILab';
-import Machmeter from './components/Instrumentation/Machmeter';
-import GyroPrinciples from './components/Instrumentation/GyroPrinciples';
-import TurnIndicator from './components/Instrumentation/TurnIndicator';
-import DirectionalGyro from './components/Instrumentation/DirectionalGyro';
-import AttitudeIndicator from './components/Instrumentation/AttitudeIndicator';
-import MagneticCompass from './components/Instrumentation/MagneticCompass';
-import RadioAltimeter from './components/Instrumentation/RadioAltimeter';
-import NavigationSystems from './components/Instrumentation/NavigationSystems';
-import FMSEFIS from './components/Instrumentation/FMSEFIS';
-import GPWSSystem from './components/Instrumentation/GPWSSystem';
-import AutopilotSystem from './components/Instrumentation/AutopilotSystem';
-import AutolandSystem from './components/Instrumentation/AutolandSystem';
-import MassBalanceDashboard from './components/MassBal/MassBalanceDashboard';
-import WeighingProcedure from './components/MassBal/WeighingProcedure';
-import MassDefinitions from './components/MassBal/MassDefinitions';
-import CgCalculator from './components/MassBal/CgCalculator';
-import LoadingLimits from './components/MassBal/LoadingLimits';
-import MacVisualizer from './components/MassBal/MacVisualizer';
-import MetDashboard from './components/Meteorology/MetDashboard';
-import FuelDensityCalc from './components/MassBal/FuelDensityCalc';
-import CargoHandlingSim from './components/MassBal/CargoHandlingSim';
-import LoadSheetSim from './components/MassBal/LoadSheetSim';
-import MassBuildUpFlow from './components/MassBal/MassBuildUpFlow';
-import TrimSheetSim from './components/MassBal/TrimSheetSim';
-import CGShiftVisualizer from './components/MassBal/CGShiftVisualizer';
-import UnitConverter from './components/MassBal/UnitConverter';
-import MassEffects from './components/MassBal/MassEffects';
-import CGEffects from './components/MassBal/CGEffects';
-import StructuralLimits from './components/MassBal/StructuralLimits';
-import StallSpeedCalc from './components/MassBal/StallSpeedCalc';
-import FleetMasses from './components/MassBal/FleetMasses';
-import CargoTypes from './components/MassBal/CargoTypes';
-import StandardMasses from './components/MassBal/StandardMasses';
-import HumanPhysiology from './components/HPL/HumanPhysiology';
-import HumanFactorsIntro from './components/HPL/HumanFactorsIntro';
-import SleepAndRhythms from './components/HPL/SleepAndRhythms';
-import InformationProcessing from './components/HPL/InformationProcessing';
-import ErrorAndDecision from './components/HPL/ErrorAndDecision';
-import CommunicationAndStress from './components/HPL/CommunicationAndStress';
-import HumanBehaviour from './components/HPL/HumanBehaviour';
-import CockpitManagement from './components/HPL/CockpitManagement';
-import HPLVision from './components/HPL/HPLVision';
-import HPLHearing from './components/HPL/HPLHearing';
-import HPLHealth from './components/HPL/HPLHealth';
-import HPLTEM from './components/HPL/HPLTEM';
-import HPLShell from './components/HPL/HPLShell';
-import HPLSafetyCulture from './components/HPL/HPLSafetyCulture';
-import HPLAcceleration from './components/HPL/HPLAcceleration';
-import HPLToxicHazards from './components/HPL/HPLToxicHazards';
-import HPLAutomation from './components/HPL/HPLAutomation';
-import HPLVestibular from './components/HPL/HPLVestibular';
-import HPLMemory from './components/HPL/HPLMemory';
-import HPLRespiration from './components/HPL/HPLRespiration';
-import HPLCirculation from './components/HPL/HPLCirculation';
-import HPLNervousSystem from './components/HPL/HPLNervousSystem';
-import HPLMetabolism from './components/HPL/HPLMetabolism';
-import HPLErgonomics from './components/HPL/HPLErgonomics';
-import HPLBiases from './components/HPL/HPLBiases';
-import HPLCulture from './components/HPL/HPLCulture';
-import HPLRadiation from './components/HPL/HPLRadiation';
-import HPLThermal from './components/HPL/HPLThermal';
-import HPLSleepDisorders from './components/HPL/HPLSleepDisorders';
-import HPLPressure from './components/HPL/HPLPressure';
-import HPLMotionSickness from './components/HPL/HPLMotionSickness';
-import HPLPerception from './components/HPL/HPLPerception';
-import HPLWorkload from './components/HPL/HPLWorkload';
-import HPLCommunicationProcess from './components/HPL/HPLCommunicationProcess';
-import HPLCompetency from './components/HPL/HPLCompetency';
-import HPLCooperation from './components/HPL/HPLCooperation';
-import HPLHealthHygiene from './components/HPL/HPLHealthHygiene';
-import HPLTropicalDiseases from './components/HPL/HPLTropicalDiseases';
-import HPLLearning from './components/HPL/HPLLearning';
-import HPLPersonality from './components/HPL/HPLPersonality';
-import HPLAtmosphere from './components/HPL/HPLAtmosphere';
-import HPLIncidents from './components/HPL/HPLIncidents';
-import HPLIncapacitation from './components/HPL/HPLIncapacitation';
+const AGKSystemsDashboard = React.lazy(() => import('./components/AGK/AGKSystemsDashboard'));
+const JetEnginePrinciples = React.lazy(() => import('./components/AGK/JetEnginePrinciples'));
+const ElectricsSystem = React.lazy(() => import('./components/AGK/ElectricsSystem'));
+const PistonEnginePrinciples = React.lazy(() => import('./components/AGK/PistonEnginePrinciples'));
+const AirLawFacilitation = React.lazy(() => import('./components/AirLawFacilitation'));
+const AirLawParallelRunway = React.lazy(() => import('./components/AirLawParallelRunway'));
+const AirLawAISDeepDive = React.lazy(() => import('./components/AirLawAISDeepDive'));
+const AirLawConventions = React.lazy(() => import('./components/AirLawConventions'));
+const AirLawRightOfWay = React.lazy(() => import('./components/AirLawRightOfWay'));
+const InstrumentationDashboard = React.lazy(() => import('./components/Instrumentation/InstrumentationDashboard'));
+const PitotStaticSystem = React.lazy(() => import('./components/Instrumentation/PitotStaticSystem'));
+const InstAltimeterLab = React.lazy(() => import('./components/Instrumentation/AltimeterLab'));
+const AirspeedIndicator = React.lazy(() => import('./components/Instrumentation/AirspeedIndicator'));
+const VSILab = React.lazy(() => import('./components/Instrumentation/VSILab'));
+const Machmeter = React.lazy(() => import('./components/Instrumentation/Machmeter'));
+const GyroPrinciples = React.lazy(() => import('./components/Instrumentation/GyroPrinciples'));
+const TurnIndicator = React.lazy(() => import('./components/Instrumentation/TurnIndicator'));
+const DirectionalGyro = React.lazy(() => import('./components/Instrumentation/DirectionalGyro'));
+const AttitudeIndicator = React.lazy(() => import('./components/Instrumentation/AttitudeIndicator'));
+const MagneticCompass = React.lazy(() => import('./components/Instrumentation/MagneticCompass'));
+const RadioAltimeter = React.lazy(() => import('./components/Instrumentation/RadioAltimeter'));
+const NavigationSystems = React.lazy(() => import('./components/Instrumentation/NavigationSystems'));
+const FMSEFIS = React.lazy(() => import('./components/Instrumentation/FMSEFIS'));
+const GPWSSystem = React.lazy(() => import('./components/Instrumentation/GPWSSystem'));
+const AutopilotSystem = React.lazy(() => import('./components/Instrumentation/AutopilotSystem'));
+const AutolandSystem = React.lazy(() => import('./components/Instrumentation/AutolandSystem'));
+const MassBalanceDashboard = React.lazy(() => import('./components/MassBal/MassBalanceDashboard'));
+const WeighingProcedure = React.lazy(() => import('./components/MassBal/WeighingProcedure'));
+const MassDefinitions = React.lazy(() => import('./components/MassBal/MassDefinitions'));
+const CgCalculator = React.lazy(() => import('./components/MassBal/CgCalculator'));
+const LoadingLimits = React.lazy(() => import('./components/MassBal/LoadingLimits'));
+const MacVisualizer = React.lazy(() => import('./components/MassBal/MacVisualizer'));
+const MetDashboard = React.lazy(() => import('./components/Meteorology/MetDashboard'));
+const FuelDensityCalc = React.lazy(() => import('./components/MassBal/FuelDensityCalc'));
+const CargoHandlingSim = React.lazy(() => import('./components/MassBal/CargoHandlingSim'));
+const LoadSheetSim = React.lazy(() => import('./components/MassBal/LoadSheetSim'));
+const MassBuildUpFlow = React.lazy(() => import('./components/MassBal/MassBuildUpFlow'));
+const TrimSheetSim = React.lazy(() => import('./components/MassBal/TrimSheetSim'));
+const CGShiftVisualizer = React.lazy(() => import('./components/MassBal/CGShiftVisualizer'));
+const UnitConverter = React.lazy(() => import('./components/MassBal/UnitConverter'));
+const MassEffects = React.lazy(() => import('./components/MassBal/MassEffects'));
+const CGEffects = React.lazy(() => import('./components/MassBal/CGEffects'));
+const StructuralLimits = React.lazy(() => import('./components/MassBal/StructuralLimits'));
+const StallSpeedCalc = React.lazy(() => import('./components/MassBal/StallSpeedCalc'));
+const FleetMasses = React.lazy(() => import('./components/MassBal/FleetMasses'));
+const CargoTypes = React.lazy(() => import('./components/MassBal/CargoTypes'));
+const StandardMasses = React.lazy(() => import('./components/MassBal/StandardMasses'));
+const HumanPhysiology = React.lazy(() => import('./components/HPL/HumanPhysiology'));
+const HumanFactorsIntro = React.lazy(() => import('./components/HPL/HumanFactorsIntro'));
+const SleepAndRhythms = React.lazy(() => import('./components/HPL/SleepAndRhythms'));
+const InformationProcessing = React.lazy(() => import('./components/HPL/InformationProcessing'));
+const ErrorAndDecision = React.lazy(() => import('./components/HPL/ErrorAndDecision'));
+const CommunicationAndStress = React.lazy(() => import('./components/HPL/CommunicationAndStress'));
+const HumanBehaviour = React.lazy(() => import('./components/HPL/HumanBehaviour'));
+const CockpitManagement = React.lazy(() => import('./components/HPL/CockpitManagement'));
+const HPLVision = React.lazy(() => import('./components/HPL/HPLVision'));
+const HPLHearing = React.lazy(() => import('./components/HPL/HPLHearing'));
+const HPLHealth = React.lazy(() => import('./components/HPL/HPLHealth'));
+const HPLTEM = React.lazy(() => import('./components/HPL/HPLTEM'));
+const HPLShell = React.lazy(() => import('./components/HPL/HPLShell'));
+const HPLSafetyCulture = React.lazy(() => import('./components/HPL/HPLSafetyCulture'));
+const HPLAcceleration = React.lazy(() => import('./components/HPL/HPLAcceleration'));
+const HPLToxicHazards = React.lazy(() => import('./components/HPL/HPLToxicHazards'));
+const HPLAutomation = React.lazy(() => import('./components/HPL/HPLAutomation'));
+const HPLVestibular = React.lazy(() => import('./components/HPL/HPLVestibular'));
+const HPLMemory = React.lazy(() => import('./components/HPL/HPLMemory'));
+const HPLRespiration = React.lazy(() => import('./components/HPL/HPLRespiration'));
+const HPLCirculation = React.lazy(() => import('./components/HPL/HPLCirculation'));
+const HPLNervousSystem = React.lazy(() => import('./components/HPL/HPLNervousSystem'));
+const HPLMetabolism = React.lazy(() => import('./components/HPL/HPLMetabolism'));
+const HPLErgonomics = React.lazy(() => import('./components/HPL/HPLErgonomics'));
+const HPLBiases = React.lazy(() => import('./components/HPL/HPLBiases'));
+const HPLCulture = React.lazy(() => import('./components/HPL/HPLCulture'));
+const HPLRadiation = React.lazy(() => import('./components/HPL/HPLRadiation'));
+const HPLThermal = React.lazy(() => import('./components/HPL/HPLThermal'));
+const HPLSleepDisorders = React.lazy(() => import('./components/HPL/HPLSleepDisorders'));
+const HPLPressure = React.lazy(() => import('./components/HPL/HPLPressure'));
+const HPLMotionSickness = React.lazy(() => import('./components/HPL/HPLMotionSickness'));
+const HPLPerception = React.lazy(() => import('./components/HPL/HPLPerception'));
+const HPLWorkload = React.lazy(() => import('./components/HPL/HPLWorkload'));
+const HPLCommunicationProcess = React.lazy(() => import('./components/HPL/HPLCommunicationProcess'));
+const HPLCompetency = React.lazy(() => import('./components/HPL/HPLCompetency'));
+const HPLCooperation = React.lazy(() => import('./components/HPL/HPLCooperation'));
+const HPLHealthHygiene = React.lazy(() => import('./components/HPL/HPLHealthHygiene'));
+const HPLTropicalDiseases = React.lazy(() => import('./components/HPL/HPLTropicalDiseases'));
+const HPLLearning = React.lazy(() => import('./components/HPL/HPLLearning'));
+const HPLPersonality = React.lazy(() => import('./components/HPL/HPLPersonality'));
+const HPLAtmosphere = React.lazy(() => import('./components/HPL/HPLAtmosphere'));
+const HPLIncidents = React.lazy(() => import('./components/HPL/HPLIncidents'));
+const HPLIncapacitation = React.lazy(() => import('./components/HPL/HPLIncapacitation'));
 
-import AtmosphereLayers from './components/Meteorology/AtmosphereLayers';
-import AtmosphereMaster from './components/Meteorology/AtmosphereMaster';
-import Altimetry from './components/Meteorology/Altimetry';
-import Precipitation from './components/Meteorology/Precipitation';
-import HumidityLab from './components/Meteorology/HumidityLab';
-import WindSystems from './components/Meteorology/WindSystems';
-import GeneralCirculation from './components/Meteorology/GeneralCirculation';
-import FrontalSystems from './components/Meteorology/FrontalSystems';
-import OneInSixty from './components/Nav/OneInSixty';
-import PressureSystems from './components/Meteorology/PressureSystems';
-import Density from './components/Meteorology/Density';
-import VisibilityFog from './components/Meteorology/VisibilityFog';
-import Icing from './components/Meteorology/Icing';
-import Thunderstorms from './components/Meteorology/Thunderstorms';
-import AirMasses from './components/Meteorology/AirMasses';
-import Turbulence from './components/Meteorology/Turbulence';
-import JetStreams from './components/Meteorology/JetStreams';
-import Climatology from './components/Meteorology/Climatology';
-import LocalWinds from './components/Meteorology/LocalWinds';
-import DepressionsAnticyclones from './components/Meteorology/DepressionsAnticyclones';
-import CloudTypes from './components/Meteorology/CloudTypes';
-import MetarTafDecoder from './components/Meteorology/MetarTafDecoder';
-import WeatherCharts from './components/Meteorology/WeatherCharts';
-import TropicalStorms from './components/Meteorology/TropicalStorms';
-import SpecialHazards from './components/Meteorology/SpecialHazards';
-import SatelliteRadar from './components/Meteorology/SatelliteRadar';
+const AtmosphereLayers = React.lazy(() => import('./components/Meteorology/AtmosphereLayers'));
+const AtmosphereMaster = React.lazy(() => import('./components/Meteorology/AtmosphereMaster'));
+const Altimetry = React.lazy(() => import('./components/Meteorology/Altimetry'));
+const Precipitation = React.lazy(() => import('./components/Meteorology/Precipitation'));
+const HumidityLab = React.lazy(() => import('./components/Meteorology/HumidityLab'));
+const WindSystems = React.lazy(() => import('./components/Meteorology/WindSystems'));
+const GeneralCirculation = React.lazy(() => import('./components/Meteorology/GeneralCirculation'));
+const FrontalSystems = React.lazy(() => import('./components/Meteorology/FrontalSystems'));
+const OneInSixty = React.lazy(() => import('./components/Nav/OneInSixty'));
+const PressureSystems = React.lazy(() => import('./components/Meteorology/PressureSystems'));
+const Density = React.lazy(() => import('./components/Meteorology/Density'));
+const VisibilityFog = React.lazy(() => import('./components/Meteorology/VisibilityFog'));
+const Icing = React.lazy(() => import('./components/Meteorology/Icing'));
+const Thunderstorms = React.lazy(() => import('./components/Meteorology/Thunderstorms'));
+const AirMasses = React.lazy(() => import('./components/Meteorology/AirMasses'));
+const Turbulence = React.lazy(() => import('./components/Meteorology/Turbulence'));
+const JetStreams = React.lazy(() => import('./components/Meteorology/JetStreams'));
+const Climatology = React.lazy(() => import('./components/Meteorology/Climatology'));
+const LocalWinds = React.lazy(() => import('./components/Meteorology/LocalWinds'));
+const DepressionsAnticyclones = React.lazy(() => import('./components/Meteorology/DepressionsAnticyclones'));
+const CloudTypes = React.lazy(() => import('./components/Meteorology/CloudTypes'));
+const MetarTafDecoder = React.lazy(() => import('./components/Meteorology/MetarTafDecoder'));
+const WeatherCharts = React.lazy(() => import('./components/Meteorology/WeatherCharts'));
+const TropicalStorms = React.lazy(() => import('./components/Meteorology/TropicalStorms'));
+const SpecialHazards = React.lazy(() => import('./components/Meteorology/SpecialHazards'));
+const SatelliteRadar = React.lazy(() => import('./components/Meteorology/SatelliteRadar'));
+const OpticalPhenomena = React.lazy(() => import('./components/Meteorology/OpticalPhenomena'));
+const StationModels = React.lazy(() => import('./components/Meteorology/StationModels'));
 
-import TimeZoner from './components/TimeZoner';
-import GNSSTheory from './components/RadioNav/GNSSTheory';
-import WavePropVisualizer from './components/RadioNav/WavePropVisualizer';
-import SpectrumExplorer from './components/RadioNav/SpectrumExplorer';
-import IonosphereSim from './components/RadioNav/IonosphereSim';
-import AntennaTheory from './components/RadioNav/AntennaTheory';
-import Modulation from './components/RadioNav/Modulation';
-import VDF from './components/RadioNav/VDF';
-import MLS from './components/RadioNav/MLS';
-import VORSystem from './components/RadioNav/VORSystem';
-import ADFSimulator from './components/RadioNav/ADFSimulator';
-import NDBADFSystem from './components/RadioNav/NDBADFSystem';
-import DMESystem from './components/RadioNav/DMESystem';
-import ILSSystem from './components/RadioNav/ILSSystem';
-import RadarTheory from './components/RadioNav/RadarTheory';
-import SSRTransponder from './components/RadioNav/SSRTransponder';
-import SbasAbas from './components/RadioNav/SbasAbas';
-import RnavPbn from './components/RadioNav/RnavPbn';
-import FMSTrainer from './components/RadioNav/FMSTrainer';
-import LiftDrag from './components/PoF/LiftDrag';
-import AtmosphereProp from './components/PoF/AtmosphereProp';
-import AirflowBasics from './components/PoF/AirflowBasics';
-import AerofoilGeom from './components/PoF/AerofoilGeom';
-import WingGeom from './components/PoF/WingGeom';
-import LiftDragCoeff from './components/PoF/LiftDragCoeff';
-import ThreeDAirflow from './components/PoF/ThreeDAirflow';
-import TotalDrag from './components/PoF/TotalDrag';
-import GroundEffect from './components/PoF/GroundEffect';
-import HighLiftDevices from './components/PoF/HighLiftDevices';
-import RadioFundamentals from './components/RadioNav/RadioFundamentals';
-import WeatherRadar from './components/RadioNav/WeatherRadar';
+const TimeZoner = React.lazy(() => import('./components/TimeZoner'));
+const GNSSTheory = React.lazy(() => import('./components/RadioNav/GNSSTheory'));
+const WavePropVisualizer = React.lazy(() => import('./components/RadioNav/WavePropVisualizer'));
+const SpectrumExplorer = React.lazy(() => import('./components/RadioNav/SpectrumExplorer'));
+const IonosphereSim = React.lazy(() => import('./components/RadioNav/IonosphereSim'));
+const AntennaTheory = React.lazy(() => import('./components/RadioNav/AntennaTheory'));
+const Modulation = React.lazy(() => import('./components/RadioNav/Modulation'));
+const VDF = React.lazy(() => import('./components/RadioNav/VDF'));
+const MLS = React.lazy(() => import('./components/RadioNav/MLS'));
+const VORSystem = React.lazy(() => import('./components/RadioNav/VORSystem'));
+const ADFSimulator = React.lazy(() => import('./components/RadioNav/ADFSimulator'));
+const NDBADFSystem = React.lazy(() => import('./components/RadioNav/NDBADFSystem'));
+const DMESystem = React.lazy(() => import('./components/RadioNav/DMESystem'));
+const ILSSystem = React.lazy(() => import('./components/RadioNav/ILSSystem'));
+const RadarTheory = React.lazy(() => import('./components/RadioNav/RadarTheory'));
+const SSRTransponder = React.lazy(() => import('./components/RadioNav/SSRTransponder'));
+const SbasAbas = React.lazy(() => import('./components/RadioNav/SbasAbas'));
+const RnavPbn = React.lazy(() => import('./components/RadioNav/RnavPbn'));
+const FMSTrainer = React.lazy(() => import('./components/RadioNav/FMSTrainer'));
+const LiftDrag = React.lazy(() => import('./components/PoF/LiftDrag'));
+const AtmosphereProp = React.lazy(() => import('./components/PoF/AtmosphereProp'));
+const AirflowBasics = React.lazy(() => import('./components/PoF/AirflowBasics'));
+const AerofoilGeom = React.lazy(() => import('./components/PoF/AerofoilGeom'));
+const WingGeom = React.lazy(() => import('./components/PoF/WingGeom'));
+const LiftDragCoeff = React.lazy(() => import('./components/PoF/LiftDragCoeff'));
+const ThreeDAirflow = React.lazy(() => import('./components/PoF/ThreeDAirflow'));
+const TotalDrag = React.lazy(() => import('./components/PoF/TotalDrag'));
+const GroundEffect = React.lazy(() => import('./components/PoF/GroundEffect'));
+const HighLiftDevices = React.lazy(() => import('./components/PoF/HighLiftDevices'));
+const RadioFundamentals = React.lazy(() => import('./components/RadioNav/RadioFundamentals'));
+const WeatherRadar = React.lazy(() => import('./components/RadioNav/WeatherRadar'));
 
-import CommsDashboard from './components/Comms/CommsDashboard';
-import GeneralTheory from './components/GeneralTheory';
-import PropagationTheory from './components/Comms/PropagationTheory';
-import TechPhysics from './components/TechPhysics';
-import FrequencyExplorer from './components/FrequencyExplorer';
-import SuffixMatch from './components/SuffixMatch';
-import QCodeFlashcards from './components/QCodeFlashcards';
-import QCodeCompass from './components/QCodeCompass';
-import WordMatch from './components/WordMatch';
-import PhoneticTrainer from './components/PhoneticTrainer';
-import AltSpeak from './components/AltSpeak';
-import TimeReport from './components/TimeReport';
-import ReadabilitySim from './components/Comms/ReadabilitySim';
-import FlightRules from './components/FlightRules';
-import PrioritySorter from './components/Comms/PrioritySorter';
-import CallsignTrainer from './components/Comms/CallsignTrainer';
-import TransmissionDrill from './components/Comms/TransmissionDrill';
-import CommsDefinitions from './components/Comms/CommsDefinitions';
-import QCodeCards from './components/Comms/QCodeCards';
-import UrgencyTrainer from './components/Comms/UrgencyTrainer';
-import LevelChanges from './components/Comms/LevelChanges';
-import AbbreviationGame from './components/Comms/AbbreviationGame';
-import CPDLCSim from './components/Comms/CPDLCSim';
-import ReadbackChallenge from './components/ReadbackChallenge';
-import MetarDecoder from './components/MetarDecoder';
-import VolmetSimulator from './components/Comms/VolmetSimulator';
-import AirepSpec from './components/AirepSpec';
-import GenNavDashboard from './components/GenNav/GenNavDashboard';
-import EarthGeometry from './components/GenNav/EarthGeometry';
-import WindTriangle from './components/GenNav/WindTriangle';
-import SolarCalc from './components/GenNav/SolarCalc';
-import MapProjections from './components/GenNav/MapProjections';
-import PolarGrid from './components/GenNav/PolarGrid';
-import NavDataLink from './components/NavDataLink';
-import EmergencyBuilder from './components/EmergencyBuilder';
-import EmergencyOps from './components/EmergencyOps';
-import CommFailure from './components/CommFailure';
-import BlindTrans from './components/BlindTrans';
-import TransponderDojo from './components/TransponderDojo';
-import VfrFlightSim from './components/Comms/VfrFlightSim';
-import PhraseologyExplorer from './components/PhraseologyExplorer';
-import PositionReport from './components/PositionReport';
-import TrafficClock from './components/TrafficClock';
-import ScenarioRoleplay from './components/ScenarioRoleplay';
-import AIQuiz from './components/AIQuiz';
-import LightGunGame from './components/LightGunGame';
-import MorseMaster from './components/MorseMaster';
-import BandSpectrum from './components/BandSpectrum';
-import RadarVectors from './components/Comms/RadarVectors';
-import TransferDrill from './components/Comms/TransferDrill';
-import MetarBuilder from './components/Comms/MetarBuilder';
-import VHFCalculator from './components/VHFCalculator';
-import AdvancedPhraseology from './components/AdvancedPhraseology';
-import RvrSimulator from './components/RvrSimulator';
-import RvrDecoder from './components/RvrDecoder';
-import CloudMaster from './components/CloudMaster';
-import FlirtTrainer from './components/FlirtTrainer';
-import PapiVis from './components/PapiVis';
-import MorseIdent from './components/Comms/MorseIdent';
-import WeatherMinima from './components/WeatherMinima';
-import HoldEntryCalc from './components/HoldEntryCalc';
-import AltimeterLab from './components/AltimeterLab';
-import RunwayLighting from './components/RunwayLighting';
-import SurfaceLighting from './components/SurfaceLighting';
-import TaxiwayLighting from './components/TaxiwayLighting';
-import RunwayQuiz from './components/RunwayQuiz';
-import SnowtamDecoder from './components/SnowtamDecoder';
-import SigmetDecoder from './components/Comms/SigmetDecoder';
-import WakeTurbulence from './components/WakeTurbulence';
-import ServiceCodes from './components/ServiceCodes';
-import InterceptTrainer from './components/InterceptTrainer';
-import LongRangeOps from './components/LongRangeOps';
-import SpecialOpsDashboard from './components/SpecialOpsDashboard';
-import FTLCalculator from './components/FTLCalculator';
-import AllWeatherOps from './components/AllWeatherOps';
-import OpsGeneral from './components/OpsGeneral';
+const CommsDashboard = React.lazy(() => import('./components/Comms/CommsDashboard'));
+const GeneralTheory = React.lazy(() => import('./components/GeneralTheory'));
+const PropagationTheory = React.lazy(() => import('./components/Comms/PropagationTheory'));
+const TechPhysics = React.lazy(() => import('./components/TechPhysics'));
+const FrequencyExplorer = React.lazy(() => import('./components/FrequencyExplorer'));
+const SuffixMatch = React.lazy(() => import('./components/SuffixMatch'));
+const QCodeFlashcards = React.lazy(() => import('./components/QCodeFlashcards'));
+const QCodeCompass = React.lazy(() => import('./components/QCodeCompass'));
+const WordMatch = React.lazy(() => import('./components/WordMatch'));
+const PhoneticTrainer = React.lazy(() => import('./components/PhoneticTrainer'));
+const AltSpeak = React.lazy(() => import('./components/AltSpeak'));
+const TimeReport = React.lazy(() => import('./components/TimeReport'));
+const ReadabilitySim = React.lazy(() => import('./components/Comms/ReadabilitySim'));
+const FlightRules = React.lazy(() => import('./components/FlightRules'));
+const PrioritySorter = React.lazy(() => import('./components/Comms/PrioritySorter'));
+const CallsignTrainer = React.lazy(() => import('./components/Comms/CallsignTrainer'));
+const TransmissionDrill = React.lazy(() => import('./components/Comms/TransmissionDrill'));
+const CommsDefinitions = React.lazy(() => import('./components/Comms/CommsDefinitions'));
+const QCodeCards = React.lazy(() => import('./components/Comms/QCodeCards'));
+const UrgencyTrainer = React.lazy(() => import('./components/Comms/UrgencyTrainer'));
+const LevelChanges = React.lazy(() => import('./components/Comms/LevelChanges'));
+const AbbreviationGame = React.lazy(() => import('./components/Comms/AbbreviationGame'));
+const CPDLCSim = React.lazy(() => import('./components/Comms/CPDLCSim'));
+const ReadbackChallenge = React.lazy(() => import('./components/ReadbackChallenge'));
+const MetarDecoder = React.lazy(() => import('./components/MetarDecoder'));
+const VolmetSimulator = React.lazy(() => import('./components/Comms/VolmetSimulator'));
+const AirepSpec = React.lazy(() => import('./components/AirepSpec'));
+const GenNavDashboard = React.lazy(() => import('./components/GenNav/GenNavDashboard'));
+const EarthGeometry = React.lazy(() => import('./components/GenNav/EarthGeometry'));
+const WindTriangle = React.lazy(() => import('./components/GenNav/WindTriangle'));
+const SolarCalc = React.lazy(() => import('./components/GenNav/SolarCalc'));
+const MapProjections = React.lazy(() => import('./components/GenNav/MapProjections'));
+const PolarGrid = React.lazy(() => import('./components/GenNav/PolarGrid'));
+const NavDataLink = React.lazy(() => import('./components/NavDataLink'));
+const EmergencyBuilder = React.lazy(() => import('./components/EmergencyBuilder'));
+const EmergencyOps = React.lazy(() => import('./components/EmergencyOps'));
+const CommFailure = React.lazy(() => import('./components/CommFailure'));
+const BlindTrans = React.lazy(() => import('./components/BlindTrans'));
+const TransponderDojo = React.lazy(() => import('./components/TransponderDojo'));
+const VfrFlightSim = React.lazy(() => import('./components/Comms/VfrFlightSim'));
+const PhraseologyExplorer = React.lazy(() => import('./components/PhraseologyExplorer'));
+const PositionReport = React.lazy(() => import('./components/PositionReport'));
+const TrafficClock = React.lazy(() => import('./components/TrafficClock'));
+const ScenarioRoleplay = React.lazy(() => import('./components/ScenarioRoleplay'));
+const AIQuiz = React.lazy(() => import('./components/AIQuiz'));
+const LightGunGame = React.lazy(() => import('./components/LightGunGame'));
+const MorseMaster = React.lazy(() => import('./components/MorseMaster'));
+const BandSpectrum = React.lazy(() => import('./components/BandSpectrum'));
+const RadarVectors = React.lazy(() => import('./components/Comms/RadarVectors'));
+const TransferDrill = React.lazy(() => import('./components/Comms/TransferDrill'));
+const MetarBuilder = React.lazy(() => import('./components/Comms/MetarBuilder'));
+const VHFCalculator = React.lazy(() => import('./components/VHFCalculator'));
+const AdvancedPhraseology = React.lazy(() => import('./components/AdvancedPhraseology'));
+const RvrSimulator = React.lazy(() => import('./components/RvrSimulator'));
+const RvrDecoder = React.lazy(() => import('./components/RvrDecoder'));
+const CloudMaster = React.lazy(() => import('./components/CloudMaster'));
+const FlirtTrainer = React.lazy(() => import('./components/FlirtTrainer'));
+const PapiVis = React.lazy(() => import('./components/PapiVis'));
+const MorseIdent = React.lazy(() => import('./components/Comms/MorseIdent'));
+const WeatherMinima = React.lazy(() => import('./components/WeatherMinima'));
+const HoldEntryCalc = React.lazy(() => import('./components/HoldEntryCalc'));
+const AltimeterLab = React.lazy(() => import('./components/AltimeterLab'));
+const RunwayLighting = React.lazy(() => import('./components/RunwayLighting'));
+const SurfaceLighting = React.lazy(() => import('./components/SurfaceLighting'));
+const TaxiwayLighting = React.lazy(() => import('./components/TaxiwayLighting'));
+const RunwayQuiz = React.lazy(() => import('./components/RunwayQuiz'));
+const SnowtamDecoder = React.lazy(() => import('./components/SnowtamDecoder'));
+const SigmetDecoder = React.lazy(() => import('./components/Comms/SigmetDecoder'));
+const WakeTurbulence = React.lazy(() => import('./components/WakeTurbulence'));
+const ServiceCodes = React.lazy(() => import('./components/ServiceCodes'));
+const InterceptTrainer = React.lazy(() => import('./components/InterceptTrainer'));
+const LongRangeOps = React.lazy(() => import('./components/LongRangeOps'));
+const SpecialOpsDashboard = React.lazy(() => import('./components/SpecialOpsDashboard'));
+const FTLCalculator = React.lazy(() => import('./components/FTLCalculator'));
+const AllWeatherOps = React.lazy(() => import('./components/AllWeatherOps'));
+const OpsGeneral = React.lazy(() => import('./components/OpsGeneral'));
 
-import GenericSubjectDashboard from './components/GenericSubjectDashboard';
-import KSADashboard from './components/KSA/KSADashboard';
-import KSACoreCompetencies from './components/KSA/KSACoreCompetencies';
-import TEMAdvanced from './components/KSA/TEMAdvanced';
-import MentalMathsLab from './components/KSA/MentalMathsLab';
-import FORDECDecision from './components/KSA/FORDECDecision';
-import UPRTConcepts from './components/KSA/UPRTConcepts';
-import CRMScenarios from './components/KSA/CRMScenarios';
-import ResilienceTraining from './components/KSA/ResilienceTraining';
-import ProcedureApplication from './components/KSA/ProcedureApplication';
+const GenericSubjectDashboard = React.lazy(() => import('./components/GenericSubjectDashboard'));
+const KSADashboard = React.lazy(() => import('./components/KSA/KSADashboard'));
+const KSACoreCompetencies = React.lazy(() => import('./components/KSA/KSACoreCompetencies'));
+const TEMAdvanced = React.lazy(() => import('./components/KSA/TEMAdvanced'));
+const MentalMathsLab = React.lazy(() => import('./components/KSA/MentalMathsLab'));
+const FORDECDecision = React.lazy(() => import('./components/KSA/FORDECDecision'));
+const UPRTConcepts = React.lazy(() => import('./components/KSA/UPRTConcepts'));
+const CRMScenarios = React.lazy(() => import('./components/KSA/CRMScenarios'));
+const ResilienceTraining = React.lazy(() => import('./components/KSA/ResilienceTraining'));
+const ProcedureApplication = React.lazy(() => import('./components/KSA/ProcedureApplication'));
 
 // Removed duplicate imports of View, User, AuthStatus as they are already imported at the top.
 // Removed duplicate imports of View, User, AuthStatus as they are already imported at the top.
@@ -656,23 +664,25 @@ const App: React.FC = () => {
 
     if (!user) {
         return (
-            <AuthView
-                onAuthChange={setUser}
-                initialView={authInitialView}
-                onDemoLogin={() => {
-                    setUser({
-                        id: 'demo-user',
-                        email: 'demo@atplvector.com',
-                        fullName: 'Captain Demo',
-                        status: AuthStatus.ACTIVE,
-                        studySeconds: 3600,
-                        subscriptionTier: 'PRO_MONTHLY',
-                        allowedSubjects: ['ALL'],
-                        isAdmin: false,
-                        isApproved: true
-                    });
-                }}
-            />
+            <React.Suspense fallback={<LoadingScreen />}>
+                <AuthView
+                    onAuthChange={setUser}
+                    initialView={authInitialView}
+                    onDemoLogin={() => {
+                        setUser({
+                            id: 'demo-user',
+                            email: 'demo@atplvector.com',
+                            fullName: 'Captain Demo',
+                            status: AuthStatus.ACTIVE,
+                            studySeconds: 3600,
+                            subscriptionTier: 'PRO_MONTHLY',
+                            allowedSubjects: ['ALL'],
+                            isAdmin: false,
+                            isApproved: true
+                        });
+                    }}
+                />
+            </React.Suspense>
         );
     }
 
@@ -894,12 +904,12 @@ const App: React.FC = () => {
                     navigateTo(view);
                     setMainMenuOpen(false);
                 }}
-                className={`w-full flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-300 group ${active
-                    ? 'bg-blue-600 text-white shadow-xl shadow-blue-500/20'
+                className={`w-full flex items-center gap-4 px-4 py-3 rounded-2xl group ${active
+                    ? 'bg-blue-600 text-white'
                     : 'text-slate-400 hover:text-white hover:bg-white/5'
                     }`}
             >
-                <div className={`p-2 rounded-xl transition-colors ${active ? 'bg-white/20' : `${bgColor} ${color} group-hover:bg-white/10`}`}>
+                <div className={`p-2 rounded-xl ${active ? 'bg-white/20' : `${bgColor} ${color} group-hover:bg-white/10`}`}>
                     <Icon size={18} />
                 </div>
                 <span className={`text-sm font-bold tracking-tight ${active ? 'text-white' : 'text-slate-300 group-hover:text-white'}`}>{label}</span>
@@ -921,12 +931,13 @@ const App: React.FC = () => {
             <div className="min-h-screen font-sans text-slate-100 selection:bg-blue-500/30 selection:text-white bg-slate-950">
 
                 {/* Immersive Background Effects */}
-                <StarfieldBackground />
-                <GlowOrbs />
+                {/* <StarfieldBackground /> - Disabled for performance */}
+                {/* <GlowOrbs /> - Disabled for performance */}
 
                 {/* Modern Floating Navbar */}
                 <div className="fixed top-0 w-full z-50 px-4 py-4 pointer-events-none">
-                    <nav className="pointer-events-auto max-w-7xl mx-auto bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
+                    {/* OPTIMIZATION: Removed backdrop-blur-xl for performance */}
+                    <nav className="pointer-events-auto max-w-7xl mx-auto bg-slate-900 border border-white/10 rounded-2xl shadow-2xl">
                         <div className="px-6 h-16 flex items-center justify-between">
 
                             {/* Logo */}
@@ -999,7 +1010,8 @@ const App: React.FC = () => {
                 {
                     subjectConfig && sidebarOpen && (
                         <div className="fixed inset-0 z-40 lg:hidden">
-                            <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setSidebarOpen(false)}></div>
+                            {/* OPTIMIZATION: Removed backdrop-blur-sm */}
+                            <div className="absolute inset-0 bg-black/80" onClick={() => setSidebarOpen(false)}></div>
                             <div className="absolute top-0 left-0 bottom-0 w-72 bg-slate-900 border-r border-slate-700 pt-24 pb-safe animate-in slide-in-from-left">
                                 <SubjectSidebar
                                     config={subjectConfig}
@@ -1027,540 +1039,545 @@ const App: React.FC = () => {
                         )}
 
                         <div className="flex-1 min-w-0">
-                            <AnimatePresence mode="wait">
-                                <AnimatedPageWrapper key={currentView}>
-                                    {/* --- PLATFORM LEVEL --- */}
-                                    {currentView === View.PLATFORM_DASHBOARD && (
-                                        <div>
-                                            <PlatformDashboard onChangeView={navigateTo} studyTime={studyTime} user={user} />
-                                            <div className="px-2 md:px-0 mt-12 mb-8">
-                                                <PlatformProgress />
+                            <React.Suspense fallback={<div className="flex items-center justify-center h-96"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div></div>}>
+                                <AnimatePresence mode="wait">
+                                    <AnimatedPageWrapper key={currentView}>
+                                        {/* --- PLATFORM LEVEL --- */}
+                                        {currentView === View.PLATFORM_DASHBOARD && (
+                                            <div>
+                                                <PlatformDashboard onChangeView={navigateTo} studyTime={studyTime} user={user} />
+                                                <div className="px-2 md:px-0 mt-12 mb-8">
+                                                    <PlatformProgress />
+                                                </div>
                                             </div>
-                                        </div>
-                                    )}
-                                    {currentView === View.PROFILE && (
-                                        <UserProfile
-                                            user={user}
-                                            studyTime={studyTime}
-                                            onLogout={handleLogout}
-                                            onUpdateUser={handleUserUpdate}
-                                            onNavigate={navigateTo}
-                                        />
-                                    )}
-                                    {currentView === View.ACCOUNT_SETTINGS && (
-                                        <AccountSettings user={user} onBack={() => setCurrentView(View.PROFILE)} />
-                                    )}
+                                        )}
+                                        {currentView === View.PROFILE && (
+                                            <UserProfile
+                                                user={user}
+                                                studyTime={studyTime}
+                                                onLogout={handleLogout}
+                                                onUpdateUser={handleUserUpdate}
+                                                onNavigate={navigateTo}
+                                            />
+                                        )}
+                                        {currentView === View.ACCOUNT_SETTINGS && (
+                                            <AccountSettings user={user} onBack={() => setCurrentView(View.PROFILE)} />
+                                        )}
 
-                                    {currentView === View.FLASHCARDS && <FlashcardSystem />}
-                                    {currentView === View.SUBSCRIPTION_MANAGEMENT && (
-                                        <SubscriptionManagement
-                                            user={user}
-                                            onUpdateUser={handleUserUpdate}
-                                            onBack={() => setCurrentView(View.PLATFORM_DASHBOARD)}
-                                        />
-                                    )}
-                                    {currentView === View.ADMIN_DASHBOARD && user.isAdmin && (
-                                        <AdminDashboard currentUser={user} onBack={() => setCurrentView(View.PLATFORM_DASHBOARD)} />
-                                    )}
-                                    {currentView === View.STUDY_GUIDE && (
-                                        <StudyGuide
-                                            onBack={() => setCurrentView(View.PLATFORM_DASHBOARD)}
-                                            onChangeView={navigateTo}
-                                        />
-                                    )}
-                                    {currentView === View.QUESTION_BANK && (
-                                        <QuestionBank
-                                            onChangeView={navigateTo}
-                                        />
-                                    )}
-                                    {currentView === View.EXAM_PLANNER && <ExamPlanner currentUser={user} />}
-                                    {currentView === View.PROGRESS_DASHBOARD && (
-                                        <ProgressDashboard
-                                            onChangeView={navigateTo}
-                                            onOpenSyllabus={handleOpenSyllabus}
-                                        />
-                                    )}
+                                        {currentView === View.FLASHCARDS && <FlashcardSystem />}
+                                        {currentView === View.SUBSCRIPTION_MANAGEMENT && (
+                                            <SubscriptionManagement
+                                                user={user}
+                                                onUpdateUser={handleUserUpdate}
+                                                onBack={() => setCurrentView(View.PLATFORM_DASHBOARD)}
+                                            />
+                                        )}
+                                        {currentView === View.ADMIN_DASHBOARD && user.isAdmin && (
+                                            <AdminDashboard currentUser={user} onBack={() => setCurrentView(View.PLATFORM_DASHBOARD)} />
+                                        )}
+                                        {currentView === View.STUDY_GUIDE && (
+                                            <StudyGuide
+                                                onBack={() => setCurrentView(View.PLATFORM_DASHBOARD)}
+                                                onChangeView={navigateTo}
+                                            />
+                                        )}
+                                        {currentView === View.QUESTION_BANK && (
+                                            <QuestionBank
+                                                onChangeView={navigateTo}
+                                            />
+                                        )}
+                                        {currentView === View.EXAM_PLANNER && <ExamPlanner currentUser={user} />}
+                                        {currentView === View.PROGRESS_DASHBOARD && (
+                                            <ProgressDashboard
+                                                onChangeView={navigateTo}
+                                                onOpenSyllabus={handleOpenSyllabus}
+                                            />
+                                        )}
 
-                                    {/* --- SUBJECT MODULES --- */}
-                                    {/* Air Law */}
-                                    {currentView === View.AIR_LAW_HOME && <AirLawDashboard onChangeView={navigateTo} isLocked={!isSubjectAllowed('010')} onOpenSyllabus={handleOpenSyllabus} />}
-                                    {currentView === View.AIR_LAW_INT_LAW && <InternationalLaw />}
-                                    {currentView === View.AIR_LAW_ORG && <AviationOrganisations />}
-                                    {currentView === View.AIR_LAW_LIABILITY && <LiabilityAndRights />}
-                                    {currentView === View.AIR_LAW_ANNEXES && <AnnexList />}
-                                    {currentView === View.AIR_LAW_PERSONNEL && <PersonnelLicensing />}
-                                    {currentView === View.AIR_LAW_AIRWORTHINESS && <AirworthinessAndOps />}
-                                    {currentView === View.AIR_LAW_REGISTRATION && <AircraftRegistration />}
-                                    {currentView === View.AIR_LAW_DOCS && <DocumentsOnboard />}
-                                    {currentView === View.AIR_LAW_RULES_DETAILS && <RulesOfTheAirDetails />}
-                                    {currentView === View.AIR_LAW_RULES_OF_AIR && <AirLawRightOfWay />}
-                                    {currentView === View.AIR_LAW_CRUISING && <CruisingLevelTool />}
-                                    {currentView === View.AIR_LAW_INTERCEPT && <InterceptionProcedures />}
-                                    {currentView === View.AIR_LAW_LIGHTGUN && <LightGunSignals />}
-                                    {currentView === View.AIR_LAW_LAYERS && <AirspaceLayers />}
-                                    {currentView === View.AIR_LAW_IFR_VFR && <IFRVFRExplorer />}
-                                    {currentView === View.AIR_LAW_INSTRUMENT && <InstrumentApproach />}
-                                    {currentView === View.AIR_LAW_PANS_OPS && <PansOpsProcedures />}
-                                    {currentView === View.AIR_LAW_HOLDING && <HoldingPatternEntry />}
-                                    {currentView === View.AIR_LAW_ALTIMETER && <AltimeterVisualizer />}
-                                    {currentView === View.AIR_LAW_REF_CODE && <AerodromeReferenceCode />}
-                                    {currentView === View.AIR_LAW_SURFACE_CON && <SurfaceContamination />}
-                                    {currentView === View.AIR_LAW_LIGHTING && <AerodromeLightingSummary />}
-                                    {currentView === View.AIR_LAW_AERODROME_VIS && <AerodromeVisualizer />}
-                                    {currentView === View.AIR_LAW_SIGNS && <SignsAndSignals />}
-                                    {currentView === View.AIR_LAW_GROUND_OPS && <GroundOperations />}
-                                    {currentView === View.AIR_LAW_RWSL && <RWSL />}
-                                    {currentView === View.AIR_LAW_TVASIS && <TVasisVisualizer />}
-                                    {currentView === View.AIR_LAW_DECLARED_DIST && <DeclaredDistances />}
-                                    {currentView === View.AIR_LAW_OPS_INFO && <OperationalInfo />}
-                                    {currentView === View.AIR_LAW_SECURITY && <SecuritySection />}
-                                    {currentView === View.AIR_LAW_ACCIDENT && <AccidentInvestigation />}
-                                    {currentView === View.AIR_LAW_SAR && <SearchAndRescue />}
-                                    {currentView === View.AIR_LAW_EMERGENCY && <EmergencyProcedures />}
-                                    {currentView === View.AIR_LAW_FACILITATION && <AirLawFacilitation />}
-                                    {currentView === View.AIR_LAW_PARALLEL_RWY && <AirLawParallelRunway />}
-                                    {currentView === View.AIR_LAW_AIS_DEEP_DIVE && <AirLawAISDeepDive />}
-                                    {currentView === View.AIR_LAW_CONVENTIONS && <AirLawConventions />}
+                                        {/* --- SUBJECT MODULES --- */}
+                                        {/* Air Law */}
+                                        {currentView === View.AIR_LAW_HOME && <AirLawDashboard onChangeView={navigateTo} isLocked={!isSubjectAllowed('010')} onOpenSyllabus={handleOpenSyllabus} />}
+                                        {currentView === View.AIR_LAW_INT_LAW && <InternationalLaw />}
+                                        {currentView === View.AIR_LAW_ORG && <AviationOrganisations />}
+                                        {currentView === View.AIR_LAW_LIABILITY && <LiabilityAndRights />}
+                                        {currentView === View.AIR_LAW_ANNEXES && <AnnexList />}
+                                        {currentView === View.AIR_LAW_PERSONNEL && <PersonnelLicensing />}
+                                        {currentView === View.AIR_LAW_AIRWORTHINESS && <AirworthinessAndOps />}
+                                        {currentView === View.AIR_LAW_REGISTRATION && <AircraftRegistration />}
+                                        {currentView === View.AIR_LAW_DOCS && <DocumentsOnboard />}
+                                        {currentView === View.AIR_LAW_RULES_DETAILS && <RulesOfTheAirDetails />}
+                                        {currentView === View.AIR_LAW_RULES_OF_AIR && <AirLawRightOfWay />}
+                                        {currentView === View.AIR_LAW_CRUISING && <CruisingLevelTool />}
+                                        {currentView === View.AIR_LAW_INTERCEPT && <InterceptionProcedures />}
+                                        {currentView === View.AIR_LAW_LIGHTGUN && <LightGunSignals />}
+                                        {currentView === View.AIR_LAW_LAYERS && <AirspaceLayers />}
+                                        {currentView === View.AIR_LAW_IFR_VFR && <IFRVFRExplorer />}
+                                        {currentView === View.AIR_LAW_INSTRUMENT && <InstrumentApproach />}
+                                        {currentView === View.AIR_LAW_PANS_OPS && <PansOpsProcedures />}
+                                        {currentView === View.AIR_LAW_HOLDING && <HoldingPatternEntry />}
+                                        {currentView === View.AIR_LAW_ALTIMETER && <AltimeterVisualizer />}
+                                        {currentView === View.AIR_LAW_REF_CODE && <AerodromeReferenceCode />}
+                                        {currentView === View.AIR_LAW_SURFACE_CON && <SurfaceContamination />}
+                                        {currentView === View.AIR_LAW_LIGHTING && <AerodromeLightingSummary />}
+                                        {currentView === View.AIR_LAW_AERODROME_VIS && <AerodromeVisualizer />}
+                                        {currentView === View.AIR_LAW_SIGNS && <SignsAndSignals />}
+                                        {currentView === View.AIR_LAW_GROUND_OPS && <GroundOperations />}
+                                        {currentView === View.AIR_LAW_RWSL && <RWSL />}
+                                        {currentView === View.AIR_LAW_TVASIS && <TVasisVisualizer />}
+                                        {currentView === View.AIR_LAW_DECLARED_DIST && <DeclaredDistances />}
+                                        {currentView === View.AIR_LAW_OPS_INFO && <OperationalInfo />}
+                                        {currentView === View.AIR_LAW_SECURITY && <SecuritySection />}
+                                        {currentView === View.AIR_LAW_ACCIDENT && <AccidentInvestigation />}
+                                        {currentView === View.AIR_LAW_SAR && <SearchAndRescue />}
+                                        {currentView === View.AIR_LAW_EMERGENCY && <EmergencyProcedures />}
+                                        {currentView === View.AIR_LAW_FACILITATION && <AirLawFacilitation />}
+                                        {currentView === View.AIR_LAW_PARALLEL_RWY && <AirLawParallelRunway />}
+                                        {currentView === View.AIR_LAW_AIS_DEEP_DIVE && <AirLawAISDeepDive />}
+                                        {currentView === View.AIR_LAW_CONVENTIONS && <AirLawConventions />}
 
-                                    {/* AGK */}
+                                        {/* AGK */}
 
-                                    {/* --- AGK (021) Systems (Wrapped in Layout) --- */}
-                                    {[
-                                        View.AGK_SYSTEMS_HOME, View.AGK_PISTON_ENGINE, View.AGK_JET_ENGINE,
-                                        View.AGK_ELECTRICS, View.AGK_HYDRAULICS
-                                    ].includes(currentView) ? (
-                                        <div className="w-full animate-in fade-in duration-500">
-                                            {currentView === View.AGK_SYSTEMS_HOME && (
-                                                <AGKSystemsDashboard
-                                                    currentView={currentView}
-                                                    setCurrentView={navigateTo}
-                                                    isLocked={!isSubjectAllowed('021')}
-                                                />
-                                            )}
-                                            {currentView === View.AGK_HYDRAULICS && <HydraulicSystemAnim />}
-                                            {currentView === View.AGK_JET_ENGINE && <JetEnginePrinciples />}
-                                            {currentView === View.AGK_ELECTRICS && <ElectricsSystem />}
-                                            {currentView === View.AGK_PISTON_ENGINE && <PistonEnginePrinciples />}
-                                        </div>
-                                    ) : null}
+                                        {/* --- AGK (021) Systems (Wrapped in Layout) --- */}
+                                        {[
+                                            View.AGK_SYSTEMS_HOME, View.AGK_PISTON_ENGINE, View.AGK_JET_ENGINE,
+                                            View.AGK_ELECTRICS, View.AGK_HYDRAULICS
+                                        ].includes(currentView) ? (
+                                            <div className="w-full animate-in fade-in duration-500">
+                                                {currentView === View.AGK_SYSTEMS_HOME && (
+                                                    <AGKSystemsDashboard
+                                                        currentView={currentView}
+                                                        setCurrentView={navigateTo}
+                                                        isLocked={!isSubjectAllowed('021')}
+                                                    />
+                                                )}
+                                                {currentView === View.AGK_HYDRAULICS && <HydraulicSystemAnim />}
+                                                {currentView === View.AGK_JET_ENGINE && <JetEnginePrinciples />}
+                                                {currentView === View.AGK_ELECTRICS && <ElectricsSystem />}
+                                                {currentView === View.AGK_PISTON_ENGINE && <PistonEnginePrinciples />}
+                                            </div>
+                                        ) : null}
 
-                                    {/* Instrumentation (022) */}
-                                    {currentView === View.INST_HOME && <InstrumentationDashboard onChangeView={navigateTo} isLocked={!isSubjectAllowed('022')} />}
-                                    {currentView === View.INST_PITOT_STATIC && <PitotStaticSystem />}
-                                    {currentView === View.INST_ALTIMETER && <InstAltimeterLab />}
-                                    {currentView === View.INST_ASI && <AirspeedIndicator />}
-                                    {currentView === View.INST_VSI && <VSILab />}
-                                    {currentView === View.INST_MACHMETER && <Machmeter />}
-                                    {currentView === View.INST_GYROS && <GyroPrinciples />}
-                                    {currentView === View.INST_TURN_INDICATOR && <TurnIndicator />}
-                                    {currentView === View.INST_DG && <DirectionalGyro />}
-                                    {currentView === View.INST_ATTITUDE && <AttitudeIndicator />}
-                                    {currentView === View.INST_COMPASS && <MagneticCompass />}
-                                    {currentView === View.INST_RADIO_ALT && <RadioAltimeter />}
-                                    {currentView === View.INST_NAV_SYSTEMS && <NavigationSystems />}
-                                    {currentView === View.INST_FMS_EFIS && <FMSEFIS />}
-                                    {currentView === View.INST_GPWS && <GPWSSystem />}
-                                    {currentView === View.INST_AUTOPILOT && <AutopilotSystem />}
-                                    {currentView === View.INST_AUTOLAND && <AutolandSystem />}
+                                        {/* Instrumentation (022) */}
+                                        {currentView === View.INST_HOME && <InstrumentationDashboard onChangeView={navigateTo} isLocked={!isSubjectAllowed('022')} />}
+                                        {currentView === View.INST_PITOT_STATIC && <PitotStaticSystem />}
+                                        {currentView === View.INST_ALTIMETER && <InstAltimeterLab />}
+                                        {currentView === View.INST_ASI && <AirspeedIndicator />}
+                                        {currentView === View.INST_VSI && <VSILab />}
+                                        {currentView === View.INST_MACHMETER && <Machmeter />}
+                                        {currentView === View.INST_GYROS && <GyroPrinciples />}
+                                        {currentView === View.INST_TURN_INDICATOR && <TurnIndicator />}
+                                        {currentView === View.INST_DG && <DirectionalGyro />}
+                                        {currentView === View.INST_ATTITUDE && <AttitudeIndicator />}
+                                        {currentView === View.INST_COMPASS && <MagneticCompass />}
+                                        {currentView === View.INST_RADIO_ALT && <RadioAltimeter />}
+                                        {currentView === View.INST_NAV_SYSTEMS && <NavigationSystems />}
+                                        {currentView === View.INST_FMS_EFIS && <FMSEFIS />}
+                                        {currentView === View.INST_GPWS && <GPWSSystem />}
+                                        {currentView === View.INST_AUTOPILOT && <AutopilotSystem />}
+                                        {currentView === View.INST_AUTOLAND && <AutolandSystem />}
 
-                                    {/* HPL */}
-                                    {currentView === View.HPL_HOME && (
-                                        <GenericSubjectDashboard
-                                            subjectCode="040" subjectName="Human Performance" color="emerald"
-                                            description="Physiology, psychology, sleep, stress, and error management."
-                                            icon={Users} onChangeView={navigateTo}
-                                            modules={[
-                                                { title: 'Physiology', desc: 'Hypoxia, Respiration, Circulation.', view: View.HPL_PHYSIOLOGY, isLocked: !isSubjectAllowed('040') },
-                                                { title: 'Basic Concepts', desc: 'Accident stats, TEM, Safety Culture.', view: View.HPL_BASIC_CONCEPTS, isLocked: !isSubjectAllowed('040') },
-                                                { title: 'Sleep & Rhythms', desc: 'Circadian rhythms, Jet Lag, Sleep Stages.', view: View.HPL_SLEEP, isLocked: !isSubjectAllowed('040') },
-                                                { title: 'Information Processing', desc: 'Attention, Vigilance, Situation Awareness.', view: View.HPL_INFO_PROCESSING, isLocked: !isSubjectAllowed('040') },
-                                                { title: 'Error & Decision', desc: 'Error models, FOR-DEC, Error Chains.', view: View.HPL_ERROR_DECISION, isLocked: !isSubjectAllowed('040') },
-                                                { title: 'Cockpit Mgmt & CRM', desc: 'SOPs, Group Dynamics, Synergy.', view: View.HPL_COCKPIT_MGMT, isLocked: !isSubjectAllowed('040') },
-                                                { title: 'Comms & Stress', desc: 'Communication models, Stress, Workload.', view: View.HPL_COMMS_STRESS, isLocked: !isSubjectAllowed('040') },
-                                                { title: 'Human Behaviour', desc: 'Hazardous Attitudes, Leadership, Crew.', view: View.HPL_BEHAVIOUR, isLocked: !isSubjectAllowed('040') },
-                                                { title: 'Vision', desc: 'Eye anatomy, Scanning, and Visual Illusions.', view: View.HPL_VISION, isLocked: !isSubjectAllowed('040') },
-                                                { title: 'Hearing', desc: 'The Ear, Vestibular System, Spatial Disorientation.', view: View.HPL_HEARING, isLocked: !isSubjectAllowed('040') },
-                                                { title: 'Health', desc: 'Gas Laws, Hypoxia, TUC, Barotrauma.', view: View.HPL_HEALTH, isLocked: !isSubjectAllowed('040') },
-                                                { title: 'TEM Model', desc: 'Threats, Errors, UAS, and Countermeasures.', view: View.HPL_TEM, isLocked: !isSubjectAllowed('040') },
-                                                { title: 'SHELL Model', desc: 'Software, Hardware, Environment, Liveware.', view: View.HPL_SHELL, isLocked: !isSubjectAllowed('040') },
-                                                { title: 'Safety Culture', desc: 'Swiss Cheese, Just Culture, SMS.', view: View.HPL_SAFETY, isLocked: !isSubjectAllowed('040') },
-                                                { title: 'Acceleration', desc: 'G-Forces, G-LOC, Protections.', view: View.HPL_ACCELERATION, isLocked: !isSubjectAllowed('040') },
-                                                { title: 'Toxic Hazards', desc: 'CO, Alcohol, Smoking, Drugs.', view: View.HPL_TOXIC, isLocked: !isSubjectAllowed('040') },
-                                                { title: 'Automation', desc: 'Levels, Irony, Mode Confusion.', view: View.HPL_AUTOMATION },
-                                                { title: 'Vestibular', desc: 'Leans, Coriolis, Somatogravic.', view: View.HPL_VESTIBULAR },
-                                                { title: 'Memory', desc: 'Sensory, STM, LTM, Motor Programs.', view: View.HPL_MEMORY },
-                                                { title: 'Respiration', desc: 'Lungs, Gas Exchange, Control.', view: View.HPL_RESPIRATION },
-                                                { title: 'Circulation', desc: 'Heart, Blood, BP.', view: View.HPL_CIRCULATION },
-                                                { title: 'Nervous System', desc: 'CNS, PNS, Autonomic.', view: View.HPL_NERVOUS },
-                                                { title: 'Metabolism', desc: 'BMR, Blood Sugar, BMI.', view: View.HPL_METABOLISM },
-                                                { title: 'Ergonomics', desc: 'Anthropometry, DEP, Biomechanics.', view: View.HPL_ERGONOMICS },
-                                                { title: 'Biases', desc: 'Confirmation, Sunk Cost, Gambler.', view: View.HPL_BIASES },
-                                                { title: 'Culture', desc: 'Hofstede, Safety Culture, SMS.', view: View.HPL_CULTURE },
-                                                { title: 'Radiation', desc: 'Cosmic, Solar, Ozone.', view: View.HPL_RADIATION },
-                                                { title: 'Thermal', desc: 'Hypothermia, Heat Stroke, Reg.', view: View.HPL_THERMAL },
-                                                { title: 'Sleep Disorders', desc: 'Apnea, Insomnia, Narcolepsy.', view: View.HPL_SLEEP_DISORDERS },
-                                                { title: 'Pressure Effects', desc: 'Barotrauma, Decompression, TUC.', view: View.HPL_PRESSURE },
-                                                { title: 'Motion Sickness', desc: 'Sensory Conflict, Prevention.', view: View.HPL_MOTION_SICKNESS },
-                                                { title: 'Perception', desc: 'Visual Illusions, Runway Illusions.', view: View.HPL_PERCEPTION },
-                                                { title: 'Workload', desc: 'Yerkes-Dodson, ANC, DODAR.', view: View.HPL_WORKLOAD },
-                                                { title: 'Incapacitation', desc: 'Procedures, 2-Comms Rule, Fume Events.', view: View.HPL_INCAPACITATION },
-                                                { title: 'Communication Process', desc: 'Models, Barriers, Readback.', view: View.HPL_COMMUNICATION_PROCESS },
-                                                { title: 'Competency', desc: 'KSA, Core Competencies.', view: View.HPL_COMPETENCY },
-                                                { title: 'Cooperation', desc: 'Group Dynamics, Synergy.', view: View.HPL_COOPERATION },
-                                                { title: 'Health & Hygiene', desc: 'Alcohol, Drugs, Diet & Hygiene.', view: View.HPL_HEALTH_HYGIENE },
-                                                { title: 'Tropical Diseases', desc: 'Infectious diseases and travel health.', view: View.HPL_TROPICAL_DISEASES },
-                                            ]}
-                                            onOpenSyllabus={handleOpenSyllabus}
-                                        />
-                                    )}
-                                    {currentView === View.HPL_PHYSIOLOGY && <HumanPhysiology />}
-                                    {currentView === View.HPL_BASIC_CONCEPTS && <HumanFactorsIntro />}
-                                    {currentView === View.HPL_SLEEP && <SleepAndRhythms />}
-                                    {currentView === View.HPL_INFO_PROCESSING && <InformationProcessing />}
-                                    {currentView === View.HPL_ERROR_DECISION && <ErrorAndDecision />}
-                                    {currentView === View.HPL_COCKPIT_MGMT && <CockpitManagement />}
-                                    {currentView === View.HPL_COMMS_STRESS && <CommunicationAndStress />}
-                                    {currentView === View.HPL_BEHAVIOUR && <HumanBehaviour />}
-                                    {currentView === View.HPL_VISION && <HPLVision />}
-                                    {currentView === View.HPL_HEARING && <HPLHearing />}
-                                    {currentView === View.HPL_HEALTH && <HPLHealth />}
-                                    {currentView === View.HPL_TEM && <HPLTEM />}
-                                    {currentView === View.HPL_SHELL && <HPLShell />}
-                                    {currentView === View.HPL_SAFETY && <HPLSafetyCulture />}
-                                    {currentView === View.HPL_ACCELERATION && <HPLAcceleration />}
-                                    {currentView === View.HPL_TOXIC && <HPLToxicHazards />}
-                                    {currentView === View.HPL_AUTOMATION && <HPLAutomation />}
-                                    {currentView === View.HPL_VESTIBULAR && <HPLVestibular />}
-                                    {currentView === View.HPL_MEMORY && <HPLMemory />}
-                                    {currentView === View.HPL_RESPIRATION && <HPLRespiration />}
-                                    {currentView === View.HPL_CIRCULATION && <HPLCirculation />}
-                                    {currentView === View.HPL_NERVOUS && <HPLNervousSystem />}
-                                    {currentView === View.HPL_METABOLISM && <HPLMetabolism />}
-                                    {currentView === View.HPL_ERGONOMICS && <HPLErgonomics />}
-                                    {currentView === View.HPL_BIASES && <HPLBiases />}
-                                    {currentView === View.HPL_CULTURE && <HPLCulture />}
-                                    {currentView === View.HPL_RADIATION && <HPLRadiation />}
-                                    {currentView === View.HPL_THERMAL && <HPLThermal />}
-                                    {currentView === View.HPL_SLEEP_DISORDERS && <HPLSleepDisorders />}
-                                    {currentView === View.HPL_WORKLOAD && <HPLWorkload />}
-                                    {currentView === View.HPL_PERSONALITY && <HPLPersonality />}
-                                    {currentView === View.HPL_LEARNING && <HPLLearning />}
-                                    {currentView === View.HPL_PERCEPTION && <HPLPerception />}
-                                    {currentView === View.HPL_COMMUNICATION_PROCESS && <HPLCommunicationProcess onNavigate={navigateTo} />}
-                                    {currentView === View.HPL_COOPERATION && <HPLCooperation onNavigate={navigateTo} />}
-                                    {currentView === View.HPL_COMPETENCY && <HPLCompetency onNavigate={navigateTo} />}
-                                    {currentView === View.HPL_MOTION_SICKNESS && <HPLMotionSickness />}
-                                    {currentView === View.HPL_PRESSURE && <HPLPressure />}
-                                    {currentView === View.HPL_ATMOSPHERE && <HPLAtmosphere />}
-                                    {currentView === View.HPL_HEALTH_HYGIENE && <HPLHealthHygiene onNavigate={navigateTo} />}
-                                    {currentView === View.HPL_INCIDENTS && <HPLIncidents />}
-
-
-                                    {currentView === View.HPL_TROPICAL_DISEASES && <HPLTropicalDiseases onNavigate={navigateTo} />}
-
-                                    {/* Gen Nav (061) */}
-                                    {currentView === View.GEN_NAV_HOME && <GenNavDashboard currentView={currentView} setCurrentView={navigateTo} isLocked={!isSubjectAllowed('061')} />}
-                                    {/* --- METEOROLOGY SECTION (Wrapped in Layout) --- */}
-                                    {[
-                                        View.MET_HOME, View.MET_ATMOSPHERE, View.MET_PRESSURE, View.MET_DENSITY,
-                                        View.MET_TEMPERATURE, View.MET_ALTIMETRY, View.MET_WIND, View.MET_CIRCULATION, View.MET_HUMIDITY,
-                                        View.MET_PRECIPITATION, View.MET_FRONTS, View.MET_THUNDERSTORMS, View.MET_ICING,
-                                        View.MET_VISIBILITY, View.MET_AIR_MASSES, View.MET_TURBULENCE,
-                                        View.MET_JET_STREAMS, View.MET_CLIMATOLOGY, View.MET_LOCAL_WINDS,
-                                        View.MET_DEPRESSIONS_ANTICYCLONES, View.MET_CLOUD_TYPES, View.MET_METAR_TAF,
-                                        View.MET_CHARTS, View.MET_TRS, View.MET_SPECIAL_HAZARDS, View.MET_SATELLITE
-                                    ].includes(currentView) ? (
-                                        <div className="w-full animate-in fade-in duration-500">
-                                            {currentView === View.MET_HOME && <MetDashboard onChangeView={navigateTo} />}
-                                            {currentView === View.MET_ATMOSPHERE && <AtmosphereLayers />}
-                                            {currentView === View.MET_TEMPERATURE && <AtmosphereMaster />}
-                                            {currentView === View.MET_PRESSURE && <PressureSystems />}
-                                            {currentView === View.MET_DENSITY && <Density />}
-                                            {currentView === View.MET_ALTIMETRY && <Altimetry />}
-                                            {currentView === View.MET_WIND && <WindSystems />}
-                                            {currentView === View.MET_CIRCULATION && <GeneralCirculation />}
-                                            {currentView === View.MET_HUMIDITY && <HumidityLab />}
-                                            {currentView === View.MET_PRECIPITATION && <Precipitation />}
-                                            {currentView === View.MET_FRONTS && <FrontalSystems />}
-                                            {currentView === View.MET_THUNDERSTORMS && <Thunderstorms />}
-                                            {currentView === View.MET_ICING && <Icing />}
-                                            {currentView === View.MET_VISIBILITY && <VisibilityFog />}
-                                            {currentView === View.MET_AIR_MASSES && <AirMasses />}
-                                            {currentView === View.MET_TURBULENCE && <Turbulence />}
-                                            {currentView === View.MET_JET_STREAMS && <JetStreams />}
-                                            {currentView === View.MET_CLIMATOLOGY && <Climatology />}
-                                            {currentView === View.MET_LOCAL_WINDS && <LocalWinds />}
-                                            {currentView === View.MET_DEPRESSIONS_ANTICYCLONES && <DepressionsAnticyclones />}
-                                            {currentView === View.MET_CLOUD_TYPES && <CloudTypes />}
-                                            {currentView === View.MET_METAR_TAF && <MetarTafDecoder />}
-                                            {currentView === View.MET_CHARTS && <WeatherCharts />}
-                                            {currentView === View.MET_TRS && <TropicalStorms />}
-                                            {currentView === View.MET_SPECIAL_HAZARDS && <SpecialHazards />}
-                                            {currentView === View.MET_SATELLITE && <SatelliteRadar />}
-                                        </div>
-                                    ) : null}
-
-                                    {/* --- GEN NAV / RADIO NAV --- */}
-                                    {currentView === View.GEN_NAV_SOLAR && <SolarCalc onNavigate={navigateTo} />}
-                                    {currentView === View.GEN_NAV_MAPS && <MapProjections onNavigate={navigateTo} />}
-                                    {currentView === View.GEN_NAV_WIND_TRIANGLE && <WindTriangle onNavigate={navigateTo} />}
-                                    {currentView === View.GEN_NAV_POLAR && <PolarGrid onNavigate={navigateTo} />}
-                                    {currentView === View.NAV_60_1 && <OneInSixty />}
-                                    {/* Radio Nav */}
-                                    {currentView === View.RAD_NAV_HOME && (
-                                        <GenericSubjectDashboard
-                                            subjectCode="062" subjectName="Radio Navigation" color="sky"
-                                            description="Radio aids, radar, GNSS, area navigation systems."
-                                            icon={Wifi} onChangeView={navigateTo}
-                                            modules={[
-                                                // Phase 1: Basics
-                                                { title: 'Class 1: Fundamentals', desc: 'Waves, Spectrum, Modulation, Propagation (New).', view: View.RAD_NAV_CLASS_1 },
-                                                { title: 'Wave Propagation', desc: 'Wavelength, Frequency, Amplitude visualized.', view: View.RAD_NAV_WAVE_PROP },
-                                                { title: 'Spectrum Explorer', desc: 'VLF to EHF bands and aviation usage.', view: View.RAD_NAV_SPECTRUM },
-                                                { title: 'Ionosphere', desc: 'Sky wave propagation, layers and skip distance.', view: View.RAD_NAV_IONOSPHERE },
-                                                { title: 'Antenna Theory', desc: 'Radiation patterns, dipoles and loops.', view: View.RAD_NAV_ANTENNA },
-                                                { title: 'Modulation', desc: 'AM, FM, Phase and Pulse modulation.', view: View.RAD_NAV_MODULATION },
-
-                                                // Phase 2: Radio Aids
-                                                { title: 'VOR Simulator', desc: 'CDI, TO/FROM, Radial Interception.', view: View.RAD_NAV_VOR },
-                                                { title: 'ADF/NDB', desc: 'RBI/RMI tracking and homing.', view: View.RAD_NAV_ADF },
-                                                { title: 'DME', desc: 'Slant range vs Ground distance.', view: View.RAD_NAV_DME },
-                                                { title: 'ILS Approach', desc: 'Localizer and Glidepath lobes.', view: View.RAD_NAV_ILS },
-                                                { title: 'VDF', desc: 'QDM/QDR and homing.', view: View.RAD_NAV_VDF },
-                                                { title: 'MLS', desc: 'Microwave Landing System TRSB.', view: View.RAD_NAV_MLS },
-
-                                                // Phase 3: Radar & Advanced
-                                                { title: 'Weather Radar', desc: 'Tilt, Iso-Echo, Attenuation and shadows.', view: View.RAD_NAV_WX_RADAR },
-                                                { title: 'Radar Theory', desc: 'Pulse technique, PRF, PRI.', view: View.RAD_NAV_RADAR },
-                                                { title: 'SSR Transponder', desc: 'Mode A/C/S, Codes and Interrogation.', view: View.RAD_NAV_SSR },
-                                                { title: 'GNSS Principles', desc: 'GPS, GLONASS, GALILEO satellites.', view: View.NAV_GNSS },
-                                                { title: 'SBAS/ABAS', desc: 'EGNOS, WAAS and augmentation.', view: View.RAD_NAV_SBAS },
-                                                { title: 'RNAV/PBN', desc: 'Area Navigation and Kalman Filtering.', view: View.RAD_NAV_RNAV },
-                                                { title: 'FMS Trainer', desc: 'CDU/MCDU Waypoint entry.', view: View.RAD_NAV_FMS },
-                                            ]}
-                                            onOpenSyllabus={handleOpenSyllabus}
-                                        />
-                                    )}
-
-                                    {currentView === View.NAV_GNSS && <GNSSTheory />}
-                                    {currentView === View.RAD_NAV_WAVE_PROP && <WavePropVisualizer />}
-                                    {currentView === View.RAD_NAV_SPECTRUM && <SpectrumExplorer />}
-                                    {currentView === View.RAD_NAV_IONOSPHERE && <IonosphereSim />}
-                                    {currentView === View.RAD_NAV_ANTENNA && <AntennaTheory />}
-                                    {currentView === View.RAD_NAV_MODULATION && <Modulation />}
-                                    {currentView === View.RAD_NAV_VOR && <VORSystem onNavigate={navigateTo} />}
-                                    {currentView === View.RAD_NAV_ADF && <NDBADFSystem onNavigate={navigateTo} />}
-                                    {currentView === View.RAD_NAV_DME && <DMESystem onNavigate={navigateTo} />}
-                                    {currentView === View.RAD_NAV_ILS && <ILSSystem onNavigate={navigateTo} />}
-                                    {currentView === View.RAD_NAV_VDF && <VDF />}
-                                    {currentView === View.RAD_NAV_MLS && <MLS />}
-                                    {currentView === View.RAD_NAV_RADAR && <RadarTheory />}
-                                    {currentView === View.RAD_NAV_WX_RADAR && <WeatherRadar onNavigate={navigateTo} />}
-                                    {currentView === View.RAD_NAV_SSR && <SSRTransponder />}
-                                    {currentView === View.RAD_NAV_SBAS && <SbasAbas />}
-                                    {currentView === View.RAD_NAV_RNAV && <RnavPbn />}
-                                    {currentView === View.RAD_NAV_FMS && <FMSTrainer />}
-                                    {currentView === View.RAD_NAV_CLASS_1 && <RadioFundamentals onNavigate={navigateTo} />}
-
-                                    {/* PoF */}
-                                    {currentView === View.POF_HOME && (
-                                        <GenericSubjectDashboard
-                                            subjectCode="081" subjectName="Principles of Flight" color="violet"
-                                            description="Subsonic aerodynamics, stability, control, lift, drag."
-                                            icon={PlaneIcon} onChangeView={navigateTo}
-                                            modules={[
-                                                { title: 'Atmosphere', desc: 'ISA properties: Temperature, Pressure, Density.', view: View.POF_ATMOSPHERE },
-                                                { title: 'Airflow Basics', desc: 'Streamlines, Bernoulli, and Continuity.', view: View.POF_AIRFLOW },
-                                                { title: 'Aerofoil Geometry', desc: 'Camber, Chord, Thickness, Angle of Attack.', view: View.POF_AEROFOIL },
-                                                { title: 'Wing Geometry', desc: 'Aspect Ratio, Taper, Sweep, Planform.', view: View.POF_WING_GEOM },
-                                                { title: 'Lift & Drag', desc: 'Coefficient curves, polar diagrams.', view: View.POF_LIFT_DRAG },
-                                                { title: '3D Airflow', desc: 'Wingtip vortices, Downwash, Induced Drag.', view: View.POF_3D_AIRFLOW },
-                                                { title: 'Total Drag', desc: 'Parasite vs Induced Drag curves.', view: View.POF_DRAG },
-                                                { title: 'Ground Effect', desc: 'Cushioning effect near surface.', view: View.POF_GROUND_EFFECT },
-                                                { title: 'High Lift Devices', desc: 'Flaps and Slats performance.', view: View.POF_HIGH_LIFT },
-                                                { title: 'Stall', desc: 'Stalling characteristics and recovery.', isLocked: true },
-                                                { title: 'Stability', desc: 'Static and Dynamic stability.', isLocked: true },
-                                            ]}
-                                            onOpenSyllabus={handleOpenSyllabus}
-                                        />
-                                    )}
-                                    {currentView === View.POF_ATMOSPHERE && <AtmosphereProp />}
-                                    {currentView === View.POF_AIRFLOW && <AirflowBasics />}
-                                    {currentView === View.POF_AEROFOIL && <AerofoilGeom />}
-                                    {currentView === View.POF_WING_GEOM && <WingGeom />}
-                                    {currentView === View.POF_LIFT_DRAG && <LiftDragCoeff />}
-                                    {currentView === View.POF_3D_AIRFLOW && <ThreeDAirflow />}
-                                    {currentView === View.POF_DRAG && <TotalDrag />}
-                                    {currentView === View.POF_GROUND_EFFECT && <GroundEffect />}
-                                    {currentView === View.POF_HIGH_LIFT && <HighLiftDevices />}
-
-                                    {/* KSA (100) */}
-                                    {currentView === View.KSA_HOME && <KSADashboard onChangeView={navigateTo} isLocked={!isSubjectAllowed('100')} />}
-                                    {currentView === View.KSA_COMPETENCIES && <KSACoreCompetencies />}
-                                    {currentView === View.KSA_TEM && <TEMAdvanced />}
-                                    {currentView === View.KSA_MENTAL_MATHS && <MentalMathsLab />}
-                                    {currentView === View.KSA_FORDEC && <FORDECDecision />}
-                                    {currentView === View.KSA_UPRT && <UPRTConcepts />}
-                                    {currentView === View.KSA_CRM && <CRMScenarios />}
-                                    {currentView === View.KSA_RESILIENCE && <ResilienceTraining />}
-                                    {currentView === View.KSA_PROCEDURES && <ProcedureApplication />}
-
-                                    {/* Communications (090) */}
-                                    {currentView === View.DASHBOARD && <CommsDashboard onChangeView={navigateTo} onOpenSyllabus={handleOpenSyllabus} />}
-                                    {currentView === View.GENERAL_THEORY && <GeneralTheory />}
-                                    {currentView === View.PROPAGATION_THEORY && <PropagationTheory />}
-                                    {currentView === View.TECH_PHYSICS && <TechPhysics />}
-                                    {currentView === View.FREQ_EXPLORER && <FrequencyExplorer />}
-                                    {currentView === View.SUFFIX_MATCH && <SuffixMatch />}
-                                    {currentView === View.QCODE_CARDS && <QCodeFlashcards />}
-                                    {currentView === View.Q_COMPASS && <QCodeCompass />}
-                                    {currentView === View.WORD_MATCH && <WordMatch />}
-                                    {currentView === View.PHONETIC && <PhoneticTrainer />}
-                                    {currentView === View.ALT_SPEAK && <AltSpeak />}
-                                    {currentView === View.TIME_REPORT && <TimeReport />}
-                                    {currentView === View.READABILITY_SIM && <ReadabilitySim />}
-                                    {currentView === View.FLIGHT_RULES && <FlightRules />}
-                                    {currentView === View.PRIORITY && <PrioritySorter />}
-                                    {currentView === View.CALLSIGN_TRAINER && <CallsignTrainer />}
-                                    {currentView === View.URGENCY_TRAINER && <UrgencyTrainer />}
-                                    {currentView === View.LEVEL_CHANGES && <LevelChanges />}
-                                    {currentView === View.ABBREVIATION_GAME && <AbbreviationGame />}
-                                    {currentView === View.CPDLC_SIM && <CPDLCSim />}
-                                    {currentView === View.READBACK && <ReadbackChallenge />}
-                                    {currentView === View.METAR && <MetarDecoder />}
-                                    {currentView === View.VOLMET_SIM && <VolmetSimulator />}
-                                    {currentView === View.AIREP_SPEC && <AirepSpec />}
-                                    {currentView === View.RADIO_NAV_DATA && <NavDataLink />}
-                                    {(currentView === View.TIME_ZONER || currentView === View.NAV_TIME) && <TimeZoner />}
-                                    {currentView === View.EMERGENCY && <EmergencyBuilder />}
-                                    {currentView === View.EMERGENCY_OPS && <EmergencyOps />}
-                                    {currentView === View.COMM_FAIL && <CommFailure />}
-                                    {currentView === View.BLIND_TX && <BlindTrans />}
-                                    {currentView === View.TRANSPONDER && <TransponderDojo />}
-                                    {currentView === View.VFR_COMMS_SIM && <VfrFlightSim />}
-                                    {currentView === View.PHRASEOLOGY_EXPLORER && <PhraseologyExplorer />}
-                                    {currentView === View.POS_REPORT && <PositionReport />}
-                                    {currentView === View.TRAFFIC_CLOCK && <TrafficClock />}
-                                    {currentView === View.AI_ROLEPLAY && <ScenarioRoleplay />}
-                                    {currentView === View.AI_QUIZ && <AIQuiz />}
-                                    {currentView === View.LIGHT_GUN && <LightGunGame />}
-                                    {currentView === View.RADAR_VECTORS && <RadarVectors />}
-                                    {currentView === View.TRANSFER_DRILL && <TransferDrill />}
-                                    {currentView === View.METAR_BUILDER && <MetarBuilder />}
-                                    {currentView === View.MORSE && <MorseMaster />}
-                                    {currentView === View.BAND_SPEC && <BandSpectrum />}
-                                    {currentView === View.VHF_CALC && <VHFCalculator />}
-                                    {currentView === View.ADV_PHRASEOLOGY && <AdvancedPhraseology />}
-                                    {currentView === View.RVR_SIM && <RvrSimulator />}
-                                    {currentView === View.RVR_CODE && <RvrDecoder />}
-                                    {currentView === View.CLOUD_MASTER && <CloudMaster />}
-                                    {currentView === View.FLIRT_TRAINER && <FlirtTrainer />}
-                                    {currentView === View.PAPI_VIS && <PapiVis />}
-                                    {currentView === View.NAV_NDB_VOR && <MorseIdent />}
-                                    {currentView === View.WEATHER_MINIMA && <WeatherMinima />}
-                                    {currentView === View.HOLDING && <HoldEntryCalc />}
-                                    {currentView === View.ALTIMETER && <AltimeterLab />}
-                                    {currentView === View.RUNWAY && <RunwayLighting />}
-                                    {currentView === View.SURFACE_LIGHT && <SurfaceLighting />}
-                                    {currentView === View.TAXIWAY_LIGHT && <TaxiwayLighting />}
-                                    {currentView === View.RUNWAY_MARKING && <RunwayQuiz />}
-                                    {currentView === View.SNOWTAM && <SnowtamDecoder />}
-                                    {currentView === View.SIGMET_DECODER && <SigmetDecoder />}
-                                    {currentView === View.WAKE_TURB && <WakeTurbulence />}
-                                    {currentView === View.SERVICE_CODES && <ServiceCodes />}
-                                    {currentView === View.QCODE_CARDS && <QCodeCards />}
-                                    {currentView === View.NUM_TIME_TRANSMIT && <TransmissionDrill />}
-                                    {currentView === View.COMMS_DEFINITIONS && <CommsDefinitions />}
-                                    {currentView === View.INTERCEPT && <InterceptTrainer />}
+                                        {/* HPL */}
+                                        {currentView === View.HPL_HOME && (
+                                            <GenericSubjectDashboard
+                                                subjectCode="040" subjectName="Human Performance" color="emerald"
+                                                description="Physiology, psychology, sleep, stress, and error management."
+                                                icon={Users} onChangeView={navigateTo}
+                                                modules={[
+                                                    { title: 'Physiology', desc: 'Hypoxia, Respiration, Circulation.', view: View.HPL_PHYSIOLOGY, isLocked: !isSubjectAllowed('040') },
+                                                    { title: 'Basic Concepts', desc: 'Accident stats, TEM, Safety Culture.', view: View.HPL_BASIC_CONCEPTS, isLocked: !isSubjectAllowed('040') },
+                                                    { title: 'Sleep & Rhythms', desc: 'Circadian rhythms, Jet Lag, Sleep Stages.', view: View.HPL_SLEEP, isLocked: !isSubjectAllowed('040') },
+                                                    { title: 'Information Processing', desc: 'Attention, Vigilance, Situation Awareness.', view: View.HPL_INFO_PROCESSING, isLocked: !isSubjectAllowed('040') },
+                                                    { title: 'Error & Decision', desc: 'Error models, FOR-DEC, Error Chains.', view: View.HPL_ERROR_DECISION, isLocked: !isSubjectAllowed('040') },
+                                                    { title: 'Cockpit Mgmt & CRM', desc: 'SOPs, Group Dynamics, Synergy.', view: View.HPL_COCKPIT_MGMT, isLocked: !isSubjectAllowed('040') },
+                                                    { title: 'Comms & Stress', desc: 'Communication models, Stress, Workload.', view: View.HPL_COMMS_STRESS, isLocked: !isSubjectAllowed('040') },
+                                                    { title: 'Human Behaviour', desc: 'Hazardous Attitudes, Leadership, Crew.', view: View.HPL_BEHAVIOUR, isLocked: !isSubjectAllowed('040') },
+                                                    { title: 'Vision', desc: 'Eye anatomy, Scanning, and Visual Illusions.', view: View.HPL_VISION, isLocked: !isSubjectAllowed('040') },
+                                                    { title: 'Hearing', desc: 'The Ear, Vestibular System, Spatial Disorientation.', view: View.HPL_HEARING, isLocked: !isSubjectAllowed('040') },
+                                                    { title: 'Health', desc: 'Gas Laws, Hypoxia, TUC, Barotrauma.', view: View.HPL_HEALTH, isLocked: !isSubjectAllowed('040') },
+                                                    { title: 'TEM Model', desc: 'Threats, Errors, UAS, and Countermeasures.', view: View.HPL_TEM, isLocked: !isSubjectAllowed('040') },
+                                                    { title: 'SHELL Model', desc: 'Software, Hardware, Environment, Liveware.', view: View.HPL_SHELL, isLocked: !isSubjectAllowed('040') },
+                                                    { title: 'Safety Culture', desc: 'Swiss Cheese, Just Culture, SMS.', view: View.HPL_SAFETY, isLocked: !isSubjectAllowed('040') },
+                                                    { title: 'Acceleration', desc: 'G-Forces, G-LOC, Protections.', view: View.HPL_ACCELERATION, isLocked: !isSubjectAllowed('040') },
+                                                    { title: 'Toxic Hazards', desc: 'CO, Alcohol, Smoking, Drugs.', view: View.HPL_TOXIC, isLocked: !isSubjectAllowed('040') },
+                                                    { title: 'Automation', desc: 'Levels, Irony, Mode Confusion.', view: View.HPL_AUTOMATION },
+                                                    { title: 'Vestibular', desc: 'Leans, Coriolis, Somatogravic.', view: View.HPL_VESTIBULAR },
+                                                    { title: 'Memory', desc: 'Sensory, STM, LTM, Motor Programs.', view: View.HPL_MEMORY },
+                                                    { title: 'Respiration', desc: 'Lungs, Gas Exchange, Control.', view: View.HPL_RESPIRATION },
+                                                    { title: 'Circulation', desc: 'Heart, Blood, BP.', view: View.HPL_CIRCULATION },
+                                                    { title: 'Nervous System', desc: 'CNS, PNS, Autonomic.', view: View.HPL_NERVOUS },
+                                                    { title: 'Metabolism', desc: 'BMR, Blood Sugar, BMI.', view: View.HPL_METABOLISM },
+                                                    { title: 'Ergonomics', desc: 'Anthropometry, DEP, Biomechanics.', view: View.HPL_ERGONOMICS },
+                                                    { title: 'Biases', desc: 'Confirmation, Sunk Cost, Gambler.', view: View.HPL_BIASES },
+                                                    { title: 'Culture', desc: 'Hofstede, Safety Culture, SMS.', view: View.HPL_CULTURE },
+                                                    { title: 'Radiation', desc: 'Cosmic, Solar, Ozone.', view: View.HPL_RADIATION },
+                                                    { title: 'Thermal', desc: 'Hypothermia, Heat Stroke, Reg.', view: View.HPL_THERMAL },
+                                                    { title: 'Sleep Disorders', desc: 'Apnea, Insomnia, Narcolepsy.', view: View.HPL_SLEEP_DISORDERS },
+                                                    { title: 'Pressure Effects', desc: 'Barotrauma, Decompression, TUC.', view: View.HPL_PRESSURE },
+                                                    { title: 'Motion Sickness', desc: 'Sensory Conflict, Prevention.', view: View.HPL_MOTION_SICKNESS },
+                                                    { title: 'Perception', desc: 'Visual Illusions, Runway Illusions.', view: View.HPL_PERCEPTION },
+                                                    { title: 'Workload', desc: 'Yerkes-Dodson, ANC, DODAR.', view: View.HPL_WORKLOAD },
+                                                    { title: 'Incapacitation', desc: 'Procedures, 2-Comms Rule, Fume Events.', view: View.HPL_INCAPACITATION },
+                                                    { title: 'Communication Process', desc: 'Models, Barriers, Readback.', view: View.HPL_COMMUNICATION_PROCESS },
+                                                    { title: 'Competency', desc: 'KSA, Core Competencies.', view: View.HPL_COMPETENCY },
+                                                    { title: 'Cooperation', desc: 'Group Dynamics, Synergy.', view: View.HPL_COOPERATION },
+                                                    { title: 'Health & Hygiene', desc: 'Alcohol, Drugs, Diet & Hygiene.', view: View.HPL_HEALTH_HYGIENE },
+                                                    { title: 'Tropical Diseases', desc: 'Infectious diseases and travel health.', view: View.HPL_TROPICAL_DISEASES },
+                                                ]}
+                                                onOpenSyllabus={handleOpenSyllabus}
+                                            />
+                                        )}
+                                        {currentView === View.HPL_PHYSIOLOGY && <HumanPhysiology />}
+                                        {currentView === View.HPL_BASIC_CONCEPTS && <HumanFactorsIntro />}
+                                        {currentView === View.HPL_SLEEP && <SleepAndRhythms />}
+                                        {currentView === View.HPL_INFO_PROCESSING && <InformationProcessing />}
+                                        {currentView === View.HPL_ERROR_DECISION && <ErrorAndDecision />}
+                                        {currentView === View.HPL_COCKPIT_MGMT && <CockpitManagement />}
+                                        {currentView === View.HPL_COMMS_STRESS && <CommunicationAndStress />}
+                                        {currentView === View.HPL_BEHAVIOUR && <HumanBehaviour />}
+                                        {currentView === View.HPL_VISION && <HPLVision />}
+                                        {currentView === View.HPL_HEARING && <HPLHearing />}
+                                        {currentView === View.HPL_HEALTH && <HPLHealth />}
+                                        {currentView === View.HPL_TEM && <HPLTEM />}
+                                        {currentView === View.HPL_SHELL && <HPLShell />}
+                                        {currentView === View.HPL_SAFETY && <HPLSafetyCulture />}
+                                        {currentView === View.HPL_ACCELERATION && <HPLAcceleration />}
+                                        {currentView === View.HPL_TOXIC && <HPLToxicHazards />}
+                                        {currentView === View.HPL_AUTOMATION && <HPLAutomation />}
+                                        {currentView === View.HPL_VESTIBULAR && <HPLVestibular />}
+                                        {currentView === View.HPL_MEMORY && <HPLMemory />}
+                                        {currentView === View.HPL_RESPIRATION && <HPLRespiration />}
+                                        {currentView === View.HPL_CIRCULATION && <HPLCirculation />}
+                                        {currentView === View.HPL_NERVOUS && <HPLNervousSystem />}
+                                        {currentView === View.HPL_METABOLISM && <HPLMetabolism />}
+                                        {currentView === View.HPL_ERGONOMICS && <HPLErgonomics />}
+                                        {currentView === View.HPL_BIASES && <HPLBiases />}
+                                        {currentView === View.HPL_CULTURE && <HPLCulture />}
+                                        {currentView === View.HPL_RADIATION && <HPLRadiation />}
+                                        {currentView === View.HPL_THERMAL && <HPLThermal />}
+                                        {currentView === View.HPL_SLEEP_DISORDERS && <HPLSleepDisorders />}
+                                        {currentView === View.HPL_WORKLOAD && <HPLWorkload />}
+                                        {currentView === View.HPL_PERSONALITY && <HPLPersonality />}
+                                        {currentView === View.HPL_LEARNING && <HPLLearning />}
+                                        {currentView === View.HPL_PERCEPTION && <HPLPerception />}
+                                        {currentView === View.HPL_COMMUNICATION_PROCESS && <HPLCommunicationProcess onNavigate={navigateTo} />}
+                                        {currentView === View.HPL_COOPERATION && <HPLCooperation onNavigate={navigateTo} />}
+                                        {currentView === View.HPL_COMPETENCY && <HPLCompetency onNavigate={navigateTo} />}
+                                        {currentView === View.HPL_MOTION_SICKNESS && <HPLMotionSickness />}
+                                        {currentView === View.HPL_PRESSURE && <HPLPressure />}
+                                        {currentView === View.HPL_ATMOSPHERE && <HPLAtmosphere />}
+                                        {currentView === View.HPL_HEALTH_HYGIENE && <HPLHealthHygiene onNavigate={navigateTo} />}
+                                        {currentView === View.HPL_INCIDENTS && <HPLIncidents />}
 
 
-                                    {currentView === View.MASS_BAL_HOME && <MassBalanceDashboard onNavigate={navigateTo} isLocked={!isSubjectAllowed('031')} />}
-                                    {currentView === View.MASS_BAL_DEFINITIONS && <MassDefinitions />}
-                                    {currentView === View.MASS_BAL_CG_CALC && <WeighingProcedure />}
-                                    {currentView === View.MASS_BAL_LIMITS && <LoadingLimits />}
-                                    {currentView === View.MASS_BAL_MAC && <MacVisualizer />}
-                                    {currentView === View.MASS_BAL_SHIFT && <CargoHandlingSim />}
-                                    {currentView === View.MASS_BAL_FUEL && <FuelDensityCalc />}
-                                    {currentView === View.MASS_BAL_LOADSHEET && <LoadSheetSim />}
-                                    {currentView === View.MASS_BAL_FLOW_DIAGRAM && <MassBuildUpFlow />}
-                                    {currentView === View.MASS_BAL_TRIM_SHEET && <TrimSheetSim />}
-                                    {currentView === View.MASS_BAL_CG_SHIFT && <CGShiftVisualizer />}
-                                    {currentView === View.MASS_BAL_CONVERTER && <UnitConverter />}
-                                    {currentView === View.MASS_BAL_EFFECTS && <MassEffects />}
-                                    {currentView === View.MASS_BAL_CG_EFFECTS && <CGEffects />}
-                                    {currentView === View.MASS_BAL_STRUCTURAL && <StructuralLimits />}
-                                    {currentView === View.MASS_BAL_STALL_SPEED && <StallSpeedCalc />}
-                                    {currentView === View.MASS_BAL_FLEET && <FleetMasses />}
-                                    {currentView === View.MASS_BAL_CARGO_TYPES && <CargoTypes />}
-                                    {currentView === View.MASS_BAL_STD_MASSES && <StandardMasses />}
+                                        {currentView === View.HPL_TROPICAL_DISEASES && <HPLTropicalDiseases onNavigate={navigateTo} />}
 
-                                    {currentView === View.OPS_PROC_HOME && (
-                                        <GenericSubjectDashboard
-                                            subjectCode="070" subjectName="Operational Procedures" color="indigo"
-                                            description="Special operational procedures, noise abatement, fire/smoke, wind shear and icing."
-                                            icon={BookOpen} onChangeView={navigateTo}
-                                            modules={[
-                                                { title: 'Long Range Ops', desc: 'NAT HLA, ETOPS, Polar.', view: View.OPS_LONG_RANGE, isLocked: !isSubjectAllowed('070') },
-                                                { title: 'Special Procedures', desc: 'Fire, DG, Contamination, Noise.', view: View.OPS_SPECIAL, isLocked: !isSubjectAllowed('070') },
-                                                { title: 'Flight Time Limitations', desc: 'FDP Calculator & Rest Rules.', view: View.OPS_FTL, isLocked: !isSubjectAllowed('070') },
-                                                { title: 'Emergency Ops', desc: 'Fuel dump, TCAS, Distress.', view: View.EMERGENCY_OPS, isLocked: !isSubjectAllowed('070') },
-                                                { title: 'All Weather Ops', desc: 'LVP, Minima, Approach Bans.', view: View.OPS_AWO, isLocked: !isSubjectAllowed('070') },
-                                                { title: 'General Requirements', desc: 'MEL, Equipment, AOC, Safety.', view: View.OPS_GENERAL, isLocked: !isSubjectAllowed('070') },
-                                                { title: 'Ground Ops', desc: 'Marshalling & Safety.', view: View.AIR_LAW_GROUND_OPS, isLocked: !isSubjectAllowed('070') },
-                                            ]}
-                                            onOpenSyllabus={handleOpenSyllabus}
-                                        />
-                                    )}
-                                    {currentView === View.OPS_LONG_RANGE && <LongRangeOps />}
-                                    {currentView === View.OPS_SPECIAL && <SpecialOpsDashboard isLocked={!isSubjectAllowed('070')} />}
-                                    {currentView === View.OPS_FTL && <FTLCalculator />}
-                                    {currentView === View.OPS_AWO && <AllWeatherOps />}
-                                    {currentView === View.OPS_GENERAL && <OpsGeneral />}
-                                    {currentView === View.PERF_HOME && (
-                                        <GenericSubjectDashboard
-                                            subjectCode="032" subjectName="Performance (A)" color="lime"
-                                            description="Take-off, climb, cruise, descent and landing performance for Class A/B aircraft."
-                                            icon={TrendingUp} onChangeView={navigateTo}
-                                            modules={[]}
-                                            onOpenSyllabus={handleOpenSyllabus}
-                                        />
-                                    )}
-                                    {currentView === View.FLIGHT_PLAN_HOME && (
-                                        <GenericSubjectDashboard
-                                            subjectCode="033" subjectName="Flight Planning" color="green"
-                                            description="VFR/IFR planning, fuel planning, point of equal time, and flight monitoring."
-                                            icon={Map} onChangeView={navigateTo}
-                                            modules={[]}
-                                            onOpenSyllabus={handleOpenSyllabus}
-                                        />
-                                    )}
+                                        {/* Gen Nav (061) */}
+                                        {currentView === View.GEN_NAV_HOME && <GenNavDashboard currentView={currentView} setCurrentView={navigateTo} isLocked={!isSubjectAllowed('061')} />}
+                                        {/* --- METEOROLOGY SECTION (Wrapped in Layout) --- */}
+                                        {[
+                                            View.MET_HOME, View.MET_ATMOSPHERE, View.MET_PRESSURE, View.MET_DENSITY,
+                                            View.MET_TEMPERATURE, View.MET_ALTIMETRY, View.MET_WIND, View.MET_CIRCULATION, View.MET_HUMIDITY,
+                                            View.MET_PRECIPITATION, View.MET_FRONTS, View.MET_THUNDERSTORMS, View.MET_ICING,
+                                            View.MET_VISIBILITY, View.MET_AIR_MASSES, View.MET_TURBULENCE,
+                                            View.MET_JET_STREAMS, View.MET_CLIMATOLOGY, View.MET_LOCAL_WINDS,
+                                            View.MET_DEPRESSIONS_ANTICYCLONES, View.MET_CLOUD_TYPES, View.MET_METAR_TAF,
+                                            View.MET_CHARTS, View.MET_TRS, View.MET_SPECIAL_HAZARDS, View.MET_SATELLITE,
+                                            View.MET_OPTICAL, View.MET_STATION_MODEL
+                                        ].includes(currentView) ? (
+                                            <div className="w-full animate-in fade-in duration-500">
+                                                {currentView === View.MET_HOME && <MetDashboard onChangeView={navigateTo} />}
+                                                {currentView === View.MET_ATMOSPHERE && <AtmosphereLayers />}
+                                                {currentView === View.MET_TEMPERATURE && <AtmosphereMaster />}
+                                                {currentView === View.MET_PRESSURE && <PressureSystems />}
+                                                {currentView === View.MET_DENSITY && <Density />}
+                                                {currentView === View.MET_ALTIMETRY && <Altimetry />}
+                                                {currentView === View.MET_WIND && <WindSystems />}
+                                                {currentView === View.MET_CIRCULATION && <GeneralCirculation />}
+                                                {currentView === View.MET_HUMIDITY && <HumidityLab />}
+                                                {currentView === View.MET_PRECIPITATION && <Precipitation />}
+                                                {currentView === View.MET_FRONTS && <FrontalSystems />}
+                                                {currentView === View.MET_THUNDERSTORMS && <Thunderstorms />}
+                                                {currentView === View.MET_ICING && <Icing />}
+                                                {currentView === View.MET_VISIBILITY && <VisibilityFog />}
+                                                {currentView === View.MET_AIR_MASSES && <AirMasses />}
+                                                {currentView === View.MET_TURBULENCE && <Turbulence />}
+                                                {currentView === View.MET_JET_STREAMS && <JetStreams />}
+                                                {currentView === View.MET_CLIMATOLOGY && <Climatology />}
+                                                {currentView === View.MET_LOCAL_WINDS && <LocalWinds />}
+                                                {currentView === View.MET_DEPRESSIONS_ANTICYCLONES && <DepressionsAnticyclones />}
+                                                {currentView === View.MET_CLOUD_TYPES && <CloudTypes />}
+                                                {currentView === View.MET_METAR_TAF && <MetarTafDecoder />}
+                                                {currentView === View.MET_CHARTS && <WeatherCharts />}
+                                                {currentView === View.MET_TRS && <TropicalStorms />}
+                                                {currentView === View.MET_SPECIAL_HAZARDS && <SpecialHazards />}
+                                                {currentView === View.MET_SATELLITE && <SatelliteRadar />}
+                                                {currentView === View.MET_OPTICAL && <OpticalPhenomena />}
+                                                {currentView === View.MET_STATION_MODEL && <StationModels />}
+                                            </div>
+                                        ) : null}
 
-                                    {/* Visual Concept Lab */}
-                                    {currentView === View.CONCEPT_LAB && <ConceptLab onChangeView={navigateTo} />}
-                                    {currentView === View.CONCEPT_FORCES_OF_FLIGHT && (
-                                        <ForcesOfFlight onBack={() => navigateTo(View.CONCEPT_LAB)} />
-                                    )}
-                                    {currentView === View.CONCEPT_HOLD_ENTRY && (
-                                        <HoldEntryVisualizer onBack={() => navigateTo(View.CONCEPT_LAB)} />
-                                    )}
-                                    {currentView === View.CONCEPT_GREAT_CIRCLE && (
-                                        <GreatCircleExplorer onBack={() => navigateTo(View.CONCEPT_LAB)} />
-                                    )}
-                                    {currentView === View.CONCEPT_TURN_PERF && (
-                                        <TurnPerformance onBack={() => navigateTo(View.CONCEPT_LAB)} />
-                                    )}
+                                        {/* --- GEN NAV / RADIO NAV --- */}
+                                        {currentView === View.GEN_NAV_SOLAR && <SolarCalc onNavigate={navigateTo} />}
+                                        {currentView === View.GEN_NAV_MAPS && <MapProjections onNavigate={navigateTo} />}
+                                        {currentView === View.GEN_NAV_WIND_TRIANGLE && <WindTriangle onNavigate={navigateTo} />}
+                                        {currentView === View.GEN_NAV_POLAR && <PolarGrid onNavigate={navigateTo} />}
+                                        {currentView === View.NAV_60_1 && <OneInSixty />}
+                                        {/* Radio Nav */}
+                                        {currentView === View.RAD_NAV_HOME && (
+                                            <GenericSubjectDashboard
+                                                subjectCode="062" subjectName="Radio Navigation" color="sky"
+                                                description="Radio aids, radar, GNSS, area navigation systems."
+                                                icon={Wifi} onChangeView={navigateTo}
+                                                modules={[
+                                                    // Phase 1: Basics
+                                                    { title: 'Class 1: Fundamentals', desc: 'Waves, Spectrum, Modulation, Propagation (New).', view: View.RAD_NAV_CLASS_1 },
+                                                    { title: 'Wave Propagation', desc: 'Wavelength, Frequency, Amplitude visualized.', view: View.RAD_NAV_WAVE_PROP },
+                                                    { title: 'Spectrum Explorer', desc: 'VLF to EHF bands and aviation usage.', view: View.RAD_NAV_SPECTRUM },
+                                                    { title: 'Ionosphere', desc: 'Sky wave propagation, layers and skip distance.', view: View.RAD_NAV_IONOSPHERE },
+                                                    { title: 'Antenna Theory', desc: 'Radiation patterns, dipoles and loops.', view: View.RAD_NAV_ANTENNA },
+                                                    { title: 'Modulation', desc: 'AM, FM, Phase and Pulse modulation.', view: View.RAD_NAV_MODULATION },
 
-                                    {currentView === View.SYLLABUS_VIEWER && (
-                                        <SyllabusViewer
-                                            subjectId={selectedSubjectId || 'ALL'} // Default to ALL if no subject selected
-                                            currentUser={user}
-                                            onUpdateUser={handleUserUpdate}
-                                            onBack={goBack}
-                                            onNavigate={navigateTo}
-                                        />
-                                    )}
-                                </AnimatedPageWrapper>
-                            </AnimatePresence>
+                                                    // Phase 2: Radio Aids
+                                                    { title: 'VOR Simulator', desc: 'CDI, TO/FROM, Radial Interception.', view: View.RAD_NAV_VOR },
+                                                    { title: 'ADF/NDB', desc: 'RBI/RMI tracking and homing.', view: View.RAD_NAV_ADF },
+                                                    { title: 'DME', desc: 'Slant range vs Ground distance.', view: View.RAD_NAV_DME },
+                                                    { title: 'ILS Approach', desc: 'Localizer and Glidepath lobes.', view: View.RAD_NAV_ILS },
+                                                    { title: 'VDF', desc: 'QDM/QDR and homing.', view: View.RAD_NAV_VDF },
+                                                    { title: 'MLS', desc: 'Microwave Landing System TRSB.', view: View.RAD_NAV_MLS },
+
+                                                    // Phase 3: Radar & Advanced
+                                                    { title: 'Weather Radar', desc: 'Tilt, Iso-Echo, Attenuation and shadows.', view: View.RAD_NAV_WX_RADAR },
+                                                    { title: 'Radar Theory', desc: 'Pulse technique, PRF, PRI.', view: View.RAD_NAV_RADAR },
+                                                    { title: 'SSR Transponder', desc: 'Mode A/C/S, Codes and Interrogation.', view: View.RAD_NAV_SSR },
+                                                    { title: 'GNSS Principles', desc: 'GPS, GLONASS, GALILEO satellites.', view: View.NAV_GNSS },
+                                                    { title: 'SBAS/ABAS', desc: 'EGNOS, WAAS and augmentation.', view: View.RAD_NAV_SBAS },
+                                                    { title: 'RNAV/PBN', desc: 'Area Navigation and Kalman Filtering.', view: View.RAD_NAV_RNAV },
+                                                    { title: 'FMS Trainer', desc: 'CDU/MCDU Waypoint entry.', view: View.RAD_NAV_FMS },
+                                                ]}
+                                                onOpenSyllabus={handleOpenSyllabus}
+                                            />
+                                        )}
+
+                                        {currentView === View.NAV_GNSS && <GNSSTheory />}
+                                        {currentView === View.RAD_NAV_WAVE_PROP && <WavePropVisualizer />}
+                                        {currentView === View.RAD_NAV_SPECTRUM && <SpectrumExplorer />}
+                                        {currentView === View.RAD_NAV_IONOSPHERE && <IonosphereSim />}
+                                        {currentView === View.RAD_NAV_ANTENNA && <AntennaTheory />}
+                                        {currentView === View.RAD_NAV_MODULATION && <Modulation />}
+                                        {currentView === View.RAD_NAV_VOR && <VORSystem onNavigate={navigateTo} />}
+                                        {currentView === View.RAD_NAV_ADF && <NDBADFSystem onNavigate={navigateTo} />}
+                                        {currentView === View.RAD_NAV_DME && <DMESystem onNavigate={navigateTo} />}
+                                        {currentView === View.RAD_NAV_ILS && <ILSSystem onNavigate={navigateTo} />}
+                                        {currentView === View.RAD_NAV_VDF && <VDF />}
+                                        {currentView === View.RAD_NAV_MLS && <MLS />}
+                                        {currentView === View.RAD_NAV_RADAR && <RadarTheory />}
+                                        {currentView === View.RAD_NAV_WX_RADAR && <WeatherRadar onNavigate={navigateTo} />}
+                                        {currentView === View.RAD_NAV_SSR && <SSRTransponder />}
+                                        {currentView === View.RAD_NAV_SBAS && <SbasAbas />}
+                                        {currentView === View.RAD_NAV_RNAV && <RnavPbn />}
+                                        {currentView === View.RAD_NAV_FMS && <FMSTrainer />}
+                                        {currentView === View.RAD_NAV_CLASS_1 && <RadioFundamentals onNavigate={navigateTo} />}
+
+                                        {/* PoF */}
+                                        {currentView === View.POF_HOME && (
+                                            <GenericSubjectDashboard
+                                                subjectCode="081" subjectName="Principles of Flight" color="violet"
+                                                description="Subsonic aerodynamics, stability, control, lift, drag."
+                                                icon={PlaneIcon} onChangeView={navigateTo}
+                                                modules={[
+                                                    { title: 'Atmosphere', desc: 'ISA properties: Temperature, Pressure, Density.', view: View.POF_ATMOSPHERE },
+                                                    { title: 'Airflow Basics', desc: 'Streamlines, Bernoulli, and Continuity.', view: View.POF_AIRFLOW },
+                                                    { title: 'Aerofoil Geometry', desc: 'Camber, Chord, Thickness, Angle of Attack.', view: View.POF_AEROFOIL },
+                                                    { title: 'Wing Geometry', desc: 'Aspect Ratio, Taper, Sweep, Planform.', view: View.POF_WING_GEOM },
+                                                    { title: 'Lift & Drag', desc: 'Coefficient curves, polar diagrams.', view: View.POF_LIFT_DRAG },
+                                                    { title: '3D Airflow', desc: 'Wingtip vortices, Downwash, Induced Drag.', view: View.POF_3D_AIRFLOW },
+                                                    { title: 'Total Drag', desc: 'Parasite vs Induced Drag curves.', view: View.POF_DRAG },
+                                                    { title: 'Ground Effect', desc: 'Cushioning effect near surface.', view: View.POF_GROUND_EFFECT },
+                                                    { title: 'High Lift Devices', desc: 'Flaps and Slats performance.', view: View.POF_HIGH_LIFT },
+                                                    { title: 'Stall', desc: 'Stalling characteristics and recovery.', isLocked: true },
+                                                    { title: 'Stability', desc: 'Static and Dynamic stability.', isLocked: true },
+                                                ]}
+                                                onOpenSyllabus={handleOpenSyllabus}
+                                            />
+                                        )}
+                                        {currentView === View.POF_ATMOSPHERE && <AtmosphereProp />}
+                                        {currentView === View.POF_AIRFLOW && <AirflowBasics />}
+                                        {currentView === View.POF_AEROFOIL && <AerofoilGeom />}
+                                        {currentView === View.POF_WING_GEOM && <WingGeom />}
+                                        {currentView === View.POF_LIFT_DRAG && <LiftDragCoeff />}
+                                        {currentView === View.POF_3D_AIRFLOW && <ThreeDAirflow />}
+                                        {currentView === View.POF_DRAG && <TotalDrag />}
+                                        {currentView === View.POF_GROUND_EFFECT && <GroundEffect />}
+                                        {currentView === View.POF_HIGH_LIFT && <HighLiftDevices />}
+
+                                        {/* KSA (100) */}
+                                        {currentView === View.KSA_HOME && <KSADashboard onChangeView={navigateTo} isLocked={!isSubjectAllowed('100')} />}
+                                        {currentView === View.KSA_COMPETENCIES && <KSACoreCompetencies />}
+                                        {currentView === View.KSA_TEM && <TEMAdvanced />}
+                                        {currentView === View.KSA_MENTAL_MATHS && <MentalMathsLab />}
+                                        {currentView === View.KSA_FORDEC && <FORDECDecision />}
+                                        {currentView === View.KSA_UPRT && <UPRTConcepts />}
+                                        {currentView === View.KSA_CRM && <CRMScenarios />}
+                                        {currentView === View.KSA_RESILIENCE && <ResilienceTraining />}
+                                        {currentView === View.KSA_PROCEDURES && <ProcedureApplication />}
+
+                                        {/* Communications (090) */}
+                                        {currentView === View.DASHBOARD && <CommsDashboard onChangeView={navigateTo} onOpenSyllabus={handleOpenSyllabus} />}
+                                        {currentView === View.GENERAL_THEORY && <GeneralTheory />}
+                                        {currentView === View.PROPAGATION_THEORY && <PropagationTheory />}
+                                        {currentView === View.TECH_PHYSICS && <TechPhysics />}
+                                        {currentView === View.FREQ_EXPLORER && <FrequencyExplorer />}
+                                        {currentView === View.SUFFIX_MATCH && <SuffixMatch />}
+                                        {currentView === View.QCODE_CARDS && <QCodeFlashcards />}
+                                        {currentView === View.Q_COMPASS && <QCodeCompass />}
+                                        {currentView === View.WORD_MATCH && <WordMatch />}
+                                        {currentView === View.PHONETIC && <PhoneticTrainer />}
+                                        {currentView === View.ALT_SPEAK && <AltSpeak />}
+                                        {currentView === View.TIME_REPORT && <TimeReport />}
+                                        {currentView === View.READABILITY_SIM && <ReadabilitySim />}
+                                        {currentView === View.FLIGHT_RULES && <FlightRules />}
+                                        {currentView === View.PRIORITY && <PrioritySorter />}
+                                        {currentView === View.CALLSIGN_TRAINER && <CallsignTrainer />}
+                                        {currentView === View.URGENCY_TRAINER && <UrgencyTrainer />}
+                                        {currentView === View.LEVEL_CHANGES && <LevelChanges />}
+                                        {currentView === View.ABBREVIATION_GAME && <AbbreviationGame />}
+                                        {currentView === View.CPDLC_SIM && <CPDLCSim />}
+                                        {currentView === View.READBACK && <ReadbackChallenge />}
+                                        {currentView === View.METAR && <MetarDecoder />}
+                                        {currentView === View.VOLMET_SIM && <VolmetSimulator />}
+                                        {currentView === View.AIREP_SPEC && <AirepSpec />}
+                                        {currentView === View.RADIO_NAV_DATA && <NavDataLink />}
+                                        {(currentView === View.TIME_ZONER || currentView === View.NAV_TIME) && <TimeZoner />}
+                                        {currentView === View.EMERGENCY && <EmergencyBuilder />}
+                                        {currentView === View.EMERGENCY_OPS && <EmergencyOps />}
+                                        {currentView === View.COMM_FAIL && <CommFailure />}
+                                        {currentView === View.BLIND_TX && <BlindTrans />}
+                                        {currentView === View.TRANSPONDER && <TransponderDojo />}
+                                        {currentView === View.VFR_COMMS_SIM && <VfrFlightSim />}
+                                        {currentView === View.PHRASEOLOGY_EXPLORER && <PhraseologyExplorer />}
+                                        {currentView === View.POS_REPORT && <PositionReport />}
+                                        {currentView === View.TRAFFIC_CLOCK && <TrafficClock />}
+                                        {currentView === View.AI_ROLEPLAY && <ScenarioRoleplay />}
+                                        {currentView === View.AI_QUIZ && <AIQuiz />}
+                                        {currentView === View.LIGHT_GUN && <LightGunGame />}
+                                        {currentView === View.RADAR_VECTORS && <RadarVectors />}
+                                        {currentView === View.TRANSFER_DRILL && <TransferDrill />}
+                                        {currentView === View.METAR_BUILDER && <MetarBuilder />}
+                                        {currentView === View.MORSE && <MorseMaster />}
+                                        {currentView === View.BAND_SPEC && <BandSpectrum />}
+                                        {currentView === View.VHF_CALC && <VHFCalculator />}
+                                        {currentView === View.ADV_PHRASEOLOGY && <AdvancedPhraseology />}
+                                        {currentView === View.RVR_SIM && <RvrSimulator />}
+                                        {currentView === View.RVR_CODE && <RvrDecoder />}
+                                        {currentView === View.CLOUD_MASTER && <CloudMaster />}
+                                        {currentView === View.FLIRT_TRAINER && <FlirtTrainer />}
+                                        {currentView === View.PAPI_VIS && <PapiVis />}
+                                        {currentView === View.NAV_NDB_VOR && <MorseIdent />}
+                                        {currentView === View.WEATHER_MINIMA && <WeatherMinima />}
+                                        {currentView === View.HOLDING && <HoldEntryCalc />}
+                                        {currentView === View.ALTIMETER && <AltimeterLab />}
+                                        {currentView === View.RUNWAY && <RunwayLighting />}
+                                        {currentView === View.SURFACE_LIGHT && <SurfaceLighting />}
+                                        {currentView === View.TAXIWAY_LIGHT && <TaxiwayLighting />}
+                                        {currentView === View.RUNWAY_MARKING && <RunwayQuiz />}
+                                        {currentView === View.SNOWTAM && <SnowtamDecoder />}
+                                        {currentView === View.SIGMET_DECODER && <SigmetDecoder />}
+                                        {currentView === View.WAKE_TURB && <WakeTurbulence />}
+                                        {currentView === View.SERVICE_CODES && <ServiceCodes />}
+                                        {currentView === View.QCODE_CARDS && <QCodeCards />}
+                                        {currentView === View.NUM_TIME_TRANSMIT && <TransmissionDrill />}
+                                        {currentView === View.COMMS_DEFINITIONS && <CommsDefinitions />}
+                                        {currentView === View.INTERCEPT && <InterceptTrainer />}
+
+
+                                        {currentView === View.MASS_BAL_HOME && <MassBalanceDashboard onNavigate={navigateTo} isLocked={!isSubjectAllowed('031')} />}
+                                        {currentView === View.MASS_BAL_DEFINITIONS && <MassDefinitions />}
+                                        {currentView === View.MASS_BAL_CG_CALC && <WeighingProcedure />}
+                                        {currentView === View.MASS_BAL_LIMITS && <LoadingLimits />}
+                                        {currentView === View.MASS_BAL_MAC && <MacVisualizer />}
+                                        {currentView === View.MASS_BAL_SHIFT && <CargoHandlingSim />}
+                                        {currentView === View.MASS_BAL_FUEL && <FuelDensityCalc />}
+                                        {currentView === View.MASS_BAL_LOADSHEET && <LoadSheetSim />}
+                                        {currentView === View.MASS_BAL_FLOW_DIAGRAM && <MassBuildUpFlow />}
+                                        {currentView === View.MASS_BAL_TRIM_SHEET && <TrimSheetSim />}
+                                        {currentView === View.MASS_BAL_CG_SHIFT && <CGShiftVisualizer />}
+                                        {currentView === View.MASS_BAL_CONVERTER && <UnitConverter />}
+                                        {currentView === View.MASS_BAL_EFFECTS && <MassEffects />}
+                                        {currentView === View.MASS_BAL_CG_EFFECTS && <CGEffects />}
+                                        {currentView === View.MASS_BAL_STRUCTURAL && <StructuralLimits />}
+                                        {currentView === View.MASS_BAL_STALL_SPEED && <StallSpeedCalc />}
+                                        {currentView === View.MASS_BAL_FLEET && <FleetMasses />}
+                                        {currentView === View.MASS_BAL_CARGO_TYPES && <CargoTypes />}
+                                        {currentView === View.MASS_BAL_STD_MASSES && <StandardMasses />}
+
+                                        {currentView === View.OPS_PROC_HOME && (
+                                            <GenericSubjectDashboard
+                                                subjectCode="070" subjectName="Operational Procedures" color="indigo"
+                                                description="Special operational procedures, noise abatement, fire/smoke, wind shear and icing."
+                                                icon={BookOpen} onChangeView={navigateTo}
+                                                modules={[
+                                                    { title: 'Long Range Ops', desc: 'NAT HLA, ETOPS, Polar.', view: View.OPS_LONG_RANGE, isLocked: !isSubjectAllowed('070') },
+                                                    { title: 'Special Procedures', desc: 'Fire, DG, Contamination, Noise.', view: View.OPS_SPECIAL, isLocked: !isSubjectAllowed('070') },
+                                                    { title: 'Flight Time Limitations', desc: 'FDP Calculator & Rest Rules.', view: View.OPS_FTL, isLocked: !isSubjectAllowed('070') },
+                                                    { title: 'Emergency Ops', desc: 'Fuel dump, TCAS, Distress.', view: View.EMERGENCY_OPS, isLocked: !isSubjectAllowed('070') },
+                                                    { title: 'All Weather Ops', desc: 'LVP, Minima, Approach Bans.', view: View.OPS_AWO, isLocked: !isSubjectAllowed('070') },
+                                                    { title: 'General Requirements', desc: 'MEL, Equipment, AOC, Safety.', view: View.OPS_GENERAL, isLocked: !isSubjectAllowed('070') },
+                                                    { title: 'Ground Ops', desc: 'Marshalling & Safety.', view: View.AIR_LAW_GROUND_OPS, isLocked: !isSubjectAllowed('070') },
+                                                ]}
+                                                onOpenSyllabus={handleOpenSyllabus}
+                                            />
+                                        )}
+                                        {currentView === View.OPS_LONG_RANGE && <LongRangeOps />}
+                                        {currentView === View.OPS_SPECIAL && <SpecialOpsDashboard isLocked={!isSubjectAllowed('070')} />}
+                                        {currentView === View.OPS_FTL && <FTLCalculator />}
+                                        {currentView === View.OPS_AWO && <AllWeatherOps />}
+                                        {currentView === View.OPS_GENERAL && <OpsGeneral />}
+                                        {currentView === View.PERF_HOME && (
+                                            <GenericSubjectDashboard
+                                                subjectCode="032" subjectName="Performance (A)" color="lime"
+                                                description="Take-off, climb, cruise, descent and landing performance for Class A/B aircraft."
+                                                icon={TrendingUp} onChangeView={navigateTo}
+                                                modules={[]}
+                                                onOpenSyllabus={handleOpenSyllabus}
+                                            />
+                                        )}
+                                        {currentView === View.FLIGHT_PLAN_HOME && (
+                                            <GenericSubjectDashboard
+                                                subjectCode="033" subjectName="Flight Planning" color="green"
+                                                description="VFR/IFR planning, fuel planning, point of equal time, and flight monitoring."
+                                                icon={Map} onChangeView={navigateTo}
+                                                modules={[]}
+                                                onOpenSyllabus={handleOpenSyllabus}
+                                            />
+                                        )}
+
+                                        {/* Visual Concept Lab */}
+                                        {currentView === View.CONCEPT_LAB && <ConceptLab onChangeView={navigateTo} />}
+                                        {currentView === View.CONCEPT_FORCES_OF_FLIGHT && (
+                                            <ForcesOfFlight onBack={() => navigateTo(View.CONCEPT_LAB)} />
+                                        )}
+                                        {currentView === View.CONCEPT_HOLD_ENTRY && (
+                                            <HoldEntryVisualizer onBack={() => navigateTo(View.CONCEPT_LAB)} />
+                                        )}
+                                        {currentView === View.CONCEPT_GREAT_CIRCLE && (
+                                            <GreatCircleExplorer onBack={() => navigateTo(View.CONCEPT_LAB)} />
+                                        )}
+                                        {currentView === View.CONCEPT_TURN_PERF && (
+                                            <TurnPerformance onBack={() => navigateTo(View.CONCEPT_LAB)} />
+                                        )}
+
+                                        {currentView === View.SYLLABUS_VIEWER && (
+                                            <SyllabusViewer
+                                                subjectId={selectedSubjectId || 'ALL'} // Default to ALL if no subject selected
+                                                currentUser={user}
+                                                onUpdateUser={handleUserUpdate}
+                                                onBack={goBack}
+                                                onNavigate={navigateTo}
+                                            />
+                                        )}
+                                    </AnimatedPageWrapper>
+                                </AnimatePresence>
+                            </React.Suspense>
                         </div>
                     </div>
                 </main>

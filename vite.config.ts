@@ -28,6 +28,18 @@ export default defineConfig(({ mode }) => {
       alias: {
         '@': path.resolve(__dirname, '.'),
       }
+    },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor-react': ['react', 'react-dom', 'framer-motion'],
+            'vendor-three': ['three', '@react-three/fiber', '@react-three/drei'],
+            'vendor-utils': ['lucide-react', '@hello-pangea/dnd', 'recharts'],
+            'vendor-firebase': ['@supabase/supabase-js']
+          }
+        }
+      }
     }
   };
 });

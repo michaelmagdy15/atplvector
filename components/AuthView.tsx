@@ -314,34 +314,55 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
         }
     };
 
-    // Hero 3D Interaction State
-    const [heroMouse, setHeroMouse] = useState({ x: 0, y: 0 });
-
+    // Hero 3D Interaction Logic - Direct DOM manipulation to avoid re-renders
     useEffect(() => {
         let rafId: number | null = null;
+        const heroText = document.getElementById('hero-text');
+
+        // Pre-select child elements for performance
+        const shimmerText = heroText?.querySelector('.hero-shimmer-text') as HTMLElement;
+        const shimmerOverlay = heroText?.querySelector('.hero-shimmer-overlay') as HTMLElement;
 
         const handleMouseMove = (e: MouseEvent) => {
-            if (rafId) return;
+            if (rafId || !heroText) return;
 
             rafId = requestAnimationFrame(() => {
                 // Calculate normalized mouse position (-1 to 1) for tilt
                 const x = (e.clientX / window.innerWidth) * 2 - 1;
                 const y = (e.clientY / window.innerHeight) * 2 - 1;
-                setHeroMouse({ x, y });
 
                 // Update CSS variables for the shimmer/slider effect relative to text
-                const hero = document.getElementById('hero-text');
-                if (hero) {
-                    const rect = hero.getBoundingClientRect();
-                    const relX = e.clientX - rect.left;
-                    const relY = e.clientY - rect.top;
-                    hero.style.setProperty('--mouse-x', `${relX}px`);
-                    hero.style.setProperty('--mouse-y', `${relY}px`);
+                const rect = heroText.getBoundingClientRect();
+                const relX = e.clientX - rect.left;
+                const relY = e.clientY - rect.top;
+
+                // Directly set styles on the element
+                heroText.style.transform = `rotateX(${y * -5}deg) rotateY(${x * 5}deg)`;
+                heroText.style.setProperty('--mouse-x', `${relX}px`);
+                heroText.style.setProperty('--mouse-y', `${relY}px`);
+
+                // Update specific background gradient if needed, but CSS var is better if supported
+                // For the radial gradient text effect:
+                heroText.style.backgroundImage = `radial-gradient(circle 300px at ${relX}px ${relY}px, rgba(255,255,255,0.4), transparent)`;
+                heroText.style.backgroundClip = 'text';
+                heroText.style.webkitBackgroundClip = 'text';
+
+                // Update children if they exist
+                if (shimmerText) {
+                    shimmerText.style.filter = `brightness(${1 + Math.abs(x) * 0.3}) saturate(${1 + Math.abs(y) * 0.2})`;
                 }
+
+                if (shimmerOverlay) {
+                    shimmerOverlay.style.transform = `translateX(${(x + 1) * 50}%) skewX(-20deg)`;
+                    shimmerOverlay.style.opacity = `${0.5 + Math.abs(x) * 0.5}`;
+                }
+
                 rafId = null;
             });
         };
 
+        // Only attach if we are in a view that shows the hero (e.g., LOGIN/SIGNUP on desktop)
+        // For simplicity, we attach always but checks are cheap
         window.addEventListener('mousemove', handleMouseMove);
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
@@ -433,33 +454,15 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wider backdrop-blur-sm animate-in fade-in slide-in-from-bottom-4 duration-700">
                                     <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> EASA 2026 Ready
                                 </div>
-                                <h1
-                                    id="hero-text"
-                                    className="text-5xl md:text-7xl xl:text-8xl font-black text-white leading-[0.9] tracking-tighter animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150 drop-shadow-2xl transition-transform duration-100 ease-out"
-                                    style={{
-                                        transform: `rotateX(${heroMouse.y * -5}deg) rotateY(${heroMouse.x * 5}deg)`,
-                                        backgroundImage: 'radial-gradient(circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.4), transparent)',
-                                        backgroundClip: 'text',
-                                        WebkitBackgroundClip: 'text',
-                                        color: 'white', // Fallback
-                                        // We mix the gradient with text color using blend mode or just overlaying
-                                    }}
-                                >
+                                <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight leading-tight text-white animate-in fade-in slide-in-from-bottom-6 duration-700 delay-150">
                                     Master <br />
                                     <span
-                                        className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400 drop-shadow-lg filter relative"
-                                        style={{
-                                            filter: `brightness(${1 + Math.abs(heroMouse.x) * 0.3}) saturate(${1 + Math.abs(heroMouse.y) * 0.2})`
-                                        }}
+                                        className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400 drop-shadow-lg filter relative hero-shimmer-text"
                                     >
                                         ATPL Theory
                                         {/* Interactive Slider / Shimmer Overlay */}
                                         <span
-                                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none mix-blend-overlay"
-                                            style={{
-                                                transform: `translateX(${(heroMouse.x + 1) * 50}%) skewX(-20deg)`,
-                                                opacity: 0.5 + Math.abs(heroMouse.x) * 0.5
-                                            }}
+                                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none mix-blend-overlay hero-shimmer-overlay"
                                         ></span>
                                     </span>
                                     <br />Visually.
@@ -1162,7 +1165,8 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                         </div>
                     </footer>
                 </>
-            )}
+            )
+            }
         </div >
     );
 };

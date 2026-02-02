@@ -5,18 +5,22 @@ import { calculateProgress } from '../data/learningObjectives';
 import { CheckCircle, Circle, BarChart3 } from 'lucide-react';
 
 const PlatformProgress: React.FC = () => {
-    const stats = calculateProgress();
+    const stats = React.useMemo(() => calculateProgress(), []);
+
     // Weighted Calculation for Overall:
     // Total LOs across all subjects
-    const totalLOs = stats.reduce((acc, curr) => acc + curr.totalLOs, 0);
+    const totalLOs = React.useMemo(() => stats.reduce((acc, curr) => acc + curr.totalLOs, 0), [stats]);
+
     // Rough estimate of covered based on our manual mapping
     // Since we don't have every single LO mapped in the DB yet, we project based on module count
     // Real implementation would count actual DB entries.
     // For this demo, we use the percentage calculated in data/learningObjectives
 
     // Calculate overall weighted percentage
-    const weightedSum = stats.reduce((acc, curr) => acc + (curr.percentage * curr.totalLOs), 0);
-    const overallPercent = Math.round(weightedSum / totalLOs);
+    const overallPercent = React.useMemo(() => {
+        const weightedSum = stats.reduce((acc, curr) => acc + (curr.percentage * curr.totalLOs), 0);
+        return Math.round(weightedSum / totalLOs);
+    }, [stats, totalLOs]);
 
     return (
         <div className="bg-slate-900 rounded-xl p-6 border border-slate-700">
@@ -34,7 +38,7 @@ const PlatformProgress: React.FC = () => {
             </div>
 
             <div className="w-full bg-slate-800 h-3 rounded-full overflow-hidden mb-6">
-                <div className="h-full bg-gradient-to-r from-sky-600 to-indigo-600 transition-all duration-1000" style={{ width: `${overallPercent}%` }}></div>
+                <div className="h-full bg-gradient-to-r from-sky-600 to-indigo-600 transition-transform duration-1000 origin-left will-change-transform" style={{ transform: `scaleX(${overallPercent / 100})` }}></div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -47,7 +51,7 @@ const PlatformProgress: React.FC = () => {
                                 <span className={`text-xs font-bold ${subPercent > 80 ? 'text-green-400' : subPercent > 40 ? 'text-yellow-400' : 'text-slate-500'}`}>{subPercent}%</span>
                             </div>
                             <div className="w-full bg-slate-700 h-1.5 rounded-full overflow-hidden">
-                                <div className={`h-full ${subPercent > 80 ? 'bg-green-500' : subPercent > 40 ? 'bg-yellow-500' : 'bg-slate-500'}`} style={{ width: `${subPercent}%` }}></div>
+                                <div className={`h-full origin-left transition-transform duration-1000 will-change-transform ${subPercent > 80 ? 'bg-green-500' : subPercent > 40 ? 'bg-yellow-500' : 'bg-slate-500'}`} style={{ transform: `scaleX(${subPercent / 100})` }}></div>
                             </div>
                         </div>
                     );

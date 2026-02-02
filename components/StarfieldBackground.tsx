@@ -62,23 +62,17 @@ const StarfieldBackground: React.FC = () => {
                 const twinkle = Math.sin(Date.now() * 0.002 + star.x) * 0.15 + 0.85;
                 const finalOpacity = star.opacity * twinkle;
 
-                // Draw star
+                // Draw star - Optimized to avoid gradient creation in loop
                 ctx.beginPath();
                 ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(148, 163, 184, ${finalOpacity})`;
                 ctx.fill();
 
-                // Add subtle glow for larger stars
+                // Add simple glow for larger stars using reduced opacity circle instead of gradient
                 if (star.size > 1.2) {
                     ctx.beginPath();
-                    ctx.arc(star.x, star.y, star.size * 2.5, 0, Math.PI * 2);
-                    const gradient = ctx.createRadialGradient(
-                        star.x, star.y, 0,
-                        star.x, star.y, star.size * 2.5
-                    );
-                    gradient.addColorStop(0, `rgba(148, 163, 184, ${finalOpacity * 0.3})`);
-                    gradient.addColorStop(1, 'rgba(148, 163, 184, 0)');
-                    ctx.fillStyle = gradient;
+                    ctx.arc(star.x, star.y, star.size * 2, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(148, 163, 184, ${finalOpacity * 0.15})`;
                     ctx.fill();
                 }
             });

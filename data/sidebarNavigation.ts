@@ -120,6 +120,7 @@ export const NAV_MAP: SubjectConfig[] = [
             { label: 'Taxiway Lights', view: View.TAXIWAY_LIGHT },
             { label: 'Runway Marking', view: View.RUNWAY_MARKING },
             { label: 'SNOWTAM', view: View.SNOWTAM },
+            { label: 'SIGMET Decoder', view: View.SIGMET_DECODER, icon: AlertTriangle },
             { label: 'Wake Turb', view: View.WAKE_TURB },
             { label: 'Service Codes', view: View.SERVICE_CODES },
             { label: 'Intercept', view: View.INTERCEPT },
@@ -276,6 +277,8 @@ export const NAV_MAP: SubjectConfig[] = [
             { label: 'Hazards', view: View.MET_SPECIAL_HAZARDS, icon: AlertTriangle },
             { label: 'Sat & Radar', view: View.MET_SATELLITE, icon: Radio },
             { label: 'Reporting', view: View.MET_METAR_TAF, icon: Database },
+            { label: 'Optical Phenom.', view: View.MET_OPTICAL, icon: Sun },
+            { label: 'Station Models', view: View.MET_STATION_MODEL, icon: Map },
         ]
     },
     {
@@ -349,6 +352,11 @@ export const NAV_MAP: SubjectConfig[] = [
             { label: 'Competencies', view: View.KSA_COMPETENCIES },
             { label: 'TEM', view: View.KSA_TEM },
             { label: 'Mental Maths', view: View.KSA_MENTAL_MATHS },
+            { label: 'FORDEC Model', view: View.KSA_FORDEC, icon: GitMerge },
+            { label: 'UPRT', view: View.KSA_UPRT, icon: AlertTriangle },
+            { label: 'CRM', view: View.KSA_CRM, icon: Users },
+            { label: 'Resilience', view: View.KSA_RESILIENCE, icon: Shield },
+            { label: 'Procedures', view: View.KSA_PROCEDURES, icon: BookOpen },
         ]
     },
     {

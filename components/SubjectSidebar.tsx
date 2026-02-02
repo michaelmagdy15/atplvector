@@ -24,7 +24,7 @@ const SubjectSidebar: React.FC<Props> = ({ config, currentView, onNavigate, onCl
 
     // Dynamic color classes based on config.color
     const getColorClass = (isActive: boolean) => {
-        const base = "transition-all duration-200 flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium ";
+        const base = "flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium ";
         // Map simplified color names to tailwind
         const activeMap: Record<string, string> = {
             red: "bg-red-500/20 text-red-100 border border-red-500/30 shadow-sm",
@@ -48,7 +48,7 @@ const SubjectSidebar: React.FC<Props> = ({ config, currentView, onNavigate, onCl
     };
 
     return (
-        <div className="h-full flex flex-col bg-slate-900/50 backdrop-blur-xl border-r border-white/5 md:border-none md:bg-transparent">
+        <div className="h-full flex flex-col bg-slate-900 border-r border-white/5 md:border-none md:bg-transparent">
             {/* Header */}
             <div className="p-4 mb-2 relative">
                 <div className="flex justify-between items-start">
