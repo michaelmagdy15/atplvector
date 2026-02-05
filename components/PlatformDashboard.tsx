@@ -155,6 +155,38 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                 </div>
             </div>
 
+            {/* Flight Deck Simulators Link - Premium */}
+            <div className="mb-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div
+                        onClick={() => onChangeView(View.MCDU_SIM)}
+                        className="group relative glass-card rounded-2xl p-1 overflow-hidden cursor-pointer hover:scale-[1.01] transition-all"
+                    >
+                        <div className="bg-slate-900/60 rounded-xl h-full p-6 relative overflow-hidden">
+                            {/* Glow */}
+                            <div className="absolute -top-10 -right-10 w-32 h-32 bg-green-500 rounded-full blur-[60px] opacity-20 group-hover:opacity-30 transition-opacity"></div>
+
+                            <div className="flex items-start justify-between mb-4">
+                                <div className="p-3 bg-slate-800 rounded-lg text-green-400 border border-slate-700">
+                                    <Activity size={24} />
+                                </div>
+                                <div className="px-2 py-1 rounded bg-green-500/10 border border-green-500/20 text-[10px] font-bold text-green-400 uppercase tracking-wider">
+                                    Simulator
+                                </div>
+                            </div>
+
+                            <h3 className="text-xl font-bold text-white mb-2">Airbus MCDU Trainer</h3>
+                            <p className="text-sm text-slate-400 mb-4">Interactive FMS simulation. Practice data entry, flight plan initialization and performance calculation.</p>
+
+                            <div className="flex items-center text-sm font-bold text-green-400 gap-2">
+                                <span>Launch Simulator</span>
+                                <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {/* Subjects Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
 

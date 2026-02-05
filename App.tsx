@@ -328,6 +328,9 @@ const ProcedureApplication = React.lazy(() => import('./components/KSA/Procedure
 
 // Removed duplicate imports of View, User, AuthStatus as they are already imported at the top.
 // Removed duplicate imports of View, User, AuthStatus as they are already imported at the top.
+
+const MCDU = React.lazy(() => import('./components/Simulators/MCDU/MCDU'));
+
 import SyllabusViewer from './components/SyllabusViewer';
 import ProgressDashboard from './components/ProgressDashboard';
 import { ToastProvider } from './components/ui/ToastContext';
@@ -1576,6 +1579,13 @@ const App: React.FC = () => {
                                                 modules={[]}
                                                 onOpenSyllabus={handleOpenSyllabus}
                                             />
+                                        )}
+
+                                        {/* MCDU Simulator */}
+                                        {currentView === View.MCDU_SIM && (
+                                            <React.Suspense fallback={<div className="min-h-screen bg-slate-950 flex items-center justify-center text-white">Loading Simulator...</div>}>
+                                                <MCDU onExit={() => navigateTo(View.PLATFORM_DASHBOARD)} />
+                                            </React.Suspense>
                                         )}
 
                                         {/* Visual Concept Lab */}

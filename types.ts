@@ -369,6 +369,9 @@ export enum View {
   INST_GPWS = 'INST_GPWS',
   INST_AUTOPILOT = 'INST_AUTOPILOT',
   INST_AUTOLAND = 'INST_AUTOLAND',
+
+  // Simulators
+  MCDU_SIM = 'MCDU_SIM',
 }
 
 export enum AuthStatus {
