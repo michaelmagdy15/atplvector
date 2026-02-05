@@ -78,6 +78,9 @@ function checkCoverage() {
                 if (notes[f]) combinedNoteContent += notes[f] + " ";
             }
 
+            // Normalize combined content for better matching
+            combinedNoteContent = normalize(combinedNoteContent);
+
             // Check coverage if this node has LOs
             if (node.los && node.los.length > 0) {
                 const titleNorm = normalize(node.title);

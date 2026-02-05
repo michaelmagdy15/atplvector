@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AuthStatus, View, User } from './types';
+import { GamificationProvider } from './context/GamificationContext';
 import { supabase } from './lib/supabase';
 import { AnimatePresence } from 'framer-motion';
 import AnimatedPageWrapper from './components/AnimatedPageWrapper';
@@ -146,6 +147,7 @@ const HPLRespiration = React.lazy(() => import('./components/HPL/HPLRespiration'
 const HPLCirculation = React.lazy(() => import('./components/HPL/HPLCirculation'));
 const HPLNervousSystem = React.lazy(() => import('./components/HPL/HPLNervousSystem'));
 const HPLMetabolism = React.lazy(() => import('./components/HPL/HPLMetabolism'));
+const MassBalanceQuizWizard = React.lazy(() => import('./components/MassBal/MassBalanceQuizWizard'));
 const HPLErgonomics = React.lazy(() => import('./components/HPL/HPLErgonomics'));
 const HPLBiases = React.lazy(() => import('./components/HPL/HPLBiases'));
 const HPLCulture = React.lazy(() => import('./components/HPL/HPLCulture'));
@@ -904,12 +906,16 @@ const App: React.FC = () => {
         </button>
     );
 
-    const MenuNavItem = ({ view, label, icon: Icon, color = "text-slate-300", bgColor = "bg-transparent" }: any) => {
+    const MenuNavItem = ({ view, label, icon: Icon, color = "text-slate-300", bgColor = "bg-transparent", onClick }: any) => {
         const active = currentView === view;
         return (
             <button
                 onClick={() => {
-                    navigateTo(view);
+                    if (onClick) {
+                        onClick();
+                    } else {
+                        navigateTo(view);
+                    }
                     setMainMenuOpen(false);
                 }}
                 className={`w-full flex items-center gap-4 px-4 py-3 rounded-2xl group ${active
@@ -1529,6 +1535,7 @@ const App: React.FC = () => {
                                         {currentView === View.MASS_BAL_FLEET && <FleetMasses />}
                                         {currentView === View.MASS_BAL_CARGO_TYPES && <CargoTypes />}
                                         {currentView === View.MASS_BAL_STD_MASSES && <StandardMasses />}
+                                        {currentView === View.MASS_BAL_QUIZ && <MassBalanceQuizWizard />}
 
                                         {currentView === View.OPS_PROC_HOME && (
                                             <GenericSubjectDashboard
@@ -1638,7 +1645,10 @@ const App: React.FC = () => {
                                     <h3 className="px-4 text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-3">Principal</h3>
                                     <div className="space-y-1">
                                         <MenuNavItem icon={PlaneIcon} label="Hangar" view={View.PLATFORM_DASHBOARD} />
-                                        <MenuNavItem icon={BookOpen} label="Syllabus" view={View.SYLLABUS_VIEWER} />
+                                        <MenuNavItem icon={BookOpen} label="Syllabus" view={View.SYLLABUS_VIEWER} onClick={() => {
+                                            setSelectedSubjectId('');
+                                            navigateTo(View.SYLLABUS_VIEWER);
+                                        }} />
                                         <MenuNavItem icon={TrendingUp} label="Progress" view={View.PROGRESS_DASHBOARD} />
                                     </div>
                                 </div>
@@ -1693,18 +1703,20 @@ const App: React.FC = () => {
 
     return (
         <ToastProvider>
-            {appContent}
-            {user && (
-                <>
-                    <FocusTimer />
-                    <Scratchpad />
-                    <CommandPalette
-                        isOpen={commandPaletteOpen}
-                        onClose={() => setCommandPaletteOpen(false)}
-                        onNavigate={navigateTo}
-                    />
-                </>
-            )}
+            <GamificationProvider>
+                {appContent}
+                {user && (
+                    <>
+                        <FocusTimer />
+                        <Scratchpad />
+                        <CommandPalette
+                            isOpen={commandPaletteOpen}
+                            onClose={() => setCommandPaletteOpen(false)}
+                            onNavigate={navigateTo}
+                        />
+                    </>
+                )}
+            </GamificationProvider>
         </ToastProvider>
     );
 };

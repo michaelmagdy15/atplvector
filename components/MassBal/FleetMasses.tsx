@@ -1,238 +1,214 @@
 import React, { useState } from 'react';
-import { Scale, Calendar, Users, Calculator, Info, AlertTriangle } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Scale, Users, Check, X, AlertCircle } from 'lucide-react';
+
+interface FleetPlane {
+    id: string;
+    reg: string;
+    mass: number;
+    lastWeighed: string;
+}
 
 const FleetMasses: React.FC = () => {
-    const [fleetSize, setFleetSize] = useState(12);
-    const [domDiff, setDomDiff] = useState(0.3); // % difference
-    const [macDiff, setMacDiff] = useState(0.2); // % difference
+    // EASA EU-OPS Rules for fleet mass
+    // "Values for a fleet... if the individual masses are within a tolerance..."
+    // Tolerance: +/- 0.5% of max structural landing mass OR +/- 0.5% of dry operating mass (whichever is greater? No, usually based on stats)
+    // Actually: "An operator may use the fleet mean mass... provided that the individual masses are within the tolerances specified."
 
-    // Calculate required sample size based on fleet size
-    const calculateSampleSize = (n: number): { formula: string; result: number } => {
-        if (n <= 3) {
-            return { formula: 'n', result: n };
-        } else if (n <= 9) {
-            return { formula: '(n + 3) / 2', result: Math.ceil((n + 3) / 2) };
-        } else {
-            return { formula: '(n + 51) / 10', result: Math.ceil((n + 51) / 10) };
-        }
+    // Rule:
+    // If the fleet mean mass is used:
+    // 1. The sample size must be adequate.
+    // 2. Individual aircraft must be within ±0.5% max landing mass OR ±0.5% of the logic... 
+    // Let's implement a checker based on "Standard Fleet Values" logic.
+
+    const [stats, setStats] = useState({
+        meanMass: 45000,
+        tolerance: 0.5, // %
+        referenceMassType: 'DOM' as 'DOM' | 'MSLM',
+    });
+
+    const [fleet, setFleet] = useState<FleetPlane[]>([
+        { id: '1', reg: 'G-ABCD', mass: 45100, lastWeighed: '2023-01-10' },
+        { id: '2', reg: 'G-EFGH', mass: 44950, lastWeighed: '2023-06-15' },
+        { id: '3', reg: 'G-IJKL', mass: 45200, lastWeighed: '2022-11-20' },
+        { id: '4', reg: 'G-MNOP', mass: 44800, lastWeighed: '2024-02-01' },
+        { id: '5', reg: 'G-QRST', mass: 45500, lastWeighed: '2021-05-05' }, // Outlier
+    ]);
+
+    // Calculate actual mean
+    const actualMean = fleet.reduce((acc, p) => acc + p.mass, 0) / fleet.length;
+
+    // Check compliance
+    const limit = (stats.meanMass * stats.tolerance) / 100;
+    const lower = actualMean - limit;
+    const upper = actualMean + limit;
+
+    const complianceCheck = (mass: number) => {
+        const diff = Math.abs(mass - actualMean);
+        const percent = (diff / actualMean) * 100;
+        return {
+            isCompliant: percent <= stats.tolerance,
+            diff: diff,
+            percent: percent
+        };
     };
 
-    const sample = calculateSampleSize(fleetSize);
-
-    // Check tolerances
-    const domOk = domDiff <= 0.5;
-    const macOk = macDiff <= 0.5;
-
     return (
-        <div className="p-4 md:p-8 max-w-5xl mx-auto space-y-8 animate-in fade-in duration-500">
-            {/* Header */}
-            <div className="text-center mb-8">
-                <div className="inline-flex items-center justify-center p-3 bg-sky-500/10 rounded-full mb-4">
-                    <Users className="w-8 h-8 text-sky-400" />
-                </div>
-                <h1 className="text-3xl font-black text-white tracking-tight uppercase">
-                    Fleet <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-cyan-500">Weighing Procedures</span>
-                </h1>
-                <p className="text-slate-400 mt-2">Managing mass data across a fleet of aircraft</p>
-            </div>
+        <div className="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700 mt-8 font-sans">
+            <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-3">
+                <Users className="text-teal-400" />
+                Fleet Mass Evaluator
+            </h2>
+            <p className="text-slate-400 mb-8">
+                Determine if an aircraft can use "Fleet Mass" values instead of its individual weighing report.
+            </p>
 
-            {/* Weighing Intervals */}
-            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700">
-                <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                    <Calendar className="text-sky-400" /> Weighing Schedule
-                </h3>
+            <div className="grid lg:grid-cols-3 gap-8">
+                {/* Configuration Panel */}
+                <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-700 h-fit">
+                    <h3 className="text-lg font-bold text-white mb-4">Parameters</h3>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                    {/* Individual Aircraft */}
-                    <div className="bg-gradient-to-br from-amber-900/30 to-orange-900/30 rounded-xl p-6 border border-amber-500/30">
-                        <div className="text-5xl font-black text-amber-400 mb-2">4</div>
-                        <div className="text-lg font-bold text-white">Years</div>
-                        <p className="text-sm text-slate-400 mt-2">Individual aircraft weighing interval</p>
-                        <div className="mt-4 text-xs text-amber-300 bg-amber-900/30 p-2 rounded">
-                            Standard requirement for mass verification
-                        </div>
-                    </div>
-
-                    {/* Fleet Masses */}
-                    <div className="bg-gradient-to-br from-emerald-900/30 to-green-900/30 rounded-xl p-6 border border-emerald-500/30">
-                        <div className="text-5xl font-black text-emerald-400 mb-2">9</div>
-                        <div className="text-lg font-bold text-white">Years</div>
-                        <p className="text-sm text-slate-400 mt-2">When using fleet masses</p>
-                        <div className="mt-4 text-xs text-emerald-300 bg-emerald-900/30 p-2 rounded">
-                            Each individual aircraft must still be weighed
-                        </div>
-                    </div>
-                </div>
-
-                <div className="mt-6 p-4 bg-slate-900 rounded-lg text-sm text-slate-400">
-                    <strong className="text-white">Note:</strong> Modifications may be recorded rather than re-weighing the aircraft
-                    if cumulative changes are within tolerance.
-                </div>
-            </div>
-
-            {/* Fleet Sampling Calculator */}
-            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700">
-                <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                    <Calculator className="text-cyan-400" /> Fleet Sample Size Calculator
-                </h3>
-
-                <div className="grid md:grid-cols-2 gap-8">
-                    {/* Input */}
-                    <div>
-                        <label className="text-xs font-bold text-slate-400 uppercase block mb-3">Fleet Size</label>
-                        <input
-                            type="range"
-                            min="2"
-                            max="50"
-                            value={fleetSize}
-                            onChange={e => setFleetSize(Number(e.target.value))}
-                            className="w-full accent-cyan-500 h-3"
-                        />
-                        <div className="flex justify-between items-center mt-2">
-                            <span className="text-slate-500 text-sm">2 aircraft</span>
-                            <span className="text-3xl font-black text-white">{fleetSize}</span>
-                            <span className="text-slate-500 text-sm">50 aircraft</span>
+                    <div className="space-y-4">
+                        <div>
+                            <label className="text-slate-400 text-xs uppercase mb-1 block">Ref. Mean Mass (kg)</label>
+                            <div className="text-2xl font-mono text-white mb-2">{actualMean.toFixed(0)}</div>
+                            <p className="text-xs text-slate-500">Calculated from current fleet list.</p>
                         </div>
 
-                        {/* Formula Table */}
-                        <div className="mt-6 overflow-hidden rounded-lg border border-slate-700">
-                            <table className="w-full text-sm">
-                                <thead className="bg-slate-900">
-                                    <tr>
-                                        <th className="py-2 px-4 text-left text-slate-400">Fleet Size</th>
-                                        <th className="py-2 px-4 text-left text-slate-400">Formula</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr className={`${fleetSize <= 3 ? 'bg-cyan-900/30' : 'bg-slate-800'}`}>
-                                        <td className="py-2 px-4 text-white">2 - 3</td>
-                                        <td className="py-2 px-4 font-mono text-cyan-400">n</td>
-                                    </tr>
-                                    <tr className={`${fleetSize >= 4 && fleetSize <= 9 ? 'bg-cyan-900/30' : 'bg-slate-800'}`}>
-                                        <td className="py-2 px-4 text-white">4 - 9</td>
-                                        <td className="py-2 px-4 font-mono text-cyan-400">(n + 3) / 2</td>
-                                    </tr>
-                                    <tr className={`${fleetSize >= 10 ? 'bg-cyan-900/30' : 'bg-slate-800'}`}>
-                                        <td className="py-2 px-4 text-white">10+</td>
-                                        <td className="py-2 px-4 font-mono text-cyan-400">(n + 51) / 10</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                        <div className="h-px bg-slate-800 my-4"></div>
 
-                    {/* Result */}
-                    <div className="flex flex-col justify-center">
-                        <div className="bg-gradient-to-br from-cyan-900/30 to-sky-900/30 rounded-xl p-8 border border-cyan-500/30 text-center">
-                            <div className="text-xs uppercase text-slate-400 mb-2">Sample Required (every 4 years)</div>
-                            <div className="text-6xl font-black text-cyan-400">{sample.result}</div>
-                            <div className="text-lg text-white mt-2">aircraft</div>
-
-                            <div className="mt-6 p-3 bg-black/30 rounded-lg font-mono text-sm">
-                                <span className="text-slate-400">Using formula:</span>
-                                <span className="text-cyan-400 ml-2">{sample.formula}</span>
+                        <div>
+                            <label className="text-slate-400 text-xs uppercase mb-1 block">Tolerance Limit (%)</label>
+                            <div className="flex items-center gap-4">
+                                <input
+                                    type="range"
+                                    min="0.1" max="2.0" step="0.1"
+                                    value={stats.tolerance}
+                                    onChange={(e) => setStats({ ...stats, tolerance: parseFloat(e.target.value) })}
+                                    className="flex-1 accent-teal-500"
+                                />
+                                <span className="font-mono text-teal-400 font-bold">{stats.tolerance}%</span>
                             </div>
+                            <p className="text-xs text-slate-500 mt-2">EU-OPS compliant limit is typically 0.5% of MSLM or DOM.</p>
+                        </div>
+                    </div>
 
-                            <div className="mt-4 text-xs text-slate-400">
-                                = {sample.formula.replace('n', String(fleetSize))} = <span className="text-white font-bold">{sample.result}</span>
+                    <div className="mt-8 bg-slate-800 p-4 rounded border border-slate-700">
+                        <div className="text-slate-400 text-xs uppercase mb-2">Fleet Status</div>
+                        {fleet.every(p => complianceCheck(p.mass).isCompliant) ? (
+                            <div className="flex items-center gap-2 text-emerald-400 font-bold">
+                                <Check size={20} />
+                                FLEET VALUES VALID
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Tolerance Checker */}
-            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700">
-                <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                    <Scale className="text-violet-400" /> Fleet Mass Tolerances
-                </h3>
-
-                <p className="text-slate-400 mb-6">
-                    For fleet masses, DOM and CG values may not differ by more than <strong className="text-white">±0.5%</strong>
-                </p>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                    {/* DOM Tolerance */}
-                    <div className={`p-6 rounded-xl border ${domOk ? 'bg-emerald-900/20 border-emerald-500/30' : 'bg-red-900/20 border-red-500/30'}`}>
-                        <label className="flex justify-between text-xs font-bold uppercase mb-3">
-                            <span className="text-slate-400">DOM Difference</span>
-                            <span className={domOk ? 'text-emerald-400' : 'text-red-400'}>±{domDiff.toFixed(1)}%</span>
-                        </label>
-                        <input
-                            type="range"
-                            min="0"
-                            max="1"
-                            step="0.1"
-                            value={domDiff}
-                            onChange={e => setDomDiff(Number(e.target.value))}
-                            className={`w-full ${domOk ? 'accent-emerald-500' : 'accent-red-500'} h-2`}
-                        />
-                        <div className="flex justify-between items-center mt-4">
-                            <span className={`text-sm font-bold ${domOk ? 'text-emerald-400' : 'text-red-400'}`}>
-                                {domOk ? '✓ Within Tolerance' : '✗ Exceeds Tolerance'}
-                            </span>
-                            <span className="text-xs text-slate-500">Limit: ±0.5%</span>
-                        </div>
-                    </div>
-
-                    {/* MAC Tolerance */}
-                    <div className={`p-6 rounded-xl border ${macOk ? 'bg-emerald-900/20 border-emerald-500/30' : 'bg-red-900/20 border-red-500/30'}`}>
-                        <label className="flex justify-between text-xs font-bold uppercase mb-3">
-                            <span className="text-slate-400">MAC Difference</span>
-                            <span className={macOk ? 'text-emerald-400' : 'text-red-400'}>±{macDiff.toFixed(1)}%</span>
-                        </label>
-                        <input
-                            type="range"
-                            min="0"
-                            max="1"
-                            step="0.1"
-                            value={macDiff}
-                            onChange={e => setMacDiff(Number(e.target.value))}
-                            className={`w-full ${macOk ? 'accent-emerald-500' : 'accent-red-500'} h-2`}
-                        />
-                        <div className="flex justify-between items-center mt-4">
-                            <span className={`text-sm font-bold ${macOk ? 'text-emerald-400' : 'text-red-400'}`}>
-                                {macOk ? '✓ Within Tolerance' : '✗ Exceeds Tolerance'}
-                            </span>
-                            <span className="text-xs text-slate-500">Limit: ±0.5%</span>
-                        </div>
+                        ) : (
+                            <div className="flex items-center gap-2 text-red-400 font-bold">
+                                <X size={20} />
+                                INDIVIDUAL WEIGHING REQ.
+                            </div>
+                        )}
+                        <p className="text-xs text-slate-500 mt-2">
+                            All aircraft must be within tolerance to use the single fleet mass value.
+                        </p>
                     </div>
                 </div>
 
-                {(!domOk || !macOk) && (
-                    <div className="mt-6 p-4 bg-red-900/30 border border-red-500/50 rounded-lg flex items-center gap-3">
-                        <AlertTriangle className="text-red-400 flex-shrink-0" />
-                        <div className="text-sm text-red-300">
-                            <strong>Action Required:</strong> If cumulative changes exceed ±0.5% of MSLM or ±0.5% of MAC,
-                            recalculation of mass/CG is necessary.
-                        </div>
-                    </div>
-                )}
-            </div>
+                {/* Visualization & List */}
+                <div className="lg:col-span-2 space-y-6">
+                    {/* Visual Graph */}
+                    <div className="h-48 bg-slate-900 rounded-xl border border-slate-700 relative flex items-center px-12">
+                        {/* Mean Line */}
+                        <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-teal-500/50 border-l border-dashed border-teal-500 z-0"></div>
+                        <div className="absolute top-2 left-1/2 -translate-x-1/2 text-teal-500 text-xs font-mono">MEAN</div>
 
-            {/* Weighing Requirements */}
-            <div className="bg-blue-900/20 border border-blue-500/30 rounded-xl p-6">
-                <h3 className="text-lg font-bold text-blue-400 mb-4 flex items-center gap-2">
-                    <Info size={20} /> Weighing Requirements
-                </h3>
-                <div className="grid md:grid-cols-2 gap-6 text-sm text-slate-300">
-                    <div>
-                        <h4 className="font-bold text-white mb-2">Equipment Standards</h4>
-                        <ul className="space-y-1">
-                            <li>• Scale capacity: <strong className="text-amber-400">150 kg</strong></li>
-                            <li>• Graduations: <strong className="text-amber-400">500 g</strong></li>
-                            <li>• Operator must complete detailed weighing survey</li>
-                            <li>• Must be approved by competent Authority</li>
-                        </ul>
+                        {/* Tolerance Band */}
+                        <div
+                            className="absolute top-0 bottom-0 bg-teal-500/5 left-1/2 -translate-x-1/2 border-l border-r border-teal-500/20"
+                            style={{ width: '40%' }} // Fixed visual width for the band
+                        ></div>
+
+                        {/* Aircraft Dots */}
+                        {fleet.map((plane, i) => {
+                            const check = complianceCheck(plane.mass);
+                            // Visual scaling: Mean is center (50%). 
+                            // Limit is +/- 20% visually.
+                            // deviation / limit * 20
+                            const deviation = plane.mass - actualMean;
+                            const limitVal = actualMean * (stats.tolerance / 100);
+                            const visualOffset = (deviation / limitVal) * 20; // 20% width is the limit boundary
+
+                            return (
+                                <motion.div
+                                    key={plane.id}
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{ delay: i * 0.1 }}
+                                    className={`absolute w-8 h-8 rounded-full border-2 flex items-center justify-center text-[10px] font-bold z-10 cursor-pointer group ${check.isCompliant ? 'bg-slate-800 border-teal-500 text-teal-400' : 'bg-red-500/20 border-red-500 text-red-500'}`}
+                                    style={{
+                                        left: `${50 + visualOffset}%`,
+                                        top: `${20 + (i * 15)}%`
+                                    }}
+                                >
+                                    {i + 1}
+
+                                    {/* Tooltip */}
+                                    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-slate-950 text-white text-xs p-2 rounded border border-slate-700 whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none z-50 transition-opacity">
+                                        {plane.reg}: {plane.mass}kg
+                                        <br />
+                                        Dev: {check.percent.toFixed(2)}%
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
                     </div>
-                    <div>
-                        <h4 className="font-bold text-white mb-2">BEM Establishment</h4>
-                        <ul className="space-y-1">
-                            <li>• Obtained from manufacturer or AMO</li>
-                            <li>• Recorded in the Weighing Schedule</li>
-                            <li>• Aircraft weighed fully equipped (standard role)</li>
-                            <li>• In enclosed building with no A/C</li>
-                        </ul>
+
+                    {/* Data Table */}
+                    <div className="overflow-hidden rounded-xl border border-slate-700">
+                        <table className="w-full text-left bg-slate-900/50 text-sm">
+                            <thead className="bg-slate-900 text-slate-400">
+                                <tr>
+                                    <th className="p-3">#</th>
+                                    <th className="p-3">Registration</th>
+                                    <th className="p-3 text-right">Mass (kg)</th>
+                                    <th className="p-3 text-right">Deviation</th>
+                                    <th className="p-3 text-center">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-slate-800">
+                                {fleet.map((plane, i) => {
+                                    const check = complianceCheck(plane.mass);
+                                    return (
+                                        <tr key={plane.id} className="hover:bg-slate-800/50">
+                                            <td className="p-3 text-slate-500">{i + 1}</td>
+                                            <td className="p-3 font-medium text-white">{plane.reg}</td>
+                                            <td className="p-3 text-right font-mono text-slate-300">{plane.mass.toLocaleString()}</td>
+                                            <td className="p-3 text-right font-mono text-slate-400">
+                                                {plane.mass > actualMean ? '+' : ''}{(plane.mass - actualMean).toFixed(0)}
+                                                <span className="text-xs ml-1 opacity-50">({check.percent.toFixed(2)}%)</span>
+                                            </td>
+                                            <td className="p-3 text-center">
+                                                {check.isCompliant ? (
+                                                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-500/10 text-emerald-500">
+                                                        OK
+                                                    </span>
+                                                ) : (
+                                                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-500/10 text-red-500">
+                                                        FAIL
+                                                    </span>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="bg-blue-500/10 border border-blue-500/20 p-4 rounded-lg flex gap-3 text-sm text-blue-200">
+                        <AlertCircle className="shrink-0" size={20} />
+                        <div>
+                            <p className="font-bold mb-1">Regulation Note</p>
+                            If the equipment and/or interior of the aircraft varies significantly from the other aircraft in the fleet, it must be weighed separately. "Sister ships" must be identical in configuration.
+                        </div>
                     </div>
                 </div>
             </div>

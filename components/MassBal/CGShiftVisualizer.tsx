@@ -1,187 +1,206 @@
 import React, { useState } from 'react';
-import { ArrowRight, ArrowLeft, ArrowUp, ArrowDown, Calculator, Scale } from 'lucide-react';
-
-type Mode = 'MOVE' | 'ADD' | 'REMOVE';
+import { motion } from 'framer-motion';
+import { ArrowLeftRight, Plus, Minus, Move } from 'lucide-react';
 
 const CGShiftVisualizer: React.FC = () => {
-    const [mode, setMode] = useState<Mode>('MOVE');
+    const [mode, setMode] = useState<'move' | 'add_remove'>('move');
 
-    // State
-    const [oldMass, setOldMass] = useState(50000);
-    const [massChange, setMassChange] = useState(2000);
-    const [distance, setDistance] = useState(10); // Distance moved or Arm of added/removed mass
-    const [oldCG, setOldCG] = useState(20); // %MAC or meters, generic units
+    // Aircraft State
+    const [mass, setMass] = useState(50000); // Initial Mass
+    const [oldCg, setOldCg] = useState(400); // Initial CG (inches)
+
+    // Operation State
+    const [opMass, setOpMass] = useState(1000); // Mass to move/add/remove
+    const [dist, setDist] = useState(200); // Distance moved OR Arm of added mass
+    const [isAdded, setIsAdded] = useState(true); // for add/remove mode
 
     // Calculations
-    let shift = 0;
-    let newMass = oldMass;
-    let newCG = oldCG;
-    let formulaString = "";
+    let deltaCg = 0;
+    let newCg = 0;
+    let newMass = mass;
+    let formula = '';
 
-    if (mode === 'MOVE') {
-        // Shift = (Mass Change * Distance Moved) / Total Mass
-        shift = (massChange * distance) / oldMass;
-        newMass = oldMass; // Mass doesn't change
-        newCG = oldCG + shift; // Simplified: assume positive shift for demo
-        formulaString = `Shift = (${massChange} × ${distance}) / ${oldMass}`;
-    } else if (mode === 'ADD') {
-        // Shift = (Mass Added * Dist between Mass & Old CG) / New Total Mass
-        // Dist usually = Arm - OldCG. Let's simplify and make 'distance' the input "dist between mass and CG" for clarity as per formula sheet
-        newMass = oldMass + massChange;
-        shift = (massChange * distance) / newMass;
-        newCG = oldCG + shift;
-        formulaString = `Shift = (${massChange} × ${distance}) / ${newMass}`;
-    } else if (mode === 'REMOVE') {
-        // Shift = (Mass Removed * Dist between Mass & Old CG) / Old Total Mass (Wait, strictly it's Remaining Mass in denominator? NO.
-        // User image formula says: "Removing Mass: (Mass Change / Old Total Mass) = (Change of CG / Dist between Mass & CG)"
-        // -> Change of CG = (Mass Change * Dist) / Old Total Mass ?? 
-        // Let's check standard formula: Shift = (Mass * Dist) / New Total Mass (Remaining Mass).
-        // However, the user image explicitly says: "3. Removing Mass ... / Old Total Mass". This might be an approximation or specific variation.
-        // ACTUALLY, looking at standard derived formulas:
-        // Moment Change = Mass * Arm.
-        // Let's stick to the USER PROVIDED IMAGE formula:
-        // Formula 3: Mass Change / Old Total Mass = Change of CG / Dist between Mass & CG
-        // => Change of CG = (Mass Change * Dist) / Old Total Mass.
-
-        newMass = oldMass - massChange;
-        shift = (massChange * distance) / oldMass;
-        newCG = oldCG - shift; // Assume removing from forward moves CG aft? Direction depends on signs.
-        // For visualization, we'll just show the MAGNITUDE of shift calculated by their formula.
-        formulaString = `Shift = (${massChange} × ${distance}) / ${oldMass}`;
+    if (mode === 'move') {
+        // Move Formula: Delta CG = (Mass Moved * Dist Moved) / Total Mass
+        deltaCg = (opMass * dist) / mass;
+        newCg = oldCg + deltaCg;
+        newMass = mass;
+        formula = `ΔCG = ( ${opMass} × ${dist} ) / ${mass} = ${deltaCg.toFixed(2)}`;
+    } else {
+        // Add/Remove Formula: Delta CG = (Added Mass * (Arm - OldCG)) / New Total Mass
+        // Simplified "change of moment" approach
+        const action = isAdded ? 1 : -1;
+        newMass = mass + (opMass * action);
+        // Moment Change
+        const oldMoment = mass * oldCg;
+        const addedMoment = (opMass * action) * dist; // dist here is the ARM of the mass
+        const newMoment = oldMoment + addedMoment;
+        newCg = newMoment / newMass;
+        deltaCg = newCg - oldCg;
     }
 
+    // Visualization Scales
+    const range = 800; // Total length to visualize
+
     return (
-        <div className="p-4 md:p-8 max-w-4xl mx-auto space-y-8 animate-in fade-in duration-500">
-            <div className="text-center mb-8">
-                <h1 className="text-3xl font-black text-white tracking-tight uppercase">
-                    CG Shift <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500">Calculator</span>
-                </h1>
-                <p className="text-slate-400 mt-2">Interactive formula visualizer.</p>
+        <div className="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700 mt-8 font-sans">
+            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <Move className="text-cyan-400" />
+                CG Shift Calculator
+            </h2>
+
+            {/* Mode Switcher */}
+            <div className="flex bg-slate-900/50 p-1 rounded-lg mb-8 inline-flex">
+                <button
+                    onClick={() => setMode('move')}
+                    className={`px-4 py-2 rounded-md text-sm font-bold transition-all ${mode === 'move' ? 'bg-cyan-500 text-slate-900 shadow' : 'text-slate-400 hover:text-white'}`}
+                >
+                    <ArrowLeftRight className="inline w-4 h-4 mr-2" />
+                    Move Mass
+                </button>
+                <button
+                    onClick={() => setMode('add_remove')}
+                    className={`px-4 py-2 rounded-md text-sm font-bold transition-all ${mode === 'add_remove' ? 'bg-cyan-500 text-slate-900 shadow' : 'text-slate-400 hover:text-white'}`}
+                >
+                    <Plus className="inline w-4 h-4 mr-1" />/<Minus className="inline w-4 h-4 mr-1" />
+                    Add or Remove
+                </button>
             </div>
 
-            {/* Mode Selector */}
-            <div className="flex bg-slate-800 p-1 rounded-xl">
-                {(['MOVE', 'ADD', 'REMOVE'] as Mode[]).map(m => (
-                    <button
-                        key={m}
-                        onClick={() => setMode(m)}
-                        className={`flex-1 py-3 rounded-lg font-bold text-sm transition-all ${mode === m ? 'bg-slate-700 text-white shadow-lg border border-slate-600' : 'text-slate-500 hover:text-slate-300'}`}
-                    >
-                        {m === 'MOVE' && '1. Moving Mass'}
-                        {m === 'ADD' && '2. Adding Mass'}
-                        {m === 'REMOVE' && '3. Removing Mass'}
-                    </button>
-                ))}
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8">
-                {/* Inputs */}
-                <div className="space-y-6 bg-slate-900/50 p-6 rounded-2xl border border-slate-800">
-                    <div>
-                        <label className="text-xs font-bold text-slate-400 uppercase block mb-2">
-                            {mode === 'REMOVE' ? 'Old Total Mass' : (mode === 'ADD' ? 'Old Total Mass' : 'Total Mass')}
-                        </label>
-                        <div className="flex items-center bg-slate-800 rounded px-3 py-2 border border-slate-700">
-                            <Scale size={16} className="text-slate-500 mr-2" />
-                            <input
-                                type="number" value={oldMass} onChange={e => setOldMass(Number(e.target.value))}
-                                className="bg-transparent w-full text-white font-mono"
-                            />
-                            <span className="text-slate-500 text-xs font-bold">kg</span>
+            <div className="grid lg:grid-cols-2 gap-12">
+                <div className="space-y-6">
+                    {/* Controls */}
+                    <div className="bg-slate-900 p-6 rounded-xl border border-slate-700 space-y-4">
+                        <div className="flex justify-between items-center text-sm text-slate-400 mb-2">
+                            <span>Aircraft Mass</span>
+                            <span className="text-white font-mono">{mass} kg</span>
                         </div>
-                    </div>
+                        <input type="range" min="10000" max="100000" step="1000" value={mass} onChange={e => setMass(Number(e.target.value))} className="w-full accent-slate-500" />
 
-                    <div>
-                        <label className="text-xs font-bold text-slate-400 uppercase block mb-2">Mass Change</label>
-                        <div className="flex items-center bg-slate-800 rounded px-3 py-2 border border-slate-700">
-                            <span className="text-slate-500 mr-2 font-bold">Δ</span>
-                            <input
-                                type="number" value={massChange} onChange={e => setMassChange(Number(e.target.value))}
-                                className="bg-transparent w-full text-white font-mono"
-                            />
-                            <span className="text-slate-500 text-xs font-bold">kg</span>
+                        <div className="flex justify-between items-center text-sm text-slate-400 mb-2">
+                            <span>Initial CG (Arm)</span>
+                            <span className="text-white font-mono">{oldCg}"</span>
                         </div>
-                    </div>
+                        <input type="range" min="100" max="700" step="1" value={oldCg} onChange={e => setOldCg(Number(e.target.value))} className="w-full accent-slate-500" />
 
-                    <div>
-                        <label className="text-xs font-bold text-slate-400 uppercase block mb-2">
-                            {mode === 'MOVE' ? 'Distance Moved' : 'Dist. between Mass & CG'}
-                        </label>
-                        <div className="flex items-center bg-slate-800 rounded px-3 py-2 border border-slate-700">
-                            <ArrowRight size={16} className="text-slate-500 mr-2" />
-                            <input
-                                type="number" value={distance} onChange={e => setDistance(Number(e.target.value))}
-                                className="bg-transparent w-full text-white font-mono"
-                            />
-                            <span className="text-slate-500 text-xs font-bold">m</span>
+                        <div className="h-px bg-slate-800 my-4"></div>
+
+                        <div className="flex justify-between items-center text-sm text-cyan-400 font-bold mb-2">
+                            <span>{mode === 'move' ? 'Mass to Move' : 'Mass to Add/Remove'}</span>
+                            <span className="text-white font-mono">{opMass} kg</span>
                         </div>
+                        <input type="range" min="100" max="5000" step="50" value={opMass} onChange={e => setOpMass(Number(e.target.value))} className="w-full accent-cyan-500" />
+
+                        <div className="flex justify-between items-center text-sm text-cyan-400 font-bold mb-2">
+                            <span>{mode === 'move' ? 'Distance to Move (+/-)' : 'Arm of New Mass'}</span>
+                            <span className="text-white font-mono">{dist}"</span>
+                        </div>
+                        <input type="range" min={mode === 'move' ? -300 : 0} max={mode === 'move' ? 300 : 800} step="10" value={dist} onChange={e => setDist(Number(e.target.value))} className="w-full accent-cyan-500" />
+
+                        {mode === 'add_remove' && (
+                            <div className="flex gap-4 mt-4">
+                                <button
+                                    onClick={() => setIsAdded(true)}
+                                    className={`flex-1 py-2 rounded font-bold border ${isAdded ? 'bg-emerald-500/20 border-emerald-500 text-emerald-400' : 'border-slate-700 text-slate-500'}`}
+                                >
+                                    ADD
+                                </button>
+                                <button
+                                    onClick={() => setIsAdded(false)}
+                                    className={`flex-1 py-2 rounded font-bold border ${!isAdded ? 'bg-red-500/20 border-red-500 text-red-400' : 'border-slate-700 text-slate-500'}`}
+                                >
+                                    REMOVE
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
 
-                {/* Results & Visualization */}
-                <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-8 rounded-2xl border border-slate-700 flex flex-col justify-center items-center">
+                {/* Visualization */}
+                <div className="flex flex-col justify-center">
+                    <div className="relative h-64 bg-slate-900 rounded-xl border border-slate-700 overflow-hidden mb-8">
+                        {/* Datum */}
+                        <div className="absolute left-4 top-0 bottom-0 w-px bg-red-500 border-l border-dashed border-red-500 z-0">
+                            <span className="absolute top-2 left-2 text-red-500 text-xs font-mono">DATUM</span>
+                        </div>
 
-                    <div className="mb-8 w-full">
-                        <div className="text-xs text-slate-400 uppercase font-bold text-center mb-4">Visual Representation</div>
+                        {/* Old CG */}
+                        <div
+                            className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-slate-500 rounded-full border-2 border-slate-400 z-10 transition-all duration-300"
+                            style={{ left: `${(oldCg / range) * 100}%` }}
+                        >
+                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 text-slate-400 text-xs font-bold whitespace-nowrap">Old CG</div>
+                        </div>
 
-                        {/* Seesaw Visualization */}
-                        <div className="relative h-24 w-full border-b-2 border-slate-600">
-                            {/* Fulcrum (Old CG) */}
-                            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[20px] border-b-slate-500"></div>
+                        {/* New CG */}
+                        <motion.div
+                            animate={{ left: `${(newCg / range) * 100}%` }}
+                            className="absolute top-1/2 -translate-y-1/2 w-6 h-6 bg-cyan-500 rounded-full border-4 border-slate-900 shadow shadow-cyan-500/50 z-20"
+                        >
+                            <div className="absolute top-8 left-1/2 -translate-x-1/2 text-cyan-400 text-sm font-bold whitespace-nowrap">New CG</div>
+                        </motion.div>
 
-                            {/* Mass Representation */}
-                            {mode === 'MOVE' && (
+                        {/* Shift Arrow */}
+                        <div
+                            className="absolute top-1/2 mt-1 h-1 bg-cyan-500/30"
+                            style={{
+                                left: `${(Math.min(oldCg, newCg) / range) * 100}%`,
+                                width: `${(Math.abs(deltaCg) / range) * 100}%`
+                            }}
+                        ></div>
+
+                        {/* Moving Mass Visual */}
+                        {mode === 'move' && (
+                            <motion.div
+                                animate={{ x: dist }} // This is relative visual only, roughly scaling
+                                className="absolute bottom-4 w-8 h-8 bg-amber-500 rounded border border-amber-400 flex items-center justify-center text-xs font-bold text-slate-900"
+                                style={{ left: '50%' }}
+                            >
+                                M
+                            </motion.div>
+                        )}
+
+                        {mode === 'add_remove' && (
+                            <div
+                                className={`absolute top-1/3 w-8 h-8 rounded border flex items-center justify-center text-xs font-bold z-10 ${isAdded ? 'bg-emerald-500 border-emerald-400 text-slate-900' : 'bg-red-500 border-red-400 text-white'}`}
+                                style={{ left: `${(dist / range) * 100}%` }}
+                            >
+                                {isAdded ? '+' : '-'}
+                            </div>
+                        )}
+
+                    </div>
+
+                    <div className="bg-slate-900/80 p-6 rounded-xl border border-white/5 backdrop-blur text-center">
+                        <div className="grid grid-cols-2 gap-4 mb-4 text-left">
+                            <div>
+                                <div className="text-slate-500 text-xs uppercase tracking-widest">New Mass</div>
+                                <div className="text-2xl font-mono text-white">{newMass} kg</div>
+                            </div>
+                            <div>
+                                <div className="text-slate-500 text-xs uppercase tracking-widest">Shift (ΔCG)</div>
+                                <div className="text-2xl font-mono text-cyan-400">{deltaCg > 0 ? '+' : ''}{deltaCg.toFixed(2)}"</div>
+                            </div>
+                        </div>
+
+                        <div className="text-sm bg-slate-800 p-3 rounded font-mono text-slate-300 overflow-x-auto">
+                            {mode === 'move' ? (
                                 <>
-                                    <div className="absolute bottom-1 left-[20%] w-8 h-8 bg-blue-500 rounded flex items-center justify-center text-[10px] font-bold opacity-50">Old</div>
-                                    <ArrowRight className="absolute bottom-4 left-[30%] text-white animate-pulse" />
-                                    <div className="absolute bottom-1 left-[60%] w-8 h-8 bg-blue-500 rounded flex items-center justify-center text-[10px] font-bold border-2 border-white">New</div>
+                                    ΔCG = (Mass × Dist) / Total<br />
+                                    ΔCG = ({opMass} × {dist}) / {mass}<br />
+                                    <span className="text-cyan-400 break-words">= {((opMass * dist) / mass).toFixed(2)} inches</span>
                                 </>
-                            )}
-
-                            {mode === 'ADD' && (
+                            ) : (
                                 <>
-                                    <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-16 bg-slate-700 rounded flex items-center justify-center text-xs text-slate-500">Aircraft</div>
-                                    <ArrowDown className="absolute top-0 right-[20%] text-green-500 animate-bounce" />
-                                    <div className="absolute bottom-1 right-[20%] w-8 h-8 bg-green-500 rounded flex items-center justify-center text-[10px] font-bold text-black">+</div>
-                                </>
-                            )}
-
-                            {mode === 'REMOVE' && (
-                                <>
-                                    <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-16 bg-slate-700 rounded flex items-center justify-center text-xs text-slate-500">Aircraft</div>
-                                    <ArrowUp className="absolute top-0 right-[20%] text-red-500 animate-bounce" />
-                                    <div className="absolute bottom-1 right-[20%] w-8 h-8 bg-red-500/50 border-2 border-red-500 dashed rounded flex items-center justify-center text-[10px] font-bold text-white">-</div>
+                                    NewCG = Total Moment / Total Mass<br />
+                                    NewCG = ( {(mass * oldCg).toFixed(0)} {isAdded ? '+' : '-'} {(opMass * dist).toFixed(0)} ) / {newMass}<br />
+                                    <span className="text-cyan-400">= {newCg.toFixed(2)} inches</span>
                                 </>
                             )}
                         </div>
                     </div>
-
-                    <div className="text-center space-y-4 w-full">
-                        <div className="bg-black/30 p-4 rounded-lg font-mono text-sm text-yellow-400 break-all">
-                            {formulaString}
-                        </div>
-
-                        <div className="flex justify-between items-end border-t border-slate-700 pt-4">
-                            <div className="text-left">
-                                <div className="text-xs text-slate-500 uppercase">Input Check</div>
-                                <div className="text-sm font-bold text-slate-300">
-                                    {mode === 'ADD' ? `New Mass: ${newMass}kg` : (mode === 'REMOVE' ? `Old Mass Val used: ${oldMass}kg` : `Mass Constant`)}
-                                </div>
-                            </div>
-                            <div className="text-right">
-                                <div className="text-xs text-slate-500 uppercase">CG Shift</div>
-                                <div className="text-3xl font-black text-white">{shift.toFixed(4)} m</div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
-
-            <div className="bg-blue-900/20 text-blue-200 p-4 rounded-lg text-sm border border-blue-500/30">
-                <p><strong>Note:</strong> The formula for "Removing Mass" provided in the reference uses <code>Old Total Mass</code> in the denominator. Always verify which mass (Old vs New) is used in specific exam questions, as conventions can vary slightly in operational contexts vs theoretical questions.</p>
-            </div>
-
         </div>
     );
 };

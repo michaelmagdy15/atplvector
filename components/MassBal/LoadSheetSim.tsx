@@ -1,224 +1,179 @@
-import React, { useState, useEffect } from 'react';
-import { Clipboard, AlertTriangle, CheckCircle, ArrowRight, Scale, Fuel } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { AlertTriangle, TrendingUp, Info } from 'lucide-react';
 
 const LoadSheetSim: React.FC = () => {
-    // Inputs (kg)
-    const [bem, setBem] = useState(25000);
-    const [crew, setCrew] = useState(480);
-    const [pantry, setPantry] = useState(200);
-    const [traffic, setTraffic] = useState(12500);
-    const [fuel, setFuel] = useState(8200);
-    const [taxiFuel, setTaxiFuel] = useState(200);
+    // Standard Aircraft: MAC starts at 200in, Length 100in
+    const LEMAC = 200;
+    const MAC = 100;
 
-    // Limits (kg)
-    const MZFM = 42000;
-    const MTOM = 52000;
-    const MLM = 48000;
-    const TripFuel = 6000; // Simplified for this sim check
+    // Limits
+    const MTOM = 5000;
+    const FWD_CG_LIMIT = 20; // %MAC
+    const AFT_CG_LIMIT = 35; // %MAC
 
-    // Calculations
-    const dom = bem + crew + pantry;
-    const zfm = dom + traffic;
-    const tom = zfm + fuel; // Take off fuel (block - taxi)
-    // Note: Usually input is Block Fuel. Here simplified: Fuel = Take-off Fuel.
-    // If input was Block Fuel, then TOM = ZFM + (Block - Taxi).
-    // Let's assume 'fuel' state here is TAKE_OFF FUEL for simplicity or clarify in UI.
-    const lm = tom - TripFuel; // Estimated Landing Mass
+    const [items, setItems] = useState([
+        { id: 'bem', name: 'Basic Empty Mass', mass: 4000, arm: 240, locked: true },
+        { id: 'fwd_pax', name: 'Fwd Pax', mass: 160, arm: 150, locked: false },
+        { id: 'aft_pax', name: 'Aft Pax', mass: 160, arm: 350, locked: false },
+        { id: 'fwd_cargo', name: 'Fwd Cargo', mass: 50, arm: 100, locked: false },
+        { id: 'aft_cargo', name: 'Aft Cargo', mass: 50, arm: 450, locked: false },
+        { id: 'fuel', name: 'Fuel', mass: 400, arm: 250, locked: false },
+    ]);
 
-    // Status
-    const zfmOver = zfm > MZFM;
-    const tomOver = tom > MTOM;
-    const lmOver = lm > MLM;
-    const isOverload = zfmOver || tomOver || lmOver;
+    const updateMass = (id: string, newMass: number) => {
+        setItems(items.map(item => item.id === id ? { ...item, mass: newMass } : item));
+    };
+
+    const totalMass = items.reduce((sum, item) => sum + item.mass, 0);
+    const totalMoment = items.reduce((sum, item) => sum + (item.mass * item.arm), 0);
+    const cgPosition = totalMass > 0 ? totalMoment / totalMass : 0;
+    const cgPercentMac = ((cgPosition - LEMAC) / MAC) * 100;
+
+    // Visual Scales
+    const aircraftLength = 600; // inches
 
     return (
-        <div className="p-4 md:p-8 max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500">
-            {/* Header */}
-            <div className="flex items-center gap-4 mb-8">
-                <div className="p-3 bg-emerald-500/20 rounded-xl">
-                    <Clipboard className="w-8 h-8 text-emerald-400" />
-                </div>
-                <div>
-                    <h1 className="text-3xl font-black text-white tracking-tight">
-                        Load Sheet <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">Simulator</span>
-                    </h1>
-                    <p className="text-slate-400 mt-1">
-                        Build up mass from BEM to TOM and check against structural limits.
-                    </p>
-                </div>
-            </div>
-
-            <div className="grid lg:grid-cols-2 gap-8">
-
-                {/* Visual Paper Loadsheet */}
-                <div className="bg-white text-slate-900 p-8 rounded-xl shadow-2xl font-mono relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-2 bg-slate-900/10"></div>
-                    <div className="absolute top-0 left-0 w-2 h-full bg-slate-900/10"></div>
-
-                    <div className="flex justify-between border-b-2 border-slate-900 pb-4 mb-6">
-                        <div>
-                            <h2 className="text-2xl font-bold">LOAD SHEET</h2>
-                            <p className="text-xs">ICAO STANDARD FORMAT</p>
-                        </div>
-                        <div className="text-right">
-                            <p className="font-bold">FLIGHT: ATPL-031</p>
-                            <p>DATE: {new Date().toLocaleDateString()}</p>
-                        </div>
-                    </div>
-
-                    <div className="space-y-2 text-sm">
-                        {/* BEM */}
-                        <div className="flex justify-between items-center py-1 border-b border-slate-300">
-                            <span>BASIC EMPTY MASS</span>
-                            <span className="font-bold">{bem} kg</span>
-                        </div>
-
-                        {/* DOM Build Up */}
-                        <div className="pl-4 text-slate-500 text-xs flex justify-between py-1">
-                            <span>+ CREW</span>
-                            <span>{crew}</span>
-                        </div>
-                        <div className="pl-4 text-slate-500 text-xs flex justify-between py-1">
-                            <span>+ PANTRY</span>
-                            <span>{pantry}</span>
-                        </div>
-
-                        {/* DOM */}
-                        <div className="flex justify-between items-center py-2 bg-slate-100 px-2 font-bold border-l-4 border-slate-900 mt-2">
-                            <span>DRY OPERATING MASS (DOM)</span>
-                            <span>{dom} kg</span>
-                        </div>
-
-                        {/* Traffic Load */}
-                        <div className="flex justify-between items-center py-1 border-b border-slate-300 mt-2">
-                            <span>+ TRAFFIC LOAD</span>
-                            <span className="text-blue-700 font-bold">{traffic} kg</span>
-                        </div>
-
-                        {/* ZFM */}
-                        <div className={`flex justify-between items-center py-2 px-2 font-bold border-l-4 mt-2 ${zfmOver ? 'bg-red-100 border-red-500 text-red-600' : 'bg-slate-100 border-slate-900'}`}>
-                            <span>ZERO FUEL MASS (ZFM)</span>
-                            <span>{zfm} kg</span>
-                        </div>
-                        <div className="flex justify-end text-xs text-slate-400 mb-2">
-                            <span>MAX ZFM: {MZFM} kg</span>
-                        </div>
-
-                        {/* Fuel */}
-                        <div className="flex justify-between items-center py-1 border-b border-slate-300 mt-2">
-                            <span>+ TAKE-OFF FUEL</span>
-                            <span className="text-amber-700 font-bold">{fuel} kg</span>
-                        </div>
-
-                        {/* TOM */}
-                        <div className={`flex justify-between items-center py-2 px-2 font-bold border-l-4 mt-2 text-lg ${tomOver ? 'bg-red-100 border-red-500 text-red-600' : 'bg-slate-200 border-slate-900'}`}>
-                            <span>TAKE-OFF MASS (TOM)</span>
-                            <span>{tom} kg</span>
-                        </div>
-                        <div className="flex justify-end text-xs text-slate-400 mb-2">
-                            <span>MAX TOM: {MTOM} kg</span>
-                        </div>
-
-                        {/* Landing Mass Est */}
-                        <div className="mt-8 pt-4 border-t-2 border-dashed border-slate-300 opacity-70">
-                            <div className="flex justify-between">
-                                <span>- TRIP FUEL</span>
-                                <span>{TripFuel} kg</span>
-                            </div>
-                            <div className={`flex justify-between font-bold mt-1 ${lmOver ? 'text-red-500' : ''}`}>
-                                <span>EST. LANDING MASS</span>
-                                <span>{lm} kg</span>
-                            </div>
-                            <div className="flex justify-end text-xs text-slate-400">
-                                <span>MAX LM: {MLM} kg</span>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    {/* Final Stamp */}
-                    <div className="absolute bottom-8 right-8 rota bg-slate-100 p-4 border-4 border-slate-900 -rotate-12 rounded opacity-80">
-                        {isOverload ? (
-                            <div className="text-red-600 font-black text-xl border-red-600 flex flex-col items-center">
-                                <AlertTriangle size={32} />
-                                REJECTED
-                                <span className="text-[10px]">LIMIT EXCEEDED</span>
-                            </div>
-                        ) : (
-                            <div className="text-emerald-700 font-black text-xl flex flex-col items-center">
-                                <CheckCircle size={32} />
-                                ACCEPTED
-                                <span className="text-[10px]">WITHIN LIMITS</span>
-                            </div>
-                        )}
-                    </div>
-
-                </div>
-
-                {/* Controls */}
-                <div className="space-y-6">
-                    <div className="bg-slate-900/50 backdrop-blur p-6 rounded-2xl border border-white/10">
-                        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                            <Scale size={20} className="text-emerald-400" /> Operational Items
+        <div className="flex flex-col gap-6 font-sans mt-8 h-[calc(100vh-140px)] overflow-y-auto">
+            <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+                <div className="flex justify-between items-center mb-6">
+                    <div>
+                        <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                            Load Sheet Simulator
                         </h3>
-
-                        <div className="space-y-4">
-                            <div>
-                                <label className="flex justify-between text-xs font-bold text-slate-400 uppercase mb-2">
-                                    Basic Empty Mass (BEM)
-                                    <span>{bem} kg</span>
-                                </label>
-                                <input type="range" min="20000" max="30000" step="100" value={bem} onChange={(e) => setBem(Number(e.target.value))} className="w-full accent-slate-500" />
-                            </div>
-                            <div>
-                                <label className="flex justify-between text-xs font-bold text-slate-400 uppercase mb-2">
-                                    Crew Mass
-                                    <span>{crew} kg</span>
-                                </label>
-                                <input type="range" min="160" max="600" step="10" value={crew} onChange={(e) => setCrew(Number(e.target.value))} className="w-full accent-slate-500" />
-                            </div>
-                            <div>
-                                <label className="flex justify-between text-xs font-bold text-slate-400 uppercase mb-2">
-                                    Pantry / Catering
-                                    <span>{pantry} kg</span>
-                                </label>
-                                <input type="range" min="0" max="500" step="10" value={pantry} onChange={(e) => setPantry(Number(e.target.value))} className="w-full accent-slate-500" />
-                            </div>
-                        </div>
+                        <p className="text-sm text-slate-400">Plan your flight loading and verify mass & CG limits.</p>
                     </div>
 
-                    <div className="bg-slate-900/50 backdrop-blur p-6 rounded-2xl border border-white/10">
-                        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                            <CheckCircle size={20} className="text-blue-400" /> Variable Load
-                        </h3>
+                    <div className="flex gap-4 text-right">
                         <div>
-                            <label className="flex justify-between text-xs font-bold text-blue-400 uppercase mb-2">
-                                Traffic Load (Pax + Cargo)
-                                <span>{traffic} kg</span>
-                            </label>
-                            <input type="range" min="0" max="18000" step="100" value={traffic} onChange={(e) => setTraffic(Number(e.target.value))} className="w-full accent-blue-500" />
+                            <div className="text-xs text-slate-500 uppercase">Total Mass</div>
+                            <div className={`text-2xl font-mono ${totalMass > MTOM ? 'text-red-500 animate-pulse' : 'text-blue-400'}`}>
+                                {totalMass.toLocaleString()} <span className="text-sm text-slate-500">/ {MTOM} kg</span>
+                            </div>
                         </div>
-                    </div>
-
-                    <div className="bg-slate-900/50 backdrop-blur p-6 rounded-2xl border border-white/10">
-                        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                            <Fuel size={20} className="text-amber-400" /> Fuel
-                        </h3>
                         <div>
-                            <label className="flex justify-between text-xs font-bold text-amber-400 uppercase mb-2">
-                                Take-off Fuel
-                                <span>{fuel} kg</span>
-                            </label>
-                            <input type="range" min="2000" max="15000" step="100" value={fuel} onChange={(e) => setFuel(Number(e.target.value))} className="w-full accent-amber-500" />
+                            <div className="text-xs text-slate-500 uppercase">CG Position</div>
+                            <div className="text-2xl font-mono text-purple-400">{cgPosition.toFixed(1)} in</div>
+                        </div>
+                        <div className="relative">
+                            <div className="text-xs text-slate-500 uppercase">% MAC</div>
+                            <div className={`text-2xl font-mono ${cgPercentMac >= FWD_CG_LIMIT && cgPercentMac <= AFT_CG_LIMIT ? 'text-emerald-400' : 'text-red-500'}`}>
+                                {cgPercentMac.toFixed(1)}%
+                            </div>
                         </div>
                     </div>
-
-                    <div className="bg-slate-800 p-4 rounded-xl border border-slate-700 text-sm text-slate-400">
-                        <p><strong>Limit Check Mode:</strong> Adjust loads until you stay within MZFM, MTOM and MLM limits. Overloading any parameter invalidates the flight.</p>
-                    </div>
-
                 </div>
 
+                {/* Aircraft Visualization */}
+                <div className="relative h-48 bg-slate-900/50 rounded-lg border border-slate-800 mb-8 overflow-hidden">
+                    {/* Fuselage Outline */}
+                    <div className="absolute top-1/2 left-4 right-4 h-12 bg-slate-800 rounded-full -translate-y-1/2 border border-slate-700"></div>
+
+                    {/* Wing / MAC representation */}
+                    <div
+                        className="absolute top-1/2 h-20 bg-slate-800/80 border-l border-r border-slate-600 -translate-y-1/2"
+                        style={{ left: `${(LEMAC / aircraftLength) * 100}%`, width: `${(MAC / aircraftLength) * 100}%` }}
+                    >
+                        <div className="absolute top-0 -mt-6 text-xs text-slate-500 w-full text-center">MAC</div>
+                    </div>
+
+                    {/* Limits */}
+                    <div
+                        className="absolute top-1/2 h-6 bg-emerald-500/10 border-l border-r border-emerald-500/30 -translate-y-1/2 z-0"
+                        style={{
+                            left: `${((LEMAC + (MAC * FWD_CG_LIMIT / 100)) / aircraftLength) * 100}%`,
+                            width: `${(MAC * (AFT_CG_LIMIT - FWD_CG_LIMIT) / 100 / aircraftLength) * 100}%`
+                        }}
+                    ></div>
+
+                    {/* CG Marker */}
+                    <motion.div
+                        animate={{ left: `${(cgPosition / aircraftLength) * 100}%` }}
+                        className="absolute top-1/2 w-0.5 h-32 bg-purple-500 -translate-y-1/2 z-10"
+                    >
+                        <div className="absolute -top-16 left-1/2 -translate-x-1/2 flex flex-col items-center">
+                            <div className="w-4 h-4 rounded-full border-2 border-purple-500 bg-slate-900 grid place-items-center">
+                                <div className="w-1 h-1 bg-purple-500 rounded-full"></div>
+                            </div>
+                            <div className="w-0.5 h-full bg-purple-500"></div>
+                        </div>
+                    </motion.div>
+
+                    {/* Items */}
+                    {items.map(item => (
+                        <div
+                            key={item.id}
+                            className="absolute top-1/2 w-4 h-4 rounded-full bg-blue-500/30 border border-blue-400 -translate-y-1/2 -translate-x-1/2 hover:scale-150 transition-transform cursor-help z-20"
+                            style={{ left: `${(item.arm / aircraftLength) * 100}%` }}
+                            title={`${item.name}: ${item.mass}kg @ ${item.arm}in`}
+                        ></div>
+                    ))}
+
+                    {/* Datum */}
+                    <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-red-500/50">
+                        <span className="absolute top-2 left-2 text-xs text-red-500 font-mono">DATUM</span>
+                    </div>
+                </div>
+
+                {/* Table */}
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr className="text-slate-400 border-b border-slate-700">
+                                <th className="p-3">Item</th>
+                                <th className="p-3 text-right">Mass (kg)</th>
+                                <th className="p-3 text-right">Arm (in)</th>
+                                <th className="p-3 text-right">Moment (kg-in)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {items.map(item => (
+                                <tr key={item.id} className="border-b border-slate-800/50 hover:bg-slate-800/30 transition-colors">
+                                    <td className="p-3 font-medium text-slate-300">{item.name}</td>
+                                    <td className="p-3 text-right">
+                                        <input
+                                            type="number"
+                                            value={item.mass}
+                                            disabled={item.locked}
+                                            onChange={(e) => updateMass(item.id, parseInt(e.target.value) || 0)}
+                                            className="bg-slate-900 border border-slate-700 rounded px-2 py-1 w-24 text-right font-mono focus:border-blue-500 outline-none disabled:opacity-50 text-white"
+                                        />
+                                    </td>
+                                    <td className="p-3 text-right font-mono text-slate-400">{item.arm}</td>
+                                    <td className="p-3 text-right font-mono text-slate-400">{(item.mass * item.arm).toLocaleString()}</td>
+                                </tr>
+                            ))}
+                            <tr className="bg-slate-800/50 font-bold border-t-2 border-slate-700">
+                                <td className="p-3 text-white">Total</td>
+                                <td className="p-3 text-blue-400 font-mono text-right">{totalMass.toLocaleString()}</td>
+                                <td className="p-3 text-purple-400 font-mono text-right">{cgPosition.toFixed(2)}</td>
+                                <td className="p-3 text-slate-300 font-mono text-right">{totalMoment.toLocaleString()}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div className="mt-6 flex justify-between items-center text-sm">
+                    <div className="flex items-center gap-2">
+                        <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
+                        <span className="text-slate-400">Stable Range ({FWD_CG_LIMIT}-{AFT_CG_LIMIT}% MAC)</span>
+                    </div>
+                    {cgPercentMac < FWD_CG_LIMIT && (
+                        <div className="text-red-400 font-bold flex items-center gap-2 animate-pulse">
+                            <AlertTriangle className="w-4 h-4" /> Unstable (Too Forward) - High Stick Forces!
+                        </div>
+                    )}
+                    {cgPercentMac > AFT_CG_LIMIT && (
+                        <div className="text-red-400 font-bold flex items-center gap-2 animate-pulse">
+                            <AlertTriangle className="w-4 h-4" /> Unstable (Too Aft) - Spin Risk!
+                        </div>
+                    )}
+                    {totalMass > MTOM && (
+                        <div className="text-red-400 font-bold flex items-center gap-2 animate-pulse">
+                            <AlertTriangle className="w-4 h-4" /> Mass Exceeds MTOM!
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

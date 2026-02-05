@@ -4,7 +4,7 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 
 ## Subject 010 (air-law.md)
 
-**Total Missing Topics: 94**
+**Total Missing Topics: 90**
 
 - **[010 01 01 01]** The establishment of the Convention on International Civil Aviation, Chicago, 7 December
 - **[010 01 01 02]** Part I — Air navigation
@@ -31,7 +31,6 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 - **[010 05 06 01]** Interception of civil aircraft — SERA
 - **[010 06 02 01]** Definitions and abbreviations — ICAO Doc 8168, Volume I
 - **[010 06 03 01]** General criteria (assuming all engines operating)
-- **[010 06 03 02]** Standard instrument departures (SIDs)
 - **[010 06 04 03]** Arrival and approach segments
 - **[010 06 04 05]** Visual manoeuvring (circling) in the vicinity of the aerodrome (AD)
 - **[010 06 05 01]** Entry and holding
@@ -39,7 +38,6 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 - **[010 06 06 02]** Procedures for operators and pilots
 - **[010 06 07 01]** Simultaneous operation on parallel or near-parallel instrument RWYs
 - **[010 06 08 01]** Operation of transponders
-- **[010 06 08 02]** Operation of airborne collision avoidance system (ACAS) equipment
 - **[010 06 09 01]** Regulation structure
 - **[010 06 09 02]** Definitions (Annex I)
 - **[010 06 09 03]** Part-SPA (Annex V), Part-NCC (Annex VI) and Part- NCO (Annex VII)
@@ -64,9 +62,7 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 - **[010 08 01 01]** Introduction to ICAO Annex 15 — Aeronautical Information Service (AIS)
 - **[010 08 02 01]** Definitions of ICAO Annex 15
 - **[010 08 03 01]** General — AIS responsibilities and functions
-- **[010 08 04 01]** Aeronautical information publication (AIP)
 - **[010 08 04 02]** Notices to airmen (NOTAMs)
-- **[010 08 04 03]** Aeronautical information regulation and control (AIRAC)
 - **[010 08 04 04]** Aeronautical information circulars (AICs)
 - **[010 08 04 05]** Pre-flight and post-flight information/data
 - **[010 09 01 01]** General — AD reference code No 1178/2011)
@@ -103,7 +99,7 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 
 ## Subject 021 (systems.md, electrics.md, engines.md, jet-turbine-engines.md)
 
-**Total Missing Topics: 115**
+**Total Missing Topics: 113**
 
 - **[021 01 01 01]** Design concepts
 - **[021 01 01 02]** Level of certification
@@ -125,7 +121,6 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 - **[021 04 02 01]** Design, operation
 - **[021 04 03 01]** Types and materials
 - **[021 04 03 02]** System components, design, operation, indications and warnings
-- **[021 04 03 03]** Anti-skid
 - **[021 04 04 01]** Types, structural components and materials, operational limitations, thermal plugs
 - **[021 04 05 01]** Flotation devices
 - **[021 05 01 01]** Definition and control surfaces
@@ -185,7 +180,6 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 - **[021 11 03 01]** Engine fuel system
 - **[021 11 03 03]** Engine lubrication
 - **[021 11 03 04]** Engine auxiliary gearbox
-- **[021 11 03 05]** Engine ignition
 - **[021 11 03 08]** Helicopter specifics on design, operation and components for additional components and systems
 - **[021 11 04 02]** Starting malfunctions
 - **[021 11 04 03]** Relight envelope
@@ -309,51 +303,9 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 - **[022 14 03 03]** Aeroplane condition monitoring system (ACMS): general, design, operation
 - **[022 15 01 01]** General, definitions and design
 
-## Subject 031 (mass-and-balance.md)
-
-**Total Missing Topics: 37**
-
-- **[031 01 01 01]** Importance with regard to structural limitations
-- **[031 01 01 02]** Importance with regard to performance Remark: See also Subjects 032/034 and 081/082.
-- **[031 01 02 01]** Importance with regard to stability and controllability
-- **[031 01 02 02]** Importance with regard to performance Remark: See also Subjects 032/034 and 081/082.
-- **[031 02 01 01]** Mass terms
-- **[031 02 01 02]** Load terms (including fuel terms) Remark: See also Subject 033.
-- **[031 02 02 01]** Structural limitations
-- **[031 02 02 02]** Performance and regulated limitations
-- **[031 02 02 03]** Cargo compartment limitations
-- **[031 02 03 01]** Maximum masses for take-off and landing
-- **[031 02 03 02]** Allowed traffic load and fuel load
-- **[031 02 03 03]** Use of standard masses for passengers, baggage and crew
-- **[031 04 01 01]** Datum, moment arm
-- **[031 04 01 02]** CG position as distance from datum
-- **[031 04 01 03]** CG position as percentage of mean aerodynamic chord (% MAC)
-- **[031 04 01 04]** Longitudinal CG limits
-- **[031 04 01 05]** Lateral CG limits
-- **[031 04 01 06]** Details of passenger and cargo compartments
-- **[031 04 01 07]** Details of fuel system relevant to mass-and-balance considerations
-- **[031 04 02 01]** Weighing of aircraft (general aspects)
-- **[031 04 02 02]** Calculation of mass and CG position of an aircraft using weighing data
-- **[031 04 03 01]** BEM or dry operating mass (DOM)
-- **[031 04 03 02]** CG position or moment at BEM/DOM
-- **[031 04 03 03]** Deviations from standard configuration
-- **[031 05 01 01]** Arithmetic method
-- **[031 05 01 02]** Graphic method
-- **[031 05 01 03]** Index method
-- **[031 05 02 01]** General considerations
-- **[031 05 02 02]** Load sheet/balance schedule and CG envelope for light aeroplanes and for helicopters
-- **[031 05 02 03]** Load sheet for large aeroplanes
-- **[031 05 02 04]** Trim sheet for large aeroplanes
-- **[031 05 02 06]** Other methods to present load and trim information
-- **[031 05 03 01]** Repositioning of CG by shifting the load
-- **[031 05 03 02]** Repositioning of CG by additional load or ballast or by load or ballast removal
-- **[031 06 01 01]** Types of cargo (general aspects)
-- **[031 06 02 01]** Floor-area load and running-load limitations in cargo compartments
-- **[031 06 03 01]** Securement of load (reasons and methods)
-
 ## Subject 032 (aircraft-performance.md)
 
-**Total Missing Topics: 41**
+**Total Missing Topics: 38**
 
 - **[032 01 01 01]** Applicability of airworthiness requirements of CS-23 and CS-25
 - **[032 01 01 02]** Operational regulations and safety
@@ -368,8 +320,6 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 - **[032 02 03 01]** Take-off and landing (definitions and effects)
 - **[032 02 04 01]** Climb, cruise and descent (requirements and calculations)
 - **[032 04 01 01]** Take-off performance, definitions of and relationships between terms
-- **[032 04 01 02]** Take-off distances
-- **[032 04 01 03]** Accelerate-stop distance
 - **[032 04 01 04]** Balanced field length concept
 - **[032 04 01 05]** Unbalanced field length concept
 - **[032 04 01 06]** Field-length-limited take-off mass (FLLTOM)
@@ -385,7 +335,6 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 - **[032 04 02 01]** Climb techniques
 - **[032 04 02 02]** Influence of variables on climb performance
 - **[032 04 03 07]** Cost index (CI)
-- **[032 04 04 01]** Drift-down
 - **[032 04 04 02]** Influence of variables on the en-route one-engine-inoperative performance
 - **[032 04 05 01]** Descent techniques
 - **[032 04 05 02]** Energy management in the descent
@@ -399,7 +348,7 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 
 ## Subject 033 (flight-planning.md)
 
-**Total Missing Topics: 27**
+**Total Missing Topics: 26**
 
 - **[033 01 01 01]** Airspace, communication, visual and radio-navigation data from VFR charts
 - **[033 01 01 02]** Planning courses, distances and cruising levels with VFR charts
@@ -422,7 +371,6 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 - **[033 04 02 02]** Update of navigation plan using the latest meteorological information
 - **[033 04 02 05]** Update of fuel plan
 - **[033 04 03 01]** Point of equal time (PET)
-- **[033 04 03 02]** Point of safe return (PSR)
 - **[033 05 01 01]** Format of FPL
 - **[033 05 02 01]** Repetitive flight plan (RPL)
 - **[033 06 01 01]** Monitoring of track and time
@@ -431,7 +379,7 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 
 ## Subject 034 (aircraft-performance.md)
 
-**Total Missing Topics: 31**
+**Total Missing Topics: 29**
 
 - **[034 01 01 01]** Airworthiness requirements
 - **[034 01 01 02]** Operational regulations
@@ -447,9 +395,7 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 - **[034 02 04 03]** Cruise No 1178/2011)
 - **[034 02 04 04]** Landing (including hover)
 - **[034 03 01 01]** Responsibility for operations without an assured safe forced landing capability
-- **[034 03 02 01]** Take-off requirements
 - **[034 03 03 01]** Take-off flight path requirements No 1178/2011)
-- **[034 04 01 01]** Take-off distances
 - **[034 04 01 02]** Rejected take-off distance required (helicopter) (RTODR(H))
 - **[034 04 01 04]** Take-off climb
 - **[034 04 01 05]** Obstacle-limited take-off
@@ -501,7 +447,7 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 
 ## Subject 050 (meteorology.md)
 
-**Total Missing Topics: 100**
+**Total Missing Topics: 99**
 
 - **[050 01 01 01]** Structure of the atmosphere
 - **[050 01 01 02]** Troposphere No 1178/2011)
@@ -514,7 +460,6 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 - **[050 01 03 03]** Reduction of pressure to QFF (MSL)
 - **[050 01 03 04]** Relationship between surface pressure centres and pressure centres aloft
 - **[050 01 04 01]** Relationship between pressure, temperature and density
-- **[050 01 05 01]** International Standard Atmosphere (ISA)
 - **[050 01 06 01]** Terminology and definitions
 - **[050 01 06 02]** Altimeter settings
 - **[050 01 06 03]** Calculations No 1178/2011)
@@ -606,13 +551,12 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 
 ## Subject 061 (general-navigation.md)
 
-**Total Missing Topics: 33**
+**Total Missing Topics: 32**
 
 - **[061 01 01 02]** Earth rotation
 - **[061 01 02 01]** Position reference system
 - **[061 01 03 01]** Datums
 - **[061 01 03 02]** Track and heading
-- **[061 01 04 01]** WGS-84 ellipsoid
 - **[061 01 04 03]** Graticule distances
 - **[061 01 05 01]** True airspeed (TAS)
 - **[061 01 05 02]** Mach number (M) No 1178/2011)
@@ -644,7 +588,7 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 
 ## Subject 062 (radio-navigation.md)
 
-**Total Missing Topics: 56**
+**Total Missing Topics: 55**
 
 - **[062 01 01 01]** Electromagnetic waves
 - **[062 01 01 02]** Frequency, wavelength, amplitude, phase
@@ -694,7 +638,6 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 - **[062 07 02 02]** Navigation functional requirements
 - **[062 07 02 03]** Designation of RNP and RNAV specifications
 - **[062 07 03 03]** Specific RNAV and RNP system functions
-- **[062 07 04 01]** Performance-based navigation (PBN)
 - **[062 07 04 02]** On-board performance monitoring and
 - **[062 07 04 03]** Abnormal situations
 - **[062 07 05 03]** RNAV 1/RNAV 2/RNP 1/RNP 2
@@ -705,7 +648,7 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 
 ## Subject 071 (operational-procedures.md)
 
-**Total Missing Topics: 60**
+**Total Missing Topics: 59**
 
 - **[071 01 02 04]** Operational procedures (except preparation for long-range flight)
 - **[071 01 02 05]** All-weather operations No 1178/2011)
@@ -715,7 +658,6 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 - **[071 01 03 01]** Flight management
 - **[071 01 03 02]** Transoceanic and polar flights No 1178/2011)
 - **[071 01 03 03]** North Atlantic High Level Airspace (NAT HLA) NAT Region
-- **[071 01 03 04]** Extended-range operations with two-engined aeroplanes (ETOPS)
 - **[071 02 01 02]** Aeroplane/helicopter operating matters — type-related
 - **[071 02 01 03]** Minimum equipment list (MEL) and master minimum equipment list (MMEL)
 - **[071 02 02 01]** On-ground de-icing/anti-icing procedures, types of de-icing/anti-icing fluids
@@ -770,7 +712,7 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 
 ## Subject 081 (principles-of-flight.md)
 
-**Total Missing Topics: 114**
+**Total Missing Topics: 113**
 
 - **[081 01 01 01]** Laws and definitions No 1178/2011)
 - **[081 01 01 03]** Aerodynamic forces on aerofoils
@@ -801,7 +743,6 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 - **[081 02 01 03]** Influence of temperature and altitude on Mach number
 - **[081 02 01 05]** Subdivision of aerodynamic flow
 - **[081 02 02 01]** Definition of shock wave
-- **[081 02 03 01]** Critical Mach number (MCRIT)
 - **[081 02 03 02]** Effect on lift
 - **[081 02 03 03]** Effect on drag
 - **[081 02 03 04]** Effect on pitching moment
@@ -948,7 +889,7 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 
 ## Subject 090 (communications.md)
 
-**Total Missing Topics: 13**
+**Total Missing Topics: 11**
 
 - **[090 01 01 02]** Air traffic services (ATS) abbreviations
 - **[090 01 01 03]** Q-code groups commonly used in radiotelephony (RT) air-ground communications
@@ -958,11 +899,9 @@ This report lists syllabus topics where neither the exact Title key-phrase nor s
 - **[090 02 01 06]** RT call signs for aeronautical stations including use of abbreviated call signs
 - **[090 02 01 07]** RT call signs for aircraft including use of abbreviated call signs
 - **[090 02 01 09]** Test procedures including readability scale
-- **[090 02 01 10]** Read-back and acknowledgement requirements
 - **[090 02 01 11]** Radar procedural phraseology
 - **[090 03 01 02]** Weather broadcast
 - **[090 04 01 01]** Action required to be taken in case of communication failure
-- **[090 06 01 01]** Spectrum, bands, range
 
 ## Subject 100 (Unknown)
 

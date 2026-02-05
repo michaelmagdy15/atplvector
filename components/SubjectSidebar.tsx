@@ -2,7 +2,8 @@
 import React, { useState, useMemo } from 'react';
 import { View } from '../types';
 import { SubjectConfig } from '../data/sidebarNavigation';
-import { ChevronLeft, Circle, CheckCircle2, X, Search } from 'lucide-react';
+import { ChevronLeft, Circle, CheckCircle2, X, Search, Trophy } from 'lucide-react';
+import { useGamification } from '../context/GamificationContext';
 
 interface Props {
     config: SubjectConfig;
@@ -13,6 +14,7 @@ interface Props {
 
 const SubjectSidebar: React.FC<Props> = ({ config, currentView, onNavigate, onClose }) => {
     const [searchQuery, setSearchQuery] = useState('');
+    const { xp, rank, progressToNextLevel } = useGamification();
 
     // Filter items based on search query
     const filteredItems = useMemo(() => {
@@ -128,6 +130,26 @@ const SubjectSidebar: React.FC<Props> = ({ config, currentView, onNavigate, onCl
                         );
                     })
                 )}
+            </div>
+
+            {/* Gamification Status Footer */}
+            <div className="p-4 border-t border-white/5 bg-slate-900/50">
+                <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30">
+                        <Trophy size={14} className="text-emerald-400" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                        <div className="text-xs font-bold text-white truncate">{rank}</div>
+                        <div className="text-[10px] text-slate-500 font-mono">{xp} XP</div>
+                    </div>
+                </div>
+                {/* XP Bar */}
+                <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                    <div
+                        className="h-full bg-emerald-500 rounded-full transition-all duration-500"
+                        style={{ width: `${progressToNextLevel}%` }}
+                    ></div>
+                </div>
             </div>
         </div>
     );

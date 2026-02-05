@@ -97,6 +97,7 @@ export enum View {
   MASS_BAL_FLEET = 'MASS_BAL_FLEET',
   MASS_BAL_CARGO_TYPES = 'MASS_BAL_CARGO_TYPES',
   MASS_BAL_STD_MASSES = 'MASS_BAL_STD_MASSES',
+  MASS_BAL_QUIZ = 'MASS_BAL_QUIZ', // New Guided Practice Wizard
 
   // Performance (032)
   PERF_HOME = 'PERF_HOME',
