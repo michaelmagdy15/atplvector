@@ -6,12 +6,34 @@ const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-  throw new Error(
+  console.error(
     'Missing Supabase configuration. Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file.'
   );
 }
 
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Minimal mock to prevent crashes if Supabase is not configured
+const mockClient = {
+  auth: {
+    getSession: async () => ({ data: { session: null }, error: null }),
+    onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => { } } }, error: null }),
+    signOut: async () => { },
+  },
+  from: () => ({
+    select: () => ({
+      eq: () => ({
+        single: async () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      }),
+    }),
+    update: () => ({
+      eq: () => Promise.resolve({ error: null }),
+    }),
+    insert: () => Promise.resolve({ error: null }),
+  }),
+} as any;
+
+export const supabase = (SUPABASE_URL && SUPABASE_ANON_KEY)
+  ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+  : mockClient;
 
 /**
  * Helper to get the current site URL for redirects.
