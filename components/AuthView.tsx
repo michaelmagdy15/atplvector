@@ -88,6 +88,15 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
 
     useEffect(() => {
         generateMathQuestion();
+
+        // Listen for recovery event if redirected via reset link
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+            if (event === 'PASSWORD_RECOVERY') {
+                setView('RESET_PASSWORD');
+            }
+        });
+
+        return () => subscription.unsubscribe();
     }, []);
 
 

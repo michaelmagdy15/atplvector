@@ -425,10 +425,20 @@ const App: React.FC = () => {
 
     // Initial Data Fetch & Auth Listener
     useEffect(() => {
+        // Check for recovery token in URL before anything else
+        const isRecovery = window.location.hash?.includes('type=recovery') ||
+            window.location.search?.includes('type=recovery');
+
+        if (isRecovery) {
+            setAuthInitialView('RESET_PASSWORD');
+        }
+
         // 1. Check for active session
         supabase.auth.getSession().then(({ data: { session } }) => {
             if (session) {
-                fetchUserProfile(session.user.id, session.user.email!, session.user.user_metadata);
+                fetchUserProfile(session.user.id, session.user.email!, session.user.user_metadata).then(() => {
+                    if (isRecovery) setCurrentView(View.ACCOUNT_SETTINGS);
+                });
             } else {
                 setIsLoading(false);
             }
@@ -436,11 +446,14 @@ const App: React.FC = () => {
 
         // 2. Listen for auth changes
         const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+            console.log("Auth Event:", event);
             if (event === 'PASSWORD_RECOVERY') {
                 if (session) {
                     fetchUserProfile(session.user.id, session.user.email!, session.user.user_metadata).then(() => {
                         setCurrentView(View.ACCOUNT_SETTINGS);
                     });
+                } else {
+                    setAuthInitialView('RESET_PASSWORD');
                 }
             } else if (session) {
                 fetchUserProfile(session.user.id, session.user.email!, session.user.user_metadata);
