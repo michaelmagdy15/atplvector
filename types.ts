@@ -523,7 +523,7 @@ export interface Testimonial {
   createdAt: string;
 }
 
-// Global definition for JSX Intrinsic Elements to fix widespread errors
+// React Three Fiber intrinsic element declarations
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -538,9 +538,6 @@ declare global {
       ambientLight: any;
       pointLight: any;
       color: any;
-
-      // Catch-all
-      [elemName: string]: any;
     }
   }
 }

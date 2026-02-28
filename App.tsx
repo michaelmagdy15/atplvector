@@ -620,32 +620,60 @@ const App: React.FC = () => {
         studyTimeRef.current = studyTime;
     }, [studyTime]);
 
-    // Study Timer Logic with Database Persistence
+    // Study Timer Logic with Database Persistence — only counts when tab is visible
     useEffect(() => {
         if (!user) return;
 
-        const interval = setInterval(() => {
-            setStudyTime(prev => {
-                const newValue = prev + 1;
-                // Periodically save to DB (every 30 seconds) to prevent data loss on crash
-                if (newValue % 30 === 0) {
-                    supabase.from('profiles')
-                        .update({ study_seconds: newValue })
-                        .eq('id', user.id)
-                        .then(({ error }) => {
-                            if (error) console.error("Failed to auto-save study time:", error);
-                        });
-                }
-                return newValue;
-            });
-        }, 1000);
+        let interval: ReturnType<typeof setInterval> | null = null;
+
+        const startTimer = () => {
+            if (interval) return;
+            interval = setInterval(() => {
+                setStudyTime(prev => {
+                    const newValue = prev + 1;
+                    if (newValue % 30 === 0) {
+                        supabase.from('profiles')
+                            .update({ study_seconds: newValue })
+                            .eq('id', user.id)
+                            .then(({ error }) => {
+                                if (error) console.error("Failed to auto-save study time:", error);
+                            });
+                    }
+                    return newValue;
+                });
+            }, 1000);
+        };
+
+        const stopTimer = () => {
+            if (interval) {
+                clearInterval(interval);
+                interval = null;
+            }
+        };
+
+        const handleVisibility = () => {
+            if (document.visibilityState === 'visible') {
+                startTimer();
+            } else {
+                stopTimer();
+                // Save when tab goes hidden
+                supabase.from('profiles').update({ study_seconds: studyTimeRef.current }).eq('id', user.id);
+            }
+        };
+
+        // Start only if tab is currently visible
+        if (document.visibilityState === 'visible') {
+            startTimer();
+        }
+
+        document.addEventListener('visibilitychange', handleVisibility);
 
         return () => {
-            clearInterval(interval);
-            // Try to save on unmount if possible (best effort)
+            stopTimer();
+            document.removeEventListener('visibilitychange', handleVisibility);
             supabase.from('profiles').update({ study_seconds: studyTimeRef.current }).eq('id', user.id);
         };
-    }, [user?.id]); // Only restart if user ID changes (login/logout), not on every profile update
+    }, [user?.id]);
 
     const handleLogout = async () => {
         // Force save study time before logging out
@@ -1339,7 +1367,7 @@ const App: React.FC = () => {
                                         {currentView === View.GEN_NAV_TIME && <SolarCalc onNavigate={navigateTo} />}
                                         {currentView === View.GEN_NAV_CHARTS && <MapProjections onNavigate={navigateTo} />}
                                         {currentView === View.GEN_NAV_VFR && <WindTriangle onNavigate={navigateTo} />}
-                                        {(currentView === View.GEN_NAV_EARTH || currentView === View.GEN_NAV_BASICS) && <EarthGeometry view={currentView} onNavigate={navigateTo} />}
+                                        {(currentView === View.GEN_NAV_EARTH || currentView === View.GEN_NAV_BASICS) && <EarthGeometry onNavigate={navigateTo} />}
                                         {currentView === View.NAV_60_1 && <OneInSixty />}
                                         {/* Radio Nav */}
                                         {currentView === View.RAD_NAV_HOME && (
@@ -1513,7 +1541,7 @@ const App: React.FC = () => {
                                         {currentView === View.SIGMET_DECODER && <SigmetDecoder />}
                                         {currentView === View.WAKE_TURB && <WakeTurbulence />}
                                         {currentView === View.SERVICE_CODES && <ServiceCodes />}
-                                        {currentView === View.QCODE_CARDS && <QCodeCards />}
+                                        {/* Removed: duplicate QCODE_CARDS already rendered at line ~1460 */}
                                         {currentView === View.NUM_TIME_TRANSMIT && <TransmissionDrill />}
                                         {currentView === View.COMMS_DEFINITIONS && <CommsDefinitions />}
                                         {currentView === View.INTERCEPT && <InterceptTrainer />}

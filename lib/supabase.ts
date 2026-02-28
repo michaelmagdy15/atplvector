@@ -1,11 +1,15 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-// Configuration
-// @ts-ignore
-const SUPABASE_URL = import.meta.env?.VITE_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://xzdrfydahvpitepzkopg.supabase.co';
-// @ts-ignore
-const SUPABASE_ANON_KEY = import.meta.env?.VITE_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_XiPLZkD-7XWRnRmEjCdmxg_DyRsx05_';
+// Configuration — requires VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in .env
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+  throw new Error(
+    'Missing Supabase configuration. Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file.'
+  );
+}
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -14,10 +18,10 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
  * Prioritizes environment variables, falls back to window.location.origin.
  */
 export const getSiteUrl = () => {
-  let url = 
+  let url =
     // @ts-ignore
-    import.meta.env?.VITE_SITE_URL || 
-    process.env.NEXT_PUBLIC_SITE_URL || 
+    import.meta.env?.VITE_SITE_URL ||
+    process.env.NEXT_PUBLIC_SITE_URL ||
     (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000');
 
   // Ensure it includes the protocol

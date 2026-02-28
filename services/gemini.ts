@@ -2,28 +2,8 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { QuizQuestion } from "../types";
 
-// Helper to safely get API key from various environment configurations
-const getApiKey = () => {
-  // Check for Vite environment (import.meta.env)
-  try {
-    // @ts-ignore
-    if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_KEY) {
-      // @ts-ignore
-      return import.meta.env.VITE_API_KEY;
-    }
-  } catch (e) {}
-
-  // Check for Node/Process environment
-  try {
-    if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
-      return process.env.API_KEY;
-    }
-  } catch (e) {}
-
-  return '';
-};
-
-const apiKey = getApiKey();
+// API key from Vite environment — set VITE_API_KEY in .env
+const apiKey: string = import.meta.env.VITE_API_KEY || '';
 const ai = new GoogleGenAI({ apiKey });
 
 export const generateQuizQuestion = async (topic: string): Promise<QuizQuestion | null> => {
@@ -44,7 +24,7 @@ export const generateQuizQuestion = async (topic: string): Promise<QuizQuestion 
           type: Type.OBJECT,
           properties: {
             question: { type: Type.STRING },
-            options: { 
+            options: {
               type: Type.ARRAY,
               items: { type: Type.STRING }
             },
@@ -66,18 +46,18 @@ export const generateQuizQuestion = async (topic: string): Promise<QuizQuestion 
   }
 };
 
-export const generateRoleplayResponse = async (history: {role: 'user' | 'model', text: string}[], lastMessage: string) => {
-   if (!apiKey) return "API Key missing. Please configure your environment variables.";
+export const generateRoleplayResponse = async (history: { role: 'user' | 'model', text: string }[], lastMessage: string) => {
+  if (!apiKey) return "API Key missing. Please configure your environment variables.";
 
-   const contents = history.map(h => ({
-     role: h.role,
-     parts: [{ text: h.text }]
-   }));
-   
-   // Add new message
-   contents.push({ role: 'user', parts: [{ text: lastMessage }] });
+  const contents = history.map(h => ({
+    role: h.role,
+    parts: [{ text: h.text }]
+  }));
 
-   try {
+  // Add new message
+  contents.push({ role: 'user', parts: [{ text: lastMessage }] });
+
+  try {
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: contents,
@@ -86,9 +66,9 @@ export const generateRoleplayResponse = async (history: {role: 'user' | 'model',
       }
     });
     return response.text || "Station calling, say again due to interference.";
-   } catch (e) {
-     return "Radio failure. (API Error)";
-   }
+  } catch (e) {
+    return "Radio failure. (API Error)";
+  }
 };
 
 export const explainWeather = async (rawCode: string): Promise<any | null> => {
