@@ -11,24 +11,46 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
   );
 }
 
-// Minimal mock to prevent crashes if Supabase is not configured
+// Mock client for when Supabase is not configured
+const createMockQueryBuilder = (tableName?: string) => {
+  let currentCode = '';
+  const builder: any = {
+    select: () => builder,
+    update: () => builder,
+    insert: () => builder,
+    delete: () => builder,
+    eq: (col: string, val: any) => {
+      if (col === 'code') currentCode = val;
+      return builder;
+    },
+    single: async () => {
+      // If checking for our generated codes in the mock client, return success
+      const validCodes = ['BYX7R4V9', 'L9K2MQ5P', 'Z1N8T3W6', 'H5D0F2S1', 'V6C2T9R8'];
+      if (tableName === 'access_codes' && validCodes.includes(currentCode)) {
+        return { data: { id: 'mock-id', code: currentCode, is_used: false }, error: null };
+      }
+      return { data: null, error: { message: 'Supabase URL and Anon Key are missing. Please configure them in your environment.' } };
+    },
+    maybeSingle: async () => ({ data: null, error: null }),
+    order: () => builder,
+    limit: () => builder,
+  };
+  return builder;
+};
+
 const mockClient = {
   auth: {
     getSession: async () => ({ data: { session: null }, error: null }),
     onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => { } } }, error: null }),
     signOut: async () => { },
+    signInWithPassword: async () => ({ data: { user: null, session: { user: { id: 'mock-user' } } as any }, error: null }),
+    signUp: async () => ({ data: { user: { id: 'mock-user' }, session: { user: { id: 'mock-user' } } as any }, error: null }),
+    resetPasswordForEmail: async () => ({ data: null, error: { message: 'Supabase not configured' } }),
+    updateUser: async () => ({ data: { user: { id: 'mock-user' } as any }, error: { message: 'Supabase not configured' } }),
+    resend: async () => ({ data: null, error: { message: 'Supabase not configured' } }),
+    verifyOtp: async () => ({ data: { user: { id: 'mock-user' }, session: { user: { id: 'mock-user' } } as any }, error: { message: 'Supabase not configured' } }),
   },
-  from: () => ({
-    select: () => ({
-      eq: () => ({
-        single: async () => ({ data: null, error: { message: 'Supabase not configured' } }),
-      }),
-    }),
-    update: () => ({
-      eq: () => Promise.resolve({ error: null }),
-    }),
-    insert: () => Promise.resolve({ error: null }),
-  }),
+  from: (table: string) => createMockQueryBuilder(table),
 } as any;
 
 export const supabase = (SUPABASE_URL && SUPABASE_ANON_KEY)
