@@ -14,14 +14,15 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Inter', 'sans-serif'],
-                mono: ['JetBrains Mono', 'monospace'],
+                sans: ['Fira Sans', 'Inter', 'sans-serif'],
+                mono: ['Fira Code', 'JetBrains Mono', 'monospace'],
             },
             colors: {
                 background: '#030712',
                 surface: '#0f172a',
-                primary: '#3b82f6',
-                accent: '#8b5cf6',
+                primary: '#1E40AF',
+                secondary: '#3B82F6',
+                accent: '#F59E0B',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

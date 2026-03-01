@@ -418,36 +418,41 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
 
             {activeInfoPage === null && (
                 <>
-                    {/* Nav */}
-                    <nav className="fixed top-6 w-full z-50 flex justify-center pointer-events-none animate-in slide-in-from-top-4 duration-700">
-                        <div className="pointer-events-auto w-[92%] max-w-7xl glass-panel rounded-full h-16 md:h-20 px-6 md:px-10 flex items-center justify-between bg-slate-900/70 backdrop-blur-2xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-                            <div className="flex items-center space-x-2 cursor-pointer group" onClick={() => scrollToSection('hero')}>
-                                <div className="p-1 w-8 h-8 bg-slate-900/50 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-300 border border-white/10 flex items-center justify-center overflow-hidden">
-                                    <img src="/assets/logo.png" alt="Logo" className="w-full h-full object-contain" />
+                    {/* Professional Integrated Navbar */}
+                    <div className="sticky top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
+                        <nav className="max-w-7xl mx-auto">
+                            <div className="px-6 md:px-10 h-16 md:h-20 flex items-center justify-between">
+                                <div className="flex items-center space-x-2 cursor-pointer group" onClick={() => scrollToSection('hero')}>
+                                    <div className="p-1 w-8 h-8 bg-slate-900/50 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-300 border border-white/10 flex items-center justify-center overflow-hidden">
+                                        <img src="/assets/logo.png" alt="Logo" className="w-full h-full object-contain" />
+                                    </div>
+                                    <span className="text-xl font-black text-white tracking-tighter">ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span></span>
                                 </div>
-                                <span className="text-xl font-black text-white tracking-tighter">ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span></span>
-                            </div>
 
-                            <div className="hidden lg:flex items-center space-x-4 xl:space-x-8 text-sm font-medium text-slate-300">
-                                <button onClick={() => scrollToSection('features')} className="hover:text-white transition hover:scale-105">Features</button>
-                                <button onClick={() => scrollToSection('experience')} className="hover:text-white transition hover:scale-105">Experience</button>
-                                <button onClick={() => scrollToSection('pricing')} className="hover:text-white transition hover:scale-105">Pricing</button>
-                                <button onClick={() => { scrollToSection('hero'); setView('LOGIN'); }} className="text-white hover:text-blue-300 transition">Login</button>
-                                <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="bg-white/10 hover:bg-white/20 text-white px-5 py-2 rounded-full font-bold transition hover:shadow-lg hover:shadow-blue-500/20 active:scale-95">Get Started</button>
+                                <div className="hidden lg:flex items-center space-x-4 xl:space-x-8 text-sm font-medium text-slate-300">
+                                    <button onClick={() => scrollToSection('features')} className="hover:text-white transition hover:scale-105">Features</button>
+                                    <button onClick={() => scrollToSection('experience')} className="hover:text-white transition hover:scale-105">Experience</button>
+                                    <button onClick={() => scrollToSection('pricing')} className="hover:text-white transition hover:scale-105">Pricing</button>
+                                    <button onClick={() => { scrollToSection('hero'); setView('LOGIN'); }} className="text-white hover:text-blue-300 transition">Login</button>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl font-bold transition hover:shadow-lg hover:shadow-blue-500/20 active:scale-95 shadow-lg shadow-blue-500/10">Get Started</button>
+                                </div>
+                                <div className="lg:hidden flex items-center gap-4">
+                                    <button onClick={() => { scrollToSection('hero'); setView('LOGIN'); }} className="text-xs font-bold text-slate-300">Login</button>
+                                    <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors">{mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}</button>
+                                </div>
                             </div>
-                            <div className="lg:hidden">
-                                <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-white">{mobileMenuOpen ? <X /> : <Menu />}</button>
-                            </div>
-                        </div>
+                        </nav>
+
                         {/* Mobile Menu */}
                         {mobileMenuOpen && (
-                            <div className="pointer-events-auto absolute top-24 left-4 right-4 bg-slate-900/95 backdrop-blur-xl rounded-2xl border border-white/10 p-2 flex flex-col space-y-2 lg:hidden z-50 shadow-2xl animate-in slide-in-from-top-4">
-                                <button type="button" onClick={() => scrollToSection('features')} className="text-left px-6 py-4 text-slate-200 font-medium hover:bg-white/10 rounded-xl active:scale-[0.98] transition-all">Features</button>
-                                <button type="button" onClick={() => scrollToSection('pricing')} className="text-left px-6 py-4 text-slate-200 font-medium hover:bg-white/10 rounded-xl active:scale-[0.98] transition-all">Pricing</button>
-                                <button type="button" onClick={() => { scrollToSection('hero'); setView('LOGIN'); }} className="text-left px-6 py-4 text-white font-bold bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 rounded-xl active:scale-[0.98] transition-all">Login</button>
+                            <div className="absolute top-full left-0 right-0 bg-slate-900/95 backdrop-blur-xl border-b border-white/10 p-4 flex flex-col space-y-2 lg:hidden z-50 shadow-2xl animate-in slide-in-from-top-2 duration-300">
+                                <button type="button" onClick={() => scrollToSection('features')} className="text-left px-6 py-4 text-slate-200 font-medium hover:bg-white/10 rounded-xl transition-all">Features</button>
+                                <button type="button" onClick={() => scrollToSection('pricing')} className="text-left px-6 py-4 text-slate-200 font-medium hover:bg-white/10 rounded-xl transition-all">Pricing</button>
+                                <button type="button" onClick={() => { scrollToSection('hero'); setView('LOGIN'); }} className="text-left px-6 py-4 text-white font-bold bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 rounded-xl transition-all">Login</button>
+                                <button type="button" onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="text-left px-6 py-4 text-white font-bold bg-blue-600 hover:bg-blue-500 rounded-xl transition-all shadow-lg shadow-blue-500/20">Get Started</button>
                             </div>
                         )}
-                    </nav>
+                    </div>
 
                     {/* HERO SECTION */}
                     <div id="hero" className="flex flex-col lg:flex-row min-h-screen pt-20 lg:pt-0 relative overflow-hidden">

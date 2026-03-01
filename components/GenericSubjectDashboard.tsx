@@ -100,7 +100,7 @@ const GenericSubjectDashboard: React.FC<Props> = ({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {modules.map((mod, idx) => (
                     <motion.button
-                        key={idx}
+                        key={mod.view || mod.title}
                         disabled={mod.isLocked}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}

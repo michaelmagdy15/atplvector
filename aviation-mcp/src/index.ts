@@ -4,11 +4,19 @@ import {
     CallToolRequestSchema,
     ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
+import fs from "fs/promises";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+// Root is two levels up from src/index.ts
+const PROJECT_ROOT = path.resolve(__dirname, "../../");
 
 const server = new Server(
     {
-        name: "aviation-data-custom",
-        version: "1.0.0",
+        name: "easa-regulation-ai",
+        version: "2.0.0",
     },
     {
         capabilities: {
@@ -18,103 +26,50 @@ const server = new Server(
 );
 
 /**
- * Mock data for EASA Regulations
+ * List of regulation files present in the project root
  */
-const EASA_DATA = [
-    { id: "CAT.OP.MPA.100", title: "Use of air traffic services", content: "The operator shall ensure that all flights are conducted in accordance with ATS procedures..." },
-    { id: "CAT.OP.MPA.110", title: "Aerodrome operating minima", content: "The operator shall establish operating minima for each departure, destination or alternate aerodrome..." },
-    { id: "SPA.LVO.100", title: "Low visibility operations", content: "The operator shall only conduct low visibility operations if they are approved by the CAA..." },
+const REGULATION_FILES = [
+    "040_Easy-Access-Rules-for-Aircrew-Regulation-EU-No-1178_2011-—-Revision-from-February-2022_extracted.txt",
+    "062_Easy-Access-Rules-for-Aircrew-Regulation-EU-No-1178_2011-—-Revision-from-February-2022_extracted.txt",
+    "ATPLSYLLABUS_extracted.txt",
+    "pof081_extracted.txt"
 ];
 
 server.setRequestHandler(ListToolsRequestSchema, async () => {
     return {
         tools: [
             {
-                name: "search_easa_regs",
-                description: "Search across EASA AIR-OPS and SPA regulations for specific keywords or item IDs.",
+                name: "search_easa_regulations",
+                description: "Deep search through EASA Air-Ops, Part-FCL, and ATPL Syllabus text files for specific regulatory requirements or learning objectives.",
                 inputSchema: {
                     type: "object",
                     properties: {
-                        query: { type: "string", description: "Keyword or Regulatory ID (e.g., CAT.OP.MPA.110)" },
+                        query: {
+                            type: "string",
+                            description: "Keyword, Syllabus ID (e.g. 040.01.03), or Regulatory item (e.g. CAT.OP.MPA.110)"
+                        },
+                        contextLines: {
+                            type: "number",
+                            description: "Number of lines of context to provide around matches (default 5)",
+                            default: 5
+                        }
                     },
                     required: ["query"],
                 },
             },
             {
                 name: "calculate_operational_minima",
-                description: "Calculate Aerodrome Operating Minima (RVR/Visibility) based on approach type and equipment.",
+                description: "Calculate Aerodrome Operating Minima (RVR/Visibility) based on approach type and equipment according to EASA SPA.LVO standards.",
                 inputSchema: {
                     type: "object",
                     properties: {
-                        approachType: { type: "string", enum: ["CATI", "CATII", "CATIII"], description: "The type of approach" },
+                        approachType: { type: "string", enum: ["NPA", "CATI", "CATII", "CATIII"], description: "The type of approach" },
                         hial: { type: "boolean", description: "Whether High Intensity Approach Lighting is available" },
+                        reportingRVR: { type: "boolean", description: "Whether RVR is reported or converted from visibility" }
                     },
                     required: ["approachType"],
                 },
-            },
-            {
-                name: "fetch_url",
-                description: "Fetch content from a URL (Mock).",
-                inputSchema: {
-                    type: "object",
-                    properties: {
-                        url: { type: "string", description: "URL to fetch" },
-                    },
-                    required: ["url"],
-                },
-            },
-            {
-                name: "gke_list_clusters",
-                description: "List Google Kubernetes Engine clusters (Mock).",
-                inputSchema: {
-                    type: "object",
-                    properties: {},
-                },
-            },
-            {
-                name: "msfs_sdk_search",
-                description: "Search the Microsoft Flight Simulator SDK (Mock).",
-                inputSchema: {
-                    type: "object",
-                    properties: {
-                        query: { type: "string", description: "Search query" },
-                    },
-                    required: ["query"],
-                },
-            },
-            {
-                name: "sentry_issue",
-                description: "Interact with Sentry issues (Mock).",
-                inputSchema: {
-                    type: "object",
-                    properties: {
-                        action: { type: "string", description: "Action to perform (e.g., 'create', 'list')" },
-                    },
-                    required: ["action"],
-                },
-            },
-            {
-                name: "supabase_query",
-                description: "Run a query against Supabase (Mock).",
-                inputSchema: {
-                    type: "object",
-                    properties: {
-                        query: { type: "string", description: "SQL or Supabase client query" },
-                    },
-                    required: ["query"],
-                },
-            },
-            {
-                name: "threejs_docs",
-                description: "Get Three.js documentation or snippets (Mock).",
-                inputSchema: {
-                    type: "object",
-                    properties: {
-                        topic: { type: "string", description: "Three.js topic (e.g., 'BoxGeometry')" },
-                    },
-                    required: ["topic"],
-                },
-            },
+            }
         ],
     };
 });
@@ -122,19 +77,37 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
     const { name, arguments: args } = request.params;
 
-    if (name === "search_easa_regs") {
+    if (name === "search_easa_regulations") {
         const query = (args?.query as string).toLowerCase();
-        const results = EASA_DATA.filter(
-            (item) => item.id.toLowerCase().includes(query) || item.content.toLowerCase().includes(query)
-        );
+        const contextLines = (args?.contextLines as number) || 5;
+        const results: string[] = [];
+
+        for (const filename of REGULATION_FILES) {
+            try {
+                const filePath = path.join(PROJECT_ROOT, filename);
+                const content = await fs.readFile(filePath, "utf-8");
+                const lines = content.split("\n");
+
+                lines.forEach((line, index) => {
+                    if (line.toLowerCase().includes(query)) {
+                        const start = Math.max(0, index - contextLines);
+                        const end = Math.min(lines.length, index + contextLines + 1);
+                        const snippet = lines.slice(start, end).join("\n");
+                        results.push(`--- MATCH IN ${filename} (Line ${index + 1}) ---\n${snippet}\n`);
+                    }
+                });
+            } catch (err) {
+                console.error(`Error reading ${filename}:`, err);
+            }
+        }
 
         return {
             content: [
                 {
                     type: "text",
                     text: results.length > 0
-                        ? JSON.stringify(results, null, 2)
-                        : "No regulatory matches found for your query.",
+                        ? results.slice(0, 10).join("\n") + (results.length > 10 ? `\n... Total ${results.length} matches found.` : "")
+                        : "No regulatory matches found for your query in the local EASA documentation.",
                 },
             ],
         };
@@ -153,6 +126,9 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         } else if (approachType === "CATIII") {
             rvr = 75;
             dh = 0;
+        } else if (approachType === "NPA") {
+            rvr = 800;
+            dh = 250;
         }
 
         if (!hial && approachType === "CATI") {
@@ -163,52 +139,9 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             content: [
                 {
                     type: "text",
-                    text: `Calculated Minima for ${approachType}: RVR ${rvr}m, DH ${dh}ft.`,
+                    text: `[EASA SPA.LVO Verification] Calculated Minima for ${approachType}: RVR ${rvr}m, DH ${dh}ft. (Note: Performance-based values may vary by aircraft certification).`,
                 },
             ],
-        };
-    }
-
-    // --- New Tools Implementation ---
-
-    if (name === "fetch_url") {
-        const url = args?.url as string;
-        return {
-            content: [{ type: "text", text: `[Mock] Fetched content from ${url}: <html><body><h1>Mock Content</h1></body></html>` }]
-        };
-    }
-
-    if (name === "gke_list_clusters") {
-        return {
-            content: [{ type: "text", text: `[Mock] GKE Clusters: \n- cluster-europe-west1-prod (Running)\n- cluster-us-central1-dev (Running)` }]
-        };
-    }
-
-    if (name === "msfs_sdk_search") {
-        const query = args?.query as string;
-        return {
-            content: [{ type: "text", text: `[Mock] MSFS SDK results for "${query}":\n- SimConnect API Reference\n- Gauge API Documentation` }]
-        };
-    }
-
-    if (name === "sentry_issue") {
-        const action = args?.action as string;
-        return {
-            content: [{ type: "text", text: `[Mock] Sentry action "${action}" completed successfully.` }]
-        };
-    }
-
-    if (name === "supabase_query") {
-        const query = args?.query as string;
-        return {
-            content: [{ type: "text", text: `[Mock] Supabase query executed: ${query}\nResult: [{ "id": 1, "data": "test" }]` }]
-        };
-    }
-
-    if (name === "threejs_docs") {
-        const topic = args?.topic as string;
-        return {
-            content: [{ type: "text", text: `[Mock] Three.js docs for "${topic}":\nRef: https://threejs.org/docs/#api/en/${topic}` }]
         };
     }
 
@@ -218,7 +151,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 async function main() {
     const transport = new StdioServerTransport();
     await server.connect(transport);
-    console.error("Aviation Data Custom MCP server running on stdio");
+    console.error("EASA Regulation AI MCP server running on stdio");
 }
 
 main().catch((error) => {

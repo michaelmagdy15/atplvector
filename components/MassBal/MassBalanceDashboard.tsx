@@ -29,22 +29,33 @@ interface ModuleCardProps {
 
 const ModuleCard: React.FC<ModuleCardProps> = ({ title, description, icon: Icon, onClick, color, isLocked }) => (
     <motion.button
+        variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0 }
+        }}
         whileHover={{ scale: 1.02, y: -5 }}
         whileTap={{ scale: 0.98 }}
         onClick={onClick}
         disabled={isLocked}
-        className={`bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 p-6 rounded-xl text-left w-full h-full flex flex-col group relative overflow-hidden ${isLocked ? 'opacity-50 grayscale cursor-not-allowed' : 'hover:bg-slate-800/80 cursor-pointer'}`}
+        className={`glass-card p-6 text-left w-full h-full flex flex-col group relative overflow-hidden ${isLocked ? 'opacity-50 grayscale cursor-not-allowed' : 'cursor-pointer'}`}
     >
-        <div className={`w-12 h-12 rounded-lg bg-${color}-500/20 flex items-center justify-center mb-4 group-hover:bg-${color}-500/30 transition-colors`}>
-            <Icon className={`w-6 h-6 text-${color}-400`} />
+        <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+            <Icon className="w-16 h-16" />
         </div>
-        <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-        <p className="text-slate-400 text-sm mb-4 leading-relaxed flex-grow">{description}</p>
+
+        <div className={`w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center mb-6 border border-primary/20 group-hover:bg-primary/30 transition-all duration-300`}>
+            <Icon className={`w-6 h-6 text-secondary`} />
+        </div>
+
+        <h3 className="text-xl font-bold text-white mb-2 font-sans tracking-tight">{title}</h3>
+        <p className="text-slate-400 text-sm mb-6 leading-relaxed flex-grow font-sans">{description}</p>
 
         {!isLocked && (
-            <div className={`flex items-center text-${color}-400 text-sm font-medium mt-auto`}>
-                <span>Launch Module</span>
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            <div className="flex items-center text-accent text-sm font-bold mt-auto group/btn">
+                <span className="tracking-wider uppercase text-xs">Initialize</span>
+                <div className="ml-2 w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center group-hover/btn:bg-accent group-hover/btn:text-background transition-all">
+                    <ArrowRight className="w-4 h-4" />
+                </div>
             </div>
         )}
 
@@ -221,18 +232,42 @@ const MassBalanceDashboard: React.FC<Props> = ({ onNavigate, isLocked }) => {
     ];
 
     return (
-        <div className="min-h-screen bg-slate-950 text-white p-8 pb-32">
+        <div className="min-h-screen p-8 pb-32">
             <div className="max-w-7xl mx-auto">
-                <header className="mb-12">
-                    <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
-                        Mass & Balance
-                    </h1>
-                    <p className="text-slate-400 text-lg max-w-2xl">
-                        Master the principles of aircraft loading, centre of gravity limits, and performance implications through interactive simulations.
-                    </p>
+                <header className="mb-16 relative">
+                    <div className="absolute -top-10 -left-10 w-40 h-40 bg-primary/20 rounded-full blur-[100px] animate-pulse"></div>
+                    <div className="absolute -top-10 -right-10 w-40 h-40 bg-accent/10 rounded-full blur-[100px] animate-pulse delay-700"></div>
+
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <h1 className="text-5xl font-black mb-4 tracking-tighter text-white font-sans uppercase">
+                            <span className="text-glow text-secondary">Mass</span> & Balance
+                        </h1>
+                        <div className="h-1 w-20 bg-gradient-to-r from-secondary to-accent mb-6 rounded-full"></div>
+                        <p className="text-slate-400 text-lg max-w-2xl font-sans leading-relaxed">
+                            Precision loading algorithms and aerodynamic center calculation systems.
+                            <span className="text-white/60"> Engineered for ATPL candidates.</span>
+                        </p>
+                    </motion.div>
                 </header>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <motion.div
+                    variants={{
+                        hidden: { opacity: 0 },
+                        visible: {
+                            opacity: 1,
+                            transition: {
+                                staggerChildren: 0.05
+                            }
+                        }
+                    }}
+                    initial="hidden"
+                    animate="visible"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                >
                     {modules.map((module) => (
                         <ModuleCard
                             key={module.id}
@@ -241,7 +276,7 @@ const MassBalanceDashboard: React.FC<Props> = ({ onNavigate, isLocked }) => {
                             isLocked={isLocked}
                         />
                     ))}
-                </div>
+                </motion.div>
             </div>
         </div>
     );

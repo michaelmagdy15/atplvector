@@ -97,31 +97,36 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '010.14', subject: '010', text: 'Ground Operations', coveredBy: View.AIR_LAW_GROUND_OPS },
 
     // --- 021 AGK SYSTEMS ---
+    { id: '021.01', subject: '021', text: 'System Design & Certification', coveredBy: View.AGK_SYSTEMS_HOME },
+    { id: '021.02', subject: '021', text: 'Structures & Loads', coveredBy: View.AGK_SYSTEMS_HOME },
     { id: '021.03.01', subject: '021', text: 'Hydromechanics: Principles', coveredBy: View.AGK_HYDRAULICS },
+    { id: '021.03.02', subject: '021', text: 'Hydraulic Systems', coveredBy: View.AGK_HYDRAULICS },
     { id: '021.04', subject: '021', text: 'Landing Gear', coveredBy: View.AGK_LANDING_GEAR },
-    { id: '021.04.01', subject: '021', text: 'Landing gear sytems', coveredBy: View.AGK_LANDING_GEAR },
-    { id: '021.04.02', subject: '021', text: 'Wheels, Tyres, Brakes', coveredBy: View.AGK_LANDING_GEAR },
+    { id: '021.05', subject: '021', text: 'Flight Controls', coveredBy: View.AGK_SYSTEMS_HOME },
+    { id: '021.06', subject: '021', text: 'Air Conditioning & Pneumatics', coveredBy: View.AGK_SYSTEMS_HOME },
+    { id: '021.07', subject: '021', text: 'Pressurization', coveredBy: View.AGK_SYSTEMS_HOME },
+    { id: '021.08', subject: '021', text: 'Fuel System', coveredBy: View.AGK_SYSTEMS_HOME },
     { id: '021.09', subject: '021', text: 'Electrics', coveredBy: View.AGK_ELECTRICS },
     { id: '021.10', subject: '021', text: 'Piston Engines', coveredBy: View.AGK_PISTON_ENGINE },
-    { id: '021.11.01', subject: '021', text: 'Gas Turbines: Basic Principles', coveredBy: View.AGK_JET_ENGINE },
+    { id: '021.11', subject: '021', text: 'Gas Turbines', coveredBy: View.AGK_JET_ENGINE },
     { id: '021.12', subject: '021', text: 'Protection Systems', coveredBy: View.AGK_SYSTEMS_HOME },
 
     // --- 022 INSTRUMENTATION ---
-    { id: '022.01.01', subject: '022', text: 'Sensors and Instruments', coveredBy: View.INST_HOME },
-    { id: '022.02.01', subject: '022', text: 'Measurement of Air Data Parameters', coveredBy: View.INST_PITOT_STATIC },
-    { id: '022.02.02', subject: '022', text: 'Altimeter', coveredBy: View.INST_ALTIMETER },
-    { id: '022.02.03', subject: '022', text: 'Vertical Speed Indicator', coveredBy: View.INST_VSI },
-    { id: '022.02.04', subject: '022', text: 'Airspeed Indicator', coveredBy: View.INST_ASI },
-    { id: '022.02.05', subject: '022', text: 'Machmeter', coveredBy: View.INST_MACHMETER },
-    { id: '022.03.01', subject: '022', text: 'Gyroscopic Principles', coveredBy: View.INST_GYROS },
-    { id: '022.04.03', subject: '022', text: 'Attitude Indicator', coveredBy: View.INST_ATTITUDE },
-    { id: '022.04.04', subject: '022', text: 'Directional Gyroscope', coveredBy: View.INST_DG },
-    { id: '022.04.05', subject: '022', text: 'Remote Reading Compass', coveredBy: View.INST_COMPASS },
+    { id: '022.01', subject: '022', text: 'Engine Instruments', coveredBy: View.INST_HOME },
+    { id: '022.02', subject: '022', text: 'Air Data Instruments', coveredBy: View.INST_PITOT_STATIC },
+    { id: '022.03', subject: '022', text: 'Magnetism & Compass', coveredBy: View.INST_COMPASS },
+    { id: '022.04', subject: '022', text: 'Gyroscopic Instruments', coveredBy: View.INST_GYROS },
     { id: '022.05', subject: '022', text: 'Inertial Navigation', coveredBy: View.INST_NAV_SYSTEMS },
-    { id: '022.06', subject: '022', text: 'Automatic Flight Control Systems', coveredBy: View.INST_AUTOPILOT },
-    { id: '022.06.05', subject: '022', text: 'Autoland', coveredBy: View.INST_AUTOLAND },
+    { id: '022.06', subject: '022', text: 'AFCS (Autopilot)', coveredBy: View.INST_AUTOPILOT },
+    { id: '022.07', subject: '022', text: 'FMS', coveredBy: View.INST_NAV_SYSTEMS },
+    { id: '022.08', subject: '022', text: 'EFIS', coveredBy: View.INST_HOME },
+    { id: '022.09', subject: '022', text: 'Auto-throttle', coveredBy: View.INST_AUTOPILOT },
+    { id: '022.10', subject: '022', text: 'Data Communications', coveredBy: View.INST_NAV_SYSTEMS },
+    { id: '022.11', subject: '022', text: 'FMS Architecture', coveredBy: View.INST_NAV_SYSTEMS },
     { id: '022.12', subject: '022', text: 'Alerting Systems, GPWS', coveredBy: View.INST_GPWS },
     { id: '022.13', subject: '022', text: 'Radio Altimeter', coveredBy: View.INST_RADIO_ALT },
+    { id: '022.14', subject: '022', text: 'Health Monitoring', coveredBy: View.INST_HOME },
+    { id: '022.15', subject: '022', text: 'TCAS II', coveredBy: View.INST_NAV_SYSTEMS },
 
     // --- 031 MASS & BALANCE ---
     // [031.01] PURPOSE OF MASS-AND-BALANCE
@@ -141,9 +146,25 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '031.05.01', subject: '031', text: 'Methods of calculation', coveredBy: View.MASS_BAL_CG_CALC },
     { id: '031.05.02', subject: '031', text: 'Arithmetic method', coveredBy: View.MASS_BAL_CG_CALC },
 
-    // [031.06] CARGO HANDLING
     { id: '031.06', subject: '031', text: 'Cargo Handling', coveredBy: View.MASS_BAL_SHIFT },
     { id: '031.06.01', subject: '031', text: 'Load shifting', coveredBy: View.MASS_BAL_SHIFT },
+
+    // --- 032 PERFORMANCE (AEROPLANES) ---
+    { id: '032.01', subject: '032', text: 'General Performance', coveredBy: View.PERF_INTRO },
+    { id: '032.01.01', subject: '032', text: 'Performance Legislation', coveredBy: View.PERF_INTRO },
+    { id: '032.01.02', subject: '032', text: 'Performance Stages (Take-off, Climb, etc)', coveredBy: View.PERF_TAKEOFF },
+    { id: '032.02', subject: '032', text: 'SE Aeroplanes (Class B)', coveredBy: View.PERF_CLASS_B },
+    { id: '032.03', subject: '032', text: 'ME Aeroplanes (Class B)', coveredBy: View.PERF_CLASS_B },
+    { id: '032.04', subject: '032', text: 'ME Aeroplanes (Class A)', coveredBy: View.PERF_CLASS_A },
+    { id: '032.05', subject: '032', text: 'Class A: Performance Data', coveredBy: View.PERF_CLASS_A },
+
+    // --- 033 FLIGHT PLANNING AND MONITORING ---
+    { id: '033.01', subject: '033', text: 'Flight Planning for VFR', coveredBy: View.FLIGHT_PLAN_INTRO },
+    { id: '033.02', subject: '033', text: 'Flight Planning for IFR', coveredBy: View.FLIGHT_PLAN_IFR },
+    { id: '033.03', subject: '033', text: 'Fuel Policy & Planning', coveredBy: View.FLIGHT_PLAN_FUEL },
+    { id: '033.04', subject: '033', text: 'Pre-flight Preparation', coveredBy: View.FLIGHT_PLAN_HOME },
+    { id: '033.05', subject: '033', text: 'ICAO Flight Plan (FPL)', coveredBy: View.FLIGHT_PLAN_INTRO },
+    { id: '033.06', subject: '033', text: 'In-flight Monitoring', coveredBy: View.FLIGHT_PLAN_INTRO },
 
     // --- 040 HUMAN PERFORMANCE (Complete EASA Coverage) ---
     // 040.01 - Human Factors: Basic Concepts
@@ -194,9 +215,10 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '040.03.07.04', subject: '040', text: 'Metabolism and nutrition', coveredBy: View.HPL_METABOLISM },
 
     // --- 050 METEOROLOGY ---
-    // 050.01 The Atmosphere
+    // 050.01 Atmosphere
+    { id: '050.01', subject: '050', text: 'The Atmosphere', coveredBy: View.MET_ATMOSPHERE },
     { id: '050.01.01', subject: '050', text: 'Structure of the Atmosphere', coveredBy: View.MET_ATMOSPHERE },
-    { id: '050.01.02', subject: '050', text: 'Altimetry', coveredBy: View.MET_ALTIMETRY },
+    { id: '050.01.06', subject: '050', text: 'Altimetry', coveredBy: View.MET_ALTIMETRY },
 
     // 050.02 Wind
     { id: '050.02', subject: '050', text: 'Wind', coveredBy: View.MET_WIND },
@@ -238,6 +260,8 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '050.09.03', subject: '050', text: 'Wind Shear', coveredBy: View.MET_TURBULENCE },
 
     // 050.10 Meteorological Information
+    { id: '050.01.03', subject: '050', text: 'Pressure and Density', coveredBy: View.MET_PRESSURE },
+    { id: '050.01.05', subject: '050', text: 'International Standard Atmosphere (ISA)', coveredBy: View.MET_ATMOSPHERE },
     { id: '050.10', subject: '050', text: 'Meteorological Information', coveredBy: View.MET_METAR_TAF },
     { id: '050.10.01', subject: '050', text: 'Observation', coveredBy: View.MET_SATELLITE },
     { id: '050.10.02', subject: '050', text: 'Weather Charts', coveredBy: View.MET_CHARTS },
@@ -246,7 +270,11 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '061.01.01', subject: '061', text: 'Solar System', coveredBy: View.GEN_NAV_EARTH },
     { id: '061.01.02', subject: '061', text: 'Time', coveredBy: View.GEN_NAV_SOLAR },
     { id: '061.01.03', subject: '061', text: 'Navigation: 1 in 60 Rule', coveredBy: View.NAV_60_1 },
+    { id: '061.01.04', subject: '061', text: 'Basics: Units & Earth', coveredBy: View.GEN_NAV_BASICS },
     { id: '061.01.05', subject: '061', text: 'Time: UTC & Local', coveredBy: View.TIME_ZONER },
+    { id: '061.01.06', subject: '061', text: 'Electronic Navigation Computer', coveredBy: View.GEN_NAV_VFR },
+    { id: '061.01.07', subject: '061', text: 'Dead Reckoning technique', coveredBy: View.GEN_NAV_VFR },
+    { id: '061.01.08', subject: '061', text: 'Speed & Distance calculations', coveredBy: View.GEN_NAV_VFR },
     { id: '061.02', subject: '061', text: 'Magnetism and Compass', coveredBy: View.GEN_NAV_HOME },
     { id: '061.03', subject: '061', text: 'Charts', coveredBy: View.GEN_NAV_MAPS },
     { id: '061.04', subject: '061', text: 'Dead Reckoning', coveredBy: View.GEN_NAV_WIND_TRIANGLE },
@@ -274,27 +302,27 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '062.07', subject: '062', text: 'Weather Radar', coveredBy: View.RAD_NAV_WX_RADAR },
 
     // --- 070 OPERATIONAL PROCEDURES ---
-    { id: '070.01', subject: '070', text: 'General', coveredBy: View.OPS_GENERAL },
-    { id: '070.02', subject: '070', text: 'Special Operational Procedures', coveredBy: View.OPS_SPECIAL },
-    { id: '070.03', subject: '070', text: 'Long Range Operations', coveredBy: View.OPS_LONG_RANGE },
-    { id: '070.04', subject: '070', text: 'All Weather Operations', coveredBy: View.OPS_AWO },
+    { id: '071.01', subject: '070', text: 'General', coveredBy: View.OPS_GENERAL },
+    { id: '071.01.03.03', subject: '070', text: 'NAT HLA Operations', coveredBy: View.OPS_LONG_RANGE },
+    { id: '071.01.03.04', subject: '070', text: 'ETOPS Operations', coveredBy: View.OPS_LONG_RANGE },
+    { id: '071.01.05', subject: '070', text: 'All Weather Operations', coveredBy: View.OPS_AWO },
+    { id: '071.02', subject: '070', text: 'Special Operational Procedures', coveredBy: View.OPS_SPECIAL },
+    { id: '071.02.06', subject: '070', text: 'Decompression', coveredBy: View.EMERGENCY_OPS },
+    { id: '071.02.10', subject: '070', text: 'Ditching & Evacuation', coveredBy: View.EMERGENCY_OPS },
+    { id: '071.02.12', subject: '070', text: 'Dangerous Goods', coveredBy: View.OPS_SPECIAL },
+    { id: '071.02.13', subject: '070', text: 'Contaminated Runways', coveredBy: View.AIR_LAW_GROUND_OPS },
     { id: '070.07', subject: '070', text: 'Flight Time Limitations', coveredBy: View.OPS_FTL },
 
     // --- 081 PRINCIPLES OF FLIGHT ---
-    { id: '081.01', subject: '081', text: 'Subsonic Aerodynamics', coveredBy: View.POF_HOME },
-    { id: '081.01.01', subject: '081', text: 'Atmosphere', coveredBy: View.POF_ATMOSPHERE },
-    { id: '081.01.02', subject: '081', text: 'Airflow', coveredBy: View.POF_AIRFLOW },
-    { id: '081.01.03', subject: '081', text: 'Aerofoil', coveredBy: View.POF_AEROFOIL },
-    { id: '081.01.04', subject: '081', text: '3D Airflow', coveredBy: View.POF_3D_AIRFLOW },
-    { id: '081.01.05', subject: '081', text: 'Drag', coveredBy: View.POF_DRAG },
-    { id: '081.01.08', subject: '081', text: 'Lift/Drag Ratio', coveredBy: View.POF_LIFT_DRAG },
-    { id: '081.01.09', subject: '081', text: 'Ground Effect', coveredBy: View.POF_GROUND_EFFECT },
-    { id: '081.02', subject: '081', text: 'High Speed Aerodynamics', coveredBy: View.POF_HOME }, // Placeholder
+    { id: '081.01', subject: '081', text: 'Basics & Aerodynamics', coveredBy: View.POF_HOME },
+    { id: '081.02', subject: '081', text: 'High Speed Flight', coveredBy: View.POF_HIGH_SPEED },
+    { id: '081.03', subject: '081', text: 'Stalling & Buffeting', coveredBy: View.POF_STALL },
     { id: '081.04', subject: '081', text: 'Stability', coveredBy: View.POF_STABILITY },
-    { id: '081.05', subject: '081', text: 'Control', coveredBy: View.POF_STABILITY },
-    { id: '081.07', subject: '081', text: 'Flight Mechanics', coveredBy: View.POF_COEFFICIENTS },
+    { id: '081.05', subject: '081', text: 'Control', coveredBy: View.POF_CONTROL },
+    { id: '081.06', subject: '081', text: 'Limitations - Flutter, Vmo/Mmo', coveredBy: View.POF_LIMITATIONS },
+    { id: '081.07', subject: '081', text: 'Flight Mechanics', coveredBy: View.POF_FLIGHT_MECHANICS },
     { id: '081.08', subject: '081', text: 'High Lift Devices', coveredBy: View.POF_HIGH_LIFT },
-    { id: '081.09', subject: '081', text: 'Stalling', coveredBy: View.POF_STALL },
+    { id: '081.09', subject: '081', text: 'Propellers', coveredBy: View.POF_PROPELLERS },
 
     // --- 090 COMMUNICATIONS (Comprehensive) ---
     // 090.01 Concepts
