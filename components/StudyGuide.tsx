@@ -462,7 +462,7 @@ const StudyGuide: React.FC<Props> = ({ onBack, onChangeView }) => {
 
             {/* Chart Section */}
             <div className="glass-panel p-6 rounded-2xl mb-8 h-[500px]">
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                     <BarChart
                         data={chartData}
                         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}

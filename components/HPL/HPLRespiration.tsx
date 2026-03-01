@@ -55,8 +55,8 @@ const TabButton = ({ active, onClick, icon: Icon, label }: any) => (
     <button
         onClick={onClick}
         className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-md transition-all font-medium ${active
-                ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-900/20'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700/50'
+            ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-900/20'
+            : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700/50'
             }`}
     >
         <Icon size={18} />
@@ -82,7 +82,7 @@ const LungVolumesSim = () => {
                 <div>
                     <h3 className="text-xl font-bold text-white mb-4">Spirometry & Volumes</h3>
                     <div className="h-64 w-full bg-slate-900/50 rounded-lg p-4">
-                        <ResponsiveContainer width="100%" height="100%">
+                        <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                             <AreaChart data={data}>
                                 <defs>
                                     <linearGradient id="colorVol" x1="0" y1="0" x2="0" y2="1">

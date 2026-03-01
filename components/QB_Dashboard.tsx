@@ -138,7 +138,7 @@ export const QB_Dashboard: React.FC<DashboardProps> = ({ onStartNew, onResume, o
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="glass-panel p-6 rounded-3xl h-[350px]">
                             <h4 className="text-sm font-bold text-slate-400 mb-6 uppercase tracking-wider">Subject Mastery</h4>
-                            <ResponsiveContainer width="100%" height="80%">
+                            <ResponsiveContainer width="100%" height="80%" minWidth={0} minHeight={0}>
                                 <RadarChart cx="50%" cy="50%" outerRadius="80%" data={subjectProficiency}>
                                     <PolarGrid stroke="#334155" />
                                     <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 10 }} />

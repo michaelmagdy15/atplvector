@@ -2,14 +2,8 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Configuration — requires VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in .env
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-  console.warn(
-    'Missing Supabase configuration. Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file.'
-  );
-}
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'https://xrkmbsrxbpkaeivojavo.supabase.co';
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_pWXmAsvJiBol8KKAeWXVvw_r9MU5jEo';
 
 // Mock client for when Supabase is not configured
 const createMockQueryBuilder = (tableName?: string) => {

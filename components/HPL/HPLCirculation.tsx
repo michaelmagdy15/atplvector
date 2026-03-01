@@ -212,7 +212,7 @@ const BloodPressureSim = () => {
             <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-700 min-h-[300px]">
                 <h4 className="text-sm font-bold text-white mb-4">Pressure Waveform</h4>
                 <div className="h-64 w-full">
-                    <ResponsiveContainer width="100%" height="100%">
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                         <LineChart data={data}>
                             <XAxis dataKey="time" hide />
                             <YAxis domain={[60, 140]} hide />

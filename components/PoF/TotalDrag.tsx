@@ -79,7 +79,7 @@ const TotalDrag: React.FC = () => {
                 </div>
 
                 <div className="md:col-span-2 h-[400px] bg-slate-800 p-4 rounded-xl border border-slate-600">
-                    <ResponsiveContainer width="100%" height="100%">
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                         <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
                             <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
                             <XAxis

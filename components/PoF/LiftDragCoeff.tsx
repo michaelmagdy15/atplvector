@@ -58,7 +58,7 @@ const LiftDragCoeff: React.FC = () => {
                 <div className="bg-slate-800 p-4 rounded-xl border border-slate-600">
                     <h3 className="text-center text-white font-semibold mb-4">CL vs Alpha (α)</h3>
                     <div className="h-[300px]">
-                        <ResponsiveContainer width="100%" height="100%">
+                        <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                             <LineChart data={data}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
                                 <XAxis
@@ -86,7 +86,7 @@ const LiftDragCoeff: React.FC = () => {
                 <div className="bg-slate-800 p-4 rounded-xl border border-slate-600">
                     <h3 className="text-center text-white font-semibold mb-4">Drag Polar (CL vs CD)</h3>
                     <div className="h-[300px]">
-                        <ResponsiveContainer width="100%" height="100%">
+                        <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                             <LineChart data={data}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
                                 <XAxis
