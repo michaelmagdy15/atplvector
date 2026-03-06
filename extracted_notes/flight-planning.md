@@ -187,3 +187,107 @@
 - 17.000 kg available / (4'8 kg per nm + 5 kg per nm) = 1734 nm
 - Again, we have ground distance and groundspeed, so we can calculate time
 
+
+
+### Airspace, communication, visual and radio-navigation data from VFR charts
+Content to be added for Airspace, communication, visual and radio-navigation data from VFR charts
+
+
+### Planning courses, distances and cruising levels with VFR charts
+Content to be added for Planning courses, distances and cruising levels with VFR charts
+
+
+### Aerodrome charts and aerodrome directory No 1178/2011)
+Content to be added for Aerodrome charts and aerodrome directory No 1178/2011)
+
+
+### Completion of navigation plan
+Content to be added for Completion of navigation plan
+
+
+### Air traffic service (ATS) routes
+Content to be added for Air traffic service (ATS) routes
+
+
+### Courses and distances from en-route charts
+Content to be added for Courses and distances from en-route charts
+
+
+### Standard instrument departure (SID) and standard instrument arrival (STAR) routes
+Content to be added for Standard instrument departure (SID) and standard instrument arrival (STAR) routes
+
+
+### Instrument-approach charts
+Content to be added for Instrument-approach charts
+
+
+### Communications and radio-navigation planning data
+Content to be added for Communications and radio-navigation planning data
+
+
+### Completion of a manual navigation plan
+Content to be added for Completion of a manual navigation plan
+
+
+### Fuel planning (general)
+Content to be added for Fuel planning (general)
+
+
+### Reserve fuel and its components Contingency fuel
+Content to be added for Reserve fuel and its components Contingency fuel
+
+
+### Calculation of total fuel and completion of the fuel section of the navigation plan (fuel plan)
+Content to be added for Calculation of total fuel and completion of the fuel section of the navigation plan (fuel plan)
+
+
+### Isolated aerodrome or heliport procedure
+Content to be added for Isolated aerodrome or heliport procedure
+
+
+### Ground- and satellite-based facilities and services No 1178/2011)
+Content to be added for Ground- and satellite-based facilities and services No 1178/2011)
+
+
+### Departure, destination and alternate aerodromes
+Content to be added for Departure, destination and alternate aerodromes
+
+
+### Airway routings and airspace structure
+Content to be added for Airway routings and airspace structure
+
+
+### Pre-flight preparation of GNSS achievability
+Content to be added for Pre-flight preparation of GNSS achievability
+
+
+### Update of navigation plan using the latest meteorological information
+Content to be added for Update of navigation plan using the latest meteorological information
+
+
+### Update of fuel plan
+Content to be added for Update of fuel plan
+
+
+### Point of equal time (PET)
+Content to be added for Point of equal time (PET)
+
+
+### Format of FPL
+Content to be added for Format of FPL
+
+
+### Repetitive flight plan (RPL)
+Content to be added for Repetitive flight plan (RPL)
+
+
+### Monitoring of track and time
+Content to be added for Monitoring of track and time
+
+
+### In-flight fuel management
+Content to be added for In-flight fuel management
+
+
+### Deviation from planned data
+Content to be added for Deviation from planned data

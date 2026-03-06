@@ -2061,3 +2061,239 @@ Note: Take-off operations are classified as ‘normal take-off operations’ wit
 - Must be installed unless ac meets climb requirements under CS25 (3.2%)
 - Preferably over water and no less than 6000 ft
 
+
+
+### Operational procedures (except preparation for long-range flight)
+Content to be added for Operational procedures (except preparation for long-range flight)
+
+
+### All-weather operations No 1178/2011)
+Content to be added for All-weather operations No 1178/2011)
+
+
+### Instruments and equipment
+Content to be added for Instruments and equipment
+
+
+### Cabin crew/crew members other than flight crew
+Content to be added for Cabin crew/crew members other than flight crew
+
+
+### Flight and duty time limitations and rest requirements
+Content to be added for Flight and duty time limitations and rest requirements
+
+
+### Flight management
+Content to be added for Flight management
+
+
+### Transoceanic and polar flights No 1178/2011)
+Content to be added for Transoceanic and polar flights No 1178/2011)
+
+
+### North Atlantic High Level Airspace (NAT HLA) NAT Region
+Content to be added for North Atlantic High Level Airspace (NAT HLA) NAT Region
+
+
+### Aeroplane/helicopter operating matters — type-related
+Content to be added for Aeroplane/helicopter operating matters — type-related
+
+
+### Minimum equipment list (MEL) and master minimum equipment list (MMEL)
+Content to be added for Minimum equipment list (MEL) and master minimum equipment list (MMEL)
+
+
+### On-ground de-icing/anti-icing procedures, types of de-icing/anti-icing fluids
+Content to be added for On-ground de-icing/anti-icing procedures, types of de-icing/anti-icing fluids
+
+
+### Procedure to apply in case of performance deterioration, on ground/in flight
+Content to be added for Procedure to apply in case of performance deterioration, on ground/in flight
+
+
+### Bird-strike risk and avoidance
+Content to be added for Bird-strike risk and avoidance
+
+
+### Influence of the flight procedure (departure, cruise, approach)
+Content to be added for Influence of the flight procedure (departure, cruise, approach)
+
+
+### Influence by the pilot (power setting, low drag) No 1178/2011)
+Content to be added for Influence by the pilot (power setting, low drag) No 1178/2011)
+
+
+### Influence by the pilot (power setting, track of helicopter)
+Content to be added for Influence by the pilot (power setting, track of helicopter)
+
+
+### Carburettor fire
+Content to be added for Carburettor fire
+
+
+### Engine fire
+Content to be added for Engine fire
+
+
+### Fire in the cabin, in the flight crew compartment and in the cargo compartment
+Content to be added for Fire in the cabin, in the flight crew compartment and in the cargo compartment
+
+
+### Smoke in the flight crew compartment and in the cabin
+Content to be added for Smoke in the flight crew compartment and in the cabin
+
+
+### Actions in case of overheated brakes
+Content to be added for Actions in case of overheated brakes
+
+
+### Slow decompression
+Content to be added for Slow decompression
+
+
+### Rapid and explosive decompression
+Content to be added for Rapid and explosive decompression
+
+
+### Dangers and action to be taken
+Content to be added for Dangers and action to be taken
+
+
+### Effects and recognition during departure and approach
+Content to be added for Effects and recognition during departure and approach
+
+
+### Actions to avoid and actions to take when encountering wind shear
+Content to be added for Actions to avoid and actions to take when encountering wind shear
+
+
+### List of relevant parameters
+Content to be added for List of relevant parameters
+
+
+### Actions to be taken when crossing traffic, during take-off and landing
+Content to be added for Actions to be taken when crossing traffic, during take-off and landing
+
+
+### ICAO Annex 17 and Regulation (EC) No 300/2008
+Content to be added for ICAO Annex 17 and Regulation (EC) No 300/2008
+
+
+### Use of secondary surveillance radar (SSR)
+Content to be added for Use of secondary surveillance radar (SSR)
+
+
+### Security (Regulation (EC) No 300/2008 and ICAO Annex 17)
+Content to be added for Security (Regulation (EC) No 300/2008 and ICAO Annex 17)
+
+
+### Descriptions
+Content to be added for Descriptions
+
+
+### Passenger information
+Content to be added for Passenger information
+
+
+### Action after a precautionary/emergency landing or ditching
+Content to be added for Action after a precautionary/emergency landing or ditching
+
+
+### Safety aspects
+Content to be added for Safety aspects
+
+
+### ICAO Annex 18
+Content to be added for ICAO Annex 18
+
+
+### Technical Instructions for the Safe Transport of Dangerous Goods by Air (ICAO Doc 9284)
+Content to be added for Technical Instructions for the Safe Transport of Dangerous Goods by Air (ICAO Doc 9284)
+
+
+### Regulation (EU) No 965/2012 — Annex IV (Part- CAT) and Annex V (Part-SPA)
+Content to be added for Regulation (EU) No 965/2012 — Annex IV (Part- CAT) and Annex V (Part-SPA)
+
+
+### Runway condition, braking action
+Content to be added for Runway condition, braking action
+
+
+### Hydroplaning principles and effects
+Content to be added for Hydroplaning principles and effects
+
+
+### SNOWTAM and contamination on the aerodrome
+Content to be added for SNOWTAM and contamination on the aerodrome
+
+
+### Describe downwash
+Content to be added for Describe downwash
+
+
+### Effects
+Content to be added for Effects
+
+
+### White-out/sand/dust
+Content to be added for White-out/sand/dust
+
+
+### Strong winds
+Content to be added for Strong winds
+
+
+### Mountain environment
+Content to be added for Mountain environment
+
+
+### Fire in the cabin, in the flight crew compartment and in the engine(s)
+Content to be added for Fire in the cabin, in the flight crew compartment and in the engine(s)
+
+
+### Tail-rotor directional control failure
+Content to be added for Tail-rotor directional control failure
+
+
+### Ground resonance
+Content to be added for Ground resonance
+
+
+### Blade stall
+Content to be added for Blade stall
+
+
+### Settling with power (vortex ring)
+Content to be added for Settling with power (vortex ring)
+
+
+### Overpitch No 1178/2011)
+Content to be added for Overpitch No 1178/2011)
+
+
+### Overspeed: rotor/engine
+Content to be added for Overspeed: rotor/engine
+
+
+### Dynamic rollover
+Content to be added for Dynamic rollover
+
+
+### Mast bumping
+Content to be added for Mast bumping
+
+
+### Additional requirements for commercial specialised operations and CAT operations
+Content to be added for Additional requirements for commercial specialised operations and CAT operations
+
+
+### General requirements (Annex VIII (Part-SPO), Subpart A)
+Content to be added for General requirements (Annex VIII (Part-SPO), Subpart A)
+
+
+### Helicopter external sling load operations (HESLO) (Annex VIII (Part-SPO), Subpart E)
+Content to be added for Helicopter external sling load operations (HESLO) (Annex VIII (Part-SPO), Subpart E)
+
+
+### Human external cargo operations (HEC) (Annex VIII (Part-SPO), Subpart E)
+Content to be added for Human external cargo operations (HEC) (Annex VIII (Part-SPO), Subpart E)

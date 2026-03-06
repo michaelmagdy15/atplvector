@@ -2698,3 +2698,335 @@ Image source: pmflight.co.uk
 - Inoperative system: Amber
 - Maintenance status: White
 
+
+
+### Units for pressure, sensor types, measurements
+Content to be added for Units for pressure, sensor types, measurements
+
+
+### Units for temperature, measurements
+Content to be added for Units for temperature, measurements
+
+
+### Units for fuel, measurements, fuel gauges
+Content to be added for Units for fuel, measurements, fuel gauges
+
+
+### Fuel flow, units for fuel flow, total fuel consumption
+Content to be added for Fuel flow, units for fuel flow, total fuel consumption
+
+
+### Types, operating principles, units for engine speed
+Content to be added for Types, operating principles, units for engine speed
+
+
+### Parameters, operating principle
+Content to be added for Parameters, operating principle
+
+
+### Torque, torquemeters
+Content to be added for Torque, torquemeters
+
+
+### Purpose, operating principle, display No 1178/2011)
+Content to be added for Purpose, operating principle, display No 1178/2011)
+
+
+### Purpose, operating principle of a vibration-monitoring system, display
+Content to be added for Purpose, operating principle of a vibration-monitoring system, display
+
+
+### On-board clock
+Content to be added for On-board clock
+
+
+### Pitot/static system: design and errors
+Content to be added for Pitot/static system: design and errors
+
+
+### Design and operation
+Content to be added for Design and operation
+
+
+### Sensor types, operating principles, ice protection, displays, incorrect indications
+Content to be added for Sensor types, operating principles, ice protection, displays, incorrect indications
+
+
+### Units, terms, types, operating principles, displays, errors, corrections
+Content to be added for Units, terms, types, operating principles, displays, errors, corrections
+
+
+### VSI and instantaneous vertical speed indicator (IVSI)
+Content to be added for VSI and instantaneous vertical speed indicator (IVSI)
+
+
+### Units, errors, operating principles, displays, position errors, unreliable airspeed indications
+Content to be added for Units, errors, operating principles, displays, position errors, unreliable airspeed indications
+
+
+### Operating principle, display, CAS, TAS and Mach number
+Content to be added for Operating principle, display, CAS, TAS and Mach number
+
+
+### Operating principle, data, errors, air-data inertial reference unit
+Content to be added for Operating principle, data, errors, air-data inertial reference unit
+
+
+### Magnetic field, variation, dip No 1178/2011)
+Content to be added for Magnetic field, variation, dip No 1178/2011)
+
+
+### Permanent magnetism, electromagnetism, deviation
+Content to be added for Permanent magnetism, electromagnetism, deviation
+
+
+### Purpose, errors, timed turns, serviceability
+Content to be added for Purpose, errors, timed turns, serviceability
+
+
+### Purpose, operating principle, location, errors
+Content to be added for Purpose, operating principle, location, errors
+
+
+### Gyroscopic forces, degrees of freedom, gyro wander, driving gyroscopes
+Content to be added for Gyroscopic forces, degrees of freedom, gyro wander, driving gyroscopes
+
+
+### Indications, relation between bank angle, rate of turn and TAS
+Content to be added for Indications, relation between bank angle, rate of turn and TAS
+
+
+### Purpose, types, effect of aircraft acceleration, display
+Content to be added for Purpose, types, effect of aircraft acceleration, display
+
+
+### Purpose, types, drift, alignment to compass heading
+Content to be added for Purpose, types, drift, alignment to compass heading
+
+
+### Operating principles, components, comparison with a direct-reading magnetic compass
+Content to be added for Operating principles, components, comparison with a direct-reading magnetic compass
+
+
+### Components, indications
+Content to be added for Components, indications
+
+
+### Systems No 1178/2011)
+Content to be added for Systems No 1178/2011)
+
+
+### Alignment process, incorrect data entry, and control panels
+Content to be added for Alignment process, incorrect data entry, and control panels
+
+
+### Definitions and control loops
+Content to be added for Definitions and control loops
+
+
+### Design and operation
+Content to be added for Design and operation
+
+
+### Purpose, use, indications, modes, data
+Content to be added for Purpose, use, indications, modes, data
+
+
+### Purpose, modes, display scenarios
+Content to be added for Purpose, modes, display scenarios
+
+
+### Design and operation
+Content to be added for Design and operation
+
+
+### Stabilisation
+Content to be added for Stabilisation
+
+
+### Reduction of pilot workload
+Content to be added for Reduction of pilot workload
+
+
+### Enhancement of helicopter capability
+Content to be added for Enhancement of helicopter capability
+
+
+### Basic sensors
+Content to be added for Basic sensors
+
+
+### Specific sensors
+Content to be added for Specific sensors
+
+
+### Pilot–system interface: control panels, system indications, warnings
+Content to be added for Pilot–system interface: control panels, system indications, warnings
+
+
+### General principles and operation
+Content to be added for General principles and operation
+
+
+### General principles
+Content to be added for General principles
+
+
+### Basic modes (3/4 axes)
+Content to be added for Basic modes (3/4 axes)
+
+
+### Automatic guidance (upper modes of AFCS)
+Content to be added for Automatic guidance (upper modes of AFCS)
+
+
+### Flight director: design and operation
+Content to be added for Flight director: design and operation
+
+
+### Automatic flight control panel (AFCP) No 1178/2011)
+Content to be added for Automatic flight control panel (AFCP) No 1178/2011)
+
+
+### Design and operation
+Content to be added for Design and operation
+
+
+### Design and operation
+Content to be added for Design and operation
+
+
+### Purpose, input parameters, functions
+Content to be added for Purpose, input parameters, functions
+
+
+### Purpose, operation, overcompensation, speed control
+Content to be added for Purpose, operation, overcompensation, speed control
+
+
+### Definitions and transmission modes
+Content to be added for Definitions and transmission modes
+
+
+### Systems: architecture, design and operation
+Content to be added for Systems: architecture, design and operation
+
+
+### Versions, applications, CPDLC messages, ADS contracts
+Content to be added for Versions, applications, CPDLC messages, ADS contracts
+
+
+### Purpose, architecture, failures, functions
+Content to be added for Purpose, architecture, failures, functions
+
+
+### Aircraft performance database
+Content to be added for Aircraft performance database
+
+
+### Data, calculations, position inputs, raw data
+Content to be added for Data, calculations, position inputs, raw data
+
+
+### Purpose, scratchpad, data input, set-up process
+Content to be added for Purpose, scratchpad, data input, set-up process
+
+
+### Alerting systems according to CS-25 and CS-29
+Content to be added for Alerting systems according to CS-25 and CS-29
+
+
+### Annunciations, master warning, master caution, advisory
+Content to be added for Annunciations, master warning, master caution, advisory
+
+
+### Function, types, components
+Content to be added for Function, types, components
+
+
+### Function, types
+Content to be added for Function, types
+
+
+### Purpose, aural warning, VMO/MMO pointer
+Content to be added for Purpose, aural warning, VMO/MMO pointer
+
+
+### Function, displays, alerts
+Content to be added for Function, displays, alerts
+
+
+### Purpose, range, displays, incorrect indications
+Content to be added for Purpose, range, displays, incorrect indications
+
+
+### GPWSs: design, operation, indications
+Content to be added for GPWSs: design, operation, indications
+
+
+### Terrain-avoidance warning system (TAWS); other name: enhanced GPWS (EGPWS)
+Content to be added for Terrain-avoidance warning system (TAWS); other name: enhanced GPWS (EGPWS)
+
+
+### Principles and operations
+Content to be added for Principles and operations
+
+
+### Design, operation, displays, alarms
+Content to be added for Design, operation, displays, alarms
+
+
+### Design, limitations
+Content to be added for Design, limitations
+
+
+### Attitude and director indicator (ADI)/ horizontal situation indicator (HSI)
+Content to be added for Attitude and director indicator (ADI)/ horizontal situation indicator (HSI)
+
+
+### Design, operation
+Content to be added for Design, operation
+
+
+### Primary flight display (PFD), electronic attitude director indicator (EADI)
+Content to be added for Primary flight display (PFD), electronic attitude director indicator (EADI)
+
+
+### Navigation display (ND), electronic horizontal situation indicator (EHSI)
+Content to be added for Navigation display (ND), electronic horizontal situation indicator (EHSI)
+
+
+### Purposes of systems, display systems, checklists
+Content to be added for Purposes of systems, display systems, checklists
+
+
+### Design, operation, information on display
+Content to be added for Design, operation, information on display
+
+
+### Purpose, certification, malfunctions
+Content to be added for Purpose, certification, malfunctions
+
+
+### Purpose, components, parameters
+Content to be added for Purpose, components, parameters
+
+
+### Purpose, components, parameters
+Content to be added for Purpose, components, parameters
+
+
+### Helicopter operations monitoring program (HOMP): design, operation, performance
+Content to be added for Helicopter operations monitoring program (HOMP): design, operation, performance
+
+
+### Integrated health and usage monitoring system (IHUMS): design, operation, performance
+Content to be added for Integrated health and usage monitoring system (IHUMS): design, operation, performance
+
+
+### Aeroplane condition monitoring system (ACMS): general, design, operation
+Content to be added for Aeroplane condition monitoring system (ACMS): general, design, operation
+
+
+### General, definitions and design
+Content to be added for General, definitions and design

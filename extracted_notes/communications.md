@@ -583,3 +583,83 @@
 - When receiving SELCAL call: SELCAL OK
 - If call not received: NEGATIVE SELCAL, TRY AGAIN
 
+
+
+### Air traffic services (ATS) abbreviations
+Content to be added for Air traffic services (ATS) abbreviations
+
+
+### Q-code groups commonly used in radiotelephony (RT) air-ground communications
+Content to be added for Q-code groups commonly used in radiotelephony (RT) air-ground communications
+
+
+### Categories of messages
+Content to be added for Categories of messages
+
+
+### Transmission techniques
+Content to be added for Transmission techniques
+
+
+### Standard words and phrases
+Content to be added for Standard words and phrases
+
+
+### RT call signs for aeronautical stations including use of abbreviated call signs
+Content to be added for RT call signs for aeronautical stations including use of abbreviated call signs
+
+
+### RT call signs for aircraft including use of abbreviated call signs
+Content to be added for RT call signs for aircraft including use of abbreviated call signs
+
+
+### Test procedures including readability scale
+Content to be added for Test procedures including readability scale
+
+
+### Radar procedural phraseology
+Content to be added for Radar procedural phraseology
+
+
+### Weather broadcast
+Content to be added for Weather broadcast
+
+
+### Action required to be taken in case of communication failure
+Content to be added for Action required to be taken in case of communication failure
+
+
+### ICAO CORE COMPETENCIES
+Content to be added for ICAO CORE COMPETENCIES
+
+
+### Communication
+Content to be added for Communication
+
+
+### Leadership and teamwork
+Content to be added for Leadership and teamwork
+
+
+### Problem-solving and decision-making
+Content to be added for Problem-solving and decision-making
+
+
+### Situation awareness No 1178/2011)
+Content to be added for Situation awareness No 1178/2011)
+
+
+### Workload management
+Content to be added for Workload management
+
+
+### Application of knowledge
+Content to be added for Application of knowledge
+
+
+### Upset prevention and recovery training (UPRT) and resilience Note: Resilience is defined as ‘the ability to recognise, absorb and adapt to disruptions’.
+Content to be added for Upset prevention and recovery training (UPRT) and resilience Note: Resilience is defined as ‘the ability to recognise, absorb and adapt to disruptions’.
+
+
+### MENTAL MATHS Note: Demonstrate, in non-calculator test scenarios or scenario exercises, the ability in a time-efficient manner
+Content to be added for MENTAL MATHS Note: Demonstrate, in non-calculator test scenarios or scenario exercises, the ability in a time-efficient manner

@@ -25,7 +25,7 @@ import FocusTimer from './components/study/FocusTimer';
 import Scratchpad from './components/study/Scratchpad';
 import {
     Plane as PlaneIcon, Menu, X, BookOpen, Settings, Weight,
-    Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog, Wind, Search, Activity, Calendar, Clock
+    Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog, Wind, Search, Activity, Calendar, Clock, Radio
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -784,6 +784,19 @@ const App: React.FC = () => {
                                             navigateTo(View.SYLLABUS_VIEWER);
                                         }} />
                                         <MenuNavItem icon={TrendingUp} label="Progress" view={View.PROGRESS_DASHBOARD} />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h3 className="px-4 text-[10px] font-bold text-red-500 uppercase tracking-[0.2em] mb-3">Tactical Response</h3>
+                                    <div className="space-y-1">
+                                        <MenuNavItem
+                                            icon={Radio}
+                                            label="UAE Situation Room"
+                                            view={View.SAFE_FLIGHTS}
+                                            color="text-red-400"
+                                            bgColor="bg-red-500/10"
+                                        />
                                     </div>
                                 </div>
 

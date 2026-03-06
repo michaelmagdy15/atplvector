@@ -17,12 +17,12 @@ const ProgressDashboard: React.FC<ProgressDashboardProps> = ({ onChangeView, onO
 
     // Merge static subject data with limits and live progress
     const enrichedSubjects = SUBJECTS.map(sub => {
-        const stats = progressStats.find(s => s.id === sub.id);
+        const stats = progressStats.find(s => s.id === sub.id) as (SubjectStats & { percentage: number }) | undefined;
         return {
             ...sub,
             percentage: stats?.percentage || 0,
-            completedLOs: stats?.completedLOs || 0,
-            masteredLOs: stats?.masteredLOs || 0,
+            completedLOs: stats?.coveredLOs || 0,
+            masteredLOs: 0,
         };
     });
 

@@ -354,6 +354,23 @@ export const NAV_MAP: SubjectConfig[] = [
         ]
     },
     {
+        id: '082',
+        title: 'PoF - Helicopters',
+        color: 'violet',
+        dashboardView: View.POF_HELI_HOME,
+        items: [
+            { label: 'Dashboard', view: View.POF_HELI_HOME, icon: Fan },
+            { label: 'Subsonic', view: View.POF_HELI_SUBSONIC },
+            { label: 'Transonic', view: View.POF_HELI_TRANSONIC },
+            { label: 'Rotorcraft Types', view: View.POF_HELI_ROTORCRAFT_TYPES },
+            { label: 'Main Rotor Aero', view: View.POF_HELI_MAIN_ROTOR_AERO },
+            { label: 'Main Rotor Mech', view: View.POF_HELI_MAIN_ROTOR_MECH },
+            { label: 'Tail Rotors', view: View.POF_HELI_TAIL_ROTORS },
+            { label: 'Equilibrium', view: View.POF_HELI_EQUILIBRIUM },
+            { label: 'Flight Mechanics', view: View.POF_HELI_FLIGHT_MECH },
+        ]
+    },
+    {
         id: '100',
         title: 'KSA',
         color: 'indigo',

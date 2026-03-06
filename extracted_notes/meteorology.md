@@ -2627,3 +2627,399 @@ Note: the friction layer reaches an altitude of 2000 ft by day and 1000 ft at ni
 - Severe sand or dust storms
 - Any other meteorological condition that could affect the safety of following aircraft (for example, windshear)
 
+
+
+### Structure of the atmosphere
+Content to be added for Structure of the atmosphere
+
+
+### Troposphere No 1178/2011)
+Content to be added for Troposphere No 1178/2011)
+
+
+### Definition and units
+Content to be added for Definition and units
+
+
+### Vertical distribution of temperature
+Content to be added for Vertical distribution of temperature
+
+
+### Development of inversions, types of inversions
+Content to be added for Development of inversions, types of inversions
+
+
+### Temperature near the Earth’s surface, insolation, surface effects, effect of clouds, effect of wind
+Content to be added for Temperature near the Earth’s surface, insolation, surface effects, effect of clouds, effect of wind
+
+
+### Barometric pressure, isobars
+Content to be added for Barometric pressure, isobars
+
+
+### Pressure variation with height, contours (isohypses)
+Content to be added for Pressure variation with height, contours (isohypses)
+
+
+### Reduction of pressure to QFF (MSL)
+Content to be added for Reduction of pressure to QFF (MSL)
+
+
+### Relationship between surface pressure centres and pressure centres aloft
+Content to be added for Relationship between surface pressure centres and pressure centres aloft
+
+
+### Relationship between pressure, temperature and density
+Content to be added for Relationship between pressure, temperature and density
+
+
+### Terminology and definitions
+Content to be added for Terminology and definitions
+
+
+### Altimeter settings
+Content to be added for Altimeter settings
+
+
+### Calculations No 1178/2011)
+Content to be added for Calculations No 1178/2011)
+
+
+### Effect of accelerated airflow due to topography
+Content to be added for Effect of accelerated airflow due to topography
+
+
+### Definition and measurement
+Content to be added for Definition and measurement
+
+
+### Primary cause of wind, pressure gradient, Coriolis force, gradient wind
+Content to be added for Primary cause of wind, pressure gradient, Coriolis force, gradient wind
+
+
+### Variation of wind in the friction layer
+Content to be added for Variation of wind in the friction layer
+
+
+### Effects of convergence and divergence No 1178/2011)
+Content to be added for Effects of convergence and divergence No 1178/2011)
+
+
+### General circulation around the globe
+Content to be added for General circulation around the globe
+
+
+### Anabatic and katabatic winds, mountain and valley winds, Venturi effects, land and sea
+Content to be added for Anabatic and katabatic winds, mountain and valley winds, Venturi effects, land and sea
+
+
+### Origin and characteristics
+Content to be added for Origin and characteristics
+
+
+### Description and types of turbulence
+Content to be added for Description and types of turbulence
+
+
+### Formation and location of turbulence
+Content to be added for Formation and location of turbulence
+
+
+### Clear-air turbulence (CAT) — description, cause and location
+Content to be added for Clear-air turbulence (CAT) — description, cause and location
+
+
+### Description
+Content to be added for Description
+
+
+### Formation and properties of jet streams
+Content to be added for Formation and properties of jet streams
+
+
+### Location of jet streams and associated CAT areas
+Content to be added for Location of jet streams and associated CAT areas
+
+
+### Water vapour in the atmosphere
+Content to be added for Water vapour in the atmosphere
+
+
+### Temperature/dew point, relative humidity
+Content to be added for Temperature/dew point, relative humidity
+
+
+### Condensation, evaporation, sublimation, freezing and melting, latent heat
+Content to be added for Condensation, evaporation, sublimation, freezing and melting, latent heat
+
+
+### Adiabatic processes, stability of the atmosphere
+Content to be added for Adiabatic processes, stability of the atmosphere
+
+
+### Cloud types and cloud classification
+Content to be added for Cloud types and cloud classification
+
+
+### Influence of inversions on cloud development
+Content to be added for Influence of inversions on cloud development
+
+
+### Flying conditions in each cloud type
+Content to be added for Flying conditions in each cloud type
+
+
+### General aspects
+Content to be added for General aspects
+
+
+### Sea smoke
+Content to be added for Sea smoke
+
+
+### Orographic fog (hill fog)
+Content to be added for Orographic fog (hill fog)
+
+
+### Process of development of precipitation
+Content to be added for Process of development of precipitation
+
+
+### Types of precipitation, relationship with cloud types
+Content to be added for Types of precipitation, relationship with cloud types
+
+
+### Description, classification and source regions of air masses
+Content to be added for Description, classification and source regions of air masses
+
+
+### Modifications of air masses
+Content to be added for Modifications of air masses
+
+
+### General aspects
+Content to be added for General aspects
+
+
+### Warm front, associated clouds and weather
+Content to be added for Warm front, associated clouds and weather
+
+
+### Cold front, associated clouds and weather
+Content to be added for Cold front, associated clouds and weather
+
+
+### Warm sector, associated clouds and weather
+Content to be added for Warm sector, associated clouds and weather
+
+
+### Weather behind the cold front
+Content to be added for Weather behind the cold front
+
+
+### Occlusions, associated clouds and weather
+Content to be added for Occlusions, associated clouds and weather
+
+
+### Stationary front, associated clouds and weather
+Content to be added for Stationary front, associated clouds and weather
+
+
+### Movement of fronts and pressure systems, life cycle
+Content to be added for Movement of fronts and pressure systems, life cycle
+
+
+### Changes of meteorological elements at a frontal wave
+Content to be added for Changes of meteorological elements at a frontal wave
+
+
+### Location of the principal pressure areas
+Content to be added for Location of the principal pressure areas
+
+
+### Anticyclones, types, general properties, cold and warm anticyclones, ridges and subsidence
+Content to be added for Anticyclones, types, general properties, cold and warm anticyclones, ridges and subsidence
+
+
+### Thermal, orographic, polar and secondary depressions; troughs
+Content to be added for Thermal, orographic, polar and secondary depressions; troughs
+
+
+### Characteristics of tropical revolving storms
+Content to be added for Characteristics of tropical revolving storms
+
+
+### Origin and local names, location and period of occurrence
+Content to be added for Origin and local names, location and period of occurrence
+
+
+### General circulation in the troposphere and lower stratosphere
+Content to be added for General circulation in the troposphere and lower stratosphere
+
+
+### Climatic classification
+Content to be added for Climatic classification
+
+
+### Cause and development of tropical showers and thunderstorms: humidity, temperature,
+Content to be added for Cause and development of tropical showers and thunderstorms: humidity, temperature,
+
+
+### Seasonal variations of weather and wind, typical synoptic situations
+Content to be added for Seasonal variations of weather and wind, typical synoptic situations
+
+
+### Intertropical Convergence Zone (ITCZ), weather in the ITCZ, general seasonal movement
+Content to be added for Intertropical Convergence Zone (ITCZ), weather in the ITCZ, general seasonal movement
+
+
+### Monsoon, sandstorms, cold-air outbreaks
+Content to be added for Monsoon, sandstorms, cold-air outbreaks
+
+
+### Westerly situation (westerlies) No 1178/2011)
+Content to be added for Westerly situation (westerlies) No 1178/2011)
+
+
+### Cold-air drop
+Content to be added for Cold-air drop
+
+
+### Foehn, Mistral, Bora
+Content to be added for Foehn, Mistral, Bora
+
+
+### Conditions for ice accretion No 1178/2011)
+Content to be added for Conditions for ice accretion No 1178/2011)
+
+
+### Hazards of ice accretion, avoidance
+Content to be added for Hazards of ice accretion, avoidance
+
+
+### Ice crystal icing
+Content to be added for Ice crystal icing
+
+
+### Effects on flight, avoidance
+Content to be added for Effects on flight, avoidance
+
+
+### Clear-air turbulence (CAT): effects on flight, avoidance
+Content to be added for Clear-air turbulence (CAT): effects on flight, avoidance
+
+
+### Definition of wind shear
+Content to be added for Definition of wind shear
+
+
+### Weather conditions for wind shear
+Content to be added for Weather conditions for wind shear
+
+
+### Effects on flight, avoidance
+Content to be added for Effects on flight, avoidance
+
+
+### Conditions for and process of development, forecast, location, type specification
+Content to be added for Conditions for and process of development, forecast, location, type specification
+
+
+### Structure of thunderstorms, life cycle No 1178/2011)
+Content to be added for Structure of thunderstorms, life cycle No 1178/2011)
+
+
+### Electrical discharges
+Content to be added for Electrical discharges
+
+
+### Development and effects of downbursts
+Content to be added for Development and effects of downbursts
+
+
+### Thunderstorm avoidance
+Content to be added for Thunderstorm avoidance
+
+
+### Properties and occurrence
+Content to be added for Properties and occurrence
+
+
+### Influence on aircraft performance
+Content to be added for Influence on aircraft performance
+
+
+### Influence on aircraft performance
+Content to be added for Influence on aircraft performance
+
+
+### Influence of terrain on clouds and precipitation, frontal passage
+Content to be added for Influence of terrain on clouds and precipitation, frontal passage
+
+
+### Vertical movements, mountain waves, wind shear, turbulence, ice accretion
+Content to be added for Vertical movements, mountain waves, wind shear, turbulence, ice accretion
+
+
+### Development and effect of valley inversions
+Content to be added for Development and effect of valley inversions
+
+
+### Reduction of visibility caused by precipitation and obscurations
+Content to be added for Reduction of visibility caused by precipitation and obscurations
+
+
+### Reduction of visibility caused by other phenomena
+Content to be added for Reduction of visibility caused by other phenomena
+
+
+### Surface observations
+Content to be added for Surface observations
+
+
+### Radiosonde observations
+Content to be added for Radiosonde observations
+
+
+### Satellite observations
+Content to be added for Satellite observations
+
+
+### Weather radar observations (Refer to Subject 050 09 04 05)
+Content to be added for Weather radar observations (Refer to Subject 050 09 04 05)
+
+
+### Aircraft observations and reporting
+Content to be added for Aircraft observations and reporting
+
+
+### Upper-air charts
+Content to be added for Upper-air charts
+
+
+### Gridded forecast products No 1178/2011)
+Content to be added for Gridded forecast products No 1178/2011)
+
+
+### Aviation weather messages
+Content to be added for Aviation weather messages
+
+
+### Meteorological broadcasts for aviation
+Content to be added for Meteorological broadcasts for aviation
+
+
+### Use of meteorological documents
+Content to be added for Use of meteorological documents
+
+
+### Meteorological warnings
+Content to be added for Meteorological warnings
+
+
+### World area forecast system and meteorological offices
+Content to be added for World area forecast system and meteorological offices
+
+
+### International organisations
+Content to be added for International organisations

@@ -16,6 +16,7 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
     [View.SYLLABUS_VIEWER]: React.lazy(() => import('../components/SyllabusViewer')),
     [View.PROGRESS_DASHBOARD]: React.lazy(() => import('../components/ProgressDashboard')),
     [View.PLATFORM_PROGRESS]: React.lazy(() => import('../components/PlatformProgress')),
+    // [View.SAFE_FLIGHTS]: React.lazy(() => import('../components/SafeFlights/SafeFlightsApp')), // TODO: Port SafeFlights from separate project
 
     // Concepts
     [View.CONCEPT_FORCES_OF_FLIGHT]: React.lazy(() => import('../components/concepts/ForcesOfFlight')),
@@ -239,6 +240,17 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
     [View.POF_LIMITATIONS]: React.lazy(() => import('../components/PoF/PoFLimitations')),
     [View.POF_PROPELLERS]: React.lazy(() => import('../components/PoF/PoFPropellers')),
     [View.POF_FLIGHT_MECHANICS]: React.lazy(() => import('../components/PoF/PoFFlightMechanics')),
+
+    // Principles of Flight - Helicopters (082)
+    [View.POF_HELI_HOME]: React.lazy(() => import('../components/GenericSubjectDashboard')),
+    [View.POF_HELI_SUBSONIC]: React.lazy(() => import('../components/PoFHeli/SubsonicAero')),
+    [View.POF_HELI_TRANSONIC]: React.lazy(() => import('../components/PoFHeli/TransonicAero')),
+    [View.POF_HELI_ROTORCRAFT_TYPES]: React.lazy(() => import('../components/PoFHeli/RotorcraftTypes')),
+    [View.POF_HELI_MAIN_ROTOR_AERO]: React.lazy(() => import('../components/PoFHeli/MainRotorAero')),
+    [View.POF_HELI_MAIN_ROTOR_MECH]: React.lazy(() => import('../components/PoFHeli/MainRotorMech')),
+    [View.POF_HELI_TAIL_ROTORS]: React.lazy(() => import('../components/PoFHeli/TailRotors')),
+    [View.POF_HELI_EQUILIBRIUM]: React.lazy(() => import('../components/PoFHeli/Equilibrium')),
+    [View.POF_HELI_FLIGHT_MECH]: React.lazy(() => import('../components/PoFHeli/FlightMech')),
 
     // Communications (090)
     [View.DASHBOARD]: React.lazy(() => import('../components/Comms/CommsDashboard')),

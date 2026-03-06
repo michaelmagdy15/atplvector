@@ -1906,3 +1906,671 @@ Optimum blade Angle of Attack: 2-4º
 - Centre of pressure moves backwards with increasing airspeed as the shock wave moves backwards. This creates a nose-down pitch moment known as mach tuck.
 - In order to prevent mach tuck, airplanes are equipped with a high speed protection system that will trim the aircraft nose up before mach tuck is unrecoverable.
 
+
+
+### Laws and definitions No 1178/2011)
+Content to be added for Laws and definitions No 1178/2011)
+
+
+### Aerodynamic forces on aerofoils
+Content to be added for Aerodynamic forces on aerofoils
+
+
+### Shape of an aerofoil section
+Content to be added for Shape of an aerofoil section
+
+
+### Streamline pattern
+Content to be added for Streamline pattern
+
+
+### Centre of pressure (CP) and aerodynamic centre (AC)
+Content to be added for Centre of pressure (CP) and aerodynamic centre (AC)
+
+
+### Drag and wake
+Content to be added for Drag and wake
+
+
+### Influence of angle of attack (α)
+Content to be added for Influence of angle of attack (α)
+
+
+### The lift coefficient (CL) – angle of attack () graph
+Content to be added for The lift coefficient (CL) – angle of attack () graph
+
+
+### General use of coefficients
+Content to be added for General use of coefficients
+
+
+### The lift coefficient (CL)
+Content to be added for The lift coefficient (CL)
+
+
+### Streamline pattern
+Content to be added for Streamline pattern
+
+
+### Total drag in relation to parasite drag and induced drag
+Content to be added for Total drag in relation to parasite drag and induced drag
+
+
+### Parasite drag and speed
+Content to be added for Parasite drag and speed
+
+
+### Variables affecting the total drag–speed graph
+Content to be added for Variables affecting the total drag–speed graph
+
+
+### Influence of ground effect
+Content to be added for Influence of ground effect
+
+
+### Effect on stalling angle of attack (αCRIT)
+Content to be added for Effect on stalling angle of attack (αCRIT)
+
+
+### Effect on lift coefficient (CL)
+Content to be added for Effect on lift coefficient (CL)
+
+
+### Effect on take-off and landing characteristics of an aeroplane
+Content to be added for Effect on take-off and landing characteristics of an aeroplane
+
+
+### Represented by an equation
+Content to be added for Represented by an equation
+
+
+### Represented by a graph
+Content to be added for Represented by a graph
+
+
+### Trailing-edge flaps and the reasons for their use in take-off and landing
+Content to be added for Trailing-edge flaps and the reasons for their use in take-off and landing
+
+
+### Leading-edge devices and the reasons for their use in take-off and landing
+Content to be added for Leading-edge devices and the reasons for their use in take-off and landing
+
+
+### Spoilers and the reasons for their use in the different phases of flight
+Content to be added for Spoilers and the reasons for their use in the different phases of flight
+
+
+### Speed brakes and the reasons for their use in the different phases of flight
+Content to be added for Speed brakes and the reasons for their use in the different phases of flight
+
+
+### Ice and other contaminants
+Content to be added for Ice and other contaminants
+
+
+### Deformation and modification of airframe, ageing aeroplanes
+Content to be added for Deformation and modification of airframe, ageing aeroplanes
+
+
+### Influence of temperature and altitude on Mach number
+Content to be added for Influence of temperature and altitude on Mach number
+
+
+### Subdivision of aerodynamic flow
+Content to be added for Subdivision of aerodynamic flow
+
+
+### Definition of shock wave
+Content to be added for Definition of shock wave
+
+
+### Effect on lift
+Content to be added for Effect on lift
+
+
+### Effect on drag
+Content to be added for Effect on drag
+
+
+### Effect on pitching moment
+Content to be added for Effect on pitching moment
+
+
+### Effect on control effectiveness
+Content to be added for Effect on control effectiveness
+
+
+### Flow separation at increasing α
+Content to be added for Flow separation at increasing α
+
+
+### The initial stall in spanwise direction
+Content to be added for The initial stall in spanwise direction
+
+
+### Special phenomena of stall
+Content to be added for Special phenomena of stall
+
+
+### Mach buffet
+Content to be added for Mach buffet
+
+
+### Buffet onset No 1178/2011)
+Content to be added for Buffet onset No 1178/2011)
+
+
+### Explain why buffet or stall occurs
+Content to be added for Explain why buffet or stall occurs
+
+
+### Recognition and explanation of stalled condition
+Content to be added for Recognition and explanation of stalled condition
+
+
+### Basics and definitions
+Content to be added for Basics and definitions
+
+
+### Precondition for static stability
+Content to be added for Precondition for static stability
+
+
+### Sum of forces No 1178/2011)
+Content to be added for Sum of forces No 1178/2011)
+
+
+### Sum of moments
+Content to be added for Sum of moments
+
+
+### Methods for achieving balance
+Content to be added for Methods for achieving balance
+
+
+### Static longitudinal stability
+Content to be added for Static longitudinal stability
+
+
+### Factors affecting neutral point
+Content to be added for Factors affecting neutral point
+
+
+### Location of centre of gravity (CG)
+Content to be added for Location of centre of gravity (CG)
+
+
+### The Cm– graph
+Content to be added for The Cm– graph
+
+
+### Factors affecting the Cm– graph
+Content to be added for Factors affecting the Cm– graph
+
+
+### The stick force versus speed graph (IAS)
+Content to be added for The stick force versus speed graph (IAS)
+
+
+### The manoeuvring stability/stick force per g
+Content to be added for The manoeuvring stability/stick force per g
+
+
+### Factors affecting the manoeuvring stability/stick force per g
+Content to be added for Factors affecting the manoeuvring stability/stick force per g
+
+
+### Dynamic longitudinal stability
+Content to be added for Dynamic longitudinal stability
+
+
+### Definition and effects of static directional stability
+Content to be added for Definition and effects of static directional stability
+
+
+### Sideslip angle
+Content to be added for Sideslip angle
+
+
+### Yaw-moment coefficient Cn
+Content to be added for Yaw-moment coefficient Cn
+
+
+### Cn–β graph
+Content to be added for Cn–β graph
+
+
+### Factors affecting static directional stability
+Content to be added for Factors affecting static directional stability
+
+
+### Definition and effects of static lateral stability
+Content to be added for Definition and effects of static lateral stability
+
+
+### The roll-moment coefficient Cl
+Content to be added for The roll-moment coefficient Cl
+
+
+### Contribution of sideslip angle (β)
+Content to be added for Contribution of sideslip angle (β)
+
+
+### The Cl–β graph
+Content to be added for The Cl–β graph
+
+
+### Factors affecting static lateral stability
+Content to be added for Factors affecting static lateral stability
+
+
+### Tendency to spiral dive
+Content to be added for Tendency to spiral dive
+
+
+### Effects of altitude on dynamic stability
+Content to be added for Effects of altitude on dynamic stability
+
+
+### Basics — The three planes and three axes
+Content to be added for Basics — The three planes and three axes
+
+
+### Camber change
+Content to be added for Camber change
+
+
+### Angle-of-attack (α) change
+Content to be added for Angle-of-attack (α) change
+
+
+### Elevator/all-flying tails
+Content to be added for Elevator/all-flying tails
+
+
+### Downwash effects
+Content to be added for Downwash effects
+
+
+### Location of centre of gravity (CG)
+Content to be added for Location of centre of gravity (CG)
+
+
+### Moments due to engine thrust
+Content to be added for Moments due to engine thrust
+
+
+### Rudder limiting
+Content to be added for Rudder limiting
+
+
+### Adverse yaw No 1178/2011)
+Content to be added for Adverse yaw No 1178/2011)
+
+
+### Means to avoid adverse yaw
+Content to be added for Means to avoid adverse yaw
+
+
+### Explain roll/yaw interaction
+Content to be added for Explain roll/yaw interaction
+
+
+### Artificial means No 1178/2011)
+Content to be added for Artificial means No 1178/2011)
+
+
+### Control laws
+Content to be added for Control laws
+
+
+### Reasons to trim
+Content to be added for Reasons to trim
+
+
+### Stabiliser trim
+Content to be added for Stabiliser trim
+
+
+### Intentionally left blank
+Content to be added for Intentionally left blank
+
+
+### Landing gear/flap operating
+Content to be added for Landing gear/flap operating
+
+
+### VMO, VNO, and VNE
+Content to be added for VMO, VNO, and VNE
+
+
+### Manoeuvring–load diagram
+Content to be added for Manoeuvring–load diagram
+
+
+### Factors affecting the manoeuvring–load diagram
+Content to be added for Factors affecting the manoeuvring–load diagram
+
+
+### Gust–load diagram
+Content to be added for Gust–load diagram
+
+
+### Factors affecting the gust–load diagram
+Content to be added for Factors affecting the gust–load diagram
+
+
+### Explain conversion of aerodynamic force on a propeller blade
+Content to be added for Explain conversion of aerodynamic force on a propeller blade
+
+
+### Relevant propeller parameters
+Content to be added for Relevant propeller parameters
+
+
+### Fixed pitch and variable pitch/constant speed
+Content to be added for Fixed pitch and variable pitch/constant speed
+
+
+### Propeller efficiency versus speed
+Content to be added for Propeller efficiency versus speed
+
+
+### Effects of ice on propeller
+Content to be added for Effects of ice on propeller
+
+
+### Windmilling drag
+Content to be added for Windmilling drag
+
+
+### Propeller design characteristics that increase power absorption
+Content to be added for Propeller design characteristics that increase power absorption
+
+
+### Diameter of propeller
+Content to be added for Diameter of propeller
+
+
+### Propeller noise
+Content to be added for Propeller noise
+
+
+### Slipstream effect
+Content to be added for Slipstream effect
+
+
+### Consideration of propeller effects
+Content to be added for Consideration of propeller effects
+
+
+### Straight, horizontal, steady flight
+Content to be added for Straight, horizontal, steady flight
+
+
+### Straight, steady climb
+Content to be added for Straight, steady climb
+
+
+### Straight, steady descent
+Content to be added for Straight, steady descent
+
+
+### Straight, steady glide
+Content to be added for Straight, steady glide
+
+
+### Steady, coordinated turn
+Content to be added for Steady, coordinated turn
+
+
+### Jet-engined and propeller-driven aeroplanes
+Content to be added for Jet-engined and propeller-driven aeroplanes
+
+
+### Balanced moments about the normal axis
+Content to be added for Balanced moments about the normal axis
+
+
+### Forces parallel to the lateral axis
+Content to be added for Forces parallel to the lateral axis
+
+
+### Influence of aeroplane mass
+Content to be added for Influence of aeroplane mass
+
+
+### Minimum control speed (VMC)
+Content to be added for Minimum control speed (VMC)
+
+
+### Minimum control speed during approach and landing (VMCL)
+Content to be added for Minimum control speed during approach and landing (VMCL)
+
+
+### Minimum control speed on the ground (VMCG)
+Content to be added for Minimum control speed on the ground (VMCG)
+
+
+### Influence of density
+Content to be added for Influence of density
+
+
+### Identify and explain
+Content to be added for Identify and explain
+
+
+### International system of units of measurement (SI) and conversion of SI units
+Content to be added for International system of units of measurement (SI) and conversion of SI units
+
+
+### Definitions and basic concepts of air
+Content to be added for Definitions and basic concepts of air
+
+
+### Newton’s laws
+Content to be added for Newton’s laws
+
+
+### Basic concepts of airflow
+Content to be added for Basic concepts of airflow
+
+
+### Aerofoil section geometry
+Content to be added for Aerofoil section geometry
+
+
+### Aerodynamic forces on aerofoil elements
+Content to be added for Aerodynamic forces on aerofoil elements
+
+
+### Disturbances due to profile contamination
+Content to be added for Disturbances due to profile contamination
+
+
+### Airflow pattern and influence on lift (L)
+Content to be added for Airflow pattern and influence on lift (L)
+
+
+### The airflow around the fuselage
+Content to be added for The airflow around the fuselage
+
+
+### Speeds and Mach number No 1178/2011)
+Content to be added for Speeds and Mach number No 1178/2011)
+
+
+### Influence of aerofoil section and blade planform
+Content to be added for Influence of aerofoil section and blade planform
+
+
+### Rotorcraft types
+Content to be added for Rotorcraft types
+
+
+### Helicopter configurations
+Content to be added for Helicopter configurations
+
+
+### The helicopter, characteristics and associated terminology
+Content to be added for The helicopter, characteristics and associated terminology
+
+
+### Airflow through the rotor disc and around the blades
+Content to be added for Airflow through the rotor disc and around the blades
+
+
+### Anti-torque force and tail rotor
+Content to be added for Anti-torque force and tail rotor
+
+
+### Total power required and hover outside ground effect (HOGE)
+Content to be added for Total power required and hover outside ground effect (HOGE)
+
+
+### Relative airflow and angles of attack (α)
+Content to be added for Relative airflow and angles of attack (α)
+
+
+### Power and vertical speed
+Content to be added for Power and vertical speed
+
+
+### Airflow and forces in uniform inflow distribution
+Content to be added for Airflow and forces in uniform inflow distribution
+
+
+### The flare (powered flight)
+Content to be added for The flare (powered flight)
+
+
+### Non-uniform inflow distribution in relation to inflow roll
+Content to be added for Non-uniform inflow distribution in relation to inflow roll
+
+
+### Power and maximum speed
+Content to be added for Power and maximum speed
+
+
+### Airflow in ground effect, downwash No 1178/2011)
+Content to be added for Airflow in ground effect, downwash No 1178/2011)
+
+
+### Vertical descent, power on
+Content to be added for Vertical descent, power on
+
+
+### Autorotation
+Content to be added for Autorotation
+
+
+### Airflow at the rotor disc
+Content to be added for Airflow at the rotor disc
+
+
+### Flight and landing
+Content to be added for Flight and landing
+
+
+### Centrifugal turning moment (CTM)
+Content to be added for Centrifugal turning moment (CTM)
+
+
+### Coning angle in the hover
+Content to be added for Coning angle in the hover
+
+
+### Forces on the blade in forward flight without cyclic feathering
+Content to be added for Forces on the blade in forward flight without cyclic feathering
+
+
+### Cyclic pitch (feathering) in forward flight
+Content to be added for Cyclic pitch (feathering) in forward flight
+
+
+### Forces on the blade in the disc plane (tip path plane) in forward flight
+Content to be added for Forces on the blade in the disc plane (tip path plane) in forward flight
+
+
+### Ground resonance
+Content to be added for Ground resonance
+
+
+### See-saw or teetering rotor
+Content to be added for See-saw or teetering rotor
+
+
+### Hingeless rotor, bearingless rotor
+Content to be added for Hingeless rotor, bearingless rotor
+
+
+### Blade sailing and causes No 1178/2011)
+Content to be added for Blade sailing and causes No 1178/2011)
+
+
+### Minimising the danger
+Content to be added for Minimising the danger
+
+
+### Droop stops
+Content to be added for Droop stops
+
+
+### Tail-rotor aerodynamics
+Content to be added for Tail-rotor aerodynamics
+
+
+### Strakes on the tail boom
+Content to be added for Strakes on the tail boom
+
+
+### Hover
+Content to be added for Hover
+
+
+### Forward flight
+Content to be added for Forward flight
+
+
+### Static longitudinal, roll and directional stability
+Content to be added for Static longitudinal, roll and directional stability
+
+
+### Static stability in the hover No 1178/2011)
+Content to be added for Static stability in the hover No 1178/2011)
+
+
+### Roll stability and directional stability
+Content to be added for Roll stability and directional stability
+
+
+### Manoeuvre stability
+Content to be added for Manoeuvre stability
+
+
+### Control power
+Content to be added for Control power
+
+
+### Static and dynamic rollover No 1178/2011)
+Content to be added for Static and dynamic rollover No 1178/2011)
+
+
+### Hover and vertical flight
+Content to be added for Hover and vertical flight
+
+
+### Forward flight
+Content to be added for Forward flight
+
+
+### Manoeuvring No 1178/2011)
+Content to be added for Manoeuvring No 1178/2011)
+
+
+### Operating with limited power
+Content to be added for Operating with limited power
+
+
+### Overpitch, overtorque
+Content to be added for Overpitch, overtorque

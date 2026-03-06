@@ -3580,3 +3580,363 @@ Source: Freedoms of the air - Wikipedia
 - Two 3-month periods for crew engaged in commercial operations
 - For private pilots, a single period not exceeding 24 months
 
+
+
+### The establishment of the Convention on International Civil Aviation, Chicago, 7 December
+Content to be added for The establishment of the Convention on International Civil Aviation, Chicago, 7 December
+
+
+### Part I — Air navigation
+Content to be added for Part I — Air navigation
+
+
+### Part II — The International Civil Aviation Organization (ICAO)
+Content to be added for Part II — The International Civil Aviation Organization (ICAO)
+
+
+### The International Air Services Transit Agreement (ICAO Doc 7500)
+Content to be added for The International Air Services Transit Agreement (ICAO Doc 7500)
+
+
+### The International Air Transport Agreement (ICAO Doc 9626)
+Content to be added for The International Air Transport Agreement (ICAO Doc 9626)
+
+
+### Suppression of Unlawful Acts Against the Safety of Civil Aviation — The Tokyo Convention of 1963
+Content to be added for Suppression of Unlawful Acts Against the Safety of Civil Aviation — The Tokyo Convention of 1963
+
+
+### Private international law
+Content to be added for Private international law
+
+
+### The International Air Transport Association (IATA)
+Content to be added for The International Air Transport Association (IATA)
+
+
+### European Union Aviation Safety Agency (EASA) Regulation (EU) 2018/1139
+Content to be added for European Union Aviation Safety Agency (EASA) Regulation (EU) 2018/1139
+
+
+### EUROCONTROL
+Content to be added for EUROCONTROL
+
+
+### Certificate of Airworthiness (CofA) — Details
+Content to be added for Certificate of Airworthiness (CofA) — Details
+
+
+### ICAO Annex 7 — Definitions
+Content to be added for ICAO Annex 7 — Definitions
+
+
+### Nationality marks, common marks and registration marks — assignment and location
+Content to be added for Nationality marks, common marks and registration marks — assignment and location
+
+
+### Differences between ICAO Annex 1 and Regulation (EU) No 1178/2011 (hereinafter: Aircrew Regulation)
+Content to be added for Differences between ICAO Annex 1 and Regulation (EU) No 1178/2011 (hereinafter: Aircrew Regulation)
+
+
+### Content and structure
+Content to be added for Content and structure
+
+
+### Commercial pilot licence (CPL)
+Content to be added for Commercial pilot licence (CPL)
+
+
+### Airline transport pilot licence (ATPL) and multi-crew pilot licence (MPL)
+Content to be added for Airline transport pilot licence (ATPL) and multi-crew pilot licence (MPL)
+
+
+### Aircrew Regulation — Annex IV (Part-MED) — Details
+Content to be added for Aircrew Regulation — Annex IV (Part-MED) — Details
+
+
+### ICAO Annex 2 and SERA — Relationship and content
+Content to be added for ICAO Annex 2 and SERA — Relationship and content
+
+
+### General rules — Collision avoidance — SERA
+Content to be added for General rules — Collision avoidance — SERA
+
+
+### Visual flight rules (VFR) — SERA
+Content to be added for Visual flight rules (VFR) — SERA
+
+
+### Instrument flight rules (IFR) — SERA No 1178/2011)
+Content to be added for Instrument flight rules (IFR) — SERA No 1178/2011)
+
+
+### Interception of civil aircraft — SERA
+Content to be added for Interception of civil aircraft — SERA
+
+
+### Definitions and abbreviations — ICAO Doc 8168, Volume I
+Content to be added for Definitions and abbreviations — ICAO Doc 8168, Volume I
+
+
+### General criteria (assuming all engines operating)
+Content to be added for General criteria (assuming all engines operating)
+
+
+### Arrival and approach segments
+Content to be added for Arrival and approach segments
+
+
+### Visual manoeuvring (circling) in the vicinity of the aerodrome (AD)
+Content to be added for Visual manoeuvring (circling) in the vicinity of the aerodrome (AD)
+
+
+### Entry and holding
+Content to be added for Entry and holding
+
+
+### Basic requirements and procedures No 1178/2011)
+Content to be added for Basic requirements and procedures No 1178/2011)
+
+
+### Procedures for operators and pilots
+Content to be added for Procedures for operators and pilots
+
+
+### Simultaneous operation on parallel or near-parallel instrument RWYs
+Content to be added for Simultaneous operation on parallel or near-parallel instrument RWYs
+
+
+### Operation of transponders
+Content to be added for Operation of transponders
+
+
+### Regulation structure
+Content to be added for Regulation structure
+
+
+### Definitions (Annex I)
+Content to be added for Definitions (Annex I)
+
+
+### Part-SPA (Annex V), Part-NCC (Annex VI) and Part- NCO (Annex VII)
+Content to be added for Part-SPA (Annex V), Part-NCC (Annex VI) and Part- NCO (Annex VII)
+
+
+### Air traffic control (ATC) services
+Content to be added for Air traffic control (ATC) services
+
+
+### Flight information service (FIS)
+Content to be added for Flight information service (FIS)
+
+
+### Principles governing required navigation performance (RNP) and air traffic service (ATS) route
+Content to be added for Principles governing required navigation performance (RNP) and air traffic service (ATS) route
+
+
+### Foreword (Scope and purpose)
+Content to be added for Foreword (Scope and purpose)
+
+
+### Definitions No 1178/2011)
+Content to be added for Definitions No 1178/2011)
+
+
+### ATS system capacity and air traffic flow management (ATFM)
+Content to be added for ATS system capacity and air traffic flow management (ATFM)
+
+
+### General provisions for air traffic services (ATS)
+Content to be added for General provisions for air traffic services (ATS)
+
+
+### Horizontal speed control instructions
+Content to be added for Horizontal speed control instructions
+
+
+### Change from IFR to VFR flight
+Content to be added for Change from IFR to VFR flight
+
+
+### Altimeter-setting procedures No 1178/2011)
+Content to be added for Altimeter-setting procedures No 1178/2011)
+
+
+### Separation in the vicinity of aerodromes (ADs)
+Content to be added for Separation in the vicinity of aerodromes (ADs)
+
+
+### Miscellaneous separation procedures
+Content to be added for Miscellaneous separation procedures
+
+
+### Arriving and departing aircraft
+Content to be added for Arriving and departing aircraft
+
+
+### Procedures for aerodrome (AD) control service No 1178/2011)
+Content to be added for Procedures for aerodrome (AD) control service No 1178/2011)
+
+
+### Radar services
+Content to be added for Radar services
+
+
+### Air traffic advisory service
+Content to be added for Air traffic advisory service
+
+
+### Procedures related to emergencies, communication (COM) failure and contingencies
+Content to be added for Procedures related to emergencies, communication (COM) failure and contingencies
+
+
+### Miscellaneous procedures
+Content to be added for Miscellaneous procedures
+
+
+### Introduction to ICAO Annex 15 — Aeronautical Information Service (AIS)
+Content to be added for Introduction to ICAO Annex 15 — Aeronautical Information Service (AIS)
+
+
+### Definitions of ICAO Annex 15
+Content to be added for Definitions of ICAO Annex 15
+
+
+### General — AIS responsibilities and functions
+Content to be added for General — AIS responsibilities and functions
+
+
+### Notices to airmen (NOTAMs)
+Content to be added for Notices to airmen (NOTAMs)
+
+
+### Aeronautical information circulars (AICs)
+Content to be added for Aeronautical information circulars (AICs)
+
+
+### Pre-flight and post-flight information/data
+Content to be added for Pre-flight and post-flight information/data
+
+
+### General — AD reference code No 1178/2011)
+Content to be added for General — AD reference code No 1178/2011)
+
+
+### Aerodrome (AD) reference point
+Content to be added for Aerodrome (AD) reference point
+
+
+### Pavement strengths
+Content to be added for Pavement strengths
+
+
+### Runways (RWYs)
+Content to be added for Runways (RWYs)
+
+
+### Runway (RWY) strips
+Content to be added for Runway (RWY) strips
+
+
+### Clearway (CWY)
+Content to be added for Clearway (CWY)
+
+
+### Stopway (SWY)
+Content to be added for Stopway (SWY)
+
+
+### Taxiways (TWYs)
+Content to be added for Taxiways (TWYs)
+
+
+### Signs No 1178/2011)
+Content to be added for Signs No 1178/2011)
+
+
+### Lighting of objects No 1178/2011)
+Content to be added for Lighting of objects No 1178/2011)
+
+
+### Visual aids for denoting restricted use of areas on RWYs and TWYs
+Content to be added for Visual aids for denoting restricted use of areas on RWYs and TWYs
+
+
+### Rescue and firefighting (RFF)
+Content to be added for Rescue and firefighting (RFF)
+
+
+### Apron management service
+Content to be added for Apron management service
+
+
+### Ground-servicing of aircraft
+Content to be added for Ground-servicing of aircraft
+
+
+### Approach lighting systems
+Content to be added for Approach lighting systems
+
+
+### Entry and departure of crew
+Content to be added for Entry and departure of crew
+
+
+### Entry and departure of passengers and baggage
+Content to be added for Entry and departure of passengers and baggage
+
+
+### Essential SAR definitions — ICAO Annex 12
+Content to be added for Essential SAR definitions — ICAO Annex 12
+
+
+### SAR — Organisation — Establishment and provision
+Content to be added for SAR — Organisation — Establishment and provision
+
+
+### Operating procedures for non-SAR crews — PIC
+Content to be added for Operating procedures for non-SAR crews — PIC
+
+
+### Search and rescue signals — Survivors
+Content to be added for Search and rescue signals — Survivors
+
+
+### Essential definitions of ICAO Annex 17
+Content to be added for Essential definitions of ICAO Annex 17
+
+
+### General principles — Objectives of security
+Content to be added for General principles — Objectives of security
+
+
+### Management of response to acts of unlawful interference
+Content to be added for Management of response to acts of unlawful interference
+
+
+### Operators’ security programme — Principles
+Content to be added for Operators’ security programme — Principles
+
+
+### ICAO Annex 2 — Rules of the Air, including Attachment B — Unlawful interference
+Content to be added for ICAO Annex 2 — Rules of the Air, including Attachment B — Unlawful interference
+
+
+### ICAO Annex 6 — Operation of Aircraft — Security
+Content to be added for ICAO Annex 6 — Operation of Aircraft — Security
+
+
+### ICAO Annex 14 Volume I — Aerodromes — Physical characteristics
+Content to be added for ICAO Annex 14 Volume I — Aerodromes — Physical characteristics
+
+
+### ICAO Doc 4444 — Air Traffic Management
+Content to be added for ICAO Doc 4444 — Air Traffic Management
+
+
+### Definitions and descriptions
+Content to be added for Definitions and descriptions
+
+
+### Objectives and procedures
+Content to be added for Objectives and procedures
