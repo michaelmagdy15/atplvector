@@ -176,7 +176,6 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                     desc="Take-off, climb, cruise, descent and landing performance for Class A/B aircraft."
                     icon={TrendingUp} color="lime"
                     onClick={() => onChangeView(View.PERF_HOME)}
-                    isComingSoon={true}
                 />
                 <SubjectCard
                     code="040" title="Human Performance"

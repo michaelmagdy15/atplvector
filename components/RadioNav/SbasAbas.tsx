@@ -26,7 +26,7 @@ const SbasAbas: React.FC<Props> = ({ onNavigate }) => {
         { id: 5, label: 'Aircraft receives GPS + Correction (Accuracy < 3m)', icon: PlaneIcon }
     ];
 
-    function PlaneIcon() { return <div className="text-xl">✈️</div>; }
+    function EmojiPlane() { return <div className="text-xl">✈️</div>; }
 
     return (
         <div className="max-w-5xl mx-auto p-4 space-y-8">
@@ -83,7 +83,7 @@ const SbasAbas: React.FC<Props> = ({ onNavigate }) => {
 
                         {/* 6. Aircraft (Center) */}
                         <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ${step === 5 ? 'scale-150 text-white drop-shadow-glow' : 'text-slate-700'}`}>
-                            <PlaneIcon />
+                            <EmojiPlane />
                         </div>
 
                         {/* Connection Lines (SVG) */}

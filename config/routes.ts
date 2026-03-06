@@ -340,4 +340,11 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
 
     // Simulators
     [View.MCDU_SIM]: React.lazy(() => import('../components/Simulators/MCDU/MCDU')),
+
+    // Performance (032)
+    [View.PERF_HOME]: React.lazy(() => import('../components/Performance/PerfDashboard')),
+    [View.PERF_TAKEOFF]: React.lazy(() => import('../components/Performance/TakeoffPerf')),
+    [View.PERF_CLIMB]: React.lazy(() => import('../components/Performance/ClimbPerf')),
+    [View.PERF_CRUISE]: React.lazy(() => import('../components/Performance/CruisePerf')),
+    [View.PERF_LANDING]: React.lazy(() => import('../components/Performance/LandingPerf')),
 };
