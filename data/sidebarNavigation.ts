@@ -155,7 +155,7 @@ export const NAV_MAP: SubjectConfig[] = [
     {
         id: '032',
         title: 'Performance',
-        color: 'rose',
+        color: 'lime',
         dashboardView: View.PERF_HOME,
         items: [
             { label: 'Dashboard', view: View.PERF_HOME, icon: TrendingUp },

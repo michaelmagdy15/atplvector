@@ -63,8 +63,8 @@ export const PerfDashboard: React.FC<Props> = ({ setCurrentView }) => {
     return (
         <div className="p-6 max-w-6xl mx-auto space-y-8">
             <div className="flex items-center gap-4">
-                <div className="bg-rose-100 dark:bg-rose-900/50 p-4 rounded-full">
-                    <TrendingUp className="text-rose-600 dark:text-rose-400" size={40} />
+                <div className="bg-lime-100 dark:bg-lime-900/50 p-4 rounded-full">
+                    <TrendingUp className="text-lime-600 dark:text-lime-400" size={40} />
                 </div>
                 <div>
                     <h1 className="text-4xl font-bold text-slate-900 dark:text-white">Aircraft Performance</h1>
@@ -77,7 +77,7 @@ export const PerfDashboard: React.FC<Props> = ({ setCurrentView }) => {
                     <button
                         key={index}
                         onClick={() => setCurrentView(category.view)}
-                        className="flex flex-col text-left p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-blue-400 dark:hover:border-blue-500 transition-all group relative overflow-hidden"
+                        className="flex flex-col text-left p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-lime-400 dark:hover:border-lime-500 transition-all group relative overflow-hidden"
                     >
                         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity transform group-hover:scale-110">
                             {category.icon}
@@ -93,7 +93,7 @@ export const PerfDashboard: React.FC<Props> = ({ setCurrentView }) => {
                             <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
                                 {category.stats}
                             </span>
-                            <span className="text-blue-600 dark:text-blue-400 text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                            <span className="text-lime-600 dark:text-lime-400 text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
                                 Explore <TrendingUp size={14} />
                             </span>
                         </div>

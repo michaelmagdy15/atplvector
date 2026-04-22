@@ -343,6 +343,9 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
 
     // Performance (032)
     [View.PERF_HOME]: React.lazy(() => import('../components/Performance/PerfDashboard')),
+    [View.PERF_INTRO]: React.lazy(() => import('../components/Performance/PerfIntro')),
+    [View.PERF_CLASS_A]: React.lazy(() => import('../components/GenericSubjectDashboard')),
+    [View.PERF_CLASS_B]: React.lazy(() => import('../components/GenericSubjectDashboard')),
     [View.PERF_TAKEOFF]: React.lazy(() => import('../components/Performance/TakeoffPerf')),
     [View.PERF_CLIMB]: React.lazy(() => import('../components/Performance/ClimbPerf')),
     [View.PERF_CRUISE]: React.lazy(() => import('../components/Performance/CruisePerf')),
