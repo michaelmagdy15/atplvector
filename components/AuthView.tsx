@@ -735,13 +735,14 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 )}
                                             </div>
 
-                                            {view === 'LOGIN' && onDemoLogin && (
+
+                                            {/* view === 'LOGIN' && onDemoLogin && (
                                                 <div className="pt-4 border-t border-white/10 animate-in fade-in delay-300">
                                                     <button type="button" onClick={onDemoLogin} className="w-full bg-white/5 hover:bg-white/10 text-slate-300 py-3 rounded-xl font-bold transition-all flex items-center justify-center border border-white/10 hover:border-emerald-500/50 hover:text-emerald-400 group">
                                                         <PlayCircle className="mr-2 w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform" /> Demo Access
                                                     </button>
                                                 </div>
-                                            )}
+                                            ) */}
                                         </form>
                                     )}
                                 </div>
@@ -1018,10 +1019,11 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                     <h3 className="text-3xl font-black text-white mb-4">Platform currently in active development.</h3>
                                     <p className="text-slate-400 text-lg mb-8 max-w-xl mx-auto leading-relaxed">
                                         We are fine-tuning the ultimate visual learning experience for pilots.
-                                        While public signups are paused, we are providing <strong className="text-white">demo access</strong> to select students and flight schools.
+                                        If you'd like to get early access, please contact our support team.
                                     </p>
 
                                     <div className="flex flex-col sm:flex-row items-center gap-4">
+                                        {/*
                                         <button
                                             onClick={() => { scrollToSection('hero'); setView('LOGIN'); if (onDemoLogin) onDemoLogin(); }}
                                             className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-500/25 flex items-center gap-2 group-hover:scale-105 duration-300"
@@ -1029,6 +1031,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                             <PlayCircle size={20} />
                                             Try Demo Access
                                         </button>
+                                        */}
                                         <button
                                             onClick={() => setActiveInfoPage('CONTACT')}
                                             className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl font-bold transition-colors border border-slate-600"
