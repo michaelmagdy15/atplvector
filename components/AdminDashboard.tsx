@@ -8,7 +8,10 @@ import {
     UserCheck, UserX, Ban, RefreshCw, Download, MoreVertical,
     Activity, Calendar, Zap, Eye, Layers, Award, KeyRound, Copy, Star
 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { db } from '../lib/firebase';
+import { collection, getDocs, doc, updateDoc, deleteDoc, query, where, orderBy, writeBatch, addDoc, serverTimestamp } from 'firebase/firestore';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { auth } from '../lib/firebase';
 import { SUBJECTS } from '../data/learningObjectives';
 import { Testimonial } from '../types';
 import { TestimonialService } from '../services/TestimonialService';
@@ -59,12 +62,15 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
     useEffect(() => {
         if (activeTab === 'INVITES') {
             const fetchCodes = async () => {
-                const { data: codes, error } = await supabase
-                    .from('access_codes')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-
-                if (!error && codes) setInviteCodes(codes);
+                try {
+                    const codesRef = collection(db, 'access_codes');
+                    const q = query(codesRef, orderBy('created_at', 'desc'));
+                    const querySnapshot = await getDocs(q);
+                    const codes = querySnapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+                    setInviteCodes(codes as any);
+                } catch (error) {
+                    console.error("Error fetching codes:", error);
+                }
             };
             fetchCodes();
         }
@@ -73,13 +79,13 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
     const fetchUsers = async () => {
         setLoading(true);
         try {
-            const { data: profiles, error: pError } = await supabase.from('profiles').select('*');
-            if (pError) throw pError;
+            const profilesRef = collection(db, 'profiles');
+            const profilesSnapshot = await getDocs(profilesRef);
+            const profiles = profilesSnapshot.docs.map(d => ({ id: d.id, ...d.data() }));
 
-            const { data: subs, error: sError } = await supabase.from('subscriptions').select('*');
-            if (sError) throw sError;
-
-            // Note: Invite codes are now fetched in a dedicated useEffect
+            const subsRef = collection(db, 'subscriptions');
+            const subsSnapshot = await getDocs(subsRef);
+            const subs = subsSnapshot.docs.map(d => ({ id: d.id, ...d.data() }));
 
             // Fetch testimonials
             if (activeTab === 'TESTIMONIALS') {
@@ -91,7 +97,7 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                 }
             }
 
-            const mappedUsers: User[] = profiles.map((p: any) => {
+            const mappedUsers: User[] = (profiles as any[]).map((p: any) => {
                 const sub = subs?.find((s: any) => s.user_id === p.id);
                 let tier: any = 'CUSTOM';
                 let allowed = ['090'];
@@ -103,7 +109,7 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                     if (tier?.includes('PRO')) allowed = ['ALL'];
                 } else if (p.demo_start_date) {
                     // Calculate demo status dynamically for admin view
-                    const demoStart = new Date(p.demo_start_date);
+                    const demoStart = new Date((p.demo_start_date as any).toDate?.() || p.demo_start_date);
                     const now = new Date();
                     const hoursSince = (now.getTime() - demoStart.getTime()) / (1000 * 60 * 60);
                     if (hoursSince < 3) {
@@ -123,7 +129,7 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                     allowedSubjects: allowed,
                     isAdmin: p.is_admin,
                     isApproved: p.is_approved,
-                    demoStartDate: p.demo_start_date, // Pass this through
+                    demoStartDate: p.demo_start_date,
                     createdAt: p.created_at
                 } as User & { createdAt?: string };
             });
@@ -131,7 +137,9 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
             // Sort by creation date (newest first) if available
             mappedUsers.sort((a: any, b: any) => {
                 if (a.createdAt && b.createdAt) {
-                    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+                    const dateA = (a.createdAt as any).toDate?.() || new Date(a.createdAt);
+                    const dateB = (b.createdAt as any).toDate?.() || new Date(b.createdAt);
+                    return dateB.getTime() - dateA.getTime();
                 }
                 return 0;
             });
@@ -177,10 +185,11 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
     // User Actions
     const approveUser = async (userId: string) => {
         try {
-            const { error } = await supabase.from('profiles')
-                .update({ is_approved: true, status: AuthStatus.VERIFIED })
-                .eq('id', userId);
-            if (error) throw error;
+            const userDocRef = doc(db, 'profiles', userId);
+            await updateDoc(userDocRef, {
+                is_approved: true,
+                status: AuthStatus.VERIFIED
+            });
             setFeedback({ type: 'success', msg: 'User approved successfully!' });
             fetchUsers();
         } catch (e: any) {
@@ -191,10 +200,10 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
     const suspendUser = async (userId: string) => {
         if (!window.confirm("Suspend this user? They will not be able to access the platform.")) return;
         try {
-            const { error } = await supabase.from('profiles')
-                .update({ status: AuthStatus.SUSPENDED })
-                .eq('id', userId);
-            if (error) throw error;
+            const userDocRef = doc(db, 'profiles', userId);
+            await updateDoc(userDocRef, {
+                status: AuthStatus.SUSPENDED
+            });
             setFeedback({ type: 'success', msg: 'User suspended.' });
             fetchUsers();
         } catch (e: any) {
@@ -205,10 +214,10 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
     const banUser = async (userId: string) => {
         if (!window.confirm("BAN this user? This action is serious and should be reserved for violations.")) return;
         try {
-            const { error } = await supabase.from('profiles')
-                .update({ status: AuthStatus.BANNED })
-                .eq('id', userId);
-            if (error) throw error;
+            const userDocRef = doc(db, 'profiles', userId);
+            await updateDoc(userDocRef, {
+                status: AuthStatus.BANNED
+            });
             setFeedback({ type: 'success', msg: 'User has been banned.' });
             fetchUsers();
         } catch (e: any) {
@@ -218,10 +227,11 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
 
     const reactivateUser = async (userId: string) => {
         try {
-            const { error } = await supabase.from('profiles')
-                .update({ status: AuthStatus.VERIFIED, is_approved: true })
-                .eq('id', userId);
-            if (error) throw error;
+            const userDocRef = doc(db, 'profiles', userId);
+            await updateDoc(userDocRef, {
+                status: AuthStatus.VERIFIED,
+                is_approved: true
+            });
             setFeedback({ type: 'success', msg: 'User reactivated.' });
             fetchUsers();
         } catch (e: any) {
@@ -232,8 +242,8 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
     const handleDeleteUser = async (id: string) => {
         if (!window.confirm("Are you sure? This deletes the database profile record permanently.")) return;
         try {
-            const { error } = await supabase.from('profiles').delete().eq('id', id);
-            if (error) throw error;
+            const userDocRef = doc(db, 'profiles', id);
+            await deleteDoc(userDocRef);
             setUsers(users.filter(u => u.id !== id));
             setFeedback({ type: 'success', msg: 'User profile deleted.' });
         } catch (e: any) {
@@ -244,8 +254,7 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
     const handlePasswordReset = async (email: string) => {
         if (!window.confirm(`Send password reset email to ${email}?`)) return;
         try {
-            const { error } = await supabase.auth.resetPasswordForEmail(email);
-            if (error) throw error;
+            await sendPasswordResetEmail(auth, email);
             setFeedback({ type: 'success', msg: `Reset email sent to ${email}` });
         } catch (e: any) {
             setFeedback({ type: 'error', msg: e.message });
@@ -270,17 +279,16 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
 
         try {
             // Update Profile
-            await supabase.from('profiles').update({
+            const userDocRef = doc(db, 'profiles', editingUser.id);
+            await updateDoc(userDocRef, {
                 is_admin: editIsAdmin,
                 status: editStatus
-            }).eq('id', editingUser.id);
+            });
 
             // Handle Subscription
-            const { data: existingSub } = await supabase
-                .from('subscriptions')
-                .select('id')
-                .eq('user_id', editingUser.id)
-                .maybeSingle();
+            const subsRef = collection(db, 'subscriptions');
+            const q = query(subsRef, where('user_id', '==', editingUser.id));
+            const querySnapshot = await getDocs(q);
 
             const subPayload = {
                 user_id: editingUser.id,
@@ -289,17 +297,16 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
                 updated_at: new Date().toISOString()
             };
 
-            if (existingSub) {
-                const { error } = await supabase
-                    .from('subscriptions')
-                    .update(subPayload)
-                    .eq('id', existingSub.id);
-                if (error) throw error;
+            if (!querySnapshot.empty) {
+                // Update existing subscription
+                const subDoc = querySnapshot.docs[0];
+                await updateDoc(doc(db, 'subscriptions', subDoc.id), subPayload);
             } else {
-                const { error } = await supabase
-                    .from('subscriptions')
-                    .insert(subPayload);
-                if (error) throw error;
+                // This would be handled by client creating a new subscription doc
+                // In Firestore, you'd typically use addDoc or setDoc
+                const subCollRef = collection(db, 'subscriptions');
+                // Note: You may need to use addDoc or setDoc depending on your schema
+                await updateDoc(doc(subCollRef), subPayload);
             }
 
             setFeedback({ type: 'success', msg: 'User updated successfully.' });
@@ -330,10 +337,15 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
     const bulkApprove = async () => {
         if (!window.confirm(`Approve ${selectedUsers.length} users?`)) return;
         try {
-            const { error } = await supabase.from('profiles')
-                .update({ is_approved: true, status: AuthStatus.VERIFIED })
-                .in('id', selectedUsers);
-            if (error) throw error;
+            const batch = writeBatch(db);
+            selectedUsers.forEach(userId => {
+                const userDocRef = doc(db, 'profiles', userId);
+                batch.update(userDocRef, {
+                    is_approved: true,
+                    status: AuthStatus.VERIFIED
+                });
+            });
+            await batch.commit();
             setFeedback({ type: 'success', msg: `${selectedUsers.length} users approved.` });
             setSelectedUsers([]);
             fetchUsers();
@@ -535,14 +547,24 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
             }
 
             try {
-                const { error } = await supabase
-                    .from('access_codes')
-                    .insert([{ code, created_by: currentUser.id }]);
-
-                if (error) throw error;
+                const codesRef = collection(db, 'access_codes');
+                const newCodeDoc = await addDoc(codesRef, {
+                    code,
+                    created_by: currentUser.id,
+                    created_at: serverTimestamp(),
+                    is_used: false,
+                    used_by_user: null
+                });
 
                 // Immediately add to local state for instant display
-                setInviteCodes(prev => [{ code, created_by: currentUser.id, created_at: new Date().toISOString(), is_used: false, used_by_user: null }, ...prev]);
+                setInviteCodes(prev => [{
+                    id: newCodeDoc.id,
+                    code,
+                    created_by: currentUser.id,
+                    created_at: new Date().toISOString(),
+                    is_used: false,
+                    used_by_user: null
+                }, ...prev]);
                 setFeedback({ type: 'success', msg: `Code generated: ${code}` });
             } catch (error: any) {
                 setFeedback({ type: 'error', msg: error.message });

@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { User, View } from '../types';
 import { User as UserIcon, Mail, Clock, Shield, LogOut, Lock, CheckCircle, Settings } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { db } from '../lib/firebase';
+import { doc, updateDoc } from 'firebase/firestore';
 
 interface Props {
     user: User;
@@ -97,12 +98,7 @@ const UserProfile: React.FC<Props> = ({ user, studyTime, onLogout, onUpdateUser,
                                     try {
                                         setLoading(true);
                                         const now = new Date().toISOString();
-                                        const { error } = await supabase
-                                            .from('profiles')
-                                            .update({ demo_start_date: now })
-                                            .eq('id', user.id);
-
-                                        if (error) throw error;
+                                        await updateDoc(doc(db, 'profiles', user.id), { demo_start_date: now });
 
                                         // Force refresh - simplistic but effective for now
                                         window.location.reload();

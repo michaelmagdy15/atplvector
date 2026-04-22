@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { User } from '../types';
 import { Settings, Lock, Mail, Save, AlertTriangle, ArrowLeft, CheckCircle } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { auth } from '../lib/firebase';
+import { updatePassword, updateEmail } from 'firebase/auth';
 
 interface Props {
     user: User;
@@ -21,17 +22,18 @@ const AccountSettings: React.FC<Props> = ({ user, onBack }) => {
         setMsg(null);
 
         try {
+            const currentUser = auth.currentUser;
+            if (!currentUser) throw new Error("Not authenticated");
+
             // Update Password if provided
             if (newPassword) {
                 if (newPassword !== confirmPassword) throw new Error("Passwords do not match");
-                const { error } = await supabase.auth.updateUser({ password: newPassword });
-                if (error) throw error;
+                await updatePassword(currentUser, newPassword);
             }
 
             // Update Email if changed
             if (email !== user.email) {
-                const { error } = await supabase.auth.updateUser({ email: email });
-                if (error) throw error;
+                await updateEmail(currentUser, email);
             }
 
             setMsg({ type: 'success', text: 'Profile updated successfully.' });

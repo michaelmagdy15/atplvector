@@ -35,8 +35,7 @@ export default defineConfig(({ mode }) => {
           manualChunks: {
             'vendor-react': ['react', 'react-dom', 'framer-motion'],
             'vendor-three': ['three', '@react-three/fiber', '@react-three/drei'],
-            'vendor-utils': ['lucide-react', '@hello-pangea/dnd', 'recharts'],
-            'vendor-firebase': ['@supabase/supabase-js']
+            'vendor-utils': ['lucide-react', '@hello-pangea/dnd', 'recharts']
           }
         }
       }

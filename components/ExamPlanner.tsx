@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, ChevronRight, AlertCircle, Info, Trash2, CheckCircle2, Layout, Clock, BookOpen, Target, Sparkles, Plus, GripVertical, CalendarDays, Calculator } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { db } from '../lib/firebase';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { User } from '../types';
 import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
 
@@ -46,33 +47,33 @@ export const ExamPlanner: React.FC<ExamPlannerProps> = ({ currentUser }) => {
     const [startDate, setStartDate] = useState<string>(new Date().toISOString().split('T')[0]);
     const [isLoading, setIsLoading] = useState(true);
 
-    // Load from Supabase (if logged in) or Local Storage
+    // Load from Firebase (if logged in) or Local Storage
     useEffect(() => {
         const loadPlan = async () => {
             setIsLoading(true);
             let synced = false;
 
-            // 1. Try fetching from Supabase if user exists
+            // 1. Try fetching from Firebase if user exists
             if (currentUser?.id) {
                 try {
-                    const { data, error } = await supabase
-                        .from('profiles')
-                        .select('exam_plan')
-                        .eq('id', currentUser.id)
-                        .single();
+                    const profileDocRef = doc(db, 'profiles', currentUser.id);
+                    const docSnap = await getDoc(profileDocRef);
 
-                    if (data?.exam_plan) {
-                        setSittings(data.exam_plan.sittings || []);
-                        setSelectedSubjects(data.exam_plan.selectedSubjects || []);
-                        setStartDate(data.exam_plan.startDate || new Date().toISOString().split('T')[0]);
-                        synced = true;
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        if (data?.exam_plan) {
+                            setSittings(data.exam_plan.sittings || []);
+                            setSelectedSubjects(data.exam_plan.selectedSubjects || []);
+                            setStartDate(data.exam_plan.startDate || new Date().toISOString().split('T')[0]);
+                            synced = true;
+                        }
                     }
                 } catch (err) {
                     console.error("Error fetching exam plan:", err);
                 }
             }
 
-            // 2. Fallback to Local Storage if no Supabase data found
+            // 2. Fallback to Local Storage if no Firebase data found
             if (!synced) {
                 const saved = localStorage.getItem('atpl_exam_plan');
                 if (saved) {
@@ -92,7 +93,7 @@ export const ExamPlanner: React.FC<ExamPlannerProps> = ({ currentUser }) => {
         loadPlan();
     }, [currentUser?.id]); // Only re-run if user ID changes (e.g. login)
 
-    // Save to Local Storage & Supabase (Debounced)
+    // Save to Local Storage & Firebase (Debounced)
     useEffect(() => {
         if (isLoading) return; // Don't save empty state while loading
 
@@ -101,11 +102,14 @@ export const ExamPlanner: React.FC<ExamPlannerProps> = ({ currentUser }) => {
         // Always save to local storage as backup
         localStorage.setItem('atpl_exam_plan', JSON.stringify(planData));
 
-        // Sync to Supabase if logged in
+        // Sync to Firebase if logged in
         if (currentUser?.id) {
             const timer = setTimeout(async () => {
                 try {
-                    await supabase.update({ exam_plan: planData }).eq('id', currentUser.id).from('profiles');
+                    const profileDocRef = doc(db, 'profiles', currentUser.id);
+                    await updateDoc(profileDocRef, {
+                        exam_plan: planData
+                    });
                 } catch (err) {
                     console.error("Error saving exam plan:", err);
                 }

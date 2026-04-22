@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { User } from '../types';
 import { SUBJECTS } from '../data/learningObjectives';
 import { Check, CreditCard, Shield, Zap, ArrowLeft, CheckCircle, Layout, History, Save } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { db } from '../lib/firebase';
+import { collection, query, where, getDocs, doc, updateDoc, setDoc } from 'firebase/firestore';
 
 interface Props {
     user: User;
@@ -47,7 +48,7 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
         return '';
     };
 
-    // MANUAL SUBSCRIPTION LOGIC (Option B)
+    // MANUAL SUBSCRIPTION LOGIC (Firebase Version)
     const handleSave = async () => {
         if (plan === 'SINGLE_SUBJECT' && subjects.length === 0) {
             alert("Please select at least one subject for the Single Subject plan.");
@@ -58,12 +59,10 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
         const newAllowed = plan === 'SINGLE_SUBJECT' ? subjects : ['ALL'];
 
         try {
-            // 1. Check if subscription exists (Avoids ON CONFLICT error if DB constraint is missing)
-            const { data: existingSub } = await supabase
-                .from('subscriptions')
-                .select('id')
-                .eq('user_id', user.id)
-                .maybeSingle();
+            // 1. Check if subscription exists
+            const subsRef = collection(db, 'subscriptions');
+            const q = query(subsRef, where('user_id', '==', user.id));
+            const querySnapshot = await getDocs(q);
 
             const subPayload = {
                 user_id: user.id,
@@ -72,24 +71,16 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                 updated_at: new Date().toISOString()
             };
 
-            let error;
-
-            if (existingSub) {
-                // Update existing
-                const res = await supabase
-                    .from('subscriptions')
-                    .update(subPayload)
-                    .eq('id', existingSub.id);
-                error = res.error;
+            if (!querySnapshot.empty) {
+                // Update existing subscription
+                const subDoc = querySnapshot.docs[0];
+                const subDocRef = doc(db, 'subscriptions', subDoc.id);
+                await updateDoc(subDocRef, subPayload);
             } else {
-                // Insert new
-                const res = await supabase
-                    .from('subscriptions')
-                    .insert(subPayload);
-                error = res.error;
+                // Create new subscription using setDoc with auto-generated ID or user-based ID
+                const subDocRef = doc(db, 'subscriptions', user.id);
+                await setDoc(subDocRef, subPayload, { merge: true });
             }
-
-            if (error) throw error;
 
             // Update local state
             const updatedUser: User = {

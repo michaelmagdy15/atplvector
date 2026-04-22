@@ -2,7 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { ChevronRight, ChevronDown, Circle, BookOpen, Search, Check, Clock, HelpCircle } from 'lucide-react';
 import { View, User } from '../types';
 import { SyllabusNode } from '../services/syllabusService';
-import { supabase } from '../lib/supabase';
+import { db } from '../lib/firebase';
+import { doc, updateDoc } from 'firebase/firestore';
 import { SUBJECTS, LEARNING_OBJECTIVES, calculateProgress } from '../data/learningObjectives';
 import syllabusData from '../data/syllabus.json';
 
@@ -122,7 +123,10 @@ const SyllabusViewer: React.FC<SyllabusViewerProps> = ({ subjectId, currentUser,
             };
             onUpdateUser({ ...currentUser, learningObjectivesRatings: newRatings });
             try {
-                await supabase.from('profiles').update({ learning_objectives_ratings: newRatings }).eq('id', currentUser.id);
+                const profileDocRef = doc(db, 'profiles', currentUser.id);
+                await updateDoc(profileDocRef, {
+                    learning_objectives_ratings: newRatings
+                });
             } catch (err) { console.error("Failed to save rating", err); }
         } else {
             const newRatings = { ...localRatings, [loId]: rating };

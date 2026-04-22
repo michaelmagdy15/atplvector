@@ -237,7 +237,7 @@ const PoFHighSpeed: React.FC = () => {
                                                 <g>
                                                     <path d="M 50 75 L 150 50 L 250 75 L 150 100 Z" fill="#475569" /> {/* Wedge */}
                                                     <line x1="50" y1="75" x2="120" y2="20" stroke="#facc15" strokeWidth="3" />
-                                                    <text x="125" y="15" fill="#facc15" fontSize="10">Oblique Shock (M > 1)</text>
+                                                    <text x="125" y="15" fill="#facc15" fontSize="10">Oblique Shock (M &gt; 1)</text>
                                                 </g>
                                             )}
                                             {shockType === 'BOW' && (

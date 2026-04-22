@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Flashcard } from '../types';
 import { SUBJECTS } from '../data/learningObjectives';
 import { Plus, Trash2, Filter, RotateCcw, ChevronLeft, ChevronRight, Brain, GraduationCap, Shuffle } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { auth, db } from '../lib/firebase';
+import { collection, query, where, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore';
 
 // Static System Cards (Cannot be deleted by user)
 const SYSTEM_CARDS: Flashcard[] = [
@@ -226,21 +227,22 @@ const FlashcardSystem: React.FC = () => {
     }, []);
 
     const fetchUserCards = async () => {
-        const { data: session } = await supabase.auth.getSession();
-        if (session.session?.user) {
-            const { data, error } = await supabase
-                .from('flashcards')
-                .select('*')
-                .eq('user_id', session.session.user.id);
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+            try {
+                const flashcardsRef = collection(db, 'flashcards');
+                const q = query(flashcardsRef, where('user_id', '==', currentUser.uid));
+                const querySnapshot = await getDocs(q);
 
-            if (data && !error) {
-                const mapped: Flashcard[] = data.map((d: any) => ({
+                const mapped: Flashcard[] = querySnapshot.docs.map((d: any) => ({
                     id: d.id,
-                    subjectId: d.subject_id,
-                    front: d.front,
-                    back: d.back
+                    subjectId: d.data().subject_id,
+                    front: d.data().front,
+                    back: d.data().back
                 }));
                 setUserCards(mapped);
+            } catch (error) {
+                console.error("Error fetching user cards:", error);
             }
         }
     };
@@ -253,32 +255,27 @@ const FlashcardSystem: React.FC = () => {
         setIsSaving(true);
 
         try {
-            const { data: userData } = await supabase.auth.getUser();
-            const userId = userData.user?.id;
+            const currentUser = auth.currentUser;
 
-            if (userId) {
-                // Persist to DB
-                const { data, error } = await supabase.from('flashcards').insert({
-                    user_id: userId,
+            if (currentUser) {
+                // Persist to Firestore
+                const flashcardsRef = collection(db, 'flashcards');
+                const docRef = await addDoc(flashcardsRef, {
+                    user_id: currentUser.uid,
                     subject_id: newSub,
                     front: newFront,
                     back: newBack
-                }).select().single();
+                });
 
-                if (data && !error) {
-                    const newCard: Flashcard = {
-                        id: data.id,
-                        subjectId: data.subject_id,
-                        front: data.front,
-                        back: data.back
-                    };
-                    setUserCards([...userCards, newCard]);
-                    setNewFront('');
-                    setNewBack('');
-                } else if (error) {
-                    console.error("DB Error:", error);
-                    alert("Failed to save card. " + (error.message || "Unknown error"));
-                }
+                const newCard: Flashcard = {
+                    id: docRef.id,
+                    subjectId: newSub,
+                    front: newFront,
+                    back: newBack
+                };
+                setUserCards([...userCards, newCard]);
+                setNewFront('');
+                setNewBack('');
             } else {
                 alert("You must be logged in to create cards.");
             }
@@ -294,10 +291,11 @@ const FlashcardSystem: React.FC = () => {
         // Prevent deleting system cards
         if (id.startsWith('sys-')) return;
 
-        const { error } = await supabase.from('flashcards').delete().eq('id', id);
-        if (!error) {
+        try {
+            const cardDocRef = doc(db, 'flashcards', id);
+            await deleteDoc(cardDocRef);
             setUserCards(userCards.filter(c => c.id !== id));
-        } else {
+        } catch (error: any) {
             alert("Failed to delete card: " + error.message);
         }
     };

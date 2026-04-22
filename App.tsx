@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { AuthStatus, View, User } from './types';
 import { GamificationProvider } from './context/GamificationContext';
-import { supabase } from './lib/supabase';
+import { auth, db } from './lib/firebase';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { doc, getDoc, setDoc, updateDoc, collection, getDocs } from 'firebase/firestore';
 import { AnimatePresence } from 'framer-motion';
 import AnimatedPageWrapper from './components/AnimatedPageWrapper';
 
@@ -107,105 +109,68 @@ const App: React.FC = () => {
     const [isSubmittingCode, setIsSubmittingCode] = useState(false);
     const [codeError, setCodeError] = useState('');
 
-    // Clean URL hash after Supabase redirect
-    useEffect(() => {
-        if (window.location.hash && window.location.hash.includes('access_token')) {
-            window.history.replaceState({}, document.title, window.location.pathname);
-        }
-    }, []);
-
     // Initial Data Fetch & Auth Listener
     useEffect(() => {
         // Check for recovery token in URL before anything else
-        const isRecovery = window.location.hash?.includes('type=recovery') ||
-            window.location.search?.includes('type=recovery');
+        const isRecovery = window.location.search?.includes('mode=resetPassword');
 
         if (isRecovery) {
             setAuthInitialView('RESET_PASSWORD');
         }
 
-        // 1. Check for active session
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            if (session) {
-                fetchUserProfile(session.user.id, session.user.email!, session.user.user_metadata).then(() => {
+        // Listen for auth changes
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            console.log("Auth State Changed:", currentUser?.email);
+            if (currentUser) {
+                fetchUserProfile(currentUser.uid, currentUser.email!).then(() => {
                     if (isRecovery) setCurrentView(View.ACCOUNT_SETTINGS);
                 });
             } else {
+                setUser(null);
+                setCurrentView(View.PLATFORM_DASHBOARD);
                 setIsLoading(false);
             }
         });
 
-        // 2. Listen for auth changes
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-            console.log("Auth Event:", event);
-            if (event === 'PASSWORD_RECOVERY') {
-                if (session) {
-                    fetchUserProfile(session.user.id, session.user.email!, session.user.user_metadata).then(() => {
-                        setCurrentView(View.ACCOUNT_SETTINGS);
-                    });
-                } else {
-                    setAuthInitialView('RESET_PASSWORD');
-                }
-            } else if (session) {
-                fetchUserProfile(session.user.id, session.user.email!, session.user.user_metadata);
-            } else {
-                setUser(null);
-                setCurrentView(View.PLATFORM_DASHBOARD);
-            }
-        });
-
-        return () => subscription.unsubscribe();
+        return () => unsubscribe();
     }, []);
 
-    const fetchUserProfile = async (uid: string, email: string, metadata: any = {}) => {
+    const fetchUserProfile = async (uid: string, email: string) => {
         try {
             // Trial configuration
             const TRIAL_DURATION_DAYS = 7;
             const TRIAL_SUBJECTS = ['090']; // Communications only for free/trial users
 
-            // Try to get profile
-            let { data: profile, error } = await supabase
-                .from('profiles')
-                .select('*')
-                .eq('id', uid)
-                .single();
+            // Try to get profile from Firestore
+            const profileRef = doc(db, 'profiles', uid);
+            const profileSnap = await getDoc(profileRef);
+            let profile = profileSnap.data();
 
             // Auto-create profile if missing (Self-healing for existing users)
-            if (error && (error.code === 'PGRST116' || error.message.includes('0 rows'))) {
+            if (!profile) {
                 console.log("Profile missing, creating new profile with trial access...");
                 const trialStartDate = new Date().toISOString();
 
-                // Determine initial approval status from metadata
-                const isApproved = metadata?.initial_status === 'PENDING_APPROVAL' ? false : true;
+                profile = {
+                    id: uid,
+                    email: email,
+                    full_name: 'Pilot',
+                    study_seconds: 0,
+                    trial_start_date: trialStartDate,
+                    trial_subjects: TRIAL_SUBJECTS,
+                    is_approved: false
+                };
 
-                const { data: newProfile, error: createError } = await supabase
-                    .from('profiles')
-                    .insert([{
-                        id: uid,
-                        email: email,
-                        full_name: metadata?.full_name || 'Pilot',
-                        study_seconds: 0,
-                        trial_start_date: trialStartDate,
-                        trial_subjects: TRIAL_SUBJECTS,
-                        is_approved: isApproved
-                    }])
-                    .select()
-                    .single();
-
-                if (createError) {
-                    console.error("Failed to create profile:", createError);
-                } else {
-                    profile = newProfile;
-                    // Also ensure subscription exists
-                    await supabase.from('subscriptions').insert([{ user_id: uid, plan: 'CUSTOM', status: 'inactive' }]);
-                }
+                await setDoc(profileRef, profile);
+                // Also ensure subscription exists
+                const subRef = doc(db, 'subscriptions', uid);
+                await setDoc(subRef, { user_id: uid, plan: 'CUSTOM', status: 'inactive' });
             }
 
-            const { data: sub } = await supabase
-                .from('subscriptions')
-                .select('*')
-                .eq('user_id', uid)
-                .single();
+            // Get subscription
+            const subRef = doc(db, 'subscriptions', uid);
+            const subSnap = await getDoc(subRef);
+            const sub = subSnap.data();
 
             let subTier: any = 'CUSTOM';
             let allowedSubjects: string[] = ['090']; // Default to 090 (Comms) always allowed
@@ -334,12 +299,9 @@ const App: React.FC = () => {
                 setStudyTime(prev => {
                     const newValue = prev + 1;
                     if (newValue % 30 === 0) {
-                        supabase.from('profiles')
-                            .update({ study_seconds: newValue })
-                            .eq('id', user.id)
-                            .then(({ error }) => {
-                                if (error) console.error("Failed to auto-save study time:", error);
-                            });
+                        updateDoc(doc(db, 'profiles', user.id), { study_seconds: newValue }).catch(error => {
+                            console.error("Failed to auto-save study time:", error);
+                        });
                     }
                     return newValue;
                 });
@@ -358,7 +320,7 @@ const App: React.FC = () => {
                 startTimer();
             } else {
                 stopTimer();
-                supabase.from('profiles').update({ study_seconds: studyTimeRef.current }).eq('id', user.id);
+                updateDoc(doc(db, 'profiles', user.id), { study_seconds: studyTimeRef.current });
             }
         };
 
@@ -371,15 +333,15 @@ const App: React.FC = () => {
         return () => {
             stopTimer();
             document.removeEventListener('visibilitychange', handleVisibility);
-            supabase.from('profiles').update({ study_seconds: studyTimeRef.current }).eq('id', user.id);
+            updateDoc(doc(db, 'profiles', user.id), { study_seconds: studyTimeRef.current });
         };
     }, [user?.id]);
 
     const handleLogout = async () => {
         if (user) {
-            await supabase.from('profiles').update({ study_seconds: studyTime }).eq('id', user.id);
+            await updateDoc(doc(db, 'profiles', user.id), { study_seconds: studyTime });
         }
-        await supabase.auth.signOut();
+        await signOut(auth);
         setUser(null);
         setCurrentView(View.PLATFORM_DASHBOARD);
         setAuthInitialView('LOGIN');
@@ -432,30 +394,27 @@ const App: React.FC = () => {
             setCodeError('');
 
             try {
-                const { data: codeData, error: codeError } = await supabase
-                    .from('access_codes')
-                    .select('*')
-                    .eq('code', pendingInviteCode.trim().toUpperCase())
-                    .eq('is_used', false)
-                    .single();
+                // Query for the access code (case-insensitive search)
+                const codesSnapshot = await getDocs(collection(db, 'access_codes'));
+                const codeData = codesSnapshot.docs
+                    .map(d => ({ id: d.id, ...d.data() }))
+                    .find(d => d.code === pendingInviteCode.trim().toUpperCase() && !d.is_used);
 
-                if (codeError || !codeData) throw new Error("Invalid or expired code.");
+                if (!codeData) throw new Error("Invalid or expired code.");
 
-                await supabase.from('access_codes').update({
+                // Mark code as used
+                await updateDoc(doc(db, 'access_codes', codeData.id), {
                     is_used: true,
                     used_by_user: user.id,
                     used_at: new Date().toISOString()
-                }).eq('id', codeData.id);
+                });
 
-                const { error: updateError } = await supabase
-                    .from('profiles')
-                    .update({
-                        is_approved: true,
-                        trial_start_date: new Date().toISOString()
-                    })
-                    .eq('id', user.id);
+                // Approve user
+                await updateDoc(doc(db, 'profiles', user.id), {
+                    is_approved: true,
+                    trial_start_date: new Date().toISOString()
+                });
 
-                if (updateError) throw updateError;
                 await fetchUserProfile(user.id, user.email || '');
 
             } catch (err: any) {
