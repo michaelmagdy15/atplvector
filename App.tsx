@@ -3,7 +3,7 @@ import { AuthStatus, View, User } from './types';
 import { GamificationProvider } from './context/GamificationContext';
 import { auth, db } from './lib/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { doc, getDoc, setDoc, updateDoc, collection, getDocs } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, collection, getDocs, increment } from 'firebase/firestore';
 import { AnimatePresence } from 'framer-motion';
 import AnimatedPageWrapper from './components/AnimatedPageWrapper';
 
@@ -22,6 +22,7 @@ import { getSubjectConfig } from './data/sidebarNavigation';
 import LoadingScreen from './components/LoadingScreen';
 import SplineVisualizer from './components/visual/SplineVisualizer';
 import CommandPalette from './components/CommandPalette';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { ToastProvider } from './components/ui/ToastContext';
 import FocusTimer from './components/study/FocusTimer';
 import Scratchpad from './components/study/Scratchpad';
@@ -244,12 +245,49 @@ const App: React.FC = () => {
                     finalStatus = AuthStatus.FREE_TRIAL;
                 }
 
+                // Gamification Logic
+                let dailyGoalSeconds = profile.daily_goal_seconds || 3600;
+                let dailyStudyData = profile.daily_study_data || {};
+                let lastStudyDate = profile.last_study_date;
+                let streakDays = profile.streak_days || 0;
+
+                const todayDateStr = new Date().toISOString().split('T')[0];
+                if (lastStudyDate) {
+                    if (lastStudyDate !== todayDateStr) {
+                        const yesterday = new Date();
+                        yesterday.setDate(yesterday.getDate() - 1);
+                        const yesterdayStr = yesterday.toISOString().split('T')[0];
+                        
+                        if (lastStudyDate === yesterdayStr) {
+                            streakDays += 1;
+                        } else {
+                            streakDays = 1; // broken streak
+                        }
+                        lastStudyDate = todayDateStr;
+                        updateDoc(doc(db, 'profiles', uid), { 
+                            streak_days: streakDays,
+                            last_study_date: todayDateStr
+                        });
+                    }
+                } else {
+                    lastStudyDate = todayDateStr;
+                    streakDays = 1;
+                    updateDoc(doc(db, 'profiles', uid), { 
+                        streak_days: streakDays,
+                        last_study_date: todayDateStr
+                    });
+                }
+
                 setUser({
                     id: uid,
                     email: email,
                     fullName: profile.full_name,
                     status: finalStatus,
                     studySeconds: profile.study_seconds || 0,
+                    streakDays: streakDays,
+                    lastStudyDate: lastStudyDate,
+                    dailyGoalSeconds: dailyGoalSeconds,
+                    dailyStudyData: dailyStudyData,
                     subscriptionTier: subTier,
                     allowedSubjects: allowedSubjects,
                     isAdmin: profile.is_admin,
@@ -296,7 +334,20 @@ const App: React.FC = () => {
                 setStudyTime(prev => {
                     const newValue = prev + 1;
                     if (newValue % 30 === 0) {
-                        updateDoc(doc(db, 'profiles', user.id), { study_seconds: newValue }).catch(error => {
+                        const todayDateStr = new Date().toISOString().split('T')[0];
+                        
+                        // Update User state locally for immediate UI reflection
+                        setUser(u => {
+                            if (!u) return u;
+                            const newDailyData = { ...u.dailyStudyData };
+                            newDailyData[todayDateStr] = (newDailyData[todayDateStr] || 0) + 30;
+                            return { ...u, dailyStudyData: newDailyData };
+                        });
+
+                        updateDoc(doc(db, 'profiles', user.id), { 
+                            study_seconds: newValue,
+                            [`daily_study_data.${todayDateStr}`]: increment(30)
+                        }).catch(error => {
                             console.error("Failed to auto-save study time:", error);
                         });
                     }
@@ -362,25 +413,27 @@ const App: React.FC = () => {
 
     if (!user) {
         return (
-            <React.Suspense fallback={<LoadingScreen />}>
-                <AuthView
-                    onAuthChange={setUser}
-                    initialView={authInitialView}
-                    onDemoLogin={() => {
-                        setUser({
-                            id: 'demo-user',
-                            email: 'demo@atplvector.com',
-                            fullName: 'Captain Demo',
-                            status: AuthStatus.ACTIVE,
-                            studySeconds: 3600,
-                            subscriptionTier: 'PRO_MONTHLY',
-                            allowedSubjects: ['ALL'],
-                            isAdmin: false,
-                            isApproved: true
-                        });
-                    }}
-                />
-            </React.Suspense>
+            <ErrorBoundary>
+                <React.Suspense fallback={<LoadingScreen />}>
+                    <AuthView
+                        onAuthChange={setUser}
+                        initialView={authInitialView}
+                        onDemoLogin={() => {
+                            setUser({
+                                id: 'demo-user',
+                                email: 'demo@atplvector.com',
+                                fullName: 'Captain Demo',
+                                status: AuthStatus.ACTIVE,
+                                studySeconds: 3600,
+                                subscriptionTier: 'PRO_MONTHLY',
+                                allowedSubjects: ['ALL'],
+                                isAdmin: false,
+                                isApproved: true
+                            });
+                        }}
+                    />
+                </React.Suspense>
+            </ErrorBoundary>
         );
     }
 
@@ -601,19 +654,23 @@ const App: React.FC = () => {
                         )}
 
                         <div className="flex-1 min-w-0">
-                            <Router
-                                currentView={currentView}
-                                user={user}
-                                studyTime={studyTime}
-                                navigateTo={navigateTo}
-                                handleLogout={handleLogout}
-                                handleUserUpdate={handleUserUpdate}
-                                handleOpenSyllabus={handleOpenSyllabus}
-                                isSubjectAllowed={isSubjectAllowed}
-                                goBack={goBack}
-                                goForward={goForward}
-                                selectedSubjectId={selectedSubjectId}
-                            />
+                            <ErrorBoundary>
+                                <React.Suspense fallback={<LoadingScreen />}>
+                                    <Router
+                                        currentView={currentView}
+                                        user={user}
+                                        studyTime={studyTime}
+                                        navigateTo={navigateTo}
+                                        handleLogout={handleLogout}
+                                        handleUserUpdate={handleUserUpdate}
+                                        handleOpenSyllabus={handleOpenSyllabus}
+                                        isSubjectAllowed={isSubjectAllowed}
+                                        goBack={goBack}
+                                        goForward={goForward}
+                                        selectedSubjectId={selectedSubjectId}
+                                    />
+                                </React.Suspense>
+                            </ErrorBoundary>
                         </div>
                     </div>
                 </main>

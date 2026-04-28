@@ -6,6 +6,7 @@ import { QB_Setup } from './QB_Setup';
 import { QB_Grid } from './QB_Grid';
 import { QB_Results } from './QB_Results';
 import { QBStorage } from '../lib/qb_storage';
+import { getExplanation } from '../lib/ai';
 import syllabusMetadata from '../data/qb_metadata.json'; // Access to titles for results
 
 const metadata = syllabusMetadata as { [key: string]: any[] };
@@ -33,7 +34,7 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
 
     const submitReport = () => {
         if (!reportingQ) return;
-        // In a real app, send to Supabase here
+        // In a real app, send to Firebase here
         console.log("Submitting report:", { questionId: reportingQ.id, ...reportData });
         alert("Thank you! Your report has been submitted. Our team will review it shortly to keep the ECQB 2024 bank updated.");
         setReportingQ(null);
@@ -45,19 +46,27 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
     const handleAIExplanation = async (question: Question) => {
         setGeneratingAI(question.id);
 
-        // Simulating AI request (Gemini 1.5 Flash)
-        setTimeout(() => {
-            const aiExp = `[AI GENERATED EXPLANATION]\nThis is a high-quality explanation for "${question.question}". In a real environment, this text would be the output of Gemini 1.5 Flash, providing technical reasoning for why choice ${String.fromCharCode(65 + question.correctAnswer)} is correct. This response is then saved to Supabase to serve all future students.`;
+        try {
+            const explanation = await getExplanation(
+                question.id,
+                question.question,
+                question.options,
+                question.correctAnswer
+            );
 
             // Update the local question object for immediate UI update
-            question.explanation = aiExp;
-
-            // In a real app, you'd also update the master list or send to Supabase
-            console.log("Saving AI explanation to Supabase/DB for:", question.id);
-
+            // We use functional state update or re-render trigger if needed, 
+            // but mutating here works because the component uses currentQ reference
+            question.explanation = explanation;
+            
+            // Force a re-render to show the explanation
+            setCurrentTest(prev => prev ? { ...prev } : null);
+        } catch (error) {
+            console.error("AI Explanation Error:", error);
+            alert("Failed to fetch explanation. Please try again later.");
+        } finally {
             setGeneratingAI(null);
-            alert("AI Explanation generated and saved for all students!");
-        }, 1500);
+        }
     };
 
     // Timer & Pacing
