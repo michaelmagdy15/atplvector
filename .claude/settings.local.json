@@ -3,7 +3,10 @@
     "allow": [
       "Bash(xargs wc *)",
       "Bash(awk '{print $NF}')",
-      "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); print\\([s['code']+' - '+s['title'] for s in data]\\)\")"
+      "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); print\\([s['code']+' - '+s['title'] for s in data]\\)\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }

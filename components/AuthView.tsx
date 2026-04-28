@@ -762,13 +762,13 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                             </div>
 
 
-                                            {/* view === 'LOGIN' && onDemoLogin && (
+                                            {view === 'LOGIN' && onDemoLogin && (
                                                 <div className="pt-4 border-t border-white/10 animate-in fade-in delay-300">
                                                     <button type="button" onClick={onDemoLogin} className="w-full bg-white/5 hover:bg-white/10 text-slate-300 py-3 rounded-xl font-bold transition-all flex items-center justify-center border border-white/10 hover:border-emerald-500/50 hover:text-emerald-400 group">
                                                         <PlayCircle className="mr-2 w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform" /> Demo Access
                                                     </button>
                                                 </div>
-                                            ) */}
+                                            )}
                                         </form>
                                     )}
                                 </div>
