@@ -3,7 +3,7 @@ import { AuthStatus, View, User } from './types';
 import { GamificationProvider } from './context/GamificationContext';
 import { auth, db } from './lib/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { doc, getDoc, setDoc, updateDoc, collection, getDocs } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, collection, getDocs, increment } from 'firebase/firestore';
 import { AnimatePresence } from 'framer-motion';
 import AnimatedPageWrapper from './components/AnimatedPageWrapper';
 
@@ -22,6 +22,7 @@ import { getSubjectConfig } from './data/sidebarNavigation';
 import LoadingScreen from './components/LoadingScreen';
 import SplineVisualizer from './components/visual/SplineVisualizer';
 import CommandPalette from './components/CommandPalette';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { ToastProvider } from './components/ui/ToastContext';
 import FocusTimer from './components/study/FocusTimer';
 import Scratchpad from './components/study/Scratchpad';
@@ -104,10 +105,7 @@ const App: React.FC = () => {
     const canGoForward = historyIndex < viewHistory.length - 1;
     const [isLoading, setIsLoading] = useState(true);
 
-    // Pending/Invite State
-    const [pendingInviteCode, setPendingInviteCode] = useState('');
-    const [isSubmittingCode, setIsSubmittingCode] = useState(false);
-    const [codeError, setCodeError] = useState('');
+
 
     // Initial Data Fetch & Auth Listener
     useEffect(() => {
@@ -158,7 +156,7 @@ const App: React.FC = () => {
                     study_seconds: 0,
                     trial_start_date: trialStartDate,
                     trial_subjects: TRIAL_SUBJECTS,
-                    is_approved: false
+                    is_approved: true
                 };
 
                 await setDoc(profileRef, profile);
@@ -243,8 +241,41 @@ const App: React.FC = () => {
                     finalStatus = AuthStatus.FREE_TRIAL;
                 } else if (isTrialExpired) {
                     finalStatus = AuthStatus.TRIAL_EXPIRED;
-                } else if (!profile.is_approved && !profile.is_admin) {
-                    finalStatus = AuthStatus.PENDING_APPROVAL;
+                } else {
+                    finalStatus = AuthStatus.FREE_TRIAL;
+                }
+
+                // Gamification Logic
+                let dailyGoalSeconds = profile.daily_goal_seconds || 3600;
+                let dailyStudyData = profile.daily_study_data || {};
+                let lastStudyDate = profile.last_study_date;
+                let streakDays = profile.streak_days || 0;
+
+                const todayDateStr = new Date().toISOString().split('T')[0];
+                if (lastStudyDate) {
+                    if (lastStudyDate !== todayDateStr) {
+                        const yesterday = new Date();
+                        yesterday.setDate(yesterday.getDate() - 1);
+                        const yesterdayStr = yesterday.toISOString().split('T')[0];
+                        
+                        if (lastStudyDate === yesterdayStr) {
+                            streakDays += 1;
+                        } else {
+                            streakDays = 1; // broken streak
+                        }
+                        lastStudyDate = todayDateStr;
+                        updateDoc(doc(db, 'profiles', uid), { 
+                            streak_days: streakDays,
+                            last_study_date: todayDateStr
+                        });
+                    }
+                } else {
+                    lastStudyDate = todayDateStr;
+                    streakDays = 1;
+                    updateDoc(doc(db, 'profiles', uid), { 
+                        streak_days: streakDays,
+                        last_study_date: todayDateStr
+                    });
                 }
 
                 setUser({
@@ -253,10 +284,14 @@ const App: React.FC = () => {
                     fullName: profile.full_name,
                     status: finalStatus,
                     studySeconds: profile.study_seconds || 0,
+                    streakDays: streakDays,
+                    lastStudyDate: lastStudyDate,
+                    dailyGoalSeconds: dailyGoalSeconds,
+                    dailyStudyData: dailyStudyData,
                     subscriptionTier: subTier,
                     allowedSubjects: allowedSubjects,
                     isAdmin: profile.is_admin,
-                    isApproved: profile.is_approved,
+                    isApproved: true,
                     trialStartDate: trialStartDate,
                     demoStartDate: demoStartDate,
                     trialSubjects: trialSubjects
@@ -267,12 +302,12 @@ const App: React.FC = () => {
                     id: uid,
                     email: email,
                     fullName: 'Pilot',
-                    status: AuthStatus.PENDING_APPROVAL,
+                    status: AuthStatus.FREE_TRIAL,
                     studySeconds: 0,
                     subscriptionTier: 'CUSTOM',
                     allowedSubjects: [],
                     isAdmin: false,
-                    isApproved: false
+                    isApproved: true
                 });
             }
         } catch (error) {
@@ -299,7 +334,20 @@ const App: React.FC = () => {
                 setStudyTime(prev => {
                     const newValue = prev + 1;
                     if (newValue % 30 === 0) {
-                        updateDoc(doc(db, 'profiles', user.id), { study_seconds: newValue }).catch(error => {
+                        const todayDateStr = new Date().toISOString().split('T')[0];
+                        
+                        // Update User state locally for immediate UI reflection
+                        setUser(u => {
+                            if (!u) return u;
+                            const newDailyData = { ...u.dailyStudyData };
+                            newDailyData[todayDateStr] = (newDailyData[todayDateStr] || 0) + 30;
+                            return { ...u, dailyStudyData: newDailyData };
+                        });
+
+                        updateDoc(doc(db, 'profiles', user.id), { 
+                            study_seconds: newValue,
+                            [`daily_study_data.${todayDateStr}`]: increment(30)
+                        }).catch(error => {
                             console.error("Failed to auto-save study time:", error);
                         });
                     }
@@ -365,112 +413,30 @@ const App: React.FC = () => {
 
     if (!user) {
         return (
-            <React.Suspense fallback={<LoadingScreen />}>
-                <AuthView
-                    onAuthChange={setUser}
-                    initialView={authInitialView}
-                    onDemoLogin={() => {
-                        setUser({
-                            id: 'demo-user',
-                            email: 'demo@atplvector.com',
-                            fullName: 'Captain Demo',
-                            status: AuthStatus.ACTIVE,
-                            studySeconds: 3600,
-                            subscriptionTier: 'PRO_MONTHLY',
-                            allowedSubjects: ['ALL'],
-                            isAdmin: false,
-                            isApproved: true
-                        });
-                    }}
-                />
-            </React.Suspense>
+            <ErrorBoundary>
+                <React.Suspense fallback={<LoadingScreen />}>
+                    <AuthView
+                        onAuthChange={setUser}
+                        initialView={authInitialView}
+                        onDemoLogin={() => {
+                            setUser({
+                                id: 'demo-user',
+                                email: 'demo@atplvector.com',
+                                fullName: 'Captain Demo',
+                                status: AuthStatus.ACTIVE,
+                                studySeconds: 3600,
+                                subscriptionTier: 'PRO_MONTHLY',
+                                allowedSubjects: ['ALL'],
+                                isAdmin: false,
+                                isApproved: true
+                            });
+                        }}
+                    />
+                </React.Suspense>
+            </ErrorBoundary>
         );
     }
 
-    if (user.status === AuthStatus.PENDING_APPROVAL) {
-        const handleSubmitInviteCode = async () => {
-            if (!pendingInviteCode.trim()) return;
-            setIsSubmittingCode(true);
-            setCodeError('');
-
-            try {
-                // Query for the access code (case-insensitive search)
-                const codesSnapshot = await getDocs(collection(db, 'access_codes'));
-                const codeData = codesSnapshot.docs
-                    .map(d => ({ id: d.id, ...d.data() }))
-                    .find(d => d.code === pendingInviteCode.trim().toUpperCase() && !d.is_used);
-
-                if (!codeData) throw new Error("Invalid or expired code.");
-
-                // Mark code as used
-                await updateDoc(doc(db, 'access_codes', codeData.id), {
-                    is_used: true,
-                    used_by_user: user.id,
-                    used_at: new Date().toISOString()
-                });
-
-                // Approve user
-                await updateDoc(doc(db, 'profiles', user.id), {
-                    is_approved: true,
-                    trial_start_date: new Date().toISOString()
-                });
-
-                await fetchUserProfile(user.id, user.email || '');
-
-            } catch (err: any) {
-                setCodeError(err.message || "Failed to verify code.");
-            } finally {
-                setIsSubmittingCode(false);
-            }
-        };
-
-        return (
-            <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6">
-                <div className="max-w-md w-full bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 text-center shadow-2xl relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-500 to-orange-500"></div>
-                    <div className="w-16 h-16 bg-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-6 ring-4 ring-amber-500/10">
-                        <svg className="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div>
-                    <h1 className="text-2xl font-bold text-white mb-3">Waitlist / Approval</h1>
-                    <p className="text-slate-400 mb-6">
-                        Hi <span className="text-white font-medium">{user.fullName || user.email}</span>, your account is awaiting admin approval.
-                    </p>
-                    <div className="bg-slate-800/80 rounded-xl p-5 mb-6 border border-slate-700">
-                        <h3 className="text-sm font-bold text-slate-300 uppercase mb-3 flex items-center justify-center gap-2">Skip the queue</h3>
-                        <div className="flex gap-2">
-                            <input
-                                type="text"
-                                value={pendingInviteCode}
-                                onChange={e => setPendingInviteCode(e.target.value.toUpperCase())}
-                                placeholder="ENTER-CODE"
-                                className="flex-1 bg-slate-950 border border-slate-600 rounded-lg px-3 py-2 text-white font-mono text-center uppercase tracking-widest focus:border-blue-500 outline-none"
-                            />
-                            <button
-                                onClick={handleSubmitInviteCode}
-                                disabled={isSubmittingCode || !pendingInviteCode}
-                                className="bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white px-4 py-2 rounded-lg font-bold"
-                            >
-                                {isSubmittingCode ? '...' : 'Go'}
-                            </button>
-                        </div>
-                        {codeError && <p className="text-red-400 text-xs mt-2 font-medium">{codeError}</p>}
-                    </div>
-                    <div className="bg-slate-800/50 rounded-xl p-4 mb-6 border border-slate-700/50">
-                        <p className="text-sm text-slate-500">Need help? Contact</p>
-                        <a href="mailto:support@atplvector.com" className="text-blue-400 hover:text-blue-300 font-medium text-sm">support@atplvector.com</a>
-                    </div>
-                    <button
-                        onClick={handleLogout}
-                        className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-medium transition-colors border border-slate-600 hover:text-white"
-                    >
-                        Sign Out
-                    </button>
-                </div>
-            </div>
-        );
-    }
 
     if (user.status === AuthStatus.DEMO_EXPIRED) {
         return (
@@ -688,19 +654,23 @@ const App: React.FC = () => {
                         )}
 
                         <div className="flex-1 min-w-0">
-                            <Router
-                                currentView={currentView}
-                                user={user}
-                                studyTime={studyTime}
-                                navigateTo={navigateTo}
-                                handleLogout={handleLogout}
-                                handleUserUpdate={handleUserUpdate}
-                                handleOpenSyllabus={handleOpenSyllabus}
-                                isSubjectAllowed={isSubjectAllowed}
-                                goBack={goBack}
-                                goForward={goForward}
-                                selectedSubjectId={selectedSubjectId}
-                            />
+                            <ErrorBoundary>
+                                <React.Suspense fallback={<LoadingScreen />}>
+                                    <Router
+                                        currentView={currentView}
+                                        user={user}
+                                        studyTime={studyTime}
+                                        navigateTo={navigateTo}
+                                        handleLogout={handleLogout}
+                                        handleUserUpdate={handleUserUpdate}
+                                        handleOpenSyllabus={handleOpenSyllabus}
+                                        isSubjectAllowed={isSubjectAllowed}
+                                        goBack={goBack}
+                                        goForward={goForward}
+                                        selectedSubjectId={selectedSubjectId}
+                                    />
+                                </React.Suspense>
+                            </ErrorBoundary>
                         </div>
                     </div>
                 </main>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, User } from '../types';
-import { Plane, Scale, Clock, Trophy, ChevronRight, Settings, Activity, Weight, TrendingUp, Map, Users, Cloud, Radio, Navigation, Compass, BookOpen, Lock, Calendar } from 'lucide-react';
+import { Plane, Scale, Clock, Trophy, ChevronRight, Settings, Activity, Weight, TrendingUp, Map, Users, Cloud, Radio, Navigation, Compass, BookOpen, Lock, Calendar, Flame, Target } from 'lucide-react';
 
 interface Props {
     onChangeView: (view: View) => void;
@@ -112,6 +112,13 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
 
     const commsLocked = isLocked('090');
 
+    // Gamification calculations
+    const todayDateStr = new Date().toISOString().split('T')[0];
+    const todayStudySeconds = user?.dailyStudyData?.[todayDateStr] || 0;
+    const dailyGoalSeconds = user?.dailyGoalSeconds || 3600;
+    const streakDays = user?.streakDays || 0;
+    const goalProgressPercent = Math.min(100, Math.round((todayStudySeconds / dailyGoalSeconds) * 100));
+
     return (
         <div className="max-w-7xl mx-auto p-4 md:p-8">
             {/* Header / Stats */}
@@ -124,16 +131,53 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                 </div>
 
                 <div className="flex flex-wrap gap-4 animate-in fade-in slide-in-from-right duration-1000">
+                    {/* Gamification: Daily Goal */}
+                    <div className="glass-panel px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/10 shadow-2xl relative overflow-hidden group">
+                        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-transparent w-full h-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div className="p-3 bg-emerald-500/10 rounded-xl text-emerald-400 relative z-10">
+                            <Target size={28} />
+                        </div>
+                        <div className="relative z-10">
+                            <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-1 flex justify-between">
+                                <span>Daily Goal</span>
+                                <span className="text-emerald-400">{goalProgressPercent}%</span>
+                            </div>
+                            <div className="h-1.5 w-32 bg-slate-800 rounded-full overflow-hidden mb-1">
+                                <div 
+                                    className="h-full bg-gradient-to-r from-emerald-400 to-teal-400 transition-all duration-1000" 
+                                    style={{ width: `${goalProgressPercent}%` }}
+                                ></div>
+                            </div>
+                            <div className="text-xs font-mono font-bold text-slate-300">
+                                {formatTime(todayStudySeconds)} / {formatTime(dailyGoalSeconds)}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Gamification: Study Streak */}
+                    <div className="glass-panel px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/10 shadow-2xl">
+                        <div className={`p-3 rounded-xl ${streakDays > 0 ? 'bg-orange-500/10 text-orange-400' : 'bg-slate-800 text-slate-500'}`}>
+                            <Flame size={28} className={streakDays > 0 ? 'animate-pulse' : ''} />
+                        </div>
+                        <div>
+                            <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-1">Study Streak</div>
+                            <div className="text-2xl font-bold text-white leading-none flex items-baseline gap-1">
+                                {streakDays} <span className="text-sm text-slate-400">Days</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="glass-panel px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/10 shadow-2xl">
                         <div className="p-3 bg-blue-500/10 rounded-xl text-blue-400">
                             <Clock size={28} />
                         </div>
                         <div>
-                            <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-1">Flight Time</div>
+                            <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-1">Total Flight Time</div>
                             <div className="text-2xl font-mono font-bold text-white leading-none">{formatTime(studyTime)}</div>
                         </div>
                     </div>
-                    <div className="glass-panel px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/10 shadow-2xl">
+                    
+                    <div className="glass-panel px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/10 shadow-2xl hidden md:flex">
                         <div className="p-3 bg-yellow-500/10 rounded-xl text-yellow-400">
                             <Trophy size={28} />
                         </div>

@@ -1,6 +1,7 @@
 import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
 import { execSync } from 'child_process';
 
 let commitHash = 'DEV';
@@ -18,7 +19,47 @@ export default defineConfig(({ mode }) => {
       port: 3000,
       host: '0.0.0.0',
     },
-    plugins: [react()],
+    plugins: [
+      react(),
+      VitePWA({
+        registerType: 'autoUpdate',
+        manifest: {
+          name: 'ATPLVector',
+          short_name: 'ATPLVector',
+          description: 'The Ultimate ATPL Theory Training Platform',
+          theme_color: '#0f172a',
+          background_color: '#020617',
+          display: 'standalone',
+          icons: [
+            {
+              src: '/favicon.ico',
+              sizes: '64x64 32x32 24x24 16x16',
+              type: 'image/x-icon'
+            }
+          ]
+        },
+        workbox: {
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,json,glb}'],
+          maximumFileSizeToCacheInBytes: 10000000, // Increased to 10MB to accommodate 3D models/splines
+          runtimeCaching: [
+            {
+              urlPattern: /^https:\/\/firestore\.googleapis\.com\/.*/i,
+              handler: 'NetworkFirst',
+              options: {
+                cacheName: 'firebase-firestore-cache',
+                expiration: {
+                  maxEntries: 200,
+                  maxAgeSeconds: 60 * 60 * 24 * 7 // 1 week
+                },
+                cacheableResponse: {
+                  statuses: [0, 200]
+                }
+              }
+            }
+          ]
+        }
+      })
+    ],
     define: {
       'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),

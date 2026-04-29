@@ -1,0 +1,148 @@
+{
+  "generated": "2026-04-29T12:50:14.077Z",
+  "summary": {
+    "010": {
+      "subject": "010",
+      "name": "Air Law and ATC Procedures",
+      "total": 505,
+      "covered": 0,
+      "not_started": 505,
+      "bk_total": 55,
+      "bk_covered": 0,
+      "change_total": 3,
+      "change_covered": 0
+    },
+    "021": {
+      "subject": "021",
+      "name": "Aircraft General Knowledge — Airframe, Systems, Powerplant",
+      "total": 509,
+      "covered": 0,
+      "not_started": 509,
+      "bk_total": 26,
+      "bk_covered": 0,
+      "change_total": 0,
+      "change_covered": 0
+    },
+    "022": {
+      "subject": "022",
+      "name": "Aircraft General Knowledge — Instrumentation",
+      "total": 409,
+      "covered": 0,
+      "not_started": 409,
+      "bk_total": 30,
+      "bk_covered": 0,
+      "change_total": 0,
+      "change_covered": 0
+    },
+    "031": {
+      "subject": "031",
+      "name": "Mass and Balance",
+      "total": 84,
+      "covered": 0,
+      "not_started": 84,
+      "bk_total": 27,
+      "bk_covered": 0,
+      "change_total": 13,
+      "change_covered": 0
+    },
+    "032": {
+      "subject": "032",
+      "name": "Performance — Aeroplanes",
+      "total": 241,
+      "covered": 0,
+      "not_started": 241,
+      "bk_total": 32,
+      "bk_covered": 0,
+      "change_total": 9,
+      "change_covered": 0
+    },
+    "033": {
+      "subject": "033",
+      "name": "Flight Planning and Monitoring",
+      "total": 118,
+      "covered": 0,
+      "not_started": 118,
+      "bk_total": 9,
+      "bk_covered": 0,
+      "change_total": 47,
+      "change_covered": 0
+    },
+    "040": {
+      "subject": "040",
+      "name": "Human Performance and Limitations",
+      "total": 362,
+      "covered": 0,
+      "not_started": 362,
+      "bk_total": 0,
+      "bk_covered": 0,
+      "change_total": 0,
+      "change_covered": 0
+    },
+    "050": {
+      "subject": "050",
+      "name": "Meteorology",
+      "total": 464,
+      "covered": 0,
+      "not_started": 464,
+      "bk_total": 15,
+      "bk_covered": 0,
+      "change_total": 5,
+      "change_covered": 0
+    },
+    "061": {
+      "subject": "061",
+      "name": "General Navigation",
+      "total": 117,
+      "covered": 0,
+      "not_started": 117,
+      "bk_total": 24,
+      "bk_covered": 0,
+      "change_total": 0,
+      "change_covered": 0
+    },
+    "062": {
+      "subject": "062",
+      "name": "Radio Navigation",
+      "total": 322,
+      "covered": 0,
+      "not_started": 322,
+      "bk_total": 101,
+      "bk_covered": 0,
+      "change_total": 0,
+      "change_covered": 0
+    },
+    "070": {
+      "subject": "070",
+      "name": "Operational Procedures",
+      "total": 346,
+      "covered": 0,
+      "not_started": 346,
+      "bk_total": 2,
+      "bk_covered": 0,
+      "change_total": 33,
+      "change_covered": 0
+    },
+    "081": {
+      "subject": "081",
+      "name": "Principles of Flight — Aeroplanes",
+      "total": 489,
+      "covered": 0,
+      "not_started": 489,
+      "bk_total": 91,
+      "bk_covered": 0,
+      "change_total": 0,
+      "change_covered": 0
+    },
+    "090": {
+      "subject": "090",
+      "name": "Communications",
+      "total": 79,
+      "covered": 0,
+      "not_started": 79,
+      "bk_total": 3,
+      "bk_covered": 0,
+      "change_total": 0,
+      "change_covered": 0
+    }
+  }
+}

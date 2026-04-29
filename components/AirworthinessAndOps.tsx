@@ -30,43 +30,148 @@ const AirworthinessAndOps: React.FC = () => {
   );
 };
 
-const AirworthinessInfo = () => (
-    <div className="space-y-6 animate-in fade-in">
-        <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-slate-900 p-5 rounded-lg border border-slate-700">
-                <h3 className="font-bold text-white mb-3 flex items-center gap-2">
-                    <FileCheck className="text-teal-400" /> Certificate of Airworthiness (C of A)
-                </h3>
-                <ul className="text-sm text-slate-300 space-y-2 list-disc pl-4">
-                    <li>Issued by <strong>State of Registry</strong>.</li>
-                    <li>Required for international navigation (Chicago Art 31).</li>
-                    <li>Proof that aircraft complies with Type Certificate.</li>
-                    <li><strong>Validity:</strong> Non-expiring (EASA) as long as ARC (Airworthiness Review Certificate) is valid (1 year) and maintenance program followed.</li>
-                </ul>
+const AirworthinessInfo = () => {
+    const [step, setStep] = useState(0);
+
+    const issuanceSteps = [
+        {
+            title: "Type Certificate",
+            authority: "State of Design",
+            desc: "Approves the design and confirms it meets safety standards.",
+            icon: <Scale className="text-blue-400" />,
+            lo: "010.02.02.01.03"
+        },
+        {
+            title: "Production Inspection",
+            authority: "State of Manufacture",
+            desc: "Ensures the specific aircraft matches the approved design.",
+            icon: <Truck className="text-purple-400" />,
+            lo: "010.02.02.01.03"
+        },
+        {
+            title: "Certificate of Airworthiness",
+            authority: "State of Registry",
+            desc: "Issued to a specific aircraft for international navigation.",
+            icon: <FileCheck className="text-teal-400" />,
+            lo: "010.02.02.01.01"
+        }
+    ];
+
+    return (
+        <div className="space-y-8 animate-in fade-in">
+            {/* Header Info */}
+            <div className="grid md:grid-cols-3 gap-4">
+                <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-700/50">
+                    <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">LO 010.02.02.01.02</p>
+                    <h4 className="text-white font-bold text-sm mb-1">Necessity (Chicago Art 31)</h4>
+                    <p className="text-xs text-slate-400">Every aircraft engaged in international navigation shall be provided with a Certificate of Airworthiness.</p>
+                </div>
+                <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-700/50">
+                    <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">LO 010.02.02.01.01</p>
+                    <h4 className="text-white font-bold text-sm mb-1">Issuing Authority</h4>
+                    <p className="text-xs text-slate-400">The <strong>State of Registry</strong> is responsible for the issue and continued validity of the CofA.</p>
+                </div>
+                <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-700/50">
+                    <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">LO 010.02.02.01.04</p>
+                    <h4 className="text-white font-bold text-sm mb-1">Continuing Airworthiness</h4>
+                    <p className="text-xs text-slate-400">Determined by the <strong>State of Registry</strong> through regular inspections and AD compliance.</p>
+                </div>
             </div>
 
-            <div className="bg-slate-900 p-5 rounded-lg border border-slate-700">
-                <h3 className="font-bold text-white mb-3">State Responsibilities</h3>
-                <div className="space-y-3">
-                    <div className="bg-slate-800 p-3 rounded">
-                        <span className="text-xs font-bold text-slate-400 uppercase">State of Design</span>
-                        <p className="text-white text-sm font-bold">Issues Type Certificate</p>
-                        <p className="text-xs text-slate-500">Transmits mandatory Continuing Airworthiness info (ADs).</p>
+            {/* Issuance Flowchart */}
+            <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+                <div className="flex items-center gap-2 mb-6">
+                    <PenTool className="text-teal-400" size={20} />
+                    <h3 className="font-bold text-white">CofA Issuance Process <span className="text-xs text-slate-500 font-normal ml-2">(LO 010.02.02.01.03)</span></h3>
+                </div>
+
+                <div className="flex flex-col md:flex-row justify-between gap-4 relative">
+                    {/* Connector Line */}
+                    <div className="absolute top-1/2 left-0 w-full h-0.5 bg-slate-800 -translate-y-1/2 hidden md:block z-0"></div>
+                    
+                    {issuanceSteps.map((s, idx) => (
+                        <div 
+                            key={idx} 
+                            onClick={() => setStep(idx)}
+                            className={`relative z-10 flex-1 p-4 rounded-lg cursor-pointer transition-all duration-300 border-2 ${step === idx ? 'bg-slate-800 border-teal-500 shadow-lg scale-105' : 'bg-slate-900 border-slate-800 opacity-60 hover:opacity-100 hover:border-slate-600'}`}
+                        >
+                            <div className="flex items-center justify-between mb-2">
+                                <div className={`p-2 rounded-md ${step === idx ? 'bg-teal-500/20' : 'bg-slate-800'}`}>
+                                    {s.icon}
+                                </div>
+                                <span className="text-[10px] font-mono text-slate-500">STEP 0{idx + 1}</span>
+                            </div>
+                            <h4 className="text-white font-bold text-sm">{s.title}</h4>
+                            <p className="text-[10px] text-teal-400 font-bold uppercase mt-1">{s.authority}</p>
+                            
+                            {step === idx && (
+                                <p className="text-xs text-slate-400 mt-3 animate-in slide-in-from-top-1">
+                                    {s.desc}
+                                </p>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Validity Cycle */}
+            <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+                <div className="flex items-center gap-2 mb-6">
+                    <FileCheck className="text-teal-400" size={20} />
+                    <h3 className="font-bold text-white">CofA Continued Validity <span className="text-xs text-slate-500 font-normal ml-2">(LO 010.02.02.01.05)</span></h3>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-8 items-center">
+                    <div className="space-y-4">
+                        <div className="flex gap-4 items-start">
+                            <div className="bg-teal-500 w-2 h-2 rounded-full mt-1.5 shadow-[0_0_8px_rgba(20,184,166,0.8)]"></div>
+                            <div>
+                                <h4 className="text-white font-bold text-sm">Non-Expiring Document</h4>
+                                <p className="text-xs text-slate-400">Under EASA, the CofA itself does not expire as long as it is maintained.</p>
+                            </div>
+                        </div>
+                        <div className="flex gap-4 items-start">
+                            <div className="bg-indigo-500 w-2 h-2 rounded-full mt-1.5 shadow-[0_0_8px_rgba(99,102,241,0.8)]"></div>
+                            <div>
+                                <h4 className="text-white font-bold text-sm">ARC (Airworthiness Review Certificate)</h4>
+                                <p className="text-xs text-slate-400 font-bold text-indigo-400 mb-1">Valid for 1 Year</p>
+                                <p className="text-xs text-slate-400">Requires a full technical review of the aircraft's records and condition.</p>
+                            </div>
+                        </div>
+                        <div className="flex gap-4 items-start">
+                            <div className="bg-amber-500 w-2 h-2 rounded-full mt-1.5 shadow-[0_0_8px_rgba(245,158,11,0.8)]"></div>
+                            <div>
+                                <h4 className="text-white font-bold text-sm">Maintenance Program</h4>
+                                <p className="text-xs text-slate-400">Must comply with the approved Maintenance Program and Airworthiness Directives (ADs).</p>
+                            </div>
+                        </div>
                     </div>
-                    <div className="bg-slate-800 p-3 rounded">
-                        <span className="text-xs font-bold text-slate-400 uppercase">State of Manufacture</span>
-                        <p className="text-white text-sm font-bold">Ensures Production Quality</p>
-                    </div>
-                    <div className="bg-slate-800 p-3 rounded">
-                        <span className="text-xs font-bold text-slate-400 uppercase">State of Registry</span>
-                        <p className="text-white text-sm font-bold">Issues C of A</p>
-                        <p className="text-xs text-slate-500">Ensures continuing airworthiness is maintained.</p>
+
+                    <div className="relative aspect-square max-w-[240px] mx-auto">
+                        <div className="absolute inset-0 border-4 border-slate-800 rounded-full"></div>
+                        <div className="absolute inset-2 border-2 border-teal-500/20 border-dashed rounded-full animate-[spin_20s_linear_infinite]"></div>
+                        
+                        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
+                            <div className="text-teal-400 font-black text-3xl mb-1">VALID</div>
+                            <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Safe for Flight</p>
+                        </div>
+
+                        {/* Circular indicators */}
+                        <div className="absolute -top-2 left-1/2 -translate-x-1/2 bg-teal-500 p-1.5 rounded-full shadow-lg border-2 border-slate-900" title="CofA Holders">
+                            <FileCheck size={16} className="text-white" />
+                        </div>
+                        <div className="absolute top-1/4 right-0 bg-indigo-500 p-1.5 rounded-full shadow-lg border-2 border-slate-900" title="ARC Active">
+                            <Scale size={16} className="text-white" />
+                        </div>
+                        <div className="absolute bottom-0 left-1/4 bg-amber-500 p-1.5 rounded-full shadow-lg border-2 border-slate-900" title="Maintenance OK">
+                            <Truck size={16} className="text-white" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-);
+    );
+};
 
 const PavementCalc = () => {
     const [acn, setAcn] = useState(50);

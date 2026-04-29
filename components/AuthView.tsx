@@ -12,7 +12,7 @@ import Privacy from './Privacy';
 import Contact from './Contact';
 import StudyGuide from './StudyGuide';
 
-type AuthViewMode = 'LOGIN' | 'SIGNUP' | 'FORGOT_PASS' | 'RECOVER_ACCOUNT' | 'RESET_PASSWORD' | 'VERIFY_EMAIL';
+type AuthViewMode = 'LOGIN' | 'SIGNUP' | 'FORGOT_PASS' | 'RECOVER_ACCOUNT' | 'RESET_PASSWORD';
 
 const LazyImage = ({ src, alt, className, fallback }: { src: string, alt: string, className?: string, fallback?: React.ReactNode }) => {
     const [isDesktop, setIsDesktop] = useState(false);
@@ -43,7 +43,6 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [fullName, setFullName] = useState('');
-    const [inviteCode, setInviteCode] = useState(''); // New state
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
@@ -57,40 +56,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
     const [showResend, setShowResend] = useState(false);
     const [resendLoading, setResendLoading] = useState(false);
 
-    // OTP Verification State
-    const [otpCode, setOtpCode] = useState('');
-
-    // Math CAPTCHA state
-    const [mathQuestion, setMathQuestion] = useState({ num1: 0, num2: 0, operator: '+', answer: 0 });
-    const [captchaInput, setCaptchaInput] = useState('');
-
-    // Generate a random math CAPTCHA question
-    const generateMathQuestion = () => {
-        const operators = ['+', '-', '×'];
-        const operator = operators[Math.floor(Math.random() * operators.length)];
-        let num1, num2, answer;
-
-        if (operator === '+') {
-            num1 = Math.floor(Math.random() * 10) + 1;
-            num2 = Math.floor(Math.random() * 10) + 1;
-            answer = num1 + num2;
-        } else if (operator === '-') {
-            num1 = Math.floor(Math.random() * 10) + 5;
-            num2 = Math.floor(Math.random() * num1) + 1;
-            answer = num1 - num2;
-        } else {
-            num1 = Math.floor(Math.random() * 5) + 1;
-            num2 = Math.floor(Math.random() * 5) + 1;
-            answer = num1 * num2;
-        }
-
-        setMathQuestion({ num1, num2, operator, answer });
-        setCaptchaInput('');
-    };
-
     useEffect(() => {
-        generateMathQuestion();
-
         // Firebase doesn't have direct password recovery events from auth state
         // Reset will be handled via redirect from email link
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -224,62 +190,6 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
         }
     };
 
-    const handleVerifyEmail = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-        setErrorMsg('');
-
-        try {
-            // Firebase uses email verification links instead of OTP codes
-            // This is a placeholder for email-based verification
-            // The actual verification happens via link sent to email
-            const currentUser = auth.currentUser;
-            if (currentUser && !currentUser.emailVerified) {
-                // Verify email would be called after user clicks link
-                // For now, show success message
-                setSuccessMsg("Email verified successfully! 🎉 You now have 7 days of FREE access.");
-                setTimeout(() => {
-                    if (currentUser) {
-                        onAuthChange({
-                            id: currentUser.uid,
-                            email: currentUser.email || '',
-                            fullName: currentUser.displayName || '',
-                            status: 'VERIFIED' as any,
-                            subscriptionTier: 'CUSTOM',
-                            allowedSubjects: ['090'],
-                            studySeconds: 0,
-                            isAdmin: false,
-                            isApproved: true
-                        });
-                    }
-                }, 1500);
-            }
-        } catch (error: any) {
-            setErrorMsg(error.message || "Verification failed.");
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const handleResendVerification = async () => {
-        if (!email) return;
-        setResendLoading(true);
-        try {
-            const currentUser = auth.currentUser;
-            if (currentUser) {
-                await sendEmailVerification(currentUser);
-                setSuccessMsg("Verification email resent! Please check your inbox.");
-                setErrorMsg('');
-                setShowResend(false);
-            } else {
-                setErrorMsg("No user found. Please try signing up again.");
-            }
-        } catch (error: any) {
-            setErrorMsg(error.message || "Failed to resend email.");
-        } finally {
-            setResendLoading(false);
-        }
-    };
 
     const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -287,43 +197,16 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
         if (password !== confirmPassword) return setErrorMsg("Passwords do not match.");
         if (passStrength < 3) return setErrorMsg("Password is too weak. Please use a stronger password.");
 
-        // Validate CAPTCHA
-        if (parseInt(captchaInput) !== mathQuestion.answer) {
-            generateMathQuestion();
-            return setErrorMsg("Incorrect answer. Please solve the math problem correctly.");
-        }
-
         setLoading(true);
         setErrorMsg('');
 
         try {
-            let initialStatus = 'PENDING_APPROVAL';
-            let validCodeId = null;
-
-            // Validate Invite Code if provided
-            if (inviteCode.trim()) {
-                const codesRef = collection(db, 'access_codes');
-                const q = query(
-                    codesRef,
-                    where('code', '==', inviteCode.trim()),
-                    where('is_used', '==', false)
-                );
-                const querySnapshot = await getDocs(q);
-
-                if (querySnapshot.empty) {
-                    throw new Error("Invalid or expired invite code.");
-                }
-
-                const codeDoc = querySnapshot.docs[0];
-                initialStatus = 'FREE_TRIAL';
-                validCodeId = codeDoc.id;
-            }
+            let initialStatus = 'FREE_TRIAL';
 
             // Notify admin of new signup attempt
             await sendAdminNotification(`New Signup: ${email} [${initialStatus}]`, {
                 email: email,
                 full_name: fullName,
-                invite_code: inviteCode,
                 status: initialStatus,
                 type: 'SIGNUP_ATTEMPT',
                 timestamp: new Date().toISOString()
@@ -339,7 +222,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                 email: email,
                 full_name: fullName,
                 status: initialStatus,
-                is_approved: initialStatus === 'FREE_TRIAL',
+                is_approved: true,
                 is_admin: false,
                 created_at: serverTimestamp()
             }).catch(async () => {
@@ -349,33 +232,15 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                     email: email,
                     full_name: fullName,
                     status: initialStatus,
-                    is_approved: initialStatus === 'FREE_TRIAL',
+                    is_approved: true,
                     is_admin: false,
                     created_at: serverTimestamp()
                 });
             });
 
-            // Mark code as used if valid code was provided
-            if (validCodeId) {
-                const codeDocRef = doc(db, 'access_codes', validCodeId);
-                await updateDoc(codeDocRef, {
-                    is_used: true,
-                    used_by_user: userId,
-                    used_at: serverTimestamp()
-                });
-            }
-
-            // Send email verification
-            await sendEmailVerification(userCredential.user);
-
-            if (initialStatus === 'PENDING_APPROVAL') {
-                setSuccessMsg("Account created! ⏳ Waiting for admin approval.");
-            } else {
-                setSuccessMsg("Account created! 🎉 You now have 7 days of FREE access.");
-            }
-
-            setSuccessMsg("Account created! Please verify your email.");
-            setView('VERIFY_EMAIL');
+            // No need to send email verification or switch view, Firebase will trigger onAuthStateChanged
+            // and the user will automatically log in.
+            setSuccessMsg("Account created successfully! Logging you in...");
         } catch (error: any) {
             setErrorMsg(error.message || "Signup failed. Please try again.");
         } finally {
@@ -615,7 +480,6 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                             {view === 'FORGOT_PASS' && 'Reset Password'}
                                             {view === 'RECOVER_ACCOUNT' && 'Account Recovery'}
                                             {view === 'RESET_PASSWORD' && 'Set New Password'}
-                                            {view === 'VERIFY_EMAIL' && 'Verify Email'}
                                         </h2>
                                         <p className="text-slate-400">
                                             {view === 'LOGIN' && 'Enter your details to access the cockpit.'}
@@ -623,7 +487,6 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                             {view === 'FORGOT_PASS' && 'We\'ll email you a secure reset link.'}
                                             {view === 'RECOVER_ACCOUNT' && 'Lost access to your email?'}
                                             {view === 'RESET_PASSWORD' && 'Enter your new password below.'}
-                                            {view === 'VERIFY_EMAIL' && 'Enter the 6-digit code sent to your email.'}
                                         </p>
                                     </div>
 
@@ -633,26 +496,6 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 <AlertTriangle size={16} className="mt-0.5 text-red-400 shrink-0" />
                                                 <span>{errorMsg}</span>
                                             </div>
-                                            {showResend && (
-                                                <div className="flex gap-2">
-                                                    <button
-                                                        type="button"
-                                                        onClick={handleResendVerification}
-                                                        disabled={resendLoading}
-                                                        className="ml-7 text-xs bg-red-500/20 hover:bg-red-500/30 text-red-100 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-2 w-fit"
-                                                    >
-                                                        {resendLoading ? <RefreshCw className="animate-spin w-3 h-3" /> : <Mail className="w-3 h-3" />}
-                                                        Resend Verification Email
-                                                    </button>
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => setView('VERIFY_EMAIL')}
-                                                        className="text-xs bg-blue-500/20 hover:bg-blue-500/30 text-blue-100 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-2 w-fit"
-                                                    >
-                                                        Enter Code
-                                                    </button>
-                                                </div>
-                                            )}
                                         </div>
                                     )}
 
@@ -684,19 +527,8 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                             view === 'LOGIN' ? handleLogin :
                                                 view === 'SIGNUP' ? handleSignup :
                                                     view === 'RESET_PASSWORD' ? handlePasswordReset :
-                                                        view === 'VERIFY_EMAIL' ? handleVerifyEmail :
                                                             handleForgotPassword
                                         } className="space-y-5">
-
-                                            {view === 'VERIFY_EMAIL' && (
-                                                <div className="animate-in slide-in-from-left-4 fade-in space-y-4">
-                                                    <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4 text-sm text-blue-300">
-                                                        <p className="font-bold mb-2">Check your email for a verification link</p>
-                                                        <p>We've sent a verification email to <strong>{email}</strong>. Click the link to confirm your email address and complete your account setup.</p>
-                                                    </div>
-                                                    <p className="text-xs text-slate-500 text-center">Didn't receive the email? Check your spam folder or click the button below to resend.</p>
-                                                </div>
-                                            )}
 
                                             {view === 'SIGNUP' && (
                                                 <div className="animate-in slide-in-from-left-4 fade-in">
@@ -705,26 +537,10 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                         <UserIcon className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
                                                         <input required type="text" value={fullName} onChange={e => setFullName(e.target.value)} className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600" placeholder="Captain Name" />
                                                     </div>
-
-                                                    {/* Invite Code Input */}
-                                                    <div className="mt-4">
-                                                        <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Invite Code <span className="text-slate-600 font-normal lowercase">(Optional, skips waitlist)</span></label>
-                                                        <div className="relative">
-                                                            <KeyRound className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
-                                                            <input
-                                                                type="text"
-                                                                value={inviteCode}
-                                                                onChange={e => setInviteCode(e.target.value.toUpperCase())}
-                                                                className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3.5 pl-12 pr-4 text-base md:text-sm text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600 font-mono tracking-widest uppercase"
-                                                                placeholder="CODE"
-                                                                maxLength={10}
-                                                            />
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             )}
 
-                                            {view !== 'RESET_PASSWORD' && view !== 'VERIFY_EMAIL' && (
+                                            {view !== 'RESET_PASSWORD' && (
                                                 <div className="animate-in slide-in-from-left-4 fade-in delay-75">
                                                     <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Email Address</label>
                                                     <div className="relative">
@@ -734,7 +550,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 </div>
                                             )}
 
-                                            {view !== 'FORGOT_PASS' && view !== 'VERIFY_EMAIL' && (
+                                            {view !== 'FORGOT_PASS' && (
                                                 <div className="animate-in slide-in-from-left-4 fade-in delay-100">
                                                     <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Password</label>
                                                     <div className="relative">
@@ -766,37 +582,6 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 </div>
                                             )}
 
-                                            {view === 'SIGNUP' && (
-                                                <div className="animate-in slide-in-from-left-4 fade-in delay-200">
-                                                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Human Verification</label>
-                                                    <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
-                                                        <div className="bg-slate-800 px-4 py-3 rounded-xl border border-slate-600 text-white font-mono text-lg select-none w-full sm:w-auto sm:min-w-[100px] text-center shadow-inner">
-                                                            {mathQuestion.num1} {mathQuestion.operator} {mathQuestion.num2} = ?
-                                                        </div>
-                                                        <div className="relative flex-1 w-full">
-                                                            <input
-                                                                required
-                                                                type="number"
-                                                                value={captchaInput}
-                                                                onChange={e => setCaptchaInput(e.target.value)}
-                                                                className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 px-4 text-white text-center text-lg focus:border-blue-500 outline-none transition-all placeholder-slate-600 font-mono pl-10"
-                                                                placeholder="?"
-                                                            />
-                                                            <Shield className="absolute left-3 top-3.5 text-slate-500 w-5 h-5 opacity-50" />
-                                                        </div>
-                                                        <button
-                                                            type="button"
-                                                            onClick={generateMathQuestion}
-                                                            className="p-3 bg-slate-800 hover:bg-slate-700 rounded-xl border border-slate-600 text-slate-400 hover:text-white transition-all transform hover:rotate-180 duration-500"
-                                                            title="New question"
-                                                        >
-                                                            <RefreshCw size={18} />
-                                                        </button>
-                                                    </div>
-                                                    <p className="text-[10px] text-slate-500 mt-2 ml-1">Solve the math problem to prove you're human.</p>
-                                                </div>
-                                            )}
-
                                             <button
                                                 type="submit"
                                                 disabled={loading}
@@ -806,7 +591,6 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                     view === 'LOGIN' ? 'Sign In' :
                                                         view === 'SIGNUP' ? 'Create Account' :
                                                             view === 'RESET_PASSWORD' ? 'Set New Password' :
-                                                                view === 'VERIFY_EMAIL' ? 'Verify Code' :
                                                                     'Send Reset Link'
                                                 )}
                                                 {!loading && <ArrowRight className="ml-2 w-5 h-5" />}
@@ -855,13 +639,13 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                             )}
 
 
-                                            {/* view === 'LOGIN' && onDemoLogin && (
+                                            {view === 'LOGIN' && onDemoLogin && (
                                                 <div className="pt-4 border-t border-white/10 animate-in fade-in delay-300">
                                                     <button type="button" onClick={onDemoLogin} className="w-full bg-white/5 hover:bg-white/10 text-slate-300 py-3 rounded-xl font-bold transition-all flex items-center justify-center border border-white/10 hover:border-emerald-500/50 hover:text-emerald-400 group">
                                                         <PlayCircle className="mr-2 w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform" /> Demo Access
                                                     </button>
                                                 </div>
-                                            ) */}
+                                            )}
                                         </form>
                                     )}
                                 </div>

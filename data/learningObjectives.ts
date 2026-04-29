@@ -110,6 +110,7 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '021.10', subject: '021', text: 'Piston Engines', coveredBy: View.AGK_PISTON_ENGINE },
     { id: '021.11', subject: '021', text: 'Gas Turbines', coveredBy: View.AGK_JET_ENGINE },
     { id: '021.12', subject: '021', text: 'Protection Systems', coveredBy: View.AGK_SYSTEMS_HOME },
+    { id: '021.13', subject: '021', text: 'Oxygen Systems', coveredBy: View.AGK_SYSTEMS_OXYGEN },
 
     // --- 022 INSTRUMENTATION ---
     { id: '022.01', subject: '022', text: 'Engine Instruments', coveredBy: View.INST_HOME },

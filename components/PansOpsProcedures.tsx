@@ -1,9 +1,12 @@
 
 import React, { useState } from 'react';
-import { ArrowUpRight, RotateCw, AlignVerticalJustifyCenter, Mountain, Plane } from 'lucide-react';
+import { ArrowUpRight, RotateCw, AlignVerticalJustifyCenter, Mountain, Plane, Layout, Compass, Ruler } from 'lucide-react';
+import ApproachSegments from './PansOps/ApproachSegments';
+import HoldingCalculator from './PansOps/HoldingCalculator';
+import ObstacleProfile from './PansOps/ObstacleProfile';
 
 const PansOpsProcedures: React.FC = () => {
-  const [tab, setTab] = useState<'dep' | 'circle' | 'parallel'>('dep');
+  const [tab, setTab] = useState<'dep' | 'circle' | 'parallel' | 'approach' | 'holding' | 'obstacle'>('approach');
 
   return (
     <div className="bg-slate-800 rounded-xl p-6 shadow-xl border border-slate-700 mt-8">
@@ -16,13 +19,31 @@ const PansOpsProcedures: React.FC = () => {
           <p className="text-slate-400 text-sm">Design criteria for Departures, Approaches, and Parallel Operations.</p>
         </div>
 
-        <div className="flex bg-slate-900 p-1 rounded-lg">
-          <button onClick={() => setTab('dep')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'dep' ? 'bg-pink-600 text-white' : 'text-slate-400 hover:text-white'}`}>Departures</button>
-          <button onClick={() => setTab('circle')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'circle' ? 'bg-pink-600 text-white' : 'text-slate-400 hover:text-white'}`}>Circling</button>
-          <button onClick={() => setTab('parallel')} className={`px-4 py-2 rounded-md font-bold text-sm ${tab === 'parallel' ? 'bg-pink-600 text-white' : 'text-slate-400 hover:text-white'}`}>Parallel Runways</button>
+        <div className="flex flex-wrap bg-slate-900 p-1 rounded-lg gap-1">
+          <button onClick={() => setTab('approach')} className={`px-3 py-1.5 rounded-md font-bold text-xs flex items-center gap-1.5 ${tab === 'approach' ? 'bg-pink-600 text-white shadow-lg' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}>
+            <Layout size={14} /> Approach
+          </button>
+          <button onClick={() => setTab('holding')} className={`px-3 py-1.5 rounded-md font-bold text-xs flex items-center gap-1.5 ${tab === 'holding' ? 'bg-pink-600 text-white shadow-lg' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}>
+            <Compass size={14} /> Holding
+          </button>
+          <button onClick={() => setTab('obstacle')} className={`px-3 py-1.5 rounded-md font-bold text-xs flex items-center gap-1.5 ${tab === 'obstacle' ? 'bg-pink-600 text-white shadow-lg' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}>
+            <Ruler size={14} /> Obstacles
+          </button>
+          <button onClick={() => setTab('dep')} className={`px-3 py-1.5 rounded-md font-bold text-xs flex items-center gap-1.5 ${tab === 'dep' ? 'bg-pink-600 text-white shadow-lg' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}>
+            <ArrowUpRight size={14} /> Departures
+          </button>
+          <button onClick={() => setTab('circle')} className={`px-3 py-1.5 rounded-md font-bold text-xs flex items-center gap-1.5 ${tab === 'circle' ? 'bg-pink-600 text-white shadow-lg' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}>
+            <RotateCw size={14} /> Circling
+          </button>
+          <button onClick={() => setTab('parallel')} className={`px-3 py-1.5 rounded-md font-bold text-xs flex items-center gap-1.5 ${tab === 'parallel' ? 'bg-pink-600 text-white shadow-lg' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}>
+            <AlignVerticalJustifyCenter size={14} /> Parallel
+          </button>
         </div>
       </div>
 
+      {tab === 'approach' && <ApproachSegments />}
+      {tab === 'holding' && <HoldingCalculator />}
+      {tab === 'obstacle' && <ObstacleProfile />}
       {tab === 'dep' && <DepartureDesign />}
       {tab === 'circle' && <CirclingAreas />}
       {tab === 'parallel' && <ParallelRunways />}

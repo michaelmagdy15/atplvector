@@ -72,6 +72,7 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
     [View.AGK_PISTON_ENGINE]: React.lazy(() => import('../components/AGK/PistonEnginePrinciples')),
     [View.AGK_LANDING_GEAR]: React.lazy(() => import('../components/AGK/LandingGearSystem')),
     [View.AGK_FLIGHT_CONTROLS]: React.lazy(() => import('../components/AGK/FlightControlsSystem')),
+    [View.AGK_SYSTEMS_OXYGEN]: React.lazy(() => import('../components/021-agk-systems/OxygenSystems')),
 
     // Instrumentation (022)
     [View.INST_HOME]: React.lazy(() => import('../components/GenericSubjectDashboard')),

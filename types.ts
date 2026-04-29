@@ -76,6 +76,7 @@ export enum View {
   AGK_ELECTRICS = 'AGK_ELECTRICS',
   AGK_LANDING_GEAR = 'AGK_LANDING_GEAR',
   AGK_FLIGHT_CONTROLS = 'AGK_FLIGHT_CONTROLS',
+  AGK_SYSTEMS_OXYGEN = 'AGK_SYSTEMS_OXYGEN',
   AGK_ASI = 'AGK_ASI',
   AGK_GYROS = 'AGK_GYROS',
 
@@ -428,7 +429,11 @@ export interface User {
   id: string;
   fullName?: string;
   status: AuthStatus;
-  studySeconds: number; // New field for tracking
+  studySeconds: number; // Total platform study time in seconds
+  streakDays?: number; // Gamification: Current daily streak
+  lastStudyDate?: string; // Gamification: ISO Date YYYY-MM-DD
+  dailyGoalSeconds?: number; // Gamification: Daily goal in seconds
+  dailyStudyData?: Record<string, number>; // Gamification: Map of YYYY-MM-DD to seconds studied
   subscriptionTier?: '1_MONTH' | '3_MONTHS' | '6_MONTHS' | '9_MONTHS' | '12_MONTHS' | 'SINGLE_SUBJECT' | 'CUSTOM' | 'PRO_MONTHLY' | 'PRO_YEARLY';
   allowedSubjects?: string[]; // 'ALL' or array of IDs
   isAdmin?: boolean;
@@ -437,7 +442,7 @@ export interface User {
   demoStartDate?: string; // ISO date string when 3-hour demo started
   trialSubjects?: string[]; // Subjects available during trial (e.g., ['090', '040'])
   learningObjectivesRatings?: Record<string, number>; // Map of LO ID to rating (0-5)
-  exam_plan?: any; // JSONB stored in Supabase
+  exam_plan?: any; // Stored in Firebase
 }
 
 export interface QCode {
