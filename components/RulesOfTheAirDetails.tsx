@@ -300,7 +300,6 @@ const FlightPlans = () => (
             </div>
         </div>
     </div>
-    </div>
 );
 
 const GeneralApplicability = () => (

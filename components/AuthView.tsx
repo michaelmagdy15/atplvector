@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { User } from '../types';
 import { Shield, Mail, CheckCircle, Lock, ArrowRight, Plane, Zap, Menu, X, User as UserIcon, HelpCircle, Eye, EyeOff, AlertTriangle, PlayCircle, Star, Globe, BarChart3, Radio, RefreshCw, KeyRound, Target, BookOpen, Layout, Dna, Rocket } from 'lucide-react';
 import { auth, db, getSiteUrl } from '../lib/firebase';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, updatePassword, onAuthStateChanged, sendEmailVerification, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged, sendEmailVerification, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { collection, query, where, getDocs, updateDoc, doc, addDoc, serverTimestamp } from 'firebase/firestore';
 import { TestimonialService } from '../services/TestimonialService';
 import { Testimonial } from '../types';
@@ -12,7 +12,7 @@ import Privacy from './Privacy';
 import Contact from './Contact';
 import StudyGuide from './StudyGuide';
 
-type AuthViewMode = 'LOGIN' | 'SIGNUP' | 'FORGOT_PASS' | 'RECOVER_ACCOUNT' | 'RESET_PASSWORD';
+type AuthViewMode = 'LOGIN' | 'SIGNUP' | 'FORGOT_PASS';
 
 const LazyImage = ({ src, alt, className, fallback }: { src: string, alt: string, className?: string, fallback?: React.ReactNode }) => {
     const [isDesktop, setIsDesktop] = useState(false);
@@ -144,7 +144,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                     created_at: serverTimestamp()
                 }).catch(async () => {
                     // If doc doesn't exist, create it
-                    await addDoc(collection(db, 'profiles'), {
+                    await setDoc(doc(db, 'profiles', user.uid), {
                         id: user.uid,
                         email: user.email,
                         full_name: user.displayName || 'Google User',
@@ -163,7 +163,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                     status: 'active',
                     created_at: serverTimestamp()
                 }).catch(async () => {
-                    await addDoc(collection(db, 'subscriptions'), {
+                    await setDoc(doc(db, 'subscriptions', user.uid), {
                         user_id: user.uid,
                         plan: 'CUSTOM',
                         status: 'active',
@@ -227,7 +227,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                 created_at: serverTimestamp()
             }).catch(async () => {
                 // If doc doesn't exist, create it
-                await addDoc(collection(db, 'profiles'), {
+                await setDoc(doc(db, 'profiles', userId), {
                     id: userId,
                     email: email,
                     full_name: fullName,
@@ -262,11 +262,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                 timestamp: new Date().toISOString()
             });
 
-            const siteUrl = getSiteUrl();
-            await sendPasswordResetEmail(auth, email, {
-                url: `${siteUrl}`,
-                handleCodeInApp: false
-            });
+            await sendPasswordResetEmail(auth, email);
             setSuccessMsg("Password reset link sent to your email.");
         } catch (error: any) {
             if (error.code === 'auth/user-not-found') {
@@ -335,34 +331,8 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
         };
     }, []);
 
-    const handlePasswordReset = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (password !== confirmPassword) return setErrorMsg("Passwords do not match.");
 
-        setLoading(true);
-        try {
-            const currentUser = auth.currentUser;
-            if (!currentUser) {
-                setErrorMsg("No user logged in. Please try again.");
-                setLoading(false);
-                return;
-            }
 
-            await updatePassword(currentUser, password);
-            setSuccessMsg("Password updated successfully! Redirecting...");
-            setTimeout(() => {
-                window.location.href = '/';
-            }, 2000);
-        } catch (error: any) {
-            setErrorMsg(error.message || "Failed to update password.");
-            setLoading(false);
-        }
-    };
-
-    const handleAccountRecovery = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setSuccessMsg("Please contact support at support@atplvector.com with your Full Name and purchase details for manual recovery.");
-    };
 
     const scrollToSection = (id: string) => {
         const el = document.getElementById(id);
@@ -386,7 +356,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                             <div className="px-6 md:px-10 h-16 md:h-20 flex items-center justify-between">
                                 <div className="flex items-center space-x-2 cursor-pointer group" onClick={() => scrollToSection('hero')}>
                                     <div className="p-1 w-8 h-8 bg-slate-900/50 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-300 border border-white/10 flex items-center justify-center overflow-hidden">
-                                        <img src="/assets/logo.png" alt="Logo" className="w-full h-full object-contain" />
+                                        <img src="/assets/ATPLVECTOR Aviation Tech Logo.png" alt="Logo" className="w-full h-full object-contain scale-[3.5]" />
                                     </div>
                                     <span className="text-xl font-black text-white tracking-tighter">ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span></span>
                                 </div>
@@ -478,15 +448,11 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                             {view === 'LOGIN' && 'Welcome Back'}
                                             {view === 'SIGNUP' && 'Start Your Journey'}
                                             {view === 'FORGOT_PASS' && 'Reset Password'}
-                                            {view === 'RECOVER_ACCOUNT' && 'Account Recovery'}
-                                            {view === 'RESET_PASSWORD' && 'Set New Password'}
                                         </h2>
                                         <p className="text-slate-400">
                                             {view === 'LOGIN' && 'Enter your details to access the cockpit.'}
                                             {view === 'SIGNUP' && 'Create a secure account to begin.'}
                                             {view === 'FORGOT_PASS' && 'We\'ll email you a secure reset link.'}
-                                            {view === 'RECOVER_ACCOUNT' && 'Lost access to your email?'}
-                                            {view === 'RESET_PASSWORD' && 'Enter your new password below.'}
                                         </p>
                                     </div>
 
@@ -506,29 +472,35 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                         </div>
                                     )}
 
-                                    {/* RECOVER ACCOUNT VIEW */}
-                                    {view === 'RECOVER_ACCOUNT' ? (
-                                        <div className="space-y-4">
-                                            <div className="bg-slate-800 p-4 rounded-xl border border-slate-700 text-sm text-slate-300">
-                                                <p className="mb-2 font-bold text-white flex items-center gap-2"><HelpCircle size={16} /> Forgot your email?</p>
-                                                <p className="mb-2">For security reasons, we cannot lookup accounts by name publicly.</p>
-                                                <ul className="list-disc pl-4 space-y-1 text-slate-400">
-                                                    <li>Search your inboxes for "Welcome to ATPLVector".</li>
-                                                    <li>Try logging in with commonly used emails.</li>
-                                                    <li>Contact support with your proof of purchase.</li>
-                                                </ul>
-                                            </div>
-                                            <button onClick={handleAccountRecovery} className="w-full py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-xl font-bold">Contact Support</button>
-                                            <button onClick={() => setView('LOGIN')} className="w-full py-3 bg-transparent hover:bg-white/5 text-slate-400 rounded-xl font-bold">Back to Login</button>
-                                        </div>
-                                    ) : (
-                                        /* FORM FIELDS */
+                                        {/* FORM FIELDS */}
                                         <form onSubmit={
                                             view === 'LOGIN' ? handleLogin :
                                                 view === 'SIGNUP' ? handleSignup :
-                                                    view === 'RESET_PASSWORD' ? handlePasswordReset :
-                                                            handleForgotPassword
+                                                    handleForgotPassword
                                         } className="space-y-5">
+
+                                            {/* Google Sign-In moved to the top for frictionless access */}
+                                            {(view === 'LOGIN' || view === 'SIGNUP') && (
+                                                <div className="pb-6 border-b border-white/10 animate-in fade-in delay-300">
+                                                    <button
+                                                        type="button"
+                                                        onClick={handleGoogleSignIn}
+                                                        disabled={loading}
+                                                        className="w-full bg-white hover:bg-gray-100 disabled:opacity-50 text-gray-900 py-3 rounded-xl font-bold transition-all flex items-center justify-center shadow-lg transform active:scale-[0.98] border border-gray-200"
+                                                    >
+                                                        <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                                                            <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                                                            <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                                            <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                                                            <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                                                        </svg>
+                                                        {loading ? (view === 'SIGNUP' ? 'Creating account...' : 'Signing in...') : (view === 'SIGNUP' ? 'Sign up with Google' : 'Sign in with Google')}
+                                                    </button>
+                                                    <div className="mt-4 text-center">
+                                                        <p className="text-xs text-slate-400 uppercase tracking-widest">Or use email</p>
+                                                    </div>
+                                                </div>
+                                            )}
 
                                             {view === 'SIGNUP' && (
                                                 <div className="animate-in slide-in-from-left-4 fade-in">
@@ -540,15 +512,13 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 </div>
                                             )}
 
-                                            {view !== 'RESET_PASSWORD' && (
-                                                <div className="animate-in slide-in-from-left-4 fade-in delay-75">
-                                                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Email Address</label>
-                                                    <div className="relative">
-                                                        <Mail className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
-                                                        <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600" placeholder="pilot@example.com" />
-                                                    </div>
+                                            <div className="animate-in slide-in-from-left-4 fade-in delay-75">
+                                                <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Email Address</label>
+                                                <div className="relative">
+                                                    <Mail className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
+                                                    <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600" placeholder="pilot@example.com" />
                                                 </div>
-                                            )}
+                                            </div>
 
                                             {view !== 'FORGOT_PASS' && (
                                                 <div className="animate-in slide-in-from-left-4 fade-in delay-100">
@@ -561,7 +531,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                         </button>
                                                     </div>
                                                     {/* Strength Meter for Signup */}
-                                                    {(view === 'SIGNUP' || view === 'RESET_PASSWORD') && password && (
+                                                    {view === 'SIGNUP' && password && (
                                                         <div className="mt-2 flex items-center gap-2">
                                                             <div className="flex-1 h-1 bg-slate-700 rounded-full overflow-hidden">
                                                                 <div className={`h-full transition-all duration-500 ${passStrength <= 2 ? 'bg-red-500' : passStrength === 3 ? 'bg-yellow-500' : 'bg-green-500'}`} style={{ width: `${(passStrength / 4) * 100}%` }}></div>
@@ -572,7 +542,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 </div>
                                             )}
 
-                                            {(view === 'SIGNUP' || view === 'RESET_PASSWORD') && (
+                                            {view === 'SIGNUP' && (
                                                 <div className="animate-in slide-in-from-left-4 fade-in delay-150">
                                                     <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Confirm Password</label>
                                                     <div className="relative">
@@ -590,8 +560,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 {loading ? <Zap className="animate-spin w-5 h-5" /> : (
                                                     view === 'LOGIN' ? 'Sign In' :
                                                         view === 'SIGNUP' ? 'Create Account' :
-                                                            view === 'RESET_PASSWORD' ? 'Set New Password' :
-                                                                    'Send Reset Link'
+                                                                'Send Reset Link'
                                                 )}
                                                 {!loading && <ArrowRight className="ml-2 w-5 h-5" />}
                                             </button>
@@ -610,33 +579,9 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 {view === 'FORGOT_PASS' && (
                                                     <>
                                                         <button type="button" onClick={() => setView('LOGIN')} className="text-sm text-slate-400 hover:text-white block w-full transition-colors">Back to Login</button>
-                                                        <button type="button" onClick={() => setView('RECOVER_ACCOUNT')} className="text-xs text-slate-500 hover:text-slate-300 mt-2 block w-full transition-colors">Forgot Email Address?</button>
                                                     </>
                                                 )}
                                             </div>
-
-                                            {/* Google Sign-In */}
-                                            {(view === 'LOGIN' || view === 'SIGNUP') && (
-                                                <div className="pt-6 border-t border-white/10 animate-in fade-in delay-300">
-                                                    <div className="mb-4 text-center">
-                                                        <p className="text-xs text-slate-400">Or continue with</p>
-                                                    </div>
-                                                    <button
-                                                        type="button"
-                                                        onClick={handleGoogleSignIn}
-                                                        disabled={loading}
-                                                        className="w-full bg-white hover:bg-gray-100 disabled:opacity-50 text-gray-900 py-3 rounded-xl font-bold transition-all flex items-center justify-center shadow-lg transform active:scale-[0.98] border border-gray-200"
-                                                    >
-                                                        <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
-                                                            <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                                                            <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                                                            <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
-                                                            <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
-                                                        </svg>
-                                                        {loading ? (view === 'SIGNUP' ? 'Creating account...' : 'Signing in...') : (view === 'SIGNUP' ? 'Sign up with Google' : 'Sign in with Google')}
-                                                    </button>
-                                                </div>
-                                            )}
 
 
                                             {view === 'LOGIN' && onDemoLogin && (
@@ -647,7 +592,6 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 </div>
                                             )}
                                         </form>
-                                    )}
                                 </div>
                             </div>
                         </div>
@@ -879,6 +823,71 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                         </div>
                     </div>
 
+                    {/* PRICING SECTION */}
+                    <div id="pricing" className="py-24 relative overflow-hidden bg-slate-950">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-slate-950 to-slate-950 pointer-events-none"></div>
+
+                        <div className="max-w-7xl mx-auto px-6 relative z-10">
+                            <div className="text-center mb-16">
+                                <span className="text-indigo-400 font-bold uppercase tracking-widest text-sm">Clear & Fair Pricing</span>
+                                <h2 className="text-3xl md:text-5xl font-black text-white mt-2">Invest in Your Aviation Career.</h2>
+                                <p className="text-slate-400 mt-4 max-w-2xl mx-auto">
+                                    Affordable plans designed for pilots. Get full access to all 14 subjects, 3D simulations, and AI feedback.
+                                </p>
+                            </div>
+
+                            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                                {/* 1 Month Plan */}
+                                <div className="bg-slate-900/50 rounded-3xl border border-slate-700/50 p-8 flex flex-col hover:border-slate-600 transition-colors">
+                                    <h3 className="text-xl font-bold text-white mb-2">1 Month</h3>
+                                    <p className="text-slate-400 text-sm mb-6">Perfect for final revision</p>
+                                    <div className="text-4xl font-black text-white mb-6">€15<span className="text-lg text-slate-500 font-normal">/mo</span></div>
+                                    <ul className="space-y-4 mb-8 flex-1">
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> Full access to 14 subjects</li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> 65+ 3D Interactive Simulators</li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> AI-Powered Explanations</li>
+                                    </ul>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl font-bold transition">Get Started</button>
+                                </div>
+
+                                {/* 6 Months Plan */}
+                                <div className="bg-gradient-to-b from-indigo-900/40 to-slate-900/50 rounded-3xl border border-indigo-500/30 p-8 flex flex-col relative transform md:-translate-y-4 shadow-2xl shadow-indigo-900/20">
+                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Most Popular</div>
+                                    <h3 className="text-xl font-bold text-white mb-2">6 Months</h3>
+                                    <p className="text-indigo-200 text-sm mb-6">Ideal for steady progression</p>
+                                    <div className="flex items-baseline gap-2 mb-6">
+                                        <div className="text-4xl font-black text-white">€60</div>
+                                        <div className="text-sm text-slate-400 line-through">€90</div>
+                                    </div>
+                                    <ul className="space-y-4 mb-8 flex-1">
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-indigo-400 shrink-0" /> <span className="font-bold text-white">Save €30</span> compared to monthly</li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-indigo-400 shrink-0" /> Full access to 14 subjects</li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-indigo-400 shrink-0" /> 65+ 3D Interactive Simulators</li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-indigo-400 shrink-0" /> Priority Support</li>
+                                    </ul>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl font-bold transition shadow-lg shadow-indigo-500/25">Choose 6 Months</button>
+                                </div>
+
+                                {/* 12 Months Plan */}
+                                <div className="bg-slate-900/50 rounded-3xl border border-slate-700/50 p-8 flex flex-col hover:border-slate-600 transition-colors">
+                                    <h3 className="text-xl font-bold text-white mb-2">12 Months</h3>
+                                    <p className="text-slate-400 text-sm mb-6">For the complete journey</p>
+                                    <div className="flex items-baseline gap-2 mb-6">
+                                        <div className="text-4xl font-black text-white">€95</div>
+                                        <div className="text-sm text-slate-400 line-through">€180</div>
+                                    </div>
+                                    <ul className="space-y-4 mb-8 flex-1">
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> <span className="font-bold text-white">Best Value</span></li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> Full access to 14 subjects</li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> 65+ 3D Interactive Simulators</li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> Free minor updates</li>
+                                    </ul>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl font-bold transition">Choose 12 Months</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     {/* LIVE STUDY GUIDE DEMO */}
                     <div className="py-24 bg-slate-900 border-y border-white/5 relative overflow-hidden">
                         {/* Background Gradients */}
@@ -900,141 +909,15 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                         </div>
                     </div>
 
-                    {/* PRICING SECTION */}
-                    <div id="pricing" className="py-24 bg-slate-900">
-                        <div className="max-w-7xl mx-auto px-6">
-                            <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-8 duration-700">
-                                <span className="text-indigo-400 font-bold uppercase tracking-widest text-sm">Pricing</span>
-                                <h2 className="text-3xl md:text-5xl font-black text-white mt-2">Premium visual learning, accessible prices.</h2>
-                                <p className="text-slate-400 mt-4">Choose your study duration. All plans include every subject and simulator.</p>
-                            </div>
-
-                            {/* Coming Soon / Beta Access */}
-                            <div className="max-w-3xl mx-auto bg-slate-800/50 rounded-3xl border border-slate-700 p-12 text-center mb-16 shadow-2xl relative overflow-hidden group">
-                                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
-                                <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
-
-                                <div className="relative z-10 flex flex-col items-center">
-                                    <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 border border-blue-500/20 mb-6 shadow-lg shadow-blue-500/10">
-                                        <Rocket size={32} />
-                                    </div>
-
-                                    <h3 className="text-3xl font-black text-white mb-4">Platform currently in active development.</h3>
-                                    <p className="text-slate-400 text-lg mb-8 max-w-xl mx-auto leading-relaxed">
-                                        We are fine-tuning the ultimate visual learning experience for pilots.
-                                        If you'd like to get early access, please contact our support team.
-                                    </p>
-
-                                    <div className="flex flex-col sm:flex-row items-center gap-4">
-                                        {/*
-                                        <button
-                                            onClick={() => { scrollToSection('hero'); setView('LOGIN'); if (onDemoLogin) onDemoLogin(); }}
-                                            className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-500/25 flex items-center gap-2 group-hover:scale-105 duration-300"
-                                        >
-                                            <PlayCircle size={20} />
-                                            Try Demo Access
-                                        </button>
-                                        */}
-                                        <button
-                                            onClick={() => setActiveInfoPage('CONTACT')}
-                                            className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl font-bold transition-colors border border-slate-600"
-                                        >
-                                            Contact for Access
-                                        </button>
-                                    </div>
-
-                                    <div className="mt-8 pt-8 border-t border-slate-700/50 w-full flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs font-bold text-slate-500 uppercase tracking-widest">
-                                        <span className="flex items-center gap-2"><CheckCircle size={12} className="text-emerald-500" /> Early Access</span>
-                                        <span className="flex items-center gap-2"><CheckCircle size={12} className="text-emerald-500" /> Flight Schools</span>
-                                        <span className="flex items-center gap-2"><CheckCircle size={12} className="text-emerald-500" /> Beta Testing</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Why ATPLVector - Comparison Section */}
-                            <div className="bg-slate-800/50 rounded-3xl border border-slate-700 p-8 md:p-12 max-w-5xl mx-auto">
-                                <div className="text-center mb-10">
-                                    <h3 className="text-2xl md:text-3xl font-black text-white">Why ATPLVector?</h3>
-                                    <p className="text-slate-400 mt-2">Understanding vs. Memorization</p>
-                                </div>
-
-                                <div className="grid md:grid-cols-2 gap-8">
-                                    {/* ATPLVector Column */}
-                                    <div className="bg-gradient-to-br from-blue-900/30 to-indigo-900/30 rounded-2xl p-6 border border-blue-500/30">
-                                        <div className="flex items-center gap-3 mb-6">
-                                            <div className="p-2 bg-blue-500/20 rounded-lg">
-                                                <Plane className="w-6 h-6 text-blue-400" />
-                                            </div>
-                                            <h4 className="font-bold text-white text-lg">ATPLVector</h4>
-                                            <span className="ml-auto text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full font-bold">Visual Learning</span>
-                                        </div>
-                                        <ul className="space-y-4">
-                                            <li className="flex gap-3 text-sm">
-                                                <CheckCircle size={18} className="text-emerald-400 shrink-0 mt-0.5" />
-                                                <span className="text-slate-300"><strong className="text-white">3D Interactive Simulations</strong> - See how systems actually work</span>
-                                            </li>
-                                            <li className="flex gap-3 text-sm">
-                                                <CheckCircle size={18} className="text-emerald-400 shrink-0 mt-0.5" />
-                                                <span className="text-slate-300"><strong className="text-white">AI-Powered Roleplay</strong> - Practice radio calls with intelligent feedback</span>
-                                            </li>
-                                            <li className="flex gap-3 text-sm">
-                                                <CheckCircle size={18} className="text-emerald-400 shrink-0 mt-0.5" />
-                                                <span className="text-slate-300"><strong className="text-white">Deep Understanding</strong> - Learn the "why", not just the "what"</span>
-                                            </li>
-                                            <li className="flex gap-3 text-sm">
-                                                <CheckCircle size={18} className="text-emerald-400 shrink-0 mt-0.5" />
-                                                <span className="text-slate-300"><strong className="text-white">Affordable Pricing</strong> - Premium learning from €10/mo</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    {/* Question Bank Providers Column */}
-                                    <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-700">
-                                        <div className="flex items-center gap-3 mb-6">
-                                            <div className="p-2 bg-slate-700 rounded-lg">
-                                                <HelpCircle className="w-6 h-6 text-slate-400" />
-                                            </div>
-                                            <h4 className="font-bold text-slate-400 text-lg">Question Banks</h4>
-                                            <span className="ml-auto text-xs bg-slate-700 text-slate-400 px-2 py-1 rounded-full font-bold">Memorization</span>
-                                        </div>
-                                        <ul className="space-y-4">
-                                            <li className="flex gap-3 text-sm">
-                                                <X size={18} className="text-slate-500 shrink-0 mt-0.5" />
-                                                <span className="text-slate-500">Static PDFs and text-heavy content</span>
-                                            </li>
-                                            <li className="flex gap-3 text-sm">
-                                                <X size={18} className="text-slate-500 shrink-0 mt-0.5" />
-                                                <span className="text-slate-300 text-sm font-medium">65+ Interactive Labs</span>
-                                            </li>
-                                            <li className="flex gap-3 text-sm">
-                                                <X size={18} className="text-slate-500 shrink-0 mt-0.5" />
-                                                <span className="text-slate-500">Memorize answers, forget concepts</span>
-                                            </li>
-                                            <li className="flex gap-3 text-sm">
-                                                <X size={18} className="text-slate-500 shrink-0 mt-0.5" />
-                                                <span className="text-slate-500">€200+ for full access</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div className="mt-8 text-center">
-                                    <p className="text-slate-400 text-sm mb-4">💡 <strong className="text-white">Pro Tip:</strong> Use ATPLVector to understand the theory, then add any question bank for exam practice.</p>
-                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-8 py-3 rounded-xl font-bold transition shadow-lg shadow-blue-500/25">Start 7-Day Free Trial</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     {/* FOOTER */}
                     <footer className="py-20 bg-slate-950 border-t border-white/5 relative overflow-hidden">
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
                         <div className="max-w-7xl mx-auto px-6 relative z-10">
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                                 <div className="col-span-1 md:col-span-2 space-y-6">
-                                    <div className="flex items-center space-x-2">
-                                        <div className="p-1.5 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg">
-                                            <Plane className="w-5 h-5 text-white" />
+                                    <div className="flex items-center space-x-2 cursor-pointer group" onClick={() => scrollToSection('hero')}>
+                                        <div className="p-1 w-8 h-8 bg-slate-900/50 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-300 border border-white/10 flex items-center justify-center overflow-hidden">
+                                            <img src="/assets/ATPLVECTOR Aviation Tech Logo.png" alt="Logo" className="w-full h-full object-contain scale-[3.5]" />
                                         </div>
                                         <span className="text-xl font-black text-white tracking-tighter">ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span></span>
                                     </div>

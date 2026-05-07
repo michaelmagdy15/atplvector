@@ -40,9 +40,9 @@ const LoadingScreen: React.FC = () => {
                         }}
                     >
                         <img
-                            src="/assets/logo.png"
+                            src="/assets/ATPLVECTOR Aviation Tech Logo.png"
                             alt="Logo"
-                            className="w-full h-full object-contain filter drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]"
+                            className="w-full h-full object-contain filter drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] scale-[3.5]"
                         />
                     </div>
                 </div>

@@ -443,6 +443,7 @@ export interface User {
   trialSubjects?: string[]; // Subjects available during trial (e.g., ['090', '040'])
   learningObjectivesRatings?: Record<string, number>; // Map of LO ID to rating (0-5)
   exam_plan?: any; // Stored in Firebase
+  subscriptionExpiresAt?: string; // ISO date string when subscription expires
 }
 
 export interface QCode {

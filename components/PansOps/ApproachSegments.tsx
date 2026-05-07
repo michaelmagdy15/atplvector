@@ -72,7 +72,9 @@ const SegmentLine = ({ segment, isSelected }: { segment: typeof SEGMENTS[0], isS
 
   return (
     <group>
+      {/* @ts-ignore - R3F element */}
       <line geometry={lineGeometry}>
+        {/* @ts-ignore - R3F element */}
         <lineBasicMaterial color={segment.color} linewidth={isSelected ? 5 : 2} opacity={isSelected ? 1 : 0.4} transparent />
       </line>
       

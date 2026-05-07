@@ -30,6 +30,7 @@
     "noEmit": true
   },
   "exclude": [
-    "🌍 Spline Skill"
+    "🌍 Spline Skill",
+    "aviation-mcp"
   ]
 }

@@ -54,7 +54,7 @@ const App: React.FC = () => {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
 
-    const [authInitialView, setAuthInitialView] = useState<'LOGIN' | 'SIGNUP' | 'RESET_PASSWORD'>('LOGIN');
+    const [authInitialView, setAuthInitialView] = useState<'LOGIN' | 'SIGNUP' | 'FORGOT_PASS'>('LOGIN');
 
     // Navigation History State
     const [viewHistory, setViewHistory] = useState<View[]>([View.PLATFORM_DASHBOARD]);
@@ -113,7 +113,7 @@ const App: React.FC = () => {
         const isRecovery = window.location.search?.includes('mode=resetPassword');
 
         if (isRecovery) {
-            setAuthInitialView('RESET_PASSWORD');
+            setAuthInitialView('FORGOT_PASS');
         }
 
         // Listen for auth changes
@@ -137,7 +137,7 @@ const App: React.FC = () => {
         try {
             // Trial configuration
             const TRIAL_DURATION_DAYS = 7;
-            const TRIAL_SUBJECTS = ['090']; // Communications only for free/trial users
+            const TRIAL_SUBJECTS: string[] = []; // No free subjects by default
 
             // Try to get profile from Firestore
             const profileRef = doc(db, 'profiles', uid);
@@ -171,16 +171,35 @@ const App: React.FC = () => {
             const sub = subSnap.data();
 
             let subTier: any = 'CUSTOM';
-            let allowedSubjects: string[] = ['090']; // Default to 090 (Comms) always allowed
+            let allowedSubjects: string[] = []; // Default to none, must activate demo
             let status: AuthStatus = AuthStatus.VERIFIED;
+            let subscriptionExpiresAt: string | undefined = undefined;
 
             // Check subscription status first
-            const hasActiveSubscription = sub && sub.status === 'active';
+            let hasActiveSubscription = false;
+            if (sub && sub.status === 'active') {
+                if (sub.expires_at) {
+                    const expiresAt = new Date(sub.expires_at);
+                    if (expiresAt > new Date()) {
+                        hasActiveSubscription = true;
+                    }
+                } else {
+                    // Legacy subscription without expires_at
+                    hasActiveSubscription = true;
+                }
+            }
+
             if (hasActiveSubscription) {
                 status = AuthStatus.ACTIVE;
                 subTier = sub.plan;
-                if (sub.plan?.includes('PRO')) {
+                if (sub.expires_at) subscriptionExpiresAt = sub.expires_at;
+
+                // Set allowed subjects
+                const fullAccessPlans = ['1_MONTH', '3_MONTHS', '6_MONTHS', '9_MONTHS', '12_MONTHS', 'PRO_MONTHLY', 'PRO_YEARLY'];
+                if (fullAccessPlans.includes(sub.plan) || sub.plan?.includes('PRO')) {
                     allowedSubjects = ['ALL'];
+                } else if (sub.plan === 'SINGLE_SUBJECT' && sub.allowed_subjects) {
+                    allowedSubjects = sub.allowed_subjects;
                 }
             }
 
@@ -294,7 +313,8 @@ const App: React.FC = () => {
                     isApproved: true,
                     trialStartDate: trialStartDate,
                     demoStartDate: demoStartDate,
-                    trialSubjects: trialSubjects
+                    trialSubjects: trialSubjects,
+                    subscriptionExpiresAt: subscriptionExpiresAt
                 });
             } else {
                 // Fallback if profile creation failed completely
@@ -582,7 +602,7 @@ const App: React.FC = () => {
                                     onClick={() => navigateTo(View.PLATFORM_DASHBOARD)}
                                 >
                                     <div className="p-1.5 w-8 h-8 sm:w-9 sm:h-9 bg-slate-900/50 rounded-lg shadow-lg group-hover:shadow-blue-500/20 transition-all duration-500 group-hover:scale-105 border border-white/10 flex items-center justify-center overflow-hidden">
-                                        <img src="/assets/logo.png" alt="Logo" className="w-full h-full object-contain" />
+                                        <img src="/assets/ATPLVECTOR Aviation Tech Logo.png" alt="Logo" className="w-full h-full object-contain scale-[3.5]" />
                                     </div>
                                     <span className="text-base sm:text-lg font-black tracking-tight text-white whitespace-nowrap">
                                         ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span>

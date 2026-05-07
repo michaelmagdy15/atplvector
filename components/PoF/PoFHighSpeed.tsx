@@ -358,7 +358,7 @@ const PoFHighSpeed: React.FC = () => {
                                         <text x="160" y="20" fill="#94a3b8" fontSize="10">Supercritical (Flatter top, swept trailing edge)</text>
                                         <path d="M 160 50 Q 220 20 290 60 Q 220 80 160 50 Z" fill="none" stroke="#10b981" strokeWidth="2" />
                                     </svg>
-                                    <p className="text-xs text-slate-400 mt-2">Delays supersonic flow acceleration on top surface, pushing shock wave rearwards and weakening it. Significantly raises $M_{crit}$.</p>
+                                    <p className="text-xs text-slate-400 mt-2">Delays supersonic flow acceleration on top surface, pushing shock wave rearwards and weakening it. Significantly raises {"$M_{crit}$"}.</p>
                                 </div>
                             </div>
                         </div>
@@ -371,7 +371,7 @@ const PoFHighSpeed: React.FC = () => {
                                 <div className="bg-slate-800 p-6 rounded-xl border border-slate-700">
                                     <h3 className="text-xl font-bold text-white mb-2">The Coffin Corner</h3>
                                     <p className="text-sm text-slate-400 mb-6">
-                                        At high altitudes, the speed of sound decreases (lowering Mach limits like $M_{MO}$ expressed in IAS), while true stall speed increases because air density drops. The intersection creates a corner where slowing down stalls the plane, and speeding up triggers high-speed Mach buffet.
+                                        At high altitudes, the speed of sound decreases (lowering Mach limits like {"$M_{MO}$"} expressed in IAS), while true stall speed increases because air density drops. The intersection creates a corner where slowing down stalls the plane, and speeding up triggers high-speed Mach buffet.
                                     </p>
 
                                     <label className="block text-sm font-medium text-slate-400 mb-2">

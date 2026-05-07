@@ -319,7 +319,7 @@ const PersonnelLicensing: React.FC = () => {
             {tabs.map(tab => (
                <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={() => setActiveTab(tab.id as any)}
                   className={`flex items-center gap-3 px-6 py-3.5 rounded-[1.5rem] font-bold transition-all duration-500 whitespace-nowrap ${
                      activeTab === tab.id 
                      ? 'bg-emerald-500 text-slate-950 shadow-2xl shadow-emerald-500/20 scale-105' 
@@ -493,7 +493,7 @@ const PersonnelLicensing: React.FC = () => {
                            </div>
                            <div>
                               <p className="text-white font-bold text-sm">Decrease in Fitness</p>
-                              <p className="text-slate-400 text-xs leading-relaxed mt-1">Must notify AME if surgery, significant injury (>21 days), or regular medication occurs.</p>
+                              <p className="text-slate-400 text-xs leading-relaxed mt-1">Must notify AME if surgery, significant injury (&gt;21 days), or regular medication occurs.</p>
                            </div>
                         </div>
                      </div>

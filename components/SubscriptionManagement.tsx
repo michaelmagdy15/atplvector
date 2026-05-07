@@ -13,9 +13,12 @@ interface Props {
 }
 
 const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack }) => {
-    const [plan, setPlan] = useState<'1_MONTH' | '3_MONTHS' | '6_MONTHS' | '9_MONTHS' | '12_MONTHS' | 'SINGLE_SUBJECT'>(user.subscriptionTier as any || '12_MONTHS');
+    const validPlans = ['1_MONTH', '3_MONTHS', '6_MONTHS', '9_MONTHS', '12_MONTHS', 'SINGLE_SUBJECT'];
+    const initialPlan = validPlans.includes(user.subscriptionTier as any) ? user.subscriptionTier : '1_MONTH';
+    const [plan, setPlan] = useState<'1_MONTH' | '3_MONTHS' | '6_MONTHS' | '9_MONTHS' | '12_MONTHS' | 'SINGLE_SUBJECT'>(initialPlan as any);
     const initialSubjects = (user.allowedSubjects || []).filter(s => s !== 'ALL');
     const [subjects, setSubjects] = useState<string[]>(initialSubjects);
+    const [licenseKey, setLicenseKey] = useState('');
 
     const [loading, setLoading] = useState(false);
     const [successMsg, setSuccessMsg] = useState<string | null>(null);
@@ -29,12 +32,12 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
     };
 
     const getPrice = () => {
-        if (plan === '12_MONTHS') return 119;
-        if (plan === '9_MONTHS') return 99;
-        if (plan === '6_MONTHS') return 79;
-        if (plan === '3_MONTHS') return 49;
-        if (plan === '1_MONTH') return 19;
-        if (plan === 'SINGLE_SUBJECT') return subjects.length * 25;
+        if (plan === '12_MONTHS') return 95;
+        if (plan === '9_MONTHS') return 80;
+        if (plan === '6_MONTHS') return 60;
+        if (plan === '3_MONTHS') return 35;
+        if (plan === '1_MONTH') return 15;
+        if (plan === 'SINGLE_SUBJECT') return subjects.length * 10;
         return 0;
     };
 
@@ -48,28 +51,89 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
         return '';
     };
 
-    // MANUAL SUBSCRIPTION LOGIC (Firebase Version)
-    const handleSave = async () => {
+    // MANUAL SUBSCRIPTION LOGIC (Firebase Version) -> UPDATED TO GUMROAD VERIFICATION
+    const handleVerifyLicense = async () => {
         if (plan === 'SINGLE_SUBJECT' && subjects.length === 0) {
             alert("Please select at least one subject for the Single Subject plan.");
             return;
         }
 
+        if (!licenseKey.trim()) {
+            alert("Please enter your Gumroad License Key.");
+            return;
+        }
+
         setLoading(true);
-        const newAllowed = plan === 'SINGLE_SUBJECT' ? subjects : ['ALL'];
 
         try {
-            // 1. Check if subscription exists
+            // --- GUMROAD API VERIFICATION ---
+            const response = await fetch('https://api.gumroad.com/v2/licenses/verify', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    product_id: '0q6hZSyKhdLOZmsWr3hXug==',
+                    license_key: licenseKey.trim(),
+                    increment_uses_count: 'false' // set to 'true' if you want Gumroad to count activations
+                })
+            });
+
+            const data = await response.json();
+            console.log("Gumroad Verify Response:", data);
+
+            if (!data.success || !data.purchase) {
+                alert(`Invalid license key: ${data.message || 'Verification failed.'}`);
+                setLoading(false);
+                return;
+            }
+
+            // Try to deduce actual plan from Gumroad purchase data to prevent saving incorrect plan from UI state
+            let actualPlan = plan;
+            if (data.purchase) {
+                const priceCents = data.purchase.price;
+                if (priceCents === 9500 || priceCents === 11900) actualPlan = '12_MONTHS';
+                else if (priceCents === 8000 || priceCents === 9900) actualPlan = '9_MONTHS';
+                else if (priceCents === 6000 || priceCents === 7900) actualPlan = '6_MONTHS';
+                else if (priceCents === 3500 || priceCents === 4900) actualPlan = '3_MONTHS';
+                else if (priceCents === 1500 || priceCents === 1900 || priceCents === 2500) actualPlan = '1_MONTH';
+
+                // Fallback to variant checking if price doesn't match perfectly
+                const variantsStr = JSON.stringify(data.purchase.variants || '').toLowerCase();
+                if (variantsStr.includes('1 month')) actualPlan = '1_MONTH';
+                else if (variantsStr.includes('3 month')) actualPlan = '3_MONTHS';
+                else if (variantsStr.includes('6 month')) actualPlan = '6_MONTHS';
+                else if (variantsStr.includes('9 month')) actualPlan = '9_MONTHS';
+                else if (variantsStr.includes('12 month') || variantsStr.includes('1 year')) actualPlan = '12_MONTHS';
+            }
+
+            // Calculate expires_at
+            const expiresAt = new Date();
+            if (actualPlan === '12_MONTHS') expiresAt.setMonth(expiresAt.getMonth() + 12);
+            else if (actualPlan === '9_MONTHS') expiresAt.setMonth(expiresAt.getMonth() + 9);
+            else if (actualPlan === '6_MONTHS') expiresAt.setMonth(expiresAt.getMonth() + 6);
+            else if (actualPlan === '3_MONTHS' || actualPlan === 'SINGLE_SUBJECT') expiresAt.setMonth(expiresAt.getMonth() + 3);
+            else if (actualPlan === '1_MONTH') expiresAt.setMonth(expiresAt.getMonth() + 1);
+
+            // --- FIREBASE UPDATE ---
+            const newAllowed = actualPlan === 'SINGLE_SUBJECT' ? subjects : ['ALL'];
+
             const subsRef = collection(db, 'subscriptions');
             const q = query(subsRef, where('user_id', '==', user.id));
             const querySnapshot = await getDocs(q);
 
-            const subPayload = {
+            const subPayload: any = {
                 user_id: user.id,
                 status: 'active',
-                plan: plan,
-                updated_at: new Date().toISOString()
+                plan: actualPlan,
+                gumroad_license_key: licenseKey.trim(),
+                updated_at: new Date().toISOString(),
+                expires_at: expiresAt.toISOString()
             };
+
+            if (actualPlan === 'SINGLE_SUBJECT') {
+                subPayload.allowed_subjects = subjects;
+            }
 
             if (!querySnapshot.empty) {
                 // Update existing subscription
@@ -85,16 +149,18 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
             // Update local state
             const updatedUser: User = {
                 ...user,
-                subscriptionTier: plan,
+                subscriptionTier: actualPlan,
                 allowedSubjects: newAllowed
             };
             onUpdateUser(updatedUser);
+            setPlan(actualPlan as any);
 
-            setSuccessMsg("Subscription updated successfully!");
+            setSuccessMsg("Subscription activated successfully!");
+            setLicenseKey(''); // Clear the key after success
             setTimeout(() => setSuccessMsg(null), 3000);
         } catch (error: any) {
             console.error('Subscription error:', error);
-            alert("Failed to update subscription. " + error.message);
+            alert("Failed to verify subscription. " + error.message);
         } finally {
             setLoading(false);
         }
@@ -309,13 +375,47 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                             </div>
                         </div>
 
+                        {/* Gumroad Instructions */}
+                        <div className="mb-6 p-4 bg-blue-900/20 border border-blue-500/30 rounded-xl">
+                            <h3 className="text-blue-400 font-bold mb-2 flex items-center gap-2 text-sm">
+                                <CreditCard size={16} /> How to Subscribe
+                            </h3>
+                            <p className="text-slate-300 text-xs mb-3">
+                                1. Purchase your selected plan on our Gumroad store.<br />
+                                2. You will receive a unique <strong>License Key</strong> in your email.<br />
+                                3. Paste the key below to activate your account.
+                            </p>
+                            <a 
+                                href="https://2567628920178.gumroad.com/l/mitivr?wanted=true" 
+                                target="_blank" 
+                                rel="noreferrer"
+                                className="block w-full py-2 bg-slate-800 hover:bg-slate-700 text-white text-center rounded-lg text-sm font-bold border border-slate-600 transition-colors"
+                            >
+                                Open Gumroad Store
+                            </a>
+                        </div>
+
+                        {/* License Key Input */}
+                        <div className="mb-6">
+                            <label className="block text-slate-400 text-xs font-bold mb-2 uppercase tracking-wider">
+                                License Key
+                            </label>
+                            <input 
+                                type="text"
+                                value={licenseKey}
+                                onChange={(e) => setLicenseKey(e.target.value)}
+                                placeholder="XXXX-XXXX-XXXX-XXXX"
+                                className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-mono text-sm"
+                            />
+                        </div>
+
                         <button
-                            onClick={handleSave}
-                            disabled={loading}
-                            className={`w-full py-4 rounded-xl font-bold text-white shadow-lg flex items-center justify-center gap-2 transition-all ${loading ? 'bg-slate-700 cursor-wait' : 'bg-blue-600 hover:bg-blue-500 hover:scale-[1.02]'
+                            onClick={handleVerifyLicense}
+                            disabled={loading || !licenseKey.trim()}
+                            className={`w-full py-4 rounded-xl font-bold text-white shadow-lg flex items-center justify-center gap-2 transition-all ${(loading || !licenseKey.trim()) ? 'bg-slate-700 cursor-not-allowed opacity-50' : 'bg-blue-600 hover:bg-blue-500 hover:scale-[1.02]'
                                 }`}
                         >
-                            {loading ? 'Processing...' : <><Save size={18} /> Update Subscription</>}
+                            {loading ? 'Verifying...' : <><CheckCircle size={18} /> Verify License & Activate</>}
                         </button>
 
                         {successMsg && (

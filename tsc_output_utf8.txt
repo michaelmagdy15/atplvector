@@ -1,0 +1,17 @@
+﻿App.tsx(420,25): error TS2322: Type '"LOGIN" | "SIGNUP" | "RESET_PASSWORD"' is not assignable to type 'AuthViewMode'.
+  Type '"RESET_PASSWORD"' is not assignable to type 'AuthViewMode'.
+aviation-mcp/src/index.ts(1,24): error TS2307: Cannot find module '@modelcontextprotocol/sdk/server/index.js' or its corresponding type declarations.
+aviation-mcp/src/index.ts(2,38): error TS2307: Cannot find module '@modelcontextprotocol/sdk/server/stdio.js' or its corresponding type declarations.
+aviation-mcp/src/index.ts(6,8): error TS2307: Cannot find module '@modelcontextprotocol/sdk/types.js' or its corresponding type declarations.
+components/AdminDashboard.tsx(106,32): error TS2339: Property 'status' does not exist on type '{ id: string; }'.
+components/AdminDashboard.tsx(108,32): error TS2339: Property 'plan' does not exist on type '{ id: string; }'.
+components/PansOps/ApproachSegments.tsx(75,13): error TS2322: Type '{ children: Element; geometry: BufferGeometry<NormalBufferAttributes, BufferGeometryEventMap>; }' is not assignable to type 'SVGLineElementAttributes<SVGLineElement>'.
+  Property 'geometry' does not exist on type 'SVGLineElementAttributes<SVGLineElement>'.
+components/PersonnelLicensing.tsx(322,47): error TS2345: Argument of type 'string' is not assignable to parameter of type 'SetStateAction<"medicals" | "fitness" | "privileges" | "ratings" | "definitions" | "general" | "structure">'.
+components/PoF/PoFHighSpeed.tsx(361,204): error TS2304: Cannot find name 'crit'.
+components/PoF/PoFHighSpeed.tsx(374,120): error TS2304: Cannot find name 'MO'.
+components/PoF/PoFLimitations.tsx(426,46): error TS2304: Cannot find name 'ReferenceLine'.
+components/PoF/PoFPropellers.tsx(285,45): error TS2322: Type '{ children: Element; animate: { rotate: number; x: number; }; originX: number; originY: number; }' is not assignable to type 'IntrinsicAttributes & SVGMotionProps<SVGGElement> & RefAttributes<SVGGElement>'.
+  Property 'originX' does not exist on type 'IntrinsicAttributes & SVGMotionProps<SVGGElement> & RefAttributes<SVGGElement>'. Did you mean 'origin'?
+components/PoF/PoFPropellers.tsx(295,45): error TS2322: Type '{ children: Element; animate: { rotate: number; x: number; }; originX: number; originY: number; }' is not assignable to type 'IntrinsicAttributes & SVGMotionProps<SVGGElement> & RefAttributes<SVGGElement>'.
+  Property 'originX' does not exist on type 'IntrinsicAttributes & SVGMotionProps<SVGGElement> & RefAttributes<SVGGElement>'. Did you mean 'origin'?

@@ -23,9 +23,9 @@ const BrandLoader: React.FC<Props> = ({ size = 'md', className = '', text }) => 
                 {/* Logo with Animation */}
                 <div className="relative z-10 w-full h-full">
                     <img
-                        src="/assets/logo.png"
+                        src="/assets/ATPLVECTOR Aviation Tech Logo.png"
                         alt="Loading..."
-                        className="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(59,130,246,0.5)] animate-logo-float"
+                        className="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(59,130,246,0.5)] animate-logo-float scale-[3.5]"
                     />
                 </div>
 

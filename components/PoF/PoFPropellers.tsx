@@ -282,7 +282,7 @@ const PoFPropellers: React.FC = () => {
                                                 rotate: csuState === 'UNDERSPEED' ? 10 : csuState === 'OVERSPEED' ? -20 : 0, 
                                                 x: csuState === 'UNDERSPEED' ? 5 : csuState === 'OVERSPEED' ? -10 : 0 
                                             }}
-                                            originX={130} originY={100}
+                                            style={{ transformOrigin: '130px 100px' }}
                                         >
                                             <path d="M 130 100 L 100 70 L 130 90 Z" fill="#94a3b8" />
                                         </motion.g>
@@ -292,7 +292,7 @@ const PoFPropellers: React.FC = () => {
                                                 rotate: csuState === 'UNDERSPEED' ? -10 : csuState === 'OVERSPEED' ? 20 : 0,
                                                 x: csuState === 'UNDERSPEED' ? -5 : csuState === 'OVERSPEED' ? 10 : 0
                                             }}
-                                            originX={170} originY={100}
+                                            style={{ transformOrigin: '170px 100px' }}
                                         >
                                             <path d="M 170 100 L 200 70 L 170 90 Z" fill="#94a3b8" />
                                         </motion.g>

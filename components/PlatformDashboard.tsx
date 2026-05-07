@@ -124,8 +124,8 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
             {/* Header / Stats */}
             <div className="flex flex-col xl:flex-row justify-between items-start xl:items-end mb-12 gap-8 pt-4">
                 <div className="animate-in fade-in slide-in-from-left duration-1000">
-                    <h1 className="text-4xl md:text-6xl font-black text-white mb-3 tracking-tighter uppercase italic leading-tight py-2">
-                        Pilot <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600">Dashboard</span>
+                    <h1 className="text-4xl md:text-6xl font-black text-white mb-3 tracking-tighter uppercase leading-tight py-2">
+                        Pilot <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600 pr-2">Dashboard</span>
                     </h1>
                     <p className="text-slate-400 text-sm md:text-lg font-medium">Flight deck initialized. All systems nominal.</p>
                 </div>
@@ -270,6 +270,16 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                         onClick={() => !commsLocked && onChangeView(View.DASHBOARD)}
                         className={`group relative glass-card rounded-3xl p-1 overflow-hidden transition-all duration-500 ${commsLocked ? 'opacity-80 cursor-not-allowed' : 'hover:scale-[1.005] cursor-pointer shadow-2xl shadow-blue-500/10'}`}
                     >
+                        {commsLocked && (
+                            <div className="absolute inset-0 z-30 bg-slate-950/80 flex flex-col items-center justify-center transition-opacity hover:bg-slate-950/70 rounded-3xl">
+                                <div className="p-3 bg-slate-900 border border-white/10 shadow-lg mb-3 rounded-xl">
+                                    <Lock className="w-6 h-6 text-slate-400" />
+                                </div>
+                                <span className="text-white font-black text-[10px] tracking-[0.2em] uppercase bg-black/60 px-4 py-1.5 rounded-full border border-white/10 text-slate-300">
+                                    Locked
+                                </span>
+                            </div>
+                        )}
                         <div className="bg-gradient-to-r from-blue-900/40 to-indigo-900/40 rounded-3xl h-full p-10 relative overflow-hidden backdrop-blur-md">
                             <div className="absolute -top-32 -right-32 w-96 h-96 bg-blue-600 rounded-full blur-[120px] opacity-20 group-hover:opacity-40 transition-opacity duration-1000"></div>
                             <div className="absolute top-1/2 right-12 -translate-y-1/2 opacity-20 group-hover:opacity-40 transition-all duration-700 transform group-hover:scale-110 group-hover:rotate-6 hidden md:block">

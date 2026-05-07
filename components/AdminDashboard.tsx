@@ -98,7 +98,7 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
             }
 
             const mappedUsers: User[] = (profiles as any[]).map((p: any) => {
-                const sub = subs?.find((s: any) => s.user_id === p.id);
+                const sub: any = subs?.find((s: any) => s.user_id === p.id);
                 let tier: any = 'CUSTOM';
                 let allowed = ['090'];
                 let status = p.status || (p.is_approved === false ? AuthStatus.PENDING_APPROVAL : AuthStatus.VERIFIED);

@@ -28,6 +28,30 @@ const UserProfile: React.FC<Props> = ({ user, studyTime, onLogout, onUpdateUser,
         alert("Admin status is managed via database directly for security.");
     };
 
+    const getPlanName = (tier: string | undefined) => {
+        switch (tier) {
+            case '12_MONTHS': return '12 Months Pro';
+            case '9_MONTHS': return '9 Months Pro';
+            case '6_MONTHS': return '6 Months Pro';
+            case '3_MONTHS': return '3 Months Pro';
+            case '1_MONTH': return '1 Month Pro';
+            case 'SINGLE_SUBJECT': return 'Single Subject';
+            case 'CUSTOM': return 'Basic';
+            default: return tier || 'Basic';
+        }
+    };
+
+    const getDaysRemaining = () => {
+        if (!user.subscriptionExpiresAt) return null;
+        const now = new Date();
+        const expiry = new Date(user.subscriptionExpiresAt);
+        const diffTime = expiry.getTime() - now.getTime();
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays > 0 ? diffDays : 0;
+    };
+
+    const daysRemaining = getDaysRemaining();
+
     return (
         <div className="max-w-2xl mx-auto p-6 md:p-12">
             <h1 className="text-3xl font-black text-white mb-8">Pilot Profile</h1>
@@ -67,12 +91,27 @@ const UserProfile: React.FC<Props> = ({ user, studyTime, onLogout, onUpdateUser,
                         <div className="text-3xl font-mono font-bold text-white">{formatTime(studyTime)}</div>
                     </div>
 
-                    <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
-                        <div className="flex items-center mb-2 text-slate-400 text-xs font-bold uppercase tracking-wider">
-                            <Shield className="w-4 h-4 mr-2" /> Access Level
+                    <div className="bg-slate-900 p-6 rounded-xl border border-slate-700 relative flex flex-col justify-center">
+                        <div className="flex items-center justify-between mb-2 absolute top-6 left-6 right-6">
+                            <div className="flex items-center text-slate-400 text-xs font-bold uppercase tracking-wider">
+                                <Shield className="w-4 h-4 mr-2" /> Access Level
+                            </div>
+                            <button
+                                onClick={() => onNavigate && onNavigate(View.SUBSCRIPTION_MANAGEMENT)}
+                                className="text-blue-400 hover:text-blue-300 text-xs font-bold uppercase transition-colors"
+                            >
+                                Manage
+                            </button>
                         </div>
-                        <div className="text-3xl font-bold text-white">
-                            {user.isAdmin ? <span className="text-red-400">Admin</span> : (user.subscriptionTier ? user.subscriptionTier : 'Basic')}
+                        <div className="mt-6">
+                            <div className="text-3xl font-bold text-white">
+                                {user.isAdmin ? <span className="text-red-400">Admin</span> : getPlanName(user.subscriptionTier)}
+                            </div>
+                            {daysRemaining !== null && !user.isAdmin && (
+                                <div className="text-sm text-slate-400 mt-1">
+                                    {daysRemaining} days remaining
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
