@@ -4,7 +4,7 @@ import { User } from '../types';
 import { Shield, Mail, CheckCircle, Lock, ArrowRight, Plane, Zap, Menu, X, User as UserIcon, HelpCircle, Eye, EyeOff, AlertTriangle, PlayCircle, Star, Globe, BarChart3, Radio, RefreshCw, KeyRound, Target, BookOpen, Layout, Dna, Rocket } from 'lucide-react';
 import { auth, db, getSiteUrl } from '../lib/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged, sendEmailVerification, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { collection, query, where, getDocs, updateDoc, doc, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, query, where, getDocs, updateDoc, doc, addDoc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { TestimonialService } from '../services/TestimonialService';
 import { Testimonial } from '../types';
 import Terms from './Terms';
@@ -12,7 +12,7 @@ import Privacy from './Privacy';
 import Contact from './Contact';
 import StudyGuide from './StudyGuide';
 
-type AuthViewMode = 'LOGIN' | 'SIGNUP' | 'FORGOT_PASS';
+type AuthViewMode = 'LOGIN' | 'SIGNUP' | 'FORGOT_PASS' | 'RESET_PASSWORD';
 
 const LazyImage = ({ src, alt, className, fallback }: { src: string, alt: string, className?: string, fallback?: React.ReactNode }) => {
     const [isDesktop, setIsDesktop] = useState(false);

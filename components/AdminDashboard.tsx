@@ -41,7 +41,7 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
     // Edit Modal State
     const [editingUser, setEditingUser] = useState<User | null>(null);
     const [editSubs, setEditSubs] = useState<string[]>([]);
-    const [editTier, setEditTier] = useState<'1_MONTH' | '3_MONTHS' | '6_MONTHS' | '9_MONTHS' | '12_MONTHS' | 'SINGLE_SUBJECT' | 'CUSTOM' | 'PRO_MONTHLY' | 'PRO_YEARLY'>('12_MONTHS');
+    const [editTier, setEditTier] = useState<'1_MONTH' | '3_MONTHS' | '6_MONTHS' | '9_MONTHS' | '12_MONTHS' | 'SINGLE_SUBJECT' | 'CUSTOM' | 'PRO_MONTHLY' | 'PRO_YEARLY' | 'OWNER'>('12_MONTHS');
     const [editIsAdmin, setEditIsAdmin] = useState(false);
     const [editStatus, setEditStatus] = useState<AuthStatus>(AuthStatus.VERIFIED);
 
@@ -85,7 +85,7 @@ const AdminDashboard: React.FC<Props> = ({ currentUser, onBack }) => {
 
             const subsRef = collection(db, 'subscriptions');
             const subsSnapshot = await getDocs(subsRef);
-            const subs = subsSnapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+            const subs = subsSnapshot.docs.map(d => ({ id: d.id, ...d.data() } as any));
 
             // Fetch testimonials
             if (activeTab === 'TESTIMONIALS') {

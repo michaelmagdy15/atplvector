@@ -249,8 +249,10 @@ const App: React.FC = () => {
                 // Determine final status
                 let finalStatus: AuthStatus = status;
 
+                const isOwner = email === 'michaelmitry13@gmail.com';
+
                 // Priority: ACTIVE > DEMO > FREE_TRIAL > DEMO_EXPIRED > TRIAL_EXPIRED > PENDING_APPROVAL
-                if (hasActiveSubscription) {
+                if (isOwner || hasActiveSubscription) {
                     finalStatus = AuthStatus.ACTIVE;
                 } else if (isDemoActive) {
                     finalStatus = AuthStatus.DEMO_PREVIEW;
@@ -307,9 +309,9 @@ const App: React.FC = () => {
                     lastStudyDate: lastStudyDate,
                     dailyGoalSeconds: dailyGoalSeconds,
                     dailyStudyData: dailyStudyData,
-                    subscriptionTier: subTier,
-                    allowedSubjects: allowedSubjects,
-                    isAdmin: profile.is_admin,
+                    subscriptionTier: isOwner ? 'OWNER' : subTier,
+                    allowedSubjects: isOwner ? ['ALL'] : allowedSubjects,
+                    isAdmin: isOwner ? true : profile.is_admin,
                     isApproved: true,
                     trialStartDate: trialStartDate,
                     demoStartDate: demoStartDate,
@@ -318,15 +320,16 @@ const App: React.FC = () => {
                 });
             } else {
                 // Fallback if profile creation failed completely
+                const isOwner = email === 'michaelmitry13@gmail.com';
                 setUser({
                     id: uid,
                     email: email,
-                    fullName: 'Pilot',
-                    status: AuthStatus.FREE_TRIAL,
+                    fullName: isOwner ? 'Michael Mitry' : 'Pilot',
+                    status: isOwner ? AuthStatus.ACTIVE : AuthStatus.FREE_TRIAL,
                     studySeconds: 0,
-                    subscriptionTier: 'CUSTOM',
-                    allowedSubjects: [],
-                    isAdmin: false,
+                    subscriptionTier: isOwner ? 'OWNER' : 'CUSTOM',
+                    allowedSubjects: isOwner ? ['ALL'] : [],
+                    isAdmin: isOwner ? true : false,
                     isApproved: true
                 });
             }

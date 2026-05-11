@@ -434,7 +434,7 @@ export interface User {
   lastStudyDate?: string; // Gamification: ISO Date YYYY-MM-DD
   dailyGoalSeconds?: number; // Gamification: Daily goal in seconds
   dailyStudyData?: Record<string, number>; // Gamification: Map of YYYY-MM-DD to seconds studied
-  subscriptionTier?: '1_MONTH' | '3_MONTHS' | '6_MONTHS' | '9_MONTHS' | '12_MONTHS' | 'SINGLE_SUBJECT' | 'CUSTOM' | 'PRO_MONTHLY' | 'PRO_YEARLY';
+  subscriptionTier?: '1_MONTH' | '3_MONTHS' | '6_MONTHS' | '9_MONTHS' | '12_MONTHS' | 'SINGLE_SUBJECT' | 'CUSTOM' | 'PRO_MONTHLY' | 'PRO_YEARLY' | 'OWNER';
   allowedSubjects?: string[]; // 'ALL' or array of IDs
   isAdmin?: boolean;
   isApproved?: boolean; // Manual admin approval status
