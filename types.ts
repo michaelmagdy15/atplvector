@@ -1,4 +1,8 @@
 
+// ─── Dual-Track: Licence Course Types ───────────────────────────────────────
+export type CourseLevel = 'PPL' | 'ATPL' | 'BOTH';
+export type LicenceTrack = 'PPL' | 'ATPL';
+
 export enum View {
   // Platform Level
   PLATFORM_DASHBOARD = 'PLATFORM_DASHBOARD',
@@ -383,6 +387,44 @@ export enum View {
 
   // Simulators
   MCDU_SIM = 'MCDU_SIM',
+
+  // ─── PPL Track Views ────────────────────────────────────────────────────────
+  PPL_DASHBOARD = 'PPL_DASHBOARD',
+
+  // PPL Air Law (reuses ATPL 010 components, filtered)
+  PPL_AIR_LAW_HOME = 'PPL_AIR_LAW_HOME',
+
+  // PPL Human Performance (reuses ATPL 040 components, filtered)
+  PPL_HPL_HOME = 'PPL_HPL_HOME',
+
+  // PPL Meteorology (reuses ATPL 050 components, filtered)
+  PPL_MET_HOME = 'PPL_MET_HOME',
+
+  // PPL Navigation (reuses ATPL 061 components, filtered)
+  PPL_NAV_HOME = 'PPL_NAV_HOME',
+
+  // PPL Principles of Flight (reuses ATPL 081 components, filtered)
+  PPL_POF_HOME = 'PPL_POF_HOME',
+
+  // PPL VFR Communications (full reuse of existing DASHBOARD/comms views)
+  PPL_COMMS = 'PPL_COMMS',
+
+  // PPL Operational Procedures (reuses ATPL 070 components, filtered)
+  PPL_OPS_HOME = 'PPL_OPS_HOME',
+
+  // PPL Aircraft General Knowledge — SEP (NEW content required)
+  PPL_AGK_HOME = 'PPL_AGK_HOME',
+  PPL_AGK_PISTON_ENGINE = 'PPL_AGK_PISTON_ENGINE',
+  PPL_AGK_AIRFRAME = 'PPL_AGK_AIRFRAME',
+  PPL_AGK_FUEL_SYSTEMS = 'PPL_AGK_FUEL_SYSTEMS',
+  PPL_AGK_ELECTRICS = 'PPL_AGK_ELECTRICS',
+  PPL_AGK_INSTRUMENTS = 'PPL_AGK_INSTRUMENTS',
+
+  // PPL Flight Performance & Planning — Class B SEP (NEW content required)
+  PPL_PERF_HOME = 'PPL_PERF_HOME',
+  PPL_PERF_CHARTS = 'PPL_PERF_CHARTS',
+  PPL_PERF_MASS_BALANCE = 'PPL_PERF_MASS_BALANCE',
+  PPL_PERF_FUEL = 'PPL_PERF_FUEL',
 }
 
 export enum AuthStatus {
@@ -434,10 +476,11 @@ export interface User {
   lastStudyDate?: string; // Gamification: ISO Date YYYY-MM-DD
   dailyGoalSeconds?: number; // Gamification: Daily goal in seconds
   dailyStudyData?: Record<string, number>; // Gamification: Map of YYYY-MM-DD to seconds studied
-  subscriptionTier?: '1_MONTH' | '3_MONTHS' | '6_MONTHS' | '9_MONTHS' | '12_MONTHS' | 'SINGLE_SUBJECT' | 'CUSTOM' | 'PRO_MONTHLY' | 'PRO_YEARLY' | 'OWNER';
+  subscriptionTier?: '1_MONTH' | '3_MONTHS' | '6_MONTHS' | '9_MONTHS' | '12_MONTHS' | 'SINGLE_SUBJECT' | 'CUSTOM' | 'PRO_MONTHLY' | 'PRO_YEARLY' | 'OWNER' | 'PPL_1_MONTH' | 'PPL_3_MONTHS' | 'PPL_6_MONTHS' | 'ALL_TRACKS';
   allowedSubjects?: string[]; // 'ALL' or array of IDs
   isAdmin?: boolean;
   isApproved?: boolean; // Manual admin approval status
+  licenceTrack?: LicenceTrack; // Which training track the user is enrolled in
   trialStartDate?: string; // ISO date string when trial started
   demoStartDate?: string; // ISO date string when 3-hour demo started
   trialSubjects?: string[]; // Subjects available during trial (e.g., ['090', '040'])
@@ -494,6 +537,7 @@ export interface LearningObjective {
   subject: string;
   text: string;
   coveredBy?: View; // The view that covers this LO
+  level?: CourseLevel; // 'PPL' | 'ATPL' | 'BOTH' — defaults to ATPL if omitted
 }
 
 export interface SubjectStats {

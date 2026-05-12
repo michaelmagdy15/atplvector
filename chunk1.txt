@@ -1,0 +1,1218 @@
+> JEPPESEN.
+A BOEING COMPANY
+GUIDED FLIGHT DISCOVERY
+PRIVATE PILOT
+SYLLABUS
+> 
+4228
+z fern
+
+INTRODUCTION 
+«@ 
+Private 
+Pilot 
+Course
+Private Pilot Syllabus
+Introduction
+This syllabus utilizes the building-block method of teaching in which each
+instructional item is presented on the basis of previously learned knowledge and
+skill. It guides students and instructors through a lesson sequence in which new
+material builds on what a student has already mastered.
+The Private Pilot Course contains separate ground and flight training courses.
+Therefore, the course may be conducted as a combined ground and flight training
+program or be divided into separate components. When using the integrated
+sequence shown in the time allocation tables, aeronautical knowledge that is
+pertinent to a flight lesson is taught just before that flight.
+GROUND TRAINING
+Ground school is an integral part of pilot certification courses and the Ground
+Training Syllabus meets FAR Part 141 requirements for ground training. When
+coordinating the ground school with flight training, each ground lesson is
+conducted at the point indicated in the Allocation Tables beginning on page xvii.
+Ground training Stages I and II are completed during Stage I of the flight training
+syllabus. Ground Stage III, and the End-of-Course Final Exams “A” and “B” are
+completed during Stage II of flight training. This sequence enables the student to
+complete the aeronautical knowledge segments of the syllabus before the final
+stage of flight training, and encourages the student to take the FAA Private Pilot
+Airman Knowledge Test promptly. Appendix B identifies the specific ground
+lessons in which knowledge areas required by Part 141 and Part 61 are covered.
+In a classroom environment, ground lessons should normally be presented in
+numerical order. However, to provide some flexibility for adapting to individual
+student needs and to the training situation, the order of the lessons may be altered
+with approval of the chief flight instructor. Any deviation should not disturb the
+course continuity or objectives. Each lesson may be presented in one classroom
+session, or it may be divided into two or more sessions, as necessary.
+GROUND TRAINING COMPONENTS
+The Guided Flight Discovery Pilot Training System provides the necessary
+components to train for a private pilot certificate. Students and instructors should
+review the following list as a guide to assemble and effectively use the course
+materials.
+Private Pilot Syllabus—the outline of the Private Pilot course. The syllabus provides
+a basic framework for training in a logical sequence and assigns appropriate study
+material prior to each lesson.
+Private Pilot Textbook/e-Book—the primary source for initial study and review.
+Textbook chapters are references for each ground lesson. The textbook contains
+complete and concise explanations of the fundamental concepts and ideas that
+every private pilot needs to know. The subjects are organized in a logical manner
+6 
+se 
+ae ee oe 
+ee 
+ee 
+eo Oe ves vn 
+in en 
+en 
+NY
+
+~ 
+Private Pilot Syllabus
+SAT an EE 
+EE LE 
+IRE PD I TEE TIE IN EE A 
+LI PRE a 
+ELD PE EE,
+to build upon previously introduced topics. Subjects are often expanded upon
+through the use of Discovery Insets, which are strategically placed throughout
+the chapters. The Summary Checklists, Key Terms, and Questions are designed
+to help students review and prepare for both the knowledge and practical tests.
+Private Pilot Maneuvers Manual—provides illustrated step-by-step instructions
+for all required flight maneuvers. As study assignments prior to specific flight
+lessons, maneuvers lessons save training time by preparing students to perform
+the maneuver and reducing the time required for preflight briefing of maneuvers.
+Maneuvers are numbered for ease of reference, are grouped into categories based
+on similar operational characteristics, and presented in the order in which they
+are typically introduced during training.
+Private Pilot Online Course—provides academic content in ground lessons with
+exams and interactive maneuvers lessons in a complete ground school. Online
+lessons are listed as references for ground lessons in this syllabus. Lessons
+use a combination of audio, video and graphics to clearly explain each topic.
+Maneuvers lessons provide step-by-step guidance with in-cockpit video showing
+what the pilot sees when performing each maneuver. A Learning Management
+System (LMS) tracks completions and test results specific to each question to
+assist in identifying student strengths and weaknesses.
+=
+=
+=
+=
+a
+Jeppesen FAR/AIM—includes the current Federal Aviation Regulations (FARs)
+= | 
+and the Aeronautical Information Manual (AIM) in one publication available in
+printed form or as an e-Book. The FAR/AIM includes FAR Parts 1, 3, 11, 43, 48,
+a | 
+61, 67, 68, 71, 73, 91, 97, 103, 105, 107, 110, 119, 135, 136, 137, 141, 142, NTSB
+830, and TSRs 1552 and 1562. The AIM is a complete reproduction of the FAA
+= | 
+publication with full-color graphics and the Pilot/Controller Glossary. The AIM
+contains basic flight information and ATC procedures to operate effectively in
+a | 
+the U.S. National Airspace System.
+=
+A
+Private Pilot Exams—provide essential testing components. Required by FAR
+Part 141, students take a stage exam after each stage of ground training and End-
+of-Course Final Exams at the completion of ground training. Prior to solo flight,
+students must take the Presolo Exam required by FAR Part 61.
+INTRODUCTION 
+am Private 
+Pilot 
+Course
+Private Pilot Airman Knowledge Test Guide—helps students understand the
+learning objectives for the test questions so that they can take the FAA Private
+Pilot Airman Knowledge Test with confidence. The test guide contains sample
+knowledge test questions, with correct answers, explanations, and study
+references. Explanations of why the other choices are wrong are included where
+appropriate.
+LESSON EXAMS
+Each ground lesson has a brief exam at the end. Students may complete the
+exam online in the Jeppesen Learning Center or complete the questions in the
+appropriate textbook chapter. As specified in the ground lesson completion
+standards, the exams must be scored and the student must discuss any incorrect
+responses with the instructor to ensure student understanding prior to beginning
+the next ground lesson. When a lesson is complete, the instructor assigns the
+next textbook chapter and section(s) or online lesson(s) for out-of-class study.
+Vii
+
+Private Pilot Syllabus
+Se
+STAGE EXAMS
+At the end of each stage, the student is required to successfully complete the stage
+exam outlined in the syllabus before beginning the next ground training stage. The
+stage exam evaluates the student's understanding of the knowledge areas within
+a stage. Successful completion of each stage exam and a review of each incorrect
+response is required before the student progresses to the next stage.
+END-OF-COURSE FINAL EXAMS
+When all of the ground lesson assignments are complete, the student should
+take the End-of-Course Final Exams “A” and “B” assigned in Stage III. Following
+the exams, the instructor should assign the student appropriate subject areas for
+review. After a thorough review, the student should complete the FAA Private
+Pilot Airman Knowledge Test without delay.
+USING AN ATD FOR GROUND TRAINING
+The syllabus provides for use of an ATD for ground training. An ATD is extremely
+effective for introducing procedures without the distraction of having to fly the
+airplane. If properly integrated into the ground training program, the ATD will
+enhance systems knowledge and procedural understanding before the student
+trains in the airplane.
+In addition to skill enhancement, the introduction of maneuvers and procedures
+by instrument reference in the ATD has other advantages for both student and
+instructor. These include fewer distractions, more versatility in lesson presentation,
+repositioning, freeze functions, emergency training, and the ability to control the
+environment of the training session and allow the student to concentrate on the
+areas the instructor wants to emphasize. By following the recommended sequence
+of the syllabus, the student will gain maximum benefit from the integration of
+academic training, introduction of new maneuvers and procedures in the ATD, and
+subsequent practice in the airplane. The following ground lessons are particularly
+suited to the use of an ATD.
+INTRODUCTION 
+a 
+Private 
+Pilot 
+Course
+=:
+iF
+es
+&
+es
+es
+es
+&
+EF
+=
+es
+Ee
+I>
+Ec
+c
+KE
+x
+ck
+cK
+k
+Ground Lesson 1 — Discovering Aviation 
+(1 Hour)
+Ground Lesson 2 — Airplane Systems 
+(1 Hour)
+Ground Lesson 5 — Communication and Flight Information 
+(1 Hour)
+Ground Lesson 12 — Navigation 
+(1 Hour)
+Ground Lesson 14 — Flying Cross-Country 
+(1 Hour)
+If the box for ATD utilization is checked in the Preface, then the ATD becomes part
+of the ground training segments for the approved course, and its use is required.
+If the box for ATD utilization is left blank, the ATD is not part of the approved
+course, and its use is not required. Not checking the ATD box does not preclude
+a ground instructor from using an ATD, An ATD may be used in ground training
+just like any other classroom instructional aid.
+viii
+
+OEE : S
+= 
+Private Pilot Syllabus 
+sa ISP
+>
+FLIGHT TRAINING
+The Flight Training Syllabus also is divided into three stages, each providing an
+important segment of pilot training. Tables in Appendix B specify the stages and
+specific flight lessons in which each flight training task required by Part 141, Part
+61, and the FAA Private Pilot — Airplane Airman Certification Standards (ACS)
+is introduced, reviewed, and evaluated.
+However, to provide flexibility for adapting to individual student needs and the
+training environment, the syllabus lesson sequence may be altered with approval
+of the chief flight instructor. Any deviation should not disturb the course
+continuity or objectives. The Preface also includes two options for adjusting the
+lesson sequence to allow the first solo to occur in Stage II of flight training. If
+either box is checked, then the optional sequence is required for flight training.
+STAGE |
+In Stage I, the student develops the knowledge, skill, and habits necessary for
+safe solo flight. The basic maneuvers are introduced, practiced, and reviewed. In
+addition, the student practices airport operations, normal and crosswind takeoffs
+and landings, emergency procedures, and ground reference maneuvers. FAR
+61.87 specifies the solo requirements for student pilots including the aeronautical
+knowledge that must be tested by the Presolo Exam and the maneuvers and
+procedures required for presolo training.
+~
+me
+=
+hen | 
+Each stage builds on previous learning and should be completed in sequence.
+Ss
+|
+|
+3
+5
+J
+| 
+NOTE: The student must complete the Presolo Exam and Briefing prior to the
+first solo flight, regardless of whether that flight occurs at the end of Stage I or in
+Stage II.
+STAGE II
+This stage introduces short- and soft-field takeoffs, climbs, approaches, and
+landings; VOR, GPS, and ADF navigation (based on aircraft equipment); and
+night flying. The maneuvers introduced during this stage incorporate the skills
+developed during Stage I, and provide important skills necessary for the cross-
+country operations later in this stage.
+INTRODUCTION 
+am Private 
+Pilot 
+Course
+The cross-country portion of this stage provides the information, knowledge,
+and skills that enable the student to begin cross-country operations. With the
+knowledge acquired during Stage II, the student should be able to safely conduct
+solo cross-country flights. Proficiency in advanced maneuvers and cross-country
+procedures will be evaluated during the Stage II Check.
+STAGE III
+The flights of Stage III are designed to provide the student with the proficiency
+required for the private pilot practical test. These flights are devoted to gaining
+experience and confidence in cross-country operations and reviewing all
+maneuvers within the syllabus to attain maximum pilot proficiency. Student
+proficiency and knowledge will be assessed by the chief instructor, assistant
+chief instructor, or check instructor during the Stage II] Check. The student can
+pursue further review and instruction as necessary, in preparation for the End-
+of-Course Flight Check.
+
+ee
+=
+INTRODUCTION 
+am 
+Private 
+Pilot 
+Course
+Private Pilot Syllabus
+PREFLIGHT DISCUSSION
+Prior to each dual and solo flight, the instructor should provide the student with
+a thorough briefing of the tasks to be covered during the lesson. The instructor
+should define unfamiliar terms, explain the maneuvers and objectives of each
+lesson, and discuss single-pilot resource management (SRM) concepts related to
+each lesson. The Preflight Discussion should be tailored to the specific flight, the
+local environment, and especially to the needs of the student.
+AIRPLANE PRACTICE
+Bach flight should begin with a review of previously-learned maneuvers before
+ah 
+new maneuvers are introduced. To ensure that students efficiently utilize solo
+‘ght training lessons, the instructor should train the student in the maneuvers to
+be performed during the flight and discuss what is expected to be accomplished
+during that lesson,
+FSS, FTD, OR ATD
+The syllabus allows for instruction in a flight simulation training device (FSTD),
+which is defined as a full flight simulator (FSS) or flight training device (FTD).
+Training in an FSS that meets the Tequirements of 141.41(a) may be credited for
+@ maximum of 20 percent of the total flight training hour Tequirements (20%x 35
+hours = 7.0 hours). Training in an FTD that meets the requirements of 141.41(b)
+may be credited for a maximum of 15 percent of the total flight training hour
+Tequirements (15% x 35 hours = 5.25 hours). Training in an FSS or FTD, if used
+in combination, may be credited for a maximum of 20 percent of the total flight
+training hour requirements However, credit for training in an FTD cannot exceed
+15 percent.
+The regulations do not specifically address the use of an ATD to meet private pilot
+flight training requirements. However, according to FAR 61.4(c), the FAA may
+approve a device other than an FSS or FTD for specific purposes. An ATD may be
+used for flight training credit if the school obtains an FAA letter of authorization
+(LOA). AC 61-136A — FAA Approval of Aviation Training Devices and Their Use
+for Training and Experience provides guidelines for schools to obtain an LOA that
+approves an ATD for meeting up to 15% of the total flight training requirements,
+POSTFLIGHT DEBRIEFING
+The Postflight Debriefing is as important as the Preflight Discussion. The student
+should perform a self-critique of maneuvers/procedures and SRM skills. This
+learner-centered grading is especially helpful in developing decision-making
+skills. If the student is having trouble mastering a skill, both the student and
+instructor should plan for improving performance, An effective Postflight Briefing
+increases retention and helps the student prepare for the next lesson. As a guide, a
+minimum of 1/2 hour per flight is recommended for the Preflight Discussion and
+Postflight Briefing combined,
+STUDENT STAGE CHECKS
+Stage checks measure the student’s accomplishments during each stage of
+training. The conduct of each stage check is the responsibility of the chief
+instructor. However, the chief instructor may delegate authority for conducting
+stage checks and the End-of-Course Flight Check to the assistant chief instructor
+yRPrRPRPRPPRPPRPRPPRPRR 
+RE KATRNDNWRNDPDADRARVRAR 
+Aa B BAB
+
+Private Pilot Syllabus
+fF a designated check instructor. This procedure provides close supervision of
+deo het and provides another opinion on the student’s progress. The stage check
+so helps the chief instructor check the effectiveness of the instructors.
+An examination of the building-block theory of learning will show that it is
+extremely important for progress and proficiency to be satisfactory before the
+student enters a new stage of training, Therefore, the next stage should not begin
+until the student successfully completes the stage check. Failure to follow this
+Progression might defeat the purpose of the stage check and degrade the overall
+effectiveness of the course.
+PILOT BRIEFINGS
+The following three pilot briefings are assigned in the flight syllabus.
+1. Presolo Exam and Briefing
+2. Solo Cross-Country Briefing
+3. Private Pilot Practical Test Briefing
+Pilot briefings are contained in Appendix A of this syllabus. Each briefing
+Consists of a series of questions to prepare the student for the knowledge and
+tasks required in subsequent solo lessons and the practical test. The student
+should review the appropriate briefing questions in advance and research the
+answers to gain optimum benefit from the briefing.
+The briefings should be conducted as private tutoring sessions to test each student's
+comprehension. Hold the briefings in a comfortable classroom or office
+environment, and schedule ample time. Discuss every question thoroughly to
+ensure the student understands the key points. Correct placement of the briefings
+is indicated in the Allocation Tables
+The Presolo Exam and Briefing is unique. As specified in FAR 61.87, the student
+must demonstrate satisfactory knowledge of the required subject areas by
+completing a knowledge exam. This exam is to be administered and graded by
+the instructor who endorses the student pilot certificate for solo flight and must
+include questions on applicable portions of FAR Parts 61 and 91. In addition,
+instructors should modify the exam as necessary to make it appropriate for the
+aircraft to be flown and the local flying environment.
+PART 61 OPERATION
+The Private Pilot Syllabus is designed to meet all the requirements of Part 141,
+Appendix B. It can be adapted to meet the flight time (airplane, single-engine)
+requirements of FAR 61.109. The basic difference between the flight time
+requirements of Part 141 and Part 61 is that under Part 61, the student must have
+at least 40 hours of flight time that includes at least 20 hours of flight instruction
+from an authorized instructor and 10 hours of solo flight training (in specified
+areas of operation). The flight time requirements of Part 141 are nearly the same,
+except total flight time is only 35 hours. Adapting this syllabus to Part 61 training
+requires only a slight modification of individual flight lesson times.
+ng requirements under Part 61 specify that an applicant for a
+The 
+ground traini 
+appli
+if 
+st have a logbook endorsement from an authorized instructor
+knowledge test mu
+INTRODUCTION 
+a Private 
+Pilot 
+Course
+xi
+
+SY
+RS a
+INTRODUCTION 
+a@ 
+Private 
+Pilot 
+Course
+Private Pilot Syllabus
+who conducted the training or reviewed the applicant’s home study course. The
+endorsement must indicate satisfactory completion of the ground instruction or
+home study course required for the certificate or rating being sought. 
+A home
+study course for the purposes of Part 61 is a course of study in those aeronautical
+knowledge areas specified in FAR 61.105, and organized by a pilot school,
+publisher, flight or ground instructor, or by the student. The Jeppesen Private Pilot
+Course satisfies this requirement. As a practical consideration, students seeking
+pilot certification under Part 61 should receive some formal ground training,
+either in the classroom or from an authorized flight or ground instructor.
+CREDIT FOR PREVIOUS TRAINING
+According to FAR 141.77, when a student transfers from one FAA-approved
+school to another approved school, course credits obtained in the previous course
+of training may be credited for 50 percent of the curriculum requirements by the
+receiving school. However, the receiving schoo] must determine the amount of
+credit to be allowed based upon a proficiency test or knowledge test, or both,
+conducted by the receiving school. A student who enrolls in a course of training
+may receive credit for 25 percent of the curriculum requirements for knowledge
+and experience gained in a non-Part 141 flight school, and the credit must be based
+upon a proficiency test or knowledge test, or both, conducted by the receiving
+school. The amount of credit for previous training allowed, whether received from
+an FAA-approved school or other source, is determined by the receiving school. In
+addition, the previous provider of the training must certify the kind and amount
+of training given, and the result of each stage check and end-of-course test, if
+applicable.
+BPRRaRPerRArRPAPrFPRPPRPFRRTTATATDADANDDRAD 
+BAB 
+AD
+
+Private Pilot Syllabus
+2. 
+eee 
+eee 
+ee
+Course Overview
+The Private Pilot Course is designed to coordinate the academic study assignments
+and flight training required to operate in an increasingly complex aviation
+environment. New subject matter is introduced and evaluated during the ground
+lessons using the following methods, as chosen by your school.
+1. In-depth textbook assignments with study questions:
+0 Private Pilot textbook/e-Book
+0 Private Pilot Maneuvers manual/e-Book
+=
+=
+~
+—
+—
+—
+= 
+2. The Private Pilot online course in the Jeppesen Learning Center
+bs 
+3. Instructor/student discussions
+=
+ma
+|
+=
+=
+m
+m=
+=
+-]
+7
+:
+4. Stage exams and end-of-course exams
+For best results, students should complete ground lessons just prior to the
+respective flight lessons, as outlined in the syllabus. However, it is also acceptable
+to present lessons in a formal ground school before introducing the student
+to the airplane. If significant time has elapsed between the ground lesson and
+the associated flight, the instructor should conduct a short review of essential
+material. Generally, flight lessons should not be conducted until the student has
+completed the prerequisite ground lessons.
+In selected flight lessons, the abbreviation “VR” indicates that students should
+maintain aircraft control by using outside visual references. “IR” indicates that
+they should use instrument references, No indication of either “VR” or “IR,”
+means that normal private pilot maneuvers or procedures should be conducted
+by outside visual references.
+OVERVIEW 
+am Private 
+Pilot 
+Course
+THE PRIVATE PILOT CERTIFICATION COURSE
+AIRPLANE SINGLE-ENGINE LAND
+COURSE OBJECTIVES
+The student will obtain the knowledge, skill, and aeronautical experience
+! 
+necessary to meet the requirements for a private pilot certificate with an airplane
+category rating and a single-engine land class rating.
+COURSE COMPLETION STANDARDS
+| 
+The student must demonstrate through knowledge exams and flight checks, and
+| 
+show through appropriate records that he/she meets the knowledge, skill, and
+experience requirements necessary to obtain a private pilot certificate with an
+| 
+airplane category rating and a single-engine land class rating.
+
+OVERVIEW 
+a Private 
+Pilot 
+Course
+Private Pilot Syllabus
+STUDENT INFORMATION
+COURSE ENROLLMENT
+There are no prerequisites for initial enrollment in the ground portion of the
+Private Pilot course.
+REQUIREMENTS FOR SOLO FLIGHT
+Before you may fly solo, you must hold a recreational, sport, or student pilot
+certificate and at least a current third-class medical certificate. You must be at
+least 16 years of age to obtain a student pilot certificate and be able to read, speak,
+write, and understand the English language. Remember that solo flight operations
+require specific training, successful completion of a presolo knowledge exam, and
+endorsements from your flight instructor.
+REQUIREMENTS FOR GRADUATION
+To graduate, you must be at least 17 years of age, be able to read, speak, write,
+and understand the English language, meet the time requirements listed in
+the Allocation Tables, and satisfactorily complete the training outlined in this
+syllabus. When you meet the minimum requirements of Part 141, Appendix B,
+you are eligible for graduation.
+LESSON DESCRIPTION AND STAGES OF TRAINING
+This syllabus describes each lesson, including the objectives, references, topics,
+and completion standards. The stage objectives and standards are described at the
+beginning of each stage within the syllabus.
+FLIGHT CHECKS AND GROUND EXAMS
+The syllabus incorporates stage checks and the End-of-Course Flight Check as
+required by Part 141, Appendix B. The chief instructor is responsible for ensuring
+that each student accomplishes the required stage checks and the End-of-Course
+Flight Check in accordance with the school’s approved training course. However,
+the chief instructor may delegate authority for stage checks and the End-of-Course
+Flight Check to the assistant chief or check instructor. You also must complete the
+academic knowledge tests—stage exams, pilot briefings, and End-of-Course Final
+Exams—that are described within the syllabus.
+, a, oe, 
+oe, 
+ee. 
+ae, 
+ee, 
+ee ee ee 
+eo eo 
+sh 
+a a 
+en ca 
+CR 
+Le 
+lbulbalae
+
+Private Pilot Syllabus
+2
+> 
+Ground Training Overview
+= 
+Completion of this course is based solely upon compliance with the minimum requirements of FAR
+Part 141. The accompanying tables with times shown in hours are provided mainly for guidance in
+achieving regulatory compliance
+PRIVATE PILOT CERTIFICATION COURSE
+AIRPLANE SINGLE-ENGINE LAND
+GROUND TRAINING
+3
+>
+3
+= 
+Maneuvers
+3
+;
+Class Discussion 
+Stage/ 
+Exam
+ATD || Ground Lessons 
+Phot 
+Final
+and Online 
+Briefings 
+Debriefings
+Training 
+Exame
+As
+GROUND 
+“ns
+STAGE | 
+3.0 
+3.0 
+10.0 
+Required
+As
+GROUND
+STAGE Il 
+3.0 
+6.0 
+2.0 
+1.0 | Required
+RE 
+3.0 
+2.0 
+8.0 
+2.0 
+4.0 
+1.0
+TOTALS 
+9.0 
+5.0 
+24.0 
+4.0
+NOTE: 1. The first column shows the recommended Private Pilot Maneuvers class discussion and/or
+nline 
+training 
+time.
+| 
+2. Teacomorelcakarnn shows maximum ATD time when an ATD is approved for the course. h
+3. The third column shows the minimum recommended training time for ground lessons, an
+may include class discussion or online lessons. Times shown in columns 1 and 2 may
+credited toward the total time shown in column 3 as follows:
++ Up to 9 hours of Private Pilot Maneuvers class discussion and/or online training.
+* Up to 5 hours of ATD training.
+To recieve credit for ATD training time, the associated course approval must
+be obtained. (See Preface.)
+OVERVIEW 
+a Private 
+Pilot 
+Course
+
+=
+ms
+=
+—
+a
+>
+>
+s
+we
+4
+a
+.
+z
+:
+J
+|
+|
+;
+J
+a
+y
+a
+#
+ma
+a
+Private Pilot Syllabus
+Allocation Tables
+Ground Training 
+Flight Training
+Dual 
+Solo
+rH 
+| 
+: 
+3
+Hedi hi 
+ABE
+D 
+Q 
+2. 
+p
+1.0) 
+2.0 
+GL 1 = Discovering Aviation
+1.0 
+GL 2 - Airplane Systems
+FL 1 - Ground Operations / Basic Maneuvers 
+6
+2.0 
+GL 3 - Aerodynamic Principles
+1.0 
+FL 2 - Ground Operations / Basic Maneuvers 
+1.0
+2.0 
+GL 4 — The Flight Environment
+1.0 
+FL 3 - Siow Flight / Stalls / Basic instrument 
+1.0 
+(2)
+1.0) 
+2.0 
+GL 5 - Communication 
+and Flight information
+1.0 
+FL 4- Emergency Procedures / Steep Tums 
+1.0 
+(2)
+1.0 
+|pee| 
+GL 6 ~ Stage { Exam
+1.0 
+FL & — Ground Reference Maneuvers 
+1.0 
+(.2)
+2.0 
+GL 7 - Meteorology 
+for Pliots
+1.0 
+FL 6 — Takeoffs, Landings, and Go-Arounds 
+1.0
+2.0 
+GL 8 — Federal Aviation Regulations
+1.0 
+FL 7 — Review 
+1.0 
+(.2)
+2.0 
+GL 9 ~ interpreting 
+Weather Deta
+20 
+AS | Presoio 
+Exam and Briefing
+FL 8 - Review 
+1.0 
+(.2)
+FL 9 - First Solo 
+F 
+5
+1.0 
+|pon) 
+GL 10 ~ Stage i Exam
+FL 10 - Stage | Check 
+1.0
+6.0 
+|3.0/ 16.0 
+|2.0| 2.0 | A#| 
+Ground Stage Totals 
+9.0 
+(19)| .5
+me 
+85 
+(0)
+NOTE: 
+1. 
+The first column shows the recommended Private Pilot Maneuvers discussion and/or online
+on
+training time.
+The second column shows maximum ATD time when an ATD is approved for the course
+may include class discussion or online lessons. Times shown in columns 1 and 2
+may be credited toward the total time shown in column 3 tor the Private Pilot
+Course as follows:
+» Up to 9 hours of Private Pilot Maneuvers class discussion and/or online training.
+* Up to 5 hours of ATD training.
+To recieve credit for ATD training time, the associated course approval must be obtained
+(See Preface.)
+Check the applicable boxes in the Preface to select the following course options. Course
+approval must be obtained to:
++ Receive credit for ATD training time.
+» Complete the Stage | Check prior to the first solo.
+* Complete Flight Lessons 11, 14, and 15 prior to the first solo.
+_ 
+The numbers in parentheses for Dual and Solo Day Locai flight times represent total
+stage times if the Stage 1 check precedes the first solo
+. The third column shows the minimum recommended training time for ground lessons, which
+XVii
+OVERVIEW 
+a Private 
+Pilot 
+Course
+
+Private Pilot Syllabus
+OVERVIEW 
+a Private 
+Pilot 
+Course
+LESSON TIME ALLOCATION
+Ground Training 
+Flight Training
+Dual 
+Solo
+i! 
+F
+= 
+3 
+fi 
+a\8
+TBMELEE 
+ABBE
+20 
+GL 11 - Airplane Performance
+1.0 
+FL 11 - Short/Sott-Field 
+Takeoffs and Landings =| 1.0
+1.0) 
+20 
+GL 12 - Navigation
+FL 12 ~ Solo Local 
+1.0
+2.0 
+GL 13 - Human Factor Principles
+FL 13 - Solo Local 
+1.0
+1.0) 
+2.0 
+GL 14 - Flying Cross Country
+1.0 
+FL 14 - Navigation 
+1.0 
+(.5)
+1.0 
+|poq| GL 15 - Stage ill Exam
+a 
+FL 15 - Navigation Review 
+1.0 
+(5)
+FL 16 - Night Local 
+1.0
+1.0 
+FL 17 - Dual Cross-Country 
+2.0 
+(5)
+FL 18 - Night Cross-Country 
+2.0) (.5)
+20 
+Solo Cross-Country Briefing
+FL 19 - Solo Cross-Country 
+2.5
+3.0 
+|1.0| 
+GL 16 & 17-Final 
+Exams A&B
+FL 20 - Stage Il Check 
+1.0
+3.0 
+[2.0/8.0 
+[2.0] 
+4.0 
+|1.0| 
+Stage Totals 
+4.0] 2.0/1.0 |2.0 
+(2.0)| 2.0| 2.5
+(45) 
+a
+NOTE: 
+1.
+on
+The first column shows the recommended Private Pilot Maneuvers discussion and/or online
+training time.
+The second column shows maximum ATD time when an ATD is approved for the course.
+. The third column shows the minimum recommended training time for ground lessons, which
+may include class discussion or online lessons. Times shown in columns 1 and 2
+may be credited toward the total time shown in column 3 for the Private Pilot Course as follows:
+* Up to 9 hours of Private Pilot Maneuvers class discussion and/or online training.
+* Up to 5 hours of ATD training.
+To recieve credit for ATD training time, the associated course approval must be obtained.
+(See Preface.)
+. Check the applicable boxes in the Preface to select the following course options. Course
+approval must be obtained to:
++ Receive credit for ATD training time.
+* Complete the Stage | Check prior to the first solo.
+* Complete Flight Lessons 11, 14, and 15 prior to the first solo.
+. The numbers in parentheses for Dual and Solo Day Local flight times represent total
+stage times if the Stage 1 check precedes the first solo.
+7, a, 
+a, 
+ee 
+ee 
+a 
+a a
+
+RS SE SS AR PSE Se 
+PI SSE ST 
+STE ENS 
+ENTG SE
+LESSON TIME ALLOCATION
+Ground Training 
+Flight Training
+| 
+Vi
+fof
+HELE ii 
+He
+bate 
+PUT TAR NS ce See
+FL 21 ~ Solo Crose-Country 
+20
+FL 22 - Solo Cross-Country 
+4.0
+FL 23 - Practical Test Preperation 
+2.0 
+Ines
+FL 24 ~ Practical Test Preparation 
+2.0
+FL 25 - Stage ill Check 
+1.0
+Req 
+Private 
+Pilot Practical Test Briefing
+FL 26 ~ End-of-Course Flight Check 
+1.0 
+fo
+Stage Totals 
+6.0 
+6.0
+@.0 | 6.0) 24.0/4.0) 
+6.0 
+|1.0) 
+Private Pilot Course - Overall Totals 
+19.0] 2.0] 1.0/2.0 (3.0) 25/85
+= 
+Private Pilot Syllabus
+=
+ntry
+Day 
+Local
+Day 
+Local
+The individual times shown on the accompanying Lesson Time Allocation tables are for
+instructor/student 
+guidance only; they are not mandatory for each ground lesson, flight
+| 
+lesson, or stage of training. 
+At fhe conclusion of this course, the student must meet
+minimum requirements of FAR Part 141, Appendix B, for each catagory in order to
+on Preflight and postflight briefing times are not specified, but a minimum of .5
+rs for each 
+dual and solo 
+flight is 
+. The times for Pilot Briefings, although
+assigned and completed along with selected flight lessons, are considered part of
+ground training.
+OVERVIEW 
+a Private 
+Pilot 
+Course
+
+Private Pilot Syllabus
+Private Pilot
+Ground Training Syllabus
+GROUND TRAINING COURSE OBJECTIVES
+The student will obtain the aeronautical knowledge required by FAR Part 141
+and Part 61 for private pilot certification and meet the prerequisites in Part 61 for
+the FAA Private Pilot Airman Knowledge Test.
+GROUND TRAINING
+COURSE COMPLETION STANDARDS
+Through knowledge exams and records, the student must demonstrate the
+aeronautical knowledge required by FAR Part 141 and Part 61 for private pilot
+certification. The student must also demonstrate the knowledge necessary to pass
+the FAA Private Pilot Airman Knowledge Test and show that the prerequisites
+specified in Part 61 have been met.
+Stage |
+STAGE OBJECTIVES
+During this stage, the student is introduced to pilot training, aviation
+opportunities, and human factors in aviation, and explores airplane systems
+and aerodynamic principles. The student also learns about the safety of flight,
+operating at airports, interpreting aeronautical charts, and airspace requirements.
+In addition, the student gains knowledge about ATC services, radio procedures
+and how to locate and use sources of flight information.
+STAGE COMPLETION STANDARDS
+The student must pass the Stage I Exam with a minimum score of 80 percent,
+and review each incorrect response with the instructor to ensure complete
+understanding before starting Stage II.
+————— 
+= 
+—
+—=
+—
+— 
+— 
+a
+STAGE 
+| m= 
+Ground 
+Training 
+Syllabus
+
+STAGE 
+| » 
+Ground 
+Training 
+Syllabus
+Private Pilot Syllabus
+GROUND LESSON 1
+REFERENCES
+NOTE: Students should study the listed references prior to beginning the Ground
+Lesson 1 instructional session.
+4 
+Private Pilot Textbook/e-Book
+(Aa Chapter 1 — Discovering Aviation (Sections A, B, C)
+Private Pilot Online — Jeppesen Learning Center
+Module 1 — Discovering Aviation (GL 1, 2, 3)
+OBJECTIVES
+¢ Recognize the essential components of the school’s pilot training program.
+Part 141/61 Aeronautical Knowledge
+* Applicable Federal Aviation Regulations for private pilot privileges, limita-
+tions, and flight operations:
+© Identify the medical and currency requirements for piloting an airplane.
+Recognize the requirements to act as pilot in command of different types of
+aircraft.
+e Aeronautical decision making and judgment:
+© Identify the concepts that apply to single-pilot resource management.
+( Explain how to perform a self-assessment prior to flight and briefings dur-
+ing flight operations.
+0 Recognize physiological factors that affect your performance during flight.
+CONTENT
+COURSE OVERVIEW
+4 Course Components
+Q Exams and Tests
+Q Policies and Procedures
+Q Student/Instructor Expectations
+Q Use of a Full Flight Simulators (FSS), Flight Training Devices (FTD), and/or
+Aviation Training Device (ATD)
+SECTION A — PILOT TRAINING
+GL 2 ONLINE — PILOT TRAINING FAQS
+Q Federal Aviation Administration
+Q Private Pilot Requirements
+Q Medical Certificates and BasicMed
+Q Ground and Flight Training Process
+Q Private Pilot Privileges and Limitations
+Q Aircraft Category and Class
+z
+yy 
+wrerRmewerRePReeReRReBeRReRRRRRAReR 
+eR 
+ea OR Ue
+
+“MBER 
+REREERERERHEEREHEHHRBBEEeBee 
+@ aie
+Private Pilot Syllabus
+SECTION B — AVIATION OPPORTUNITIES
+GL 1 ONLINE — AVIATION OPPORTUNITIES
+Q New Aviation Experiences
+Q Aviation Organizations
+Q Category and Class Ratings
+Q Additional Pilot Certificates
+Q Aviation Careers
+SECTION C — INTRODUCTION TO HUMAN FACTORS
+GL 3 ONLINE — INTRODUCTION TO HUMAN FACTORS
+O Single-Pilot Resource Management
+0 Aeronautical Decision Making and Judgment
+> Risk Management
+) Task Management
+) Situational Awareness
+( Controlled Flight into Terrain (CFIT) Awareness
+© Automation Management
+Q Aviation Physiology
+Pressure Effects
+© Motion Sickness
+6 Fatigue and Noise
+6 Alcohol, Drugs, and Performance
+COMPLETION STANDARDS:
+» Demonstrate understanding of policies and procedures that apply to the
+school's pilot training program. 
+7
+e Demonstrate understanding of pilot training programs, opportunities in avia-
+tion, and human factors during oral quizzing by the instructor.
+e Complete with a minimum score of 80 percent: questions for Chapter 1A, 1B,
+and 1C; or online exams for GL 2 and 3. With the instructor, review each
+incorrect response to ensure complete understanding before starting Ground
+Lesson 2.
+STUDY ASSIGNMENT
+; 
+. 
+book/e-Book
+Private sl saint? Systems (Sections A, B, C)
+T 
+.
+chap? ‘lot Online — Jeppesen Learning Center
+Privat ie airplane systems (GL 4, 5, 6)
+Modwe
+Syllabus
+STAGE 
+| #» 
+Ground 
+Tra
+
+STAGE 
+| » 
+Ground 
+Training 
+Syllabus
+Private Pilot Syllabus
+GROUND LESSON 2
+REFERENCES
+a. 
+Private Pilot Textbook/e-Book
+Chapter 2 — Airplane Systems (Sections A, B, C)
+Private Pilot Online — Jeppesen Learning Center
+'~ 
+Module 2 — Airplane Systems (GL 4, 5, 6)
+OBJECTIVES
+Part 141/61 Aeronautical Knowledge
+* Applicable Federal Aviation Regulations (FARs) for private pilot privileges,
+limitations, and flight operations:
+© Identify the inspections and aircraft logbook documentation that are
+required for airworthiness.
+© Identify the equipment required for VFR flight under FAR 91.205 and the
+procedures to fly with inoperative equipment.
+¢ Principles of powerplants and aircraft systems:
+© Identify airplane components.
+> Explain how aircraft engines and related systems operate.
+© Describe flight instrument functions and operating characteristics, includ-
+ing errors and common malfunctions.
+CONTENT
+SECTION A — AIRPLANES
+GL 4 ONLINE — AIRPLANES
+U The Fuselage
+QO The Wing
+QO The Empennage
+U Trim Devices
+Q Landing Gear
+QO The Powerplant
+Q Pilot’s Operating Handbook (POH)
+Q Airworthiness Requirements
+SECTION B — THE POWERPLANT AND RELATED SYSTEMS
+GL 5 ONLINE — THE POWERPLANT AND RELATED SYSTEMS
+4 Reciprocating Engine Operation
+Q Induction Systems—Carburetor and Fuel Injection
+Q Supercharging and Turbocharging
+O The Ignition System
+Q Abnormal Combustion
+Q Fuel Systems
+O Refueling
+4 Oil Systems
+aie
+Tae 
+ae oe 
+aN a al a ac ald oc Tc To To Mo 
+Lo TL 
+co OL i & 
+Os c 
+Uc Oi a 
+OL cL 
+LL ER
+
+Private Pilot Syllabus
+Q Cooling Systems
+Q The Exhaust System
+Q Propellers—Fixed-Pitch and Constant-Speed
+O Propeller Hazards
+Q Full Authority Digital Engine Control (FADEC)
+Q Electrical Systems
+SECTION C — FLIGHT INSTRUMENTS
+GL 6 ONLINE — FLIGHT INSTRUMENTS
+0 Pitot-Static Instruments
+Q Airspeed Indicator
+QO Altimeter
+OQ Vertical Speed Indicator
+QO Gyroscopic Instruments
+Q Attitude Indicator
+QO Heading Indicator
+Q Magnetic Compass
+Q Integrated Flight Displays
+COMPLETION STANDARDS
+* Demonstrate understanding of airplane components and systems, the power-
+plant and related systems, and flight instruments during oral quizzing by the
+instructor.
+¢ Complete with a minimum score of 80 percent: questions for Chapter 2A, 2B,
+and 2C or online exams for GL 4, 5, and 6. With the instructor, review each
+incorrect response to ensure complete understanding before starting Ground
+Lesson 3.
+STUDY ASSIGNMENT
+Private Pilot Textbook/e-Book
+Chapter 3 — Aerodynamic Principles (Sections A, B, C)
+Private Pilot Online — Jeppesen Learning Center
+Module 3 — Aerodynamic Principles (GL 7, 8, 9)
+GROUND LESSON 3
+* 
+> 
+Eee TAA 
+he
+STAGE 
+| =» 
+Ground 
+Training 
+Syllabus
+
+Private Pilot Syllabus 
+ic
+Syllabus
+STAGE 
+| » 
+Ground 
+Tra
+OBJECTIVES
+Part 141/61 Aeronautical Knowledge
+e Principles of aerodynamics:
+Describe the four forces of flight.
+© Explain the aerodynamic principles and design characteristics that apply
+to airplane stability and maneuverability.
+¢ Stall awareness, spin entry, spins, and spin recovery techniques:
+© Recognize the stall and spin characteristics related to training airplanes.
+9 Explain how to recognize and recover from stalls and spins.
+CONTENT
+SECTION A — FOUR FORCES OF FLIGHT
+GL 7 ONLINE — FOUR FORCES OF FLIGHT
+QO Lift
+Q Airfoils
+Q Pilot Control of Lift
+Q Weight
+QU Thrust
+Q Drag
+Q Ground Effect
+SECTION B — STABILITY
+GL 8 ONLINE — STABILITY
+Q Three Axes of Flight
+2 Longitudinal Stability
+Q Center of Gravity Position
+QO Lateral Stability
+Q Directional Stability
+O Stalls
+Q Spins
+Q Spin Recovery
+SECTION C — AERODYNAMICS OF MANEUVERING FLIGHT
+GL 9 ONLINE — AERODYNAMICS OF MANEUVERING FLIGHT
+Q Climbing Flight
+Q Left-Turning Tendencies
+Q Descending Flight
+Q Turning Flight
+Q Load Factor
+COMPLETION STANDARDS
+e Demonstrate understanding of the four forces of flight, stability, maneuverabil-
+ity, stalls, and spins during oral quizzing by the instructor.
+¢ Complete with a minimum score of 80 percent: questions for Chapter 3A, 3B,
+and 3C; or online exams for GL 7, 8, and 9. With the instructor, review each
+moorrect response to ensure complete understanding before starting Ground
+esson 4,
+ae 
+ee 
+ee ee oe 
+ee 
+ee, ee ee ee ee eg ee 8 ee 
+LL 
+LCC
+

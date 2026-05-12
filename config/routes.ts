@@ -351,4 +351,24 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
     [View.PERF_CLIMB]: React.lazy(() => import('../components/Performance/ClimbPerf')),
     [View.PERF_CRUISE]: React.lazy(() => import('../components/Performance/CruisePerf')),
     [View.PERF_LANDING]: React.lazy(() => import('../components/Performance/LandingPerf')),
+
+    // ─── PPL Track ───────────────────────────────────────────────────────────────
+    [View.PPL_DASHBOARD]: React.lazy(() => import('../components/PPL/PPLDashboard')),
+
+    // PPL specific dashboards
+    [View.PPL_AIR_LAW_HOME]: React.lazy(() => import('../components/PPL/subjects/AirLaw')),
+    [View.PPL_HPL_HOME]: React.lazy(() => import('../components/PPL/subjects/HumanPerformance')),
+    [View.PPL_MET_HOME]: React.lazy(() => import('../components/PPL/subjects/Meteorology')),
+    [View.PPL_NAV_HOME]: React.lazy(() => import('../components/PPL/subjects/Navigation')),
+    [View.PPL_POF_HOME]: React.lazy(() => import('../components/PPL/subjects/PrinciplesOfFlight')),
+    [View.PPL_OPS_HOME]: React.lazy(() => import('../components/PPL/subjects/OperationalProcedures')),
+    [View.PPL_AGK_HOME]: React.lazy(() => import('../components/PPL/subjects/AircraftGeneralKnowledge')),
+    [View.PPL_PERF_HOME]: React.lazy(() => import('../components/PPL/subjects/FlightPerformance')),
+
+    // PPL VFR Communications → full reuse of existing Comms Dashboard (no change needed)
+    [View.PPL_COMMS]: React.lazy(() => import('../components/Comms/CommsDashboard')),
+
+    // PPL AGK Sub-modules
+    [View.PPL_AGK_PISTON_ENGINE]: React.lazy(() => import('../components/AGK/PistonEnginePrinciples')), 
+    [View.PPL_AGK_ELECTRICS]: React.lazy(() => import('../components/AGK/ElectricsSystem')), 
 };

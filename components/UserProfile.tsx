@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { User, View } from '../types';
-import { User as UserIcon, Mail, Clock, Shield, LogOut, Lock, CheckCircle, Settings } from 'lucide-react';
+import { User as UserIcon, Mail, Clock, Shield, LogOut, Lock, CheckCircle, Settings, Crown } from 'lucide-react';
 import { db } from '../lib/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 
@@ -30,6 +30,7 @@ const UserProfile: React.FC<Props> = ({ user, studyTime, onLogout, onUpdateUser,
 
     const getPlanName = (tier: string | undefined) => {
         switch (tier) {
+            case 'OWNER': return 'System Owner';
             case '12_MONTHS': return '12 Months Pro';
             case '9_MONTHS': return '9 Months Pro';
             case '6_MONTHS': return '6 Months Pro';
@@ -54,7 +55,10 @@ const UserProfile: React.FC<Props> = ({ user, studyTime, onLogout, onUpdateUser,
 
     return (
         <div className="max-w-2xl mx-auto p-6 md:p-12">
-            <h1 className="text-3xl font-black text-white mb-8">Pilot Profile</h1>
+            <h1 className="text-3xl font-black text-white mb-8 flex items-center gap-3">
+                {user.subscriptionTier === 'OWNER' && <Crown className="text-amber-400" size={28} />}
+                {user.subscriptionTier === 'OWNER' ? 'System Owner' : 'Pilot Profile'}
+            </h1>
 
             <div className="bg-slate-800 rounded-2xl overflow-hidden border border-slate-700 shadow-xl mb-8">
                 <div className="bg-gradient-to-r from-blue-900 to-slate-900 p-8 flex items-center space-x-6 relative">
@@ -105,9 +109,18 @@ const UserProfile: React.FC<Props> = ({ user, studyTime, onLogout, onUpdateUser,
                         </div>
                         <div className="mt-6">
                             <div className="text-3xl font-bold text-white">
-                                {user.isAdmin ? <span className="text-red-400">Admin</span> : getPlanName(user.subscriptionTier)}
+                                {user.subscriptionTier === 'OWNER' ? (
+                                    <span className="flex items-center gap-2 text-amber-400">
+                                        <Crown size={24} />
+                                        System Owner
+                                    </span>
+                                ) : user.isAdmin ? (
+                                    <span className="text-red-400">Admin</span>
+                                ) : (
+                                    getPlanName(user.subscriptionTier)
+                                )}
                             </div>
-                            {daysRemaining !== null && !user.isAdmin && (
+                            {daysRemaining !== null && !user.isAdmin && user.subscriptionTier !== 'OWNER' && (
                                 <div className="text-sm text-slate-400 mt-1">
                                     {daysRemaining} days remaining
                                 </div>
@@ -118,7 +131,7 @@ const UserProfile: React.FC<Props> = ({ user, studyTime, onLogout, onUpdateUser,
             </div>
 
             {/* Demo Activation Section */}
-            {(!user.subscriptionTier || user.subscriptionTier === 'CUSTOM') && !user.demoStartDate && !user.isAdmin && (
+            {(!user.subscriptionTier || user.subscriptionTier === 'CUSTOM') && !user.demoStartDate && !user.isAdmin && user.subscriptionTier !== 'OWNER' && (
                 <div className="bg-gradient-to-r from-indigo-900/40 to-blue-900/40 border border-indigo-500/30 rounded-2xl p-6 mb-8 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
 

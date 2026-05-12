@@ -6,6 +6,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, getDoc, setDoc, updateDoc, collection, getDocs, increment } from 'firebase/firestore';
 import { AnimatePresence } from 'framer-motion';
 import AnimatedPageWrapper from './components/AnimatedPageWrapper';
+import { CourseModeProvider } from './context/CourseModeContext';
 
 // Define global constant for commit hash
 declare const __COMMIT_HASH__: string;
@@ -22,6 +23,7 @@ import { getSubjectConfig } from './data/sidebarNavigation';
 import LoadingScreen from './components/LoadingScreen';
 import SplineVisualizer from './components/visual/SplineVisualizer';
 import CommandPalette from './components/CommandPalette';
+import CourseModeToggle from './components/CourseModeToggle';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { ToastProvider } from './components/ui/ToastContext';
 import FocusTimer from './components/study/FocusTimer';
@@ -611,7 +613,10 @@ const App: React.FC = () => {
                                         ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span>
                                     </span>
                                 </div>
-                                <div className="hidden xs:block">
+                                <div className="hidden sm:flex items-center ml-2">
+                                    <CourseModeToggle />
+                                </div>
+                                <div className="hidden md:block">
                                     <NavigationBar
                                         canGoBack={canGoBack}
                                         canGoForward={canGoForward}
@@ -700,7 +705,7 @@ const App: React.FC = () => {
 
                 <footer className="w-full py-6 text-center z-10 relative pointer-events-none">
                     <p className="text-slate-600 text-[10px] font-mono tracking-widest uppercase opacity-40 hover:opacity-100 transition-opacity duration-300 select-none">
-                        System Version: <span className="text-slate-500">{typeof __COMMIT_HASH__ !== 'undefined' ? __COMMIT_HASH__ : 'DEV'}</span>
+                        Build: <span className="text-slate-500">{typeof __COMMIT_HASH__ !== 'undefined' ? __COMMIT_HASH__ : 'Loading...'}</span>
                     </p>
                 </footer>
 
@@ -798,22 +803,24 @@ const App: React.FC = () => {
     );
 
     return (
-        <ToastProvider>
-            <GamificationProvider>
-                {appContent}
-                {user && (
-                    <>
-                        <FocusTimer />
-                        <Scratchpad />
-                        <CommandPalette
-                            isOpen={commandPaletteOpen}
-                            onClose={() => setCommandPaletteOpen(false)}
-                            onNavigate={navigateTo}
-                        />
-                    </>
-                )}
-            </GamificationProvider>
-        </ToastProvider>
+        <CourseModeProvider initialTrack={user?.licenceTrack}>
+            <ToastProvider>
+                <GamificationProvider>
+                    {appContent}
+                    {user && (
+                        <>
+                            <FocusTimer />
+                            <Scratchpad />
+                            <CommandPalette
+                                isOpen={commandPaletteOpen}
+                                onClose={() => setCommandPaletteOpen(false)}
+                                onNavigate={navigateTo}
+                            />
+                        </>
+                    )}
+                </GamificationProvider>
+            </ToastProvider>
+        </CourseModeProvider>
     );
 };
 

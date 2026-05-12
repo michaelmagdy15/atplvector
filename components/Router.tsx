@@ -3,6 +3,8 @@ import { View, User } from '../types';
 import { routes } from '../config/routes';
 import { subjectConfigs } from '../config/subjectRoutes';
 import { Wifi } from 'lucide-react';
+import { useCourseMode } from '../context/CourseModeContext';
+import PPLDashboard from './PPL/PPLDashboard';
 
 interface RouterProps {
     currentView: View;
@@ -115,9 +117,17 @@ const Router: React.FC<RouterProps> = ({
             );
 
         // --- DASHBOARDS needing specific props ---
-        case currentView === View.PLATFORM_DASHBOARD:
+        case currentView === View.PLATFORM_DASHBOARD: {
+            const { track } = useCourseMode();
+            if (track === 'PPL') {
+                return (
+                    <div className="w-full animate-in fade-in duration-500">
+                        <PPLDashboard {...commonProps} />
+                    </div>
+                );
+            }
             return (
-                <div className="w-full">
+                <div className="w-full animate-in fade-in duration-500">
                     <Component {...commonProps} />
                     {routes[View.PLATFORM_PROGRESS] && (
                         <div className="px-2 md:px-0 mt-12 mb-8">
@@ -126,6 +136,7 @@ const Router: React.FC<RouterProps> = ({
                     )}
                 </div>
             );
+        }
 
         case currentView === View.ACCOUNT_SETTINGS:
             return <Component user={user} onBack={() => navigateTo(View.PROFILE)} />;

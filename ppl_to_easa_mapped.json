@@ -1,0 +1,756 @@
+[
+  {
+    "lesson": "Ground Lesson 1",
+    "objectives": [
+      {
+        "text": "Recognize the essential components of the school\u2019s pilot training program.",
+        "original": "\u00a2 Recognize the essential components of the school\u2019s pilot training program."
+      },
+      {
+        "text": "Part 141/61 Aeronautical Knowledge",
+        "original": "Part 141/61 Aeronautical Knowledge"
+      },
+      {
+        "text": "Applicable Federal Aviation Regulations for private pilot privileges, limita-",
+        "original": "* Applicable Federal Aviation Regulations for private pilot privileges, limita-"
+      },
+      {
+        "text": "tions, and flight operations:",
+        "original": "tions, and flight operations:"
+      },
+      {
+        "text": "Identify the medical and currency requirements for piloting an airplane.",
+        "original": "\u00a9 Identify the medical and currency requirements for piloting an airplane."
+      },
+      {
+        "text": "Recognize the requirements to act as pilot in command of different types of",
+        "original": "Recognize the requirements to act as pilot in command of different types of"
+      },
+      {
+        "text": "aircraft.",
+        "original": "aircraft."
+      },
+      {
+        "text": "Aeronautical decision making and judgment:",
+        "original": "e Aeronautical decision making and judgment:"
+      },
+      {
+        "text": "Identify the concepts that apply to single-pilot resource management.",
+        "original": "\u00a9 Identify the concepts that apply to single-pilot resource management."
+      },
+      {
+        "text": "Explain how to perform a self-assessment prior to flight and briefings dur-",
+        "original": "( Explain how to perform a self-assessment prior to flight and briefings dur-"
+      },
+      {
+        "text": "ing flight operations.",
+        "original": "ing flight operations."
+      },
+      {
+        "text": "Recognize physiological factors that affect your performance during flight.",
+        "original": "0 Recognize physiological factors that affect your performance during flight."
+      }
+    ],
+    "easa_mapping": [
+      "010 Air Law",
+      "040 Human Performance"
+    ]
+  },
+  {
+    "lesson": "Ground Lesson 2",
+    "objectives": [
+      {
+        "text": "Part 141/61 Aeronautical Knowledge",
+        "original": "Part 141/61 Aeronautical Knowledge"
+      },
+      {
+        "text": "Applicable Federal Aviation Regulations (FARs) for private pilot privileges,",
+        "original": "* Applicable Federal Aviation Regulations (FARs) for private pilot privileges,"
+      },
+      {
+        "text": "limitations, and flight operations:",
+        "original": "limitations, and flight operations:"
+      },
+      {
+        "text": "Identify the inspections and aircraft logbook documentation that are",
+        "original": "\u00a9 Identify the inspections and aircraft logbook documentation that are"
+      },
+      {
+        "text": "required for airworthiness.",
+        "original": "required for airworthiness."
+      },
+      {
+        "text": "Identify the equipment required for VFR flight under FAR 91.205 and the",
+        "original": "\u00a9 Identify the equipment required for VFR flight under FAR 91.205 and the"
+      },
+      {
+        "text": "procedures to fly with inoperative equipment.",
+        "original": "procedures to fly with inoperative equipment."
+      },
+      {
+        "text": "Principles of powerplants and aircraft systems:",
+        "original": "\u00a2 Principles of powerplants and aircraft systems:"
+      },
+      {
+        "text": "Identify airplane components.",
+        "original": "\u00a9 Identify airplane components."
+      },
+      {
+        "text": "Explain how aircraft engines and related systems operate.",
+        "original": "> Explain how aircraft engines and related systems operate."
+      },
+      {
+        "text": "Describe flight instrument functions and operating characteristics, includ-",
+        "original": "\u00a9 Describe flight instrument functions and operating characteristics, includ-"
+      },
+      {
+        "text": "ing errors and common malfunctions.",
+        "original": "ing errors and common malfunctions."
+      }
+    ],
+    "easa_mapping": [
+      "010 Air Law",
+      "021 Airframe and Systems",
+      "022 Instrumentation"
+    ]
+  },
+  {
+    "lesson": "Ground Lesson 3",
+    "objectives": [
+      {
+        "text": "Part 141/61 Aeronautical Knowledge",
+        "original": "Part 141/61 Aeronautical Knowledge"
+      },
+      {
+        "text": "Principles of aerodynamics:",
+        "original": "e Principles of aerodynamics:"
+      },
+      {
+        "text": "Describe the four forces of flight.",
+        "original": "Describe the four forces of flight."
+      },
+      {
+        "text": "Explain the aerodynamic principles and design characteristics that apply",
+        "original": "\u00a9 Explain the aerodynamic principles and design characteristics that apply"
+      },
+      {
+        "text": "to airplane stability and maneuverability.",
+        "original": "to airplane stability and maneuverability."
+      },
+      {
+        "text": "Stall awareness, spin entry, spins, and spin recovery techniques:",
+        "original": "\u00a2 Stall awareness, spin entry, spins, and spin recovery techniques:"
+      },
+      {
+        "text": "Recognize the stall and spin characteristics related to training airplanes.",
+        "original": "\u00a9 Recognize the stall and spin characteristics related to training airplanes."
+      },
+      {
+        "text": "Explain how to recognize and recover from stalls and spins.",
+        "original": "9 Explain how to recognize and recover from stalls and spins."
+      }
+    ],
+    "easa_mapping": [
+      "081 Principles of Flight"
+    ]
+  },
+  {
+    "lesson": "Ground Lesson 4",
+    "objectives": [
+      {
+        "text": "Part 141/61 Aeronautical Knowledge",
+        "original": "Part 141/61 Aeronautical Knowledge"
+      },
+      {
+        "text": "\u00b0 Safe and efficient operation of aircraft, including collision avoidance:",
+        "original": "\u00b0 Safe and efficient operation of aircraft, including collision avoidance:"
+      },
+      {
+        "text": "6 Explain collision avoidance procedures, including visual scanning tech-",
+        "original": "6 Explain collision avoidance procedures, including visual scanning tech-"
+      },
+      {
+        "text": "niques and runway incursion avoidance.",
+        "original": "niques and runway incursion avoidance."
+      },
+      {
+        "text": "Recall right-of-way rules and minimum safe altitudes.",
+        "original": "\u00a9 Recall right-of-way rules and minimum safe altitudes."
+      },
+      {
+        "text": "Applicable subjects of the Aeronautical Information Manual;",
+        "original": "\u00a2 Applicable subjects of the Aeronautical Information Manual;"
+      },
+      {
+        "text": "Interpret airport markings, signs, and lighting.",
+        "original": "\u00a9 Interpret airport markings, signs, and lighting."
+      },
+      {
+        "text": "Identify airspace types and operating requirements.",
+        "original": "Identify airspace types and operating requirements."
+      },
+      {
+        "text": "Aeronautical charts for VFR navigation using pilotage, dead reckoning, and",
+        "original": "* Aeronautical charts for VFR navigation using pilotage, dead reckoning, and"
+      },
+      {
+        "text": "navigation systems:",
+        "original": "navigation systems:"
+      },
+      {
+        "text": "% Interpret aeronautical chart symbology.",
+        "original": "% Interpret aeronautical chart symbology."
+      },
+      {
+        "text": "Interpret communication and navigation information on aeronautical",
+        "original": "( Interpret communication and navigation information on aeronautical"
+      },
+      {
+        "text": "charts.",
+        "original": "charts."
+      }
+    ],
+    "easa_mapping": [
+      "010 Air Law",
+      "070 Operational Procedures",
+      "061 General Navigation"
+    ]
+  },
+  {
+    "lesson": "Ground Lesson 5",
+    "objectives": [
+      {
+        "text": "Part 141/61 Aeronautical Knowledge",
+        "original": "Part 141/61 Aeronautical Knowledge"
+      },
+      {
+        "text": "Applicable subjects of the Aeronautical Information Manual and the appro-",
+        "original": "\u00a2 Applicable subjects of the Aeronautical Information Manual and the appro-"
+      },
+      {
+        "text": "priate FAA advisory circulars:",
+        "original": "priate FAA advisory circulars:"
+      },
+      {
+        "text": "Recognize the characteristics of the ADS-B system and radar operation.",
+        "original": ") Recognize the characteristics of the ADS-B system and radar operation."
+      },
+      {
+        "text": "Explain how to properly operate a transponder.",
+        "original": "\u00a9 Explain how to properly operate a transponder."
+      },
+      {
+        "text": "Identify the services provided by ATC and Flight Service.",
+        "original": "\u00a9 Identify the services provided by ATC and Flight Service."
+      },
+      {
+        "text": "Radio communication procedures:",
+        "original": "\u00a2 Radio communication procedures:"
+      },
+      {
+        "text": "Describe the proper techniques for transmitting on the radio.",
+        "original": "\u00a9 Describe the proper techniques for transmitting on the radio."
+      },
+      {
+        "text": "Explain the procedures for communicating at controlled and uncontrolled",
+        "original": "( Explain the procedures for communicating at controlled and uncontrolled"
+      },
+      {
+        "text": "airports.",
+        "original": "airports."
+      },
+      {
+        "text": "Preflight action that includes how to obtain information on runway lengths at",
+        "original": "\u00a2 Preflight action that includes how to obtain information on runway lengths at"
+      },
+      {
+        "text": "airports of intended use and data on takeoff and landing distances:",
+        "original": "airports of intended use and data on takeoff and landing distances:"
+      },
+      {
+        "text": "Recognize the sources of flight information.",
+        "original": "\u00a9 Recognize the sources of flight information."
+      },
+      {
+        "text": "Locate flight information by using Chart Supplements, NOTAMs, FARs,",
+        "original": "\u00a9 Locate flight information by using Chart Supplements, NOTAMs, FARs,"
+      },
+      {
+        "text": "the AIM, and advisory circulars,",
+        "original": "the AIM, and advisory circulars,"
+      }
+    ],
+    "easa_mapping": [
+      "090 Communications",
+      "010 Air Law"
+    ]
+  },
+  {
+    "lesson": "Ground Lesson 7",
+    "objectives": [
+      {
+        "text": "Part 141/61 Aeronautical Knowledge",
+        "original": "Part 141/61 Aeronautical Knowledge"
+      },
+      {
+        "text": "Recognition of critical weather situations from the ground and in flight and",
+        "original": "\u00a2 Recognition of critical weather situations from the ground and in flight and"
+      },
+      {
+        "text": "wind shear avoidance:",
+        "original": "wind shear avoidance:"
+      },
+      {
+        "text": "Describe the causes of various weather conditions, frontal systems, weather",
+        "original": "\u00a9 Describe the causes of various weather conditions, frontal systems, weather"
+      },
+      {
+        "text": "patterns, and hazardous weather phenomena.",
+        "original": "patterns, and hazardous weather phenomena."
+      },
+      {
+        "text": "Explain how to recognize and avoid weather hazards, including thunder-",
+        "original": ") Explain how to recognize and avoid weather hazards, including thunder-"
+      },
+      {
+        "text": "storms, wind shear, turbulence, and restrictions to visibility.",
+        "original": "storms, wind shear, turbulence, and restrictions to visibility."
+      },
+      {
+        "text": "Safe and efficient operation of aircraft, including recognition and avoidance of",
+        "original": "\u00a2 Safe and efficient operation of aircraft, including recognition and avoidance of"
+      },
+      {
+        "text": "wake turbulence:",
+        "original": "wake turbulence:"
+      },
+      {
+        "text": "% Recognize how wake is generated.",
+        "original": "% Recognize how wake is generated."
+      },
+      {
+        "text": "Identify techniques to avoid wake turbulence.",
+        "original": "\u00a9 Identify techniques to avoid wake turbulence."
+      }
+    ],
+    "easa_mapping": [
+      "050 Meteorology"
+    ]
+  },
+  {
+    "lesson": "Ground Lesson 8",
+    "objectives": [
+      {
+        "text": "Part 141/61 Aeronautical Knowledge",
+        "original": "Part 141/61 Aeronautical Knowledge"
+      },
+      {
+        "text": "Applicable Federal Aviation Regulations (FARs) for private pilot privileges,",
+        "original": "e Applicable Federal Aviation Regulations (FARs) for private pilot privileges,"
+      },
+      {
+        "text": "limitations, and flight operations:",
+        "original": "limitations, and flight operations:"
+      },
+      {
+        "text": "Explain the regulations that apply to solo operations and the requirements",
+        "original": "\u00a9 Explain the regulations that apply to solo operations and the requirements"
+      },
+      {
+        "text": "for private pilot certification and currency in FAR Part 61.",
+        "original": "for private pilot certification and currency in FAR Part 61."
+      },
+      {
+        "text": "Explain the general operating and flight rules that apply to VFR operations",
+        "original": "\u00a9 Explain the general operating and flight rules that apply to VFR operations"
+      },
+      {
+        "text": "in FAR Part 91.",
+        "original": "in FAR Part 91."
+      },
+      {
+        "text": "Accident reporting requirements of the National Transportation Safety Board",
+        "original": "\u00a2 Accident reporting requirements of the National Transportation Safety Board"
+      },
+      {
+        "text": "NTSB):",
+        "original": "(NTSB):"
+      },
+      {
+        "text": "Define the terms used in NTSB 830.",
+        "original": "( Define the terms used in NTSB 830."
+      },
+      {
+        "text": "List the incidents that require NTSB notification and the information that",
+        "original": "\u00a9 List the incidents that require NTSB notification and the information that"
+      },
+      {
+        "text": "must be given in notification.",
+        "original": "must be given in notification."
+      }
+    ],
+    "easa_mapping": [
+      "010 Air Law",
+      "070 Operational Procedures"
+    ]
+  },
+  {
+    "lesson": "Ground Lesson 9",
+    "objectives": [
+      {
+        "text": "Part 141/61 Aeronautical Knowledge",
+        "original": "Part 141/61 Aeronautical Knowledge"
+      },
+      {
+        "text": "Recognition of critical weather situations from the ground and in flight and",
+        "original": "\u00a2 Recognition of critical weather situations from the ground and in flight and"
+      },
+      {
+        "text": "the procurement and use of aeronautical weather reports and forecasts:",
+        "original": "the procurement and use of aeronautical weather reports and forecasts:"
+      },
+      {
+        "text": "Explain how to obtain weather reports, forecasts, and graphic products.",
+        "original": "( Explain how to obtain weather reports, forecasts, and graphic products."
+      },
+      {
+        "text": "Interpret weather reports and forecasts, including recognizing critical",
+        "original": "0 Interpret weather reports and forecasts, including recognizing critical"
+      },
+      {
+        "text": "weather conditions.",
+        "original": "weather conditions."
+      },
+      {
+        "text": "Preflight action that includes how to obtain weather reports and forecasts:",
+        "original": "* Preflight action that includes how to obtain weather reports and forecasts:"
+      },
+      {
+        "text": "Identify preflight and inflight weather sources, including Flight Service.",
+        "original": "> Identify preflight and inflight weather sources, including Flight Service."
+      },
+      {
+        "text": "Recognize how to acquire weather data for a specific flight, including",
+        "original": "Recognize how to acquire weather data for a specific flight, including"
+      },
+      {
+        "text": "obtaining an adequate briefing.",
+        "original": "obtaining an adequate briefing."
+      }
+    ],
+    "easa_mapping": [
+      "050 Meteorology"
+    ]
+  },
+  {
+    "lesson": "Ground Lesson 11",
+    "objectives": [
+      {
+        "text": "Part 141/61 Aeronautical Knowledge",
+        "original": "Part 141/61 Aeronautical Knowledge"
+      },
+      {
+        "text": "Preflight action that includes how to obtain data on takeoff and landing dis-",
+        "original": "* Preflight action that includes how to obtain data on takeoff and landing dis-"
+      },
+      {
+        "text": "tances and fuel requirements / effects of density altitude on takeoff and climb",
+        "original": "tances and fuel requirements / effects of density altitude on takeoff and climb"
+      },
+      {
+        "text": "performance:",
+        "original": "performance:"
+      },
+      {
+        "text": "Use data supplied by the manufacturer to predict airplane performance,",
+        "original": "Use data supplied by the manufacturer to predict airplane performance,"
+      },
+      {
+        "text": "including takeoff and landing distances and fuel requirements.",
+        "original": "including takeoff and landing distances and fuel requirements."
+      },
+      {
+        "text": "Use a flight computer to calculate airplane performance, such as time,",
+        "original": "Use a flight computer to calculate airplane performance, such as time,"
+      },
+      {
+        "text": "speed, distance, and fuel consumption.",
+        "original": "speed, distance, and fuel consumption."
+      },
+      {
+        "text": "Weight and balance computations:",
+        "original": "* Weight and balance computations:"
+      },
+      {
+        "text": "Compute and control the weight and balance condition of a typical training",
+        "original": "9 Compute and control the weight and balance condition of a typical training"
+      },
+      {
+        "text": "airplane,",
+        "original": "airplane,"
+      },
+      {
+        "text": "Recognize the effects of operating at high total weights and with the center",
+        "original": "Recognize the effects of operating at high total weights and with the center"
+      },
+      {
+        "text": "of gravity (CG) at positions near the forward and aft limits.",
+        "original": "of gravity (CG) at positions near the forward and aft limits."
+      },
+      {
+        "text": "PReReRPRPHRRPARPPP",
+        "original": "PReReRPRPHRRPARPPP"
+      },
+      {
+        "text": "RAK",
+        "original": "RAK"
+      },
+      {
+        "text": "KAT",
+        "original": "KAT"
+      },
+      {
+        "text": "TAL",
+        "original": "TAL"
+      },
+      {
+        "text": "DTD",
+        "original": "DTD"
+      },
+      {
+        "text": "VNVADPDAA",
+        "original": "VNVADPDAA"
+      },
+      {
+        "text": ".",
+        "original": "."
+      }
+    ],
+    "easa_mapping": [
+      "032 Performance",
+      "031 Mass and Balance"
+    ]
+  },
+  {
+    "lesson": "Ground Lesson 12",
+    "objectives": [
+      {
+        "text": "Part 141/61 Aeronautical Knowledge",
+        "original": "Part 141/61 Aeronautical Knowledge"
+      },
+      {
+        "text": "Applicable Federal Aviation Regulations for flight operations:",
+        "original": "* Applicable Federal Aviation Regulations for flight operations:"
+      },
+      {
+        "text": "Plan a VFR flight using pilotage, dead reckoning, and navigation aids, con-",
+        "original": ") Plan a VFR flight using pilotage, dead reckoning, and navigation aids, con-"
+      },
+      {
+        "text": "sidering fuel reserves and the appropriate VFR cruising altitude.",
+        "original": "sidering fuel reserves and the appropriate VFR cruising altitude."
+      },
+      {
+        "text": "Create a nav log and fill out a flight plan form.",
+        "original": "\u00a9 Create a nav log and fill out a flight plan form."
+      },
+      {
+        "text": "Applicable subjects of the Aeronautical Information Manual and the appropriate",
+        "original": "\u00a2 Applicable subjects of the Aeronautical Information Manual and the appropriate"
+      },
+      {
+        "text": "FAA advisory circulars:",
+        "original": "FAA advisory circulars:"
+      },
+      {
+        "text": "Explain the operation of navigation aids\u2014VOR and GPS.",
+        "original": "( Explain the operation of navigation aids\u2014VOR and GPS."
+      },
+      {
+        "text": "Interpret navigation aids\u2014VOR and GPS\u2014for VFR navigation.",
+        "original": ") Interpret navigation aids\u2014VOR and GPS\u2014for VFR navigation."
+      },
+      {
+        "text": "How to plan for alternatives if the planned flight cannot be completed or delays",
+        "original": "e How to plan for alternatives if the planned flight cannot be completed or delays"
+      },
+      {
+        "text": "are encountered.",
+        "original": "are encountered."
+      },
+      {
+        "text": "Identify the steps to perform lost procedures.",
+        "original": ") Identify the steps to perform lost procedures."
+      },
+      {
+        "text": "% Recognize how to monitor your flight progress and the actions to take if your",
+        "original": "% Recognize how to monitor your flight progress and the actions to take if your"
+      },
+      {
+        "text": "flight is delayed or cannot be completed as planned.",
+        "original": "flight is delayed or cannot be completed as planned."
+      }
+    ],
+    "easa_mapping": [
+      "033 Flight Planning",
+      "062 Radio Navigation"
+    ]
+  },
+  {
+    "lesson": "Ground Lesson 13",
+    "objectives": [
+      {
+        "text": "Part 141/61 Aeronautical Knowledge",
+        "original": "Part 141/61 Aeronautical Knowledge"
+      },
+      {
+        "text": "Applicable subjects of the Aeronautical Information Manual and the appropriate",
+        "original": "\u00a2 Applicable subjects of the Aeronautical Information Manual and the appropriate"
+      },
+      {
+        "text": "FAA advisory circulars:",
+        "original": "FAA advisory circulars:"
+      },
+      {
+        "text": "Recognize how the body functions in flight, including the limitations of",
+        "original": "Recognize how the body functions in flight, including the limitations of"
+      },
+      {
+        "text": "vision, disorientation, and respiration.",
+        "original": "vision, disorientation, and respiration."
+      },
+      {
+        "text": "Identify the causes, symptoms, and treatments for hypoxia and hyperventila-",
+        "original": "\u00a9 Identify the causes, symptoms, and treatments for hypoxia and hyperventila-"
+      },
+      {
+        "text": "tion.",
+        "original": "tion."
+      },
+      {
+        "text": "Aeronautical decision making and judgment:",
+        "original": "e Aeronautical decision making and judgment:"
+      },
+      {
+        "text": "Explain how to use the tools and techniques of SRM to perform these tasks:",
+        "original": "> Explain how to use the tools and techniques of SRM to perform these tasks:"
+      },
+      {
+        "text": "risk management, task management, maintain situational awareness, CFIT",
+        "original": "risk management, task management, maintain situational awareness, CFIT"
+      },
+      {
+        "text": "awareness, and automation management.",
+        "original": "awareness, and automation management."
+      },
+      {
+        "text": "Apply the aeronautical decision making process to make effective choices",
+        "original": "Apply the aeronautical decision making process to make effective choices"
+      },
+      {
+        "text": "during flight operations.",
+        "original": "during flight operations."
+      }
+    ],
+    "easa_mapping": [
+      "040 Human Performance"
+    ]
+  },
+  {
+    "lesson": "Ground Lesson 14",
+    "objectives": [
+      {
+        "text": "Part 141/61 Aeronautical Knowledge",
+        "original": "Part 141/61 Aeronautical Knowledge"
+      },
+      {
+        "text": "Preflight actions that include (1) how to obtain information on runway lengths",
+        "original": "e Preflight actions that include (1) how to obtain information on runway lengths"
+      },
+      {
+        "text": "at airports of intended use, data on takeoff and landing distances, weather",
+        "original": "at airports of intended use, data on takeoff and landing distances, weather"
+      },
+      {
+        "text": "reports and forecasts, and fuel requirements; and (2) how to plan for alterna-",
+        "original": "reports and forecasts, and fuel requirements; and (2) how to plan for alterna-"
+      },
+      {
+        "text": "tives if the planned flight cannot be completed or delays are encountered:",
+        "original": "tives if the planned flight cannot be completed or delays are encountered:"
+      },
+      {
+        "text": "4 Gain proficiency in planning a cross-country flight.",
+        "original": "4 Gain proficiency in planning a cross-country flight."
+      },
+      {
+        "text": "Identify the tasks that apply to flying a typical cross-country flight, includ-",
+        "original": "0 Identify the tasks that apply to flying a typical cross-country flight, includ-"
+      },
+      {
+        "text": "ing locating checkpoints, making in-flight time and fuel calculations, and",
+        "original": "ing locating checkpoints, making in-flight time and fuel calculations, and"
+      },
+      {
+        "text": "valuating weather conditions.",
+        "original": "evaluating weather conditions."
+      },
+      {
+        "text": "Recognize how to make and implement decisions regarding alternative",
+        "original": "Recognize how to make and implement decisions regarding alternative"
+      },
+      {
+        "text": "actions during a cross-country flight, such as implementing a diversion.",
+        "original": "actions during a cross-country flight, such as implementing a diversion."
+      },
+      {
+        "text": "Applicable subjects of the Aeronautical Information Manual and the appropri-",
+        "original": "\u00a2 Applicable subjects of the Aeronautical Information Manual and the appropri-"
+      },
+      {
+        "text": "ate FAA advisory circulars; applicable Federal Aviation Regulations for private",
+        "original": "ate FAA advisory circulars; applicable Federal Aviation Regulations for private"
+      },
+      {
+        "text": "pilot privileges, limitations, and flight operations:",
+        "original": "pilot privileges, limitations, and flight operations:"
+      },
+      {
+        "text": "Identify the pilot responsibilities that apply to planning and performing a",
+        "original": "\u00a9 Identify the pilot responsibilities that apply to planning and performing a"
+      },
+      {
+        "text": "cross-country flight.",
+        "original": "cross-country flight."
+      },
+      {
+        "text": "4 Apply knowledge of airport operations, airspace, ATC services, and flight",
+        "original": "4 Apply knowledge of airport operations, airspace, ATC services, and flight"
+      },
+      {
+        "text": "information sources to plan and perform a cross-country flight.",
+        "original": "information sources to plan and perform a cross-country flight."
+      }
+    ],
+    "easa_mapping": [
+      "033 Flight Planning",
+      "061 General Navigation"
+    ]
+  },
+  {
+    "lesson": "Ground Lesson 17",
+    "objectives": [
+      {
+        "text": "Demonstrate comprehension of the material presented in this course in preparation",
+        "original": "Demonstrate comprehension of the material presented in this course in preparation"
+      },
+      {
+        "text": "for the FAA Private Pilot Airman Knowledge Test.",
+        "original": "for the FAA Private Pilot Airman Knowledge Test."
+      }
+    ],
+    "easa_mapping": [
+      "General Review"
+    ]
+  }
+]

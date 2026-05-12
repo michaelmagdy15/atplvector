@@ -2,14 +2,14 @@ import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
-import { execSync } from 'child_process';
 
-let commitHash = 'DEV';
-try {
-  commitHash = execSync('git rev-parse --short HEAD').toString().trim();
-} catch (e) {
-  console.warn('Could not get commit hash, defaulting to DEV');
-}
+// Build timestamp in Cairo time (UTC+2)
+const buildDate = new Date();
+const cairoOffset = 2 * 60; // UTC+2 in minutes
+const cairoTime = new Date(buildDate.getTime() + cairoOffset * 60 * 1000);
+const buildStamp = cairoTime.toISOString()
+  .replace('T', ' @ ')
+  .replace(/\.\d{3}Z$/, ' (Cairo)');
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
@@ -63,7 +63,7 @@ export default defineConfig(({ mode }) => {
     define: {
       'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-      '__COMMIT_HASH__': JSON.stringify(commitHash),
+      '__COMMIT_HASH__': JSON.stringify(buildStamp),
     },
     resolve: {
       alias: {
