@@ -16,9 +16,10 @@ export async function getExplanation(
         const docRef = doc(db, 'explanations', questionId);
         const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists() && docSnap.data().text) {
+        const data = docSnap.data() as any;
+        if (docSnap.exists() && data?.text) {
             console.log(`[AI Cache Hit] Loaded explanation for ${questionId} from Firestore.`);
-            return docSnap.data().text;
+            return data.text;
         }
 
         console.log(`[AI Generation] Simulating new explanation for ${questionId}...`);

@@ -222,6 +222,12 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                     onClick={() => onChangeView(View.PERF_HOME)}
                 />
                 <SubjectCard
+                    code="033" title="Flight Planning"
+                    desc="Fuel calculations, critical point limits, en-route log revisions, and flight plan layouts."
+                    icon={Map} color="blue"
+                    onClick={() => onChangeView(View.FLIGHT_PLAN_HOME)}
+                />
+                <SubjectCard
                     code="040" title="Human Performance"
                     desc="Physiology, psychology, sleep, stress, and error management in aviation."
                     icon={Users} color="emerald"
@@ -306,8 +312,42 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                         </div>
                     </div>
                 </div>
+
+                {/* EgyptAir Featured Portal */}
+                <div className="md:col-span-2 xl:col-span-3 mt-6 animate-in fade-in zoom-in duration-700 delay-500">
+                    <div
+                        onClick={() => onChangeView(View.EGYPTAIR_DASHBOARD)}
+                        className="group relative glass-card rounded-3xl p-1 overflow-hidden transition-all duration-500 hover:scale-[1.005] cursor-pointer shadow-2xl shadow-cyan-500/10"
+                    >
+                        <div className="bg-gradient-to-r from-cyan-950/40 to-slate-900/60 rounded-3xl h-full p-10 relative overflow-hidden backdrop-blur-md">
+                            <div className="absolute -top-32 -right-32 w-96 h-96 bg-cyan-600 rounded-full blur-[120px] opacity-20 group-hover:opacity-40 transition-opacity duration-1000"></div>
+                            <div className="absolute top-1/2 right-12 -translate-y-1/2 opacity-20 group-hover:opacity-40 transition-all duration-700 transform group-hover:scale-110 group-hover:rotate-6 hidden md:block">
+                                <Plane size={220} className="text-cyan-400" />
+                            </div>
+                            <div className="relative z-10 flex flex-col md:flex-row items-center gap-10">
+                                <div className="p-6 rounded-3xl bg-gradient-to-br from-cyan-500 to-blue-700 shadow-2xl shadow-cyan-600/30">
+                                    <Plane size={48} className="text-white" />
+                                </div>
+                                <div className="flex-1 text-center md:text-left">
+                                    <div className="inline-flex items-center px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 mb-4 shadow-inner">
+                                        EgyptAir Cadet Portal
+                                    </div>
+                                    <h2 className="text-4xl font-black text-white mb-3 tracking-tight">ABC 4th Edition Prep</h2>
+                                    <p className="text-slate-300 text-lg leading-relaxed max-w-2xl opacity-80">
+                                        Dedicated ground-school training system covering ECARs, company fuel buildup, instrument navigation (holds & DME Arc), jet aerodynamics, and ADM/CRM scenarios.
+                                    </p>
+                                </div>
+                                <div className="flex items-center text-sm font-black uppercase tracking-widest text-white bg-cyan-600 px-8 py-4 rounded-2xl hover:bg-cyan-500 transition-all shadow-xl shadow-cyan-500/20 group-hover:translate-y-[-2px]">
+                                    <span>Enter Portal</span>
+                                    <ChevronRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
     );
 };
 

@@ -60,7 +60,7 @@ export const ExamPlanner: React.FC<ExamPlannerProps> = ({ currentUser }) => {
                     const docSnap = await getDoc(profileDocRef);
 
                     if (docSnap.exists()) {
-                        const data = docSnap.data();
+                        const data = docSnap.data() as any;
                         if (data?.exam_plan) {
                             setSittings(data.exam_plan.sittings || []);
                             setSelectedSubjects(data.exam_plan.selectedSubjects || []);

@@ -108,6 +108,7 @@ export const subjectConfigs: Partial<Record<View, SubjectConfig>> = {
             { title: 'Earth Geometry', desc: 'Convergency and rhumb lines.', view: View.GEN_NAV_EARTH },
             { title: 'Charts', desc: 'Lamberts, Mercator, and Stereo.', view: View.GEN_NAV_CHARTS },
             { title: 'Time', desc: 'UTC, LMT, and solar system.', view: View.GEN_NAV_TIME },
+            { title: 'Date Line Crossing', desc: 'International Date Line calendar jumps.', view: View.GEN_NAV_DATELINE },
         ]
     },
     [View.KSA_HOME]: {
@@ -217,7 +218,8 @@ export const subjectConfigs: Partial<Record<View, SubjectConfig>> = {
             { title: 'Ground Effect', desc: 'Cushioning effect near surface.', view: View.POF_GROUND_EFFECT },
             { title: 'High Lift Devices', desc: 'Flaps and Slats performance.', view: View.POF_HIGH_LIFT },
             { title: 'Stall', desc: 'Stalling characteristics and recovery.', view: View.POF_STALL },
-            { title: 'Stability', desc: 'Static and Dynamic stability.', view: View.POF_STABILITY },
+            { title: 'Stability', desc: 'Static and Dynamic stability.', view: View.POF_STABILITY_SIM },
+            { title: 'Coupling Dynamics', desc: 'Dutch Roll and Spiral Divergence.', view: View.POF_COUPLING },
             { title: 'Control', desc: 'Primary controls, balancing.', view: View.POF_CONTROL },
             { title: 'Flight Mechanics', desc: 'Climb, Descent, Turn.', view: View.POF_FLIGHT_MECHANICS },
             { title: 'High Speed Flight', desc: 'Mach number, shockwaves.', view: View.POF_HIGH_SPEED },

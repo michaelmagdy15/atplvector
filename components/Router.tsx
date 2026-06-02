@@ -172,10 +172,22 @@ const Router: React.FC<RouterProps> = ({
         case currentView === View.NAV_60_1:
             return <Component />;
 
+        // --- EGYPTAIR Prep Module Section ---
+        case [
+            View.EGYPTAIR_DASHBOARD, View.EGYPTAIR_REGS_QUIZ, View.EGYPTAIR_FUEL_PLAN,
+            View.EGYPTAIR_NAV_SIM, View.EGYPTAIR_PERF_CALC, View.EGYPTAIR_CRM_SIM
+        ].includes(currentView):
+            return (
+                <div className="w-full animate-in fade-in duration-500">
+                    <Component {...commonProps} />
+                </div>
+            );
+
         // Generic Component fallback
         default:
             return <Component {...commonProps} />;
     }
+
 };
 
 export default Router;

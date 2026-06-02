@@ -4,157 +4,157 @@ This list contains all ATPL(A) required Learning Objectives that are currently e
 
 ## 010 - Air Law
 
-### [x] 010.01.01.01.01
+### [ ] 010.01.01.01.01
 **Description:** Explain the circumstances that led to the establishment of the Convention on International Civil Aviation, Chicago, 7 December 1944.
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.01.02.01
+### [ ] 010.01.01.02.01
 **Description:** Recall the general contents of relevant parts of the following chapters: general principles and application of the Convention; flight over territory of Contracting States; nationality of aircraft; international standards and recommended practices (SARPs), especially notification of differences and validity of endorsed certificates and licences.
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.01.02.02
+### [ ] 010.01.01.02.02
 **Description:** General principles - Describe the application of the following terms in civil aviation: sovereignty; territory and high seas according to the UN Convention on the High Seas. 
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.01.02.03
+### [ ] 010.01.01.02.03
 **Description:** Explain the following terms and how they apply to international air traffic: right of non-scheduled flight (including the two technical freedoms of the air); scheduled air services; cabotage; landing at customs airports; Rules of the Air; search of aircraft.
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.01.02.04
+### [ ] 010.01.01.02.04
 **Description:** Explain the duties of Contracting States in relation to: documents carried on board the aircraft: certificate of registration; certificates of airworthiness; licences of personnel; recognition of certificates and licences; cargo restrictions; photographic apparatus.
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.01.03.01
+### [ ] 010.01.01.03.01
 **Description:** Describe the objectives of ICAO.
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.01.03.02
+### [ ] 010.01.01.03.02
 **Description:** Recognise the organisation and duties of the ICAO Assembly, Council and Air Navigation Commission (ANC).
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.01.03.03
+### [ ] 010.01.01.03.03
 **Description:** Describe the annexes to the Convention.
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.02.01.01
+### [ ] 010.01.02.01.01
 **Description:** Explain the two technical freedoms of the air.
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.02.02.01
+### [ ] 010.01.02.02.01
 **Description:** Explain the three commercial freedoms of the air.
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.02.03.01
+### [ ] 010.01.02.03.01
 **Description:** Describe the measures and actions to be taken by the pilot-in-command (PIC) of an aircraft in order to suppress unlawful acts against the safety of the aircraft.
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.02.05.01
+### [ ] 010.01.02.05.01
 **Description:** Explain the legal significance of the issue of a passenger ticket or of baggage/cargo documents (that the issue is a form of contract).
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.02.05.02
+### [ ] 010.01.02.05.02
 **Description:** Describe the consequences for an airline or the PIC when a document of carriage is not issued (that the contract is unaffected).
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.02.05.03
+### [ ] 010.01.02.05.03
 **Description:** Explain the consequences for an airline operator of Regulation (EC) No 261/2004 on passenger rights in the event of delay, cancellation or denial of boarding.
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.02.05.04
+### [ ] 010.01.02.05.04
 **Description:** Explain the liability limit in relation to destruction, loss, damage or delay of baggage.
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.03.01.01
+### [ ] 010.01.03.01.01
 **Description:** Describe the objectives of IATA.
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.04.01.01
+### [ ] 010.01.04.01.01
 **Description:** Describe the objectives of EASA.
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.04.01.02
+### [ ] 010.01.04.01.02
 **Description:** Describe the role of EASA in European civil aviation.
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.04.01.03
+### [ ] 010.01.04.01.03
 **Description:** State that the structure of the regulatory material related to EASA involves: hard law (regulations, delegated acts, implementing acts, and implementing rules); soft law (certification specifications, acceptable means of compliance, and guidance material).
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.04.01.04
+### [ ] 010.01.04.01.04
 **Description:** State the meaning of the terminology associated with the structure of the regulatory material related to EASA, specifically: regulations, delegated acts, implementing acts, and implementing rules, as applicable until 11 September 2023; and certification specifications, acceptable means of compliance, and guidance material.
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.01.04.02.01
+### [ ] 010.01.04.02.01
 **Description:** Describe the Single European Sky (SES) regulations.
-**Status:** DONE (Enhanced implementation in InternationalLaw.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INT_LAW) but lacks exact LO specific implementation.)
 
-### [x] 010.02.02.01.01
+### [ ] 010.02.02.01.01
 **Description:** State the issuing authority of a CofA.
-**Status:** DONE (Implemented interactive flowchart in AirworthinessAndOps.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_AIRWORTHINESS) but lacks exact LO specific implementation.)
 
-### [x] 010.02.02.01.02
+### [ ] 010.02.02.01.02
 **Description:** State the necessity to hold a CofA. 
-**Status:** DONE (Integrated into AirworthinessAndOps.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_AIRWORTHINESS) but lacks exact LO specific implementation.)
 
-### [x] 010.02.02.01.03
+### [ ] 010.02.02.01.03
 **Description:** Explain the prerequisites for the issue of a CofA according to Commission Regulation (EU) No 748/2012.
-**Status:** DONE (Implemented prerequisites flowchart)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_AIRWORTHINESS) but lacks exact LO specific implementation.)
 
-### [x] 010.02.02.01.04
+### [ ] 010.02.02.01.04
 **Description:** State who shall determine an aircraft’s continuing airworthiness. 
-**Status:** DONE (Covered in AirworthinessAndOps.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_AIRWORTHINESS) but lacks exact LO specific implementation.)
 
-### [x] 010.02.02.01.05
+### [ ] 010.02.02.01.05
 **Description:** Describe how a CofA can be renewed or may remain valid. 
-**Status:** DONE (Implemented Validity Cycle visualization)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_AIRWORTHINESS) but lacks exact LO specific implementation.)
 
-### [x] 010.02.03.01.01
+### [ ] 010.02.03.01.01
 **Description:** Recall the definition of the following terms: aircraft; heavier-than-air aircraft; State of Registry.
-**Status:** DONE (Added Definitions section in AircraftRegistration.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_AIRWORTHINESS) but lacks exact LO specific implementation.)
 
-### [x] 010.02.04.01.01
+### [ ] 010.02.04.01.01
 **Description:** State the location of nationality marks, common marks and registration marks.
-**Status:** DONE (Implemented interactive SVG hotspots in AircraftRegistration.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_AIRWORTHINESS) but lacks exact LO specific implementation.)
 
-### [x] 010.02.04.01.02
+### [ ] 010.02.04.01.02
 **Description:** Explain who is responsible for assigning nationality marks, common marks and registration marks.
-**Status:** DONE (Added Responsibility section in AircraftRegistration.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_AIRWORTHINESS) but lacks exact LO specific implementation.)
 
 ### [ ] 010.04.01.01.01
 **Description:** Describe the relationship and differences between ICAO Annex 1 and the Aircrew Regulation.
-**Status:** IN_PROGRESS (Enhancing PersonnelLicensing.tsx with premium design and LO mapping)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_PERSONNEL) but lacks exact LO specific implementation.)
 
 ### [ ] 010.04.02.01.01
 **Description:** Define the following: Category, class and type of aircraft, cross-country, dual instruction time, flight time, student pilot-in-command (SPIC), instrument time, instrument flight time, instrument ground time, night, private pilot, proficiency check, renewal, revalidation, skill test, solo flight time.
-**Status:** IN_PROGRESS (Enhancing PersonnelLicensing.tsx with premium design and LO mapping)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_PERSONNEL) but lacks exact LO specific implementation.)
 
 ### [ ] 010.04.02.01.02
 **Description:** Define the following: multi-crew cooperation (MCC), multi-pilot aircraft, rating.
-**Status:** IN_PROGRESS (Enhancing PersonnelLicensing.tsx with premium design and LO mapping)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_PERSONNEL) but lacks exact LO specific implementation.)
 
 ### [ ] 010.04.02.02.01
 **Description:** Explain the structure of Part-FCL.
-**Status:** IN_PROGRESS (Enhancing PersonnelLicensing.tsx with premium design and LO mapping)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_PERSONNEL) but lacks exact LO specific implementation.)
 
 ### [ ] 010.04.02.02.02
 **Description:** Explain the requirements to act as a flight crew member of a civil aircraft registered in a Member State, and know the general principles of the licensing system (light aircraft pilot licence (LAPL), private pilot licence (PPL), commercial pilot licence (CPL), multi-crew pilot licence (MPL), airline transport pilot licence (ATPL)).
-**Status:** IN_PROGRESS (Enhancing PersonnelLicensing.tsx with premium design and LO mapping)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_PERSONNEL) but lacks exact LO specific implementation.)
 
 ### [ ] 010.04.02.02.03
 **Description:** List the two factors that are relevant to the exercise of the privileges of a licence.
-**Status:** IN_PROGRESS (Enhancing PersonnelLicensing.tsx with premium design and LO mapping)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_PERSONNEL) but lacks exact LO specific implementation.)
 
 ### [ ] 010.04.02.02.04
 **Description:** State the circumstances in which a language proficiency endorsement is required.
-**Status:** IN_PROGRESS (Enhancing PersonnelLicensing.tsx with premium design and LO mapping)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_PERSONNEL) but lacks exact LO specific implementation.)
 
 ### [ ] 010.04.02.02.05
 **Description:** List the restrictions for licence holders with an age of 60 years or more. 
-**Status:** IN_PROGRESS (Enhancing PersonnelLicensing.tsx with premium design and LO mapping)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_PERSONNEL) but lacks exact LO specific implementation.)
 
 ### [ ] 010.04.02.02.06
 **Description:** Explain the term ‘competent authority’.
-**Status:** IN_PROGRESS (Enhancing PersonnelLicensing.tsx with premium design and LO mapping)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_PERSONNEL) but lacks exact LO specific implementation.)
 
 ### [ ] 010.04.02.02.07
 **Description:** Describe the obligation to carry and present documents  (e.g. a flight crew licence) under Part-FCL. 
@@ -216,61 +216,61 @@ This list contains all ATPL(A) required Learning Objectives that are currently e
 **Description:** State the actions to be taken in case of a decrease in medical fitness. 
 **Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_PERSONNEL) but lacks exact LO specific implementation.)
 
-### [x] 010.05.01.01.01
+### [ ] 010.05.01.01.01
 **Description:** Explain the scope and purpose of ICAO Annex 2.
-**Status:** DONE (Implemented in RulesOfTheAirDetails.tsx with comprehensive interactive elements)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_RULES_DETAILS) but lacks exact LO specific implementation.)
 
-### [x] 010.05.01.01.02
+### [ ] 010.05.01.01.02
 **Description:** Explain the scope and main content of SERA.
-**Status:** DONE (Implemented interactive overview in RulesOfTheAirDetails.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_RULES_DETAILS) but lacks exact LO specific implementation.)
 
-### [x] 010.05.02.01.01
+### [ ] 010.05.02.01.01
 **Description:** Explain the principle of territorial application of the various Rules of the Air, e.g. ICAO, SERA, national rules.
-**Status:** DONE (Implemented Territorial Application card in RulesOfTheAirDetails.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_RULES_OF_AIR) but lacks exact LO specific implementation.)
 
-### [x] 010.05.02.01.02
+### [ ] 010.05.02.01.02
 **Description:** Explain the necessity to comply with the Rules of the Air.
-**Status:** DONE (Covered in General Applicability section of RulesOfTheAirDetails.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_RULES_OF_AIR) but lacks exact LO specific implementation.)
 
-### [x] 010.05.02.01.03
+### [ ] 010.05.02.01.03
 **Description:** State the responsibilities of the PIC.
-**Status:** DONE (Implemented PIC Responsibility card in RulesOfTheAirDetails.tsx)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_RULES_OF_AIR) but lacks exact LO specific implementation.)
 
-### [x] 010.05.02.01.04
+### [ ] 010.05.02.01.04
 **Description:** Identify under what circumstances departure from the Rules of the Air may be allowed.
-**Status:** DONE (Specified in PIC Responsibility section)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_RULES_OF_AIR) but lacks exact LO specific implementation.)
 
 ### [ ] 010.05.02.01.05
 **Description:** Explain the duties of the PIC concerning pre-flight actions in case of an instrument flight rule (IFR) flight.
 **Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_RULES_OF_AIR) but lacks exact LO specific implementation.)
 
-### [x] 010.05.02.01.06
+### [ ] 010.05.02.01.06
 **Description:** State that the PIC of an aircraft has final authority as to the disposition of the aircraft while in command.
-**Status:** DONE (Implemented Final Authority visualization)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_RULES_OF_AIR) but lacks exact LO specific implementation.)
 
 ### [ ] 010.05.02.01.07
 **Description:** Explain when the use of psychoactive substances, taking into consideration their effects, by flight crew members is prohibited.
 **Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_RULES_OF_AIR) but lacks exact LO specific implementation.)
 
-### [x] 010.05.03.01.01
+### [ ] 010.05.03.01.01
 **Description:** Describe the rules for the avoidance of collisions.
-**Status:** DONE (Implemented interactive Right of Way visualizer)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INTERCEPT) but lacks exact LO specific implementation.)
 
-### [x] 010.05.03.01.02
+### [ ] 010.05.03.01.02
 **Description:** Describe the lights, including their angles, to be displayed by aircraft. 
-**Status:** DONE (Implemented interactive Navigation Lights diagram)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INTERCEPT) but lacks exact LO specific implementation.)
 
 ### [ ] 010.05.03.01.03
 **Description:** Interpret marshalling signals.
 **Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INTERCEPT) but lacks exact LO specific implementation.)
 
-### [x] 010.05.03.01.04
+### [ ] 010.05.03.01.04
 **Description:** State the basic requirements for minimum height (HGT) for the flight over congested areas of cities, towns or settlements, or over an open-air assembly of persons.
-**Status:** DONE (Implemented Minimum Heights interactive cards)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INTERCEPT) but lacks exact LO specific implementation.)
 
-### [x] 010.05.03.01.05
+### [ ] 010.05.03.01.05
 **Description:** Define when the cruising levels shall be expressed in terms of flight levels (FLs). 
-**Status:** DONE (Implemented Cruising Levels visualizer with Semi-Circular rule)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INTERCEPT) but lacks exact LO specific implementation.)
 
 ### [ ] 010.05.03.01.06
 **Description:** Define under what circumstances cruising levels shall be expressed in terms of altitude (ALT).
@@ -280,9 +280,9 @@ This list contains all ATPL(A) required Learning Objectives that are currently e
 **Description:** Explain the limitation for proximity to other aircraft and the right-of-way rules, including holding at runway (RWY) holding positions and lighted stop bars.
 **Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INTERCEPT) but lacks exact LO specific implementation.)
 
-### [x] 010.05.03.01.08
+### [ ] 010.05.03.01.08
 **Description:** Describe the meaning of light signals displayed to aircraft and by aircraft.
-**Status:** DONE (Implemented interactive Light Gun Signals table)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INTERCEPT) but lacks exact LO specific implementation.)
 
 ### [ ] 010.05.03.01.09
 **Description:** Describe the requirements when carrying out simulated instrument flights.
@@ -292,9 +292,9 @@ This list contains all ATPL(A) required Learning Objectives that are currently e
 **Description:** Explain the basic rules for an aircraft operating on and in the vicinity of an aerodrome (AD). 
 **Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INTERCEPT) but lacks exact LO specific implementation.)
 
-### [x] 010.05.03.01.11
+### [ ] 010.05.03.01.11
 **Description:** Explain the requirements for the submission of an air traffic service (ATS) flight plan.
-**Status:** DONE (Implemented Flight Plan Submission timeline)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INTERCEPT) but lacks exact LO specific implementation.)
 
 ### [ ] 010.05.03.01.12
 **Description:** Explain the actions to be taken in case of flight plan change or delay.
@@ -304,9 +304,9 @@ This list contains all ATPL(A) required Learning Objectives that are currently e
 **Description:** State the actions to be taken in case of inadvertent changes to track, true airspeed (TAS) and time estimate affecting the current flight plan.
 **Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INTERCEPT) but lacks exact LO specific implementation.)
 
-### [x] 010.05.03.01.14
+### [ ] 010.05.03.01.14
 **Description:** Explain the procedures for closing a flight plan.
-**Status:** DONE (Specified in Flight Plan Closure requirements)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INTERCEPT) but lacks exact LO specific implementation.)
 
 ### [ ] 010.05.03.01.15
 **Description:** State for which flights an air traffic control (ATC) clearance shall be obtained.
@@ -336,33 +336,33 @@ This list contains all ATPL(A) required Learning Objectives that are currently e
 **Description:** State what information an aircraft being subjected to unlawful interference shall give to the appropriate ATS unit.
 **Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_INTERCEPT) but lacks exact LO specific implementation.)
 
-### [x] 010.05.04.01.01
+### [ ] 010.05.04.01.01
 **Description:** Describe the VFR as contained in Commission Implementing Regulation (EU) No 923/2012.
-**Status:** DONE (Implemented interactive Weather Minima explorer for VMC)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_ALTIMETER) but lacks exact LO specific implementation.)
 
 ### [ ] 010.05.05.01.01
 **Description:** Describe the IFR as contained in Commission Implementing Regulation (EU) No 923/2012.
 **Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_CRUISING) but lacks exact LO specific implementation.)
 
-### [x] 010.05.06.01.01
+### [ ] 010.05.06.01.01
 **Description:** List the circumstances in which interception of a civil aircraft may occur.
-**Status:** DONE (Implemented Interception Signals and procedures dashboard)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_RULES_DETAILS) but lacks exact LO specific implementation.)
 
-### [x] 010.05.06.01.02
+### [ ] 010.05.06.01.02
 **Description:** State what primary action should be carried out by an intercepted aircraft. 
-**Status:** DONE (Specified in Interception Procedures)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_RULES_DETAILS) but lacks exact LO specific implementation.)
 
-### [x] 010.05.06.01.03
+### [ ] 010.05.06.01.03
 **Description:** State which frequency should primarily be tried in order to contact an intercepting aircraft. 
-**Status:** DONE (Specified 121.5 MHz in Interception dashboard)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_RULES_DETAILS) but lacks exact LO specific implementation.)
 
-### [x] 010.05.06.01.04
+### [ ] 010.05.06.01.04
 **Description:** State on which mode and code a transponder on board the intercepted aircraft should be operated. 
-**Status:** DONE (Specified 7700 in Interception dashboard)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_RULES_DETAILS) but lacks exact LO specific implementation.)
 
-### [x] 010.05.06.01.05
+### [ ] 010.05.06.01.05
 **Description:** Recall the interception signals and phrases. 
-**Status:** DONE (Implemented interactive Interception Signals panel)
+**Status:** PREFIX_COVERED (Covered by parent view (AIR_LAW_RULES_DETAILS) but lacks exact LO specific implementation.)
 
 ### [ ] 010.06.02.01.01
 **Description:** Recall all definitions included in ICAO Doc 8168, Volume I, Part I, Section 1, Chapter 1.
@@ -7012,475 +7012,475 @@ This list contains all ATPL(A) required Learning Objectives that are currently e
 
 ### [ ] 033.01.01.01.01
 **Description:** Select routes taking the following criteria into account: classification of airspace; restricted areas; VFR semicircular rules; visually conspicuous points; radio-navigation aids.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.01.01.01.02
 **Description:** Find the frequencies or identifiers of radio-navigation aids from charts.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.01.01.01.03
 **Description:** Find the communication frequencies and call signs for the following: control agencies and service facilities; flight information service (FIS); weather information stations; automatic terminal information service (ATIS). 
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.01.01.02.01
 **Description:** Choose visual waypoints in accordance with specified criteria (large, unique, contrast, vertical extent, etc.).
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.01.01.02.02
 **Description:** Measure courses and distances from a VFR chart. 
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.01.01.02.03
 **Description:** Find the highest obstacle within a given distance on either side of the course.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.01.01.02.04
 **Description:** Find the following data from a VFR chart and transfer them to a navigation plan: waypoints or turning points; distances; true/magnetic courses.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.01.01.02.05
 **Description:** Calculate the minimum pressure altitude with a given obstacle clearance or true altitude from a given altitude or pressure altitude from minimum grid-area altitude using outside air temperature (OAT) and QNH.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.01.01.02.06
 **Description:** Calculate the vertical or horizontal distance and time to climb or descend to/from a given level or altitude with given data.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.01.01.02.07
 **Description:** Explain how to determine the position of a significant VFR point for insertion into a global navigation satellite system (GNSS) flight plan, using the distance and bearing from an existing significant point and using coordinates.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.01.01.03.01
 **Description:** Explain the reasons for studying the visual departure procedures and the available approach procedures.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.01.01.03.02
 **Description:** Find all visual procedures which can be expected at the departure, destination and alternate aerodromes.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.01.01.03.03
 **Description:** Find all relevant aeronautical and regulatory information required for VFR flight planning from the aerodrome charts or aerodrome directory.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.01.01.05.01
 **Description:** Calculate the true airspeed (TAS) from given aircraft performance data, altitude and OAT.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.01.01.05.02
 **Description:** Calculate wind correction angles (WCAs), drift and ground speeds (GS).
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.01.01.05.03
 **Description:** Calculate individual and accumulated times for each leg to destination and alternate aerodromes.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.01.01
 **Description:** Identify suitable routings by identifying all relevant aeronautical and regulatory information (including information published in the national aeronautical information publication (AIP)) required for IFR flight planning. 
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.01.02
 **Description:** Identify and describe ATS routes (conventional, area navigation (RNAV), required navigation performance (RNP), conditional routes (CDRs), and direct routes).
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.02.01
 **Description:** Determine courses and distances.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.02.02
 **Description:** Determine bearings and distances of waypoints from radio-navigation aids.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.03.01
 **Description:** Define the following altitudes: minimum en-route altitude (MEA); minimum obstacle clearance altitude (MOCA); minimum sector altitude (MSA); minimum off-route altitude (MORA); grid minimum off-route altitude (Grid MORA); maximum authorised altitude (MAA); minimum crossing altitude (MCA); minimum holding altitude (MHA).
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.03.02
 **Description:** Extract the following altitudes from the chart(s): MEA; MOCA; MSA; MORA; Grid MORA; MAA; MCA; MHA. 
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.03.03
 **Description:** State who is responsible for terrain separation during IFR flight inside and outside controlled airspace.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.03.04
 **Description:** State the minimum obstacle clearance requirements for en-route IFR flight inside and outside controlled airspace.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.03.05
 **Description:** State when a temperature error correction must be applied by either the pilot or ATC.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.03.06
 **Description:** Identify and explain the use of minimum radar vectoring altitudes.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.03.07
 **Description:** Calculate the minimum pressure altitude required with a given obstacle clearance, magnetic track, OAT, QNH and reduced vertical separation minimum (RVSM)/non-RVSM information.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.03.08
 **Description:** Calculate true altitude above a given datum using a given pressure altitude, OAT and QNH.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.04.01
 **Description:** State the reasons for studying SID and STAR charts.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.04.02
 **Description:** State that SID and STAR charts show procedures only in a pictorial presentation style which may not be true to scale.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.04.03
 **Description:** Interpret all data and information represented on SID and STAR charts, particularly: routings; distances; courses; radials; altitudes/levels; frequencies; restrictions; RNAV waypoints and non-RNAV intersection; fly-over and fly-by waypoints.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.04.04
 **Description:** Identify SID and STAR charts which might be relevant for a planned flight.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.04.05
 **Description:** Define SID and STAR for RNAV only.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.04.06
 **Description:** Describe the difference between SID/STAR, RNAV SID/STAR and RNAV SID/STAR overlay.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.05.01
 **Description:** State the reasons for being familiar with instrument-approach procedures (IAPs) and appropriate data for departure, destination and alternate aerodromes.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.05.02
 **Description:** Select IAPs appropriate for departure, destination and alternate aerodromes.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.05.03
 **Description:** Interpret all procedures, data and information represented on instrument-approach charts, particularly: courses and radials; distances; altitudes/levels/heights; restrictions; obstructions; frequencies; speeds and times; decision altitudes/heights (DAs/Hs); (DA/H) and minimum descent altitudes/heights (MDAs/Hs); visibility and runway visual ranges (RVRs); approach-light systems.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.05.04
 **Description:** Explain the following IAP terms: type A and B; 2D and 3D; CAT I, II and III; precision approach (conventional and ground-based augmentation system (GBAS)); non-precision approach (conventional and required navigation performance approach (RNP APCH) (lateral navigation (LNAV), LNAV/vertical navigation (VNAV), localiser performance (LP), localiser performance with vertical guidance (LPV), and required navigation performance authorisation required approach (RNP AR APCH)); approach procedure with vertical guidance (APV) (APV Baro and APV satellite-based augmentation system (SBAS)).
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.06.01
 **Description:** Find the communication frequencies and call signs for aeronautical services for IFR flights from en-route charts. 
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.06.02
 **Description:** Find the frequency or identifiers of radio-navigation aids for IFR flights from en-route charts.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.07.01
 **Description:** Complete a navigation plan with the courses, distances and frequencies taken from charts.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.07.02
 **Description:** Find the SID and STAR routes to be flown or to be expected.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.07.03
 **Description:** Determine the position of top of climb (TOC) and top of descent (TOD) from given appropriate data.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.07.04
 **Description:** Determine variation and calculate magnetic/true courses.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.07.05
 **Description:** Calculate TAS from given aircraft performance data, altitude and OAT.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.07.06
 **Description:** Calculate wind correction angles (WCAs)/drift and ground speeds (GSs).
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.07.07
 **Description:** Calculate individual and accumulated times for each leg to destination and alternate aerodromes.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.07.08
 **Description:** Describe the advantages of global navigation satellite system/flight management computer (GNSS/FMC) equipment regarding: automatic calculation and display of tracks and leg distances; additional route information in the database (minimum altitudes, approach procedures); time and fuel estimates over waypoints; ability to adjust speed to arrive over a waypoint at a defined time; time and fuel revisions based on predicted and actual wind.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.02.01.07.09
 **Description:** Describe the limitations of using GNSS/FMC equipment: pilot-inputted errors (flight levels, wind, temperature, fuel); the effect of other than predicted wind on fuel and time estimates; the effect of aircraftʼs non-standard configuration on flight management system (FMS) predictions.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_IFR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.01.01.01
 **Description:** Convert to volume, mass and density given in different units which are commonly used in aviation.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.01.01.02
 **Description:** Determine relevant data, such as fuel capacity, fuel flow/ consumption at different power/thrust settings, altitudes and atmospheric conditions, from the flight manual.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.01.01.03
 **Description:** Calculate the attainable flight time/range from given average fuel flow/consumption and available amount of fuel.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.01.01.04
 **Description:** Calculate the required fuel from given average fuel flow/ consumption and required time/range to be flown.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.01.01.05
 **Description:** Calculate the required fuel for a VFR flight from given forecast meteorological conditions.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.01.01.06
 **Description:** State the minimum amount of remaining fuel required on arrival at the destination and alternate aerodromes/ heliports.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.01.01.07
 **Description:** Explain and describe how to calculate nautical air miles (NAM) from nautical ground miles (NGM).
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.01.01.08
 **Description:** Calculate the required fuel for an IFR flight from given forecast meteorological conditions.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.02.01.01
 **Description:** Determine the fuel required for engine start and taxiing by consulting the fuel-usage tables or graphs from the flight manual taking into account all the relevant conditions.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.02.02.01
 **Description:** Define trip fuel and name the segments of flight for which the trip fuel is relevant.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.02.02.02
 **Description:** Determine the trip fuel for the flight by using data from the fuel tables or graphs from the flight manual.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.02.03.01
 **Description:** Explain the reasons for having contingency fuel.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.02.03.02
 **Description:** Calculate the contingency fuel according to the applicable operational requirements.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.02.03.03
 **Description:** Explain the reasons and regulations for having alternate fuel and name the segments of flight for which the alternate fuel is relevant.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.02.03.04
 **Description:** Calculate the alternate fuel in accordance with the applicable operational requirements and relevant data from the navigation plan and the flight manual.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.02.03.05
 **Description:** Explain the reasons and regulations for having final reserve fuel.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.02.03.06
 **Description:** Calculate the final reserve fuel for an aircraft in accordance with the applicable operational requirements and by using relevant data from the flight manual. 
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.02.03.07
 **Description:** Explain the reasons and regulations for having additional fuel.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.02.03.08
 **Description:** Calculate the additional fuel for a flight in accordance with the applicable operational requirements. 
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.02.04.01
 **Description:** Explain the reasons and regulations for having extra fuel in accordance with the applicable operational requirements.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.02.04.02
 **Description:** Calculate the possible extra fuel under given conditions. 
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.02.04.03
 **Description:** Explain the fuel penalty incurred when loading extra fuel (i.e. the additional fuel consumption due to increased mass).
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.02.05.01
 **Description:** Calculate the total fuel required for a given flight.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.02.05.02
 **Description:** Complete the fuel plan.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.03.01.01
 **Description:** Explain the reasons and regulations for reduced contingency fuel as stated in the applicable operational requirements. 
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.03.01.02
 **Description:** Calculate the contingency fuel and trip fuel required in accordance with the reduced contingency fuel procedure. 
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.03.02.01
 **Description:** Explain the basic procedures for an isolated aerodrome or heliport as stated in the applicable operational requirements.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.03.02.02
 **Description:** Calculate the additional fuel for aeroplanes or helicopters according to the isolated aerodrome or heliport procedures.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.03.03.01
 **Description:** Explain the basic idea of the predetermined-point procedure as stated in the applicable operational requirements.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.03.04.01
 **Description:** Explain the basic idea of fuel-tankering procedures. 
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.03.03.04.02
 **Description:** Calculate how much fuel to tank by using given appropriate graphs, tables or data. 
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_FUEL but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_FUEL) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.01.01.01
 **Description:** Check that the ground- and satellite-based facilities and services required for the planned flight are available and adequate.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_HOME) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.01.02.01
 **Description:** Find and analyse the latest state at the departure, destination and alternate aerodromes, in particular for: opening hours; work in progress (WIP); special procedures due to WIP; obstructions; changes of frequencies for communications, navigation aids and facilities.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_HOME) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.01.02.02
 **Description:** Check that satellite-based facilities are available during the expected time of use.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_HOME) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.01.02.03
 **Description:** Check that GBAS/SBAS augmentation is available during the expected time of use.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_HOME) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.01.03.01
 **Description:** Find and analyse the latest en-route state for: airway(s) or route(s); restricted, danger and prohibited areas; changes of frequencies for communications, navigation aids and facilities.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_HOME) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.01.04.01
 **Description:** Define why it is important to check GNSS achievability.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_HOME) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.01.04.02
 **Description:** Define receiver autonomous integrity monitoring (RAIM), NOTAM and notice advisory to NavStar users (NANU) messages.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_HOME) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.01.04.03
 **Description:** Explain the difference in use of augmented and non-augmented GNSS in connection with the achievability check.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_HOME) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.01.04.04
 **Description:** Explain the difference in planned and unplanned outage of GNSS or SBAS.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_HOME) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.02.02.01
 **Description:** Confirm the most fuel-efficient altitude from given wind, temperature and aircraft data.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_HOME) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.02.02.02
 **Description:** Confirm true altitudes from given atmospheric data to ensure that statutory minimum clearance is attained.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_HOME) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.02.02.03
 **Description:** Confirm magnetic headings and GSs. 
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_HOME) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.02.02.04
 **Description:** Confirm the individual leg times and the total time en route.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_HOME) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.02.02.05
 **Description:** Confirm the total time en route for the trip to the destination.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_HOME) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.02.02.06
 **Description:** Confirm the total time from destination to the alternate aerodrome.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_HOME) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.02.05.01
 **Description:** Calculate the revised fuel data in accordance with the changed conditions.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_HOME) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.03.01.01
 **Description:** Define ‘PETʼ. 
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_SIG_POINTS) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.03.01.02
 **Description:** Calculate the position of a PET and the estimated time of arrival (ETA) at the PET from given relevant data. 
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_SIG_POINTS) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.03.02.01
 **Description:** Define ‘PSRʼ.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_SIG_POINTS) but lacks exact LO specific implementation.)
 
 ### [ ] 033.04.03.02.02
 **Description:** Calculate the position of a PSR and the ETA at the PSR from given relevant data.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_HOME but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_SIG_POINTS) but lacks exact LO specific implementation.)
 
 ### [ ] 033.05.01.01.01
 **Description:** State the reasons for a fixed format of an ICAO ATS FPL.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.05.01.01.02
 **Description:** Determine the correct entries to complete an ATS FPL plus decode and interpret the entries in a completed ATS FPL, particularly for the following: aircraft identification (Item 7); flight rules and type of flight (Item 8); number and type of aircraft and wake-turbulence category (Item 9); equipment (Item 10); departure aerodrome and time (Item 13); route (Item 15); destination aerodrome, total estimated elapsed time and alternate aerodrome (Item 16); other information (Item 18); supplementary information (Item 19).
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.05.02.01.01
 **Description:** Explain the difference between an individual FPL and an RPL.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_IFR) but lacks exact LO specific implementation.)
 
 ### [ ] 033.06.01.01.01
 **Description:** State the reasons for possible deviations from the planned track and planned timings.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.06.01.01.02
 **Description:** Calculate GS by using actual in-flight parameters.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.06.01.01.03
 **Description:** Calculate the expected leg times by using actual in-flight parameters.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.06.01.01.04
 **Description:** Enter, in the progress of flight, at the checkpoint or turning point, the ‘actual time-over’ and the ‘estimated time-over’ for the next checkpoint into the flight plan.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.06.01.01.05
 **Description:** State that it is necessary to determine the position of the aircraft accurately before commencing descent in order to ensure safe ground clearance.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.06.01.01.06
 **Description:** Calculate revised ETA based on changes to the pre-flight plan, including changes of W/V, cruise level, OAT, distances, Mach number and calibrated airspeed (CAS).
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.06.01.02.01
 **Description:** Explain why fuel checks must be carried out in flight at regular intervals and why relevant fuel data must be recorded.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.06.01.02.02
 **Description:** Assess deviations of actual fuel consumption from planned consumption. 
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.06.01.02.03
 **Description:** Calculate fuel quantity used, fuel consumption, and fuel remaining at navigation checkpoints/waypoints.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.06.01.02.04
 **Description:** Compare the actual with the planned fuel consumption by means of calculation.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.06.01.02.05
 **Description:** Determine the remaining range and endurance by means of calculation.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.06.01.02.06
 **Description:** Calculate the revised fuel consumption based on changes to the pre-flight plan, including changes of W/V, cruise level, OAT, distances, Mach number and CAS.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.06.02.01.01
 **Description:** State that the commander is responsible for ensuring that, even in case of diversion, the remaining fuel is not less than the fuel required to proceed to an aerodrome where a safe landing can be made, with final reserve fuel remaining.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.06.02.01.02
 **Description:** Explain that, in the case of an in-flight update, the commander has to check the following: the suitability of the new destination or alternate aerodrome; meteorological conditions on revised routing and at revised destination or alternate aerodrome; the aircraft must be able to land with the prescribed final reserve fuel. 
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ### [ ] 033.06.02.01.03
 **Description:** Calculate the revised destination/alternate aerodrome landing mass from given latest data.
-**Status:** NOT_MAPPED (Mapped to View.FLIGHT_PLAN_INTRO but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (FLIGHT_PLAN_INTRO) but lacks exact LO specific implementation.)
 
 ## 040 - Human Performance
 
@@ -11106,159 +11106,159 @@ This list contains all ATPL(A) required Learning Objectives that are currently e
 
 ### [ ] 061.03.01.01.01
 **Description:** Describe the geometric properties of a great circle (including the vertex) and a small circle.
-**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_MAPS) but lacks exact LO specific implementation.)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.03.01.01.03
 **Description:** Explain why a great-circle route is the shortest distance between any two positions on the Earth.
-**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_MAPS) but lacks exact LO specific implementation.)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.03.01.01.04
 **Description:** Name examples of great circles on the surface of the Earth.
-**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_MAPS) but lacks exact LO specific implementation.)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.03.01.02.01
 **Description:** Explain why the track direction of a great-circle route (other than following a meridian or the equator) changes.
-**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_MAPS) but lacks exact LO specific implementation.)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.03.01.02.02
 **Description:** State the formula used to approximate the value of Earth convergence as change of longitude × sine mean latitude.
-**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_MAPS) but lacks exact LO specific implementation.)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.03.01.02.03
 **Description:** Calculate the approximate value of Earth convergence between any two positions, up to 30 degrees difference of longitude.
-**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_MAPS) but lacks exact LO specific implementation.)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.03.02.01.01
 **Description:** Describe the geometric properties of a rhumb line.
-**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_MAPS) but lacks exact LO specific implementation.)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.03.02.01.02
 **Description:** State that a rhumb-line route is not the shortest distance between any two positions on the Earth (excluding meridians and equator).
-**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_MAPS) but lacks exact LO specific implementation.)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.03.03.01.01
 **Description:** Explain that the variation in distance of the great-circle route and rhumb-line route between any two positions increases with increasing latitude or change in longitude.
-**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_MAPS) but lacks exact LO specific implementation.)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.03.03.02.01
 **Description:** Calculate and apply the conversion angle.
-**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_MAPS) but lacks exact LO specific implementation.)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.01.01.01
 **Description:** State the requirement for conformality and for a straight line to approximate a great circle.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.01.02.01
 **Description:** Explain and calculate the constant of the cone (sine of parallel of origin).
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.01.02.02
 **Description:** Explain the relationship between Earth and chart convergence with respect to the ICAO requirement for a straight line to approximate a great circle.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.01.03.01
 **Description:** Recognise methods of representing scale on aeronautical charts.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.01.03.02
 **Description:** Perform scale calculations based on typical en-route chart scales.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.02.01.01
 **Description:** Identify azimuthal, cylindrical and conical projections.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.02.02.01
 **Description:** State the properties of a polar stereographic projection.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.02.02.02
 **Description:** Calculate straight line track changes on a polar stereographic chart.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.02.03.01
 **Description:** State the properties of a direct Mercator projection.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.02.03.02
 **Description:** Given the scale at one latitude, calculate the scale at different latitudes.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.02.03.03
 **Description:** Given a chart length at one latitude, show that it represents a different Earth distance at other latitudes.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.02.04.01
 **Description:** State the properties of a Lambert projection.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.02.04.02
 **Description:** Calculate straight line track changes on a Lambert chart.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.02.04.03
 **Description:** Explain the scale variation throughout the charts as follows: the scale indicated on the chart will be correct at the standard parallels; the scale will increase away from the parallel of origin; the scale within the standard parallels differs by less than 1 per cent from the scale stated on the chart.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.02.04.04
 **Description:** Given appropriate data, calculate initial, final or rhumb-line tracks between two positions (lat./long.).
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.02.04.05
 **Description:** Given two positions (lat./long.) and information to determine convergency between the two positions, calculate the parallel of origin.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.02.04.06
 **Description:** Given a Lambert chart, determine the parallel of origin, or constant of cone.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.02.04.07
 **Description:** Given constant of cone or parallel of origin, great-circle track at one position and great-circle track at another position, calculate the difference of longitude between the two positions.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.03.01.01
 **Description:** Recognise ICAO Annex 4 symbology.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.03.02.01
 **Description:** Measure tracks and distances on VFR and IFR en-route charts.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.03.02.02
 **Description:** Fix the aircraft position on an en-route chart with information from VOR and DME equipment.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.04.03.02.03
 **Description:** Resolve bearings of an NDB station for plotting on an aeronautical chart.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_WIND_TRIANGLE but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_CHARTS) but lacks exact LO specific implementation.)
 
 ### [ ] 061.05.01.01.01
 **Description:** Explain the concepts of a mean solar day and LMT.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_POLAR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_TIME) but lacks exact LO specific implementation.)
 
 ### [ ] 061.05.01.02.01
 **Description:** Perform LMT and UTC calculations.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_POLAR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_TIME) but lacks exact LO specific implementation.)
 
 ### [ ] 061.05.02.01.01
 **Description:** Explain and apply the concept of standard time and daylight saving time, and perform standard time and daylight saving time calculations.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_POLAR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_DATELINE) but lacks exact LO specific implementation.)
 
 ### [ ] 061.05.02.02.01
 **Description:** State the changes when crossing the International Date Line.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_POLAR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_DATELINE) but lacks exact LO specific implementation.)
 
 ### [ ] 061.05.03.01.01
 **Description:** Define sunrise, sunset, and civil twilight, and extract times from a suitable source (e.g. an almanac).
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_POLAR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_TIME) but lacks exact LO specific implementation.)
 
 ### [ ] 061.05.03.01.02
 **Description:** Explain the changes to sunrise, sunset, and civil twilight times with date, latitude and altitude.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_POLAR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_TIME) but lacks exact LO specific implementation.)
 
 ### [ ] 061.05.03.01.03
 **Description:** Explain at which time of the year the duration of daylight changes at the highest rate.
-**Status:** NOT_MAPPED (Mapped to View.GEN_NAV_POLAR but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (GEN_NAV_TIME) but lacks exact LO specific implementation.)
 
 ## 062 - Radio Navigation
 
@@ -13931,11 +13931,11 @@ The outer-marker cockpit indicator is coloured blue, the middle marker amber, an
 
 ### [ ] 071.04.01.01.01
 **Description:** Explain the requirements related to flight crew recurrent training and checking and operator proficiency check.
-**Status:** NOT_MAPPED (No mapping in learningObjectives.ts)
+**Status:** PREFIX_COVERED (Covered by parent view (OPS_GENERAL) but lacks exact LO specific implementation.)
 
 ### [ ] 071.04.01.02.01
 **Description:** Explain the task specialist’s responsibilities.
-**Status:** NOT_MAPPED (No mapping in learningObjectives.ts)
+**Status:** PREFIX_COVERED (Covered by parent view (OPS_GENERAL) but lacks exact LO specific implementation.)
 
 ## 081 - Principles of Flight
 
@@ -14993,235 +14993,235 @@ The outer-marker cockpit indicator is coloured blue, the middle marker amber, an
 
 ### [ ] 081.04.01.01.01
 **Description:** Define ‘static stability’: describe/identify a statically stable, neutral, and unstable condition (positive, neutral, and negative static stability), and explain why aeroplanes are statically stable.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.01.01.02
 **Description:** Explain manoeuvrability.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.01.01.03
 **Description:** Explain the relationship between static stability and manoeuvrability.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.01.01.04
 **Description:** Define ‘dynamic stability’: describe/identify a dynamically stable, neutral, and unstable motion (positive, neutral, and negative dynamic stability); describe/identify periodic and aperiodic motion.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.01.02.01
 **Description:** Explain an equilibrium of forces and moments as the initial condition for static stability. 
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.01.03.01
 **Description:** Identify the forces considered in the equilibrium of forces.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.01.04.01
 **Description:** Identify the moments about all three axes considered in the equilibrium of moments.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.01.04.02
 **Description:** Discuss the effect of sum of moments not being zero.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.01.01
 **Description:** Explain the stabiliser as the means to satisfy the condition of nullifying the total sum of the moments about the lateral axis.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.01.02
 **Description:** Explain the influence of the location of the wing CP relative to the CG on the magnitude and direction of the balancing force on the stabiliser.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.01.03
 **Description:** Explain the influence of the indicated airspeed on the magnitude and direction of the balancing force on the stabiliser.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.01.04
 **Description:** Explain the use of the elevator deflection or stabiliser angle for the generation of the balancing force and its direction.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.01.05
 **Description:** Explain the elevator deflection required to balance thrust change as a function of engine position.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.02.01
 **Description:** Discuss the effect of the CG location on pitch manoeuvrability and longitudinal stability.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.03.01
 **Description:** Define ‘neutral point’.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.03.02
 **Description:** Explain why the location of the neutral point is only dependent on the aerodynamic design of the aeroplane.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.04.01
 **Description:** Describe the location of the neutral point relative to the locations of the aerodynamic centre of the wing and tail.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.05.01
 **Description:** Explain the influence of the CG location on the static longitudinal stability of the aeroplane.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.05.02
 **Description:** Explain the CG forward and aft limits with respect to: longitudinal control forces; elevator effectiveness; stability.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.05.03
 **Description:** Define ‘static margin’.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.06.01
 **Description:** Describe the Cm-alpha graph with respect to the relationship between the slope of the graph and static stability. 
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.07.01
 **Description:** Explain: the effect on the Cm-alpha graph of a shift of CG in the forward and aft direction; the effect on the Cm-alpha graph when the elevator is moved up or down; the effect on the Cm-alpha graph when the trim is moved; the effect of the wing contribution; the tail contribution.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.10.01
 **Description:** Explain how a pilot perceives stable static longitudinal stick force stability regarding changes in: speed; altitude; mass distribution (CG location).
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.12.01
 **Description:** Define the ‘stick force per g’, and describe that the stick force increases linearly with increase in g.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.12.02
 **Description:** Explain why: the stick force per g has a prescribed minimum and maximum value; the stick force per g decreases with pressure altitude.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.14.01
 **Description:** Explain the influence on stick force per g of: CG location; trim setting.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.16.01
 **Description:** Describe the phugoid and short-period motion in terms of period, damping, variations (if applicable) in speed, altitude, and alpha.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.16.02
 **Description:** Explain why the short-period motion is more hazardous than the phugoid.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.16.03
 **Description:** Describe ‘pilot-induced oscillations’.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.16.04
 **Description:** Explain the effect of high altitude on dynamic stability.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.03.16.05
 **Description:** Describe the influence of the CG location on the dynamic longitudinal stability of the aeroplane.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_STABILITY_SIM) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.04.01.01
 **Description:** Define ‘static directional stability’.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.04.01.02
 **Description:** Explain the effects of static directional stability being too weak or too strong.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.04.02.01
 **Description:** Define ‘sideslip angle’.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.04.02.02
 **Description:** Identify beta as the symbol used for the sideslip angle.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.04.03.01
 **Description:** Define the ‘yawing-moment coefficient Cn’.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.04.03.02
 **Description:** Define the relationship between Cn and beta for an aeroplane with static directional stability.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.04.04.01
 **Description:** Explain why: Cn depends on beta; Cn equals zero for that beta that provides static equilibrium about the aeroplane’s normal axis; if no asymmetric engine thrust, flight control or loading condition prevails, the equilibrium beta equals zero.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.04.04.02
 **Description:** Identify how the slope of the Cn-beta graph is a measure for static directional stability.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.04.04.03
 **Description:** Identify how the slope of the Cn-beta graph is affected by altitude. 
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.04.05.01
 **Description:** Describe how the following aeroplane components contribute to static directional stability: wing; fin; dorsal fin; ventral fin; angle of sweep of the wing; angle of sweep of the fin; fuselage at high alpha; strakes.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.04.05.02
 **Description:** Explain the reduction in static directional stability when the CG moves aft.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.05.01.01
 **Description:** Define ‘static lateral stability’.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.05.01.02
 **Description:** Explain the effects of static lateral stability being too weak or too strong.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.05.02.01
 **Description:** Define ‘bank angle phi’.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.05.03.01
 **Description:** Define the ‘roll-moment coefficient Cl’.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.05.04.01
 **Description:** Explain how without coordination the bank angle (phi) creates sideslip angle (beta).
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.05.05.01
 **Description:** Describe the Cl-beta graph.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.05.05.02
 **Description:** Identify the slope of the Cl-beta graph as a measure for static lateral stability.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.05.05.03
 **Description:** Identify how the slope of the Cl-beta graph is affected by altitude.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.05.06.01
 **Description:** Explain the contribution to the static lateral stability of: dihedral, anhedral; high wing, low wing; sweep angle of the wing; ventral fin; vertical tail.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.06.02.01
 **Description:** Explain how lateral and directional stability are coupled.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.06.02.02
 **Description:** Explain how high static directional stability and low static lateral stability may cause spiral divergence (unstable spiral dive), and under which conditions the spiral dive mode is neutral or stable.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.06.02.03
 **Description:** Describe an unstable spiral dive mode with respect to deviations in speed, bank angle, nose low-pitch attitude, and decreasing altitude.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.06.03.01
 **Description:** Describe Dutch roll.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.06.03.02
 **Description:** Explain: why Dutch roll occurs when the static lateral stability is higher than static directional stability; the conditions for a stable, neutral or unstable Dutch roll motion; the function of the yaw damper; the actions to be taken when the yaw damper is not available.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.06.03.03
 **Description:** Describe how the asymmetric nature of shock waves on both wings, at high Mach numbers, can lead to Dutch roll.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.04.06.04.01
 **Description:** Explain that increased pressure altitude reduces dynamic lateral/directional stability.
-**Status:** NOT_MAPPED (Mapped to View.POF_STABILITY but no route found)
+**Status:** PREFIX_COVERED (Covered by parent view (POF_COUPLING) but lacks exact LO specific implementation.)
 
 ### [ ] 081.05.01.01.01
 **Description:** Define: lateral axis; longitudinal axis; normal axis.

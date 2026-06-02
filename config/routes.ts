@@ -193,13 +193,14 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
 
     // Gen Nav (061)
     [View.GEN_NAV_HOME]: React.lazy(() => import('../components/GenericSubjectDashboard')),
-    [View.GEN_NAV_TIME]: React.lazy(() => import('../components/GenNav/SolarCalc')),
-    [View.GEN_NAV_CHARTS]: React.lazy(() => import('../components/GenNav/MapProjections')),
+    [View.GEN_NAV_TIME]: React.lazy(() => import('../components/GenNav/SolarTimeCalculator')),
+    [View.GEN_NAV_CHARTS]: React.lazy(() => import('../components/GenNav/ProjectionsExplorer')),
     [View.GEN_NAV_VFR]: React.lazy(() => import('../components/GenNav/WindTriangle')),
     [View.GEN_NAV_EARTH]: React.lazy(() => import('../components/GenNav/EarthGeometry')),
     [View.GEN_NAV_BASICS]: React.lazy(() => import('../components/GenNav/EarthGeometry')),
-    [View.GEN_NAV_MAPS]: React.lazy(() => import('../components/GenNav/MapProjections')),
-    [View.GEN_NAV_SOLAR]: React.lazy(() => import('../components/GenNav/SolarCalc')),
+    [View.GEN_NAV_MAPS]: React.lazy(() => import('../components/GenNav/ProjectionsExplorer')),
+    [View.GEN_NAV_SOLAR]: React.lazy(() => import('../components/GenNav/SolarTimeCalculator')),
+    [View.GEN_NAV_DATELINE]: React.lazy(() => import('../components/GenNav/DateLineVisualizer')),
     [View.NAV_60_1]: React.lazy(() => import('../components/Nav/OneInSixty')),
 
     // Radio Nav (062)
@@ -241,6 +242,9 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
     [View.POF_LIMITATIONS]: React.lazy(() => import('../components/PoF/PoFLimitations')),
     [View.POF_PROPELLERS]: React.lazy(() => import('../components/PoF/PoFPropellers')),
     [View.POF_FLIGHT_MECHANICS]: React.lazy(() => import('../components/PoF/PoFFlightMechanics')),
+    [View.POF_STABILITY]: React.lazy(() => import('../components/PoF/StabilitySimulator')),
+    [View.POF_STABILITY_SIM]: React.lazy(() => import('../components/PoF/StabilitySimulator')),
+    [View.POF_COUPLING]: React.lazy(() => import('../components/PoF/LateralDirectionalCoupling')),
 
     // Principles of Flight - Helicopters (082)
     [View.POF_HELI_HOME]: React.lazy(() => import('../components/GenericSubjectDashboard')),
@@ -371,4 +375,20 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
     // PPL AGK Sub-modules
     [View.PPL_AGK_PISTON_ENGINE]: React.lazy(() => import('../components/AGK/PistonEnginePrinciples')), 
     [View.PPL_AGK_ELECTRICS]: React.lazy(() => import('../components/AGK/ElectricsSystem')), 
+
+    // Flight Planning (033)
+    [View.FLIGHT_PLAN_HOME]: React.lazy(() => import('../components/FlightPlanning/FlightPlanningDashboard')),
+    [View.FLIGHT_PLAN_FUEL]: React.lazy(() => import('../components/FlightPlanning/FuelPlanner')),
+    [View.FLIGHT_PLAN_SIG_POINTS]: React.lazy(() => import('../components/FlightPlanning/PET_PSR_Calculator')),
+    [View.FLIGHT_PLAN_IFR]: React.lazy(() => import('../components/FlightPlanning/ICAO_FPL_Generator')),
+    [View.FLIGHT_PLAN_INTRO]: React.lazy(() => import('../components/FlightPlanning/InFlightMonitor')),
+
+    // EgyptAir Cadet Prep Module
+    [View.EGYPTAIR_DASHBOARD]: React.lazy(() => import('../components/EgyptAir/EgyptAirDashboard')),
+    [View.EGYPTAIR_REGS_QUIZ]: React.lazy(() => import('../components/EgyptAir/EgyptAirRegulationsQuiz')),
+    [View.EGYPTAIR_FUEL_PLAN]: React.lazy(() => import('../components/EgyptAir/EgyptAirFuelPlanner')),
+    [View.EGYPTAIR_NAV_SIM]: React.lazy(() => import('../components/EgyptAir/EgyptAirNavSimulator')),
+    [View.EGYPTAIR_PERF_CALC]: React.lazy(() => import('../components/EgyptAir/EgyptAirPerformanceCalc')),
+    [View.EGYPTAIR_CRM_SIM]: React.lazy(() => import('../components/EgyptAir/EgyptAirADMCrmSimulator')),
 };
+

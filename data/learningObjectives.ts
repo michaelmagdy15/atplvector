@@ -161,11 +161,23 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
 
     // --- 033 FLIGHT PLANNING AND MONITORING ---
     { id: '033.01', subject: '033', text: 'Flight Planning for VFR', coveredBy: View.FLIGHT_PLAN_INTRO },
+    { id: '033.01.01', subject: '033', text: 'Select routes taking classification of airspace, etc. into account', coveredBy: View.FLIGHT_PLAN_INTRO },
     { id: '033.02', subject: '033', text: 'Flight Planning for IFR', coveredBy: View.FLIGHT_PLAN_IFR },
+    { id: '033.02.01', subject: '033', text: 'Identify suitable routings for IFR flight planning', coveredBy: View.FLIGHT_PLAN_IFR },
     { id: '033.03', subject: '033', text: 'Fuel Policy & Planning', coveredBy: View.FLIGHT_PLAN_FUEL },
+    { id: '033.03.01', subject: '033', text: 'Convert volume, mass and density given in different units', coveredBy: View.FLIGHT_PLAN_FUEL },
+    { id: '033.03.02', subject: '033', text: 'Determine the fuel required for engine start and taxiing', coveredBy: View.FLIGHT_PLAN_FUEL },
+    { id: '033.03.03', subject: '033', text: 'Calculate reduced contingency fuel and isolated aerodromes', coveredBy: View.FLIGHT_PLAN_FUEL },
     { id: '033.04', subject: '033', text: 'Pre-flight Preparation', coveredBy: View.FLIGHT_PLAN_HOME },
-    { id: '033.05', subject: '033', text: 'ICAO Flight Plan (FPL)', coveredBy: View.FLIGHT_PLAN_INTRO },
+    { id: '033.04.01', subject: '033', text: 'Check that the ground- and satellite-based facilities are available', coveredBy: View.FLIGHT_PLAN_HOME },
+    { id: '033.04.02', subject: '033', text: 'Confirm the most fuel-efficient altitude', coveredBy: View.FLIGHT_PLAN_HOME },
+    { id: '033.04.03', subject: '033', text: 'Define and calculate PET and PSR', coveredBy: View.FLIGHT_PLAN_SIG_POINTS },
+    { id: '033.05', subject: '033', text: 'ICAO Flight Plan (FPL)', coveredBy: View.FLIGHT_PLAN_IFR },
+    { id: '033.05.01', subject: '033', text: 'ICAO ATS FPL entries', coveredBy: View.FLIGHT_PLAN_IFR },
+    { id: '033.05.02', subject: '033', text: 'Individual FPL vs RPL', coveredBy: View.FLIGHT_PLAN_IFR },
     { id: '033.06', subject: '033', text: 'In-flight Monitoring', coveredBy: View.FLIGHT_PLAN_INTRO },
+    { id: '033.06.01', subject: '033', text: 'In-flight track and GS calculations', coveredBy: View.FLIGHT_PLAN_INTRO },
+    { id: '033.06.02', subject: '033', text: 'In-flight updates and diversion checks', coveredBy: View.FLIGHT_PLAN_INTRO },
 
     // --- 040 HUMAN PERFORMANCE (Complete EASA Coverage) ---
     // 040.01 - Human Factors: Basic Concepts
@@ -277,9 +289,15 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '061.01.07', subject: '061', text: 'Dead Reckoning technique', coveredBy: View.GEN_NAV_VFR },
     { id: '061.01.08', subject: '061', text: 'Speed & Distance calculations', coveredBy: View.GEN_NAV_VFR },
     { id: '061.02', subject: '061', text: 'Magnetism and Compass', coveredBy: View.GEN_NAV_HOME },
-    { id: '061.03', subject: '061', text: 'Charts', coveredBy: View.GEN_NAV_MAPS },
-    { id: '061.04', subject: '061', text: 'Dead Reckoning', coveredBy: View.GEN_NAV_WIND_TRIANGLE },
-    { id: '061.05', subject: '061', text: 'In-Flight Navigation', coveredBy: View.GEN_NAV_POLAR }, // Grid Nav included
+    { id: '061.03', subject: '061', text: 'Charts', coveredBy: View.GEN_NAV_CHARTS },
+    { id: '061.04', subject: '061', text: 'Dead Reckoning', coveredBy: View.GEN_NAV_VFR },
+    { id: '061.04.01', subject: '061', text: 'Map Projections: Conformal, Great Circle and Rhumb line representation', coveredBy: View.GEN_NAV_CHARTS },
+    { id: '061.04.02', subject: '061', text: 'Map Projections: Polar Stereographic track calculations', coveredBy: View.GEN_NAV_CHARTS },
+    { id: '061.04.03', subject: '061', text: 'Map Projections: Chart scale, measuring distance & tracks', coveredBy: View.GEN_NAV_CHARTS },
+    { id: '061.05', subject: '061', text: 'In-Flight Navigation', coveredBy: View.GEN_NAV_TIME },
+    { id: '061.05.01', subject: '061', text: 'Solar Time: LMT/UTC calculations', coveredBy: View.GEN_NAV_TIME },
+    { id: '061.05.02', subject: '061', text: 'Solar Time: Standard timezone and International Date Line crossing', coveredBy: View.GEN_NAV_DATELINE },
+    { id: '061.05.03', subject: '061', text: 'Solar Time: Sunrise, sunset, civil twilight & altitude dip', coveredBy: View.GEN_NAV_TIME }, // Grid Nav included
 
     // --- 062 RADIO NAV ---
     { id: '062.01', subject: '062', text: 'Radio Fundamentals (Class 1)', coveredBy: View.RAD_NAV_CLASS_1 },
@@ -304,6 +322,7 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
 
     // --- 070 OPERATIONAL PROCEDURES ---
     { id: '071.01', subject: '070', text: 'General', coveredBy: View.OPS_GENERAL },
+    { id: '071.04', subject: '070', text: 'Crew Training & Responsibilities', coveredBy: View.OPS_GENERAL },
     { id: '071.01.03.03', subject: '070', text: 'NAT HLA Operations', coveredBy: View.OPS_LONG_RANGE },
     { id: '071.01.03.04', subject: '070', text: 'ETOPS Operations', coveredBy: View.OPS_LONG_RANGE },
     { id: '071.01.05', subject: '070', text: 'All Weather Operations', coveredBy: View.OPS_AWO },
@@ -318,7 +337,12 @@ export const LEARNING_OBJECTIVES: LearningObjective[] = [
     { id: '081.01', subject: '081', text: 'Basics & Aerodynamics', coveredBy: View.POF_HOME },
     { id: '081.02', subject: '081', text: 'High Speed Flight', coveredBy: View.POF_HIGH_SPEED },
     { id: '081.03', subject: '081', text: 'Stalling & Buffeting', coveredBy: View.POF_STALL },
-    { id: '081.04', subject: '081', text: 'Stability', coveredBy: View.POF_STABILITY },
+    { id: '081.04', subject: '081', text: 'Stability', coveredBy: View.POF_STABILITY_SIM },
+    { id: '081.04.01', subject: '081', text: 'Static Longitudinal Stability: Stable, Neutral, Unstable conditions', coveredBy: View.POF_STABILITY_SIM },
+    { id: '081.04.03', subject: '081', text: 'Static Longitudinal Stability: Wing CP relative to CG and stabilizer forces', coveredBy: View.POF_STABILITY_SIM },
+    { id: '081.04.04', subject: '081', text: 'Static Directional Stability: Sideslip angles and fin restoration', coveredBy: View.POF_COUPLING },
+    { id: '081.04.05', subject: '081', text: 'Static Lateral Stability: Dihedral / bank angle restoration', coveredBy: View.POF_COUPLING },
+    { id: '081.04.06', subject: '081', text: 'Lateral-Directional Coupling: Dutch Roll and Spiral Divergence', coveredBy: View.POF_COUPLING },
     { id: '081.05', subject: '081', text: 'Control', coveredBy: View.POF_CONTROL },
     { id: '081.06', subject: '081', text: 'Limitations - Flutter, Vmo/Mmo', coveredBy: View.POF_LIMITATIONS },
     { id: '081.07', subject: '081', text: 'Flight Mechanics', coveredBy: View.POF_FLIGHT_MECHANICS },

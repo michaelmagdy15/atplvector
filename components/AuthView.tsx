@@ -9,6 +9,7 @@ import { TestimonialService } from '../services/TestimonialService';
 import { Testimonial } from '../types';
 import Terms from './Terms';
 import Privacy from './Privacy';
+import Refund from './Refund';
 import Contact from './Contact';
 import StudyGuide from './StudyGuide';
 
@@ -36,7 +37,8 @@ interface Props {
 
 const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'LOGIN' }) => {
     const [view, setView] = useState<AuthViewMode>(initialView);
-    const [activeInfoPage, setActiveInfoPage] = useState<'TERMS' | 'PRIVACY' | 'CONTACT' | null>(null);
+    const [activeInfoPage, setActiveInfoPage] = useState<'TERMS' | 'PRIVACY' | 'REFUND' | 'CONTACT' | null>(null);
+    const [agreeToTerms, setAgreeToTerms] = useState(false);
 
     // Clerk Hooks
     const { isLoaded: signInLoaded, signIn, setActive: setSignInActive } = useSignIn();
@@ -139,6 +141,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
     const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!fullName.trim()) return setErrorMsg("Full Name is required.");
+        if (!agreeToTerms) return setErrorMsg("You must agree to the Terms, Privacy, and Refund Policies to sign up.");
         if (password !== confirmPassword) return setErrorMsg("Passwords do not match.");
         if (passStrength < 3) return setErrorMsg("Password is too weak. Please use a stronger password.");
 
@@ -302,6 +305,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
             {/* Info Pages Overlay */}
             {activeInfoPage === 'TERMS' && <Terms onBack={() => setActiveInfoPage(null)} />}
             {activeInfoPage === 'PRIVACY' && <Privacy onBack={() => setActiveInfoPage(null)} />}
+            {activeInfoPage === 'REFUND' && <Refund onBack={() => setActiveInfoPage(null)} />}
             {activeInfoPage === 'CONTACT' && <Contact onBack={() => setActiveInfoPage(null)} />}
 
             {activeInfoPage === null && (
@@ -403,15 +407,15 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                         <h2 className="text-3xl font-bold text-white mb-2">
                                             {verifying ? 'Verify Your Email' : (
                                                 view === 'LOGIN' ? 'Welcome Back' :
-                                                view === 'SIGNUP' ? 'Start Your Journey' :
-                                                'Reset Password'
+                                                    view === 'SIGNUP' ? 'Start Your Journey' :
+                                                        'Reset Password'
                                             )}
                                         </h2>
                                         <p className="text-slate-400">
                                             {verifying ? `We've sent a verification code to ${email}.` : (
                                                 view === 'LOGIN' ? 'Enter your details to access the cockpit.' :
-                                                view === 'SIGNUP' ? 'Create a secure account to begin.' :
-                                                'We\'ll email you a secure reset link.'
+                                                    view === 'SIGNUP' ? 'Create a secure account to begin.' :
+                                                        'We\'ll email you a secure reset link.'
                                             )}
                                         </p>
                                     </div>
@@ -438,13 +442,13 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Verification Code</label>
                                                 <div className="relative">
                                                     <KeyRound className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
-                                                    <input 
-                                                        required 
-                                                        type="text" 
-                                                        value={verificationCode} 
-                                                        onChange={e => setVerificationCode(e.target.value)} 
-                                                        className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600 text-center font-mono text-lg tracking-[0.3em]" 
-                                                        placeholder="000000" 
+                                                    <input
+                                                        required
+                                                        type="text"
+                                                        value={verificationCode}
+                                                        onChange={e => setVerificationCode(e.target.value)}
+                                                        className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600 text-center font-mono text-lg tracking-[0.3em]"
+                                                        placeholder="000000"
                                                         maxLength={6}
                                                     />
                                                 </div>
@@ -460,13 +464,13 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                             </button>
 
                                             <div className="text-center mt-4">
-                                                <button 
-                                                    type="button" 
+                                                <button
+                                                    type="button"
                                                     onClick={() => {
                                                         setVerifying(false);
                                                         setErrorMsg('');
                                                         setSuccessMsg('');
-                                                    }} 
+                                                    }}
                                                     className="text-sm text-slate-400 hover:text-white transition-colors"
                                                 >
                                                     Back to Sign Up
@@ -553,6 +557,44 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 </div>
                                             )}
 
+                                            {view === 'SIGNUP' && (
+                                                <div className="flex items-start gap-3 mt-2 mb-4 animate-in slide-in-from-left-4 fade-in delay-200">
+                                                    <input
+                                                        required
+                                                        type="checkbox"
+                                                        id="agreeToTerms"
+                                                        checked={agreeToTerms}
+                                                        onChange={e => setAgreeToTerms(e.target.checked)}
+                                                        className="mt-1 w-4 h-4 bg-slate-900 border border-slate-700 rounded text-blue-600 focus:ring-blue-500 focus:ring-offset-slate-900 focus:ring-2 cursor-pointer"
+                                                    />
+                                                    <label htmlFor="agreeToTerms" className="text-xs text-slate-400 select-none leading-relaxed cursor-pointer">
+                                                        I agree to the{' '}
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setActiveInfoPage('TERMS')}
+                                                            className="text-blue-400 hover:text-blue-300 font-semibold underline inline"
+                                                        >
+                                                            Terms of Service
+                                                        </button>{' '}, {' '}
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setActiveInfoPage('PRIVACY')}
+                                                            className="text-blue-400 hover:text-blue-300 font-semibold underline inline"
+                                                        >
+                                                            Privacy Policy
+                                                        </button>{' '}, and acknowledge the{' '}
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setActiveInfoPage('REFUND')}
+                                                            className="text-blue-400 hover:text-blue-300 font-semibold underline inline"
+                                                        >
+                                                            Refund Policy
+                                                        </button>
+                                                        .
+                                                    </label>
+                                                </div>
+                                            )}
+
                                             <button
                                                 type="submit"
                                                 disabled={loading}
@@ -561,7 +603,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 {loading ? <Zap className="animate-spin w-5 h-5" /> : (
                                                     view === 'LOGIN' ? 'Sign In' :
                                                         view === 'SIGNUP' ? 'Create Account' :
-                                                                'Send Reset Link'
+                                                            'Send Reset Link'
                                                 )}
                                                 {!loading && <ArrowRight className="ml-2 w-5 h-5" />}
                                             </button>
@@ -839,51 +881,51 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
 
                             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                                 {/* 1 Month Plan */}
-                                <div className="bg-slate-900/50 rounded-3xl border border-slate-700/50 p-8 flex flex-col hover:border-slate-600 transition-colors">
-                                    <h3 className="text-xl font-bold text-white mb-2">1 Month</h3>
+                                <div className="bg-slate-900/50 rounded-3xl border border-slate-700/50 p-8 flex flex-col hover:border-blue-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 group">
+                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">1 Month</h3>
                                     <p className="text-slate-400 text-sm mb-6">Perfect for final revision</p>
-                                    <div className="text-4xl font-black text-white mb-6">€15<span className="text-lg text-slate-500 font-normal">/mo</span></div>
+                                    <div className="text-4xl font-black text-white mb-6">€25<span className="text-lg text-slate-500 font-normal">/mo</span></div>
                                     <ul className="space-y-4 mb-8 flex-1">
                                         <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> Full access to 14 subjects</li>
                                         <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> 65+ 3D Interactive Simulators</li>
                                         <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> AI-Powered Explanations</li>
                                     </ul>
-                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl font-bold transition">Get Started</button>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full bg-slate-800 hover:bg-blue-600 hover:text-white text-white py-3 rounded-xl font-bold transition-all duration-300">Get Started</button>
                                 </div>
 
                                 {/* 6 Months Plan */}
-                                <div className="bg-gradient-to-b from-indigo-900/40 to-slate-900/50 rounded-3xl border border-indigo-500/30 p-8 flex flex-col relative transform md:-translate-y-4 shadow-2xl shadow-indigo-900/20">
-                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Most Popular</div>
-                                    <h3 className="text-xl font-bold text-white mb-2">6 Months</h3>
+                                <div className="bg-gradient-to-b from-indigo-900/40 to-slate-900/50 rounded-3xl border border-indigo-500/30 p-8 flex flex-col relative transform md:-translate-y-4 shadow-2xl shadow-indigo-900/20 hover:border-indigo-400/50 transition-all duration-500 group">
+                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg shadow-indigo-500/30">Most Popular</div>
+                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-indigo-300 transition-colors">6 Months</h3>
                                     <p className="text-indigo-200 text-sm mb-6">Ideal for steady progression</p>
                                     <div className="flex items-baseline gap-2 mb-6">
-                                        <div className="text-4xl font-black text-white">€60</div>
-                                        <div className="text-sm text-slate-400 line-through">€90</div>
+                                        <div className="text-4xl font-black text-white">€70</div>
+                                        <div className="text-sm text-slate-400 line-through">€150</div>
                                     </div>
                                     <ul className="space-y-4 mb-8 flex-1">
-                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-indigo-400 shrink-0" /> <span className="font-bold text-white">Save €30</span> compared to monthly</li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-indigo-400 shrink-0" /> <span className="font-bold text-white text-indigo-300">Save €80</span> compared to monthly</li>
                                         <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-indigo-400 shrink-0" /> Full access to 14 subjects</li>
                                         <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-indigo-400 shrink-0" /> 65+ 3D Interactive Simulators</li>
                                         <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-indigo-400 shrink-0" /> Priority Support</li>
                                     </ul>
-                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl font-bold transition shadow-lg shadow-indigo-500/25">Choose 6 Months</button>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl font-bold transition-all duration-300 shadow-lg shadow-indigo-500/25">Choose 6 Months</button>
                                 </div>
 
                                 {/* 12 Months Plan */}
-                                <div className="bg-slate-900/50 rounded-3xl border border-slate-700/50 p-8 flex flex-col hover:border-slate-600 transition-colors">
-                                    <h3 className="text-xl font-bold text-white mb-2">12 Months</h3>
+                                <div className="bg-slate-900/50 rounded-3xl border border-slate-700/50 p-8 flex flex-col hover:border-purple-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/10 group">
+                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">12 Months</h3>
                                     <p className="text-slate-400 text-sm mb-6">For the complete journey</p>
                                     <div className="flex items-baseline gap-2 mb-6">
-                                        <div className="text-4xl font-black text-white">€95</div>
-                                        <div className="text-sm text-slate-400 line-through">€180</div>
+                                        <div className="text-4xl font-black text-white">€105</div>
+                                        <div className="text-sm text-slate-400 line-through">€300</div>
                                     </div>
                                     <ul className="space-y-4 mb-8 flex-1">
-                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> <span className="font-bold text-white">Best Value</span></li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> <span className="font-bold text-white text-emerald-300">Save €195 (Best Value)</span></li>
                                         <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> Full access to 14 subjects</li>
                                         <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> 65+ 3D Interactive Simulators</li>
                                         <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> Free minor updates</li>
                                     </ul>
-                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl font-bold transition">Choose 12 Months</button>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full bg-slate-800 hover:bg-purple-600 hover:text-white text-white py-3 rounded-xl font-bold transition-all duration-300">Choose 12 Months</button>
                                 </div>
                             </div>
                         </div>
@@ -945,8 +987,9 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                 <div className="space-y-4">
                                     <h4 className="text-white font-bold text-sm uppercase tracking-widest">Legal</h4>
                                     <ul className="space-y-2 text-sm text-slate-500">
-                                        <li><button onClick={() => setActiveInfoPage('TERMS')} className="hover:text-white transition-colors">Terms of Service</button></li>
-                                        <li><button onClick={() => setActiveInfoPage('PRIVACY')} className="hover:text-white transition-colors">Privacy Policy</button></li>
+                                        <li><button onClick={() => setActiveInfoPage('TERMS')} className="hover:text-white transition-colors text-left w-full animate-in slide-in-from-bottom-2 duration-300">Terms of Service</button></li>
+                                        <li><button onClick={() => setActiveInfoPage('PRIVACY')} className="hover:text-white transition-colors text-left w-full animate-in slide-in-from-bottom-2 duration-300">Privacy Policy</button></li>
+                                        <li><button onClick={() => setActiveInfoPage('REFUND')} className="hover:text-white transition-colors text-left w-full animate-in slide-in-from-bottom-2 duration-300">Refund Policy</button></li>
                                     </ul>
                                 </div>
                             </div>

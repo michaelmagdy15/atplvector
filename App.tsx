@@ -142,7 +142,7 @@ const App: React.FC = () => {
             // Try to get profile from Firestore
             const profileRef = doc(db, 'profiles', uid);
             const profileSnap = await getDoc(profileRef);
-            let profile = profileSnap.data();
+            let profile = profileSnap.data() as any;
 
             // Auto-create profile if missing (Self-healing for existing users)
             if (!profile) {
@@ -168,7 +168,7 @@ const App: React.FC = () => {
             // Get subscription
             const subRef = doc(db, 'subscriptions', uid);
             const subSnap = await getDoc(subRef);
-            const sub = subSnap.data();
+            const sub = subSnap.data() as any;
 
             let subTier: any = 'CUSTOM';
             let allowedSubjects: string[] = []; // Default to none, must activate demo
