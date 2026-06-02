@@ -13,12 +13,12 @@ import {
 } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || '',
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || '',
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || '',
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || '',
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '',
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || '',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || 'AIzaSyAUvzDIKoTvtbMEWaP1pDSyNfqpS3_11wI',
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || 'faa-test-guide-v2.firebaseapp.com',
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || 'faa-test-guide-v2',
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || 'faa-test-guide-v2.firebasestorage.app',
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '492280162134',
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || '1:492280162134:web:83f1c154ddffd9862d98f7',
 };
 
 const app = initializeApp(firebaseConfig);

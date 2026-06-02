@@ -3,7 +3,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { QuizQuestion } from "../types";
 
 // API key from Vite environment — set VITE_API_KEY in .env
-const apiKey: string = import.meta.env.VITE_API_KEY || '';
+const apiKey: string = import.meta.env.VITE_API_KEY || 'AIzaSyDZO0RL-i32tP-iv1HqrAf-nmhWsgyrBXs';
 const ai = new GoogleGenAI({ apiKey });
 
 export const generateQuizQuestion = async (topic: string): Promise<QuizQuestion | null> => {
