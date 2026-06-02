@@ -8,8 +8,8 @@ import {
     UserCheck, UserX, Ban, RefreshCw, Download, MoreVertical,
     Activity, Calendar, Zap, Eye, Layers, Award, KeyRound, Copy, Star
 } from 'lucide-react';
-import { db } from '../lib/firebase';
-import { collection, getDocs, doc, updateDoc, deleteDoc, query, where, orderBy, writeBatch, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db, collection, doc } from '../lib/firebase';
+import { getDocs, updateDoc, deleteDoc, query, where, orderBy, writeBatch, addDoc, serverTimestamp } from 'firebase/firestore';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 import { SUBJECTS } from '../data/learningObjectives';

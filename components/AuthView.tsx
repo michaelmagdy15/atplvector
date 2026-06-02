@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { User } from '../types';
 import { Shield, Mail, CheckCircle, Lock, ArrowRight, Plane, Zap, Menu, X, User as UserIcon, HelpCircle, Eye, EyeOff, AlertTriangle, PlayCircle, Star, Globe, BarChart3, Radio, RefreshCw, KeyRound, Target, BookOpen, Layout, Dna, Rocket } from 'lucide-react';
-import { auth, db, getSiteUrl } from '../lib/firebase';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged, sendEmailVerification, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { collection, query, where, getDocs, updateDoc, doc, addDoc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { auth, db, getSiteUrl, collection, doc } from '../lib/firebase';
+import { useSignIn, useSignUp } from '@clerk/clerk-react';
+import { query, where, getDocs, updateDoc, addDoc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { TestimonialService } from '../services/TestimonialService';
 import { Testimonial } from '../types';
 import Terms from './Terms';
@@ -38,6 +38,10 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
     const [view, setView] = useState<AuthViewMode>(initialView);
     const [activeInfoPage, setActiveInfoPage] = useState<'TERMS' | 'PRIVACY' | 'CONTACT' | null>(null);
 
+    // Clerk Hooks
+    const { isLoaded: signInLoaded, signIn, setActive: setSignInActive } = useSignIn();
+    const { isLoaded: signUpLoaded, signUp, setActive: setSignUpActive } = useSignUp();
+
     // Form State
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -45,6 +49,10 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
     const [fullName, setFullName] = useState('');
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+
+    // Clerk Verification State
+    const [verifying, setVerifying] = useState(false);
+    const [verificationCode, setVerificationCode] = useState('');
 
     // Feedback State
     const [errorMsg, setErrorMsg] = useState('');
@@ -55,19 +63,6 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
     // Resend Confirmation State
     const [showResend, setShowResend] = useState(false);
     const [resendLoading, setResendLoading] = useState(false);
-
-    useEffect(() => {
-        // Firebase doesn't have direct password recovery events from auth state
-        // Reset will be handled via redirect from email link
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            // Auth state changed (logged in/out)
-            if (user) {
-                // User is signed in
-            }
-        });
-
-        return () => unsubscribe();
-    }, []);
 
 
     useEffect(() => {
@@ -101,95 +96,45 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!signInLoaded) return;
         setLoading(true);
         setErrorMsg('');
-        setShowResend(false);
+        setSuccessMsg('');
 
         try {
-            await signInWithEmailAndPassword(auth, email, password);
-            // Firebase handles sign-in; onAuthStateChanged listener will trigger callback
+            const result = await signIn.create({
+                identifier: email,
+                password: password,
+            });
+            if (result.status === 'complete') {
+                await setSignInActive({ session: result.createdSessionId });
+            } else {
+                setErrorMsg("Sign-in incomplete. Please verify your details.");
+                setLoading(false);
+            }
         } catch (error: any) {
             setLoading(false);
-            if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
-                setErrorMsg("Invalid email or password.");
-            } else if (error.code === 'auth/user-disabled') {
-                setErrorMsg("This account has been disabled.");
-            } else {
-                setErrorMsg(error.message || "Login failed. Please try again.");
-            }
+            setErrorMsg(error.message || "Invalid email or password.");
         }
     };
 
     const handleGoogleSignIn = async () => {
+        if (!signInLoaded) return;
         setLoading(true);
         setErrorMsg('');
+        setSuccessMsg('');
 
         try {
-            const provider = new GoogleAuthProvider();
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-
-            // Create or update user profile in Firestore
-            const profileRef = doc(db, 'profiles', user.uid);
-            const profileSnap = await getDocs(query(collection(db, 'profiles'), where('id', '==', user.uid)));
-
-            if (profileSnap.empty) {
-                // New Google sign-in user - create profile
-                await updateDoc(profileRef, {
-                    email: user.email,
-                    full_name: user.displayName || 'Google User',
-                    status: 'FREE_TRIAL',
-                    is_approved: true,
-                    is_admin: false,
-                    created_at: serverTimestamp()
-                }).catch(async () => {
-                    // If doc doesn't exist, create it
-                    await setDoc(doc(db, 'profiles', user.uid), {
-                        id: user.uid,
-                        email: user.email,
-                        full_name: user.displayName || 'Google User',
-                        status: 'FREE_TRIAL',
-                        is_approved: true,
-                        is_admin: false,
-                        created_at: serverTimestamp()
-                    });
-                });
-
-                // Create subscription document
-                const subRef = doc(db, 'subscriptions', user.uid);
-                await updateDoc(subRef, {
-                    user_id: user.uid,
-                    plan: 'CUSTOM',
-                    status: 'active',
-                    created_at: serverTimestamp()
-                }).catch(async () => {
-                    await setDoc(doc(db, 'subscriptions', user.uid), {
-                        user_id: user.uid,
-                        plan: 'CUSTOM',
-                        status: 'active',
-                        created_at: serverTimestamp()
-                    });
-                });
-
-                // Notify admin of new Google signup
-                await sendAdminNotification(`New Google Sign-In: ${user.email}`, {
-                    email: user.email,
-                    full_name: user.displayName,
-                    type: 'GOOGLE_SIGNUP',
-                    timestamp: new Date().toISOString()
-                });
-            }
-            // Firebase handles sign-in; onAuthStateChanged listener will trigger callback
+            await signIn.authenticateWithRedirect({
+                strategy: 'oauth_google',
+                redirectUrl: '/sso-callback',
+                redirectUrlComplete: '/'
+            });
         } catch (error: any) {
             setLoading(false);
-            if (error.code === 'auth/popup-closed-by-user') {
-                setErrorMsg("Sign-in cancelled.");
-            } else {
-                setErrorMsg(error.message || "Google sign-in failed. Please try again.");
-            }
+            setErrorMsg(error.message || "Google sign-in failed. Please try again.");
         }
     };
-
 
     const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -197,14 +142,16 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
         if (password !== confirmPassword) return setErrorMsg("Passwords do not match.");
         if (passStrength < 3) return setErrorMsg("Password is too weak. Please use a stronger password.");
 
+        if (!signUpLoaded) return;
         setLoading(true);
         setErrorMsg('');
+        setSuccessMsg('');
 
         try {
             let initialStatus = 'FREE_TRIAL';
 
             // Notify admin of new signup attempt
-            await sendAdminNotification(`New Signup: ${email} [${initialStatus}]`, {
+            await sendAdminNotification(`New Signup Attempt (Clerk): ${email}`, {
                 email: email,
                 full_name: fullName,
                 status: initialStatus,
@@ -212,37 +159,45 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                 timestamp: new Date().toISOString()
             });
 
-            // Create account with Firebase Auth
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const userId = userCredential.user.uid;
+            const firstName = fullName.split(' ')[0] || '';
+            const lastName = fullName.split(' ').slice(1).join(' ') || '';
 
-            // Create user profile in Firestore
-            const profileRef = doc(db, 'profiles', userId);
-            await updateDoc(profileRef, {
-                email: email,
-                full_name: fullName,
-                status: initialStatus,
-                is_approved: true,
-                is_admin: false,
-                created_at: serverTimestamp()
-            }).catch(async () => {
-                // If doc doesn't exist, create it
-                await setDoc(doc(db, 'profiles', userId), {
-                    id: userId,
-                    email: email,
-                    full_name: fullName,
-                    status: initialStatus,
-                    is_approved: true,
-                    is_admin: false,
-                    created_at: serverTimestamp()
-                });
+            await signUp.create({
+                emailAddress: email,
+                password: password,
+                firstName: firstName,
+                lastName: lastName,
             });
 
-            // No need to send email verification or switch view, Firebase will trigger onAuthStateChanged
-            // and the user will automatically log in.
-            setSuccessMsg("Account created successfully! Logging you in...");
+            await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
+            setVerifying(true);
+            setSuccessMsg("Verification code sent to your email.");
         } catch (error: any) {
             setErrorMsg(error.message || "Signup failed. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleVerifyEmail = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!signUpLoaded) return;
+        setLoading(true);
+        setErrorMsg('');
+        setSuccessMsg('');
+
+        try {
+            const completeSignUp = await signUp.attemptEmailAddressVerification({
+                code: verificationCode,
+            });
+            if (completeSignUp.status === 'complete') {
+                await setSignUpActive({ session: completeSignUp.createdSessionId });
+                setSuccessMsg("Email verified successfully! Logging you in...");
+            } else {
+                setErrorMsg("Verification failed. Please check the code.");
+            }
+        } catch (error: any) {
+            setErrorMsg(error.message || "Verification failed. Please check your code.");
         } finally {
             setLoading(false);
         }
@@ -251,8 +206,10 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
     const handleForgotPassword = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!email) return setErrorMsg("Please enter your email.");
+        if (!signInLoaded) return;
         setLoading(true);
         setErrorMsg('');
+        setSuccessMsg('');
 
         try {
             // Notify admin of password reset request
@@ -262,14 +219,13 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                 timestamp: new Date().toISOString()
             });
 
-            await sendPasswordResetEmail(auth, email);
-            setSuccessMsg("Password reset link sent to your email.");
+            await signIn.create({
+                strategy: 'reset_password_email_code',
+                identifier: email,
+            });
+            setSuccessMsg("Password reset code sent to your email.");
         } catch (error: any) {
-            if (error.code === 'auth/user-not-found') {
-                setErrorMsg("No account found with this email.");
-            } else {
-                setErrorMsg(error.message || "Failed to send reset email.");
-            }
+            setErrorMsg(error.message || "Failed to send reset code.");
         } finally {
             setLoading(false);
         }
@@ -445,14 +401,18 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                 <div className="relative z-10">
                                     <div className="mb-8">
                                         <h2 className="text-3xl font-bold text-white mb-2">
-                                            {view === 'LOGIN' && 'Welcome Back'}
-                                            {view === 'SIGNUP' && 'Start Your Journey'}
-                                            {view === 'FORGOT_PASS' && 'Reset Password'}
+                                            {verifying ? 'Verify Your Email' : (
+                                                view === 'LOGIN' ? 'Welcome Back' :
+                                                view === 'SIGNUP' ? 'Start Your Journey' :
+                                                'Reset Password'
+                                            )}
                                         </h2>
                                         <p className="text-slate-400">
-                                            {view === 'LOGIN' && 'Enter your details to access the cockpit.'}
-                                            {view === 'SIGNUP' && 'Create a secure account to begin.'}
-                                            {view === 'FORGOT_PASS' && 'We\'ll email you a secure reset link.'}
+                                            {verifying ? `We've sent a verification code to ${email}.` : (
+                                                view === 'LOGIN' ? 'Enter your details to access the cockpit.' :
+                                                view === 'SIGNUP' ? 'Create a secure account to begin.' :
+                                                'We\'ll email you a secure reset link.'
+                                            )}
                                         </p>
                                     </div>
 
@@ -472,7 +432,48 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                         </div>
                                     )}
 
-                                        {/* FORM FIELDS */}
+                                    {verifying ? (
+                                        <form onSubmit={handleVerifyEmail} className="space-y-5">
+                                            <div className="animate-in slide-in-from-left-4 fade-in">
+                                                <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Verification Code</label>
+                                                <div className="relative">
+                                                    <KeyRound className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
+                                                    <input 
+                                                        required 
+                                                        type="text" 
+                                                        value={verificationCode} 
+                                                        onChange={e => setVerificationCode(e.target.value)} 
+                                                        className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600 text-center font-mono text-lg tracking-[0.3em]" 
+                                                        placeholder="000000" 
+                                                        maxLength={6}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <button
+                                                type="submit"
+                                                disabled={loading}
+                                                className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 disabled:opacity-50 text-white py-4 rounded-xl font-bold transition-all flex items-center justify-center shadow-lg transform active:scale-[0.98] animate-in zoom-in duration-300 hover:shadow-emerald-500/25"
+                                            >
+                                                {loading ? <Zap className="animate-spin w-5 h-5" /> : 'Verify & Activate'}
+                                                {!loading && <ArrowRight className="ml-2 w-5 h-5" />}
+                                            </button>
+
+                                            <div className="text-center mt-4">
+                                                <button 
+                                                    type="button" 
+                                                    onClick={() => {
+                                                        setVerifying(false);
+                                                        setErrorMsg('');
+                                                        setSuccessMsg('');
+                                                    }} 
+                                                    className="text-sm text-slate-400 hover:text-white transition-colors"
+                                                >
+                                                    Back to Sign Up
+                                                </button>
+                                            </div>
+                                        </form>
+                                    ) : (
                                         <form onSubmit={
                                             view === 'LOGIN' ? handleLogin :
                                                 view === 'SIGNUP' ? handleSignup :
@@ -591,7 +592,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                     </button>
                                                 </div>
                                             )}
-                                        </form>
+                                        </form>)}
                                 </div>
                             </div>
                         </div>

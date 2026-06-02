@@ -1,5 +1,5 @@
-import { db } from './firebase';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { db, doc } from './firebase';
+import { getDoc, setDoc } from 'firebase/firestore';
 
 /**
  * Fetches an explanation for a question.

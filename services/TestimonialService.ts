@@ -1,5 +1,5 @@
-import { db } from '../lib/firebase';
-import { collection, addDoc, query, where, getDocs, orderBy, doc, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { db, collection, doc } from '../lib/firebase';
+import { addDoc, query, where, getDocs, orderBy, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { Testimonial } from '../types';
 
 export const TestimonialService = {

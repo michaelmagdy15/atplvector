@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { User, View } from '../types';
 import { User as UserIcon, Mail, Clock, Shield, LogOut, Lock, CheckCircle, Settings, Crown } from 'lucide-react';
-import { db } from '../lib/firebase';
-import { doc, updateDoc } from 'firebase/firestore';
+import { db, doc } from '../lib/firebase';
+import { updateDoc } from 'firebase/firestore';
 
 interface Props {
     user: User;

@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { User } from '../types';
 import { SUBJECTS } from '../data/learningObjectives';
 import { Check, CreditCard, Shield, Zap, ArrowLeft, CheckCircle, Layout, History, Save } from 'lucide-react';
-import { db } from '../lib/firebase';
-import { collection, query, where, getDocs, doc, updateDoc, setDoc } from 'firebase/firestore';
+import { db, collection, doc } from '../lib/firebase';
+import { query, where, getDocs, updateDoc, setDoc } from 'firebase/firestore';
 
 interface Props {
     user: User;

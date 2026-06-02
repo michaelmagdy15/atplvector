@@ -2,8 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { ChevronRight, ChevronDown, Circle, BookOpen, Search, Check, Clock, HelpCircle } from 'lucide-react';
 import { View, User } from '../types';
 import { SyllabusNode } from '../services/syllabusService';
-import { db } from '../lib/firebase';
-import { doc, updateDoc } from 'firebase/firestore';
+import { db, doc } from '../lib/firebase';
+import { updateDoc } from 'firebase/firestore';
 import { SUBJECTS, LEARNING_OBJECTIVES, calculateProgress } from '../data/learningObjectives';
 import syllabusData from '../data/syllabus.json';
 

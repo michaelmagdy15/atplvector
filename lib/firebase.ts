@@ -1,14 +1,24 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager } from 'firebase/firestore';
+import { 
+  initializeFirestore, 
+  persistentLocalCache, 
+  persistentMultipleTabManager,
+  collection as firestoreCollection,
+  doc as firestoreDoc,
+  CollectionReference,
+  DocumentReference,
+  DocumentData,
+  Firestore
+} from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || 'AIzaSyCyCu4U4xRunGp_vzwKDQwhlM3Rd3TZ3NQ',
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || 'gen-lang-client-0565330624.firebaseapp.com',
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || 'gen-lang-client-0565330624',
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || 'gen-lang-client-0565330624.firebasestorage.app',
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '266061580590',
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || '1:266061580590:web:bc98331c206c8827d1d2bf',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || 'AIzaSyAUvzDIKoTvtbMEWaP1pDSyNfqpS3_11wI',
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || 'faa-test-guide-v2.firebaseapp.com',
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || 'faa-test-guide-v2',
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || 'faa-test-guide-v2.firebasestorage.app',
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '492280162134',
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || '1:492280162134:web:83f1c154ddffd9862d98f7',
 };
 
 const app = initializeApp(firebaseConfig);
@@ -16,6 +26,28 @@ export const auth = getAuth(app);
 export const db = initializeFirestore(app, {
   localCache: persistentLocalCache({tabManager: persistentMultipleTabManager()})
 });
+
+// Custom collection wrapper that prefixes "atpl_" to root collections
+export function collection(firestore: Firestore, path: string, ...pathSegments: string[]): CollectionReference<DocumentData, DocumentData> {
+  const prefixedPath = path.startsWith('atpl_') ? path : `atpl_${path}`;
+  return firestoreCollection(firestore, prefixedPath, ...pathSegments);
+}
+
+// Custom doc wrapper that prefixes "atpl_" to root collections
+export function doc(
+  firestoreOrRef: any,
+  path?: string,
+  ...pathSegments: string[]
+): any {
+  if (typeof firestoreOrRef?.type === 'string' && (firestoreOrRef.type === 'collection' || firestoreOrRef.type === 'document')) {
+    return firestoreDoc(firestoreOrRef, path!, ...pathSegments);
+  }
+  if (path) {
+    const prefixedPath = path.startsWith('atpl_') ? path : `atpl_${path}`;
+    return firestoreDoc(firestoreOrRef, prefixedPath, ...pathSegments);
+  }
+  return firestoreDoc(firestoreOrRef);
+}
 
 export const getSiteUrl = () => {
   let url =

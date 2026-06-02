@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { AuthStatus, View, User } from './types';
 import { GamificationProvider } from './context/GamificationContext';
-import { auth, db } from './lib/firebase';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { doc, getDoc, setDoc, updateDoc, collection, getDocs, increment } from 'firebase/firestore';
+import { auth, db, doc, collection } from './lib/firebase';
+import { useUser, useAuth } from '@clerk/clerk-react';
+import { getDoc, setDoc, updateDoc, getDocs, increment } from 'firebase/firestore';
 import { AnimatePresence } from 'framer-motion';
 import AnimatedPageWrapper from './components/AnimatedPageWrapper';
 import { CourseModeProvider } from './context/CourseModeContext';
@@ -34,6 +34,8 @@ import {
 } from 'lucide-react';
 
 const App: React.FC = () => {
+    const { user: clerkUser, isLoaded: clerkLoaded } = useUser();
+    const { signOut: clerkSignOut } = useAuth();
     const [user, setUser] = useState<User | null>(null);
     const [currentView, setCurrentView] = useState<View>(View.PLATFORM_DASHBOARD);
     const [selectedSubjectId, setSelectedSubjectId] = useState<string>('');
@@ -109,31 +111,27 @@ const App: React.FC = () => {
 
 
 
-    // Initial Data Fetch & Auth Listener
+    // Initial Data Fetch & Clerk Auth Listener
     useEffect(() => {
-        // Check for recovery token in URL before anything else
-        const isRecovery = window.location.search?.includes('mode=resetPassword');
+        if (!clerkLoaded) return;
 
+        const isRecovery = window.location.search?.includes('mode=resetPassword');
         if (isRecovery) {
             setAuthInitialView('FORGOT_PASS');
         }
 
-        // Listen for auth changes
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            console.log("Auth State Changed:", currentUser?.email);
-            if (currentUser) {
-                fetchUserProfile(currentUser.uid, currentUser.email!).then(() => {
-                    if (isRecovery) setCurrentView(View.ACCOUNT_SETTINGS);
-                });
-            } else {
-                setUser(null);
-                setCurrentView(View.PLATFORM_DASHBOARD);
-                setIsLoading(false);
-            }
-        });
-
-        return () => unsubscribe();
-    }, []);
+        if (clerkUser) {
+            const email = clerkUser.primaryEmailAddress?.emailAddress || '';
+            console.log("Clerk Auth State Changed:", email);
+            fetchUserProfile(clerkUser.id, email).then(() => {
+                if (isRecovery) setCurrentView(View.ACCOUNT_SETTINGS);
+            });
+        } else {
+            setUser(null);
+            setCurrentView(View.PLATFORM_DASHBOARD);
+            setIsLoading(false);
+        }
+    }, [clerkUser, clerkLoaded]);
 
     const fetchUserProfile = async (uid: string, email: string) => {
         try {
@@ -414,7 +412,7 @@ const App: React.FC = () => {
         if (user) {
             await updateDoc(doc(db, 'profiles', user.id), { study_seconds: studyTime });
         }
-        await signOut(auth);
+        await clerkSignOut();
         setUser(null);
         setCurrentView(View.PLATFORM_DASHBOARD);
         setAuthInitialView('LOGIN');

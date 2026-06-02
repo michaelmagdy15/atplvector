@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Flashcard } from '../types';
 import { SUBJECTS } from '../data/learningObjectives';
 import { Plus, Trash2, Filter, RotateCcw, ChevronLeft, ChevronRight, Brain, GraduationCap, Shuffle } from 'lucide-react';
-import { auth, db } from '../lib/firebase';
-import { collection, query, where, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore';
+import { auth, db, collection, doc } from '../lib/firebase';
+import { query, where, getDocs, addDoc, deleteDoc } from 'firebase/firestore';
 
 // Static System Cards (Cannot be deleted by user)
 const SYSTEM_CARDS: Flashcard[] = [

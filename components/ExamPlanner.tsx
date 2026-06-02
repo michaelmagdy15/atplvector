@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, ChevronRight, AlertCircle, Info, Trash2, CheckCircle2, Layout, Clock, BookOpen, Target, Sparkles, Plus, GripVertical, CalendarDays, Calculator } from 'lucide-react';
-import { db } from '../lib/firebase';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { db, doc } from '../lib/firebase';
+import { getDoc, updateDoc } from 'firebase/firestore';
 import { User } from '../types';
 import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
 
