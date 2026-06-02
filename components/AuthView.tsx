@@ -768,6 +768,56 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                     </div>
                                 </div>
 
+                                {/* Card 4: Just Launched & PPL/EgyptAir Teaser */}
+                                <div className="lg:col-span-12 relative group rounded-[2.5rem] bg-gradient-to-r from-slate-900 to-indigo-950/40 border border-cyan-500/20 overflow-hidden hover:border-cyan-400/40 transition-all duration-500 hover:shadow-[0_0_50px_rgba(6,182,212,0.15)]">
+                                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                                    <div className="p-8 lg:p-12 flex flex-col md:flex-row items-center gap-10 relative z-10">
+                                        <div className="flex-1 space-y-6">
+                                            <div className="flex flex-wrap items-center gap-3">
+                                                <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-[0.2em] bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 animate-pulse">
+                                                    Just Launched Today!
+                                                </span>
+                                                <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-[0.2em] bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                                                    Dual ATPL & PPL Support
+                                                </span>
+                                            </div>
+                                            
+                                            <h3 className="text-3xl lg:text-5xl font-black text-white leading-tight">
+                                                Expanding the Skies:<br/>
+                                                ATPL & <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">PPL Ground School</span>
+                                            </h3>
+                                            
+                                            <p className="text-slate-300 text-lg leading-relaxed">
+                                                We are thrilled to announce that ATPLVector is officially live! In addition to our flagship EASA ATPL visual curriculum, we have launched full comprehensive support for <strong className="text-cyan-400">PPL (Private Pilot) students</strong>. Master Air Law, Meteorology, Navigation, and Principles of Flight with our legendary simulator-driven ground school.
+                                            </p>
+                                            
+                                            <div className="p-6 rounded-2xl bg-cyan-950/30 border border-cyan-500/20 backdrop-blur-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                                                <div className="space-y-1">
+                                                    <div className="text-xs text-cyan-400 font-bold uppercase tracking-widest">Special EgyptAir Cadets Update</div>
+                                                    <h4 className="text-white font-bold text-lg">ABC 4th Edition Ground School Preparation</h4>
+                                                    <p className="text-slate-400 text-sm">Access exclusive simulators, regulations quizzes, fuel planners, and CRM scenario builders tuned to EgyptAir cadet requirements.</p>
+                                                </div>
+                                                <button 
+                                                    onClick={() => {
+                                                        const el = document.getElementById('hero');
+                                                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                                                    }} 
+                                                    className="shrink-0 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-black uppercase tracking-wider px-6 py-3 rounded-xl transition-all shadow-lg shadow-cyan-500/20 active:scale-95 text-xs border border-cyan-500/30"
+                                                >
+                                                    Start Training Now
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="md:w-1/3 w-full flex items-center justify-center relative">
+                                            <div className="w-56 h-56 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center relative group-hover:scale-105 transition-transform duration-700 shadow-inner">
+                                                <div className="absolute -inset-4 bg-cyan-500/10 rounded-full blur-xl animate-pulse"></div>
+                                                <Plane size={80} className="text-cyan-400 animate-bounce duration-[4000ms]" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
