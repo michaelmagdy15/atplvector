@@ -313,22 +313,24 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                     {/* Professional Integrated Navbar */}
                     <div className="sticky top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
                         <nav className="max-w-7xl mx-auto">
-                            <div className="px-6 md:px-10 h-16 md:h-20 flex items-center justify-between">
-                                <div className="flex items-center space-x-2 cursor-pointer group" onClick={() => scrollToSection('hero')}>
-                                    <div className="p-1 w-8 h-8 bg-slate-900/50 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-300 border border-white/10 flex items-center justify-center overflow-hidden">
-                                        <img src="/assets/ATPLVECTOR Aviation Tech Logo.png" alt="Logo" className="w-full h-full object-contain scale-[3.5]" />
+                            <div className="px-6 md:px-10 h-16 md:h-20 flex items-center justify-between relative">
+                                <div className="hidden lg:block w-32"></div>
+
+                                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center space-x-2.5 cursor-pointer group z-20" onClick={() => scrollToSection('hero')}>
+                                    <div className="p-1.5 w-9 h-9 md:w-11 md:h-11 bg-slate-900/50 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-300 border border-white/10 flex items-center justify-center overflow-hidden">
+                                        <img src="/assets/ATPLVECTOR Aviation Tech Logo.png" alt="Logo" className="w-full h-full object-contain scale-[3.8] object-center" />
                                     </div>
-                                    <span className="text-xl font-black text-white tracking-tighter">ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span></span>
+                                    <span className="text-xl md:text-2xl font-black text-white tracking-tighter">ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span></span>
                                 </div>
 
-                                <div className="hidden lg:flex items-center space-x-4 xl:space-x-8 text-sm font-medium text-slate-300">
+                                <div className="hidden lg:flex items-center space-x-4 xl:space-x-8 text-sm font-medium text-slate-300 z-10">
                                     <button onClick={() => scrollToSection('features')} className="hover:text-white transition hover:scale-105">Features</button>
                                     <button onClick={() => scrollToSection('experience')} className="hover:text-white transition hover:scale-105">Experience</button>
                                     <button onClick={() => scrollToSection('pricing')} className="hover:text-white transition hover:scale-105">Pricing</button>
                                     <button onClick={() => { scrollToSection('hero'); setView('LOGIN'); }} className="text-white hover:text-blue-300 transition">Login</button>
                                     <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl font-bold transition hover:shadow-lg hover:shadow-blue-500/20 active:scale-95 shadow-lg shadow-blue-500/10">Get Started</button>
                                 </div>
-                                <div className="lg:hidden flex items-center gap-4">
+                                <div className="lg:hidden flex items-center gap-4 z-10">
                                     <button onClick={() => { scrollToSection('hero'); setView('LOGIN'); }} className="text-xs font-bold text-slate-300">Login</button>
                                     <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors">{mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}</button>
                                 </div>
@@ -810,9 +812,13 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                         </div>
                                         
                                         <div className="md:w-1/3 w-full flex items-center justify-center relative">
-                                            <div className="w-56 h-56 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center relative group-hover:scale-105 transition-transform duration-700 shadow-inner">
+                                            <div className="w-56 h-56 rounded-full bg-slate-900/80 border border-cyan-500/30 flex items-center justify-center relative group-hover:scale-105 transition-transform duration-700 shadow-inner overflow-hidden p-8">
                                                 <div className="absolute -inset-4 bg-cyan-500/10 rounded-full blur-xl animate-pulse"></div>
-                                                <Plane size={80} className="text-cyan-400 animate-bounce duration-[4000ms]" />
+                                                <img 
+                                                    src="/assets/egyptair_logo.png" 
+                                                    alt="EgyptAir Logo" 
+                                                    className="w-full h-full object-contain filter brightness-0 invert drop-shadow-[0_0_12px_rgba(6,182,212,0.3)]" 
+                                                />
                                             </div>
                                         </div>
                                     </div>

@@ -91,7 +91,7 @@ const PPLDashboard: React.FC<Props> = ({ user, studyTime, onChangeView }) => {
             <p className="text-slate-400 text-sm leading-relaxed mb-4 flex-grow">{subject.description}</p>
 
             <div className="flex items-center text-sm font-bold text-white/70 group-hover:text-white transition-colors pt-3 border-t border-white/5 mt-auto">
-              {subject.reuse === 'full' ? (
+              {subject.isContentReady ? (
                 <span className="text-emerald-400 text-xs font-bold">✓ Available Now</span>
               ) : (
                 <span className="text-amber-400 text-xs font-bold">⏳ In Development</span>
@@ -170,21 +170,39 @@ const PPLDashboard: React.FC<Props> = ({ user, studyTime, onChangeView }) => {
       </div>
 
       {/* Progress Banner */}
-      <div className="mb-8 p-4 bg-blue-500/5 border border-blue-500/20 rounded-2xl flex items-center gap-4">
-        <div className="p-2 bg-blue-500/10 rounded-lg text-blue-400 shrink-0">
-          <Plane size={20} />
-        </div>
-        <div>
-          <p className="text-sm font-bold text-white">PPL Content In Development</p>
-          <p className="text-xs text-slate-400">
-            VFR Communications is available now. All other subjects are being mapped to the official PPL syllabus and will unlock progressively.
-          </p>
-        </div>
-        <div className="ml-auto shrink-0 text-right">
-          <span className="text-xs font-black text-emerald-400">1 / {PPL_SUBJECTS.length}</span>
-          <p className="text-[10px] text-slate-500">subjects ready</p>
-        </div>
-      </div>
+      {(() => {
+        const readyCount = PPL_SUBJECTS.filter(s => s.isContentReady).length;
+        const allReady = readyCount === PPL_SUBJECTS.length;
+        return (
+          <div className={`mb-8 p-4 rounded-2xl flex items-center gap-4 border ${
+            allReady 
+              ? 'bg-emerald-500/5 border-emerald-500/20 shadow-lg shadow-emerald-500/5' 
+              : 'bg-blue-500/5 border-blue-500/20'
+          }`}>
+            <div className={`p-2 rounded-lg shrink-0 ${
+              allReady ? 'bg-emerald-500/10 text-emerald-400' : 'bg-blue-500/10 text-blue-400'
+            }`}>
+              <Plane size={20} className={allReady ? 'animate-bounce duration-[3000ms]' : ''} />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-white">
+                {allReady ? '🎓 PPL Ground School Fully Unlocked' : 'PPL Content In Development'}
+              </p>
+              <p className="text-xs text-slate-400">
+                {allReady 
+                  ? 'All 9 Private Pilot Licence subjects are available now! Map your flight plan and start training.' 
+                  : 'VFR Communications is available now. All other subjects are being mapped to the official PPL syllabus and will unlock progressively.'}
+              </p>
+            </div>
+            <div className="ml-auto shrink-0 text-right">
+              <span className={`text-xs font-black ${allReady ? 'text-emerald-400' : 'text-blue-400'}`}>
+                {readyCount} / {PPL_SUBJECTS.length}
+              </span>
+              <p className="text-[10px] text-slate-500">subjects ready</p>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Subject Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 animate-in fade-in zoom-in duration-700 delay-300">

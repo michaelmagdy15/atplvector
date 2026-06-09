@@ -14,6 +14,8 @@ interface Chapter {
   title: string;
   summary: string;
   keyTopics: string[];
+  atplView?: View;
+  atplLinkLabel?: string;
 }
 
 const egyptAirChapters: Chapter[] = [
@@ -21,109 +23,143 @@ const egyptAirChapters: Chapter[] = [
     number: 1,
     title: "Introduction to Flight Crew Training & Fleet Profile",
     summary: "Overview of the EgyptAir training pathways, cadet standards, and structural transition models to modern jet fleets (A320neo, B787, A220).",
-    keyTopics: ["Cadet milestones", "Fleet capabilities", "Standard operating philosophies"]
+    keyTopics: ["Cadet milestones", "Fleet capabilities", "Standard operating philosophies"],
+    atplView: View.KSA_HOME,
+    atplLinkLabel: "100 KSA"
   },
   {
     number: 2,
     title: "ECAA Authority Structure & Egyptian CARs",
     summary: "Detailed analysis of the Egyptian Civil Aviation Authority (ECAA) directives and EASA/FAA harmonized regulations under ECAR Part 121.",
-    keyTopics: ["ECAR 121 commercial ops", "ECAA audit guidelines", "EGALPA pilots association support"]
+    keyTopics: ["ECAR 121 commercial ops", "ECAA audit guidelines", "EGALPA pilots association support"],
+    atplView: View.AIR_LAW_HOME,
+    atplLinkLabel: "010 Air Law"
   },
   {
     number: 3,
     title: "Meteorology & EMA Reporting",
     summary: "Interpretation of EMA meteorological datasets, local desert weather phenomena (Khamsin wind), and decoding Metar/Taf/Gamet reports.",
-    keyTopics: ["Khamsin wind guidelines", "Taf/Metar decoding", "EMA safety warnings"]
+    keyTopics: ["Khamsin wind guidelines", "Taf/Metar decoding", "EMA safety warnings"],
+    atplView: View.MET_HOME,
+    atplLinkLabel: "050 Meteorology"
   },
   {
     number: 4,
     title: "Air Traffic Control & Communications",
     summary: "Aviation phraseology standards inside Cairo FIR (HECC), emergency transmissions, and operational blind transmission protocols.",
-    keyTopics: ["Cairo Control communications", "Phonetic clear-speak", "Blind transmissions"]
+    keyTopics: ["Cairo Control communications", "Phonetic clear-speak", "Blind transmissions"],
+    atplView: View.DASHBOARD,
+    atplLinkLabel: "090 Communications"
   },
   {
     number: 5,
     title: "Rules of the Air & Airspace Classes",
     summary: "ECAA airspace categorization (Class A to G) and separation rules governing VFR/IFR traffic in high-density corridors.",
-    keyTopics: ["Vertical separation minimums", "Right of way rules", "Airspace boundaries"]
+    keyTopics: ["Vertical separation minimums", "Right of way rules", "Airspace boundaries"],
+    atplView: View.AIR_LAW_RULES_DETAILS,
+    atplLinkLabel: "Rules of the Air (010)"
   },
   {
     number: 6,
     title: "Flight Planning Operations",
     summary: "Mastering the preparation of operational flight plans (OFPs), ICAO flight forms, and airway route validation protocols.",
-    keyTopics: ["OFP construction", "ICAO item fields", "Airway clearance"]
+    keyTopics: ["OFP construction", "ICAO item fields", "Airway clearance"],
+    atplView: View.FLIGHT_PLAN_HOME,
+    atplLinkLabel: "033 Flight Planning"
   },
   {
     number: 7,
     title: "Instrument Approach & Landing Procedures",
     summary: "Precision vs non-precision landing profiles, standard instrument departures (SIDs), and standard terminal arrival routes (STARs).",
-    keyTopics: ["Category II/III ILS limits", "STAR flow charts", "Missed approach criteria"]
+    keyTopics: ["Category II/III ILS limits", "STAR flow charts", "Missed approach criteria"],
+    atplView: View.AIR_LAW_INSTRUMENT,
+    atplLinkLabel: "ILS & STAR (010)"
   },
   {
     number: 8,
     title: "Flight Crew Flight Time Limitations (FTL)",
     summary: "ECAA rest and duty guidelines. Maximum monthly block hours, fatigue management, and pilot standby regulations.",
-    keyTopics: ["Maximum block hours", "Rest period calculations", "Standby duty rules"]
+    keyTopics: ["Maximum block hours", "Rest period calculations", "Standby duty rules"],
+    atplView: View.OPS_FTL,
+    atplLinkLabel: "FTL & Rest Rules (070)"
   },
   {
     number: 9,
     title: "Company Fuel Policy & Contingency Planning",
     summary: "Fuel buildup policies including taxi fuel, alternate, final reserve, contingency fuel rules, and isolated aerodrome procedures.",
-    keyTopics: ["5% vs 3% Contingency with Decision Point", "Final reserve jet rules", "Alternate fuel requirements"]
+    keyTopics: ["5% vs 3% Contingency with Decision Point", "Final reserve jet rules", "Alternate fuel requirements"],
+    atplView: View.FLIGHT_PLAN_FUEL,
+    atplLinkLabel: "Fuel Planning (033)"
   },
   {
     number: 10,
     title: "Aircraft General Systems",
     summary: "Primary airframe systems: triple redundancy hydraulics, multi-generator electrical buses, and pneumatic bleed air systems.",
-    keyTopics: ["Hydraulic flow routing", "AC/DC electrical buses", "Pneumatic cross-bleed valve"]
+    keyTopics: ["Hydraulic flow routing", "AC/DC electrical buses", "Pneumatic cross-bleed valve"],
+    atplView: View.AGK_SYSTEMS_HOME,
+    atplLinkLabel: "021 Aircraft Systems"
   },
   {
     number: 11,
     title: "Instrument Flight Rules (IFR) & DME Arc Lab",
     summary: "Techniques for high-precision radio navigation, VOR/NDB tracking, DME Arc procedures, and hold pattern entry sectors.",
-    keyTopics: ["Lead radial calculations", "Direct/Teardrop/Parallel entry", "Holding speed limitations"]
+    keyTopics: ["Lead radial calculations", "Direct/Teardrop/Parallel entry", "Holding speed limitations"],
+    atplView: View.RAD_NAV_HOME,
+    atplLinkLabel: "062 Radio Nav"
   },
   {
     number: 12,
     title: "High-Altitude Operations & RVSM",
     summary: "Requirements for cruising in Reduced Vertical Separation Minimum (RVSM) airspace, IRS drift, and high-altitude aerodynamic limits.",
-    keyTopics: ["RVSM airspace equipment", "Coffin corner handling", "Altimeter tolerance limits"]
+    keyTopics: ["RVSM airspace equipment", "Coffin corner handling", "Altimeter tolerance limits"],
+    atplView: View.AIR_LAW_CRUISING,
+    atplLinkLabel: "Cruising & RVSM (010)"
   },
   {
     number: 13,
     title: "Emergency Procedures & Communication Failures",
     summary: "Standard protocols for handling in-flight engine failures, cabin rapid depressurization, and radio communication failures (7600).",
-    keyTopics: ["Engine fire checklists", "Emergency descents", "7600 lost comm routing"]
+    keyTopics: ["Engine fire checklists", "Emergency descents", "7600 lost comm routing"],
+    atplView: View.EMERGENCY_OPS,
+    atplLinkLabel: "Emergency Ops (070)"
   },
   {
     number: 14,
     title: "Weight & Balance Controls",
     summary: "Calculation of Dry Operating Mass, Zero Fuel Mass, and Takeoff/Landing limits. Shift of CG and indexing load sheets.",
-    keyTopics: ["Index and chord percentages", "Load sheet validation", "Forward vs Aft CG limits"]
+    keyTopics: ["Index and chord percentages", "Load sheet validation", "Forward vs Aft CG limits"],
+    atplView: View.MASS_BAL_HOME,
+    atplLinkLabel: "031 Mass & Balance"
   },
   {
     number: 15,
     title: "Jet Characteristics & High-Speed Aerodynamics",
     summary: "Understanding swept-wing characteristics, Mach tuck, shockwaves, boundary layer control, and dutch roll dynamics.",
-    keyTopics: ["Swept-wing stall profiles", "Critical Mach number", "Dutch roll oscillations"]
+    keyTopics: ["Swept-wing stall profiles", "Critical Mach number", "Dutch roll oscillations"],
+    atplView: View.POF_HOME,
+    atplLinkLabel: "081 Principles of Flight"
   },
   {
     number: 16,
     title: "Takeoff Performance Calculations & V-speeds",
     summary: "Balanced field length concepts, takeoff segments (first through fourth), and critical V-speeds (V1, VR, V2, Vmcg, Vmca).",
-    keyTopics: ["Balanced field margins", "Takeoff climb gradients", "Wet runway speed reductions"]
+    keyTopics: ["Balanced field margins", "Takeoff climb gradients", "Wet runway speed reductions"],
+    atplView: View.PERF_HOME,
+    atplLinkLabel: "032 Performance"
   },
   {
     number: 17,
     title: "Aeronautical Decision Making & CRM",
     summary: "Core human factors, hazardous attitudes (impulsivity, macho, resignation), Threat and Error Management (TEM), and cockpit authority gradients.",
-    keyTopics: ["Five hazardous attitudes", "Synergy and authority gradients", "TEM threat avoidance"]
+    keyTopics: ["Five hazardous attitudes", "Synergy and authority gradients", "TEM threat avoidance"],
+    atplView: View.HPL_HOME,
+    atplLinkLabel: "040 Human Performance"
   }
 ];
 
 export const EgyptAirDashboard: React.FC<Props> = ({ onChangeView }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [activeTab, setActiveTab] = useState<'CURRICULUM' | 'SIMULATORS'>('CURRICULUM');
+  const [activeTab, setActiveTab] = useState<'CURRICULUM' | 'SIMULATORS' | 'STUDY_EXAMS'>('CURRICULUM');
 
   const filteredChapters = egyptAirChapters.filter(chapter => 
     chapter.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -240,10 +276,10 @@ export const EgyptAirDashboard: React.FC<Props> = ({ onChangeView }) => {
         </div>
 
         {/* Tab Controls */}
-        <div className="flex border-b border-white/5 gap-6">
+        <div className="flex flex-wrap border-b border-white/5 gap-6">
           <button 
             onClick={() => setActiveTab('CURRICULUM')}
-            className={`pb-4 text-base font-bold transition-all relative ${
+            className={`pb-4 text-sm md:text-base font-bold transition-all relative ${
               activeTab === 'CURRICULUM' ? 'text-blue-400 border-b-2 border-blue-500' : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -251,16 +287,24 @@ export const EgyptAirDashboard: React.FC<Props> = ({ onChangeView }) => {
           </button>
           <button 
             onClick={() => setActiveTab('SIMULATORS')}
-            className={`pb-4 text-base font-bold transition-all relative ${
+            className={`pb-4 text-sm md:text-base font-bold transition-all relative ${
               activeTab === 'SIMULATORS' ? 'text-blue-400 border-b-2 border-blue-500' : 'text-slate-400 hover:text-white'
             }`}
           >
             Training Simulators & Labs
           </button>
+          <button 
+            onClick={() => setActiveTab('STUDY_EXAMS')}
+            className={`pb-4 text-sm md:text-base font-bold transition-all relative ${
+              activeTab === 'STUDY_EXAMS' ? 'text-blue-400 border-b-2 border-blue-500' : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            Study & Exams
+          </button>
         </div>
 
         {/* Content Tabs */}
-        {activeTab === 'CURRICULUM' ? (
+        {activeTab === 'CURRICULUM' && (
           <div className="space-y-6">
             {/* Search Bar */}
             <div className="relative max-w-md">
@@ -291,15 +335,27 @@ export const EgyptAirDashboard: React.FC<Props> = ({ onChangeView }) => {
                     <p className="text-slate-400 text-sm leading-relaxed">{chapter.summary}</p>
                   </div>
 
-                  <div className="pt-6 border-t border-white/5 mt-6 space-y-2">
-                    <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Key Focus Areas</div>
-                    <div className="flex flex-wrap gap-2">
-                      {chapter.keyTopics.map((topic, index) => (
-                        <span key={index} className="px-2 py-1 bg-blue-500/10 border border-blue-500/20 text-[10px] font-medium text-blue-300 rounded-lg">
-                          {topic}
-                        </span>
-                      ))}
+                  <div>
+                    <div className="pt-6 border-t border-white/5 mt-6 space-y-2">
+                      <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Key Focus Areas</div>
+                      <div className="flex flex-wrap gap-2">
+                        {chapter.keyTopics.map((topic, index) => (
+                          <span key={index} className="px-2 py-1 bg-blue-500/10 border border-blue-500/20 text-[10px] font-medium text-blue-300 rounded-lg">
+                            {topic}
+                          </span>
+                        ))}
+                      </div>
                     </div>
+
+                    {chapter.atplView && (
+                      <button
+                        onClick={() => onChangeView(chapter.atplView!)}
+                        className="w-full mt-4 py-2.5 px-3 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 rounded-xl text-xs font-bold text-blue-400 hover:text-white transition-all flex items-center justify-center gap-1.5 active:scale-[0.98]"
+                      >
+                        <BookOpen size={12} />
+                        Study {chapter.atplLinkLabel || "ATPL Reference"}
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}
@@ -311,9 +367,10 @@ export const EgyptAirDashboard: React.FC<Props> = ({ onChangeView }) => {
               )}
             </div>
           </div>
-        ) : (
-          /* Simulators List */
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        )}
+
+        {activeTab === 'SIMULATORS' && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 animate-in fade-in duration-500">
             {simulatorsList.map((sim, idx) => (
               <div 
                 key={idx}
@@ -344,6 +401,96 @@ export const EgyptAirDashboard: React.FC<Props> = ({ onChangeView }) => {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {activeTab === 'STUDY_EXAMS' && (
+          <div className="space-y-8 animate-in fade-in duration-500">
+            <div className="p-6 bg-blue-950/20 border border-blue-500/20 rounded-2xl">
+              <h3 className="text-xl font-bold text-white mb-2">EgyptAir Cadet EASA ATPL Reference</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                As part of your EgyptAir FO cadet training, you are required to master these core EASA ATPL subjects. Click on any subject below to open the interactive EASA ground school dashboard, or practice the EASA question banks to prepare for your ECAA exams.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                {
+                  code: "010",
+                  subject: "Air Law & ATC Procedures",
+                  desc: "Airspace classes, flight rules (VFR/IFR), and Cairo FIR operations.",
+                  studyView: View.AIR_LAW_HOME
+                },
+                {
+                  code: "021/022",
+                  subject: "Aircraft Systems & Instruments",
+                  desc: "Triple hydraulics, AC/DC electrical grids, jet bleed air, and DME/VOR/ILS instruments.",
+                  studyView: View.AGK_SYSTEMS_HOME
+                },
+                {
+                  code: "031/032",
+                  subject: "Performance & Weight & Balance",
+                  desc: "Balanced field length calculations, critical V-speeds, and Dry Operating Mass indexing.",
+                  studyView: View.PERF_HOME
+                },
+                {
+                  code: "040",
+                  subject: "Human Performance & Limitations",
+                  desc: "Threat and Error Management (TEM), cockpit authority gradients, and ADM.",
+                  studyView: View.HPL_HOME
+                },
+                {
+                  code: "050",
+                  subject: "Meteorology",
+                  desc: "Khamsin desert storms, EMA met reporting, TAF/METAR, and upper winds.",
+                  studyView: View.MET_HOME
+                },
+                {
+                  code: "061/062",
+                  subject: "Navigation & Radio Navigation",
+                  desc: "VOR/NDB tracking, DME Arc procedures, and hold pattern entry sectors.",
+                  studyView: View.GEN_NAV_HOME
+                },
+                {
+                  code: "070",
+                  subject: "Operational Procedures",
+                  desc: "Taxi, trip, contingency, and reserve fuel policies under ECAA directives.",
+                  studyView: View.OPS_PROC_HOME
+                },
+                {
+                  code: "081",
+                  subject: "Principles of Flight (Jet Aerodynamics)",
+                  desc: "Swept-wing stall behavior, Mach tuck, critical Mach numbers, and shockwave control.",
+                  studyView: View.POF_HOME
+                }
+              ].map((item, idx) => (
+                <div key={idx} className="glass-card bg-slate-900/40 border border-white/5 rounded-2xl p-6 hover:border-blue-500/20 transition-all flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-blue-400 font-bold uppercase tracking-widest">EASA Subject {item.code}</span>
+                      <span className="p-1 bg-slate-800 rounded text-[10px] text-slate-400 font-mono">Exam Prep</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-white tracking-tight">{item.subject}</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+
+                  <div className="mt-6 pt-4 border-t border-white/5 flex gap-4">
+                    <button
+                      onClick={() => onChangeView(item.studyView)}
+                      className="flex-1 py-3 px-4 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-lg shadow-blue-500/10 active:scale-[0.98]"
+                    >
+                      <BookOpen size={14} /> Open Study Ground School
+                    </button>
+                    <button
+                      onClick={() => onChangeView(View.QUESTION_BANK)}
+                      className="flex-1 py-3 px-4 bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 active:scale-[0.98]"
+                    >
+                      <HelpCircle size={14} /> Practice Exams
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 

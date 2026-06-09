@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { AuthStatus, View, User } from './types';
 import { GamificationProvider } from './context/GamificationContext';
 import { auth, db, doc, collection } from './lib/firebase';
+import { signInWithCustomToken } from 'firebase/auth';
 import { useUser, useAuth } from '@clerk/clerk-react';
-import { getDoc, setDoc, updateDoc, getDocs, increment } from 'firebase/firestore';
+import { getDoc, setDoc, updateDoc, getDocs, increment, onSnapshot } from 'firebase/firestore';
 import { AnimatePresence } from 'framer-motion';
 import AnimatedPageWrapper from './components/AnimatedPageWrapper';
 import { CourseModeProvider } from './context/CourseModeContext';
@@ -37,6 +38,7 @@ const App: React.FC = () => {
     const { user: clerkUser, isLoaded: clerkLoaded } = useUser();
     const { signOut: clerkSignOut } = useAuth();
     const [user, setUser] = useState<User | null>(null);
+    const [sessionInvalid, setSessionInvalid] = useState(false);
     const [currentView, setCurrentView] = useState<View>(View.PLATFORM_DASHBOARD);
     const [selectedSubjectId, setSelectedSubjectId] = useState<string>('');
     const [studyTime, setStudyTime] = useState(0);
@@ -123,8 +125,24 @@ const App: React.FC = () => {
         if (clerkUser) {
             const email = clerkUser.primaryEmailAddress?.emailAddress || '';
             console.log("Clerk Auth State Changed:", email);
-            fetchUserProfile(clerkUser.id, email).then(() => {
-                if (isRecovery) setCurrentView(View.ACCOUNT_SETTINGS);
+            
+            // Sync Clerk session with Firebase Auth in the background
+            const syncFirebase = async () => {
+                try {
+                    const token = await clerkUser.getToken({ template: 'integration_firebase' });
+                    if (token) {
+                        await signInWithCustomToken(auth, token);
+                        console.log("Firebase Auth synced with Clerk successfully.");
+                    }
+                } catch (err) {
+                    console.warn("Could not sync Firebase Auth with Clerk:", err);
+                }
+            };
+
+            syncFirebase().finally(() => {
+                fetchUserProfile(clerkUser.id, email).then(() => {
+                    if (isRecovery) setCurrentView(View.ACCOUNT_SETTINGS);
+                });
             });
         } else {
             setUser(null);
@@ -138,6 +156,13 @@ const App: React.FC = () => {
             // Trial configuration
             const TRIAL_DURATION_DAYS = 7;
             const TRIAL_SUBJECTS: string[] = []; // No free subjects by default
+
+            // Get or generate local device ID
+            let localDeviceId = localStorage.getItem('atpl_device_id');
+            if (!localDeviceId) {
+                localDeviceId = typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now().toString(36);
+                localStorage.setItem('atpl_device_id', localDeviceId);
+            }
 
             // Try to get profile from Firestore
             const profileRef = doc(db, 'profiles', uid);
@@ -156,13 +181,18 @@ const App: React.FC = () => {
                     study_seconds: 0,
                     trial_start_date: trialStartDate,
                     trial_subjects: TRIAL_SUBJECTS,
-                    is_approved: true
+                    is_approved: true,
+                    current_device_id: localDeviceId
                 };
 
                 await setDoc(profileRef, profile);
                 // Also ensure subscription exists
                 const subRef = doc(db, 'subscriptions', uid);
                 await setDoc(subRef, { user_id: uid, plan: 'CUSTOM', status: 'inactive' });
+            } else {
+                // If profile already exists, update current_device_id
+                await updateDoc(profileRef, { current_device_id: localDeviceId });
+                profile.current_device_id = localDeviceId;
             }
 
             // Get subscription
@@ -205,7 +235,9 @@ const App: React.FC = () => {
 
             if (profile) {
                 // Initialize local study time from DB
-                setStudyTime(profile.study_seconds || 0);
+                const dbSeconds = profile.study_seconds || 0;
+                setStudyTime(dbSeconds);
+                localStorage.setItem(`atpl_study_seconds_${uid}`, dbSeconds.toString());
 
                 // Check trial status if no active subscription
                 let trialStartDate = profile.trial_start_date;
@@ -321,20 +353,38 @@ const App: React.FC = () => {
             } else {
                 // Fallback if profile creation failed completely
                 const isOwner = email === 'michaelmitry13@gmail.com';
+                const cachedSeconds = parseInt(localStorage.getItem(`atpl_study_seconds_${uid}`) || '0', 10);
                 setUser({
                     id: uid,
                     email: email,
                     fullName: isOwner ? 'Michael Mitry' : 'Pilot',
                     status: isOwner ? AuthStatus.ACTIVE : AuthStatus.FREE_TRIAL,
-                    studySeconds: 0,
+                    studySeconds: cachedSeconds,
                     subscriptionTier: isOwner ? 'OWNER' : 'CUSTOM',
                     allowedSubjects: isOwner ? ['ALL'] : [],
                     isAdmin: isOwner ? true : false,
                     isApproved: true
                 });
+                setStudyTime(cachedSeconds);
             }
         } catch (error) {
             console.error('Error fetching user data:', error);
+            
+            // Fallback profile if Firestore read/write fails completely (e.g. offline or permission issue)
+            const isOwner = email === 'michaelmitry13@gmail.com';
+            const cachedSeconds = parseInt(localStorage.getItem(`atpl_study_seconds_${uid}`) || '0', 10);
+            setUser({
+                id: uid,
+                email: email,
+                fullName: isOwner ? 'Michael Mitry' : 'Pilot',
+                status: isOwner ? AuthStatus.ACTIVE : AuthStatus.FREE_TRIAL,
+                studySeconds: cachedSeconds,
+                subscriptionTier: isOwner ? 'OWNER' : 'CUSTOM',
+                allowedSubjects: isOwner ? ['ALL'] : [],
+                isAdmin: isOwner ? true : false,
+                isApproved: true
+            });
+            setStudyTime(cachedSeconds);
         } finally {
             setIsLoading(false);
         }
@@ -356,6 +406,7 @@ const App: React.FC = () => {
             interval = setInterval(() => {
                 setStudyTime(prev => {
                     const newValue = prev + 1;
+                    localStorage.setItem(`atpl_study_seconds_${user.id}`, newValue.toString());
                     if (newValue % 30 === 0) {
                         const todayDateStr = new Date().toISOString().split('T')[0];
                         
@@ -408,12 +459,51 @@ const App: React.FC = () => {
         };
     }, [user?.id]);
 
+    // Listen to real-time session updates to prevent concurrent device usage
+    useEffect(() => {
+        if (!user || user.id === 'demo-user') {
+            setSessionInvalid(false);
+            return;
+        }
+
+        // Exempt the platform owner account from single device limitations
+        if (user.email === 'michaelmitry13@gmail.com') {
+            return;
+        }
+
+        const profileRef = doc(db, 'profiles', user.id);
+        const unsubscribe = onSnapshot(profileRef, (snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.data();
+                const localDeviceId = localStorage.getItem('atpl_device_id');
+                if (data && data.current_device_id && localDeviceId && data.current_device_id !== localDeviceId) {
+                    console.log("Concurrent device session detected. Invalidating session.");
+                    setSessionInvalid(true);
+                }
+            }
+        }, (error) => {
+            console.error("Error listening to session updates:", error);
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, [user?.id, user?.email]);
+
     const handleLogout = async () => {
         if (user) {
-            await updateDoc(doc(db, 'profiles', user.id), { study_seconds: studyTime });
+            try {
+                await updateDoc(doc(db, 'profiles', user.id), { 
+                    study_seconds: studyTime,
+                    current_device_id: null
+                });
+            } catch (err) {
+                console.warn("Failed to clear device ID on logout:", err);
+            }
         }
         await clerkSignOut();
         setUser(null);
+        setSessionInvalid(false);
         setCurrentView(View.PLATFORM_DASHBOARD);
         setAuthInitialView('LOGIN');
     };
@@ -459,7 +549,30 @@ const App: React.FC = () => {
             </ErrorBoundary>
         );
     }
-
+    if (sessionInvalid) {
+        return (
+            <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6">
+                <div className="max-w-md w-full bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 text-center shadow-2xl relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+                    <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                    <h1 className="text-2xl font-bold text-white mb-3">Session Terminated</h1>
+                    <p className="text-slate-400 mb-6 text-sm leading-relaxed">
+                        You have been signed out because your account is active on another device. ATPL Vector accounts are restricted to one active device at a time to prevent account sharing.
+                    </p>
+                    <button
+                        onClick={handleLogout}
+                        className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold transition-all border border-slate-600 shadow-lg"
+                    >
+                        Return to Sign In
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     if (user.status === AuthStatus.DEMO_EXPIRED) {
         return (
@@ -590,8 +703,8 @@ const App: React.FC = () => {
             <div className="min-h-screen font-sans text-slate-100 selection:bg-blue-500/30 selection:text-white bg-slate-950">
                 <div className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
                     <nav className="max-w-7xl mx-auto">
-                        <div className="px-4 sm:px-6 h-16 flex items-center justify-between">
-                            <div className="flex items-center gap-2 sm:gap-4">
+                        <div className="px-4 sm:px-6 h-16 flex items-center justify-between relative">
+                            <div className="flex items-center gap-2 sm:gap-4 z-10">
                                 {subjectConfig && (
                                     <button
                                         onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -600,18 +713,7 @@ const App: React.FC = () => {
                                         <BookOpen size={20} />
                                     </button>
                                 )}
-                                <div
-                                    className="flex items-center space-x-2 sm:space-x-3 cursor-pointer group"
-                                    onClick={() => navigateTo(View.PLATFORM_DASHBOARD)}
-                                >
-                                    <div className="p-1.5 w-8 h-8 sm:w-9 sm:h-9 bg-slate-900/50 rounded-lg shadow-lg group-hover:shadow-blue-500/20 transition-all duration-500 group-hover:scale-105 border border-white/10 flex items-center justify-center overflow-hidden">
-                                        <img src="/assets/ATPLVECTOR Aviation Tech Logo.png" alt="Logo" className="w-full h-full object-contain scale-[3.5]" />
-                                    </div>
-                                    <span className="text-base sm:text-lg font-black tracking-tight text-white whitespace-nowrap">
-                                        ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span>
-                                    </span>
-                                </div>
-                                <div className="hidden sm:flex items-center ml-2">
+                                <div className="hidden sm:flex items-center">
                                     <CourseModeToggle />
                                 </div>
                                 <div className="hidden md:block">
@@ -622,6 +724,19 @@ const App: React.FC = () => {
                                         onForward={goForward}
                                     />
                                 </div>
+                            </div>
+
+                            {/* Centered Logo */}
+                            <div
+                                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center space-x-2.5 sm:space-x-3.5 cursor-pointer group z-20"
+                                onClick={() => navigateTo(View.PLATFORM_DASHBOARD)}
+                            >
+                                <div className="p-1.5 w-9 h-9 sm:w-10 sm:h-10 bg-slate-900/50 rounded-lg shadow-lg group-hover:shadow-blue-500/20 transition-all duration-500 group-hover:scale-105 border border-white/10 flex items-center justify-center overflow-hidden">
+                                    <img src="/assets/ATPLVECTOR Aviation Tech Logo.png" alt="Logo" className="w-full h-full object-contain scale-[3.8] object-center" />
+                                </div>
+                                <span className="text-lg sm:text-xl font-black tracking-tight text-white whitespace-nowrap">
+                                    ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span>
+                                </span>
                             </div>
                             <div className="flex items-center gap-1 sm:gap-2">
                                 <button
@@ -739,19 +854,6 @@ const App: React.FC = () => {
                                             navigateTo(View.SYLLABUS_VIEWER);
                                         }} />
                                         <MenuNavItem icon={TrendingUp} label="Progress" view={View.PROGRESS_DASHBOARD} />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <h3 className="px-4 text-[10px] font-bold text-red-500 uppercase tracking-[0.2em] mb-3">Tactical Response</h3>
-                                    <div className="space-y-1">
-                                        <MenuNavItem
-                                            icon={Radio}
-                                            label="UAE Situation Room"
-                                            view={View.SAFE_FLIGHTS}
-                                            color="text-red-400"
-                                            bgColor="bg-red-500/10"
-                                        />
                                     </div>
                                 </div>
 
