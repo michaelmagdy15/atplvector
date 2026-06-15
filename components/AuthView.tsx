@@ -153,8 +153,8 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
         try {
             let initialStatus = 'FREE_TRIAL';
 
-            // Notify admin of new signup attempt
-            await sendAdminNotification(`New Signup Attempt (Clerk): ${email}`, {
+            // Notify admin of new signup attempt (fire-and-forget)
+            sendAdminNotification(`New Signup Attempt (Clerk): ${email}`, {
                 email: email,
                 full_name: fullName,
                 status: initialStatus,
@@ -191,7 +191,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
 
         try {
             const completeSignUp = await signUp.attemptEmailAddressVerification({
-                code: verificationCode,
+                code: verificationCode.trim(),
             });
             if (completeSignUp.status === 'complete') {
                 await setSignUpActive({ session: completeSignUp.createdSessionId });
@@ -215,8 +215,8 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
         setSuccessMsg('');
 
         try {
-            // Notify admin of password reset request
-            await sendAdminNotification(`Reset Password Request: ${email}`, {
+            // Notify admin of password reset request (fire-and-forget)
+            sendAdminNotification(`Reset Password Request: ${email}`, {
                 email: email,
                 type: 'PASSWORD_RESET_REQUEST',
                 timestamp: new Date().toISOString()
@@ -227,10 +227,75 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                 identifier: email,
             });
             setSuccessMsg("Password reset code sent to your email.");
+            setView('RESET_PASSWORD');
+            setVerificationCode('');
+            setPassword('');
+            setConfirmPassword('');
         } catch (error: any) {
             setErrorMsg(error.message || "Failed to send reset code.");
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleResetPassword = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (password !== confirmPassword) return setErrorMsg("Passwords do not match.");
+        if (passStrength < 3) return setErrorMsg("Password is too weak. Please use a stronger password.");
+        if (!signInLoaded) return;
+        setLoading(true);
+        setErrorMsg('');
+        setSuccessMsg('');
+
+        try {
+            const result = await signIn.attemptFirstFactor({
+                strategy: 'reset_password_email_code',
+                code: verificationCode.trim(),
+                password: password,
+            });
+            if (result.status === 'complete') {
+                await setSignInActive({ session: result.createdSessionId });
+                setSuccessMsg("Password reset successfully! Logging you in...");
+            } else {
+                setErrorMsg("Password reset incomplete. Please verify the code and details.");
+            }
+        } catch (error: any) {
+            setErrorMsg(error.message || "Failed to reset password. Please check the code.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleResendCode = async () => {
+        if (!signUpLoaded) return;
+        setResendLoading(true);
+        setErrorMsg('');
+        setSuccessMsg('');
+        try {
+            await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
+            setSuccessMsg("A new verification code has been sent to your email.");
+        } catch (error: any) {
+            setErrorMsg(error.message || "Failed to resend verification code.");
+        } finally {
+            setResendLoading(false);
+        }
+    };
+
+    const handleResendResetCode = async () => {
+        if (!signInLoaded) return;
+        setResendLoading(true);
+        setErrorMsg('');
+        setSuccessMsg('');
+        try {
+            await signIn.create({
+                strategy: 'reset_password_email_code',
+                identifier: email,
+            });
+            setSuccessMsg("A new password reset code has been sent to your email.");
+        } catch (error: any) {
+            setErrorMsg(error.message || "Failed to send reset code.");
+        } finally {
+            setResendLoading(false);
         }
     };
 
@@ -465,7 +530,15 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 {!loading && <ArrowRight className="ml-2 w-5 h-5" />}
                                             </button>
 
-                                            <div className="text-center mt-4">
+                                            <div className="text-center mt-4 space-y-2">
+                                                <button
+                                                    type="button"
+                                                    disabled={resendLoading}
+                                                    onClick={handleResendCode}
+                                                    className="text-sm text-blue-400 hover:text-blue-300 block w-full transition-colors font-semibold disabled:opacity-50"
+                                                >
+                                                    {resendLoading ? 'Resending...' : "Didn't get the code? Resend Code"}
+                                                </button>
                                                 <button
                                                     type="button"
                                                     onClick={() => {
@@ -473,7 +546,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                         setErrorMsg('');
                                                         setSuccessMsg('');
                                                     }}
-                                                    className="text-sm text-slate-400 hover:text-white transition-colors"
+                                                    className="text-sm text-slate-400 hover:text-white block w-full transition-colors"
                                                 >
                                                     Back to Sign Up
                                                 </button>
@@ -483,7 +556,8 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                         <form onSubmit={
                                             view === 'LOGIN' ? handleLogin :
                                                 view === 'SIGNUP' ? handleSignup :
-                                                    handleForgotPassword
+                                                    view === 'FORGOT_PASS' ? handleForgotPassword :
+                                                        handleResetPassword
                                         } className="space-y-5">
 
                                             {/* Google Sign-In moved to the top for frictionless access */}
@@ -519,17 +593,38 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 </div>
                                             )}
 
-                                            <div className="animate-in slide-in-from-left-4 fade-in delay-75">
-                                                <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Email Address</label>
-                                                <div className="relative">
-                                                    <Mail className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
-                                                    <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600" placeholder="pilot@example.com" />
+                                            {view !== 'RESET_PASSWORD' && (
+                                                <div className="animate-in slide-in-from-left-4 fade-in delay-75">
+                                                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Email Address</label>
+                                                    <div className="relative">
+                                                        <Mail className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
+                                                        <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600" placeholder="pilot@example.com" />
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            )}
+
+                                            {view === 'RESET_PASSWORD' && (
+                                                <div className="animate-in slide-in-from-left-4 fade-in">
+                                                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Reset Code</label>
+                                                    <div className="relative">
+                                                        <KeyRound className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
+                                                        <input
+                                                            required
+                                                            type="text"
+                                                            value={verificationCode}
+                                                            onChange={e => setVerificationCode(e.target.value.trim())}
+                                                            className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600 font-mono text-center tracking-[0.2em]"
+                                                            placeholder="000000"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            )}
 
                                             {view !== 'FORGOT_PASS' && (
                                                 <div className="animate-in slide-in-from-left-4 fade-in delay-100">
-                                                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Password</label>
+                                                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">
+                                                        {view === 'RESET_PASSWORD' ? 'New Password' : 'Password'}
+                                                    </label>
                                                     <div className="relative">
                                                         <Lock className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
                                                         <input required type={showPassword ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-10 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600" placeholder="••••••••" />
@@ -538,7 +633,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                         </button>
                                                     </div>
                                                     {/* Strength Meter for Signup */}
-                                                    {view === 'SIGNUP' && password && (
+                                                    {(view === 'SIGNUP' || view === 'RESET_PASSWORD') && password && (
                                                         <div className="mt-2 flex items-center gap-2">
                                                             <div className="flex-1 h-1 bg-slate-700 rounded-full overflow-hidden">
                                                                 <div className={`h-full transition-all duration-500 ${passStrength <= 2 ? 'bg-red-500' : passStrength === 3 ? 'bg-yellow-500' : 'bg-green-500'}`} style={{ width: `${(passStrength / 4) * 100}%` }}></div>
@@ -549,9 +644,11 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 </div>
                                             )}
 
-                                            {view === 'SIGNUP' && (
+                                            {(view === 'SIGNUP' || view === 'RESET_PASSWORD') && (
                                                 <div className="animate-in slide-in-from-left-4 fade-in delay-150">
-                                                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Confirm Password</label>
+                                                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">
+                                                        {view === 'RESET_PASSWORD' ? 'Confirm New Password' : 'Confirm Password'}
+                                                    </label>
                                                     <div className="relative">
                                                         <Lock className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
                                                         <input required type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600" placeholder="••••••••" />
@@ -605,7 +702,8 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 {loading ? <Zap className="animate-spin w-5 h-5" /> : (
                                                     view === 'LOGIN' ? 'Sign In' :
                                                         view === 'SIGNUP' ? 'Create Account' :
-                                                            'Send Reset Link'
+                                                            view === 'FORGOT_PASS' ? 'Send Reset Link' :
+                                                                'Reset Password'
                                                 )}
                                                 {!loading && <ArrowRight className="ml-2 w-5 h-5" />}
                                             </button>
@@ -621,7 +719,17 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                                 {view === 'SIGNUP' && (
                                                     <button type="button" onClick={() => setView('LOGIN')} className="text-sm text-slate-400 hover:text-white transition-colors">Already have an account? <strong className="text-blue-400">Log In</strong></button>
                                                 )}
-                                                {view === 'FORGOT_PASS' && (
+                                                {view === 'RESET_PASSWORD' && (
+                                                    <button
+                                                        type="button"
+                                                        disabled={resendLoading}
+                                                        onClick={handleResendResetCode}
+                                                        className="text-sm text-blue-400 hover:text-blue-300 block w-full transition-colors font-semibold disabled:opacity-50 animate-in fade-in"
+                                                    >
+                                                        {resendLoading ? 'Resending...' : "Didn't get the code? Resend Code"}
+                                                    </button>
+                                                )}
+                                                {(view === 'FORGOT_PASS' || view === 'RESET_PASSWORD') && (
                                                     <>
                                                         <button type="button" onClick={() => setView('LOGIN')} className="text-sm text-slate-400 hover:text-white block w-full transition-colors">Back to Login</button>
                                                     </>
