@@ -4,7 +4,7 @@ import { routes } from '../config/routes';
 import { subjectConfigs } from '../config/subjectRoutes';
 import { Wifi } from 'lucide-react';
 import { useCourseMode } from '../context/CourseModeContext';
-import PPLDashboard from './PPL/PPLDashboard';
+// import PPLDashboard removed – will be loaded via routes
 
 interface RouterProps {
     currentView: View;
@@ -122,7 +122,7 @@ const Router: React.FC<RouterProps> = ({
             if (track === 'PPL') {
                 return (
                     <div className="w-full animate-in fade-in duration-500">
-                        <PPLDashboard {...commonProps} />
+                        <Component {...commonProps} />
                     </div>
                 );
             }
