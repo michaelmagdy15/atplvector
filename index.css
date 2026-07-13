@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&display=swap');
+/* Google Fonts loaded in index.html — do not duplicate here */
 
 @tailwind base;
 @tailwind components;
@@ -26,13 +26,7 @@
 }
 
 @layer components {
-    .glass-card {
-        @apply bg-surface/70 backdrop-blur-xl border border-white/10 shadow-2xl rounded-2xl transition-all duration-300;
-    }
-
-    .glass-card:hover {
-        @apply border-white/20 shadow-primary/20 -translate-y-1;
-    }
+    /* glass-card is defined in index.html <style> block — single source of truth */
 
     .btn-premium {
         @apply relative px-6 py-3 rounded-lg font-semibold overflow-hidden transition-all duration-300 active:scale-95;

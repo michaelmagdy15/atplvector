@@ -32,12 +32,12 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
     };
 
     const getPrice = () => {
-        if (plan === '12_MONTHS') return 95;
-        if (plan === '9_MONTHS') return 80;
-        if (plan === '6_MONTHS') return 60;
-        if (plan === '3_MONTHS') return 35;
-        if (plan === '1_MONTH') return 15;
-        if (plan === 'SINGLE_SUBJECT') return subjects.length * 10;
+        if (plan === '12_MONTHS') return 105;
+        if (plan === '9_MONTHS') return 99;
+        if (plan === '6_MONTHS') return 70;
+        if (plan === '3_MONTHS') return 49;
+        if (plan === '1_MONTH') return 25;
+        if (plan === 'SINGLE_SUBJECT') return subjects.length * 25;
         return 0;
     };
 
@@ -92,9 +92,9 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
             let actualPlan = plan;
             if (data.purchase) {
                 const priceCents = data.purchase.price;
-                if (priceCents === 9500 || priceCents === 11900) actualPlan = '12_MONTHS';
+                if (priceCents === 9500 || priceCents === 10500 || priceCents === 11900) actualPlan = '12_MONTHS';
                 else if (priceCents === 8000 || priceCents === 9900) actualPlan = '9_MONTHS';
-                else if (priceCents === 6000 || priceCents === 7900) actualPlan = '6_MONTHS';
+                else if (priceCents === 6000 || priceCents === 7000 || priceCents === 7900) actualPlan = '6_MONTHS';
                 else if (priceCents === 3500 || priceCents === 4900) actualPlan = '3_MONTHS';
                 else if (priceCents === 1500 || priceCents === 1900 || priceCents === 2500) actualPlan = '1_MONTH';
 
@@ -205,7 +205,7 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                                     {plan === '12_MONTHS' && <CheckCircle className="w-4 h-4 text-emerald-500" />}
                                 </div>
                                 <h3 className="font-bold text-white text-sm">12 Months</h3>
-                                <p className="text-emerald-400 text-xs font-bold">€119</p>
+                                <p className="text-emerald-400 text-xs font-bold">€105</p>
                                 <p className="text-[10px] text-slate-500 mt-1">Best Value</p>
                             </div>
 
@@ -238,7 +238,7 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                                     {plan === '6_MONTHS' && <CheckCircle className="w-4 h-4 text-blue-500" />}
                                 </div>
                                 <h3 className="font-bold text-white text-sm">6 Months</h3>
-                                <p className="text-blue-400 text-xs font-bold">€79</p>
+                                <p className="text-blue-400 text-xs font-bold">€70</p>
                             </div>
 
                             {/* 3 Months */}
@@ -270,7 +270,7 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                                     {plan === '1_MONTH' && <CheckCircle className="w-4 h-4 text-blue-500" />}
                                 </div>
                                 <h3 className="font-bold text-white text-sm">1 Month</h3>
-                                <p className="text-blue-400 text-xs font-bold">€19</p>
+                                <p className="text-blue-400 text-xs font-bold">€25</p>
                             </div>
 
                             {/* Single Subject */}
@@ -425,7 +425,7 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                         )}
                     </div>
 
-                    {/* Billing Info Mockup */}
+                    {/* Dynamic Billing Info */}
                     <div className="bg-slate-900 rounded-xl border border-slate-700 p-6">
                         <h3 className="font-bold text-white mb-4 flex items-center gap-2">
                             <History size={18} className="text-slate-400" /> Billing Status
@@ -433,16 +433,44 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
                         <div className="space-y-3 text-sm">
                             <div className="flex justify-between">
                                 <span className="text-slate-400">Status</span>
-                                <span className="text-green-400 font-bold bg-green-900/30 px-2 py-0.5 rounded text-xs">ACTIVE</span>
+                                <span className={`font-bold px-2 py-0.5 rounded text-xs uppercase ${
+                                    user.status === 'ACTIVE' 
+                                        ? 'text-green-400 bg-green-900/30' 
+                                        : user.status === 'FREE_TRIAL'
+                                            ? 'text-sky-400 bg-sky-900/30'
+                                            : 'text-red-400 bg-red-900/30'
+                                }`}>
+                                    {user.status || 'INACTIVE'}
+                                </span>
                             </div>
-                            <div className="flex justify-between">
-                                <span className="text-slate-400">Next Billing Date</span>
-                                <span className="text-white font-mono">{nextBillingDate.toLocaleDateString()}</span>
-                            </div>
-                            <div className="flex justify-between">
-                                <span className="text-slate-400">Payment Method</span>
-                                <span className="text-white flex items-center gap-1"><CreditCard size={12} /> •••• 4242</span>
-                            </div>
+                            {user.subscriptionExpiresAt && (
+                                <div className="flex justify-between">
+                                    <span className="text-slate-400">Expires At</span>
+                                    <span className="text-white font-mono">
+                                        {new Date(user.subscriptionExpiresAt).toLocaleDateString()}
+                                    </span>
+                                </div>
+                            )}
+                            {user.status === 'FREE_TRIAL' && user.trialStartDate && (
+                                <div className="flex justify-between">
+                                    <span className="text-slate-400">Trial Ends</span>
+                                    <span className="text-white font-mono">
+                                        {(() => {
+                                            const d = new Date(user.trialStartDate);
+                                            d.setDate(d.getDate() + 7);
+                                            return d.toLocaleDateString();
+                                        })()}
+                                    </span>
+                                </div>
+                            )}
+                            {user.subscriptionTier && (
+                                <div className="flex justify-between">
+                                    <span className="text-slate-400">Active Tier</span>
+                                    <span className="text-white font-bold text-xs uppercase">
+                                        {user.subscriptionTier.replace('_', ' ')}
+                                    </span>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

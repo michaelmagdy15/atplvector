@@ -14,6 +14,9 @@ const StarfieldBackground: React.FC = () => {
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
+        // Respect user's motion preferences
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
         let animationId: number;
         let stars: Star[] = [];
 
@@ -45,8 +48,19 @@ const StarfieldBackground: React.FC = () => {
             }
         };
 
+        const drawStars = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach((star) => {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(148, 163, 184, ${star.opacity})`;
+                ctx.fill();
+            });
+        };
+
         const animate = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const now = Date.now();
 
             stars.forEach((star) => {
                 // Move stars slowly downward for a flight effect
@@ -59,16 +73,16 @@ const StarfieldBackground: React.FC = () => {
                 }
 
                 // Twinkle effect
-                const twinkle = Math.sin(Date.now() * 0.002 + star.x) * 0.15 + 0.85;
+                const twinkle = Math.sin(now * 0.002 + star.x) * 0.15 + 0.85;
                 const finalOpacity = star.opacity * twinkle;
 
-                // Draw star - Optimized to avoid gradient creation in loop
+                // Draw star
                 ctx.beginPath();
                 ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(148, 163, 184, ${finalOpacity})`;
                 ctx.fill();
 
-                // Add simple glow for larger stars using reduced opacity circle instead of gradient
+                // Add simple glow for larger stars
                 if (star.size > 1.2) {
                     ctx.beginPath();
                     ctx.arc(star.x, star.y, star.size * 2, 0, Math.PI * 2);
@@ -82,11 +96,17 @@ const StarfieldBackground: React.FC = () => {
 
         resize();
         window.addEventListener('resize', resize);
-        animate();
+
+        if (prefersReducedMotion) {
+            // Static stars only — no animation loop
+            drawStars();
+        } else {
+            animate();
+        }
 
         return () => {
             window.removeEventListener('resize', resize);
-            cancelAnimationFrame(animationId);
+            if (animationId) cancelAnimationFrame(animationId);
         };
     }, []);
 

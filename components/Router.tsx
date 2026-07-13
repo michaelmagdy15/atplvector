@@ -33,6 +33,8 @@ const Router: React.FC<RouterProps> = ({
     goForward,
     selectedSubjectId
 }) => {
+    // Hook MUST be called at the top level — never inside switch/case
+    const { track } = useCourseMode();
     const Component = routes[currentView] as any;
 
     if (!Component) {
@@ -118,7 +120,6 @@ const Router: React.FC<RouterProps> = ({
 
         // --- DASHBOARDS needing specific props ---
         case currentView === View.PLATFORM_DASHBOARD: {
-            const { track } = useCourseMode();
             if (track === 'PPL') {
                 return (
                     <div className="w-full animate-in fade-in duration-500">

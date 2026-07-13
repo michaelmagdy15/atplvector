@@ -15,7 +15,7 @@ service cloud.firestore {
     }
 
     // ===============================================================
-    // Strike CRM / GamenEG-Brand Root Auth Helpers
+    // mitrixogymcrm / GamenEG-Brand Root Auth Helpers
     // ===============================================================
 
     function userExists() {
@@ -26,58 +26,74 @@ service cloud.firestore {
       return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
     }
 
-    function isStrikeAdmin() {
+    function ismitrixogymcrmAdmin() {
       return isAuthenticated() && (
         request.auth.token.email in [
           "michaelmitry13@gmail.com",
           "magd.gallab@gmail.com",
-          "admin@strike.eg",
-          "strike.egyptt@gmail.com",
+          "admin@mitrixogymcrm.eg",
+          "mitrixogymcrm.egyptt@gmail.com",
           "shadyyoussef305@gmail.com",
-          "atefstrike@gmail.com"
+          "atefmitrixogymcrm@gmail.com"
         ] ||
         (userExists() && getUserRole() in ['admin', 'super_admin', 'crm_admin', 'sales_manager', 'manager'])
       );
     }
 
-    function isStrikeSuperAdmin() {
+    function ismitrixogymcrmSuperAdmin() {
       return isAuthenticated() && (
         request.auth.token.email in [
           "michaelmitry13@gmail.com",
           "magd.gallab@gmail.com",
-          "admin@strike.eg",
-          "strike.egyptt@gmail.com",
+          "admin@mitrixogymcrm.eg",
+          "mitrixogymcrm.egyptt@gmail.com",
           "shadyyoussef305@gmail.com",
-          "atefstrike@gmail.com"
+          "atefmitrixogymcrm@gmail.com"
         ] ||
         (userExists() && getUserRole() in ['super_admin', 'crm_admin'])
       );
     }
 
-    function isStrikeStaff() {
-      return isStrikeAdmin() || (userExists() && getUserRole() in ['rep', 'sales_rep', 'coach']);
+    function ismitrixogymcrmStaff() {
+      return ismitrixogymcrmAdmin() || (userExists() && getUserRole() in ['rep', 'sales_rep', 'coach', 'sales']);
     }
 
     function isOwnClientRecord(clientId) {
       return isAuthenticated() && (
-        (resource != null && 'portalUserId' in resource.data && resource.data.portalUserId == request.auth.uid) ||
-        (clientId is string && exists(/databases/$(database)/documents/clients/$(clientId)) && 
-         get(/databases/$(database)/documents/clients/$(clientId)).data.portalUserId == request.auth.uid)
+        (
+          exists(/databases/$(database)/documents/users/$(request.auth.uid)) && (
+            get(/databases/$(database)/documents/users/$(request.auth.uid)).data.clientRecordId == clientId ||
+            (
+              'clientDocId' in get(/databases/$(database)/documents/users/$(request.auth.uid)).data && (
+                get(/databases/$(database)/documents/users/$(request.auth.uid)).data.clientDocId == clientId ||
+                (
+                  exists(/databases/$(database)/documents/clients/$(get(/databases/$(database)/documents/users/$(request.auth.uid)).data.clientDocId)) &&
+                  'linkedClientIds' in get(/databases/$(database)/documents/clients/$(get(/databases/$(database)/documents/users/$(request.auth.uid)).data.clientDocId)).data &&
+                  clientId in get(/databases/$(database)/documents/clients/$(get(/databases/$(database)/documents/users/$(request.auth.uid)).data.clientDocId)).data.linkedClientIds
+                )
+              )
+            )
+          )
+        ) ||
+        (
+          exists(/databases/$(database)/documents/clients/$(clientId)) && 
+          get(/databases/$(database)/documents/clients/$(clientId)).data.portalUserId == request.auth.uid
+        )
       );
     }
 
     function isSafeClientSelfEdit() {
-      let allowed = ['name', 'phone', 'portalUserId'];
+      let allowed = ['name', 'phone', 'portalUserId', 'packages', 'sessionsRemaining'];
       return request.resource.data.diff(resource.data).affectedKeys().hasOnly(allowed) &&
              (!('portalUserId' in request.resource.data) || request.resource.data.portalUserId == request.auth.uid) &&
              (!('portalUserId' in resource.data) || resource.data.portalUserId == request.auth.uid);
     }
 
-    function canStrikeDeletePayments() {
+    function canmitrixogymcrmDeletePayments() {
       return isAuthenticated() && (
-        request.auth.token.email in ["michaelmitry13@gmail.com", "magd.gallab@gmail.com", "admin@strike.eg"] ||
+        request.auth.token.email in ["michaelmitry13@gmail.com", "magd.gallab@gmail.com", "admin@mitrixogymcrm.eg"] ||
         (userExists() && (
-          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['super_admin', 'crm_admin', 'sales_manager', 'manager'] ||
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['super_admin', 'crm_admin', 'sales_manager', 'manager', 'admin'] ||
           (
             'can_delete_payments' in get(/databases/$(database)/documents/users/$(request.auth.uid)).data &&
             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.can_delete_payments == true
@@ -86,11 +102,11 @@ service cloud.firestore {
       );
     }
 
-    function canStrikeAccessSettings() {
+    function canmitrixogymcrmAccessSettings() {
       return isAuthenticated() && (
-        request.auth.token.email in ["michaelmitry13@gmail.com", "magd.gallab@gmail.com", "admin@strike.eg"] ||
+        request.auth.token.email in ["michaelmitry13@gmail.com", "magd.gallab@gmail.com", "admin@mitrixogymcrm.eg"] ||
         (userExists() && (
-          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['super_admin', 'crm_admin', 'sales_manager', 'manager'] ||
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['super_admin', 'crm_admin', 'sales_manager', 'manager', 'admin'] ||
           (
             'can_access_settings_and_history' in get(/databases/$(database)/documents/users/$(request.auth.uid)).data &&
             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.can_access_settings_and_history == true
@@ -99,11 +115,11 @@ service cloud.firestore {
       );
     }
 
-    function canStrikeViewGlobalDashboard() {
+    function canmitrixogymcrmViewGlobalDashboard() {
       return isAuthenticated() && (
-        request.auth.token.email in ["michaelmitry13@gmail.com", "magd.gallab@gmail.com", "admin@strike.eg"] ||
+        request.auth.token.email in ["michaelmitry13@gmail.com", "magd.gallab@gmail.com", "admin@mitrixogymcrm.eg"] ||
         (userExists() && (
-          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['super_admin', 'crm_admin', 'sales_manager', 'manager'] ||
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['super_admin', 'crm_admin', 'sales_manager', 'manager', 'admin'] ||
           (
             'can_view_global_dashboard' in get(/databases/$(database)/documents/users/$(request.auth.uid)).data &&
             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.can_view_global_dashboard == true
@@ -112,7 +128,7 @@ service cloud.firestore {
       );
     }
 
-    function isStrikeSalesRep() {
+    function ismitrixogymcrmSalesRep() {
       return userExists() && (getUserRole() == 'sales_rep' || getUserRole() == 'rep');
     }
 
@@ -167,6 +183,17 @@ service cloud.firestore {
       );
     }
 
+    function isValidAtplSubscriptionWrite(subscriptionId) {
+      return isOwner(subscriptionId) && (
+        (request.resource.data.status == 'inactive' && request.resource.data.plan == 'CUSTOM') ||
+        (request.resource.data.status == 'active' && 
+         'gumroad_license_key' in request.resource.data && 
+         request.resource.data.gumroad_license_key is string && 
+         request.resource.data.gumroad_license_key.size() > 0 &&
+         request.resource.data.plan in ['1_MONTH', '3_MONTHS', '6_MONTHS', '9_MONTHS', '12_MONTHS', 'SINGLE_SUBJECT', 'CUSTOM'])
+      );
+    }
+
     // ===============================================================
     // GAMÉN Helper Functions & Auth
     // ===============================================================
@@ -191,12 +218,22 @@ service cloud.firestore {
     }
 
     function isSafeUserSelfEdit() {
-      let allowed = ['name', 'email', 'lastSeen', 'mustChangePassword', 'photoURL'];
-      return request.resource.data.diff(resource.data).affectedKeys().hasOnly(allowed);
+      let allowed = ['name', 'email', 'lastSeen', 'mustChangePassword', 'photoURL', 'clientDocId', 'dismissedNotifications', 'expoPushToken'];
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly(allowed) &&
+             (!('clientDocId' in request.resource.data) || 
+              (
+                exists(/databases/$(database)/documents/clients/$(request.resource.data.clientDocId)) &&
+                (
+                  get(/databases/$(database)/documents/clients/$(request.resource.data.clientDocId)).data.memberId == resource.data.clientRecordId ||
+                  resource.data.clientRecordId.matches('^\\s*' + get(/databases/$(database)/documents/clients/$(request.resource.data.clientDocId)).data.memberId + '\\s*$') ||
+                  get(/databases/$(database)/documents/clients/$(request.resource.data.clientDocId)).data.memberId.matches('^\\s*' + resource.data.clientRecordId + '\\s*$')
+                )
+              )
+             );
     }
 
     // ===============================================================
-    // Entity Validators (Strike CRM)
+    // Entity Validators (mitrixogymcrm)
     // ===============================================================
 
     function isValidRole(role) {
@@ -245,7 +282,7 @@ service cloud.firestore {
              isNonEmptyString(data.dueDate) &&
              data.status in ['Pending', 'In Progress', 'Completed'] &&
              data.priority in ['Low', 'Medium', 'High'] &&
-             isNonEmptyString(data.assignedTo) &&
+             data.assignedTo is string &&
              isNonEmptyString(data.createdBy) &&
              isNonEmptyString(data.createdAt);
     }
@@ -308,115 +345,181 @@ service cloud.firestore {
     // ===============================================================
 
     match /{path=**}/comments/{commentId} {
-      allow read, create: if isStrikeStaff() || isMatchAdmin();
-      allow delete: if isStrikeAdmin() || isMatchAdmin();
+      allow read, create: if ismitrixogymcrmStaff() || isMatchAdmin();
+      allow delete: if ismitrixogymcrmAdmin() || isMatchAdmin();
     }
 
     match /clients/{clientId}/comments/{commentId} {
-      allow read, write: if isStrikeStaff();
+      allow read, write: if ismitrixogymcrmStaff();
     }
 
     match /clients/{clientId}/interactions/{interactionId} {
-      allow read, write: if isStrikeStaff();
+      allow read, write: if ismitrixogymcrmStaff();
     }
 
     match /attendance/{attendanceId} {
       allow read: if isAuthenticated();
-      allow write: if isStrikeStaff() && isValidAttendance(request.resource.data);
+      allow write: if ismitrixogymcrmStaff() && isValidAttendance(request.resource.data);
     }
 
     // ===============================================================
-    // PROJECT 1: STRIKE CRM (Root Collections, Flat Structure)
+    // PROJECT 1: MITRIXOGYMCRM (Root Collections, Flat Structure)
     // ===============================================================
 
     match /users/{userId} {
       allow read: if true;
-      allow create: if isStrikeAdmin() || (isOwner(userId) && request.resource.data.role in ['client', 'coach']);
-      allow update: if isStrikeAdmin() || (isOwner(userId) && isSafeUserSelfEdit());
-      allow delete: if isStrikeSuperAdmin();
+      allow create: if ismitrixogymcrmAdmin() || (isOwner(userId) && request.resource.data.role in ['client', 'coach']);
+      allow update: if ismitrixogymcrmAdmin() || (isOwner(userId) && isSafeUserSelfEdit());
+      allow delete: if ismitrixogymcrmSuperAdmin();
     }
 
     match /targets/{targetId} {
-      allow get: if canStrikeViewGlobalDashboard() || (isStrikeSalesRep() && resource.data.sales_rep_id == request.auth.uid);
-      allow list: if canStrikeViewGlobalDashboard() || isStrikeSalesRep();
-      allow write: if canStrikeViewGlobalDashboard();
+      allow get: if canmitrixogymcrmViewGlobalDashboard() || (ismitrixogymcrmSalesRep() && resource.data.sales_rep_id == request.auth.uid);
+      allow list: if canmitrixogymcrmViewGlobalDashboard() || ismitrixogymcrmSalesRep();
+      allow write: if canmitrixogymcrmViewGlobalDashboard();
     }
 
     match /userTargets/{targetId} {
-      allow get: if canStrikeViewGlobalDashboard() || (isStrikeSalesRep() && resource.data.userId == request.auth.uid);
-      allow list: if canStrikeViewGlobalDashboard() || isStrikeSalesRep();
-      allow write: if canStrikeViewGlobalDashboard();
+      allow get: if canmitrixogymcrmViewGlobalDashboard() || (ismitrixogymcrmSalesRep() && resource.data.userId == request.auth.uid);
+      allow list: if canmitrixogymcrmViewGlobalDashboard() || ismitrixogymcrmSalesRep();
+      allow write: if canmitrixogymcrmViewGlobalDashboard();
     }
 
     match /payments/{paymentId} {
-      allow get: if canStrikeViewGlobalDashboard() || (isStrikeSalesRep() && resource.data.sales_rep_id == request.auth.uid);
-      allow list: if canStrikeViewGlobalDashboard() || isStrikeSalesRep();
+      allow get: if canmitrixogymcrmViewGlobalDashboard() || (ismitrixogymcrmSalesRep() && resource.data.sales_rep_id == request.auth.uid);
+      allow list: if canmitrixogymcrmViewGlobalDashboard() || ismitrixogymcrmSalesRep();
       allow create: if isAuthenticated() && isValidPaymentCreate(request.resource.data);
-      allow update, delete: if canStrikeDeletePayments();
+      allow update, delete: if canmitrixogymcrmDeletePayments();
+    }
+
+    match /pointsWallets/{walletId} {
+      allow read, write: if ismitrixogymcrmStaff() || isOwnClientRecord(walletId);
+    }
+
+    match /pointsTransactions/{txnId} {
+      allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.memberId != null && isOwnClientRecord(resource.data.memberId));
+      allow write: if ismitrixogymcrmStaff();
     }
 
     match /settings/{settingId} {
-      allow read: if (settingId == 'branding' && isAuthenticated()) || canStrikeAccessSettings();
-      allow write: if canStrikeAccessSettings() && (settingId != 'branding' || isValidBranding(request.resource.data));
+      allow read: if (settingId == 'branding') || (settingId == 'features') || (settingId == 'storefront') || (settingId == 'branches') || canmitrixogymcrmAccessSettings();
+      allow write: if canmitrixogymcrmAccessSettings() && (settingId != 'branding' || isValidBranding(request.resource.data));
+    }
+
+    match /announcements/{annId} {
+      allow read: if true;
+      allow write: if ismitrixogymcrmAdmin();
     }
 
     match /auditLogs/{logId} {
-      allow read: if canStrikeAccessSettings();
+      allow read: if canmitrixogymcrmAccessSettings();
       allow create: if isAuthenticated();
-      allow delete: if canStrikeAccessSettings();
+      allow delete: if canmitrixogymcrmAccessSettings();
+    }
+
+    match /mail/{mailId} {
+      // Members and guests can create mail documents for email triggers
+      allow create: if true;
+      allow read, update, delete: if ismitrixogymcrmStaff();
     }
 
     match /clients/{clientId} {
-      allow get: if isStrikeStaff() || isOwnClientRecord(clientId);
-      allow list: if isStrikeStaff() || (isAuthenticated() && (
+      allow get: if ismitrixogymcrmStaff() || isOwnClientRecord(clientId);
+      allow list: if ismitrixogymcrmStaff() || (isAuthenticated() && (
         resource.data.portalUserId == request.auth.uid ||
-        resource.data.memberId == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.clientRecordId
+        resource.data.memberId == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.clientRecordId ||
+        (
+          'clientDocId' in get(/databases/$(database)/documents/users/$(request.auth.uid)).data && (
+            resource.data.id == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.clientDocId ||
+            (
+              exists(/databases/$(database)/documents/clients/$(get(/databases/$(database)/documents/users/$(request.auth.uid)).data.clientDocId)) &&
+              'linkedClientIds' in get(/databases/$(database)/documents/clients/$(get(/databases/$(database)/documents/users/$(request.auth.uid)).data.clientDocId)).data &&
+              resource.data.id in get(/databases/$(database)/documents/clients/$(get(/databases/$(database)/documents/users/$(request.auth.uid)).data.clientDocId)).data.linkedClientIds
+            )
+          )
+        )
       ));
-      allow create: if isStrikeStaff() || (isAuthenticated() && request.resource.data.portalUserId == request.auth.uid);
-      allow update: if isStrikeStaff() || (isOwnClientRecord(clientId) && isSafeClientSelfEdit());
-      allow delete: if isStrikeAdmin();
+      allow create: if ismitrixogymcrmStaff() || (isAuthenticated() && request.resource.data.portalUserId == request.auth.uid);
+      allow update: if ismitrixogymcrmStaff() || 
+                    (isOwnClientRecord(clientId) && isSafeClientSelfEdit()) ||
+                    (
+                      isAuthenticated() &&
+                      exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+                      (
+                        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.clientRecordId == resource.data.memberId ||
+                        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.clientRecordId.matches('^\\s*' + resource.data.memberId + '\\s*$') ||
+                        resource.data.memberId.matches('^\\s*' + get(/databases/$(database)/documents/users/$(request.auth.uid)).data.clientRecordId + '\\s*$')
+                      ) &&
+                      request.resource.data.diff(resource.data).affectedKeys().hasOnly(['portalUserId']) &&
+                      request.resource.data.portalUserId == request.auth.uid
+                    );
+      allow delete: if ismitrixogymcrmAdmin();
+    }
+    match /clients/{clientId}/comments/{commentId} {
+      allow read, write: if ismitrixogymcrmStaff();
+    }
+    match /clients/{clientId}/interactions/{interactionId} {
+      allow read, write: if ismitrixogymcrmStaff();
+    }
+
+    match /payments/{paymentId} {
+      allow read, create, update: if ismitrixogymcrmStaff() || ismitrixogymcrmAdmin();
+      allow delete: if canmitrixogymcrmDeletePayments() || ismitrixogymcrmAdmin();
     }
 
     match /packages/{packageId} {
-      allow read: if isAuthenticated();
-      allow write: if isStrikeAdmin();
-    }
-
-    match /classes/{classId} {
-      allow read: if isAuthenticated();
-      allow create: if isStrikeAdmin();
-      allow update: if isStrikeAdmin() || (
-        isAuthenticated() &&
-        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['attendees'])
-      );
-      allow delete: if isStrikeAdmin();
+      allow read: if true;
+      allow write: if ismitrixogymcrmAdmin();
     }
 
     match /coaches/{coachId} {
-      allow read: if isAuthenticated();
-      allow write: if isStrikeAdmin();
+      allow read: if true;
+      allow write: if ismitrixogymcrmAdmin();
     }
 
     match /coachSchedules/{coachId} {
-      allow read: if isAuthenticated();
-      allow write: if isOwner(coachId) || isStrikeAdmin();
+      allow read: if true;
+      allow write: if isOwner(coachId) || ismitrixogymcrmAdmin();
     }
 
     match /sessions/{sessionId} {
-      allow read: if isStrikeStaff() || (isAuthenticated() && resource.data.clientId != null && isOwnClientRecord(resource.data.clientId));
-      allow create: if isStrikeStaff() || (isAuthenticated() && request.resource.data.clientId != null && isOwnClientRecord(request.resource.data.clientId));
-      allow update: if isStrikeStaff() || (
+      allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.clientId != null && isOwnClientRecord(resource.data.clientId));
+      allow create: if ismitrixogymcrmStaff() || (isAuthenticated() && request.resource.data.clientId != null && isOwnClientRecord(request.resource.data.clientId));
+      allow update: if ismitrixogymcrmStaff() || (
         isAuthenticated() && resource.data.clientId != null && isOwnClientRecord(resource.data.clientId) &&
         request.resource.data.clientId == resource.data.clientId
       );
-      allow delete: if isStrikeAdmin();
+      allow delete: if ismitrixogymcrmAdmin();
+    }
+
+    match /classes/{classId} {
+      allow read: if true;
+      allow create, delete: if ismitrixogymcrmStaff();
+      allow update: if ismitrixogymcrmStaff() || isAuthenticated();
+    }
+
+    match /traffic/{logId} {
+      allow read: if isAuthenticated();
+      allow write: if ismitrixogymcrmStaff();
+    }
+
+    match /bodyRecords/{recordId} {
+      allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.memberId != null && isOwnClientRecord(resource.data.memberId));
+      allow create: if ismitrixogymcrmStaff() || (isAuthenticated() && request.resource.data.memberId != null && isOwnClientRecord(request.resource.data.memberId));
+      allow update, delete: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.memberId != null && isOwnClientRecord(resource.data.memberId));
     }
 
     match /tasks/{taskId} {
-      allow read: if isStrikeStaff() || (isAuthenticated() && (resource.data.clientId != null && isOwnClientRecord(resource.data.clientId) || resource.data.assignedTo == request.auth.uid));
-      allow create: if isAuthenticated();
-      allow update: if isStrikeStaff() || (isAuthenticated() && resource.data.clientId != null && isOwnClientRecord(resource.data.clientId));
-      allow delete: if isStrikeAdmin();
+      allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && (resource.data.clientId != null && isOwnClientRecord(resource.data.clientId) || resource.data.assignedTo == request.auth.uid));
+      allow create: if isAuthenticated() || (request.resource.data.status == 'Pending' && request.resource.data.title.startsWith('Package Purchase Request:'));
+      allow update: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.clientId != null && isOwnClientRecord(resource.data.clientId));
+      allow delete: if ismitrixogymcrmAdmin();
+    }
+
+    match /bookingRequests/{requestId} {
+      allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && (resource.data.clientId != null && isOwnClientRecord(resource.data.clientId)));
+      allow create: if true;
+      allow update, delete: if ismitrixogymcrmStaff();
     }
 
     match /counters/{counterId} {
@@ -424,72 +527,56 @@ service cloud.firestore {
     }
 
     match /importBatches/{batchId} {
-      allow read, write: if isStrikeAdmin();
+      allow read, write: if ismitrixogymcrmAdmin();
     }
 
     match /juiceBarOrders/{orderId} {
-      allow read: if isStrikeStaff() || (isAuthenticated() && resource.data.clientId != null && isOwnClientRecord(resource.data.clientId));
+      allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.clientId != null && isOwnClientRecord(resource.data.clientId));
       allow create: if isAuthenticated() && request.resource.data.clientId != null && isOwnClientRecord(request.resource.data.clientId);
-      allow update: if isStrikeStaff() || (
+      allow update: if ismitrixogymcrmStaff() || (
         isAuthenticated() && resource.data.clientId != null && isOwnClientRecord(resource.data.clientId) &&
         request.resource.data.status == 'Cancelled' &&
         resource.data.status == 'Pending'
       );
-      allow delete: if isStrikeAdmin();
+      allow delete: if ismitrixogymcrmAdmin();
     }
 
     match /lockers/{lockerId} {
-      allow read: if isStrikeStaff() || (isAuthenticated() && resource.data.assignedTo != null && isOwnClientRecord(resource.data.assignedTo));
-      allow write: if isStrikeStaff();
+      allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.assignedTo != null && isOwnClientRecord(resource.data.assignedTo));
+      allow write: if ismitrixogymcrmStaff();
     }
 
     match /lockerRequests/{requestId} {
-      allow read: if isStrikeStaff() || (isAuthenticated() && resource.data.clientId != null && isOwnClientRecord(resource.data.clientId));
+      allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.clientId != null && isOwnClientRecord(resource.data.clientId));
       allow create: if isAuthenticated() && request.resource.data.clientId != null && isOwnClientRecord(request.resource.data.clientId);
-      allow update, delete: if isStrikeStaff();
+      allow update, delete: if ismitrixogymcrmStaff();
     }
 
     match /guestInvites/{inviteId} {
-      allow read: if isStrikeStaff() || (isAuthenticated() && 'hostClientId' in resource.data && resource.data.hostClientId != null && isOwnClientRecord(resource.data.hostClientId));
-      allow create: if isAuthenticated() && 'hostClientId' in request.resource.data && request.resource.data.hostClientId != null && isOwnClientRecord(request.resource.data.hostClientId);
-      allow update, delete: if isStrikeStaff();
+      allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.hostId != null && isOwnClientRecord(resource.data.hostId));
+      allow create: if isAuthenticated() && request.resource.data.hostId != null && isOwnClientRecord(request.resource.data.hostId);
+      allow update, delete: if ismitrixogymcrmStaff();
     }
 
     match /clientPerformance/{performanceId} {
-      allow read: if isStrikeStaff() || (isAuthenticated() && resource.data.clientId != null && isOwnClientRecord(resource.data.clientId));
-      allow write: if isStrikeStaff();
+      allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.clientId != null && isOwnClientRecord(resource.data.clientId));
+      allow write: if ismitrixogymcrmStaff();
     }
 
     match /subscriptionRequests/{requestId} {
-      allow read: if isStrikeStaff() || (
-        isAuthenticated() && 
-        userExists() && 
-        (
-          'memberId' in resource.data && (
-            resource.data.memberId == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.clientRecordId ||
-            resource.data.memberId == request.auth.uid
-          )
-        )
-      );
-      allow create: if isAuthenticated() && 
-        userExists() && 
-        (
-          'memberId' in request.resource.data && (
-            request.resource.data.memberId == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.clientRecordId ||
-            request.resource.data.memberId == request.auth.uid
-          )
-        );
-      allow update, delete: if isStrikeStaff();
+      allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.clientId != null && isOwnClientRecord(resource.data.clientId));
+      allow create: if isAuthenticated() && request.resource.data.clientId != null && isOwnClientRecord(request.resource.data.clientId);
+      allow update, delete: if ismitrixogymcrmStaff();
     }
 
     match /pendingAccounts/{docId} {
       allow create: if true;
-      allow read, update, delete: if isStrikeAdmin();
+      allow read, update, delete: if ismitrixogymcrmAdmin();
     }
 
     match /passwordResetRequests/{docId} {
       allow create: if true;
-      allow read, update, delete: if isStrikeAdmin();
+      allow read, update, delete: if ismitrixogymcrmAdmin();
     }
 
     // ===============================================================
@@ -569,8 +656,7 @@ service cloud.firestore {
     
     match /subscriptions/{subscriptionId} {
       allow read: if isOwner(subscriptionId) || isAtplAdmin();
-      allow create: if (isOwner(subscriptionId) && (!('plan' in request.resource.data) || (request.resource.data.plan != 'PRO' && request.resource.data.plan != 'PREMIUM')));
-      allow update: if (isOwner(subscriptionId) && (!('plan' in request.resource.data) || request.resource.data.plan == resource.data.plan || (request.resource.data.plan != 'PRO' && request.resource.data.plan != 'PREMIUM'))) || isAtplAdmin();
+      allow create, update: if isValidAtplSubscriptionWrite(subscriptionId) || isAtplAdmin();
       allow delete: if isAtplAdmin();
     }
 
@@ -590,8 +676,7 @@ service cloud.firestore {
     
     match /atpl_subscriptions/{subscriptionId} {
       allow read: if isOwner(subscriptionId) || isAtplAdmin();
-      allow create: if (isOwner(subscriptionId) && (!('plan' in request.resource.data) || (request.resource.data.plan != 'PRO' && request.resource.data.plan != 'PREMIUM')));
-      allow update: if (isOwner(subscriptionId) && (!('plan' in request.resource.data) || request.resource.data.plan == resource.data.plan || (request.resource.data.plan != 'PRO' && request.resource.data.plan != 'PREMIUM'))) || isAtplAdmin();
+      allow create, update: if isValidAtplSubscriptionWrite(subscriptionId) || isAtplAdmin();
       allow delete: if isAtplAdmin();
     }
 
@@ -710,7 +795,7 @@ service cloud.firestore {
     // Platform Fallback / Super Admin Bypass
     // ===============================================================
     match /{document=**} {
-      allow read, write: if true;
+      allow read, write: if ismitrixogymcrmSuperAdmin();
     }
   }
 }

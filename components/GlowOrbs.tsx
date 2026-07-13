@@ -5,11 +5,17 @@ import React from 'react';
  * Creates depth and ambient lighting effects in the background.
  */
 const GlowOrbs: React.FC = () => {
+    // Respect user's motion preferences
+    const [reduceMotion] = React.useState(() =>
+        typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    );
+    const blobClass = reduceMotion ? 'will-change-transform' : 'animate-blob will-change-transform';
+
     return (
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
             {/* Primary blue orb - top left */}
             <div
-                className="absolute w-[600px] h-[600px] rounded-full animate-blob will-change-transform"
+                className={`absolute w-[600px] h-[600px] rounded-full ${blobClass}`}
                 style={{
                     top: '-10%',
                     left: '-5%',
@@ -20,7 +26,7 @@ const GlowOrbs: React.FC = () => {
 
             {/* Indigo orb - top right */}
             <div
-                className="absolute w-[500px] h-[500px] rounded-full animate-blob will-change-transform"
+                className={`absolute w-[500px] h-[500px] rounded-full ${blobClass}`}
                 style={{
                     top: '5%',
                     right: '-10%',
@@ -43,7 +49,7 @@ const GlowOrbs: React.FC = () => {
 
             {/* Cyan orb - bottom center */}
             <div
-                className="absolute w-[600px] h-[600px] rounded-full animate-blob will-change-transform"
+                className={`absolute w-[600px] h-[600px] rounded-full ${blobClass}`}
                 style={{
                     bottom: '-15%',
                     left: '30%',
@@ -67,7 +73,7 @@ const GlowOrbs: React.FC = () => {
 
             {/* Subtle orange accent - bottom right */}
             <div
-                className="absolute w-[300px] h-[300px] rounded-full animate-blob will-change-transform"
+                className={`absolute w-[300px] h-[300px] rounded-full ${blobClass}`}
                 style={{
                     bottom: '10%',
                     right: '-5%',

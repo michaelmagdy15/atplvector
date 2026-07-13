@@ -12,13 +12,29 @@ import {
   Firestore
 } from 'firebase/firestore';
 
+const requiredEnvVars = [
+  'VITE_FIREBASE_API_KEY',
+  'VITE_FIREBASE_AUTH_DOMAIN', 
+  'VITE_FIREBASE_PROJECT_ID',
+  'VITE_FIREBASE_STORAGE_BUCKET',
+  'VITE_FIREBASE_MESSAGING_SENDER_ID',
+  'VITE_FIREBASE_APP_ID'
+] as const;
+
+// Validate all required env vars are present at startup
+for (const key of requiredEnvVars) {
+  if (!import.meta.env[key]) {
+    console.error(`Missing required environment variable: ${key}. Check your .env file.`);
+  }
+}
+
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || 'AIzaSyAUvzDIKoTvtbMEWaP1pDSyNfqpS3_11wI',
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || 'faa-test-guide-v2.firebaseapp.com',
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || 'faa-test-guide-v2',
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || 'faa-test-guide-v2.firebasestorage.app',
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '492280162134',
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || '1:492280162134:web:83f1c154ddffd9862d98f7',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);

@@ -8,9 +8,15 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-#dist
+dist
 dist-ssr
 *.local
+
+# Environment variables (NEVER commit secrets)
+.env
+.env.local
+.env.production
+.env.*.local
 
 # Editor directories and files
 .vscode/*
@@ -22,3 +28,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Large files that shouldn't be in git
+*.pdf
+lighthouse-report.json
+coverage_scan.csv
+audit_results/
+
+# Python extraction scripts (development only)
+*.pyc
+__pycache__/

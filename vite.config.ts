@@ -12,7 +12,8 @@ const buildStamp = cairoTime.toISOString()
   .replace(/\.\d{3}Z$/, ' (Cairo)');
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, '.', '');
+  // Only load VITE_ prefixed vars — prevents leaking non-VITE_ secrets
+  const env = loadEnv(mode, '.', 'VITE_');
   return {
     base: '/',
     server: {
@@ -24,23 +25,39 @@ export default defineConfig(({ mode }) => {
       VitePWA({
         registerType: 'autoUpdate',
         manifest: {
-          name: 'ATPLVector',
+          name: 'ATPLVector — Aviation Training Platform',
           short_name: 'ATPLVector',
           description: 'The Ultimate ATPL Theory Training Platform',
           theme_color: '#0f172a',
           background_color: '#020617',
           display: 'standalone',
+          start_url: '/',
+          orientation: 'any',
+          categories: ['education', 'productivity'],
           icons: [
             {
               src: '/favicon.ico',
               sizes: '64x64 32x32 24x24 16x16',
               type: 'image/x-icon'
+            },
+            {
+              src: '/icons/icon-192.png',
+              sizes: '192x192',
+              type: 'image/png'
+            },
+            {
+              src: '/icons/icon-512.png',
+              sizes: '512x512',
+              type: 'image/png',
+              purpose: 'any maskable'
             }
           ]
         },
         workbox: {
-          globPatterns: ['**/*.{js,css,html,ico,png,svg,json,glb}'],
-          maximumFileSizeToCacheInBytes: 10000000, // Increased to 10MB to accommodate 3D models/splines
+          globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+          // Exclude large JSON from precaching — load on demand instead
+          globIgnores: ['**/syllabus.json', '**/radio_nav_syllabus.json', '**/qb_metadata.json'],
+          maximumFileSizeToCacheInBytes: 3000000, // 3MB — reasonable limit
           runtimeCaching: [
             {
               urlPattern: /^https:\/\/firestore\.googleapis\.com\/.*/i,
@@ -55,14 +72,26 @@ export default defineConfig(({ mode }) => {
                   statuses: [0, 200]
                 }
               }
+            },
+            {
+              urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'google-fonts-cache',
+                expiration: {
+                  maxEntries: 30,
+                  maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+                },
+                cacheableResponse: {
+                  statuses: [0, 200]
+                }
+              }
             }
           ]
         }
       })
     ],
     define: {
-      'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
       '__COMMIT_HASH__': JSON.stringify(buildStamp),
     },
     resolve: {
@@ -74,8 +103,11 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         output: {
           manualChunks: {
-            'vendor-react': ['react', 'react-dom', 'framer-motion'],
+            'vendor-react': ['react', 'react-dom'],
+            'vendor-animation': ['framer-motion'],
             'vendor-three': ['three', '@react-three/fiber', '@react-three/drei'],
+            'vendor-firebase': ['firebase/app', 'firebase/auth', 'firebase/firestore'],
+            'vendor-clerk': ['@clerk/clerk-react'],
             'vendor-utils': ['lucide-react', '@hello-pangea/dnd', 'recharts']
           }
         }

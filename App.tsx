@@ -22,7 +22,7 @@ import NavigationBar from './components/NavigationBar';
 import SubjectSidebar from './components/SubjectSidebar';
 import { getSubjectConfig } from './data/sidebarNavigation';
 import LoadingScreen from './components/LoadingScreen';
-import SplineVisualizer from './components/visual/SplineVisualizer';
+const SplineVisualizer = React.lazy(() => import('./components/visual/SplineVisualizer'));
 import CommandPalette from './components/CommandPalette';
 import CourseModeToggle from './components/CourseModeToggle';
 import { ErrorBoundary } from './components/ErrorBoundary';
@@ -320,7 +320,7 @@ const App: React.FC = () => {
                         updateDoc(doc(db, 'profiles', uid), { 
                             streak_days: streakDays,
                             last_study_date: todayDateStr
-                        });
+                        }).catch(err => console.warn('Failed to update streak:', err));
                     }
                 } else {
                     lastStudyDate = todayDateStr;
@@ -328,7 +328,7 @@ const App: React.FC = () => {
                     updateDoc(doc(db, 'profiles', uid), { 
                         streak_days: streakDays,
                         last_study_date: todayDateStr
-                    });
+                    }).catch(err => console.warn('Failed to update streak:', err));
                 }
 
                 setUser({
@@ -442,7 +442,7 @@ const App: React.FC = () => {
                 startTimer();
             } else {
                 stopTimer();
-                updateDoc(doc(db, 'profiles', user.id), { study_seconds: studyTimeRef.current });
+                updateDoc(doc(db, 'profiles', user.id), { study_seconds: studyTimeRef.current }).catch(err => console.warn('Failed to save study time on tab hide:', err));
             }
         };
 
@@ -455,7 +455,7 @@ const App: React.FC = () => {
         return () => {
             stopTimer();
             document.removeEventListener('visibilitychange', handleVisibility);
-            updateDoc(doc(db, 'profiles', user.id), { study_seconds: studyTimeRef.current });
+            updateDoc(doc(db, 'profiles', user.id), { study_seconds: studyTimeRef.current }).catch(err => console.warn('Failed to save study time on cleanup:', err));
         };
     }, [user?.id]);
 
@@ -732,7 +732,7 @@ const App: React.FC = () => {
                                 onClick={() => navigateTo(View.PLATFORM_DASHBOARD)}
                             >
                                 <div className="p-1.5 w-9 h-9 sm:w-10 sm:h-10 bg-slate-900/50 rounded-lg shadow-lg group-hover:shadow-blue-500/20 transition-all duration-500 group-hover:scale-105 border border-white/10 flex items-center justify-center overflow-hidden">
-                                    <img src="/assets/ATPLVECTOR Aviation Tech Logo.png" alt="Logo" className="w-full h-full object-contain scale-[3.8] object-center" />
+                                    <img src="/logo.png" alt="Logo" className="w-full h-full object-contain scale-[3.8] object-center" />
                                 </div>
                                 <span className="text-lg sm:text-xl font-black tracking-tight text-white whitespace-nowrap">
                                     ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span>
