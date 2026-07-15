@@ -3,7 +3,8 @@ import { View, User } from '../../types';
 import { PPL_SUBJECTS, PPLSubject } from '../../data/pplSubjects';
 import {
   Plane, Scale, Users, Cloud, Compass, Radio, BookOpen,
-  Settings, TrendingUp, ChevronRight, Lock, Clock, Flame, Target
+  Settings, TrendingUp, ChevronRight, Lock, Clock, Flame, Target,
+  GraduationCap, PlayCircle, ClipboardList
 } from 'lucide-react';
 
 interface Props {
@@ -49,6 +50,21 @@ const PPLDashboard: React.FC<Props> = ({ user, studyTime, onChangeView }) => {
   const dailyGoal    = user?.dailyGoalSeconds || 3600;
   const goalPct      = Math.min(100, Math.round((todayStudy / dailyGoal) * 100));
   const streak       = user?.streakDays || 0;
+
+  const [groundSchoolProgress, setGroundSchoolProgress] = React.useState({ watchedCount: 0, notesCount: 0 });
+
+  React.useEffect(() => {
+    try {
+      const watched = JSON.parse(localStorage.getItem('ppl_watched_lessons') || '[]');
+      const notes = JSON.parse(localStorage.getItem('ppl_lessons_notes') || '{}');
+      setGroundSchoolProgress({
+        watchedCount: Array.isArray(watched) ? watched.length : 0,
+        notesCount: typeof notes === 'object' && notes !== null ? Object.keys(notes).length : 0
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
 
   const SubjectCard = ({ subject }: { subject: PPLSubject }) => {
     const Icon      = (ICON_MAP[subject.icon] || Plane) as React.FC<any>;
@@ -203,6 +219,40 @@ const PPLDashboard: React.FC<Props> = ({ user, studyTime, onChangeView }) => {
           </div>
         );
       })()}
+
+      {/* Ground School Entrance Card */}
+      <div className="mb-8 relative overflow-hidden rounded-3xl border border-blue-500/20 bg-slate-900/50 p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center shadow-xl">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4 -z-10" />
+        
+        <div className="p-4 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl text-white shadow-lg shrink-0">
+          <GraduationCap size={40} />
+        </div>
+
+        <div className="flex-grow text-center md:text-left">
+          <h2 className="text-2xl font-extrabold text-white mb-2 uppercase tracking-tight flex items-center justify-center md:justify-start gap-2">
+            PPL Interactive Ground School Lab
+            <span className="text-[10px] font-bold bg-blue-500/20 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded-full uppercase tracking-wider">New</span>
+          </h2>
+          <p className="text-slate-400 text-sm md:text-base max-w-2xl leading-relaxed">
+            Prepare for EASA & FAA exams with 64 comprehensive video lectures, custom visual flight tools, and an auto-saving summary notepad.
+          </p>
+          
+          <div className="flex flex-wrap gap-6 mt-4 justify-center md:justify-start text-xs font-semibold text-slate-300">
+            <span className="flex items-center gap-1.5"><PlayCircle size={16} className="text-blue-400" /> {groundSchoolProgress.watchedCount} / 64 Lectures Watched</span>
+            <span className="flex items-center gap-1.5"><ClipboardList size={16} className="text-indigo-400" /> {groundSchoolProgress.notesCount} / 64 Summaries Written</span>
+          </div>
+        </div>
+
+        <div className="shrink-0 w-full md:w-auto">
+          <button
+            onClick={() => onChangeView(View.PPL_GROUND_SCHOOL)}
+            className="w-full md:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl transition-all shadow-lg hover:shadow-blue-500/20 flex items-center justify-center gap-2 group active:scale-95"
+          >
+            Enter Study Lab
+            <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+          </button>
+        </div>
+      </div>
 
       {/* Subject Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 animate-in fade-in zoom-in duration-700 delay-300">

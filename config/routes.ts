@@ -358,6 +358,7 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
 
     // ─── PPL Track ───────────────────────────────────────────────────────────────
     [View.PPL_DASHBOARD]: React.lazy(() => import('../components/PPL/PPLDashboard')),
+    [View.PPL_GROUND_SCHOOL]: React.lazy(() => import('../components/PPL/PPLGroundSchool')),
 
     // PPL specific dashboards
     [View.PPL_AIR_LAW_HOME]: React.lazy(() => import('../components/PPL/subjects/AirLaw')),

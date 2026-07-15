@@ -394,6 +394,7 @@ export enum View {
 
   // ─── PPL Track Views ────────────────────────────────────────────────────────
   PPL_DASHBOARD = 'PPL_DASHBOARD',
+  PPL_GROUND_SCHOOL = 'PPL_GROUND_SCHOOL',
 
   // PPL Air Law (reuses ATPL 010 components, filtered)
   PPL_AIR_LAW_HOME = 'PPL_AIR_LAW_HOME',

@@ -84,17 +84,21 @@ const App: React.FC = () => {
         // Limit history size to prevent memory issues
         if (newHistory.length > 50) newHistory.shift();
 
-        setViewHistory(newHistory);
-        setHistoryIndex(newHistory.length - 1);
-        setCurrentView(view);
+        React.startTransition(() => {
+            setViewHistory(newHistory);
+            setHistoryIndex(newHistory.length - 1);
+            setCurrentView(view);
+        });
     };
 
     // Go back in history
     const goBack = () => {
         if (historyIndex > 0) {
             const newIndex = historyIndex - 1;
-            setHistoryIndex(newIndex);
-            setCurrentView(viewHistory[newIndex]);
+            React.startTransition(() => {
+                setHistoryIndex(newIndex);
+                setCurrentView(viewHistory[newIndex]);
+            });
         }
     };
 
@@ -102,8 +106,10 @@ const App: React.FC = () => {
     const goForward = () => {
         if (historyIndex < viewHistory.length - 1) {
             const newIndex = historyIndex + 1;
-            setHistoryIndex(newIndex);
-            setCurrentView(viewHistory[newIndex]);
+            React.startTransition(() => {
+                setHistoryIndex(newIndex);
+                setCurrentView(viewHistory[newIndex]);
+            });
         }
     };
 

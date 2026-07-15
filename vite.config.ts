@@ -106,8 +106,10 @@ export default defineConfig(({ mode }) => {
             'vendor-react': ['react', 'react-dom'],
             'vendor-animation': ['framer-motion'],
             'vendor-three': ['three', '@react-three/fiber', '@react-three/drei'],
+            'vendor-spline': ['@splinetool/react-spline', '@splinetool/runtime'],
             'vendor-firebase': ['firebase/app', 'firebase/auth', 'firebase/firestore'],
             'vendor-clerk': ['@clerk/clerk-react'],
+            'vendor-ai': ['@google/genai'],
             'vendor-utils': ['lucide-react', '@hello-pangea/dnd', 'recharts']
           }
         }
