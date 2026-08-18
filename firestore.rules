@@ -83,7 +83,7 @@ service cloud.firestore {
     }
 
     function isSafeClientSelfEdit() {
-      let allowed = ['name', 'phone', 'portalUserId', 'packages', 'sessionsRemaining'];
+      let allowed = ['name', 'phone', 'portalUserId', 'photoURL'];
       return request.resource.data.diff(resource.data).affectedKeys().hasOnly(allowed) &&
              (!('portalUserId' in request.resource.data) || request.resource.data.portalUserId == request.auth.uid) &&
              (!('portalUserId' in resource.data) || resource.data.portalUserId == request.auth.uid);
@@ -180,17 +180,6 @@ service cloud.firestore {
           (exists(/databases/$(database)/documents/atpl_profiles/$(request.auth.uid)) &&
            get(/databases/$(database)/documents/atpl_profiles/$(request.auth.uid)).data.is_admin == true)
         )
-      );
-    }
-
-    function isValidAtplSubscriptionWrite(subscriptionId) {
-      return isOwner(subscriptionId) && (
-        (request.resource.data.status == 'inactive' && request.resource.data.plan == 'CUSTOM') ||
-        (request.resource.data.status == 'active' && 
-         'gumroad_license_key' in request.resource.data && 
-         request.resource.data.gumroad_license_key is string && 
-         request.resource.data.gumroad_license_key.size() > 0 &&
-         request.resource.data.plan in ['1_MONTH', '3_MONTHS', '6_MONTHS', '9_MONTHS', '12_MONTHS', 'SINGLE_SUBJECT', 'CUSTOM'])
       );
     }
 
@@ -367,8 +356,8 @@ service cloud.firestore {
     // ===============================================================
 
     match /users/{userId} {
-      allow read: if true;
-      allow create: if ismitrixogymcrmAdmin() || (isOwner(userId) && request.resource.data.role in ['client', 'coach']);
+      allow read: if isOwner(userId) || ismitrixogymcrmStaff();
+      allow create: if ismitrixogymcrmAdmin() || (isOwner(userId) && request.resource.data.role == 'client');
       allow update: if ismitrixogymcrmAdmin() || (isOwner(userId) && isSafeUserSelfEdit());
       allow delete: if ismitrixogymcrmSuperAdmin();
     }
@@ -399,6 +388,49 @@ service cloud.firestore {
     match /pointsTransactions/{txnId} {
       allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.memberId != null && isOwnClientRecord(resource.data.memberId));
       allow write: if ismitrixogymcrmStaff();
+    }
+
+    match /rewards/{rewardId} {
+      allow read: if isAuthenticated();
+      allow create: if ismitrixogymcrmStaff();
+      allow update: if ismitrixogymcrmStaff() || (
+        isAuthenticated() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['claimed']) &&
+        request.resource.data.claimed == resource.data.claimed + 1
+      );
+      allow delete: if ismitrixogymcrmAdmin();
+    }
+
+    match /coinsWallets/{walletId} {
+      allow read, write: if ismitrixogymcrmStaff() || isOwnClientRecord(walletId);
+    }
+
+    match /coinsTransactions/{txnId} {
+      allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.memberId != null && isOwnClientRecord(resource.data.memberId));
+      allow create: if isAuthenticated() && request.resource.data.memberId != null && isOwnClientRecord(request.resource.data.memberId);
+      allow update, delete: if ismitrixogymcrmStaff();
+    }
+
+    match /rewardRedemptions/{redemptionId} {
+      allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.memberId != null && isOwnClientRecord(resource.data.memberId));
+      allow create: if isAuthenticated() && request.resource.data.memberId != null && isOwnClientRecord(request.resource.data.memberId);
+      allow update: if ismitrixogymcrmStaff();
+      allow delete: if ismitrixogymcrmAdmin();
+    }
+
+    match /badgeDefinitions/{badgeId} {
+      allow read: if isAuthenticated();
+      allow write: if ismitrixogymcrmStaff();
+    }
+
+    match /memberBadges/{badgeId} {
+      allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.memberId != null && isOwnClientRecord(resource.data.memberId));
+      allow create, update: if isAuthenticated() && request.resource.data.memberId != null && isOwnClientRecord(request.resource.data.memberId);
+      allow delete: if ismitrixogymcrmAdmin();
+    }
+
+    match /streaks/{memberId} {
+      allow read, write: if ismitrixogymcrmStaff() || isOwnClientRecord(memberId);
     }
 
     match /settings/{settingId} {
@@ -484,18 +516,15 @@ service cloud.firestore {
 
     match /sessions/{sessionId} {
       allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.clientId != null && isOwnClientRecord(resource.data.clientId));
-      allow create: if ismitrixogymcrmStaff() || (isAuthenticated() && request.resource.data.clientId != null && isOwnClientRecord(request.resource.data.clientId));
-      allow update: if ismitrixogymcrmStaff() || (
-        isAuthenticated() && resource.data.clientId != null && isOwnClientRecord(resource.data.clientId) &&
-        request.resource.data.clientId == resource.data.clientId
-      );
+      allow create: if ismitrixogymcrmStaff();
+      allow update: if ismitrixogymcrmStaff();
       allow delete: if ismitrixogymcrmAdmin();
     }
 
     match /classes/{classId} {
       allow read: if true;
       allow create, delete: if ismitrixogymcrmStaff();
-      allow update: if ismitrixogymcrmStaff() || isAuthenticated();
+      allow update: if ismitrixogymcrmStaff();
     }
 
     match /traffic/{logId} {
@@ -511,7 +540,7 @@ service cloud.firestore {
 
     match /tasks/{taskId} {
       allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && (resource.data.clientId != null && isOwnClientRecord(resource.data.clientId) || resource.data.assignedTo == request.auth.uid));
-      allow create: if isAuthenticated() || (request.resource.data.status == 'Pending' && request.resource.data.title.startsWith('Package Purchase Request:'));
+      allow create: if ismitrixogymcrmStaff() || (request.resource.data.status == 'Pending' && request.resource.data.title.startsWith('Package Purchase Request:'));
       allow update: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.clientId != null && isOwnClientRecord(resource.data.clientId));
       allow delete: if ismitrixogymcrmAdmin();
     }
@@ -577,6 +606,16 @@ service cloud.firestore {
     match /passwordResetRequests/{docId} {
       allow create: if true;
       allow read, update, delete: if ismitrixogymcrmAdmin();
+    }
+
+    match /notifications/{notificationId} {
+      allow read: if ismitrixogymcrmStaff() || (isAuthenticated() && resource.data.recipientUid == request.auth.uid);
+      allow create: if ismitrixogymcrmStaff();
+      allow update: if ismitrixogymcrmStaff() || (
+        isAuthenticated() && resource.data.recipientUid == request.auth.uid &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read'])
+      );
+      allow delete: if ismitrixogymcrmStaff();
     }
 
     // ===============================================================
@@ -656,7 +695,8 @@ service cloud.firestore {
     
     match /subscriptions/{subscriptionId} {
       allow read: if isOwner(subscriptionId) || isAtplAdmin();
-      allow create, update: if isValidAtplSubscriptionWrite(subscriptionId) || isAtplAdmin();
+      allow create: if (isOwner(subscriptionId) && (!('plan' in request.resource.data) || (request.resource.data.plan != 'PRO' && request.resource.data.plan != 'PREMIUM')));
+      allow update: if (isOwner(subscriptionId) && (!('plan' in request.resource.data) || request.resource.data.plan == resource.data.plan || (request.resource.data.plan != 'PRO' && request.resource.data.plan != 'PREMIUM'))) || isAtplAdmin();
       allow delete: if isAtplAdmin();
     }
 
@@ -676,7 +716,8 @@ service cloud.firestore {
     
     match /atpl_subscriptions/{subscriptionId} {
       allow read: if isOwner(subscriptionId) || isAtplAdmin();
-      allow create, update: if isValidAtplSubscriptionWrite(subscriptionId) || isAtplAdmin();
+      allow create: if (isOwner(subscriptionId) && (!('plan' in request.resource.data) || (request.resource.data.plan != 'PRO' && request.resource.data.plan != 'PREMIUM')));
+      allow update: if (isOwner(subscriptionId) && (!('plan' in request.resource.data) || request.resource.data.plan == resource.data.plan || (request.resource.data.plan != 'PRO' && request.resource.data.plan != 'PREMIUM'))) || isAtplAdmin();
       allow delete: if isAtplAdmin();
     }
 
