@@ -7,10 +7,10 @@ import {
   collection as firestoreCollection,
   doc as firestoreDoc,
   CollectionReference,
-  DocumentReference,
   DocumentData,
   Firestore
 } from 'firebase/firestore';
+import { initializeAppCheck, ReCaptchaV3Provider, CustomProvider } from 'firebase/app-check';
 
 const requiredEnvVars = [
   'VITE_FIREBASE_API_KEY',
@@ -37,11 +37,34 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID || '1:492280162134:web:83f1c154ddffd9862d98f7',
 };
 
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = initializeFirestore(app, {
   localCache: persistentLocalCache({tabManager: persistentMultipleTabManager()})
 });
+
+// Initialize Firebase App Check for hardened native / attested access
+if (typeof window !== 'undefined') {
+  const appCheckSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+  const isAppCheckDebug = import.meta.env.VITE_APP_CHECK_DEBUG === 'true' || import.meta.env.DEV;
+
+  if (isAppCheckDebug) {
+    // @ts-ignore
+    self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+  }
+
+  if (appCheckSiteKey) {
+    try {
+      initializeAppCheck(app, {
+        provider: new ReCaptchaV3Provider(appCheckSiteKey),
+        isTokenAutoRefreshEnabled: true,
+      });
+      console.log('🔒 Firebase App Check attestation active.');
+    } catch (err) {
+      console.warn('App Check initialization skipped or already active:', err);
+    }
+  }
+}
 
 // Custom collection wrapper that prefixes "atpl_" to root collections
 export function collection(firestore: Firestore, path: string, ...pathSegments: string[]): CollectionReference<DocumentData, DocumentData> {

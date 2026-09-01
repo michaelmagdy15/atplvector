@@ -7,6 +7,8 @@ import { QB_Grid } from './QB_Grid';
 import { QB_Results } from './QB_Results';
 import { QBStorage } from '../lib/qb_storage';
 import { getExplanation } from '../lib/ai';
+import { Capacitor } from '@capacitor/core';
+import NativeAppUnlockModal from './NativeAppUnlockModal';
 import syllabusMetadata from '../data/qb_metadata.json'; // Access to titles for results
 
 const metadata = syllabusMetadata as { [key: string]: any[] };
@@ -23,6 +25,7 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
     const [questions, setQuestions] = useState<Question[]>([]); // Current test questions
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState<TestResult | null>(null);
+    const [showUnlockModal, setShowUnlockModal] = useState(false);
 
     // Advanced Reporting State
     const [reportingQ, setReportingQ] = useState<Question | null>(null);
@@ -173,8 +176,13 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
             // Shuffle
             allQuestions = allQuestions.sort(() => Math.random() - 0.5);
 
-            // Slice
-            const selectedQuestions = allQuestions.slice(0, config.count);
+            // Slice & Native Gating (Option B)
+            const isNative = Capacitor.isNativePlatform();
+            if (!isNative && config.mode === 'exam') {
+                setShowUnlockModal(true);
+            }
+            const limit = isNative ? config.count : Math.min(config.count, 5);
+            const selectedQuestions = allQuestions.slice(0, limit);
 
             // Create SavedTest
             const newTest: SavedTest = {
@@ -325,63 +333,64 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
         setView('RESULTS');
     };
 
-    if (view === 'DASHBOARD') {
-        return (
-            <QB_Dashboard
-                onStartNew={() => setView('SETUP')}
-                onResume={handleResume}
-                onOpenPlanner={() => onChangeView(View.EXAM_PLANNER)}
-            />
-        );
-    }
+    const renderContent = () => {
+        if (view === 'DASHBOARD') {
+            return (
+                <QB_Dashboard
+                    onStartNew={() => setView('SETUP')}
+                    onResume={handleResume}
+                    onOpenPlanner={() => onChangeView(View.EXAM_PLANNER)}
+                />
+            );
+        }
 
-    if (view === 'SETUP') {
-        return <QB_Setup onStart={handleStartNew} onCancel={() => setView('DASHBOARD')} />;
-    }
+        if (view === 'SETUP') {
+            return <QB_Setup onStart={handleStartNew} onCancel={() => setView('DASHBOARD')} />;
+        }
 
-    if (view === 'RESULTS' && result) {
-        return (
-            <QB_Results
-                result={result}
-                onHome={() => setView('DASHBOARD')}
-                onRetest={(incorrectIds) => {
-                    // Logic to start a new test with only incorrect questions
-                    // If incorrectIds is empty, we derive them from the current result
-                    const stats = QBStorage.getStats();
-                    const idsToRetest = incorrectIds.length > 0
-                        ? incorrectIds
-                        : stats.incorrectQuestionIds.slice(0, 50); // Fallback to last 50 mistakes
+        if (view === 'RESULTS' && result) {
+            return (
+                <QB_Results
+                    result={result}
+                    onHome={() => setView('DASHBOARD')}
+                    onRetest={(incorrectIds) => {
+                        // Logic to start a new test with only incorrect questions
+                        // If incorrectIds is empty, we derive them from the current result
+                        const stats = QBStorage.getStats();
+                        const idsToRetest = incorrectIds.length > 0
+                            ? incorrectIds
+                            : stats.incorrectQuestionIds.slice(0, 50); // Fallback to last 50 mistakes
 
-                    if (idsToRetest.length === 0) {
-                        alert("No mistakes found to retest!");
-                        return;
-                    }
-
-                    handleStartNew({
-                        subjectId: currentTest?.subjectId || '010',
-                        mode: 'study',
-                        topics: [], // All topics relevant to these questions
-                        count: idsToRetest.length,
-                        filters: {
-                            flaggedOnly: false,
-                            wrongAnswersOnly: true,
-                            recentOnly: false,
-                            onlyRealExam: false,
-                            withAnnexes: false,
-                            withoutAnnexes: false,
-                            unseen: false,
-                            incorrect: true
+                        if (idsToRetest.length === 0) {
+                            alert("No mistakes found to retest!");
+                            return;
                         }
-                    });
-                }}
-            />
-        );
-    }
 
-    if (view === 'PRACTICE' && currentTest) {
-        const currentQ = questions[currentTest.currentIndex];
+                        handleStartNew({
+                            subjectId: currentTest?.subjectId || '010',
+                            mode: 'study',
+                            topics: [], // All topics relevant to these questions
+                            count: idsToRetest.length,
+                            filters: {
+                                flaggedOnly: false,
+                                wrongAnswersOnly: true,
+                                recentOnly: false,
+                                onlyRealExam: false,
+                                withAnnexes: false,
+                                withoutAnnexes: false,
+                                unseen: false,
+                                incorrect: true
+                            }
+                        });
+                    }}
+                />
+            );
+        }
 
-        return (
+        if (view === 'PRACTICE' && currentTest) {
+            const currentQ = questions[currentTest.currentIndex];
+
+            return (
             <div className="flex h-screen bg-slate-950 pt-20 pb-4 overflow-hidden animate-in fade-in duration-500">
                 {/* Reporting Modal */}
                 {reportingQ && (
@@ -708,10 +717,22 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
                     />
                 </div>
             </div>
-        );
-    }
+            );
+        }
 
-    return <div className="p-20 text-center"><Loader2 className="animate-spin mx-auto" /></div>;
+        return <div className="p-20 text-center"><Loader2 className="animate-spin mx-auto text-blue-500" /></div>;
+    };
+
+    return (
+        <>
+            {renderContent()}
+            <NativeAppUnlockModal
+                isOpen={showUnlockModal}
+                onClose={() => setShowUnlockModal(false)}
+                featureTitle="Official ATPL Exam Simulators & Full 15,000+ Question Bank"
+            />
+        </>
+    );
 };
 
 export default QuestionBank;

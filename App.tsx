@@ -17,6 +17,10 @@ import Router from './components/Router';
 const AuthView = React.lazy(() => import('./components/AuthView'));
 
 // Critical Imports (Static)
+import { Capacitor } from '@capacitor/core';
+import MobileOnlyGateScreen from './components/MobileOnlyGateScreen';
+import WebPreviewBanner from './components/WebPreviewBanner';
+import NativeAppUnlockModal from './components/NativeAppUnlockModal';
 import ContentProtection from './components/ContentProtection';
 import NavigationBar from './components/NavigationBar';
 import SubjectSidebar from './components/SubjectSidebar';
@@ -43,9 +47,10 @@ const App: React.FC = () => {
     const [selectedSubjectId, setSelectedSubjectId] = useState<string>('');
     const [studyTime, setStudyTime] = useState(0);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [mainMenuOpen, setMainMenuOpen] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+    const [unlockModalOpen, setUnlockModalOpen] = useState(false);
+    const [devBypassed, setDevBypassed] = useState(() => localStorage.getItem('atpl_dev_bypass') === 'true');
 
     // Global Command Palette Listener
     useEffect(() => {
@@ -705,9 +710,10 @@ const App: React.FC = () => {
     const subjectConfig = isSubjectNavView(currentView) ? getSubjectConfig(currentView) : null;
 
     const appContent = (
-        <ContentProtection userId={user.id}>
-            <div className="min-h-screen font-sans text-slate-100 selection:bg-blue-500/30 selection:text-white bg-slate-950">
+        <ContentProtection userId={user.id} userEmail={user.email}>
+            <div className="min-h-screen font-sans text-slate-100 selection:bg-blue-500/30 selection:text-white bg-slate-950 pt-[env(safe-area-inset-top)]">
                 <div className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
+                    <WebPreviewBanner onUnlockClick={() => setUnlockModalOpen(true)} />
                     <nav className="max-w-7xl mx-auto">
                         <div className="px-4 sm:px-6 h-16 flex items-center justify-between relative">
                             <div className="flex items-center gap-2 sm:gap-4 z-10">
@@ -924,6 +930,10 @@ const App: React.FC = () => {
                             />
                         </>
                     )}
+                    <NativeAppUnlockModal 
+                        isOpen={unlockModalOpen} 
+                        onClose={() => setUnlockModalOpen(false)} 
+                    />
                 </GamificationProvider>
             </ToastProvider>
         </CourseModeProvider>
