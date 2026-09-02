@@ -50,21 +50,31 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             build
 
-      - name: 📦 Archive Xcode Project
+      - name: 📦 Archive & Package iOS Application
         run: |
+          mkdir -p build
           cd ios/App
           xcodebuild archive \
             -workspace App.xcworkspace \
             -scheme App \
             -configuration Release \
-            -archivePath ../build/App.xcarchive \
+            -archivePath ../../build/App.xcarchive \
             CODE_SIGNING_ALLOWED=NO
+          
+          # Create Payload directory for standard .ipa packaging
+          mkdir -p ../../build/Payload
+          cp -r ../../build/App.xcarchive/Products/Applications/App.app ../../build/Payload/
+          cd ../../build
+          zip -r atpl-vector-ios-app.zip Payload
+          zip -r atpl-vector-archive.zip App.xcarchive
 
       - name: 📤 Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: atpl-vector-ios-archive
-          path: build/App.xcarchive
+          name: atpl-vector-ios-build
+          path: |
+            build/atpl-vector-ios-app.zip
+            build/atpl-vector-archive.zip
           retention-days: 14
 
   # Optional automated TestFlight release when App Store Connect API keys are configured in GitHub Secrets
