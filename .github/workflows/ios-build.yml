@@ -101,4 +101,4 @@ jobs:
           fi
           cd ios/App
           pod install
-          echo "Fastlane / Xcode Cloud upload pipeline triggered with App Store Connect credentials."
+          fastlane beta
