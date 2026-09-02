@@ -12,15 +12,25 @@ platform :ios do
 
     team_id = ENV["APPLE_TEAM_ID"]
 
+    xcargs_opts = "-allowProvisioningUpdates"
+    export_opts = {
+      signingStyle: "automatic",
+      method: "app-store"
+    }
+
     if team_id && !team_id.strip.empty?
+      clean_team_id = team_id.strip
+      xcargs_opts += " DEVELOPMENT_TEAM=#{clean_team_id}"
+      export_opts[:teamID] = clean_team_id
+
       update_project_team(
         path: "App.xcodeproj",
-        teamid: team_id.strip
+        teamid: clean_team_id
       )
       update_code_signing_settings(
         path: "App.xcodeproj",
         use_automatic_signing: true,
-        team_id: team_id.strip
+        team_id: clean_team_id
       )
     end
 
@@ -31,12 +41,9 @@ platform :ios do
       output_directory: "../build",
       output_name: "App.ipa",
       clean: true,
-      export_xcargs: "-allowProvisioningUpdates",
-      xcargs: "-allowProvisioningUpdates",
-      export_options: {
-        signingStyle: "automatic",
-        method: "app-store"
-      }
+      export_xcargs: xcargs_opts,
+      xcargs: xcargs_opts,
+      export_options: export_opts
     )
 
     upload_to_testflight(
