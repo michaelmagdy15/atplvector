@@ -1,2 +1,2 @@
-app_identifier("com.atplvector.app")
-team_id(ENV["APPLE_TEAM_ID"]) if ENV["APPLE_TEAM_ID"] && !ENV["APPLE_TEAM_ID"].empty?
+app_identifier("com.atplvector01.app")
+team_id("5NBF6H2RRL")

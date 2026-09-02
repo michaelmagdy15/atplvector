@@ -8,7 +8,7 @@ platform :ios do
     key_id = ENV["APP_STORE_CONNECT_API_KEY_ID"].to_s.strip.gsub(/[\r\n\t]/, '')
     issuer_id = ENV["APP_STORE_CONNECT_ISSUER_ID"].to_s.strip.gsub(/[\r\n\t]/, '')
     team_id = ENV["APPLE_TEAM_ID"].to_s.strip.gsub(/[\r\n\t]/, '')
-    clean_team_id = team_id
+    clean_team_id = team_id.empty? ? "5NBF6H2RRL" : team_id
 
     # Locate key file
     key_path = File.expand_path("~/.appstoreconnect/private_keys/AuthKey_#{key_id}.p8")
@@ -23,7 +23,7 @@ platform :ios do
       is_key_content_base64: false
     )
 
-    app_id = "com.atplvector.app"
+    app_id = "com.atplvector01.app"
 
     # 1. Update Project Team
     if !clean_team_id.empty?

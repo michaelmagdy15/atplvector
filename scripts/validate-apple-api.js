@@ -105,15 +105,15 @@ async function main() {
           const bundleId = app.attributes?.bundleId;
           const sku = app.attributes?.sku;
           console.log(`   ${idx + 1}. "${name}" | Bundle ID: ${bundleId} (SKU: ${sku})`);
-          if (bundleId === 'com.atplvector.app') {
+          if (bundleId === 'com.atplvector01.app') {
             targetAppFound = true;
           }
         });
 
         if (targetAppFound) {
-          console.log('\n✅ Verified: "com.atplvector.app" exists in your App Store Connect account!');
+          console.log('\n✅ Verified: "com.atplvector01.app" exists in your App Store Connect account!');
         } else {
-          console.log('\n⚠️ Notice: "com.atplvector.app" is not yet in the apps list.');
+          console.log('\n⚠️ Notice: "com.atplvector01.app" is not yet in the apps list.');
           console.log('   Fastlane / Xcode will register it or use the bundle ID listed above.');
         }
       } catch (e) {

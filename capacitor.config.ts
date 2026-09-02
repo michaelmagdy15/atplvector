@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.atplvector.app',
+  appId: 'com.atplvector01.app',
   appName: 'ATPL Vector',
   webDir: 'dist',
   server: {
