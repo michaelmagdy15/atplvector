@@ -10,6 +10,20 @@ platform :ios do
       is_key_content_base64: false
     )
 
+    team_id = ENV["APPLE_TEAM_ID"]
+
+    if team_id && !team_id.strip.empty?
+      update_project_team(
+        path: "App.xcodeproj",
+        teamid: team_id.strip
+      )
+      update_code_signing_settings(
+        path: "App.xcodeproj",
+        use_automatic_signing: true,
+        team_id: team_id.strip
+      )
+    end
+
     build_app(
       workspace: "App.xcworkspace",
       scheme: "App",
@@ -17,8 +31,11 @@ platform :ios do
       output_directory: "../build",
       output_name: "App.ipa",
       clean: true,
+      export_xcargs: "-allowProvisioningUpdates",
+      xcargs: "-allowProvisioningUpdates",
       export_options: {
-        signingStyle: "automatic"
+        signingStyle: "automatic",
+        method: "app-store"
       }
     )
 
