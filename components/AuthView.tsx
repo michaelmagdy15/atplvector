@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { User } from '../types';
-import { Shield, Mail, CheckCircle, Lock, ArrowRight, Plane, Zap, Menu, X, User as UserIcon, HelpCircle, Eye, EyeOff, AlertTriangle, PlayCircle, Star, Globe, BarChart3, Radio, RefreshCw, KeyRound, Target, BookOpen, Layout, Dna, Rocket } from 'lucide-react';
+import { Shield, Mail, CheckCircle, Lock, ArrowRight, Plane, Zap, Menu, X, User as UserIcon, HelpCircle, Eye, EyeOff, AlertTriangle, PlayCircle, Star, Globe, BarChart3, Radio, RefreshCw, KeyRound, Target, BookOpen, Layout, Dna, Rocket, Tablet, Smartphone, Download, ExternalLink, Sparkles, CheckCircle2, Laptop } from 'lucide-react';
 import { auth, db, getSiteUrl, collection, doc } from '../lib/firebase';
 import { useSignIn, useSignUp } from '@clerk/clerk-react';
 import { query, where, getDocs, updateDoc, addDoc, serverTimestamp, setDoc } from 'firebase/firestore';
@@ -424,10 +424,11 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                         {/* Left: Value Prop */}
                         <div className="lg:w-1/2 flex flex-col justify-center px-8 lg:px-12 xl:px-20 relative z-10 pt-10 lg:pt-0 perspective-1000">
                             <div className="space-y-8 max-w-xl">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wider backdrop-blur-sm animate-in fade-in slide-in-from-bottom-4 duration-700">
-                                    <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> EASA 2026 Ready
+                                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/70 border border-blue-500/30 text-blue-300 text-xs font-bold uppercase tracking-wider backdrop-blur-md animate-in fade-in slide-in-from-bottom-4 duration-700 shadow-inner">
+                                    <Tablet className="w-4 h-4 text-blue-400 animate-pulse" />
+                                    <span>Web Registration • Native iPad Flight Deck</span>
                                 </div>
-                                <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight leading-tight text-white animate-in fade-in slide-in-from-bottom-6 duration-700 delay-150">
+                                <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight leading-tight text-white animate-in fade-in slide-in-from-bottom-6 duration-700 delay-150">
                                     Master <br />
                                     <span
                                         className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400 drop-shadow-lg filter relative hero-shimmer-text"
@@ -438,26 +439,48 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                             className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none mix-blend-overlay hero-shimmer-overlay"
                                         ></span>
                                     </span>
-                                    <br />Visually.
+                                    <br />On Your Flight Deck.
                                 </h1>
-                                <p className="text-slate-400 text-lg lg:text-xl font-light animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
-                                    Interactive simulations, AI-driven roleplay, and immersive systems logic designed for modern pilots. Forget static PDFs.
+                                <p className="text-slate-300 text-base sm:text-lg font-light leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
+                                    Create your aviator account here on the web to unlock instant access inside our dedicated native iPad &amp; iOS application with offline study vaults and 3D cockpit visualizers.
                                 </p>
-                                <div className="flex gap-4 text-sm text-slate-500 font-mono animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500">
-                                    <div className="flex items-center gap-2"><CheckCircle className="text-green-500 w-4 h-4" /> 14 Subjects</div>
-                                    <div className="flex items-center gap-2"><CheckCircle className="text-green-500 w-4 h-4" /> 65+ Simulators</div>
+                                <div className="flex flex-wrap gap-3 text-xs font-mono text-slate-300 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500">
+                                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/70 border border-slate-800">
+                                        <CheckCircle2 className="text-emerald-400 w-4 h-4" /> 14 ATPL Subjects
+                                    </div>
+                                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/70 border border-slate-800">
+                                        <Tablet className="text-blue-400 w-4 h-4" /> Native iPad &amp; iOS
+                                    </div>
+                                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/70 border border-slate-800">
+                                        <Lock className="text-indigo-400 w-4 h-4" /> Encrypted Offline Vault
+                                    </div>
                                 </div>
 
-                                <div className="pt-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-700">
-                                    <div className="glass-panel px-6 py-4 rounded-2xl border border-amber-500/20 bg-amber-500/5 flex items-center gap-4">
-                                        <div className="p-2 bg-amber-500/10 rounded-lg text-amber-400">
-                                            <Shield size={20} />
+                                <div className="pt-2 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-700 space-y-3">
+                                    <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-950/50 via-indigo-950/30 to-slate-900/70 border border-blue-500/20 backdrop-blur-md flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                        <div className="flex items-center gap-3">
+                                            <div className="p-2.5 bg-blue-500/10 rounded-xl text-blue-400 border border-blue-500/20">
+                                                <Tablet size={22} />
+                                            </div>
+                                            <div>
+                                                <div className="text-[10px] text-blue-400 font-bold uppercase tracking-widest flex items-center gap-1.5">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                                                    Flight Deck App Ready
+                                                </div>
+                                                <div className="text-white font-bold text-sm">Download on iPad &amp; iOS</div>
+                                                <div className="text-[11px] text-slate-400">Register on web &bull; Fly on the iPad App</div>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <div className="text-[10px] text-amber-400 font-bold uppercase tracking-widest">Platform Status</div>
-                                            <div className="text-white font-bold text-sm">Exclusive Invite-Only Beta</div>
-                                            <div className="text-[10px] text-slate-500 mt-1">Codes are required to skip the waitlist and gain immediate access.</div>
-                                        </div>
+                                        <a
+                                            href="https://testflight.apple.com"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold transition-all shadow-lg shadow-blue-500/20 active:scale-95 whitespace-nowrap"
+                                        >
+                                            <Download size={14} />
+                                            <span>Install on iPad</span>
+                                            <ExternalLink size={12} className="opacity-70" />
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -473,15 +496,15 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                     <div className="mb-8">
                                         <h2 className="text-3xl font-bold text-white mb-2">
                                             {verifying ? 'Verify Your Email' : (
-                                                view === 'LOGIN' ? 'Welcome Back' :
-                                                    view === 'SIGNUP' ? 'Start Your Journey' :
+                                                view === 'LOGIN' ? 'Aviator Sign In' :
+                                                    view === 'SIGNUP' ? 'Create Pilot Account' :
                                                         'Reset Password'
                                             )}
                                         </h2>
-                                        <p className="text-slate-400">
+                                        <p className="text-slate-400 text-sm">
                                             {verifying ? `We've sent a verification code to ${email}.` : (
-                                                view === 'LOGIN' ? 'Enter your details to access the cockpit.' :
-                                                    view === 'SIGNUP' ? 'Create a secure account to begin.' :
+                                                view === 'LOGIN' ? 'Sign in to manage your training track or launch flight deck.' :
+                                                    view === 'SIGNUP' ? 'Register on web to unlock your iPad & mobile app access.' :
                                                         'We\'ll email you a secure reset link.'
                                             )}
                                         </p>
@@ -749,6 +772,58 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                             </div>
                         </div>
                     </div>
+
+                    {/* 3-STEP ONBOARDING WORKFLOW */}
+                    <section aria-label="How it works" className="w-full bg-slate-950/90 border-y border-white/5 py-14 relative z-20">
+                        <div className="max-w-7xl mx-auto px-6">
+                            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                                <div>
+                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-3">
+                                        <Sparkles size={12} /> Simple 3-Step Flight Plan
+                                    </div>
+                                    <h2 className="text-2xl md:text-3xl font-extrabold text-white">How ATPL Vector Works</h2>
+                                </div>
+                                <p className="text-xs sm:text-sm text-slate-400 max-w-md">
+                                    Register your profile on the web &bull; Train and study on our dedicated iPad and iOS application with full offline capability.
+                                </p>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/5 relative overflow-hidden group hover:border-blue-500/30 hover:bg-slate-900/90 transition-all duration-300">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <span className="w-8 h-8 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono font-bold flex items-center justify-center">01</span>
+                                        <Laptop className="w-5 h-5 text-slate-500 group-hover:text-blue-400 transition-colors" />
+                                    </div>
+                                    <h3 className="font-bold text-white text-base mb-1.5">Sign Up on Web</h3>
+                                    <p className="text-xs text-slate-400 leading-relaxed">
+                                        Create your aviator account here on the web browser, choose your syllabus track (EASA / UK / PPL / ATPL), and manage your subscriptions.
+                                    </p>
+                                </div>
+
+                                <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/5 relative overflow-hidden group hover:border-indigo-500/30 hover:bg-slate-900/90 transition-all duration-300">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <span className="w-8 h-8 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-mono font-bold flex items-center justify-center">02</span>
+                                        <Tablet className="w-5 h-5 text-slate-500 group-hover:text-indigo-400 transition-colors" />
+                                    </div>
+                                    <h3 className="font-bold text-white text-base mb-1.5">Install on iPad &amp; iOS</h3>
+                                    <p className="text-xs text-slate-400 leading-relaxed">
+                                        Install our high-performance native app via TestFlight or App Store to unlock GPU-accelerated 3D cockpits, split-screen mode, and Apple Pencil support.
+                                    </p>
+                                </div>
+
+                                <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/5 relative overflow-hidden group hover:border-emerald-500/30 hover:bg-slate-900/90 transition-all duration-300">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <span className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono font-bold flex items-center justify-center">03</span>
+                                        <Plane className="w-5 h-5 text-slate-500 group-hover:text-emerald-400 transition-colors" />
+                                    </div>
+                                    <h3 className="font-bold text-white text-base mb-1.5">Fly Through Theory</h3>
+                                    <p className="text-xs text-slate-400 leading-relaxed">
+                                        Sign in with your web credentials to study all 14 subjects offline at FL390, practice exam questions, and master interactive aerodynamic labs.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
 
                     {/* FEATURES SHOWCASE */}
                     <div id="features" className="py-32 bg-slate-900 relative overflow-hidden">
