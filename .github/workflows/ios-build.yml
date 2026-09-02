@@ -112,7 +112,7 @@ jobs:
           fi
 
           # 1. Run Pre-flight Diagnostic & Key Verification against Apple REST API
-          node scripts/validate-apple-api.js
+          node scripts/validate-apple-api.cjs
 
           # 2. CocoaPods install and Fastlane TestFlight deployment
           cd ios/App
