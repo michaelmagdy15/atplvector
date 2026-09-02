@@ -7,35 +7,13 @@ platform :ios do
   lane :beta do
     key_id = ENV["APP_STORE_CONNECT_API_KEY_ID"].to_s.strip.gsub(/[\r\n\t]/, '')
     issuer_id = ENV["APP_STORE_CONNECT_ISSUER_ID"].to_s.strip.gsub(/[\r\n\t]/, '')
-    raw_key = ENV["APP_STORE_CONNECT_KEY_CONTENT"].to_s.strip
     team_id = ENV["APPLE_TEAM_ID"].to_s.strip.gsub(/[\r\n\t]/, '')
+    clean_team_id = team_id
 
-    # Decode if base64, otherwise handle raw PEM text
-    key_content = raw_key
-    if !key_content.include?("BEGIN PRIVATE KEY") && !key_content.include?("BEGIN RSA PRIVATE KEY")
-      begin
-        decoded = Base64.decode64(key_content)
-        key_content = decoded if decoded.include?("PRIVATE KEY")
-      rescue => e
-      end
-    end
-
-    # Normalize newlines in PEM private key
-    key_content = key_content.gsub('\n', "\n").strip + "\n"
-
-    # Write key to standard Apple key locations
-    key_dirs = [
-      File.expand_path("~/.appstoreconnect/private_keys"),
-      File.expand_path("~/.private_keys"),
-      File.expand_path("./")
-    ]
-
-    key_path = ""
-    key_dirs.each do |dir|
-      FileUtils.mkdir_p(dir)
-      kp = File.join(dir, "AuthKey_#{key_id}.p8")
-      File.write(kp, key_content)
-      key_path = kp if key_path.empty?
+    # Locate key file
+    key_path = File.expand_path("~/.appstoreconnect/private_keys/AuthKey_#{key_id}.p8")
+    if !File.exist?(key_path)
+      key_path = File.expand_path("~/.private_keys/AuthKey_#{key_id}.p8")
     end
 
     api_key = app_store_connect_api_key(
@@ -45,25 +23,44 @@ platform :ios do
       is_key_content_base64: false
     )
 
-    clean_team_id = team_id
+    app_id = "com.atplvector.app"
 
+    # 1. Update Project Team
     if !clean_team_id.empty?
       update_project_team(
         path: "App.xcodeproj",
         teamid: clean_team_id
       )
-      update_code_signing_settings(
-        path: "App.xcodeproj",
-        use_automatic_signing: true,
-        team_id: clean_team_id
-      )
     end
 
-    # Authentication arguments for modern xcodebuild (Xcode 13, 14, 15, 16)
-    xcargs_opts = "-allowProvisioningUpdates -allowProvisioningDeviceRegistration -authenticationKeyPath \"#{key_path}\" -authenticationKeyID \"#{key_id}\" -authenticationKeyIssuerID \"#{issuer_id}\""
-    if !clean_team_id.empty?
-      xcargs_opts += " DEVELOPMENT_TEAM=#{clean_team_id}"
+    # 2. Ensure App ID exists in Apple Developer Portal
+    begin
+      produce(
+        api_key: api_key,
+        app_identifier: app_id,
+        app_name: "ATPL Vector",
+        team_id: clean_team_id,
+        skip_itc: true
+      )
+    rescue => e
+      UI.important("Produce step: #{e.message}")
     end
+
+    # 3. Fetch/Generate App Store Provisioning Profile using Apple REST API
+    begin
+      sigh(
+        api_key: api_key,
+        app_identifier: app_id,
+        team_id: clean_team_id,
+        force: false
+      )
+    rescue => e
+      UI.important("Sigh step: #{e.message}")
+    end
+
+    # 4. Build and Package IPA
+    xcargs_opts = "-allowProvisioningUpdates -allowProvisioningDeviceRegistration -authenticationKeyPath #{key_path} -authenticationKeyID #{key_id} -authenticationKeyIssuerID #{issuer_id}"
+    xcargs_opts += " DEVELOPMENT_TEAM=#{clean_team_id}" if !clean_team_id.empty?
 
     export_opts = {
       signingStyle: "automatic",
@@ -83,6 +80,7 @@ platform :ios do
       export_options: export_opts
     )
 
+    # 5. Upload to TestFlight
     upload_to_testflight(
       api_key: api_key,
       ipa: "../build/App.ipa",
