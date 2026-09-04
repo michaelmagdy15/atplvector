@@ -40,6 +40,11 @@ jobs:
       - name: 📱 Sync with Capacitor iOS
         run: npx cap sync ios
 
+      - name: 🛠️ Select Xcode 16 (iOS 18 SDK)
+        run: |
+          sudo xcode-select -s /Applications/Xcode_16.2.app 2>/dev/null || sudo xcode-select -s /Applications/Xcode_16.1.app 2>/dev/null || sudo xcode-select -s /Applications/Xcode_16.0.app 2>/dev/null || sudo xcode-select -s /Applications/Xcode_16.app 2>/dev/null
+          xcodebuild -version
+
       - name: 🛠️ Install CocoaPods
         run: |
           cd ios/App
@@ -135,6 +140,11 @@ jobs:
 
           # Write the API key to the standard Fastlane/Xcode search paths
           node scripts/validate-apple-api.cjs
+
+      - name: 🛠️ Select Xcode 16 (iOS 18 SDK)
+        run: |
+          sudo xcode-select -s /Applications/Xcode_16.2.app 2>/dev/null || sudo xcode-select -s /Applications/Xcode_16.1.app 2>/dev/null || sudo xcode-select -s /Applications/Xcode_16.0.app 2>/dev/null || sudo xcode-select -s /Applications/Xcode_16.app 2>/dev/null
+          xcodebuild -version
 
       - name: 🛠️ Install CocoaPods
         run: |
