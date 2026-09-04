@@ -61,8 +61,18 @@ platform :ios do
     end
 
     # ── 4. Build & Sign IPA with Automatic Signing ──────────────
-    # Fastlane gym automatically passes -allowProvisioningUpdates and the
-    # App Store Connect API key (-authenticationKeyPath, etc.) to xcodebuild.
+    # Provide auth flags to the archive step via xcargs.
+    # Note: Do NOT pass export_xcargs because gym automatically provides auth flags
+    # to -exportArchive, and specifying both causes a duplicate argument error.
+    xcargs_opts = [
+      "-allowProvisioningUpdates",
+      "-allowProvisioningDeviceRegistration",
+      "-authenticationKeyPath '#{key_path}'",
+      "-authenticationKeyID #{key_id}",
+      "-authenticationKeyIssuerID #{issuer_id}",
+      "DEVELOPMENT_TEAM=#{clean_team_id}"
+    ].join(" ")
+
     export_opts = {
       signingStyle: "automatic",
       method: "app-store",
@@ -77,6 +87,7 @@ platform :ios do
       output_directory: "../build",
       output_name: "App.ipa",
       clean: true,
+      xcargs: xcargs_opts,
       export_options: export_opts
     )
     UI.success("✅ IPA built successfully")
