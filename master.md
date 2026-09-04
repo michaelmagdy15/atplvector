@@ -15,10 +15,9 @@
 | **Vite & Web Assets** | 🟢 **100% Working** | Production bundle builds cleanly in ~30s (`dist/`) |
 | **Capacitor iOS Sync** | 🟢 **100% Working** | Copies web code & native plugins cleanly in ~20s |
 | **CocoaPods & Xcode** | 🟢 **100% Working** | Compiles iOS workspace & produces `.xcarchive` cleanly in CI |
-| **Live Build Monitor** | 🟢 **100% Working** | Real-time CLI & API log inspect tools created |
-| **Auth Test Suite** | 🟢 **100% Working** | 8-second cloud workflow & local script created to test Apple API |
-| **Apple App Store Auth** | 🔴 **Blocked (401)** | Apple API returns `401 NOT_AUTHORIZED` on stored credentials |
-| **TestFlight Delivery** | ⏳ **Awaiting Auth** | Ready to deploy as soon as valid Apple API key is authenticated |
+| **Apple App Store Auth** | 🟢 **RESOLVED (200 OK)** | Key `7SP72YX2TU` verified with Apple API (Found 3 apps including `ATPL Vector`) |
+| **Auth Test Suite** | 🟢 **100% Working** | 8-second cloud workflow verified green in GitHub Actions |
+| **TestFlight Delivery** | 🟡 **DEPLOYING (Run #17)** | Active build compiling and deploying to TestFlight |
 
 ---
 
