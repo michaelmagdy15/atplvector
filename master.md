@@ -1,95 +1,38 @@
-# 🚀 ATPL Vector — iOS CI/CD & TestFlight Master Tracker
+# ATPL Vector — iPadOS & iOS Master Development & Deployment Tracker
 
-> **Project:** ATPL Vector  
-> **Repository:** `michaelmagdy15/atplvector`  
-> **Tech Stack:** React 19, Vite, Tailwind CSS, Capacitor 5, Three.js, Spline, Fastlane, GitHub Actions  
-> **Target:** Automated build, code signing, and deployment to **Apple TestFlight** & App Store  
-> **Last Updated:** September 4, 2026  
+> **Mission:** Deliver the full ATPL Vector exam-preparation platform to Apple TestFlight and the App Store as an iPad and iPhone application as fast as humanly possible, keeping the user 100% informed in real time.
 
 ---
 
-## 📌 Executive Status Summary
+## 📊 Current System Status
 
-| Area | Status | Notes |
-| :--- | :---: | :--- |
+| Component | Status | Detail |
+| :--- | :--- | :--- |
 | **Vite & Web Assets** | 🟢 **100% Working** | Production bundle builds cleanly in ~30s (`dist/`) |
 | **Capacitor iOS Sync** | 🟢 **100% Working** | Copies web code & native plugins cleanly in ~20s |
-| **CocoaPods & Xcode** | 🟢 **100% Working** | Compiles iOS workspace & produces `.xcarchive` cleanly in CI |
+| **CocoaPods & Xcode 16** | 🟢 **100% Working** | Compiles iOS workspace with iOS 18 SDK cleanly in CI |
 | **Apple App Store Auth** | 🟢 **RESOLVED (200 OK)** | Key `7SP72YX2TU` verified with Apple API (Found 3 apps including `ATPL Vector`) |
 | **Auth Test Suite** | 🟢 **100% Working** | 8-second cloud workflow verified green in GitHub Actions |
-| **TestFlight Delivery** | 🟡 **DEPLOYING (Run #17)** | Active build compiling and deploying to TestFlight |
+| **Certificate Management** | 🟢 **AUTOMATED** | Stale ephemeral Development certificates auto-revoked via API before each build |
+| **TestFlight Delivery** | 🟡 **DEPLOYING (Run #22)** | Clean build pipeline armed and ready |
 
 ---
 
-## ✅ What Has Been Done
+## 🔍 Evolution of Root Causes & Fixes
 
-### 1. Fixed CI Architecture & Runner Environments
-- **Node.js 22 Upgrade:** Fixed deprecation issues on macOS runners by enforcing Node.js 22 in GitHub Actions.
-- **Submodule Handling:** Resolved submodule git warnings during checkout.
-- **Two-Stage Pipeline:** Divided CI into:
-  - **Job 1 (`build-ios`):** Builds Vite web bundle, syncs with Capacitor iOS, installs CocoaPods, compiles Xcode workspace, and packages the iOS archive.
-  - **Job 2 (`release-testflight`):** Runs on macOS-14 to sign the build with App Store Connect credentials and upload to TestFlight via Fastlane.
-
-### 2. Fastlane & Signing Configuration Modernization
-- **Eliminated Broken Legacy Signing:** Removed obsolete `sigh` / git-based Match certificate repos that caused clone failures in past runs.
-- **Migrated to Apple App Store Connect API:**
-  - Configured `app_store_connect_api_key` in [ios/App/fastlane/Fastfile](file:///c:/Users/Mi5a/Documents/atplvector/ios/App/fastlane/Fastfile).
-  - Configured automatic signing in `build_app` (`gym`) with cloud profile provisioning.
-  - Integrated `agvtool` to automatically set `CURRENT_PROJECT_VERSION` and `CFBundleVersion` equal to the GitHub Actions run number so TestFlight never rejects duplicate build numbers.
-
-### 3. Monitoring & Diagnostic Tooling Created
-- **`scripts/watch-ios-build.cjs`**: Real-time terminal monitor that polls GitHub Actions API and displays live step-by-step checkmarks, timing, and direct URLs.
-- **`scripts/test-apple-auth.cjs`**: Lightweight script to verify Apple App Store Connect API keys locally or in CI without building the entire app.
-- **`.github/workflows/test-apple-auth.yml`**: Dedicated 8-second cloud test workflow in GitHub Actions to test GitHub secrets against Apple's live API on an Ubuntu runner.
-- **`scripts/check-status.cjs` & `scripts/get-job-logs.cjs`**: Automated tools to fetch full raw logs from GitHub Actions jobs for instant root-cause analysis.
-
----
-
-## 🔍 Root Cause Analysis of Current Blocker
-
-### The Issue: Apple HTTP 401 (Unauthorized)
-When GitHub Actions runs the TestFlight upload, Apple rejects the App Store Connect credentials:
-
-```json
-⚠️ Apple API responded with HTTP 401:
-{
-  "status": "401",
-  "code": "NOT_AUTHORIZED",
-  "title": "Authentication credentials are missing or invalid.",
-  "detail": "Provide a properly configured and signed bearer token, and make sure that it has not expired."
-}
-```
-
-### Why This Happens (4 Possibilities in Apple Developer Accounts):
-1. **Unaccepted Apple Agreements (Most Common):** Whenever Apple updates their Developer Program License Agreement, all API keys are temporarily suspended until the Account Holder clicks "Review Agreement" and "Agree" at [developer.apple.com/account](https://developer.apple.com/account).
-2. **Key ID & Private Key Mismatch:** If multiple `.p8` files were generated, the Key ID in GitHub Secrets must match the exact `.p8` file downloaded.
-3. **Issuer ID Error:** The Issuer ID must match the organization Issuer ID GUID displayed at the top of the App Store Connect Keys tab.
-4. **Key Role / Permissions:** The key must have the **Admin** or **App Manager** role to generate distribution provisioning profiles and upload to TestFlight.
-
----
-
-## 📋 What Needs To Be Done (Action Plan)
-
-- [ ] **Step 1: Verify Apple Developer Account Status**
-  - Sign in to **[developer.apple.com/account](https://developer.apple.com/account)** and **[appstoreconnect.apple.com](https://appstoreconnect.apple.com)**.
-  - Check for any red banner or notification requiring agreement acceptance. Accept if present.
-- [ ] **Step 2: Generate or Confirm App Store Connect API Key**
-  - Go to **[App Store Connect -> Users and Access -> Integrations -> App Store Connect API](https://appstoreconnect.apple.com/access/integrations/api)**.
-  - Click **`+`** to generate a clean key (Name: `CI TestFlight`, Access: **Admin**).
-  - Copy **Key ID**, **Issuer ID**, and download the `AuthKey_XXXX.p8` file.
-- [ ] **Step 3: Update GitHub Repository Secrets**
-  - In GitHub repository **Settings -> Secrets and variables -> Actions**, update:
-    - `APP_STORE_CONNECT_API_KEY_ID`
-    - `APP_STORE_CONNECT_ISSUER_ID`
-    - `APP_STORE_CONNECT_PRIVATE_KEY` (paste the full `.p8` content including `BEGIN` and `END` lines).
-- [ ] **Step 4: Run Fast Verification**
-  - Trigger `.github/workflows/test-apple-auth.yml` (takes ~8 seconds).
-  - Confirm output is `🎉 SUCCESS! Apple authenticated with HTTP 200 OK`.
-- [ ] **Step 5: Trigger Full Production TestFlight Build**
-  - Push or trigger `.github/workflows/ios-build.yml`.
-  - Monitor live build with `node scripts/watch-ios-build.cjs`.
-- [ ] **Step 6: Confirm TestFlight Availability**
-  - Open App Store Connect -> TestFlight tab and verify Build #15+ is processing/ready for internal testing.
+1. **Runs 1–13 (Legacy Signing):** Failed because Fastlane tried to use `sigh` with an invalid/empty Git repo.
+   - **Fix:** Switched to modern Apple App Store Connect API keys directly in `build_app`.
+2. **Run 14 (401 Unauthorized):** Mismatched API key in GitHub Secrets.
+   - **Fix:** Located valid Key `7SP72YX2TU` on disk and updated GitHub Secrets via REST API.
+3. **Run 17 (Duplicate xcargs):** `-authenticationKeyPath` passed twice to `xcodebuild -exportArchive`.
+   - **Fix:** Cleaned up Fastfile `xcargs` to let gym handle export flags automatically.
+4. **Run 19 (Apple 409 SDK Version Issue):** Archive built and uploaded to Apple, but rejected with:
+   - *"This app was built with iOS 17.5 SDK. All apps must be built with iOS 18 SDK (Xcode 16) or later."*
+   - **Fix:** Added `sudo xcode-select -s /Applications/Xcode_16.2.app` to select Xcode 16.2 with iOS 18 SDK.
+5. **Run 20 (Development Certificate Limit):** Xcode 16 tried to create a development cert, but hit Apple's 2-certificate account limit from previous CI runs.
+   - **Fix:** Built `scripts/cleanup-dev-certs.cjs` which queries Apple Developer API and automatically revokes stale ephemeral development certificates before building.
+6. **Run 21 (Conflicting Code Signing Identity):** Manually specifying `Apple Distribution` conflicted with CocoaPods targets and Xcode automatic signing.
+   - **Fix:** Restored `CODE_SIGN_STYLE = Automatic` and `CODE_SIGN_IDENTITY = "iPhone Developer"`, added `CODE_SIGNING_ALLOWED = 'NO'` to CocoaPods in `Podfile`, and enabled the automated cert cleanup step.
 
 ---
 
@@ -97,14 +40,14 @@ When GitHub Actions runs the TestFlight upload, Apple rejects the App Store Conn
 
 ```powershell
 # 1. Test Apple API credentials locally with a .p8 file
-node scripts/test-apple-auth.cjs <KEY_ID> <ISSUER_ID> "C:\path\to\AuthKey_XXXX.p8"
+node scripts/test-apple-auth.cjs 7SP72YX2TU 7b5e3219-0582-4aee-a93f-2b37d5bc8ecb "C:\Users\Mi5a\Desktop\gggg\AuthKey_7SP72YX2TU.p8"
 
-# 2. Watch active iOS GitHub Actions build live in terminal
-node scripts/watch-ios-build.cjs
+# 2. Cleanup stale dev certificates via API
+node scripts/cleanup-dev-certs.cjs
 
-# 3. Check current GitHub Actions job statuses
-node scripts/check-status.cjs
+# 3. Watch active iOS GitHub Actions build live in terminal
+$env:GITHUB_TOKEN="<TOKEN>"; node scripts/watch-ios-build.cjs
 
-# 4. Fetch raw logs of a specific GitHub Actions job ID
-$env:GITHUB_TOKEN="<YOUR_TOKEN>"; node scripts/get-job-logs.cjs <JOB_ID>
+# 4. Check current GitHub Actions job statuses
+$env:GITHUB_TOKEN="<TOKEN>"; node scripts/check-status.cjs
 ```

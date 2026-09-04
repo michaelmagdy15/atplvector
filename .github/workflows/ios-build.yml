@@ -161,7 +161,13 @@ jobs:
           # Update the Xcode project build number via agvtool
           agvtool new-version -all "${BUILD_NUMBER}"
           
-          echo "✅ Build number set to ${BUILD_NUMBER}"
+      - name: 🧹 Cleanup Stale Development Certificates
+        env:
+          APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
+        run: |
+          node scripts/cleanup-dev-certs.cjs
 
       - name: 🚀 Fastlane TestFlight Upload
         env:

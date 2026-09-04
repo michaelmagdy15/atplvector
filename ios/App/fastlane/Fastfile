@@ -70,9 +70,7 @@ platform :ios do
       "-authenticationKeyPath '#{key_path}'",
       "-authenticationKeyID #{key_id}",
       "-authenticationKeyIssuerID #{issuer_id}",
-      "DEVELOPMENT_TEAM=#{clean_team_id}",
-      "CODE_SIGN_IDENTITY='Apple Distribution'",
-      "CODE_SIGN_STYLE=Automatic"
+      "DEVELOPMENT_TEAM=#{clean_team_id}"
     ].join(" ")
 
     export_opts = {
