@@ -1,6 +1,4 @@
 default_platform(:ios)
-require 'fileutils'
-require 'base64'
 
 platform :ios do
   desc "Build and upload app directly to Apple TestFlight"
@@ -8,12 +6,25 @@ platform :ios do
     key_id = ENV["APP_STORE_CONNECT_API_KEY_ID"].to_s.strip.gsub(/[\r\n\t]/, '')
     issuer_id = ENV["APP_STORE_CONNECT_ISSUER_ID"].to_s.strip.gsub(/[\r\n\t]/, '')
     team_id = ENV["APPLE_TEAM_ID"].to_s.strip.gsub(/[\r\n\t]/, '')
+    build_number = ENV["CI_BUILD_NUMBER"].to_s.strip
     clean_team_id = team_id.empty? ? "5NBF6H2RRL" : team_id
 
-    # Locate key file
+    UI.message("====================================")
+    UI.message("🚀 ATPL Vector — TestFlight Pipeline")
+    UI.message("====================================")
+    UI.message("Key ID:       #{key_id[0..2]}***")
+    UI.message("Issuer ID:    #{issuer_id[0..4]}***")
+    UI.message("Team ID:      #{clean_team_id}")
+    UI.message("Build Number: #{build_number.empty? ? 'auto' : build_number}")
+
+    # ── 1. Authenticate with App Store Connect API ──────────────
     key_path = File.expand_path("~/.appstoreconnect/private_keys/AuthKey_#{key_id}.p8")
     if !File.exist?(key_path)
       key_path = File.expand_path("~/.private_keys/AuthKey_#{key_id}.p8")
+    end
+
+    unless File.exist?(key_path)
+      UI.user_error!("❌ AuthKey file not found at #{key_path}. Did validate-apple-api.cjs run?")
     end
 
     api_key = app_store_connect_api_key(
@@ -22,18 +33,18 @@ platform :ios do
       key_filepath: key_path,
       is_key_content_base64: false
     )
+    UI.success("✅ App Store Connect API key loaded")
 
     app_id = "com.atplvector01.app"
 
-    # 1. Update Project Team
-    if !clean_team_id.empty?
-      update_project_team(
-        path: "App.xcodeproj",
-        teamid: clean_team_id
-      )
-    end
+    # ── 2. Set Development Team on Xcode Project ────────────────
+    update_project_team(
+      path: "App.xcodeproj",
+      teamid: clean_team_id
+    )
+    UI.success("✅ Development team set to #{clean_team_id}")
 
-    # 2. Ensure App ID exists in Apple Developer Portal
+    # ── 3. Ensure App ID exists in Apple Developer Portal ───────
     begin
       produce(
         api_key: api_key,
@@ -42,32 +53,33 @@ platform :ios do
         team_id: clean_team_id,
         skip_itc: true
       )
+      UI.success("✅ App ID verified/created")
     rescue => e
-      UI.important("Produce step: #{e.message}")
+      # App ID likely already exists — only warn, don't fail
+      UI.important("⚠️ Produce step: #{e.message}")
+      UI.important("   (This is usually fine if the app ID already exists)")
     end
 
-    # 3. Fetch/Generate App Store Provisioning Profile using Apple REST API
-    begin
-      sigh(
-        api_key: api_key,
-        app_identifier: app_id,
-        team_id: clean_team_id,
-        force: false
-      )
-    rescue => e
-      UI.important("Sigh step: #{e.message}")
-    end
-
-    # 4. Build and Package IPA
-    xcargs_opts = "-allowProvisioningUpdates -allowProvisioningDeviceRegistration -authenticationKeyPath #{key_path} -authenticationKeyID #{key_id} -authenticationKeyIssuerID #{issuer_id}"
-    xcargs_opts += " DEVELOPMENT_TEAM=#{clean_team_id}" if !clean_team_id.empty?
+    # ── 4. Build & Sign IPA with Automatic Signing ──────────────
+    # Uses Xcode's native -allowProvisioningUpdates flag with the
+    # App Store Connect API key for automatic code signing.
+    # This eliminates the need for Fastlane Match or manual sigh.
+    xcargs_opts = [
+      "-allowProvisioningUpdates",
+      "-allowProvisioningDeviceRegistration",
+      "-authenticationKeyPath '#{key_path}'",
+      "-authenticationKeyID #{key_id}",
+      "-authenticationKeyIssuerID #{issuer_id}",
+      "DEVELOPMENT_TEAM=#{clean_team_id}"
+    ].join(" ")
 
     export_opts = {
       signingStyle: "automatic",
-      method: "app-store"
+      method: "app-store",
+      teamID: clean_team_id
     }
-    export_opts[:teamID] = clean_team_id if !clean_team_id.empty?
 
+    UI.message("🏗️ Building IPA with automatic signing...")
     build_app(
       workspace: "App.xcworkspace",
       scheme: "App",
@@ -79,13 +91,17 @@ platform :ios do
       xcargs: xcargs_opts,
       export_options: export_opts
     )
+    UI.success("✅ IPA built successfully")
 
-    # 5. Upload to TestFlight
+    # ── 5. Upload to TestFlight ─────────────────────────────────
+    UI.message("📤 Uploading to TestFlight...")
     upload_to_testflight(
       api_key: api_key,
       ipa: "../build/App.ipa",
       skip_waiting_for_build_processing: true,
       distribute_external: false
     )
+    UI.success("🎉 Successfully uploaded to TestFlight!")
+    UI.success("   Check App Store Connect for processing status.")
   end
 end
