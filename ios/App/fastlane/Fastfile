@@ -61,18 +61,8 @@ platform :ios do
     end
 
     # ── 4. Build & Sign IPA with Automatic Signing ──────────────
-    # Uses Xcode's native -allowProvisioningUpdates flag with the
-    # App Store Connect API key for automatic code signing.
-    # This eliminates the need for Fastlane Match or manual sigh.
-    xcargs_opts = [
-      "-allowProvisioningUpdates",
-      "-allowProvisioningDeviceRegistration",
-      "-authenticationKeyPath '#{key_path}'",
-      "-authenticationKeyID #{key_id}",
-      "-authenticationKeyIssuerID #{issuer_id}",
-      "DEVELOPMENT_TEAM=#{clean_team_id}"
-    ].join(" ")
-
+    # Fastlane gym automatically passes -allowProvisioningUpdates and the
+    # App Store Connect API key (-authenticationKeyPath, etc.) to xcodebuild.
     export_opts = {
       signingStyle: "automatic",
       method: "app-store",
@@ -87,8 +77,6 @@ platform :ios do
       output_directory: "../build",
       output_name: "App.ipa",
       clean: true,
-      export_xcargs: xcargs_opts,
-      xcargs: xcargs_opts,
       export_options: export_opts
     )
     UI.success("✅ IPA built successfully")

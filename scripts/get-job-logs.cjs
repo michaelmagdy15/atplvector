@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const TOKEN = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || '';
-const JOB_ID = '101041418707';
+const JOB_ID = process.argv[2] || '101041418707';
 
 function fetchUrl(url) {
   return new Promise((resolve, reject) => {
