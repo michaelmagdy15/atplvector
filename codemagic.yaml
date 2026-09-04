@@ -1,0 +1,90 @@
+# Codemagic CI/CD Configuration for ATPL Vector (Capacitor iOS -> TestFlight)
+# Documentation: https://docs.codemagic.io/getting-started/codemagic-yaml/
+
+workflows:
+  ios-testflight:
+    name: ATPL Vector iOS TestFlight
+    instance_type: mac_mini_m2
+    max_build_duration: 30
+    environment:
+      groups:
+        - app_store_credentials # Optional: group for API key secrets if not using UI Integration
+      vars:
+        BUNDLE_ID: "com.atplvector01.app"
+        APP_STORE_APP_ID: "6807877701" # ATPL Vector App ID in App Store Connect
+        XCODE_WORKSPACE: "ios/App/App.xcworkspace"
+        XCODE_SCHEME: "App"
+      node: 22
+      xcode: latest
+      cocoapods: default
+
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
+
+    scripts:
+      - name: 📦 Install Node dependencies
+        script: |
+          npm ci
+
+      - name: 🔨 Build Vite web application
+        script: |
+          npm run build
+
+      - name: 📱 Sync with Capacitor iOS
+        script: |
+          npx cap sync ios
+
+      - name: 🛠️ Install CocoaPods
+        script: |
+          cd ios/App
+          pod install
+
+      - name: 🔐 Set up Keychain & Apple Code Signing
+        script: |
+          keychain initialize
+          
+          # If Codemagic integration is enabled, fetch signing files automatically
+          if [ -n "$APP_STORE_CONNECT_PRIVATE_KEY" ] || [ -n "$APP_STORE_CONNECT_KEY_IDENTIFIER" ]; then
+            app-store-connect fetch-signing-files "$BUNDLE_ID" \
+              --type IOS_APP_STORE \
+              --create
+            keychain add-certificates
+            xcode-project use-profiles
+          else
+            echo "Using Xcode automatic signing with API credentials"
+          fi
+
+      - name: 📝 Set Build Number
+        script: |
+          cd ios/App
+          # Use Codemagic's automatic incremental build number
+          BUILD_NUM=${BUILD_NUMBER:-$(date +%s)}
+          echo "Setting build number to: $BUILD_NUM"
+          agvtool new-version -all "$BUILD_NUM"
+
+      - name: 🏗️ Build iOS IPA Archive
+        script: |
+          xcode-project build-ipa \
+            --workspace "$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME" \
+            --clean
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /Users/builder/Library/Developer/Xcode/DerivedData/**/Build/Products/**/*.dSYM.zip
+
+    publishing:
+      email:
+        recipients:
+          - michaelmagdy15@gmail.com
+        notify:
+          failure: true
+          success: true
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
