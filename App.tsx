@@ -40,12 +40,13 @@ import {
 
 const App: React.FC = () => {
     const { user: clerkUser, isLoaded: clerkLoaded } = useUser();
-    const { signOut: clerkSignOut } = useAuth();
+    const { signOut: clerkSignOut, getToken } = useAuth();
     const [user, setUser] = useState<User | null>(null);
     const [sessionInvalid, setSessionInvalid] = useState(false);
     const [currentView, setCurrentView] = useState<View>(View.PLATFORM_DASHBOARD);
     const [selectedSubjectId, setSelectedSubjectId] = useState<string>('');
     const [studyTime, setStudyTime] = useState(0);
+    const [mainMenuOpen, setMainMenuOpen] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
@@ -140,7 +141,7 @@ const App: React.FC = () => {
             // Sync Clerk session with Firebase Auth in the background
             const syncFirebase = async () => {
                 try {
-                    const token = await clerkUser.getToken({ template: 'integration_firebase' });
+                    const token = await getToken({ template: 'integration_firebase' });
                     if (token) {
                         await signInWithCustomToken(auth, token);
                         console.log("Firebase Auth synced with Clerk successfully.");

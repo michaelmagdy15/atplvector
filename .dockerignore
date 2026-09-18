@@ -2,7 +2,6 @@ node_modules
 dist
 .git
 .DS_Store
-.env
 .env.local
 .env.production
 .idea
@@ -27,6 +26,7 @@ NewSyllabusTracker/
 ppl_pages/
 egyptair/
 ios/
+mobile/
 lighthouse-report.json
 .gemini/
 .agent/

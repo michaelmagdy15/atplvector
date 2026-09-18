@@ -38,3 +38,8 @@ audit_results/
 # Python extraction scripts (development only)
 *.pyc
 __pycache__/
+
+# Mobile / Expo
+mobile/node_modules/
+.expo/
+*.orig.*
