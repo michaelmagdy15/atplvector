@@ -8,10 +8,12 @@
 
 | Component | Status | Details |
 | :--- | :--- | :--- |
-| **Production Web** | 🟢 **LIVE (Cloud Run)** | Revision `atplvector-00193-fmr` serving 100% traffic on `https://atplvector.com` |
-| **Vite & Web Assets** | 🟢 **100% Working** | Production bundle builds cleanly in ~13s (`dist/`) |
-| **iOS Mobile Shell** | 🟢 **Configured** | Expo SDK 54 / React 19 / WKWebView in [`mobile/`](file:///c:/Users/Mi5a/atplvector/mobile) |
-| **Apple TestFlight** | 🟢 **Published** | App Store Connect App ID `6807877701`, Bundle ID `com.atplvector01.app` (Build 26) |
+| **Production Web** | 🟢 **LIVE (Cloud Run)** | Revision `atplvector-00196-tvc` serving 100% traffic on `https://atplvector.com` |
+| **Vite & Web Assets** | 🟢 **100% Working** | Production bundle builds cleanly in ~19s (`dist/`) |
+| **iOS Mobile Shell** | 🟢 **Native Polish** | Expo SDK 54 / React 19 / WKWebView / `expo-haptics` / `expo-blur` in [`mobile/`](file:///c:/Users/Mi5a/atplvector/mobile) |
+| **Apple TestFlight** | 🟢 **Published (Build 27)** | App Store Connect App ID `6807877701`, Bundle ID `com.atplvector01.app` (Build 27) |
+| **Apple Taptic Engine** | 🟢 **Integrated** | Native haptic feedback for exam selections, test finishes, and tab navigation |
+| **Native Bottom Tab Bar** | 🟢 **Active** | 5 pilot-centric tabs (Hangar, Questions, Study, Planner, Mission) with frosted blur |
 | **Viewport & Touch** | 🟢 **Locked (No Zoom)** | `user-scalable=no`, `touch-action: manipulation`, `pinchGestureEnabled={false}` |
 | **Mobile Header** | 🟢 **Collision-Free** | Left-aligned logo, Apple HIG 44px touch targets for Search, Profile & Portal |
 | **Preview Mode** | 🟢 **Native Gated** | Hidden on iOS; bypassed for Admins on web; active for public web visitors |
@@ -32,9 +34,6 @@
      - Export Compliance: `ITSAppUsesNonExemptEncryption: false`
      - EAS Project ID: `dd1f07c4-9ef8-4445-b579-5ab9d1090553`
    - Configured [`eas.json`](file:///c:/Users/Mi5a/atplvector/mobile/eas.json) targeting Apple App Store Connect App ID `6807877701`.
-2. **Cloud Compilation & Delivery**:
-   - Compiled in the Expo cloud with Xcode 16 / iOS 18 SDK.
-   - Built and uploaded binary **Build 26** directly to Apple TestFlight.
 
 ---
 
@@ -111,33 +110,48 @@
 
 ---
 
-### Milestone G: Google Cloud Run Deployments
-1. **Revision `atplvector-00190-7vn`**: Deployed initial post-login fix and Clerk auth updates.
-2. **Revision `atplvector-00193-fmr`**: Deployed viewport zoom locking, collision-free mobile navbar, safe-area drawer insets, and admin platform bypass.
-   - Verified live at `https://atplvector.com`.
+### Milestone G: Native Bottom Tab Bar & Apple Taptic Engine Bridge
+1. **Bidirectional Communication Bridge ([`lib/nativeBridge.ts`](file:///c:/Users/Mi5a/atplvector/lib/nativeBridge.ts))**:
+   - Created hardware haptic dispatchers: `triggerHaptic('light' | 'medium' | 'heavy' | 'selection' | 'success' | 'warning' | 'error')`.
+   - Created view synchronization: `notifyNativeViewChange(viewName)` and `onNativeNavigation(callback)`.
+2. **Tactile Haptic Feedback in Modules**:
+   - In [`components/QuestionBank.tsx`](file:///c:/Users/Mi5a/atplvector/components/QuestionBank.tsx), tapping options triggers an instant physical Taptic pulse (`selection`), and finishing an exam triggers a `success` notification vibration.
+3. **Native iOS Bottom Tab Bar ([`mobile/App.js`](file:///c:/Users/Mi5a/atplvector/mobile/App.js))**:
+   - Implemented an authentic iOS bottom tab bar utilizing `expo-blur` frosted glass styling and `expo-haptics`.
+   - Features 5 pilot tabs:
+     - **Hangar** (`PLATFORM_DASHBOARD`)
+     - **Questions** (`QUESTION_BANK`)
+     - **Study** (`STUDY_GUIDE`)
+     - **Planner** (`EXAM_PLANNER`)
+     - **Mission** (`togglePortal`)
+   - Fully aware of iOS Home Indicator safe area insets (`paddingBottom: insets.bottom || 16`).
 
 ---
 
-### Milestone H: Clarification on Apple Developer Email Notice
-- **Received Notice**: "Dear Michael Mitry, null null has revoked your certificate... Certificate: Development".
-- **Impact**: **Zero impact on TestFlight or production builds.**
-- **Reason**: Apple automatically rotates ephemeral Development certificates when new builds are prepared in CI/EAS. TestFlight releases use **iOS Distribution Certificates**, which remain valid and active.
+### Milestone H: Deployments & TestFlight Build 27
+1. **Google Cloud Run (Web)**:
+   - Revision `atplvector-00196-tvc` deployed and serving 100% of production traffic at `https://atplvector.com`.
+2. **Apple TestFlight (iOS Build 27)**:
+   - EAS Build ID: `9e3c462e-96e2-4ee8-8b6b-5865ed485149`
+   - Version: `1.0.0 (27)`
+   - Submission ID: `a6c412ed-a29f-43bf-ad41-d9e10b8d00b1`
+   - Status: Successfully uploaded to App Store Connect; currently processing on Apple servers for TestFlight installation.
 
 ---
 
 ## 📁 3. Key Modified Files & Directories
 
-- [`App.tsx`](file:///c:/Users/Mi5a/atplvector/App.tsx): Restored `mainMenuOpen`, restructured mobile navbar, added safe-area insets to drawers, passed user to preview banner.
-- [`index.html`](file:///c:/Users/Mi5a/atplvector/index.html): Viewport lock (`user-scalable=no`), touch-action rules, user-select restrictions.
-- [`index.css`](file:///c:/Users/Mi5a/atplvector/index.css): Base layer touch manipulation, overscroll containment, momentum scrolling.
-- [`index.tsx`](file:///c:/Users/Mi5a/atplvector/index.tsx): Global `<ErrorBoundary>` with recovery UI.
+- [`App.tsx`](file:///c:/Users/Mi5a/atplvector/App.tsx): Mobile navbar layout, safe areas, native view sync, `togglePortal` bridge listener.
+- [`components/QuestionBank.tsx`](file:///c:/Users/Mi5a/atplvector/components/QuestionBank.tsx): Unlocked exams for native/admin, Apple Taptic haptic integration.
+- [`lib/nativeBridge.ts`](file:///c:/Users/Mi5a/atplvector/lib/nativeBridge.ts): Bidirectional native communication bridge for haptics and navigation.
 - [`lib/devicePlatform.ts`](file:///c:/Users/Mi5a/atplvector/lib/devicePlatform.ts): Central platform detection and Admin bypass helper.
-- [`components/WebPreviewBanner.tsx`](file:///c:/Users/Mi5a/atplvector/components/WebPreviewBanner.tsx): Conditional rendering based on `isNativePlatform(user)`.
-- [`components/QuestionBank.tsx`](file:///c:/Users/Mi5a/atplvector/components/QuestionBank.tsx): Unlocked exams and all questions for native users and Admins.
-- [`mobile/App.js`](file:///c:/Users/Mi5a/atplvector/mobile/App.js): Native WKWebView config (`pinchGestureEnabled={false}`, `scalesPageToFit={false}`, pre-content JS injection).
-- [`mobile/app.json`](file:///c:/Users/Mi5a/atplvector/mobile/app.json): App name, bundle ID, orientation, tablet support, export compliance.
+- [`mobile/App.js`](file:///c:/Users/Mi5a/atplvector/mobile/App.js): Native bottom tab bar with glassmorphism, WKWebView configuration, `expo-haptics` listener.
+- [`mobile/package.json`](file:///c:/Users/Mi5a/atplvector/mobile/package.json): Installed `expo-haptics` and `expo-blur`.
+- [`mobile/app.json`](file:///c:/Users/Mi5a/atplvector/mobile/app.json): App metadata, bundle ID, orientation, tablet support.
 - [`mobile/eas.json`](file:///c:/Users/Mi5a/atplvector/mobile/eas.json): Production build and TestFlight submission profile.
-- [`.dockerignore`](file:///c:/Users/Mi5a/atplvector/.dockerignore): Included `.env` in container builder, excluded `mobile/`.
+- [`index.html`](file:///c:/Users/Mi5a/atplvector/index.html): Viewport lock (`user-scalable=no`), touch-action rules.
+- [`index.css`](file:///c:/Users/Mi5a/atplvector/index.css): Touch manipulation, overscroll containment, momentum scrolling.
+- [`index.tsx`](file:///c:/Users/Mi5a/atplvector/index.tsx): Global `<ErrorBoundary>` with recovery UI.
 
 ---
 
@@ -155,5 +169,5 @@ gcloud run deploy atplvector --source . --region europe-west1 --project bengarab
 
 # Build and submit new iOS native binary to Apple TestFlight
 cd c:\Users\Mi5a\atplvector\mobile
-eas build --platform ios --profile production --auto-submit
+npx eas-cli build --platform ios --profile production --auto-submit --non-interactive
 ```
