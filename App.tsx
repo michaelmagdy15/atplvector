@@ -18,6 +18,7 @@ const AuthView = React.lazy(() => import('./components/AuthView'));
 
 // Critical Imports (Static)
 import { Capacitor } from '@capacitor/core';
+import { triggerHaptic, notifyNativeViewChange, registerNativeNavListener } from './lib/nativeBridge';
 import MobileOnlyGateScreen from './components/MobileOnlyGateScreen';
 import WebPreviewBanner from './components/WebPreviewBanner';
 import NativeAppUnlockModal from './components/NativeAppUnlockModal';
@@ -72,11 +73,33 @@ const App: React.FC = () => {
     const [viewHistory, setViewHistory] = useState<View[]>([View.PLATFORM_DASHBOARD]);
     const [historyIndex, setHistoryIndex] = useState(0);
 
-    // Scroll to top on view change
+    // Scroll to top and notify native shell on view change
     useEffect(() => {
         window.scrollTo(0, 0);
         if (sidebarOpen) setSidebarOpen(false);
+        notifyNativeViewChange(currentView);
     }, [currentView]);
+
+    // Native iOS Tab Bar Navigation Listener
+    useEffect(() => {
+        const unregister = registerNativeNavListener((targetView) => {
+            triggerHaptic('selection');
+            if (targetView && Object.values(View).includes(targetView as View)) {
+                navigateTo(targetView as View);
+            }
+        });
+
+        const handleTogglePortal = () => {
+            triggerHaptic('light');
+            setMainMenuOpen(prev => !prev);
+        };
+        window.addEventListener('togglePortal', handleTogglePortal);
+
+        return () => {
+            unregister();
+            window.removeEventListener('togglePortal', handleTogglePortal);
+        };
+    }, [historyIndex, viewHistory]);
 
     // Navigate to a new view (adds to history)
     const navigateTo = (view: View) => {

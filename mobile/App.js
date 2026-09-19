@@ -13,10 +13,20 @@ import {
 import { WebView } from 'react-native-webview';
 import NetInfo from '@react-native-community/netinfo';
 import Constants from 'expo-constants';
+import * as Haptics from 'expo-haptics';
 
 const PRODUCTION_URL =
   Constants?.expoConfig?.extra?.PRODUCTION_URL || 'https://atplvector.com';
 const APP_NAME = Constants?.expoConfig?.extra?.APP_NAME || 'ATPL Vector';
+
+// Primary tabs for one-thumb pilot navigation
+const NATIVE_TABS = [
+  { id: 'hangar', label: 'Hangar', icon: '✈️', view: 'PLATFORM_DASHBOARD' },
+  { id: 'questions', label: 'Questions', icon: '🎯', view: 'QUESTION_BANK' },
+  { id: 'study', label: 'Study', icon: '📖', view: 'STUDY_GUIDE' },
+  { id: 'planner', label: 'Planner', icon: '📅', view: 'EXAM_PLANNER' },
+  { id: 'portal', label: 'Mission', icon: '⚡', action: 'PORTAL' },
+];
 
 // Injected JavaScript that runs BEFORE any web scripts load
 const INJECTED_BEFORE_LOAD = `
@@ -80,6 +90,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [key, setKey] = useState(0);
   const [hasFailedToLoad, setHasFailedToLoad] = useState(false);
+  const [activeTab, setActiveTab] = useState('hangar');
 
   // Monitor network connectivity
   useEffect(() => {
@@ -113,6 +124,58 @@ export default function App() {
       setIsConnected(state.isConnected !== false);
       setKey((prev) => prev + 1);
     });
+  };
+
+  // Handle bidirectional messages from the web study application
+  const handleMessage = (event) => {
+    try {
+      const data = JSON.parse(event.nativeEvent.data);
+      if (data.type === 'HAPTIC') {
+        switch (data.hapticType) {
+          case 'selection':
+            Haptics.selectionAsync();
+            break;
+          case 'medium':
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            break;
+          case 'heavy':
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+            break;
+          case 'success':
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+            break;
+          case 'warning':
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+            break;
+          case 'error':
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+            break;
+          case 'light':
+          default:
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            break;
+        }
+      } else if (data.type === 'VIEW_CHANGED' && data.view) {
+        const matchingTab = NATIVE_TABS.find((t) => t.view === data.view);
+        if (matchingTab) {
+          setActiveTab(matchingTab.id);
+        }
+      }
+    } catch (_) {}
+  };
+
+  // Handle native tab bar selection with Apple Taptic feedback
+  const handleTabPress = (tab) => {
+    Haptics.selectionAsync();
+    setActiveTab(tab.id);
+
+    if (tab.action === 'PORTAL') {
+      const js = `window.dispatchEvent(new CustomEvent('togglePortal', { detail: {} })); true;`;
+      webViewRef.current?.injectJavaScript(js);
+    } else if (tab.view) {
+      const js = `window.dispatchEvent(new CustomEvent('nativeNavigate', { detail: { type: 'NAVIGATE', view: '${tab.view}' } })); true;`;
+      webViewRef.current?.injectJavaScript(js);
+    }
   };
 
   if (hasFailedToLoad && !isConnected) {
@@ -161,6 +224,7 @@ export default function App() {
           allowsLinkPreview={false}
           injectedJavaScriptBeforeContentLoaded={INJECTED_BEFORE_LOAD}
           injectedJavaScript={INJECTED_AFTER_LOAD}
+          onMessage={handleMessage}
           onShouldStartLoadWithRequest={(request) => isSafeWebUrl(request.url)}
           onError={() => setHasFailedToLoad(true)}
           onNavigationStateChange={(navState) => {
@@ -182,6 +246,36 @@ export default function App() {
             <Text style={styles.loadingText}>Loading ATPL Vector...</Text>
           </View>
         )}
+
+        {/* Native iOS Bottom Tab Navigation Bar */}
+        <View style={styles.bottomBar}>
+          {NATIVE_TABS.map((tab) => {
+            const isActive = activeTab === tab.id;
+            return (
+              <TouchableOpacity
+                key={tab.id}
+                onPress={() => handleTabPress(tab)}
+                style={styles.tabButton}
+                activeOpacity={0.7}
+              >
+                <View
+                  style={[
+                    styles.tabIconContainer,
+                    isActive && styles.tabIconContainerActive,
+                  ]}
+                >
+                  <Text style={[styles.tabIcon, isActive && styles.tabIconActive]}>
+                    {tab.icon}
+                  </Text>
+                </View>
+                <Text style={[styles.tabLabel, isActive && styles.tabLabelActive]}>
+                  {tab.label}
+                </Text>
+                {isActive && <View style={styles.activePill} />}
+              </TouchableOpacity>
+            );
+          })}
+        </View>
       </View>
     </View>
   );
@@ -218,6 +312,63 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginTop: 12,
     letterSpacing: 0.5,
+  },
+  bottomBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    backgroundColor: 'rgba(10, 15, 30, 0.95)',
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255, 255, 255, 0.08)',
+    paddingTop: 8,
+    paddingBottom: Platform.OS === 'ios' ? 24 : 10,
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: -4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  tabButton: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 4,
+    position: 'relative',
+  },
+  tabIconContainer: {
+    width: 32,
+    height: 32,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 2,
+  },
+  tabIconContainerActive: {
+    backgroundColor: 'rgba(56, 189, 248, 0.15)',
+  },
+  tabIcon: {
+    fontSize: 18,
+  },
+  tabIconActive: {
+    transform: [{ scale: 1.1 }],
+  },
+  tabLabel: {
+    fontSize: 10,
+    fontWeight: '600',
+    color: '#64748B',
+    letterSpacing: 0.2,
+  },
+  tabLabelActive: {
+    color: '#38BDF8',
+    fontWeight: '700',
+  },
+  activePill: {
+    position: 'absolute',
+    top: 0,
+    width: 18,
+    height: 3,
+    borderRadius: 2,
+    backgroundColor: '#38BDF8',
   },
   offlineContainer: {
     flex: 1,

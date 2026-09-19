@@ -8,6 +8,7 @@ import { QB_Results } from './QB_Results';
 import { QBStorage } from '../lib/qb_storage';
 import { getExplanation } from '../lib/ai';
 import { isNativePlatform } from '../lib/devicePlatform';
+import { triggerHaptic } from '../lib/nativeBridge';
 import NativeAppUnlockModal from './NativeAppUnlockModal';
 import syllabusMetadata from '../data/qb_metadata.json'; // Access to titles for results
 
@@ -224,13 +225,12 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView, currentUser, 
         const currentQ = questions[currentTest.currentIndex];
         const isCorrect = optionIndex === currentQ.correctAnswer;
 
+        // Physical Apple Taptic Engine feedback
+        triggerHaptic(isCorrect ? 'success' : 'warning');
+
         // Update state
         const newAnswers = [...currentTest.userAnswers];
         const newStatuses = [...currentTest.userStatuses];
-
-        // If already answered, don't change in exam mode maybe? But usually allow changing.
-        // For now, let's allow changing answer if not completed, but in 'Study' mode showing explanation might lock it?
-        // Let's assume one-shot for simplicity or until reset.
 
         if (newAnswers[currentTest.currentIndex] !== null) return; // Prevent changing for now
 
@@ -249,6 +249,7 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView, currentUser, 
 
     const handleFinish = () => {
         if (!currentTest) return;
+        triggerHaptic('success');
 
         // Prepare results
         const topicMap = new Map<string, { total: number, correct: number, title: string }>();
