@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   TouchableOpacity,
   BackHandler,
   Platform,
@@ -18,6 +17,51 @@ import Constants from 'expo-constants';
 const PRODUCTION_URL =
   Constants?.expoConfig?.extra?.PRODUCTION_URL || 'https://atplvector.com';
 const APP_NAME = Constants?.expoConfig?.extra?.APP_NAME || 'ATPL Vector';
+
+// Injected JavaScript that runs BEFORE any web scripts load
+const INJECTED_BEFORE_LOAD = `
+  (function() {
+    window.isNativeApp = true;
+    window.__NATIVE_PLATFORM__ = 'ios';
+  })();
+  true;
+`;
+
+// Injected JavaScript that runs AFTER DOM is ready to lock viewport and disable zoom
+const INJECTED_AFTER_LOAD = `
+  (function() {
+    window.isNativeApp = true;
+    window.__NATIVE_PLATFORM__ = 'ios';
+
+    // 1. Force strict mobile viewport
+    var meta = document.querySelector('meta[name="viewport"]');
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = 'viewport';
+      document.head.appendChild(meta);
+    }
+    meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover';
+
+    // 2. Disable iOS gesture zooming
+    document.addEventListener('gesturestart', function(e) { e.preventDefault(); }, { passive: false });
+    document.addEventListener('gesturechange', function(e) { e.preventDefault(); }, { passive: false });
+    document.addEventListener('gestureend', function(e) { e.preventDefault(); }, { passive: false });
+
+    // 3. Disable double-tap to zoom
+    var lastTouchEnd = 0;
+    document.addEventListener('touchend', function(e) {
+      var now = Date.now();
+      if (now - lastTouchEnd <= 300) {
+        e.preventDefault();
+      }
+      lastTouchEnd = now;
+    }, false);
+
+    // 4. Dispatch native readiness event
+    window.dispatchEvent(new CustomEvent('nativePlatformReady', { detail: { platform: 'ios' } }));
+  })();
+  true;
+`;
 
 function isSafeWebUrl(url) {
   if (!url || typeof url !== 'string') return false;
@@ -73,7 +117,7 @@ export default function App() {
 
   if (hasFailedToLoad && !isConnected) {
     return (
-      <SafeAreaView style={styles.safeArea}>
+      <View style={styles.safeArea}>
         <StatusBar style="light" backgroundColor="#030712" />
         <View style={styles.offlineContainer}>
           <View style={styles.offlineIconContainer}>
@@ -87,12 +131,12 @@ export default function App() {
             <Text style={styles.retryButtonText}>Retry Connection</Text>
           </TouchableOpacity>
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <View style={styles.safeArea}>
       <StatusBar style="light" backgroundColor="#030712" />
       <View style={styles.container}>
         <WebView
@@ -112,6 +156,11 @@ export default function App() {
           allowsBackForwardNavigationGestures={true}
           originWhitelist={['https://*']}
           applicationNameForUserAgent="ATPLVector-Mobile"
+          scalesPageToFit={false}
+          pinchGestureEnabled={false}
+          allowsLinkPreview={false}
+          injectedJavaScriptBeforeContentLoaded={INJECTED_BEFORE_LOAD}
+          injectedJavaScript={INJECTED_AFTER_LOAD}
           onShouldStartLoadWithRequest={(request) => isSafeWebUrl(request.url)}
           onError={() => setHasFailedToLoad(true)}
           onNavigationStateChange={(navState) => {
@@ -134,7 +183,7 @@ export default function App() {
           </View>
         )}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -180,40 +229,45 @@ const styles = StyleSheet.create({
   offlineIconContainer: {
     width: 80,
     height: 80,
-    borderRadius: 40,
-    backgroundColor: '#0F172A',
+    borderRadius: 24,
+    backgroundColor: 'rgba(56, 189, 248, 0.1)',
+    borderWidth: 1,
+    borderColor: 'rgba(56, 189, 248, 0.2)',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 24,
-    borderWidth: 1,
-    borderColor: '#1E293B',
+    marginBottom: 20,
   },
   offlineIcon: {
     fontSize: 36,
   },
   offlineTitle: {
+    fontSize: 20,
+    fontWeight: '700',
     color: '#F8FAFC',
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 8,
     textAlign: 'center',
   },
   offlineMessage: {
+    fontSize: 14,
     color: '#94A3B8',
-    fontSize: 15,
     textAlign: 'center',
-    lineHeight: 22,
-    marginBottom: 30,
+    lineHeight: 20,
+    marginBottom: 28,
   },
   retryButton: {
     backgroundColor: '#0284C7',
-    paddingVertical: 14,
-    paddingHorizontal: 28,
-    borderRadius: 10,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 14,
+    shadowColor: '#0284C7',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 4,
   },
   retryButtonText: {
     color: '#FFFFFF',
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 15,
+    fontWeight: '600',
   },
 });

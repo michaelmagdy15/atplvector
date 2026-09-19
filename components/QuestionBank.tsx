@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Loader2, ArrowRight, HelpCircle, ImageIcon, Check, X, RotateCcw, ChevronLeft, Flag, Save, Sparkles, Bookmark, BookOpen, Target } from 'lucide-react';
-import { Question, View, QBConfig, SavedTest, TestResult, TopicResult } from '../types';
+import { Question, View, QBConfig, SavedTest, TestResult, TopicResult, User } from '../types';
 import { QB_Dashboard } from './QB_Dashboard';
 import { QB_Setup } from './QB_Setup';
 import { QB_Grid } from './QB_Grid';
 import { QB_Results } from './QB_Results';
 import { QBStorage } from '../lib/qb_storage';
 import { getExplanation } from '../lib/ai';
-import { Capacitor } from '@capacitor/core';
+import { isNativePlatform } from '../lib/devicePlatform';
 import NativeAppUnlockModal from './NativeAppUnlockModal';
 import syllabusMetadata from '../data/qb_metadata.json'; // Access to titles for results
 
@@ -15,11 +15,13 @@ const metadata = syllabusMetadata as { [key: string]: any[] };
 
 interface QuestionBankProps {
     onChangeView: (view: View) => void;
+    currentUser?: User | null;
+    user?: User | null;
 }
 
 type QBView = 'DASHBOARD' | 'SETUP' | 'PRACTICE' | 'RESULTS';
 
-const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
+const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView, currentUser, user }) => {
     const [view, setView] = useState<QBView>('DASHBOARD');
     const [currentTest, setCurrentTest] = useState<SavedTest | null>(null);
     const [questions, setQuestions] = useState<Question[]>([]); // Current test questions
@@ -177,7 +179,7 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView }) => {
             allQuestions = allQuestions.sort(() => Math.random() - 0.5);
 
             // Slice & Native Gating (Option B)
-            const isNative = Capacitor.isNativePlatform();
+            const isNative = isNativePlatform(currentUser || user);
             if (!isNative && config.mode === 'exam') {
                 setShowUnlockModal(true);
             }

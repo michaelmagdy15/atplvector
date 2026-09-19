@@ -1,13 +1,15 @@
 import React from 'react';
 import { Tablet, Sparkles, ExternalLink } from 'lucide-react';
-import { Capacitor } from '@capacitor/core';
+import { isNativePlatform } from '../lib/devicePlatform';
+import { User } from '../types';
 
 interface Props {
   onUnlockClick?: () => void;
+  user?: User | null;
 }
 
-const WebPreviewBanner: React.FC<Props> = ({ onUnlockClick }) => {
-  if (Capacitor.isNativePlatform()) return null;
+const WebPreviewBanner: React.FC<Props> = ({ onUnlockClick, user }) => {
+  if (isNativePlatform(user)) return null;
 
   return (
     <aside aria-label="Web preview notice" className="w-full bg-gradient-to-r from-blue-900/80 via-indigo-950/80 to-slate-900/80 border-b border-blue-500/30 px-4 py-2 text-xs flex flex-wrap items-center justify-between gap-2 backdrop-blur-md z-40 relative select-none">
