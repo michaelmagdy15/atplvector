@@ -8,16 +8,18 @@
 
 | Component | Status | Details |
 | :--- | :--- | :--- |
-| **Production Web** | 🟢 **LIVE (Cloud Run)** | Revision `atplvector-00196-tvc` serving 100% traffic on `https://atplvector.com` |
-| **Vite & Web Assets** | 🟢 **100% Working** | Production bundle builds cleanly in ~19s (`dist/`) |
+| **Production Web** | 🟢 **LIVE (Cloud Run)** | Revision `atplvector-00200-pcg` serving 100% traffic on `https://atplvector.com` |
+| **Vite & Web Assets** | 🟢 **100% Working** | Production bundle builds cleanly in ~13s (`dist/`) |
 | **iOS Mobile Shell** | 🟢 **Native Polish** | Expo SDK 54 / React 19 / WKWebView / `expo-haptics` / `expo-blur` in [`mobile/`](file:///c:/Users/Mi5a/atplvector/mobile) |
-| **Apple TestFlight** | 🟢 **Published (Build 27)** | App Store Connect App ID `6807877701`, Bundle ID `com.atplvector01.app` (Build 27) |
+| **Apple TestFlight** | 🟢 **Published (Build 28)** | App Store Connect App ID `6807877701`, Bundle ID `com.atplvector01.app` (Build 28) |
+| **Dynamic Island Fit** | 🟢 **Calibrated** | Header compact height (`h-13`), +4px breathing room, no button squishing |
+| **Subject Sidebar** | 🟢 **Elevated to `z-[70]`** | Renders above fixed header; prominent 44px dismiss button; zero title clipping |
+| **Native iOS Gestures** | 🟢 **Active** | Edge-swipe from left opens topic sidebar / triggers back navigation with haptics |
 | **Apple Taptic Engine** | 🟢 **Integrated** | Native haptic feedback for exam selections, test finishes, and tab navigation |
 | **Native Bottom Tab Bar** | 🟢 **Active** | 5 pilot-centric tabs (Hangar, Questions, Study, Planner, Mission) with frosted blur |
 | **Viewport & Touch** | 🟢 **Locked (No Zoom)** | `user-scalable=no`, `touch-action: manipulation`, `pinchGestureEnabled={false}` |
-| **Mobile Header** | 🟢 **Collision-Free** | Left-aligned logo, Apple HIG 44px touch targets for Search, Profile & Portal |
 | **Preview Mode** | 🟢 **Native Gated** | Hidden on iOS; bypassed for Admins on web; active for public web visitors |
-| **Safe Areas** | 🟢 **Integrated** | Dynamic Island & Home indicator insets on drawers, header, and sidebar |
+| **Floating Action Tools** | 🟢 **Offset** | Scratchpad & FocusTimer float above bottom tab bar without overlapping |
 
 ---
 
@@ -128,43 +130,47 @@
 
 ---
 
-### Milestone H: Deployments & TestFlight Build 27
-1. **Google Cloud Run (Web)**:
-   - Revision `atplvector-00196-tvc` deployed and serving 100% of production traffic at `https://atplvector.com`.
-2. **Apple TestFlight (iOS Build 27)**:
-   - EAS Build ID: `9e3c462e-96e2-4ee8-8b6b-5865ed485149`
-   - Version: `1.0.0 (27)`
-   - Submission ID: `a6c412ed-a29f-43bf-ad41-d9e10b8d00b1`
-   - Status: Successfully uploaded to App Store Connect; currently processing on Apple servers for TestFlight installation.
+### Milestone H: Dynamic Island Fit, Sidebar Layering & iOS Motion (Build 28)
+1. **Dynamic Island Safe-Area Calibration**:
+   - Added `+4px` breathing room to `[padding-top:calc(max(env(safe-area-inset-top,0px),var(--sat,0px))+4px)]` so header buttons do not kiss the Dynamic Island or status bar.
+   - Made the top header ultra-compact on mobile: `h-13` (52px) vs `h-16` on desktop, reclaiming vertical screen height.
+   - On mobile screens (`< sm:`), removed the redundant blue `Portal` button from the top right, since the **Mission** tab is already prominent in the bottom bar. This gives `Search` and `Profile` generous spacing and prevents reaching strains.
+2. **Subject Sidebar Elevated to `z-[70]`**:
+   - Raised the mobile sidebar drawer and backdrop to `z-[70]`, ensuring the fixed `z-50` navbar **never** clips the sidebar title or covers "BACK TO HANGAR".
+   - Upgraded the close button to a prominent 44px round button (`w-10 h-10 bg-slate-800/80 rounded-full`) with Apple Taptic feedback.
+3. **Floating Tools Offset**:
+   - Offset [`components/study/Scratchpad.tsx`](file:///c:/Users/Mi5a/atplvector/components/study/Scratchpad.tsx) and [`components/study/FocusTimer.tsx`](file:///c:/Users/Mi5a/atplvector/components/study/FocusTimer.tsx) from `bottom-6` to `bottom-[calc(max(env(safe-area-inset-bottom,0px),var(--sab,0px))+5.5rem)] right-4`, floating them cleanly above the native bottom tab bar.
+4. **Native iOS Gestures & Motion**:
+   - Added an **Edge-Swipe from Left** gesture listener: swiping right from the left screen edge (<32px) slides open the Subject Sidebar or navigates back with haptic feedback (`triggerHaptic('light')`).
+   - Added Apple spring easing variables and smooth cross-fade view transitions (`animate-in fade-in duration-200`).
+5. **Native Shell Initial Metrics**:
+   - In [`mobile/App.js`](file:///c:/Users/Mi5a/atplvector/mobile/App.js), passed `INITIAL_SAFE_METRICS` (`top: 54, bottom: 34`) to `<SafeAreaProvider>` so initial web renders have exact safe-area CSS properties immediately.
 
 ---
 
-### Milestone I: iPhone 12 to 18 Pro Max Safe Area & Screen Height Calibration
-1. **Top Navigation Bar Safe-Area Flow**:
-   - Fixed navbar in [`App.tsx`](file:///c:/Users/Mi5a/atplvector/App.tsx) and [`components/AuthView.tsx`](file:///c:/Users/Mi5a/atplvector/components/AuthView.tsx) now applies hardware safe-area insets (`padding-top: max(env(safe-area-inset-top, 0px), var(--sat, 0px))`).
-   - Frosted blur background flows to `y = 0` beneath Notch and Dynamic Island, while brand title and action buttons sit safely in the interactive touch zone across all models (iPhone 12 through 18 Pro Max).
-2. **Screen Height & Viewport Normalization**:
-   - Removed body padding bloat from [`index.html`](file:///c:/Users/Mi5a/atplvector/index.html), defined `--sat` and `--sab` fallback CSS variables, and locked viewport to `100dvh`.
-   - Converted `<main>` to `flex-1 w-full` with dynamic top/bottom padding to eliminate double-screen height overscroll and jitter.
-3. **Native iOS Bottom Bar & Inset Bridge ([`mobile/App.js`](file:///c:/Users/Mi5a/atplvector/mobile/App.js))**:
-   - Integrated `react-native-safe-area-context` to automatically inject native hardware insets (`insets.top`, `insets.bottom`) into the webview.
-   - Dynamic 34pt bottom padding applied on all modern iPhones to cleanly elevate tabs above the iOS home indicator bar.
+### Milestone I: Deployments & TestFlight Build 28
+1. **Google Cloud Run (Web)**:
+   - Revision `atplvector-00200-pcg` deployed and serving 100% of production traffic at `https://atplvector.com`.
+2. **Apple TestFlight (iOS Build 28)**:
+   - EAS Build ID: `47d14a1a-f8bc-4755-b4e6-b27000ad7bce`
+   - Version: `1.0.0 (28)`
+   - Submission ID: `096e0771-7f7b-4125-9a68-d42d3a8524ea`
+   - Status: Successfully uploaded to App Store Connect; currently processing on Apple servers for TestFlight installation.
 
 ---
 
 ## 📁 3. Key Modified Files & Directories
 
-- [`App.tsx`](file:///c:/Users/Mi5a/atplvector/App.tsx): Mobile navbar layout, safe areas, native view sync, `togglePortal` bridge listener.
+- [`App.tsx`](file:///c:/Users/Mi5a/atplvector/App.tsx): Dynamic Island fit, compact mobile header, deduplicated portal button, `z-[70]` sidebar drawer, edge-swipe gesture, view cross-fade.
+- [`components/SubjectSidebar.tsx`](file:///c:/Users/Mi5a/atplvector/components/SubjectSidebar.tsx): Apple HIG 44px circular dismiss button, haptic feedback, safe bottom padding.
+- [`components/study/Scratchpad.tsx`](file:///c:/Users/Mi5a/atplvector/components/study/Scratchpad.tsx): Position offset above native bottom bar, haptic triggers.
+- [`components/study/FocusTimer.tsx`](file:///c:/Users/Mi5a/atplvector/components/study/FocusTimer.tsx): Position offset above native bottom bar.
+- [`components/AuthView.tsx`](file:///c:/Users/Mi5a/atplvector/components/AuthView.tsx): Safe area breathing room on login/landing header.
+- [`index.css`](file:///c:/Users/Mi5a/atplvector/index.css): Apple HIG spring curve variables and fluid interaction styles.
+- [`mobile/App.js`](file:///c:/Users/Mi5a/atplvector/mobile/App.js): `initialMetrics` for instant safe-area CSS injection, dynamic safe-area synchronization.
 - [`components/QuestionBank.tsx`](file:///c:/Users/Mi5a/atplvector/components/QuestionBank.tsx): Unlocked exams for native/admin, Apple Taptic haptic integration.
 - [`lib/nativeBridge.ts`](file:///c:/Users/Mi5a/atplvector/lib/nativeBridge.ts): Bidirectional native communication bridge for haptics and navigation.
 - [`lib/devicePlatform.ts`](file:///c:/Users/Mi5a/atplvector/lib/devicePlatform.ts): Central platform detection and Admin bypass helper.
-- [`mobile/App.js`](file:///c:/Users/Mi5a/atplvector/mobile/App.js): Native bottom tab bar with glassmorphism, WKWebView configuration, `expo-haptics` listener.
-- [`mobile/package.json`](file:///c:/Users/Mi5a/atplvector/mobile/package.json): Installed `expo-haptics` and `expo-blur`.
-- [`mobile/app.json`](file:///c:/Users/Mi5a/atplvector/mobile/app.json): App metadata, bundle ID, orientation, tablet support.
-- [`mobile/eas.json`](file:///c:/Users/Mi5a/atplvector/mobile/eas.json): Production build and TestFlight submission profile.
-- [`index.html`](file:///c:/Users/Mi5a/atplvector/index.html): Viewport lock (`user-scalable=no`), touch-action rules.
-- [`index.css`](file:///c:/Users/Mi5a/atplvector/index.css): Touch manipulation, overscroll containment, momentum scrolling.
-- [`index.tsx`](file:///c:/Users/Mi5a/atplvector/index.tsx): Global `<ErrorBoundary>` with recovery UI.
 
 ---
 
