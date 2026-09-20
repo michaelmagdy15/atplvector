@@ -21,6 +21,10 @@
         --sab: env(safe-area-inset-bottom, 0px);
         --sal: env(safe-area-inset-left, 0px);
         --sar: env(safe-area-inset-right, 0px);
+
+        /* Apple HIG Motion Curves */
+        --ios-spring: cubic-bezier(0.32, 0.72, 0, 1);
+        --ios-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     html, body {

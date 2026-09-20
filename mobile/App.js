@@ -39,9 +39,19 @@ function isSafeWebUrl(url) {
   }
 }
 
+const INITIAL_SAFE_METRICS = {
+  frame: { x: 0, y: 0, width: 393, height: 852 },
+  insets: {
+    top: Platform.OS === 'ios' ? 54 : 24,
+    left: 0,
+    right: 0,
+    bottom: Platform.OS === 'ios' ? 34 : 0,
+  },
+};
+
 export default function App() {
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider initialMetrics={INITIAL_SAFE_METRICS}>
       <MainApp />
     </SafeAreaProvider>
   );
@@ -49,6 +59,9 @@ export default function App() {
 
 function MainApp() {
   const insets = useSafeAreaInsets();
+  const topInset = insets.top > 0 ? insets.top : (Platform.OS === 'ios' ? 54 : 0);
+  const bottomInset = insets.bottom > 0 ? insets.bottom : (Platform.OS === 'ios' ? 34 : 0);
+
   const webViewRef = useRef(null);
   const [isConnected, setIsConnected] = useState(true);
   const [canGoBack, setCanGoBack] = useState(false);
@@ -62,8 +75,8 @@ function MainApp() {
     (function() {
       window.isNativeApp = true;
       window.__NATIVE_PLATFORM__ = 'ios';
-      document.documentElement.style.setProperty('--sat', '${insets.top || 0}px');
-      document.documentElement.style.setProperty('--sab', '${insets.bottom || 0}px');
+      document.documentElement.style.setProperty('--sat', '${topInset}px');
+      document.documentElement.style.setProperty('--sab', '${bottomInset}px');
     })();
     true;
   `;
@@ -73,8 +86,8 @@ function MainApp() {
     (function() {
       window.isNativeApp = true;
       window.__NATIVE_PLATFORM__ = 'ios';
-      document.documentElement.style.setProperty('--sat', '${insets.top || 0}px');
-      document.documentElement.style.setProperty('--sab', '${insets.bottom || 0}px');
+      document.documentElement.style.setProperty('--sat', '${topInset}px');
+      document.documentElement.style.setProperty('--sab', '${bottomInset}px');
 
       // 1. Force strict mobile viewport with viewport-fit=cover
       var meta = document.querySelector('meta[name="viewport"]');
@@ -105,8 +118,8 @@ function MainApp() {
         detail: { 
           platform: 'ios', 
           safeArea: { 
-            top: ${insets.top || 0}, 
-            bottom: ${insets.bottom || 0} 
+            top: ${topInset}, 
+            bottom: ${bottomInset} 
           } 
         } 
       }));
@@ -118,12 +131,12 @@ function MainApp() {
   useEffect(() => {
     if (webViewRef.current) {
       webViewRef.current.injectJavaScript(`
-        document.documentElement.style.setProperty('--sat', '${insets.top || 0}px');
-        document.documentElement.style.setProperty('--sab', '${insets.bottom || 0}px');
+        document.documentElement.style.setProperty('--sat', '${topInset}px');
+        document.documentElement.style.setProperty('--sab', '${bottomInset}px');
         true;
       `);
     }
-  }, [insets.top, insets.bottom]);
+  }, [topInset, bottomInset]);
 
   // Monitor network connectivity
   useEffect(() => {

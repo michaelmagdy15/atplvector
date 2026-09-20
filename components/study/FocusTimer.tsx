@@ -51,7 +51,7 @@ const FocusTimer: React.FC = () => {
         return (
             <button
                 onClick={() => setIsMinimized(false)}
-                className="fixed bottom-4 right-4 bg-slate-800 border border-slate-700 p-3 rounded-full text-white shadow-lg z-50 hover:bg-slate-700 transition-all active:scale-95 group"
+                className="fixed bottom-[calc(max(env(safe-area-inset-bottom,0px),var(--sab,0px))+5.5rem)] right-16 sm:right-20 sm:bottom-4 bg-slate-800 border border-slate-700 p-3 rounded-full text-white shadow-lg z-40 hover:bg-slate-700 transition-all active:scale-95 group"
                 title="Open Focus Timer"
             >
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-indigo-500 rounded-full animate-pulse" style={{ display: isActive ? 'block' : 'none' }}></div>
@@ -61,7 +61,7 @@ const FocusTimer: React.FC = () => {
     }
 
     return (
-        <div className="fixed bottom-4 right-4 w-64 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl z-50 overflow-hidden animate-in slide-in-from-bottom-5 fade-in duration-300">
+        <div className="fixed bottom-[calc(max(env(safe-area-inset-bottom,0px),var(--sab,0px))+5rem)] right-4 sm:bottom-4 sm:right-4 w-64 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl z-50 overflow-hidden animate-in slide-in-from-bottom-5 fade-in duration-300">
             {/* Header */}
             <div className={`p-3 flex justify-between items-center ${mode === 'focus' ? 'bg-indigo-900/50' : 'bg-emerald-900/50'}`}>
                 <div className="flex items-center gap-2">

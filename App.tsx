@@ -733,19 +733,64 @@ const App: React.FC = () => {
 
     const subjectConfig = isSubjectNavView(currentView) ? getSubjectConfig(currentView) : null;
 
+    // Native iOS Edge-Swipe Gesture (Swipe from left edge to open Subject Sidebar or navigate back)
+    useEffect(() => {
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let isEdgeSwipe = false;
+
+        const handleTouchStart = (e: TouchEvent) => {
+            if (e.touches.length !== 1) return;
+            const touch = e.touches[0];
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+            isEdgeSwipe = touchStartX < 32;
+        };
+
+        const handleTouchEnd = (e: TouchEvent) => {
+            if (!isEdgeSwipe) return;
+            const touch = e.changedTouches[0];
+            const deltaX = touch.clientX - touchStartX;
+            const deltaY = Math.abs(touch.clientY - touchStartY);
+
+            if (deltaX > 50 && deltaY < 75) {
+                if (subjectConfig && !sidebarOpen) {
+                    triggerHaptic('light');
+                    setSidebarOpen(true);
+                } else if (historyIndex > 0) {
+                    triggerHaptic('light');
+                    goBack();
+                }
+            }
+            isEdgeSwipe = false;
+        };
+
+        window.addEventListener('touchstart', handleTouchStart, { passive: true });
+        window.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+        return () => {
+            window.removeEventListener('touchstart', handleTouchStart);
+            window.removeEventListener('touchend', handleTouchEnd);
+        };
+    }, [subjectConfig, sidebarOpen, historyIndex]);
+
     const appContent = (
         <ContentProtection userId={user.id} userEmail={user.email}>
             <div className="min-h-screen min-h-[100dvh] font-sans text-slate-100 selection:bg-blue-500/30 selection:text-white bg-slate-950 flex flex-col">
-                <div className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10 [padding-top:max(env(safe-area-inset-top,0px),var(--sat,0px))] [padding-left:max(env(safe-area-inset-left,0px),var(--sal,0px))] [padding-right:max(env(safe-area-inset-right,0px),var(--sar,0px))]">
+                {/* Fixed Top Header: Compact on mobile with calibrated Dynamic Island safe-area padding */}
+                <div className="fixed top-0 left-0 right-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-white/10 [padding-top:calc(max(env(safe-area-inset-top,0px),var(--sat,0px))+4px)] [padding-left:max(env(safe-area-inset-left,0px),var(--sal,0px))] [padding-right:max(env(safe-area-inset-right,0px),var(--sar,0px))]">
                     <WebPreviewBanner onUnlockClick={() => setUnlockModalOpen(true)} user={user} />
                     <nav className="max-w-7xl mx-auto">
-                        <div className="px-3 sm:px-6 h-16 flex items-center justify-between relative">
+                        <div className="px-3 sm:px-6 h-13 sm:h-16 flex items-center justify-between relative">
                             {/* Left Section: Mobile Sidebar Toggle + Brand Logo */}
                             <div className="flex items-center gap-2 sm:gap-4 z-10 min-w-0">
                                 {subjectConfig && (
                                     <button
-                                        onClick={() => setSidebarOpen(!sidebarOpen)}
-                                        className="lg:hidden p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-xl min-w-[40px] min-h-[40px] flex items-center justify-center transition-colors active:scale-95"
+                                        onClick={() => {
+                                            triggerHaptic('light');
+                                            setSidebarOpen(!sidebarOpen);
+                                        }}
+                                        className="lg:hidden p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-xl min-w-[40px] min-h-[40px] flex items-center justify-center transition-all active:scale-90"
                                         aria-label="Toggle Subject Sidebar"
                                     >
                                         <BookOpen size={20} />
@@ -754,13 +799,16 @@ const App: React.FC = () => {
 
                                 {/* Responsive Brand Logo */}
                                 <div
-                                    className="flex items-center space-x-2 sm:space-x-3 cursor-pointer group shrink-0"
-                                    onClick={() => navigateTo(View.PLATFORM_DASHBOARD)}
+                                    className="flex items-center space-x-2 sm:space-x-3 cursor-pointer group shrink-0 active:scale-95 transition-transform"
+                                    onClick={() => {
+                                        triggerHaptic('selection');
+                                        navigateTo(View.PLATFORM_DASHBOARD);
+                                    }}
                                 >
-                                    <div className="p-1 w-8 h-8 sm:w-10 sm:h-10 bg-slate-900/60 rounded-xl shadow-lg group-hover:shadow-blue-500/20 transition-all duration-300 group-hover:scale-105 border border-white/10 flex items-center justify-center overflow-hidden">
+                                    <div className="p-1 w-7 h-7 sm:w-10 sm:h-10 bg-slate-900/60 rounded-xl shadow-lg group-hover:shadow-blue-500/20 transition-all duration-300 group-hover:scale-105 border border-white/10 flex items-center justify-center overflow-hidden">
                                         <img src="/logo.png" alt="Logo" className="w-full h-full object-contain scale-[3.5] object-center" />
                                     </div>
-                                    <span className="text-base sm:text-xl font-black tracking-tight text-white whitespace-nowrap">
+                                    <span className="text-sm sm:text-xl font-black tracking-tight text-white whitespace-nowrap">
                                         ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span>
                                     </span>
                                 </div>
@@ -781,8 +829,11 @@ const App: React.FC = () => {
                             {/* Right Section: Actions with Apple HIG 44px touch targets */}
                             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 z-10">
                                 <button
-                                    onClick={() => setCommandPaletteOpen(true)}
-                                    className="p-2 sm:px-3 text-slate-300 hover:text-white hover:bg-white/10 rounded-xl transition-all flex items-center justify-center gap-2 border border-white/10 min-w-[40px] min-h-[40px] active:scale-95"
+                                    onClick={() => {
+                                        triggerHaptic('light');
+                                        setCommandPaletteOpen(true);
+                                    }}
+                                    className="p-2 sm:px-3 text-slate-300 hover:text-white hover:bg-white/10 rounded-xl transition-all flex items-center justify-center gap-2 border border-white/10 min-w-[40px] min-h-[40px] active:scale-90"
                                     title="Search (Ctrl+K)"
                                     aria-label="Search"
                                 >
@@ -791,18 +842,25 @@ const App: React.FC = () => {
                                 </button>
 
                                 <div
-                                    onClick={() => navigateTo(View.PROFILE)}
+                                    onClick={() => {
+                                        triggerHaptic('selection');
+                                        navigateTo(View.PROFILE);
+                                    }}
                                     className="flex items-center cursor-pointer group px-0.5"
                                     title="Profile"
                                 >
-                                    <div className="w-8 h-8 sm:w-9 sm:h-9 bg-gradient-to-br from-slate-700 to-slate-800 rounded-xl flex items-center justify-center text-[10px] sm:text-xs font-bold text-white border border-white/10 group-hover:border-blue-500/50 transition-colors shadow-lg active:scale-95">
+                                    <div className="w-8 h-8 sm:w-9 sm:h-9 bg-gradient-to-br from-slate-700 to-slate-800 rounded-xl flex items-center justify-center text-[10px] sm:text-xs font-bold text-white border border-white/10 group-hover:border-blue-500/50 transition-colors shadow-lg active:scale-90">
                                         {user.email.substring(0, 2).toUpperCase()}
                                     </div>
                                 </div>
 
+                                {/* Portal Button: Hidden on mobile (< sm:) since Mission tab is already in the native bottom bar */}
                                 <button
-                                    onClick={() => setMainMenuOpen(true)}
-                                    className="px-2.5 py-2 sm:px-3.5 sm:py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl shadow-lg shadow-blue-500/25 transition-all flex items-center gap-1.5 sm:gap-2 group active:scale-95 min-h-[40px]"
+                                    onClick={() => {
+                                        triggerHaptic('light');
+                                        setMainMenuOpen(true);
+                                    }}
+                                    className="hidden sm:flex px-2.5 py-2 sm:px-3.5 sm:py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl shadow-lg shadow-blue-500/25 transition-all items-center gap-1.5 sm:gap-2 group active:scale-95 min-h-[40px]"
                                     aria-label="Open Mission Control Portal"
                                 >
                                     <Menu size={18} className="sm:w-5 sm:h-5 group-hover:rotate-180 transition-transform duration-500" />
@@ -813,21 +871,35 @@ const App: React.FC = () => {
                     </nav>
                 </div>
 
+                {/* Mobile Subject Sidebar: z-[70] so it sits ABOVE the navbar z-50 */}
                 {subjectConfig && sidebarOpen && (
-                    <div className="fixed inset-0 z-40 lg:hidden">
-                        <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setSidebarOpen(false)}></div>
-                        <div className="absolute top-0 left-0 bottom-0 w-80 max-w-[85vw] bg-slate-900 border-r border-slate-700/80 [padding-top:max(env(safe-area-inset-top,0px),var(--sat,0px))] [padding-bottom:max(env(safe-area-inset-bottom,0px),var(--sab,0px))] animate-in slide-in-from-left duration-300 flex flex-col">
+                    <div className="fixed inset-0 z-[70] lg:hidden">
+                        <div
+                            className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300"
+                            onClick={() => {
+                                triggerHaptic('light');
+                                setSidebarOpen(false);
+                            }}
+                        ></div>
+                        <div className="absolute top-0 left-0 bottom-0 w-80 max-w-[85vw] bg-slate-900 border-r border-slate-700/80 [padding-top:calc(max(env(safe-area-inset-top,0px),var(--sat,0px))+6px)] [padding-bottom:calc(max(env(safe-area-inset-bottom,0px),var(--sab,0px))+4.5rem)] animate-in slide-in-from-left duration-300 ease-out flex flex-col shadow-2xl">
                             <SubjectSidebar
                                 config={subjectConfig}
                                 currentView={currentView}
-                                onNavigate={navigateTo}
-                                onClose={() => setSidebarOpen(false)}
+                                onNavigate={(v) => {
+                                    triggerHaptic('selection');
+                                    navigateTo(v);
+                                    setSidebarOpen(false);
+                                }}
+                                onClose={() => {
+                                    triggerHaptic('light');
+                                    setSidebarOpen(false);
+                                }}
                             />
                         </div>
                     </div>
                 )}
 
-                <main className="flex-1 w-full [padding-top:calc(max(env(safe-area-inset-top,0px),var(--sat,0px))+4.5rem)] sm:[padding-top:calc(max(env(safe-area-inset-top,0px),var(--sat,0px))+5.5rem)] [padding-bottom:calc(max(env(safe-area-inset-bottom,0px),var(--sab,0px))+5rem)] [padding-left:max(env(safe-area-inset-left,0px),var(--sal,0px),1rem)] [padding-right:max(env(safe-area-inset-right,0px),var(--sar,0px),1rem)]">
+                <main className="flex-1 w-full [padding-top:calc(max(env(safe-area-inset-top,0px),var(--sat,0px))+3.75rem)] sm:[padding-top:calc(max(env(safe-area-inset-top,0px),var(--sat,0px))+5.5rem)] [padding-bottom:calc(max(env(safe-area-inset-bottom,0px),var(--sab,0px))+5rem)] [padding-left:max(env(safe-area-inset-left,0px),var(--sal,0px),1rem)] [padding-right:max(env(safe-area-inset-right,0px),var(--sar,0px),1rem)]">
                     <div className="max-w-7xl mx-auto flex gap-8">
                         {subjectConfig && (
                             <div className="hidden lg:block w-64 shrink-0 sticky top-[calc(max(env(safe-area-inset-top,0px),var(--sat,0px))+5rem)] h-[calc(100vh-max(env(safe-area-inset-top,0px),var(--sat,0px))-7rem)]">
@@ -839,7 +911,7 @@ const App: React.FC = () => {
                             </div>
                         )}
 
-                        <div className="flex-1 min-w-0">
+                        <div key={currentView} className="flex-1 min-w-0 animate-in fade-in duration-200">
                             <ErrorBoundary>
                                 <React.Suspense fallback={<LoadingScreen />}>
                                     <Router

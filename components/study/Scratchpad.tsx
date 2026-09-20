@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { PenTool, Trash2, Maximize2, Minimize2, X, Type, Eraser, RotateCcw, Download, Sparkles } from 'lucide-react';
 import { useToast } from '../ui/ToastContext';
+import { triggerHaptic } from '../../lib/nativeBridge';
 
 type ScratchpadMode = 'draw' | 'text';
 
@@ -152,8 +153,11 @@ const Scratchpad: React.FC = () => {
   if (!isOpen) {
     return (
       <button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 bg-blue-600/90 hover:bg-blue-500 border border-blue-400/40 p-3.5 rounded-full text-white shadow-2xl shadow-blue-600/30 z-50 transition-all active:scale-95 group backdrop-blur-md"
+        onClick={() => {
+          triggerHaptic('light');
+          setIsOpen(true);
+        }}
+        className="fixed bottom-[calc(max(env(safe-area-inset-bottom,0px),var(--sab,0px))+5.5rem)] right-4 sm:right-6 sm:bottom-6 bg-blue-600/90 hover:bg-blue-500 border border-blue-400/40 p-3.5 rounded-full text-white shadow-2xl shadow-blue-600/30 z-40 transition-all active:scale-95 group backdrop-blur-md"
         title="Open iPad Cockpit Scratchpad (Apple Pencil & Calc)"
       >
         {(note.length > 0 || hasDrawnContent) && (
@@ -166,8 +170,8 @@ const Scratchpad: React.FC = () => {
 
   return (
     <div
-      className={`fixed bottom-6 right-6 bg-slate-900/95 border border-blue-500/30 rounded-3xl shadow-2xl shadow-blue-950/60 z-50 flex flex-col overflow-hidden backdrop-blur-xl animate-in slide-in-from-bottom-6 fade-in duration-200 select-none ${
-        isExpanded ? 'w-[90vw] sm:w-[600px] h-[75vh]' : 'w-[88vw] sm:w-[380px] h-[480px]'
+      className={`fixed bottom-[calc(max(env(safe-area-inset-bottom,0px),var(--sab,0px))+5rem)] right-3 sm:right-6 sm:bottom-6 bg-slate-900/95 border border-blue-500/30 rounded-3xl shadow-2xl shadow-blue-950/60 z-50 flex flex-col overflow-hidden backdrop-blur-xl animate-in slide-in-from-bottom-6 fade-in duration-200 select-none ${
+        isExpanded ? 'w-[94vw] sm:w-[600px] h-[75vh]' : 'w-[90vw] sm:w-[380px] h-[480px]'
       }`}
     >
       {/* Header Bar */}

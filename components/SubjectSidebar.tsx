@@ -4,6 +4,7 @@ import { View } from '../types';
 import { SubjectConfig } from '../data/sidebarNavigation';
 import { ChevronLeft, Circle, CheckCircle2, X, Search, Trophy } from 'lucide-react';
 import { useGamification } from '../context/GamificationContext';
+import { triggerHaptic } from '../lib/nativeBridge';
 
 interface Props {
     config: SubjectConfig;
@@ -53,20 +54,27 @@ const SubjectSidebar: React.FC<Props> = ({ config, currentView, onNavigate, onCl
         <div className="h-full flex flex-col bg-slate-900 border-r border-white/5 md:border-none md:bg-transparent">
             {/* Header */}
             <div className="p-4 mb-2 relative">
-                <div className="flex justify-between items-start">
+                <div className="flex justify-between items-center mb-3">
                     <button
-                        onClick={() => onNavigate(View.PLATFORM_DASHBOARD)}
-                        className="flex items-center text-xs font-bold text-slate-500 hover:text-white mb-4 transition-colors group"
+                        onClick={() => {
+                            triggerHaptic('light');
+                            onNavigate(View.PLATFORM_DASHBOARD);
+                        }}
+                        className="flex items-center text-xs font-bold text-slate-400 hover:text-white transition-colors group p-1 -ml-1 rounded-lg active:scale-95"
                     >
                         <ChevronLeft className="w-4 h-4 mr-1 group-hover:-translate-x-1 transition-transform" />
                         BACK TO HANGAR
                     </button>
                     {onClose && (
                         <button
-                            onClick={onClose}
-                            className="md:hidden p-2 -mr-2 -mt-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
+                            onClick={() => {
+                                triggerHaptic('light');
+                                onClose();
+                            }}
+                            className="lg:hidden w-10 h-10 -mr-1 text-slate-300 hover:text-white rounded-full bg-slate-800/80 hover:bg-slate-700/80 active:scale-95 transition-all flex items-center justify-center border border-white/10 shadow-lg"
+                            aria-label="Close Sidebar"
                         >
-                            <X size={20} />
+                            <X size={18} />
                         </button>
                     )}
                 </div>
@@ -119,10 +127,11 @@ const SubjectSidebar: React.FC<Props> = ({ config, currentView, onNavigate, onCl
                             <button
                                 key={idx}
                                 onClick={() => {
+                                    triggerHaptic('selection');
                                     onNavigate(item.view);
                                     if (onClose) onClose();
                                 }}
-                                className={getColorClass(isActive)}
+                                className={`${getColorClass(isActive)} active:scale-[0.98] transition-all`}
                             >
                                 <Icon size={18} className={isActive ? "opacity-100" : "opacity-50"} />
                                 <span className="truncate">{item.label}</span>
@@ -133,7 +142,7 @@ const SubjectSidebar: React.FC<Props> = ({ config, currentView, onNavigate, onCl
             </div>
 
             {/* Gamification Status Footer */}
-            <div className="p-4 border-t border-white/5 bg-slate-900/50">
+            <div className="p-4 border-t border-white/5 bg-slate-900/90 [padding-bottom:max(env(safe-area-inset-bottom,0px),var(--sab,0px),1rem)]">
                 <div className="flex items-center gap-3 mb-2">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center border border-emerald-500/30">
                         <Trophy size={14} className="text-emerald-400" />
