@@ -735,8 +735,8 @@ const App: React.FC = () => {
 
     const appContent = (
         <ContentProtection userId={user.id} userEmail={user.email}>
-            <div className="min-h-screen font-sans text-slate-100 selection:bg-blue-500/30 selection:text-white bg-slate-950 pt-[env(safe-area-inset-top)]">
-                <div className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
+            <div className="min-h-screen min-h-[100dvh] font-sans text-slate-100 selection:bg-blue-500/30 selection:text-white bg-slate-950 flex flex-col">
+                <div className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10 [padding-top:max(env(safe-area-inset-top,0px),var(--sat,0px))] [padding-left:max(env(safe-area-inset-left,0px),var(--sal,0px))] [padding-right:max(env(safe-area-inset-right,0px),var(--sar,0px))]">
                     <WebPreviewBanner onUnlockClick={() => setUnlockModalOpen(true)} user={user} />
                     <nav className="max-w-7xl mx-auto">
                         <div className="px-3 sm:px-6 h-16 flex items-center justify-between relative">
@@ -816,7 +816,7 @@ const App: React.FC = () => {
                 {subjectConfig && sidebarOpen && (
                     <div className="fixed inset-0 z-40 lg:hidden">
                         <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setSidebarOpen(false)}></div>
-                        <div className="absolute top-0 left-0 bottom-0 w-80 max-w-[85vw] bg-slate-900 border-r border-slate-700/80 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] animate-in slide-in-from-left duration-300 flex flex-col">
+                        <div className="absolute top-0 left-0 bottom-0 w-80 max-w-[85vw] bg-slate-900 border-r border-slate-700/80 [padding-top:max(env(safe-area-inset-top,0px),var(--sat,0px))] [padding-bottom:max(env(safe-area-inset-bottom,0px),var(--sab,0px))] animate-in slide-in-from-left duration-300 flex flex-col">
                             <SubjectSidebar
                                 config={subjectConfig}
                                 currentView={currentView}
@@ -827,10 +827,10 @@ const App: React.FC = () => {
                     </div>
                 )}
 
-                <main className="pt-24 sm:pt-32 min-h-screen px-4 pb-20">
+                <main className="flex-1 w-full [padding-top:calc(max(env(safe-area-inset-top,0px),var(--sat,0px))+4.5rem)] sm:[padding-top:calc(max(env(safe-area-inset-top,0px),var(--sat,0px))+5.5rem)] [padding-bottom:calc(max(env(safe-area-inset-bottom,0px),var(--sab,0px))+5rem)] [padding-left:max(env(safe-area-inset-left,0px),var(--sal,0px),1rem)] [padding-right:max(env(safe-area-inset-right,0px),var(--sar,0px),1rem)]">
                     <div className="max-w-7xl mx-auto flex gap-8">
                         {subjectConfig && (
-                            <div className="hidden lg:block w-64 shrink-0 sticky top-24 h-[calc(100vh-120px)]">
+                            <div className="hidden lg:block w-64 shrink-0 sticky top-[calc(max(env(safe-area-inset-top,0px),var(--sat,0px))+5rem)] h-[calc(100vh-max(env(safe-area-inset-top,0px),var(--sat,0px))-7rem)]">
                                 <SubjectSidebar
                                     config={subjectConfig}
                                     currentView={currentView}
@@ -873,7 +873,7 @@ const App: React.FC = () => {
                             className="absolute inset-0 bg-slate-950/70 backdrop-blur-md animate-in fade-in duration-300"
                             onClick={() => setMainMenuOpen(false)}
                         ></div>
-                        <div className="relative w-full max-w-sm bg-slate-900 border-l border-white/10 shadow-2xl animate-in slide-in-from-right duration-500 flex flex-col h-full pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
+                        <div className="relative w-full max-w-sm bg-slate-900 border-l border-white/10 shadow-2xl animate-in slide-in-from-right duration-500 flex flex-col h-full [padding-top:max(env(safe-area-inset-top,0px),var(--sat,0px))] [padding-bottom:max(env(safe-area-inset-bottom,0px),var(--sab,0px))]">
                             <div className="p-4 sm:p-6 border-b border-white/5 flex items-center justify-between">
                                 <div className="flex items-center gap-3">
                                     <div className="p-2 bg-blue-500/20 rounded-xl">

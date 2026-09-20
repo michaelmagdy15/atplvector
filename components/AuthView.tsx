@@ -376,7 +376,7 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
             {activeInfoPage === null && (
                 <>
                     {/* Professional Integrated Navbar */}
-                    <div className="sticky top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
+                    <div className="sticky top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10 [padding-top:max(env(safe-area-inset-top,0px),var(--sat,0px))] [padding-left:max(env(safe-area-inset-left,0px),var(--sal,0px))] [padding-right:max(env(safe-area-inset-right,0px),var(--sar,0px))]">
                         <nav className="max-w-7xl mx-auto">
                             <div className="px-6 md:px-10 h-16 md:h-20 flex items-center justify-between relative">
                                 <div className="hidden lg:block w-32"></div>

@@ -139,6 +139,19 @@
 
 ---
 
+### Milestone I: iPhone 12 to 18 Pro Max Safe Area & Screen Height Calibration
+1. **Top Navigation Bar Safe-Area Flow**:
+   - Fixed navbar in [`App.tsx`](file:///c:/Users/Mi5a/atplvector/App.tsx) and [`components/AuthView.tsx`](file:///c:/Users/Mi5a/atplvector/components/AuthView.tsx) now applies hardware safe-area insets (`padding-top: max(env(safe-area-inset-top, 0px), var(--sat, 0px))`).
+   - Frosted blur background flows to `y = 0` beneath Notch and Dynamic Island, while brand title and action buttons sit safely in the interactive touch zone across all models (iPhone 12 through 18 Pro Max).
+2. **Screen Height & Viewport Normalization**:
+   - Removed body padding bloat from [`index.html`](file:///c:/Users/Mi5a/atplvector/index.html), defined `--sat` and `--sab` fallback CSS variables, and locked viewport to `100dvh`.
+   - Converted `<main>` to `flex-1 w-full` with dynamic top/bottom padding to eliminate double-screen height overscroll and jitter.
+3. **Native iOS Bottom Bar & Inset Bridge ([`mobile/App.js`](file:///c:/Users/Mi5a/atplvector/mobile/App.js))**:
+   - Integrated `react-native-safe-area-context` to automatically inject native hardware insets (`insets.top`, `insets.bottom`) into the webview.
+   - Dynamic 34pt bottom padding applied on all modern iPhones to cleanly elevate tabs above the iOS home indicator bar.
+
+---
+
 ## 📁 3. Key Modified Files & Directories
 
 - [`App.tsx`](file:///c:/Users/Mi5a/atplvector/App.tsx): Mobile navbar layout, safe areas, native view sync, `togglePortal` bridge listener.

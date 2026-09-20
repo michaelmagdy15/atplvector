@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
   Image,
 } from 'react-native';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 import NetInfo from '@react-native-community/netinfo';
 import Constants from 'expo-constants';
@@ -28,51 +29,6 @@ const NATIVE_TABS = [
   { id: 'portal', label: 'Mission', icon: '⚡', action: 'PORTAL' },
 ];
 
-// Injected JavaScript that runs BEFORE any web scripts load
-const INJECTED_BEFORE_LOAD = `
-  (function() {
-    window.isNativeApp = true;
-    window.__NATIVE_PLATFORM__ = 'ios';
-  })();
-  true;
-`;
-
-// Injected JavaScript that runs AFTER DOM is ready to lock viewport and disable zoom
-const INJECTED_AFTER_LOAD = `
-  (function() {
-    window.isNativeApp = true;
-    window.__NATIVE_PLATFORM__ = 'ios';
-
-    // 1. Force strict mobile viewport
-    var meta = document.querySelector('meta[name="viewport"]');
-    if (!meta) {
-      meta = document.createElement('meta');
-      meta.name = 'viewport';
-      document.head.appendChild(meta);
-    }
-    meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover';
-
-    // 2. Disable iOS gesture zooming
-    document.addEventListener('gesturestart', function(e) { e.preventDefault(); }, { passive: false });
-    document.addEventListener('gesturechange', function(e) { e.preventDefault(); }, { passive: false });
-    document.addEventListener('gestureend', function(e) { e.preventDefault(); }, { passive: false });
-
-    // 3. Disable double-tap to zoom
-    var lastTouchEnd = 0;
-    document.addEventListener('touchend', function(e) {
-      var now = Date.now();
-      if (now - lastTouchEnd <= 300) {
-        e.preventDefault();
-      }
-      lastTouchEnd = now;
-    }, false);
-
-    // 4. Dispatch native readiness event
-    window.dispatchEvent(new CustomEvent('nativePlatformReady', { detail: { platform: 'ios' } }));
-  })();
-  true;
-`;
-
 function isSafeWebUrl(url) {
   if (!url || typeof url !== 'string') return false;
   try {
@@ -84,6 +40,15 @@ function isSafeWebUrl(url) {
 }
 
 export default function App() {
+  return (
+    <SafeAreaProvider>
+      <MainApp />
+    </SafeAreaProvider>
+  );
+}
+
+function MainApp() {
+  const insets = useSafeAreaInsets();
   const webViewRef = useRef(null);
   const [isConnected, setIsConnected] = useState(true);
   const [canGoBack, setCanGoBack] = useState(false);
@@ -91,6 +56,74 @@ export default function App() {
   const [key, setKey] = useState(0);
   const [hasFailedToLoad, setHasFailedToLoad] = useState(false);
   const [activeTab, setActiveTab] = useState('hangar');
+
+  // Injected JavaScript that runs BEFORE any web scripts load
+  const injectedBeforeLoad = `
+    (function() {
+      window.isNativeApp = true;
+      window.__NATIVE_PLATFORM__ = 'ios';
+      document.documentElement.style.setProperty('--sat', '${insets.top || 0}px');
+      document.documentElement.style.setProperty('--sab', '${insets.bottom || 0}px');
+    })();
+    true;
+  `;
+
+  // Injected JavaScript that runs AFTER DOM is ready to lock viewport, pass safe areas, and disable zoom
+  const injectedAfterLoad = `
+    (function() {
+      window.isNativeApp = true;
+      window.__NATIVE_PLATFORM__ = 'ios';
+      document.documentElement.style.setProperty('--sat', '${insets.top || 0}px');
+      document.documentElement.style.setProperty('--sab', '${insets.bottom || 0}px');
+
+      // 1. Force strict mobile viewport with viewport-fit=cover
+      var meta = document.querySelector('meta[name="viewport"]');
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.name = 'viewport';
+        document.head.appendChild(meta);
+      }
+      meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover';
+
+      // 2. Disable iOS gesture zooming
+      document.addEventListener('gesturestart', function(e) { e.preventDefault(); }, { passive: false });
+      document.addEventListener('gesturechange', function(e) { e.preventDefault(); }, { passive: false });
+      document.addEventListener('gestureend', function(e) { e.preventDefault(); }, { passive: false });
+
+      // 3. Disable double-tap to zoom
+      var lastTouchEnd = 0;
+      document.addEventListener('touchend', function(e) {
+        var now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+          e.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, false);
+
+      // 4. Dispatch native readiness event with hardware safe-area metrics
+      window.dispatchEvent(new CustomEvent('nativePlatformReady', { 
+        detail: { 
+          platform: 'ios', 
+          safeArea: { 
+            top: ${insets.top || 0}, 
+            bottom: ${insets.bottom || 0} 
+          } 
+        } 
+      }));
+    })();
+    true;
+  `;
+
+  // Synchronize dynamic safe area updates (such as orientation change) into webview
+  useEffect(() => {
+    if (webViewRef.current) {
+      webViewRef.current.injectJavaScript(`
+        document.documentElement.style.setProperty('--sat', '${insets.top || 0}px');
+        document.documentElement.style.setProperty('--sab', '${insets.bottom || 0}px');
+        true;
+      `);
+    }
+  }, [insets.top, insets.bottom]);
 
   // Monitor network connectivity
   useEffect(() => {
@@ -181,7 +214,7 @@ export default function App() {
   if (hasFailedToLoad && !isConnected) {
     return (
       <View style={styles.safeArea}>
-        <StatusBar style="light" backgroundColor="#030712" />
+        <StatusBar style="light" backgroundColor="#030712" translucent />
         <View style={styles.offlineContainer}>
           <View style={styles.offlineIconContainer}>
             <Text style={styles.offlineIcon}>✈️</Text>
@@ -198,9 +231,13 @@ export default function App() {
     );
   }
 
+  // Calculate bottom tab padding dynamically for all iPhone models
+  // iPhone 12 to 18 Pro Max with home indicator will receive 34pt safe inset
+  const bottomBarPadding = insets.bottom > 0 ? insets.bottom : (Platform.OS === 'ios' ? 16 : 10);
+
   return (
     <View style={styles.safeArea}>
-      <StatusBar style="light" backgroundColor="#030712" />
+      <StatusBar style="light" backgroundColor="#030712" translucent />
       <View style={styles.container}>
         <WebView
           key={key}
@@ -222,8 +259,9 @@ export default function App() {
           scalesPageToFit={false}
           pinchGestureEnabled={false}
           allowsLinkPreview={false}
-          injectedJavaScriptBeforeContentLoaded={INJECTED_BEFORE_LOAD}
-          injectedJavaScript={INJECTED_AFTER_LOAD}
+          contentInsetAdjustmentBehavior="never"
+          injectedJavaScriptBeforeContentLoaded={injectedBeforeLoad}
+          injectedJavaScript={injectedAfterLoad}
           onMessage={handleMessage}
           onShouldStartLoadWithRequest={(request) => isSafeWebUrl(request.url)}
           onError={() => setHasFailedToLoad(true)}
@@ -248,7 +286,7 @@ export default function App() {
         )}
 
         {/* Native iOS Bottom Tab Navigation Bar */}
-        <View style={styles.bottomBar}>
+        <View style={[styles.bottomBar, { paddingBottom: bottomBarPadding }]}>
           {NATIVE_TABS.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
@@ -321,7 +359,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: 'rgba(255, 255, 255, 0.08)',
     paddingTop: 8,
-    paddingBottom: Platform.OS === 'ios' ? 24 : 10,
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: -4 },
     shadowOpacity: 0.4,
