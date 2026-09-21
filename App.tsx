@@ -144,6 +144,60 @@ const App: React.FC = () => {
 
     const canGoBack = historyIndex > 0;
     const canGoForward = historyIndex < viewHistory.length - 1;
+
+    const isSubjectNavView = (view: View) => {
+        return view !== View.PLATFORM_DASHBOARD &&
+            view !== View.PROFILE &&
+            view !== View.ACCOUNT_SETTINGS &&
+            view !== View.SYLLABUS_VIEWER &&
+            view !== View.SUBSCRIPTION_MANAGEMENT &&
+            view !== View.ADMIN_DASHBOARD &&
+            view !== View.EXAM_PLANNER &&
+            view !== View.PROGRESS_DASHBOARD;
+    };
+
+    // Native iOS Edge-Swipe Gesture (Swipe from left edge to open Subject Sidebar or navigate back)
+    useEffect(() => {
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let isEdgeSwipe = false;
+
+        const handleTouchStart = (e: TouchEvent) => {
+            if (e.touches.length !== 1) return;
+            const touch = e.touches[0];
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+            isEdgeSwipe = touchStartX < 32;
+        };
+
+        const handleTouchEnd = (e: TouchEvent) => {
+            if (!isEdgeSwipe) return;
+            const touch = e.changedTouches[0];
+            const deltaX = touch.clientX - touchStartX;
+            const deltaY = Math.abs(touch.clientY - touchStartY);
+
+            if (deltaX > 50 && deltaY < 75) {
+                const isSub = isSubjectNavView(currentView);
+                if (isSub && !sidebarOpen) {
+                    triggerHaptic('light');
+                    setSidebarOpen(true);
+                } else if (historyIndex > 0) {
+                    triggerHaptic('light');
+                    goBack();
+                }
+            }
+            isEdgeSwipe = false;
+        };
+
+        window.addEventListener('touchstart', handleTouchStart, { passive: true });
+        window.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+        return () => {
+            window.removeEventListener('touchstart', handleTouchStart);
+            window.removeEventListener('touchend', handleTouchEnd);
+        };
+    }, [currentView, sidebarOpen, historyIndex]);
+
     const [isLoading, setIsLoading] = useState(true);
 
 
@@ -720,59 +774,7 @@ const App: React.FC = () => {
         navigateTo(View.SYLLABUS_VIEWER);
     };
 
-    const isSubjectNavView = (view: View) => {
-        return view !== View.PLATFORM_DASHBOARD &&
-            view !== View.PROFILE &&
-            view !== View.ACCOUNT_SETTINGS &&
-            view !== View.SYLLABUS_VIEWER &&
-            view !== View.SUBSCRIPTION_MANAGEMENT &&
-            view !== View.ADMIN_DASHBOARD &&
-            view !== View.EXAM_PLANNER &&
-            view !== View.PROGRESS_DASHBOARD;
-    };
-
     const subjectConfig = isSubjectNavView(currentView) ? getSubjectConfig(currentView) : null;
-
-    // Native iOS Edge-Swipe Gesture (Swipe from left edge to open Subject Sidebar or navigate back)
-    useEffect(() => {
-        let touchStartX = 0;
-        let touchStartY = 0;
-        let isEdgeSwipe = false;
-
-        const handleTouchStart = (e: TouchEvent) => {
-            if (e.touches.length !== 1) return;
-            const touch = e.touches[0];
-            touchStartX = touch.clientX;
-            touchStartY = touch.clientY;
-            isEdgeSwipe = touchStartX < 32;
-        };
-
-        const handleTouchEnd = (e: TouchEvent) => {
-            if (!isEdgeSwipe) return;
-            const touch = e.changedTouches[0];
-            const deltaX = touch.clientX - touchStartX;
-            const deltaY = Math.abs(touch.clientY - touchStartY);
-
-            if (deltaX > 50 && deltaY < 75) {
-                if (subjectConfig && !sidebarOpen) {
-                    triggerHaptic('light');
-                    setSidebarOpen(true);
-                } else if (historyIndex > 0) {
-                    triggerHaptic('light');
-                    goBack();
-                }
-            }
-            isEdgeSwipe = false;
-        };
-
-        window.addEventListener('touchstart', handleTouchStart, { passive: true });
-        window.addEventListener('touchend', handleTouchEnd, { passive: true });
-
-        return () => {
-            window.removeEventListener('touchstart', handleTouchStart);
-            window.removeEventListener('touchend', handleTouchEnd);
-        };
-    }, [subjectConfig, sidebarOpen, historyIndex]);
 
     const appContent = (
         <ContentProtection userId={user.id} userEmail={user.email}>

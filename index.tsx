@@ -39,9 +39,14 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
             </svg>
           </div>
           <h1 className="text-2xl font-bold text-white mb-2">Something went wrong</h1>
-          <p className="text-slate-400 max-w-md text-sm mb-6">
+          <p className="text-slate-400 max-w-md text-sm mb-4">
             ATPL Vector encountered an unexpected error while rendering this view.
           </p>
+          {this.state.error?.message && (
+            <div className="bg-red-500/10 border border-red-500/30 text-red-300 text-xs font-mono p-3 rounded-xl max-w-md mb-6 break-words text-left">
+              {this.state.error.message}
+            </div>
+          )}
           <div className="flex gap-4">
             <button
               onClick={() => window.location.reload()}
