@@ -8,7 +8,7 @@
 
 | Component | Status | Details |
 | :--- | :--- | :--- |
-| **Production Web** | 🟢 **LIVE (Cloud Run)** | Revision `atplvector-00200-pcg` serving 100% traffic on `https://atplvector.com` |
+| **Production Web** | 🟢 **LIVE (Cloud Run)** | Revision `atplvector-00203-fv2` serving 100% traffic on `https://atplvector.com` |
 | **Vite & Web Assets** | 🟢 **100% Working** | Production bundle builds cleanly in ~13s (`dist/`) |
 | **iOS Mobile Shell** | 🟢 **Native Polish** | Expo SDK 54 / React 19 / WKWebView / `expo-haptics` / `expo-blur` in [`mobile/`](file:///c:/Users/Mi5a/atplvector/mobile) |
 | **Apple TestFlight** | 🟢 **Published (Build 28)** | App Store Connect App ID `6807877701`, Bundle ID `com.atplvector01.app` (Build 28) |
@@ -150,12 +150,27 @@
 
 ### Milestone I: Deployments & TestFlight Build 28
 1. **Google Cloud Run (Web)**:
-   - Revision `atplvector-00200-pcg` deployed and serving 100% of production traffic at `https://atplvector.com`.
+   - Revision `atplvector-00200-pcg` deployed and serving production traffic at `https://atplvector.com`.
 2. **Apple TestFlight (iOS Build 28)**:
    - EAS Build ID: `47d14a1a-f8bc-4755-b4e6-b27000ad7bce`
    - Version: `1.0.0 (28)`
    - Submission ID: `096e0771-7f7b-4125-9a68-d42d3a8524ea`
-   - Status: Successfully uploaded to App Store Connect; currently processing on Apple servers for TestFlight installation.
+   - Status: Successfully uploaded to App Store Connect; processed on Apple servers for TestFlight installation.
+
+---
+
+### Milestone J: React Hook Order Fix & Live Webview Auto-Fix (`00203-fv2`)
+1. **Root Cause Analysis ("Something went wrong")**:
+   - The crash report (*"atpl vector encountered an unexpected error while rendering this view"*) was diagnosed as a React "Rules of Hooks" violation in [`App.tsx`](file:///c:/Users/Mi5a/atplvector/App.tsx).
+   - The newly added edge-swipe `useEffect` had been placed after conditional returns (`if (isLoading) return ...;`, `if (!user) return ...;`). During initial boot while loading auth state, the hook was skipped, and on subsequent renders it fired, causing React invariant error #310.
+2. **Unconditional Hook Execution**:
+   - Reordered [`App.tsx`](file:///c:/Users/Mi5a/atplvector/App.tsx) so all hooks (`useState`, `useRef`, `useEffect`) execute at the very top of the component (line 148) before any conditional returns.
+3. **Enhanced `<ErrorBoundary>` Diagnostics**:
+   - Updated [`index.tsx`](file:///c:/Users/Mi5a/atplvector/index.tsx) to render `{this.state.error?.message}` inside a red monospace badge on error screens, ensuring errors are immediately visible rather than silent.
+4. **Google Cloud Run Live Deployment**:
+   - Deployed revision **`atplvector-00203-fv2`** to Google Cloud Run (`europe-west1`) serving 100% of production traffic at `https://atplvector.com`. Verified HTTP 200 OK.
+5. **Instant iOS TestFlight Auto-Resolution**:
+   - Because TestFlight Build 28 loads `https://atplvector.com` through WKWebView, deploying `00203-fv2` instantly fixed the issue on all iPhone/iPad devices without requiring a new TestFlight submission.
 
 ---
 
