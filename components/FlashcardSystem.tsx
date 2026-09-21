@@ -348,35 +348,35 @@ const FlashcardSystem: React.FC = () => {
     );
 
     return (
-        <div className="max-w-6xl mx-auto p-6">
-            <div className="mb-8 flex flex-col md:flex-row justify-between items-end gap-4">
+        <div className="max-w-6xl mx-auto p-4 sm:p-6 pb-32">
+            <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                 <div>
-                    <h1 className="text-3xl font-black text-white flex items-center gap-2">
+                    <h1 className="text-2xl sm:text-3xl font-black text-white flex items-center gap-2">
                         <GraduationCap className="text-amber-400" /> Study Flashcards
                     </h1>
-                    <p className="text-slate-400 mt-1">Create, organize and practice your knowledge.</p>
+                    <p className="text-slate-400 text-sm sm:text-base mt-1">Create, organize and practice your knowledge.</p>
                 </div>
                 {mode === 'manage' && (
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
                         <button
                             onClick={handleShuffle}
-                            className="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-3 rounded-lg font-bold flex items-center gap-2 transition-colors"
+                            className="flex-1 sm:flex-none justify-center bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-3 rounded-xl font-bold flex items-center gap-2 transition-colors active:scale-95"
                         >
                             <Shuffle size={18} /> Shuffle
                         </button>
                         <button
                             onClick={startPractice}
                             disabled={activeDeck.length === 0}
-                            className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white px-6 py-3 rounded-lg font-bold flex items-center gap-2 shadow-lg transition-transform hover:scale-105"
+                            className="flex-1 sm:flex-none justify-center bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white px-5 py-3 rounded-xl font-bold flex items-center gap-2 shadow-lg transition-transform active:scale-95"
                         >
-                            <Brain /> Practice Deck ({activeDeck.length})
+                            <Brain size={18} /> Practice Deck ({activeDeck.length})
                         </button>
                     </div>
                 )}
                 {mode === 'practice' && (
                     <button
                         onClick={() => { setMode('manage'); setShuffledDeck([]); }}
-                        className="bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-lg font-bold flex items-center gap-2"
+                        className="bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 active:scale-95"
                     >
                         Exit Practice
                     </button>
@@ -525,7 +525,7 @@ const FlashcardSystem: React.FC = () => {
             )}
 
             {mode === 'practice' && (
-                <div className="flex flex-col items-center justify-center min-h-[600px] animate-in fade-in">
+                <div className="flex flex-col items-center justify-center min-h-[500px] animate-in fade-in pb-20 w-full px-2">
                     {/* Access correct deck (shuffled or raw) */}
                     {(() => {
                         const deck = getPlayDeck();
@@ -541,30 +541,30 @@ const FlashcardSystem: React.FC = () => {
                                     <div className={`relative w-full h-full duration-500 transform-style-3d transition-transform ${isFlipped ? 'rotate-y-180' : ''}`}>
 
                                         {/* Front */}
-                                        <div className="absolute w-full h-full backface-hidden bg-white rounded-2xl shadow-2xl flex flex-col items-center justify-center p-12 text-center border-b-8 border-indigo-600">
+                                        <div className="absolute w-full h-full backface-hidden bg-white rounded-2xl shadow-2xl flex flex-col items-center justify-center p-6 sm:p-12 text-center border-b-8 border-indigo-600">
                                             <span className="absolute top-4 left-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Question</span>
                                             <span className="absolute top-4 right-4 text-xs font-bold text-indigo-100 bg-indigo-600 px-2 py-1 rounded">Subject {deck[practiceIndex].subjectId}</span>
-                                            <h2 className="text-3xl font-black text-slate-800">{deck[practiceIndex].front}</h2>
+                                            <h2 className="text-xl sm:text-3xl font-black text-slate-800">{deck[practiceIndex].front}</h2>
                                             <p className="absolute bottom-4 text-slate-400 text-xs flex items-center gap-1"><RotateCcw size={12} /> Click to Flip</p>
                                         </div>
 
                                         {/* Back */}
-                                        <div className="absolute w-full h-full backface-hidden bg-slate-900 rounded-2xl shadow-2xl flex flex-col items-center justify-center p-12 text-center border-b-8 border-emerald-500 rotate-y-180">
+                                        <div className="absolute w-full h-full backface-hidden bg-slate-900 rounded-2xl shadow-2xl flex flex-col items-center justify-center p-6 sm:p-12 text-center border-b-8 border-emerald-500 rotate-y-180">
                                             <span className="absolute top-4 left-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Answer</span>
-                                            <p className="text-xl font-medium text-emerald-400 leading-relaxed">{deck[practiceIndex].back}</p>
+                                            <p className="text-lg sm:text-xl font-medium text-emerald-400 leading-relaxed">{deck[practiceIndex].back}</p>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Controls */}
                                 <div className="flex items-center gap-8 mt-12">
-                                    <button onClick={prevCard} className="p-4 bg-slate-800 rounded-full hover:bg-slate-700 text-white transition-all hover:scale-110 border border-slate-600">
+                                    <button onClick={prevCard} className="p-4 bg-slate-800 rounded-full hover:bg-slate-700 text-white transition-all hover:scale-110 active:scale-95 border border-slate-600">
                                         <ChevronLeft size={24} />
                                     </button>
                                     <div className="text-slate-400 font-mono font-bold">
                                         {practiceIndex + 1} / {deck.length}
                                     </div>
-                                    <button onClick={nextCard} className="p-4 bg-slate-800 rounded-full hover:bg-slate-700 text-white transition-all hover:scale-110 border border-slate-600">
+                                    <button onClick={nextCard} className="p-4 bg-slate-800 rounded-full hover:bg-slate-700 text-white transition-all hover:scale-110 active:scale-95 border border-slate-600">
                                         <ChevronRight size={24} />
                                     </button>
                                 </div>

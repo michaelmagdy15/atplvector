@@ -36,7 +36,7 @@ import FocusTimer from './components/study/FocusTimer';
 import Scratchpad from './components/study/Scratchpad';
 import {
     Plane as PlaneIcon, Menu, X, BookOpen, Settings, Weight,
-    Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog, Wind, Search, Activity, Calendar, Clock, Radio
+    Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog, Wind, Search, Activity, Calendar, Clock, Radio, ChevronLeft
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -784,8 +784,25 @@ const App: React.FC = () => {
                     <WebPreviewBanner onUnlockClick={() => setUnlockModalOpen(true)} user={user} />
                     <nav className="max-w-7xl mx-auto">
                         <div className="px-3 sm:px-6 h-13 sm:h-16 flex items-center justify-between relative">
-                            {/* Left Section: Mobile Sidebar Toggle + Brand Logo */}
-                            <div className="flex items-center gap-2 sm:gap-4 z-10 min-w-0">
+                            {/* Left Section: Mobile Back / Sidebar Toggle + Brand Logo */}
+                            <div className="flex items-center gap-1.5 sm:gap-4 z-10 min-w-0">
+                                {currentView !== View.PLATFORM_DASHBOARD && (
+                                    <button
+                                        onClick={() => {
+                                            triggerHaptic('selection');
+                                            if (canGoBack) {
+                                                goBack();
+                                            } else {
+                                                navigateTo(View.PLATFORM_DASHBOARD);
+                                            }
+                                        }}
+                                        className="sm:hidden p-1.5 -ml-1 text-slate-300 hover:text-white hover:bg-white/10 rounded-xl min-w-[36px] min-h-[36px] flex items-center justify-center transition-all active:scale-90"
+                                        aria-label="Go Back"
+                                    >
+                                        <ChevronLeft size={22} className="text-blue-400" />
+                                    </button>
+                                )}
+
                                 {subjectConfig && (
                                     <button
                                         onClick={() => {

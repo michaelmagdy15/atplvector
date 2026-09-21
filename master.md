@@ -8,7 +8,7 @@
 
 | Component | Status | Details |
 | :--- | :--- | :--- |
-| **Production Web** | 🟢 **LIVE (Cloud Run)** | Revision `atplvector-00203-fv2` serving 100% traffic on `https://atplvector.com` |
+| **Production Web** | 🟢 **LIVE (Cloud Run)** | Revision `atplvector-00205-cfh` serving 100% traffic on `https://atplvector.com` |
 | **Vite & Web Assets** | 🟢 **100% Working** | Production bundle builds cleanly in ~13s (`dist/`) |
 | **iOS Mobile Shell** | 🟢 **Native Polish** | Expo SDK 54 / React 19 / WKWebView / `expo-haptics` / `expo-blur` in [`mobile/`](file:///c:/Users/Mi5a/atplvector/mobile) |
 | **Apple TestFlight** | 🟢 **Published (Build 28)** | App Store Connect App ID `6807877701`, Bundle ID `com.atplvector01.app` (Build 28) |
@@ -186,6 +186,21 @@
 - [`components/QuestionBank.tsx`](file:///c:/Users/Mi5a/atplvector/components/QuestionBank.tsx): Unlocked exams for native/admin, Apple Taptic haptic integration.
 - [`lib/nativeBridge.ts`](file:///c:/Users/Mi5a/atplvector/lib/nativeBridge.ts): Bidirectional native communication bridge for haptics and navigation.
 - [`lib/devicePlatform.ts`](file:///c:/Users/Mi5a/atplvector/lib/devicePlatform.ts): Central platform detection and Admin bypass helper.
+
+### Milestone F: Full Mobile & Tablet Ergonomic Audit & Scaling Perfection
+1. **Automated Mobile & iPad Audit Suite (`scripts/audit_mobile_playwright.cjs`)**:
+   - Developed an automated Playwright audit pipeline capturing high-resolution screenshots across iPhone 15 Pro (`393x852` @3x) and iPad Air (`820x1180` @2x).
+   - Validated horizontal overflow, Apple HIG touch targets (>= 40px), safe area insets, and console errors across 11 platform views.
+2. **Fixed iPad 2-Column Collapse Bug**:
+   - **Root Cause**: In [`components/PlatformDashboard.tsx`](file:///c:/Users/Mi5a/atplvector/components/PlatformDashboard.tsx), the subjects grid container was set to `grid-cols-1 lg:grid-cols-2 xl:grid-cols-3` while child cards had `md:col-span-2`. On iPad viewports (768px - 1023px), `md:` matched but `lg:` did not, causing CSS Grid to synthesize asymmetric implicit columns (`78px` vs `621px`), completely crushing Subject 010 (Air Law).
+   - **Fix**: Changed the container to `grid-cols-1 md:grid-cols-2 xl:grid-cols-3`, ensuring iPads render balanced, equal-width columns.
+3. **Optimized Mobile Pilot Stat Cards**:
+   - Replaced unconstrained `flex-wrap` with a structured responsive layout (`grid-cols-1 sm:grid-cols-2 lg:flex`) and `w-full sm:w-auto` card widths, guaranteeing readable daily goals, streak, and flight time counters on small screens.
+4. **Native iOS Back Navigation Chevron**:
+   - Added a dedicated, haptic-enabled `<ChevronLeft />` button in the top mobile navbar ([`App.tsx`](file:///c:/Users/Mi5a/atplvector/App.tsx)) whenever navigating within a subject or secondary module, allowing pilots to return to Hangar with one tap.
+5. **Ergonomic Scroll Clearance & Touch Targets**:
+   - Increased bottom scroll clearance (`pb-32`) in [`components/ExamPlanner.tsx`](file:///c:/Users/Mi5a/atplvector/components/ExamPlanner.tsx) and [`components/FlashcardSystem.tsx`](file:///c:/Users/Mi5a/atplvector/components/FlashcardSystem.tsx) to ensure content is never obscured by floating action buttons (Pomodoro timer, Scratchpad) or the native bottom tab bar.
+   - Added tactile feedback (`active:scale-[0.98]` and `active:scale-95`) to subject cards and primary action triggers.
 
 ---
 

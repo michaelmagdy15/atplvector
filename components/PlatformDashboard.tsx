@@ -51,7 +51,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
         return (
             <div
                 onClick={() => !locked && onClick()}
-                className={`group relative glass-card rounded-2xl p-1 overflow-hidden transition-all duration-300 will-change-transform ${locked ? 'opacity-80 cursor-not-allowed' : 'hover:scale-[1.01] cursor-pointer'}`}
+                className={`group relative glass-card rounded-2xl p-1 overflow-hidden transition-all duration-300 will-change-transform ${locked ? 'opacity-80 cursor-not-allowed' : 'hover:scale-[1.01] active:scale-[0.98] cursor-pointer'}`}
             >
                 {locked && (
                     <div className="absolute inset-0 z-30 bg-slate-950/80 flex flex-col items-center justify-center transition-opacity hover:bg-slate-950/70">
@@ -130,9 +130,9 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                     <p className="text-slate-400 text-sm md:text-lg font-medium">Flight deck initialized. All systems nominal.</p>
                 </div>
 
-                <div className="flex flex-wrap gap-4 animate-in fade-in slide-in-from-right duration-1000">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap gap-3 sm:gap-4 w-full xl:w-auto animate-in fade-in slide-in-from-right duration-1000">
                     {/* Gamification: Daily Goal */}
-                    <div className="glass-panel px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/10 shadow-2xl relative overflow-hidden group">
+                    <div className="glass-panel w-full sm:w-auto px-5 sm:px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/10 shadow-2xl relative overflow-hidden group">
                         <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-transparent w-full h-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         <div className="p-3 bg-emerald-500/10 rounded-xl text-emerald-400 relative z-10">
                             <Target size={28} />
@@ -146,7 +146,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                                 <div 
                                     className="h-full bg-gradient-to-r from-emerald-400 to-teal-400 transition-all duration-1000" 
                                     style={{ width: `${goalProgressPercent}%` }}
-                                ></div>
+                                />
                             </div>
                             <div className="text-xs font-mono font-bold text-slate-300">
                                 {formatTime(todayStudySeconds)} / {formatTime(dailyGoalSeconds)}
@@ -155,7 +155,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                     </div>
 
                     {/* Gamification: Study Streak */}
-                    <div className="glass-panel px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/10 shadow-2xl">
+                    <div className="glass-panel w-full sm:w-auto px-5 sm:px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/10 shadow-2xl">
                         <div className={`p-3 rounded-xl ${streakDays > 0 ? 'bg-orange-500/10 text-orange-400' : 'bg-slate-800 text-slate-500'}`}>
                             <Flame size={28} className={streakDays > 0 ? 'animate-pulse' : ''} />
                         </div>
@@ -167,7 +167,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                         </div>
                     </div>
 
-                    <div className="glass-panel px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/10 shadow-2xl">
+                    <div className="glass-panel w-full sm:w-auto px-5 sm:px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/10 shadow-2xl">
                         <div className="p-3 bg-blue-500/10 rounded-xl text-blue-400">
                             <Clock size={28} />
                         </div>
@@ -177,7 +177,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                         </div>
                     </div>
                     
-                    <div className="glass-panel px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/10 shadow-2xl hidden md:flex">
+                    <div className="glass-panel w-full sm:w-auto px-5 sm:px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/10 shadow-2xl hidden md:flex">
                         <div className="p-3 bg-yellow-500/10 rounded-xl text-yellow-400">
                             <Trophy size={28} />
                         </div>
@@ -190,7 +190,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
             </div>
 
             {/* Subjects Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 animate-in fade-in zoom-in duration-700 delay-300">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 animate-in fade-in zoom-in duration-700 delay-300">
                 <SubjectCard
                     code="010" title="Air Law"
                     desc="International law, conventions, agreements and organizations. Annex 2, 7, 11 and 14."

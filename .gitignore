@@ -34,6 +34,7 @@ dist-ssr
 lighthouse-report.json
 coverage_scan.csv
 audit_results/
+audit_screenshots/
 
 # Python extraction scripts (development only)
 *.pyc
@@ -43,3 +44,4 @@ __pycache__/
 mobile/node_modules/
 .expo/
 *.orig.*
+.gstack/

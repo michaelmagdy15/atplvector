@@ -266,7 +266,7 @@ export const ExamPlanner: React.FC<ExamPlannerProps> = ({ currentUser }) => {
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>
-            <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-700 pb-20">
+            <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-700 px-4 sm:px-6 pb-32">
                 {/* Header section */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                     <div className="space-y-2">
@@ -274,8 +274,8 @@ export const ExamPlanner: React.FC<ExamPlannerProps> = ({ currentUser }) => {
                             <Calendar size={12} />
                             Strategic Exam Planner
                         </div>
-                        <h1 className="text-4xl font-black text-white tracking-tight">Plan Your Sittings</h1>
-                        <p className="text-slate-400 max-w-2xl">
+                        <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight">Plan Your Sittings</h1>
+                        <p className="text-slate-400 max-w-2xl text-sm sm:text-base">
                             Drag and drop subjects to plan your sittings. You have <span className="text-white font-bold">6 sittings</span> and <span className="text-white font-bold">18 months</span>.
                             {currentUser ? (
                                 <span className="ml-2 inline-flex items-center gap-1 text-emerald-400 text-xs font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
@@ -288,17 +288,17 @@ export const ExamPlanner: React.FC<ExamPlannerProps> = ({ currentUser }) => {
                             )}
                         </p>
                     </div>
-                    <div className="flex gap-3">
+                    <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                         <button
                             onClick={getRecommendedPlan}
-                            className="px-6 py-3 bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-2xl font-bold transition-all flex items-center gap-2"
+                            className="w-full sm:w-auto justify-center px-5 py-3 bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-2xl font-bold transition-all flex items-center gap-2 active:scale-98"
                         >
                             <Sparkles size={18} />
                             Load Recommended Strategy
                         </button>
                         <button
                             onClick={addSitting}
-                            className="px-6 py-3 bg-white text-slate-900 rounded-2xl font-bold hover:bg-slate-200 transition-all flex items-center gap-2"
+                            className="w-full sm:w-auto justify-center px-5 py-3 bg-white text-slate-900 rounded-2xl font-bold hover:bg-slate-200 transition-all flex items-center gap-2 active:scale-98"
                         >
                             <Plus size={18} />
                             Add Sitting
