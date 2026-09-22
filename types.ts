@@ -14,6 +14,9 @@ export enum View {
   ADMIN_DASHBOARD = 'ADMIN_DASHBOARD',
   STUDY_GUIDE = 'STUDY_GUIDE',
   QUESTION_BANK = 'QUESTION_BANK',
+  FAA_TEST_GUIDE = 'FAA_TEST_GUIDE',
+  C172_HUB = 'C172_HUB',
+  FAA_PPL_STUDY_GUIDE = 'FAA_PPL_STUDY_GUIDE',
   EXAM_PLANNER = 'EXAM_PLANNER',
   PROGRESS_DASHBOARD = 'PROGRESS_DASHBOARD',
   PLATFORM_PROGRESS = 'PLATFORM_PROGRESS',
@@ -543,6 +546,25 @@ export interface Question {
   isRecent?: boolean;     // Flag for "Hot Points"
   countries?: string[];   // Specific countries reported
   difficulty?: 'easy' | 'medium' | 'hard';
+}
+
+export type FAATestMode = 'ppl' | 'ir' | 'cpl' | 'c172' | 'airline';
+export type TestMode = FAATestMode;
+
+export interface FAAQuestion {
+  id: string;
+  plt: string;
+  text: string;
+  options: {
+    A: string;
+    B: string;
+    C: string;
+    D?: string;
+  };
+  correct: string;
+  explanation: string;
+  category?: string;
+  figureRef?: number;
 }
 
 // New interfaces for LOs

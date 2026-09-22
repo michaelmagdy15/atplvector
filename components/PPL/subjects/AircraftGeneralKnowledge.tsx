@@ -19,7 +19,7 @@ const AircraftGeneralKnowledge: React.FC<Props> = ({ onChangeView }) => {
 
   // Engine Animation Loop
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
     if (isPlaying && activeTab === 'engine') {
       interval = setInterval(() => {
         setEngineStage((prev) => (prev + 1) % 4);

@@ -8,7 +8,7 @@ const GeneralCirculation: React.FC = () => {
 
     // Auto-cycle seasons if in seasons view
     useEffect(() => {
-        let interval: NodeJS.Timeout;
+        let interval: ReturnType<typeof setInterval>;
         if (view === 'seasons') {
             interval = setInterval(() => {
                 setMonth(prev => prev === 'july' ? 'january' : 'july');

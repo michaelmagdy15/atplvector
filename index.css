@@ -77,4 +77,29 @@
     .text-glow {
         text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
     }
+
+    /* Snappy Horizontal Tab Scroll for Touch & Mobile */
+    .mode-toggle-scroll {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .mode-toggle-scroll::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .touch-target-48 {
+        min-width: 48px;
+        min-height: 48px;
+    }
 }

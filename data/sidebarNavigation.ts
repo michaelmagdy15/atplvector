@@ -402,6 +402,17 @@ export const NAV_MAP: SubjectConfig[] = [
             { label: 'Emergency Ops', view: View.EMERGENCY_OPS },
             { label: 'Ground Ops', view: View.AIR_LAW_GROUND_OPS },
         ]
+    },
+    {
+        id: 'FAA',
+        title: 'FAA Knowledge & Flight Deck',
+        color: 'sky',
+        dashboardView: View.FAA_TEST_GUIDE,
+        items: [
+            { label: 'FAA Test Guide', view: View.FAA_TEST_GUIDE, icon: Shield },
+            { label: 'C172 Flight Deck Hub', view: View.C172_HUB, icon: Gauge },
+            { label: 'FAA PPL Study Guide', view: View.FAA_PPL_STUDY_GUIDE, icon: BookOpen },
+        ]
     }
 ];
 

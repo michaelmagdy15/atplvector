@@ -1,0 +1,1918 @@
+[
+  {
+    "plt": "CA.I.A.K1",
+    "category": "Pilot Qualifications",
+    "text": "To act as PIC of a complex airplane, you must have",
+    "options": {
+      "A": "Logged at least five hours as SIC in a high performance or turbine-powered airplane in the last 12 calendar months.",
+      "B": "Received and logged ground and flight training in an airplane with retractable landing gear, flaps, and controllable-pitch propeller.",
+      "C": "Received and logged ground and flight."
+    },
+    "correct": "B",
+    "explanation": "FAR 61.31 To act as PIC of a complex airplane, you must have A - Received training in an airplane with an engine that is more than 200 horsepower and obtained a logbook endorsement. B - Received training in an airplane with retractable landing gear, flaps, and a controllable-pitch propeller and obtained a logbook endorsement. C - Passed a knowledge test on the appropriate airplane systems and passed a practical test in an airplane with retractable landing gear, flaps, and controllable-pitch propeller. A high performance airplane is defined as an airplane having an engine ot more than 200 horsepower. complex airplane is an airplane with retractable landing gear, flaps, and a controllable pitch propeller or a full authority digital engine control (FADEC) system. To operate as pilot in command of a either a complex or high performance airplane, you must receive training and an endorsement from your instructor. The training required to receive a high performance or complex airplane endorsement will focus on the operation of advanced airplane systems.",
+    "id": "1-1"
+  },
+  {
+    "plt": "CA.I.A.K1",
+    "category": "Pilot Qualifications",
+    "text": "To act as pilot in command of an airplane with more than 200 horsepower, you are required to",
+    "options": {
+      "A": "receive and log ground and flight training from a qualified pilot in such an airplane.",
+      "B": "obtain an endorsement from a qualified pilot stating that you are proficient to operate such an airplane.",
+      "C": "receive and log ground and flight training from an authorized instructor in such an airplane."
+    },
+    "correct": "C",
+    "explanation": "FAR 61.31 A high performance airplane is defined as an airplane having an engine of more than 200 horsepower. A complex airplane is an airplane with retractable landing gear, flaps, and a controllable pitch propeller or a full authority digital engine control (FADEC) system. To operate as pilot in command of a either a complex or high performance airplane, you must receive training and an endorsement from your instructor. The training required to receive a high performance or complex airplane endorsement will focus on the operation of advanced airplane systems.",
+    "id": "1-4"
+  },
+  {
+    "plt": "CA.I.A.K1",
+    "category": "Pilot Qualifications",
+    "text": "A technically advanced airplane (TAA) is defined as an airplane with",
+    "options": {
+      "A": "a primary flight display (PFD), a multifunction display (MFD), and a two-axis autopilot.",
+      "B": "a GPS receiver, a transponder with Mode C, and an ADF.",
+      "C": "an autopilot, a radar altimeter, and a VOR receiver."
+    },
+    "correct": "A",
+    "explanation": "FAR 61.1 A technically advanced airplane (TAA) is an airplane that has: A primary flight display (PFD) with an airspeed indicator, turn coordinator, attitude indicator, heading indicator, altimeter, and vertical speed indicator; A multifunction display (MFD) with a moving map using GPS navigation to display the aircraft position; A two-axis autopilot integrated with the navigation and heading guidance system.",
+    "id": "1-5"
+  },
+  {
+    "plt": "CA.I.A.K2",
+    "category": "Pilot Qualifications",
+    "text": "Regulations which refer to \"commercial operators\" relate to that person who",
+    "options": {
+      "A": "are qualified in accordance with 14 CFR part 61 and with the applicable parts that apply to the operation.",
+      "B": "are qualified in accordance with 14 CFR part 61 and have passed a pilot competency check given by an authorized check pilot.",
+      "C": "hold appropriate category, class ratings, and meet the recent flight experience requirements of 14 CFR part 61."
+    },
+    "correct": "C",
+    "explanation": "FAR 1.1 \"Commercial operator,\" means a person who, for compensation or hire, engages in the carriage by aircraft in air commerce of persons or property, other than as an air carrier or foreign air carrier.",
+    "id": "1-9"
+  },
+  {
+    "plt": "CA.I.A.K2",
+    "category": "Pilot Qualifications",
+    "text": "What limitation is imposed on a newly certificated commercial pilot - airplane, if that person does not hold an instrument rating? The carriage of passengers",
+    "options": {
+      "A": "On-demand, passenger carrying flights of nine persons or less.",
+      "B": "Aerial application and aerial photography.",
+      "C": "On-demand cargo flights."
+    },
+    "correct": "C",
+    "explanation": "FAR 61.133 If you do not hold an instrument rating, your commercial certificate will be issued with the limitation: \"The carriage of passengers for hire in airplanes on cross-country flights in excess of 50 nautical miles or at night is prohibited.\"",
+    "id": "1-12"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "In what type of operation, not regulated by 14 CFR Part 119, may a commercial pilot act as pilot in command and receive compensation for services?",
+    "options": {
+      "A": "Part-time contract pilot.",
+      "B": "On-demand, nine or less passengers, charter flights.",
+      "C": "On-demand cargo flights."
+    },
+    "correct": "B",
+    "explanation": "FAR 119.1 Common carriage, on-demand, flag, and commuter operations must meet additional requirements described in FAR Parts 117, 119, 121, 125, 129, 135, 136, and 137 FAR 119.1 lists specific operations not governed by FAR Parts 121, 125, or 135 for which the holder of a commercial pilot certificate may be paid. These operations include: Student instruction. Nonstop commercial air tours with specific restrictions listed in FAR 119.1. Ferry or training flights. Aerial work operations, including crop dusting, seeding, spraying, bird chasing, banner towing, aerial photography or survey, fire fighting, and powerline or pipeline patrol. Nonstop parachute operations within a 25 statute mile radius of the airport.",
+    "id": "1-14"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "To act as pilot in command of an airplane towing a glider, the tow pilot is required to have",
+    "options": {
+      "A": "three actual glider tows under the supervision of a qualified tow pilot.",
+      "B": "three actual or simulated glider tows while accompanied by a qualified tow pilot.",
+      "C": "ten flights as pilot in command of an aircraft while towing a glider."
+    },
+    "correct": "C",
+    "explanation": "FAR 61.69 To act as PIC of an aircraft towing a glider, you must have logged at least 100 hours of PIC time in the aircraft type, or have completed 3 actual glider tows while accompanied by a qualified tow pilot.",
+    "id": "1-20"
+  },
+  {
+    "plt": "CA.I.B.K2",
+    "category": "Pilot Qualifications",
+    "text": "Which is true with respect to the limitations of a \"primary\" category airplane?",
+    "options": {
+      "A": "No person may operate a primary category airplane carrying passengers or property for compensation or hire.",
+      "B": "A primary category airplane is limited to a specified operating radius from its home base.",
+      "C": "A pilot of a primary category airplane must hold a commercial pilot certificate when carrying passengers for compensation or hire."
+    },
+    "correct": "A",
+    "explanation": "FAR 91.325 Primary category aircraft of simple design are intended exclusively for pleasure and personal use. No person may operate a primary category airplane carrying passengers or property for compensation or hire.",
+    "id": "1-21"
+  },
+  {
+    "plt": "CA.I.A.K1",
+    "category": "Pilot Qualifications",
+    "text": "Does a commercial pilot certificate have a specific expiration date?",
+    "options": {
+      "A": "No, it is issued without a specific expiration date.",
+      "B": "Yes, it expires after 12 calendar months.",
+      "C": "Yes, it expires after 24 calendar months."
+    },
+    "correct": "A",
+    "explanation": "FAR 61.19 Any pilot certificate (other than a student pilot certificate) issued under FAR Part 61 is issued without a specific expiration date. However, in addition to a flight review every 24 calendar months, to act as pilot in command of an aircraft carrying passengers, you must have performed at least 3 takeoffs and landings in an aircraft of the same category and class (and type, if a type rating is required) within the preceding 90 days.",
+    "id": "1-23"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "You have accomplished 25 takeoffs and landings in multi-engine land airplanes in the previous 45 days. For the flight you plan to conduct today, this meets the PIC recency of experience requirements to carry passengers in which airplanes?",
+    "options": {
+      "A": "Multi-engine land airplanes only.",
+      "B": "Any single-engine and multi-engine land airplane.",
+      "C": "Multi-engine land airplanes and single-engine land airplanes."
+    },
+    "correct": "B",
+    "explanation": "FAR 61.57 To act as PIC of an aircraft carrying passengers, you must have performed at least 3 takeoffs and landings in the preceding 90 days in an aircraft of the same category and class. Since multi-engine land and single-engine land are different classes, 25 multi-engine land takeoffs/landings do not satisfy the requirement for single-engine land. However, the requirement is met for multi-engine land airplanes.",
+    "id": "1-18"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "A minimum equipment list (MEL) is",
+    "options": {
+      "A": "a list developed by the manufacturer that specifies which equipment may be inoperative for specific flight operations.",
+      "B": "a list of all required equipment for VFR and IFR operations.",
+      "C": "lists only the minimum equipment required by 91.205 for a specific flight operation."
+    },
+    "correct": "C",
+    "explanation": "FAR 91.205 An MEL is a list developed by the aircraft manufacturer that specifies which equipment may be inoperative under certain conditions. When an MEL is approved for an aircraft, it allows the pilot to operate the aircraft with inoperative equipment that would otherwise be required by FAR 91.205.",
+    "id": "1-30"
+  },
+  {
+    "plt": "CA.I.A.K1",
+    "category": "Pilot Qualifications",
+    "text": "To act as pilot in command of a tailwheel airplane, without prior experience, you must",
+    "options": {
+      "A": "log ground and flight training from an authorized instructor.",
+      "B": "pass a competency check and receive an endorsement from an authorized instructor.",
+      "C": "receive and log flight training from an authorized instructor as well as receive a logbook endorsement from an authorized instructor who finds you proficient in a tailwheel airplane."
+    },
+    "correct": "C",
+    "explanation": "FAR 61.31 According to FAR 61.31, to act as PIC of a tailwheel airplane, you must have received and logged flight training and received a logbook endorsement from an authorized instructor who found you proficient in the operation of a tailwheel airplane.",
+    "id": "1-32"
+  },
+  {
+    "plt": "CA.I.A.K2",
+    "category": "Pilot Qualifications",
+    "text": "If you change your permanent mailing address and fail to notify the FAA Airmen Certification Branch of this change, you are entitled to exercise the privileges of your pilot certificate for a period of",
+    "options": {
+      "A": "30 days after the address change.",
+      "B": "60 days after the address change.",
+      "C": "90 days after the address change."
+    },
+    "correct": "A",
+    "explanation": "FAR 61.60 After changing your permanent mailing address, you may not exercise the privileges of a pilot or flight instructor certificate after 30 days unless the FAA Airman Certification Branch has been notified in writing.",
+    "id": "1-35"
+  },
+  {
+    "plt": "CA.I.A.K3",
+    "category": "Pilot Qualifications",
+    "text": "A second-class medical certificate issued to a commercial pilot on April 10, this year, permits the pilot to exercise which of the following privileges?",
+    "options": {
+      "A": "Commercial pilot privileges through April 30, next year.",
+      "B": "Commercial pilot privileges through April 10, 2 years later.",
+      "C": "Private pilot privileges through, but not after, March 31, next year."
+    },
+    "correct": "A",
+    "explanation": "FAR 61.23 Although you need at least a third-class medical certificate to be eligible for a commercial pilot certificate, you must have a second-class medical certificate to exercise commercial pilot privileges. A second-class medical certificate is valid for 12 calendar months for operations requiring a commercial certificate.",
+    "id": "1-38"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "When exercising the privileges of BasicMed, which conditions allow you to act as a PIC for compensation or hire?",
+    "options": {
+      "A": "A limitation of BasicMed is that you may not conduct flight operations for compensation or hire.",
+      "B": "You are instrument rated and current.",
+      "C": "You have a current medical certificate issued within the last 4 years."
+    },
+    "correct": "A",
+    "explanation": "AC 68-1 Under the BasicMed rule, you may conduct flight operations: In an aircraft certificated to carry no more than 6 occupants, including the pilot, and with a maximum certificated takeoff weight of no more than 6,000 pounds. Below 18,000 feet MSL. At a maximum airspeed of 250 knots. That are entirely within the United States. That are not for compensation or hire.",
+    "id": "1-22"
+  },
+  {
+    "plt": "CA.I.A.K2",
+    "category": "Pilot Qualifications",
+    "text": "What person is directly responsible for, and is the final authority on, the safe operation of the flight?",
+    "options": {
+      "A": "The pilot in command",
+      "B": "The second in command",
+      "C": "The flight instructor"
+    },
+    "correct": "A",
+    "explanation": "14 CFR 91.3 — The pilot in command has final authority and responsibility for the safe operation of the flight.",
+    "id": "1-41"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "When may a pilot use a flight manual supplement as a substitute for the aircraft flight manual?",
+    "options": {
+      "A": "When the aircraft has an appropriate STC",
+      "B": "When the aircraft is not required to have an FAA-approved flight manual",
+      "C": "When the aircraft has a type certificate"
+    },
+    "correct": "B",
+    "explanation": "A flight manual supplement may be used when the aircraft is not required to have an FAA-approved flight manual.",
+    "id": "1-24"
+  },
+  {
+    "plt": "CA.I.B.K1b",
+    "category": "Pilot Qualifications",
+    "text": "The maximum cumulative time that an emergency locator transmitter may be operated before the rechargeable battery must be recharged is",
+    "options": {
+      "A": "30 minutes.",
+      "B": "45 minutes.",
+      "C": "60 minutes."
+    },
+    "correct": "C",
+    "explanation": "FAR 91.207 You may not fly an aircraft unless it has received an annual inspection and an emergency locator transmitter (ELT) inspection within the previous 12 calendar months. In addition, the ELT battery must be replaced or recharged if the transmitter has been operated for a total of 1 hour or after 50 percent of useful battery life (or charge) has expired.",
+    "id": "1-49"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "Which is correct concerning preventive maintenance, when accomplished by a pilot?",
+    "options": {
+      "A": "A record of preventive maintenance is not required.",
+      "B": "A record of preventive maintenance must be entered in the maintenance records.",
+      "C": "Records of preventive maintenance must be entered in the FAA-approved flight manual."
+    },
+    "correct": "C",
+    "explanation": "FAR 61.57 To act as pilot in command of an aircraft carrying passengers, you must have performed at least 3 takeoffs and landings in an aircraft of the same category and class (and type, if a type rating is required) within the preceding 90 days. To carry passengers at night (at least 1 hour after sunset to 1 hour before sunrise), the takeoffs and landings must have been during that time period and to a full stop.",
+    "id": "1-26"
+  },
+  {
+    "plt": "CA.I.B.K1b",
+    "category": "Pilot Qualifications",
+    "text": "Aircraft maintenance records must include the current status of the",
+    "options": {
+      "A": "owner or operator of that aircraft.",
+      "B": "pilot in command of that aircraft.",
+      "C": "pilot in command and the FAA certificated mechanic assigned to that aircraft."
+    },
+    "correct": "C",
+    "explanation": "FAR 91.417 Aircraft maintenance records must contain the current status of life-limited parts of each airframe, engine, propeller, rotor, and appliance. Records must include the description and completion date of any work performed and the signature, and certificate number of the person approving the aircraft for return to service.",
+    "id": "1-56"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "Which of the following would be classified as an annual inspection?",
+    "options": {
+      "A": "A 100-hour inspection",
+      "B": "A detailed examination of the aircraft including operational checks",
+      "C": "An inspection required by 14 CFR 91.409(b)"
+    },
+    "correct": "B",
+    "explanation": "An annual inspection is a detailed examination required by 14 CFR 91.409(b) for all aircraft.",
+    "id": "1-28"
+  },
+  {
+    "plt": "CA.I.B.K3",
+    "category": "Pilot Qualifications",
+    "text": "Approved flotation gear, readily available to each occupant, is required on each airplane if it is being flown for hire over water,",
+    "options": {
+      "A": "Sensitive altimeter adjustable for barometric pressure.",
+      "B": "An electric landing light, if the flight is for hire.",
+      "C": "Flashlight with red lens, if the flight is for hire."
+    },
+    "correct": "A",
+    "explanation": "FAR 91.205 If the aircraft is operated for hire over water and beyond power-off gliding distance from shore, approved flotation gear must be readily available to each occupant, and the aircraft must have at least one pyrotechnic signaling device on board.",
+    "id": "1-63"
+  },
+  {
+    "plt": "CA.I.B.K2",
+    "category": "Pilot Qualifications",
+    "text": "(Refer to AIM.) What instruments and equipment are required for night VFR flight?",
+    "options": {
+      "A": "Adequate electric lights for all required instruments and equipment",
+      "B": "Position lights and an operating transponder",
+      "C": "Position lights, navigation lights, and an operating transponder"
+    },
+    "correct": "A",
+    "explanation": "14 CFR 91.205 — For night VFR flight, the following instruments and equipment are required: adequate electric lights for all required instruments and equipment, plus position lights.",
+    "id": "1-65"
+  },
+  {
+    "plt": "CA.I.H.K1k",
+    "category": "Pilot Qualifications",
+    "text": "A sloping cloud formation, an obscured horizon, and a dark scene spread with ground lights and stars can create an illusion known as",
+    "options": {
+      "A": "Upsloping runway.",
+      "B": "Wide runway.",
+      "C": "Downsloping runway."
+    },
+    "correct": "C",
+    "explanation": "A false horizon occurs when the natural horizon is obscured or not readily apparent. For example, when flying over a sloping cloud deck, you might try to align the airplane with the cloud formation. At night, ground lights, stars, and reflections on the windscreen can lead to confusion regarding the position of the horizon.",
+    "id": "1-71"
+  },
+  {
+    "plt": "CA.I.H.K1d",
+    "category": "Pilot Qualifications",
+    "text": "You are most likely to experience somatogravic illusion during",
+    "options": {
+      "A": "rely on body sensations.",
+      "B": "increase your breathing rate.",
+      "C": "rely on aircraft instrument indications."
+    },
+    "correct": "C",
+    "explanation": "A rapid acceleration can produce the somatogravic illusion-the feeling that you are in a nose-high attitude although you are still in straight-and-level flight. This illusion can prompt you to lower the nose and enter a dive. A deceleration, such as rapidly retarding the throttle, produces the opposite effect.",
+    "id": "1-74"
+  },
+  {
+    "plt": "CA.I.H.K1d",
+    "category": "Pilot Qualifications",
+    "text": "To combat spatial disorientation, you should",
+    "options": {
+      "A": "Breathe into a paper bag.",
+      "B": "Focus on the instrument panel.",
+      "C": "Focus on objects outside the airplane."
+    },
+    "correct": "B",
+    "explanation": "To combat spatial disorientation, you should rely on your flight instruments rather than your body sensations. Trust the instrument panel indications and maintain focus on the instruments to maintain aircraft control.",
+    "id": "1-76"
+  },
+  {
+    "plt": "CA.I.H.K1a",
+    "category": "Pilot Qualifications",
+    "text": "Hypoxia is the result of which of these conditions?",
+    "options": {
+      "A": "carbon monoxide poisoning.",
+      "B": "overheating in the cockpit.",
+      "C": "extremely cold temperatures in the cabin."
+    },
+    "correct": "B",
+    "explanation": "Hypoxia occurs when the tissues in your body do not receive enough oxygen.",
+    "id": "1-78"
+  },
+  {
+    "plt": "CA.VIII.A.K1",
+    "category": "Emergency Operations",
+    "text": "In accordance with 14 CFR part 91, supplemental oxygen must be used by the required minimum flightcrew for that time exceeding 30 minutes at cabin pressure altitudes above 12,500 feet MSL up to and including 14,000 feet MSL, and for the entire time at altitudes above 14,000 feet MSL.",
+    "options": {
+      "A": "The flight crew must use supplemental oxygen after 30 minutes.",
+      "B": "Both the flight crew and passengers must use supplemental oxygen the entire time.",
+      "C": "The flight crew must use supplemental oxygen the entire time and the passengers must be provided with supplemental oxygen."
+    },
+    "correct": "C",
+    "explanation": "14 CFR 91.211 — Above 12,500 feet MSL up to 14,000 feet MSL, crew must use supplemental oxygen for more than 30 minutes. Above 14,000 feet MSL, crew must use supplemental oxygen continuously.",
+    "id": "1-84"
+  },
+  {
+    "plt": "CA.I.H.K1c",
+    "category": "Pilot Qualifications",
+    "text": "Which is an action that you can take to help a passenger overcome ear pain due to higher pressure in the auditory canal in the middle ear?",
+    "options": {
+      "A": "Yawn or swallow frequently.",
+      "B": "Increase altitude to equalize pressure.",
+      "C": "Descend as rapidly as possible."
+    },
+    "correct": "A",
+    "explanation": "During a descent, the outside air pressure in the auditory canal will become higher than the pressure in the middle ear. Slow descent rates can help prevent or reduce the severity of ear problems and the eustachian tube can sometimes be opened by yawning, swallowing, or chewing. Pressure can be equalized by performing the Valsalva maneuver-holding the nose and mouth shut and forcibly exhaling to force air up the eustachian tube into the middle ear.",
+    "id": "1-86"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "Which would most likely result in hyperventilation?",
+    "options": {
+      "A": "Emotional stress.",
+      "B": "Excessive carbon dioxide in the blood.",
+      "C": "A decrease in oxygen in the blood."
+    },
+    "correct": "A",
+    "explanation": "Hyperventilation is the excessive rate and depth of breathing that results in the loss of carbon dioxide from the blood. It can be caused by emotional stress, anxiety, or fear. Symptoms include tingling of the lips and fingers, muscle spasms, and decreased consciousness.",
+    "id": "1-40"
+  },
+  {
+    "plt": "CA.I.H.K3",
+    "category": "Pilot Qualifications",
+    "text": "Which is true regarding the presence of alcohol within the human body?",
+    "options": {
+      "A": "A small amount of alcohol increases vision acuity.",
+      "B": "An increase in altitude decreases the adverse effect of alcohol.",
+      "C": "Judgment and decision-making abilities can be adversely affected by even small amounts of alcohol."
+    },
+    "correct": "C",
+    "explanation": "PHB, FAR 91.17 The FARs specifically state that you must not fly within 8 hours of using alcohol, or when you have a blood alcohol level of.04% or greater. Alcohol and other depressants cause decreased mental processing, slow motor and reaction responses, and even small amounts of alcohol impair your judgment and decision-making abilities.",
+    "id": "1-94"
+  },
+  {
+    "plt": "CA.I.G.K1h",
+    "category": "Pilot Qualifications",
+    "text": "How long does it take for a typical gyroscope to reach operational speed after power is applied?",
+    "options": {
+      "A": "About 1 minute",
+      "B": "About 2 minutes",
+      "C": "About 5 minutes"
+    },
+    "correct": "A",
+    "explanation": "Most gyroscopic instruments require approximately 1 minute to reach operational speed.",
+    "id": "2-1"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "What causes the northerly turning error in a magnetic compass?",
+    "options": {
+      "A": "The horizontal component of the Earth's magnetic field",
+      "B": "The vertical component of the Earth's magnetic field",
+      "C": "Magnetic dip and the acceleration error"
+    },
+    "correct": "C",
+    "explanation": "Northerly turning error is caused by magnetic dip and acceleration error when flying through the cardinal headings.",
+    "id": "2-8"
+  },
+  {
+    "plt": "CA.I.F.K1",
+    "category": "Pilot Qualifications",
+    "text": "Which is the V-speed for the stalling speed or the minimum steady flight speed in a specified configuration?",
+    "options": {
+      "A": "maximum operating limit speed.",
+      "B": "maximum structural cruising speed.",
+      "C": "never-exceed speed."
+    },
+    "correct": "C",
+    "explanation": "FAR 1.2, PHB The color-coded arcs on the airspeed indicator define speed ranges and the boundaries of these arcs identify airspeed limitations, such as V 81-stalling speed, or minimum steady flight speed, in a specific configuration. For light airplanes, this is normally power-off stall speed at maximum takeoff weight in a clean configuration-gear and flaps retracted (bottom of green arc).",
+    "id": "2-9"
+  },
+  {
+    "plt": "CA.I.G.K1h",
+    "category": "Pilot Qualifications",
+    "text": "On final approach to a higher elevation airport, you should know that your indicated airspeed",
+    "options": {
+      "A": "should not change, but groundspeed will be faster.",
+      "B": "should be higher, but groundspeed will be unchanged.",
+      "C": "should be increased to compensate for the thinner air"
+    },
+    "correct": "A",
+    "explanation": "The airspeed indicator operates by comparing ram air (pitot) pressure to ambient (static) pressure. Indicated airspeed is the result of this raw measurement. When an indicated airspeed is specified by the manufacturer for a given situation, such as takeoff or landing, you normally should use that speed, regardless of the elevation. Groundspeed is based on true airspeed (TAS). True airspeed is the actual speed your airplane moves through undisturbed air. As atmospheric pressure decreases or air temperature increases, the density of the air decreases. As the air density decreases at a given indicated airspeed, true airspeed increases.",
+    "id": "2-13"
+  },
+  {
+    "plt": "CA.I.G.K1h",
+    "category": "Pilot Qualifications",
+    "text": "Calibrated airspeed is best described as indicated airspeed corrected for",
+    "options": {
+      "A": "the current altimeter setting.",
+      "B": "29.92 inches Hg and the altimeter indication noted.",
+      "C": "the field elevation and the pressure reading in the altimeter setting window noted."
+    },
+    "correct": "A",
+    "explanation": "Calibrated airspeed (CAS) is indicated airspeed corrected for installation and instrument errors. True airspeed (TAS) is the actual speed your airplane moves through undisturbed air. At sea level on a standard day, CAS equals TAS.",
+    "id": "2-14"
+  },
+  {
+    "plt": "CA.I.G.K1h",
+    "category": "Pilot Qualifications",
+    "text": "When flying in Class A airspace, what altimeter setting should be used?",
+    "options": {
+      "A": "The current altimeter setting from the nearest reporting station",
+      "B": "29.92 inches of mercury",
+      "C": "The altimeter setting provided by ATC"
+    },
+    "correct": "B",
+    "explanation": "In Class A airspace (18,000-60,000 feet MSL), all aircraft use a standard altimeter setting of 29.92 inches of mercury.",
+    "id": "2-19"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "While tracking inbound on the 215° radial, at what point should you begin your turn to intercept the outbound course?",
+    "options": {
+      "A": "At the facility",
+      "B": "At the reversal point",
+      "C": "At the final approach fix"
+    },
+    "correct": "B",
+    "explanation": "When tracking inbound, begin the turn at the reversal point to intercept the outbound course.",
+    "id": "2-22"
+  },
+  {
+    "plt": "CA.I.G.K1g",
+    "category": "Pilot Qualifications",
+    "text": "What is the primary function of the attitude and heading reference system (AHRS)?",
+    "options": {
+      "A": "To provide attitude, heading, and rate information to the flight displays",
+      "B": "To measure pitot and static pressure",
+      "C": "To calculate groundspeed and track"
+    },
+    "correct": "A",
+    "explanation": "AHRS provides attitude, heading, and rate information to the primary flight display and multi-function display.",
+    "id": "2-23"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "What is the Wide Area Augmentation System (WAAS)?",
+    "options": {
+      "A": "A ground-based navigation system that provides differential GPS corrections",
+      "B": "A satellite-based augmentation system that improves GPS accuracy and integrity",
+      "C": "An airborne weather radar system"
+    },
+    "correct": "B",
+    "explanation": "WAAS is a satellite-based augmentation system that provides GPS corrections to improve accuracy from ~15 meters to ~1-2 meters and provide integrity information.",
+    "id": "2-26"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "What is the primary function of the air data computer (ADC) in a glass cockpit?",
+    "options": {
+      "A": "To process pitot-static data and compute airspeed, altitude, and vertical speed",
+      "B": "To display navigation information on the multi-function display",
+      "C": "To control the autopilot modes"
+    },
+    "correct": "A",
+    "explanation": "The ADC processes pitot-static pressure data and outside air temperature to compute airspeed, altitude, vertical speed, and other air data parameters.",
+    "id": "2-16"
+  },
+  {
+    "plt": "CA.VI.B.K1",
+    "category": "Navigation",
+    "text": "To track outbound on the 180 radial of a VOR station, the recommended procedure is to set the OBS to",
+    "options": {
+      "A": "360° and make heading corrections toward the CDI needle.",
+      "B": "180° and make heading corrections away from the CDI needle.",
+      "C": "180° and make heading corrections toward the CDI needle."
+    },
+    "correct": "C",
+    "explanation": "When using a conventional VOR indicator and tracking a radial, the course selector/omnibearing selector (OBS) should indicate the approximate heading (allowing for wind correction) of the airplane. When tracking outbound on the 180° radial, you should have a FROM indication with 180° selected, which will result in proper sensing of the CDI.",
+    "id": "2-32"
+  },
+  {
+    "plt": "CA.VI.B.K1",
+    "category": "Navigation",
+    "text": "(Refer to Figure 17.) Which illustration indicates that the airplane should be turned 150° left to intercept the 360 radial at a 60° angle inbound?",
+    "options": {
+      "A": "6 miles.",
+      "B": "2 miles.",
+      "C": "1 mile."
+    },
+    "correct": "A",
+    "explanation": "To intercept the 360° radial inbound, the HSI course arrow must be pointing at 180° with a TO indication. If the aircraft represented by illustration 1 turns 150° to the left, it will be on a heading of 240°, which provides a 60° intercept angle for the 180° course inbound on the 360° radial (240° - 60° = 180°).",
+    "id": "2-37",
+    "figureRef": 17
+  },
+  {
+    "plt": "CA.VI.B.K1",
+    "category": "Navigation",
+    "text": "When must an operational check on the VOR equipment be accomplished to operate under IFR?",
+    "options": {
+      "A": "Within the preceding 90 days",
+      "B": "Within the preceding 30 days",
+      "C": "Before each IFR flight"
+    },
+    "correct": "B",
+    "explanation": "14 CFR 91.171 — VOR equipment must have been tested for accuracy within the preceding 30 days for IFR operations.",
+    "id": "2-41"
+  },
+  {
+    "plt": "CA.VI.B.K1",
+    "category": "Navigation",
+    "text": "(Refer to Figure 20.) FAR 91.171 — What is the maximum permissible bearing error when using a VOR for flight under IFR?",
+    "options": {
+      "A": "2°",
+      "B": "1°",
+      "C": "4°"
+    },
+    "correct": "B",
+    "explanation": "14 CFR 91.171 — For IFR flight, the VOR must be within 4° of the VOT for ground check and within 1° for airborne VOR check.",
+    "id": "2-43"
+  },
+  {
+    "plt": "CA.I.B.K1b",
+    "category": "Pilot Qualifications",
+    "text": "What does an operational check of VOR equipment using a VOT verify?",
+    "options": {
+      "A": "The VOR indicator accurately tracks a selected radial",
+      "B": "The bearing error is within the specified tolerance",
+      "C": "The VOR signal is being received from the correct station"
+    },
+    "correct": "B",
+    "explanation": "A VOT (VOR Test Facility) check verifies that the VOR receiver and indicator are operating within the specified bearing error tolerance.",
+    "id": "2-45"
+  },
+  {
+    "plt": "CA.VI.B.K2",
+    "category": "Navigation",
+    "text": "What happens when an aircraft passes a waypoint while the GPS is in leg mode?",
+    "options": {
+      "A": "The GPS automatically advances to the next waypoint in the flight plan",
+      "B": "The pilot must manually advance to the next waypoint",
+      "C": "The GPS returns to OBS mode"
+    },
+    "correct": "A",
+    "explanation": "In leg (enroute) mode, the GPS automatically sequences to the next waypoint when passing over or abeam a waypoint.",
+    "id": "2-51"
+  },
+  {
+    "plt": "CA.II.D.K3",
+    "category": "Preflight Procedures",
+    "text": "The \"yellow demarcation bar\" marking indicates",
+    "options": {
+      "A": "a runway with a displaced threshold that precedes the runway.",
+      "B": "a hold line from a taxiway to a runway.",
+      "C": "the beginning of available runway for landing on the approach side."
+    },
+    "correct": "A",
+    "explanation": "A 3-foot wide demarcation bar delineates a runway with a displaced threshold from a blast pad, stopway, or taxiway that precedes the runway. A demarcation is yellow because it is not located on the runway.",
+    "id": "3-1"
+  },
+  {
+    "plt": "CA.II.D.K3",
+    "category": "Preflight Procedures",
+    "text": "(Refer to Figure 56, Item 1.) This sign confirms your position on",
+    "options": {
+      "A": "Runway 22.",
+      "B": "routing to Runway 22.",
+      "C": "Taxiway 22. 1 n this case, the yellow letter B designates Taxiway Bravo."
+    },
+    "correct": "B",
+    "explanation": "Destination signs indicate the general direction to a location on the airport, such as runways, aprons, terminals, military areas, civil aviation areas, cargo areas, international areas, and FBOs. They have black inscriptions on a yellow background and always have an arrow showing the direction of the taxiing route to that destination.",
+    "id": "3-5",
+    "figureRef": 56
+  },
+  {
+    "plt": "CA.II.D.K3",
+    "category": "Preflight Procedures",
+    "text": "(Refer to Figure 56, Item 2.) This taxiway sign would be expected",
+    "options": {
+      "A": "No turn is required.",
+      "B": "The turn will be made to the right.",
+      "C": "The turn will be made to the left."
+    },
+    "correct": "A",
+    "explanation": "Mandatory instruction signs denote an entrance to a runway, a critical area, or an area prohibited to aircraft. These signs are red with white letters or numbers. An example of a mandatory instruction signs is a runway holding position sign, such as shown in Figure 56. If the runway holding position sign appears at the departure end of the runway, only the takeoff runway (in this case, Runway 4) will appear on the sign (4). At locations where a taxiway intersects a runway other than at the departure end, both runway numbers appear on the sign (4-22).",
+    "id": "3-6",
+    "figureRef": 56
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "When may a pilot conduct a takeoff from a runway intersection?",
+    "options": {
+      "A": "Only when authorized by ATC",
+      "B": "When visibility is less than 1 mile",
+      "C": "When parallel runways are in use"
+    },
+    "correct": "A",
+    "explanation": "Intersection takeoffs require ATC authorization and must comply with specific runway intersection departure procedures.",
+    "id": "3-16",
+    "figureRef": 64
+  },
+  {
+    "plt": "CA.IV.B.R3b*",
+    "category": "Takeoffs, Landings & Go-Arounds",
+    "text": "A land and hold short (LAHSO) clearance",
+    "options": {
+      "A": "precludes a \"Go Around\" by ATC.",
+      "B": "does not preclude a rejected landing.",
+      "C": "cleared onto your runway for takeoff or landing."
+    },
+    "correct": "B",
+    "explanation": "After accepting a LAHSO clearance, you must adhere to that clearance unless you obtain an amended clearance or an emergency occurs. A LAHSO clearance does not preclude ATC from telling you to go around; that is an amended clearance. It also does not preclude you from a rejected landing, but because of the obvious hazard of going around when ATC expects you to hold short of another runway or taxiway, it is essential that you tell them immediately and take precautions to avoid collisions with conflicting traffic...",
+    "id": "3-15"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "Who has the final authority to accept or decline any land and hold short (LAHSO) clearance?",
+    "options": {
+      "A": "an amended clearance is obtained or an emergency occurs.",
+      "B": "the wind changes or available landing distance decreases.",
+      "C": "Available landing distance decreases or density altitude increases."
+    },
+    "correct": "C",
+    "explanation": "Pilots should only receive a LAHSO clearance when there is a minimum ceiling of 1,000 feet and 3 statute miles visibility. The intent of having \"basic\" VFR weather conditions is to allow pilots to maintain visual contact with other aircraft and ground vehicle operations.",
+    "id": "3-18"
+  },
+  {
+    "plt": "CA.IV.B.R3b*",
+    "category": "Takeoffs, Landings & Go-Arounds",
+    "text": "What does LAHSO stand for in the context of airport operations?",
+    "options": {
+      "A": "Local Airport Safety Operations",
+      "B": "Land and Hold Short Operations",
+      "C": "Low Altitude Hazard Separation"
+    },
+    "correct": "B",
+    "explanation": "LAHSO stands for Land and Hold Short Operations, which involves landing and holding short of an intersecting runway or taxiway.",
+    "id": "3-20"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "What type of airspace typically becomes Class E when the control tower is not operating?",
+    "options": {
+      "A": "Class D airspace",
+      "B": "Class C airspace",
+      "C": "Class B airspace"
+    },
+    "correct": "A",
+    "explanation": "Class D airspace reverts to Class E airspace when the control tower is not operating.",
+    "id": "3-24"
+  },
+  {
+    "plt": "CA.I.E.K1",
+    "category": "Pilot Qualifications",
+    "text": "ADS-B Out equipment is required in all airspace",
+    "options": {
+      "A": "at and above 10,000 feet MSL, excluding at and below 2,500 feet AGL.",
+      "B": "at and above 2,500 feet above the surface.",
+      "C": "below 10,000 feet MSL, excluding at and below 2,500 feet AGL."
+    },
+    "correct": "A",
+    "explanation": "FAR 91.215, 91.225 The FARs require that you have an operating transponder with Mode C capability and ADS-B Out equipment at or above 10,000 feet MSL (except at or below 2,500 feet AGL) even in uncontrolled airspace, over the 48 contiguous states.",
+    "id": "3-29"
+  },
+  {
+    "plt": "CA.I.E.K1",
+    "category": "Pilot Qualifications",
+    "text": "Unless otherwise authorized by ATC, which airspace requires the appropriate ADS-B Out equipment installed?",
+    "options": {
+      "A": "Within Class E airspace below the upper shelf of Class C Airspace.",
+      "B": "Above the ceiling and within the lateral boundaries of Class D airspace up to 10,000 feet MSL.",
+      "C": "Within Class G airspace 25 nautical miles from a Class B airport."
+    },
+    "correct": "C",
+    "explanation": "FAR 91.215, 91.225 The FARs require that you have an operating transponder with Mode C capability and ADS-B Out equipment in Class A airspace, in Class B airspace, within 30 nautical miles of Class B primary airports, and in and above Class C airspace. You also must have a transponder with Mode C capability and ADS-B Out equipment at or above 10,000 feet MSL (except at or below 2,500 feet AGL) over the 48 contiguous states.",
+    "id": "3-31"
+  },
+  {
+    "plt": "CA.I.E.K1",
+    "category": "Pilot Qualifications",
+    "text": "What is the minimum flight visibility required above 10,000 feet MSL in controlled airspace?",
+    "options": {
+      "A": "5 statute miles",
+      "B": "3 statute miles",
+      "C": "5 nautical miles"
+    },
+    "correct": "A",
+    "explanation": "14 CFR 91.155 — Above 10,000 feet MSL in controlled airspace, the minimum flight visibility is 5 statute miles.",
+    "id": "3-33"
+  },
+  {
+    "plt": "CA.I.E.K1",
+    "category": "Pilot Qualifications",
+    "text": "In Class E airspace near a control tower, at what distance from the airport must two-way radio communication be established?",
+    "options": {
+      "A": "4 NM, up to and including 3,000 feet AGL",
+      "B": "10 SM, and be transponder equipped",
+      "C": "4 NM, up to and including 2,500 feet AGL"
+    },
+    "correct": "A",
+    "explanation": "In Class E airspace surrounding a tower, two-way radio communication must be established within 4 NM and up to 3,000 feet AGL.",
+    "id": "3-36"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "Which is true regarding pilot certification requirements for operations in Class B airspace?",
+    "options": {
+      "A": "not authorized.",
+      "B": "authorized by ATC if the flight visibility is at least 1 SM.",
+      "C": "authorized only if the ground visibility is observed to be at least 3 SM."
+    },
+    "correct": "C",
+    "explanation": "FAR 91.113 The approved aircraft position lights for night operations are: a green light on the right wingtip, a red light on the left wingtip, and a white light on the tail. If aircraft #1 sees only the green light of aircraft #2, the pilot would be looking at aircraft #2's right wingtip. Aircraft #1 has the right-of-way because it is to the right of aircraft #2.",
+    "id": "3-26"
+  },
+  {
+    "plt": "CA.I.E.K1",
+    "category": "Pilot Qualifications",
+    "text": "When operating an airplane for the purpose of takeoff or landing within Class D airspace under special VFR, what minimum distance from clouds and what visibility are required?",
+    "options": {
+      "A": "The Class D airspace must be specifically designated as a night SVFR area.",
+      "B": "You must hold an instrument rating, but the airplane need not be equipped for instrument flight, as long as the weather will remain at or.",
+      "C": "Remain clear of clouds, and the flight visibility must be at least 1 NM."
+    },
+    "correct": "C",
+    "explanation": "FAR 91.157 A special VFR clearance allows you to enter, leave, or operate within most Class D and Class E surface areas and in some Class Band Class C surface areas if the flight visibility is at least 1 statute mile and you can remain clear of clouds. At least 1 statute mile of ground visibility is required for takeoff and landing. However, if ground visibility is not reported, you must have at least 1 statute mile flight visibility.",
+    "id": "3-50"
+  },
+  {
+    "plt": "CA.I.E.K1",
+    "category": "Pilot Qualifications",
+    "text": "What is the maximum indicated airspeed authorized in the airspace underlying Class B airspace?",
+    "options": {
+      "A": "200 knots.",
+      "B": "180 knots.",
+      "C": "230 knots."
+    },
+    "correct": "B",
+    "explanation": "FAR 91.117 Maximum airspeeds designated by the FARs include: 250 KIAS-flights below 10,000 feet MSL. 200 KIAS-in Class C or D airspace, at or below 2,500 feet above the surface, and within 4 nautical miles of the primary airport. 200 KIAS-in airspace underlying a Class B area and in VFR corridors through Class B airspace.",
+    "id": "3-52"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "What must a pilot do when operating in an alert area?",
+    "options": {
+      "A": "File a VFR flight plan",
+      "B": "Exercise extreme caution and be aware of high-density training activities",
+      "C": "Obtain a special clearance from ATC"
+    },
+    "correct": "B",
+    "explanation": "Pilots should exercise extreme caution when operating in alert areas due to high-density pilot training activities.",
+    "id": "3-28"
+  },
+  {
+    "plt": "CA.I.E.K3",
+    "category": "Pilot Qualifications",
+    "text": "Which is a characteristic of a military training route (MTR)?",
+    "options": {
+      "A": "Call Flight Service.",
+      "B": "In the Chart Supplements U.S.",
+      "C": "In the NOTAM's during your preflight briefing."
+    },
+    "correct": "C",
+    "explanation": "Military training routes (MTRs) are established below 10,000 feet MSL for operations at speeds in excess of 250 knots. MTRs are classified as VR for VFR operations and IR for IFR operations. MTRs that are entirely at or below 1,500 feet AGL are identified by four-digit numbers, and those that have one or more segments above 1,500 feet AGL use three-digit numbers.",
+    "id": "3-57"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "What is the purpose of FDC NOTAMs?",
+    "options": {
+      "A": "McClellan and Rio Linda.",
+      "B": "Sacramento Executive and McClellen.",
+      "C": "Rio Linda and Van Dyke."
+    },
+    "correct": "B",
+    "explanation": "FAR 91.215, 91.225 The FARs require that you have an operating transponder with Mode C capability and ADS-B Out equipment in Class A airspace, in Class B airspace, within 30 nautical miles of Class B primary airports, and in and above Class C airspace. You also must have a transponder with Mode C capability and ADS-B Out equipment at or above 10,000 feet MSL (except at or below 2,500 feet AGL) over the 48 contiguous states.",
+    "id": "3-30"
+  },
+  {
+    "plt": "CA.I.E.K1",
+    "category": "Pilot Qualifications",
+    "text": "When departing from Rio Linda Airport to the northwest at 1,000 feet AGL, what airspace would you be operating in?",
+    "options": {
+      "A": "Class G airspace only",
+      "B": "Class E airspace only",
+      "C": "A combination of Class E and Class G airspace"
+    },
+    "correct": "A",
+    "explanation": "Departing from an uncontrolled airport in Class G airspace at 1,000 feet AGL, you are operating in Class G airspace.",
+    "id": "3-65",
+    "figureRef": 52
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "(Refer to Figure 52, area 6.) What is true about the airspace surrounding the airports in the area?",
+    "options": {
+      "A": "Yes, you will be operating in a combination of Class E and G airspace.",
+      "B": "No, the reported ground visibility must be at least 3 miles.",
+      "C": "No, the Class E airspace extends to the airport surface."
+    },
+    "correct": "B",
+    "explanation": "FAR 91.215, 91.225 If your transponder or ADS-B Out fails while you are operating in airspace that requires this equipment, ATC may authorize you to continue to your destination, including any intermediate stops, or to proceed to a place where repairs can be made.",
+    "id": "3-32",
+    "figureRef": 52
+  },
+  {
+    "plt": "CA.I.E.K3",
+    "category": "Pilot Qualifications",
+    "text": "What should a pilot be aware of when transitioning through a Military Operations Area (MOA)?",
+    "options": {
+      "A": "Flight is restricted to VFR conditions only",
+      "B": "A pilot should contact the controlling agency for traffic advisories",
+      "C": "A pilot should maintain separation from military aircraft"
+    },
+    "correct": "B",
+    "explanation": "Pilots should contact the controlling agency when transitioning through a MOA for traffic advisories and separation from military operations.",
+    "id": "3-74",
+    "figureRef": 53
+  },
+  {
+    "plt": "CA.I.E.K2",
+    "category": "Pilot Qualifications",
+    "text": "(Refer to Figure 53, area 2.) What is indicated by the star next to the \"L\" in the airport information box for the Madera (MAE) airport north of area 2?",
+    "options": {
+      "A": "an antenna top at 1,600 feet AGL.",
+      "B": "the maximum elevation figure for that quadrangle.",
+      "C": "the minimum safe sector altitude for that quadrangle."
+    },
+    "correct": "C",
+    "explanation": "The star next to the \"L\" in the airport information indicates the airport/runway lighting operates part-",
+    "id": "3-77",
+    "figureRef": 53
+  },
+  {
+    "plt": "CA.I.E.K1",
+    "category": "Pilot Qualifications",
+    "text": "(Refer to Figure 53, area 4.) You plan to depart on a day VFR flight from the Firebaugh (F34) Airport. What is the floor of controlled airspace above this airport?",
+    "options": {
+      "A": "2,503 feet MSL.",
+      "B": "2,901 feet MSL.",
+      "C": "3,297 feet MSL."
+    },
+    "correct": "B",
+    "explanation": "Class E airspace begins at 1,200 feet AGL on the hard side of the magenta band and at 700 feet AGL on the soft side of the magenta band (where Firebaugh Airport is located).",
+    "id": "3-79",
+    "figureRef": 53
+  },
+  {
+    "plt": "CA.I.E.K3",
+    "category": "Pilot Qualifications",
+    "text": "What is the significance of the R-2531 restricted area?",
+    "options": {
+      "A": "It is a restricted area that may contain hazardous activities",
+      "B": "It is a recommended VFR route",
+      "C": "It is a navigation checkpoint"
+    },
+    "correct": "A",
+    "explanation": "Restricted areas contain unusual, often invisible, hazards to aircraft such as artillery firing, aerial gunnery, or guided missiles. Pilots should avoid these areas.",
+    "id": "3-83",
+    "figureRef": 54
+  },
+  {
+    "plt": "CA.VI.A.R1",
+    "category": "Navigation",
+    "text": "When in the vicinity of a VOR which is being used for navigation on VFR flights, it is important to",
+    "options": {
+      "A": "make 90° left and right turns to scan for other traffic.",
+      "B": "exercise sustained vigilance to avoid aircraft that may be converging on the VOR from other directions.",
+      "C": "pass the VOR on the right side of the radial to allow room for aircraft flying in the opposite direction on the same radial."
+    },
+    "correct": "B",
+    "explanation": "AIM When flying under VFR and using VOR navigation, you should be especially vigilant for other aircraft as you near a VOR or airway intersection due to the convergence of traffic.",
+    "id": "3-89"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "While in flight a helicopter and an airplane are converging at a 90° angle, and the helicopter is located to the right of the airplane. Which aircraft has the right-of-way, and why?",
+    "options": {
+      "A": "The pilot of the multi engine airplane should give way; the single-engine airplane is to its right.",
+      "B": "The pilot of the single-engine airplane should give way; the other airplane is to the left.",
+      "C": "Each pilot should alter course to the right."
+    },
+    "correct": "C",
+    "explanation": "Class D airspace can be vari depending on the instrument approach procedures established for that airport. Most Class D airspace is a circle with a radius of approximately 4 NM extending up to 2,500 feet AGL. On VFR charts, Class D boundaries are indicated by a blue dashed line and the upper limit altitude is shown in hundreds of feet MSL inside a blue dashed box.",
+    "id": "3-38"
+  },
+  {
+    "plt": "CA.III.B.K3",
+    "category": "Airport & Airspace Operations",
+    "text": "When two aircraft are converging at an angle, which aircraft has the right-of-way?",
+    "options": {
+      "A": "The aircraft on the right",
+      "B": "The aircraft on the left",
+      "C": "The aircraft at the lower altitude"
+    },
+    "correct": "A",
+    "explanation": "14 CFR 91.113 — When two aircraft are converging at an angle (other than head-on), the aircraft to the right has the right-of-way.",
+    "id": "3-94"
+  },
+  {
+    "plt": "CA.I.D.R3",
+    "category": "Pilot Qualifications",
+    "text": "A pilot in command (PIC) of a civil aircraft may not allow any object to be dropped from that aircraft in flight",
+    "options": {
+      "A": "unless the PIC has permission to drop any object over private property.",
+      "B": "if it creates a hazard to persons and property.",
+      "C": "unless reasonable precautions are taken to avoid injury to property."
+    },
+    "correct": "B",
+    "explanation": "FAR 91.15 According to FAR 91.15, no pilot in command of a civil aircraft may allow any object to be dropped in flight that creates a hazard to persons or property. The regulation provides an exception, that an object may be dropped if reasonable precautions are taken to avoid injury or damage to persons or property...",
+    "id": "3-97"
+  },
+  {
+    "plt": "ATIS",
+    "category": "General",
+    "text": "What information is contained in the Automatic Terminal Information Service (ATIS) broadcast?",
+    "options": {
+      "A": "Continuous broadcast of recorded aeronautical information including weather, active runways, and NOTAMs",
+      "B": "Only weather information for the airport",
+      "C": "Traffic advisories and sequencing information"
+    },
+    "correct": "A",
+    "explanation": "ATIS contains recorded aeronautical information including weather, active runways, approach type, and other operational information. Pilots contact ATIS before initial contact with tower or approach control.",
+    "id": "3-42"
+  },
+  {
+    "plt": "CA.VI.B.K4",
+    "category": "Navigation",
+    "text": "The automatic dependent surveillance-broadcast (ADS-B) system enables ATC",
+    "options": {
+      "A": "Enables you to see aircraft with transponders that are not equipped with ADS-Bon a cockpit display.",
+      "B": "Delivers a broad range of textual and graphical weather products, as well as other flight information, such as the location of TFRs and special use airspace status.",
+      "C": "Enables ATC to see an aircraft ID on their display for aircraft that are equipped with ADS-B Out."
+    },
+    "correct": "C",
+    "explanation": "With an effective range of 100 nautical miles, the ADS-B system provides precise real-time data that immediately indicates to controllers when an aircraft deviates from its assigned flight path. ATC and pilots can use ADS-B to monitor aircraft surface movement. ADS-B In receives the lateral position, altitude, and velocity of transmitting aircraft and presents this data on the cockpit display of traffic information (CDTI).",
+    "id": "3-101"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "Absence of the sky condition and visibility on an ATIS broadcast specifically implies that:",
+    "options": {
+      "A": "Ceiling and visibility are greater than 5,000 feet and 5 SM respectively",
+      "B": "Only ceiling and visibility are being reported",
+      "C": "The ATIS has not been updated"
+    },
+    "correct": "A",
+    "explanation": "When sky condition and visibility are omitted from an ATIS broadcast, it implies the ceiling is greater than 5,000 feet AGL and visibility is greater than 5 SM.",
+    "id": "3-44"
+  },
+  {
+    "plt": "CA.I.C.K3b",
+    "category": "Pilot Qualifications",
+    "text": "What causes wind?",
+    "options": {
+      "A": "Differences in atmospheric pressure, temperature, and the rotation of the Earth",
+      "B": "Only differences in atmospheric pressure",
+      "C": "The Coriolis force and surface friction only"
+    },
+    "correct": "A",
+    "explanation": "Wind is caused by differences in atmospheric pressure, temperature, and the rotation of the Earth (Coriolis effect).",
+    "id": "4-4"
+  },
+  {
+    "plt": "CA.I.C.K3b",
+    "category": "Pilot Qualifications",
+    "text": "What prevents air from flowing directly from high pressure to low pressure areas?",
+    "options": {
+      "A": "The Coriolis force and friction",
+      "B": "Temperature differences only",
+      "C": "Mountain ranges only"
+    },
+    "correct": "A",
+    "explanation": "The Coriolis force deflects air to the right in the Northern Hemisphere and to the left in the Southern Hemisphere, preventing direct flow from high to low pressure.",
+    "id": "4-6"
+  },
+  {
+    "plt": "CA.I.C.K3b",
+    "category": "Pilot Qualifications",
+    "text": "In the Northern Hemisphere, the general circulation of air around a low-pressure area is:",
+    "options": {
+      "A": "Counterclockwise and inward",
+      "B": "Clockwise and outward",
+      "C": "Counterclockwise and outward"
+    },
+    "correct": "A",
+    "explanation": "In the Northern Hemisphere, air flows counterclockwise and inward around a low-pressure area due to the Coriolis effect and friction.",
+    "id": "4-10"
+  },
+  {
+    "plt": "CA.I.C.K3a",
+    "category": "Pilot Qualifications",
+    "text": "The general circulation of air associated with a high-pressure area in the Northern Hemisphere is",
+    "options": {
+      "A": "a heat exchange.",
+      "B": "the movement of air.",
+      "C": "a pressure differential."
+    },
+    "correct": "A",
+    "explanation": "AW Coriolis force, which counterbalances the pressure gradient force and deflects airflow to the right as it flows out of a high pressure area in the northern hemisphere. This effect results in clockwise circulation leaving a high (to the right) and counterclockwise (cyclonic, to the left} circulation entering a low with winds parallel to the isobars. Isobars help identify pressure systems, which are classified as highs, lows, ridges, troughs, and cols. A low pressure area or trough is an area of rising air, which results in generally unfavorable weather conditions. A high pressure area or ridge is characterized by descending air, which encourages dissipation of clouds and results in generally favorable weather conditions.",
+    "id": "4-14"
+  },
+  {
+    "plt": "CA.I.C.K3c",
+    "category": "Pilot Qualifications",
+    "text": "Which is true regarding actual air temperature and dewpoint temperature spread? The temperature spread",
+    "options": {
+      "A": "decreases as the relative humidity decreases.",
+      "B": "decreases as the relative humidity increases.",
+      "C": "increases as the relative humidity increases."
+    },
+    "correct": "B",
+    "explanation": "AW The amount of water vapor the air can hold decreases with the air's temperature. When the air cools to the dewpoint, it contains all the moisture it can hold at that temperature, and is said to be saturated. Relative humidity increases as the temperature/dewpoint spread decreases. When the air is saturated, the relative humidity is 100%, water vapor condenses, and clouds, fog, or dew forms. Meteorology",
+    "id": "4-17"
+  },
+  {
+    "plt": "CA.I.C.K3d",
+    "category": "Pilot Qualifications",
+    "text": "Virga is best described as:",
+    "options": {
+      "A": "Precipitation that evaporates before reaching the ground",
+      "B": "Precipitation that freezes before reaching the ground",
+      "C": "A thin, wispy cloud at high altitude"
+    },
+    "correct": "A",
+    "explanation": "Virga is precipitation that falls from a cloud but evaporates or sublimes before reaching the ground.",
+    "id": "4-18"
+  },
+  {
+    "plt": "CA.I.C.K3c",
+    "category": "Pilot Qualifications",
+    "text": "Which of the following conditions are most favorable for the development of a surface-based temperature inversion?",
+    "options": {
+      "A": "Clear skies, light winds, and a dry air mass",
+      "B": "Overcast skies and strong winds",
+      "C": "Cumulonimbus clouds and heavy precipitation"
+    },
+    "correct": "A",
+    "explanation": "Surface-based temperature inversions form most often under clear skies, light winds, and stable air, typically at night due to radiational cooling.",
+    "id": "4-23"
+  },
+  {
+    "plt": "CA.I.C.K3a",
+    "category": "Pilot Qualifications",
+    "text": "Which would decrease the stability of an air mass?",
+    "options": {
+      "A": "Warming from below.",
+      "B": "Cooling from below.",
+      "C": "Decrease in water vapor."
+    },
+    "correct": "A",
+    "explanation": "AW Stability is the atmosphere's resistance to vertical motion. The stability of a parcel of air determines whether it rises or sinks in relation to the air around it. Stable air resists vertical movement. Air that is both cool and dry is stable. Unstable air has a tendency to rise. The greatest instability occurs when the air is both warm and moist. Lifting of an air mass can be caused by frontal activity or convective currents that are generated by uneven heating of the Earth's surface. Lifting also can occur orographically, as when air is forced up a mountain slope.",
+    "id": "4-30"
+  },
+  {
+    "plt": "CA.I.C.K3h",
+    "category": "Pilot Qualifications",
+    "text": "Which of the following is required for the formation of cumulonimbus clouds?",
+    "options": {
+      "A": "Lifting action, moisture, and atmospheric instability",
+      "B": "Stable air and orographic lifting",
+      "C": "Warm front passage and steady rain"
+    },
+    "correct": "A",
+    "explanation": "Cumulonimbus clouds require lifting action (convection, frontal, or orographic), sufficient moisture, and atmospheric instability.",
+    "id": "4-43"
+  },
+  {
+    "plt": "CA.I.C.K3e",
+    "category": "Pilot Qualifications",
+    "text": "What type of weather would a pilot expect after a cold front has passed?",
+    "options": {
+      "A": "Showers, turbulence, and gusty winds followed by clearing and colder temperatures",
+      "B": "Steady rain and gradually warming temperatures",
+      "C": "Fog and calm winds"
+    },
+    "correct": "A",
+    "explanation": "After a cold front passes, expect showers, turbulence, and gusty winds, followed by clearing skies and colder temperatures.",
+    "id": "4-45"
+  },
+  {
+    "plt": "CA.I.C.K3h",
+    "category": "Pilot Qualifications",
+    "text": "Which stage of a thunderstorm is characterized by the most severe turbulence and heavy precipitation?",
+    "options": {
+      "A": "The mature stage",
+      "B": "The cumulus stage",
+      "C": "The dissipating stage"
+    },
+    "correct": "A",
+    "explanation": "The mature stage is characterized by both updrafts and downdrafts, heavy precipitation, lightning, and the most severe turbulence.",
+    "id": "4-54"
+  },
+  {
+    "plt": "CA.I.C.K3h",
+    "category": "Pilot Qualifications",
+    "text": "Which of the following conditions is most likely to be associated with severe turbulence?",
+    "options": {
+      "A": "Cumulonimbus clouds and thunderstorms",
+      "B": "Stratus clouds and steady rain",
+      "C": "High cirrus clouds and clear skies"
+    },
+    "correct": "A",
+    "explanation": "Cumulonimbus clouds and thunderstorms are associated with the most severe turbulence.",
+    "id": "4-60"
+  },
+  {
+    "plt": "CA.I.C.K3h",
+    "category": "Pilot Qualifications",
+    "text": "Which statement is true regarding squall lines?",
+    "options": {
+      "A": "They are lines of thunderstorms that can extend for hundreds of miles",
+      "B": "They only form along cold fronts",
+      "C": "They are always associated with hurricanes"
+    },
+    "correct": "A",
+    "explanation": "Squall lines are lines of active thunderstorms that can extend for hundreds of miles, often well ahead of a cold front.",
+    "id": "4-62"
+  },
+  {
+    "plt": "CA.I.C.K3g",
+    "category": "Pilot Qualifications",
+    "text": "Which is the best technique for minimizing the wing-load factor when flying in severe turbulence?",
+    "options": {
+      "A": "Change power settings, as necessary, to maintain constant airspeed.",
+      "B": "Control airspeed with power, maintain wings level, and accept variations of altitude.",
+      "C": "Set power and trim to obtain an airspeed at or below maneuvering speed, maintain wings level, and accept variations of airspeed and altitude."
+    },
+    "correct": "C",
+    "explanation": "PH8 If you enter turbulence unexpectedly, or if you expect to encounter it during flight, or if you unintentionally enter a thunderstorm, slow the airplane to maneuvering speed (VA) or less, or the recommended rough air penetration speed. Then, attempt to maintain a level flight attitude and accept variations in airspeed and altitude. Meteorology",
+    "id": "4-69"
+  },
+  {
+    "plt": "CA.I.C.K3g",
+    "category": "Pilot Qualifications",
+    "text": "A common location of clear air turbulence is",
+    "options": {
+      "A": "in the jet stream front above a core having a speed of 60 to 90 knots.",
+      "B": "if the 5°C isotherms are spaced between 7° to 10° of latitude.",
+      "C": "on the low-pressure side of a jet stream core where the speed at the core is stronger than 110 knots."
+    },
+    "correct": "A",
+    "explanation": "AC 00-30 Clear air turbulence (CAT) usually is encountered above 15,000 feet, however, it can take place at any altitude and is often present with no visual warning. CAT often develops in or near the jet stream, which is a narrow band of high altitude winds near the tropopause. As a rule of thumb, CAT can be expected when a curving jet is found north of a deep low pressure system. CAT is usually greater in an upper trough on the polar side of a jet stream.",
+    "id": "4-82"
+  },
+  {
+    "plt": "CA.I.C.K3g",
+    "category": "Pilot Qualifications",
+    "text": "Where is clear air turbulence (CAT) most commonly reported?",
+    "options": {
+      "A": "In the vicinity of jet streams, especially on the cyclonic side",
+      "B": "Only near mountain peaks below 10,000 feet",
+      "C": "In valleys during nighttime hours"
+    },
+    "correct": "A",
+    "explanation": "Clear air turbulence is most commonly reported in the vicinity of jet streams, particularly on the cyclonic (left) side and below the jet core.",
+    "id": "4-86"
+  },
+  {
+    "plt": "CA.I.C.K3g",
+    "category": "Pilot Qualifications",
+    "text": "You should report turbulence that causes changes in altitude and/or attitude, but aircraft control remains positive, as",
+    "options": {
+      "A": "light.",
+      "B": "severe.",
+      "C": "moderate."
+    },
+    "correct": "C",
+    "explanation": "You can classify the intensity of turbulence using the following guidelines: NOTE: the definition that applies to the correct answer is shown in bold. Light-slight erratic changes in altitude or attitude; slight strain against seat belts. Light chop is slight, rapid bumpiness without appreciable changes in altitude or attitude. Moderate-changes in altitude or attitude, but the aircraft remains in positive control at all times; usually causes variations in indicated airspeed; occupants feel definite strains against seat belts. Moderate chop is rapid bumps or jolts without appreciable changes in altitude or attitude. Severe-large abrupt changes in altitude or attitude; usually causes large variations in indicated airspeed; aircraft might be momentarily out of control; occupants forced violently against seat belts. Extreme-aircraft practically impossible to control; might cause structural damage.",
+    "id": "4-92"
+  },
+  {
+    "plt": "CA.I.C.K3b",
+    "category": "Pilot Qualifications",
+    "text": "A sudden decrease in headwind during takeoff or landing can cause:",
+    "options": {
+      "A": "A gain in altitude and a decrease in airspeed",
+      "B": "An increase in airspeed and altitude",
+      "C": "No effect on the aircraft"
+    },
+    "correct": "A",
+    "explanation": "A sudden decrease in headwind reduces the relative wind over the wings, causing a momentary loss of lift and increase in groundspeed. The aircraft will balloon and lose airspeed.",
+    "id": "4-99"
+  },
+  {
+    "plt": "CA.I.C.K3j",
+    "category": "Pilot Qualifications",
+    "text": "What is the most effective way to dissipate advection fog?",
+    "options": {
+      "A": "An increase in surface wind speed mixing the air",
+      "B": "Radiational cooling at night",
+      "C": "Precipitation from above"
+    },
+    "correct": "A",
+    "explanation": "Advection fog is most effectively dissipated by an increase in surface wind speed, which mixes the fog layer with drier air above.",
+    "id": "4-103"
+  },
+  {
+    "plt": "CA.I.C.K3j",
+    "category": "Pilot Qualifications",
+    "text": "Fog is most commonly produced when warm, moist air moves over a cold surface. This type of fog is called:",
+    "options": {
+      "A": "Advection fog",
+      "B": "Radiation fog",
+      "C": "Upslope fog"
+    },
+    "correct": "A",
+    "explanation": "Advection fog forms when warm, moist air moves over a colder surface, cooling the air to its dew point.",
+    "id": "4-107"
+  },
+  {
+    "plt": "CA.I.G.K1j",
+    "category": "Pilot Qualifications",
+    "text": "What is true regarding ice control systems?",
+    "options": {
+      "A": "anti-icing boots, that are pneumatically inflated to prevent the formation of ice on the wing.",
+      "B": "thermal deicing systems that break ice from aircraft surfaces.",
+      "C": "propeller anti-ice systems that use alcohol discharged from spinner nozzles to prevent ice formation."
+    },
+    "correct": "B",
+    "explanation": "AC 91-13C Aircraft ice control systems consist of a combination of anti-icing and deicing equipment. Anti-icing equipment prevents the formation of ice, while deicing equipment removes the ice after it has formed. You must consult the FAA-approved aircraft flight manual (AFM) or pilot's operating handbook (POH) to determine if your aircraft is certified to operate in icing conditions.",
+    "id": "4-115"
+  },
+  {
+    "plt": "CA.I.C.K2",
+    "category": "Pilot Qualifications",
+    "text": "Terminal Aerodrome Forecasts (TAF) are issued how many times a day and cover what period of time?",
+    "options": {
+      "A": "Four times daily, covering 24-30 hours",
+      "B": "Once daily, covering 12 hours",
+      "C": "Twice daily, covering 48 hours"
+    },
+    "correct": "A",
+    "explanation": "TAFs are issued four times daily (0000Z, 0600Z, 1200Z, 1800Z) and typically cover a 24-30 hour period.",
+    "id": "4-124"
+  },
+  {
+    "plt": "CA.I.C.K2",
+    "category": "Pilot Qualifications",
+    "text": "What is the meaning of the terms PROB40 2100Z + TSRA as used in a terminal aerodrome forecasts (TAF)?",
+    "options": {
+      "A": "Wind speed is variable throughout the period.",
+      "B": "Cloud base is variable.",
+      "C": "Wind direction is variable."
+    },
+    "correct": "B",
+    "explanation": "The probability group (PROB40) in a TAF is used to indicate there is between a 30% and 49% probability of thunderstorms or precipitation events and associated conditions occurring in the forecast period. This is followed by beginning and ending time and then by the conditions that are expected. In this example, there is approximately a 40 percent probability of a thunderstorm and heavy rain between 2100Z and 0200Z. There is no mention of showers (SH).",
+    "id": "4-126"
+  },
+  {
+    "plt": "CA.I.C.K2",
+    "category": "Pilot Qualifications",
+    "text": "What does the term P6SM mean in a weather report?",
+    "options": {
+      "A": "Visibility greater than 6 statute miles",
+      "B": "Precipitation for 6 hours",
+      "C": "Pressure of 6 millibars"
+    },
+    "correct": "A",
+    "explanation": "P6SM means visibility greater than 6 statute miles. This is used when visibility exceeds the reporting capability of the station.",
+    "id": "4-129"
+  },
+  {
+    "plt": "CA.I.C.K2",
+    "category": "Pilot Qualifications",
+    "text": "Which correctly describes the purpose of Convective SIGMETs (WST)?",
+    "options": {
+      "A": "They consist of an hourly observation of tornadoes, significant thunderstorm activity, and large hailstone activity.",
+      "B": "They contain both an observation and a forecast of all thunderstorm and hailstone activity. The forecast is valid for 1 hour only.",
+      "C": "They consist of either an observation and a forecast or just a forecast for tornadoes, significant thunderstorm activity, or hail greater than or equal to 3/4 inch in diameter."
+    },
+    "correct": "C",
+    "explanation": "Convective SIGMETs (WSTs) are issued for hazardous weather related to thunderstorms that is significant to the safety of all aircraft. A WST consists of either an observation and a forecast or simply a forecast for any of the following phenomena: Tornadoes. Lines of thunderstorms, thunderstorms over a wide area, and embedded thunderstorms. Hail ¾ inch in diameter or more. Wind gusts to 50 knots or greater.",
+    "id": "4-135"
+  },
+  {
+    "plt": "CA.I.C.K2",
+    "category": "Pilot Qualifications",
+    "text": "Which type of weather chart depicts surface frontal positions, pressure centers, and isobars?",
+    "options": {
+      "A": "Surface analysis chart",
+      "B": "Constant pressure chart",
+      "C": "Significant weather chart"
+    },
+    "correct": "A",
+    "explanation": "The surface analysis chart shows current surface weather conditions including frontal positions, pressure centers, and isobars.",
+    "id": "4-136"
+  },
+  {
+    "plt": "CA.I.C.K2",
+    "category": "Pilot Qualifications",
+    "text": "Which type of weather chart shows forecast conditions at a specific future time?",
+    "options": {
+      "A": "Prognostic chart",
+      "B": "Surface analysis chart",
+      "C": "Constant pressure chart"
+    },
+    "correct": "A",
+    "explanation": "A prognostic (forecast) chart shows predicted weather conditions at a specific future time.",
+    "id": "4-141"
+  },
+  {
+    "plt": "CA.I.C.K1",
+    "category": "Pilot Qualifications",
+    "text": "What is the recommended source for obtaining current enroute and destination flight weather information?",
+    "options": {
+      "A": "Flight Service Station or automated weather systems",
+      "B": "Only through ATC",
+      "C": "Only through other pilots"
+    },
+    "correct": "A",
+    "explanation": "Flight Service Stations and automated weather systems (AWOS/ASOS) are the primary sources for enroute and destination weather information.",
+    "id": "4-145"
+  },
+  {
+    "plt": "CA.I.C.K1",
+    "category": "Pilot Qualifications",
+    "text": "A Center Weather Advisory (CWA) is issued to:",
+    "options": {
+      "A": "Describe hazardous weather conditions within a center's area of responsibility",
+      "B": "Provide terminal forecasts for major airports",
+      "C": "Issue SIGMETs for international flights"
+    },
+    "correct": "A",
+    "explanation": "A Center Weather Advisory is issued by Aviation Weather Centers to describe hazardous weather conditions (thunderstorms, icing, turbulence) within a center's area.",
+    "id": "4-147"
+  },
+  {
+    "plt": "CA.I.G.K1c",
+    "category": "Pilot Qualifications",
+    "text": "Why should carburetor heat be turned off during takeoff?",
+    "options": {
+      "A": "To ensure maximum engine power is available",
+      "B": "To prevent carburetor icing",
+      "C": "To reduce fuel consumption"
+    },
+    "correct": "A",
+    "explanation": "Carburetor heat should be off during takeoff to ensure maximum engine power. The warm air is less dense, reducing engine output.",
+    "id": "5-2"
+  },
+  {
+    "plt": "CA.I.G.K1e",
+    "category": "Pilot Qualifications",
+    "text": "What is the primary means of cooling the cylinders in a reciprocating engine?",
+    "options": {
+      "A": "The flow of air over the engine's cooling fins and through the cowling",
+      "B": "A rich fuel mixture",
+      "C": "Using a lower grade of fuel"
+    },
+    "correct": "A",
+    "explanation": "Air-cooled engines rely on airflow over cooling fins and through the engine cowling for heat dissipation.",
+    "id": "5-16"
+  },
+  {
+    "plt": "CA.II.F.K1",
+    "category": "Preflight Procedures",
+    "text": "Some airplanes have an alternate air source for the engine induction system. What is a characteristic of this alternate source?",
+    "options": {
+      "A": "It draws warmer, unfiltered air",
+      "B": "It draws cooler, filtered air",
+      "C": "It only operates at full throttle"
+    },
+    "correct": "A",
+    "explanation": "Some airplanes have an alternate air source that draws warmer, unfiltered air, which can be used if the normal air intake becomes blocked (e.g., by ice).",
+    "id": "5-22"
+  },
+  {
+    "plt": "CA.I.G.K1c",
+    "category": "Pilot Qualifications",
+    "text": "In a fixed-pitch propeller, the blade angle is:",
+    "options": {
+      "A": "Set during manufacturing and cannot be changed in flight",
+      "B": "Adjustable by the pilot during flight",
+      "C": "Automatically adjusted by the governor"
+    },
+    "correct": "A",
+    "explanation": "A fixed-pitch propeller has a blade angle that is set during manufacturing and cannot be changed during flight.",
+    "id": "5-24"
+  },
+  {
+    "plt": "CA.I.G.K1c",
+    "category": "Pilot Qualifications",
+    "text": "To establish a climb after takeoff in an aircraft equipped with a constant-speed propeller, the governor automatically adjusts the blade angle to maintain that RPM, even if you make a change in airspeed or flight attitude. In general, to reduce the engine output to climb power, use the propeller control to:",
+    "options": {
+      "A": "decrease RPM by increasing propeller blade angle",
+      "B": "increase RPM by decreasing propeller blade angle",
+      "C": "decrease RPM by decreasing propeller blade angle"
+    },
+    "correct": "A",
+    "explanation": "The propeller governor maintains constant RPM by adjusting blade angle. To reduce RPM for climb power, increase blade angle which increases drag and reduces RPM.",
+    "id": "5-26"
+  },
+  {
+    "plt": "CA.I.G.K1c",
+    "category": "Pilot Qualifications",
+    "text": "What is the operating principle of a constant-speed propeller?",
+    "options": {
+      "A": "The governor adjusts blade angle to maintain a constant RPM",
+      "B": "The pilot manually adjusts blade angle for each phase of flight",
+      "C": "The propeller automatically adjusts pitch based on airspeed only"
+    },
+    "correct": "A",
+    "explanation": "A constant-speed propeller uses a governor to automatically adjust blade angle to maintain a selected RPM regardless of airspeed or power setting.",
+    "id": "5-28"
+  },
+  {
+    "plt": "CA.I.G.K1d",
+    "category": "Pilot Qualifications",
+    "text": "According to 14 CFR Part 1, what is VLE?",
+    "options": {
+      "A": "The maximum airspeed with the landing gear extended",
+      "B": "The maximum airspeed for normal operations",
+      "C": "The maximum airspeed for takeoff"
+    },
+    "correct": "A",
+    "explanation": "14 CFR 1.2 defines VLE as the maximum airspeed at which the aircraft can be safely flown with the landing gear extended.",
+    "id": "5-40"
+  },
+  {
+    "plt": "PLT138",
+    "category": "General",
+    "text": "Which of these are systems are used for emergency gear extension?",
+    "options": {
+      "A": "Hydraulic hand pump, freefall, and squat switch.",
+      "B": "Hand crank, hydraulic hand pump, and electrohydraulic system.",
+      "C": "Hand crank, hydraulic hand pump, and carbon dioxide (CO2) pressurized system."
+    },
+    "correct": "C",
+    "explanation": "AC 91-13C The four most common kinds of emergency gear extension systems are the hand crank, the hydraulic hand pump, the freefall, and the carbon dioxide (CO2) pressurized systems. Check the AFM/POH to determine the proper method for operating the system on your airplane.",
+    "id": "5-44"
+  },
+  {
+    "plt": "SPINS",
+    "category": "General",
+    "text": "Stalling with crossed controls is a major cause of spins, and usually happens when either too much or not enough rudder is used for existing yawing forces. If an airplane stalls with crossed controls, it is likely to enter a spin. The spin rotation is usually in the direction of the rudder being applied, regardless of which wing is raised. Because moving the CG aft decreases longitudinal stability and reduces pitch control forces in most airplanes, an aft CG tends to make the airplane easier to stall. After a spin is entered, an airplane with its CG farther aft tends to have a flatter spin attitude. A flat spin is characterized by a near level pitch and roll attitude with the spin axis near the CG of the airplane. The upward flow over the tail could render the elevators and rudder ineffective, making recovery impossible. Aerodynamics and Perlormance Limitations",
+    "options": {
+      "A": "Power, pitch, bank, and trim.",
+      "B": "Thrust, lift, turns, and glides.",
+      "C": "Straight-and-level flight, turns, climbs, and descents."
+    },
+    "correct": "A",
+    "explanation": "Spin recovery typically follows the PARE technique: Power to idle, Ailerons neutral, Rudder opposite to the direction of rotation, Elevator forward to break the stall. Once rotation stops, neutralize the rudder and recover from the dive.",
+    "id": "6-6"
+  },
+  {
+    "plt": "CA.I.F.K3",
+    "category": "Pilot Qualifications",
+    "text": "When transitioning from straight-and-level flight to a constant airspeed climb, the angle of attack and lift",
+    "options": {
+      "A": "are increased and remain at a higher lift-toweight ratio to maintain the climb.",
+      "B": "remain the same and maintain a steady state lift-to-weight ratio during the.climb.",
+      "C": "are momentarily increased and lift returns to a steady state during the climb. occurs in any direction."
+    },
+    "correct": "C",
+    "explanation": "A change in any one of the four forces-lift, weight, thrust, drag-results in an acceleration until equilibrium is reestablished. An imbalance in the forces, such as when you initiate a climb or descent, causes the airplane to change speed and direction until it reaches a new equilibrium. After you restore equilibrium in the climb or descent, the vector sums of the opposing forces are balanced.",
+    "id": "6-3"
+  },
+  {
+    "plt": "CA.I.F.K3",
+    "category": "Pilot Qualifications",
+    "text": "Which is true regarding the forces acting on an aircraft in a steady-state descent? The sum of all",
+    "options": {
+      "A": "is momentarily decreased.",
+      "B": "remains the same.",
+      "C": "is momentarily increased."
+    },
+    "correct": "C",
+    "explanation": "A change in any one of the four forces-lift, weight, thrust, drag-results in an acceleration until equilibrium is reestablished. An imbalance in the forces, such as when you initiate a climb or descent, causes the airplane to change speed and direction until it reaches a new equilibrium. After you restore equilibrium in the climb or descent, the vector sums of the opposing forces are balanced.",
+    "id": "6-4"
+  },
+  {
+    "plt": "CA.I.F.K3",
+    "category": "Pilot Qualifications",
+    "text": "An aircraft airfoil is designed to produce lift resulting from a difference in the",
+    "options": {
+      "A": "negative air pressure below and a vacuum above the wing's surface.",
+      "B": "vacuum below the wing's surface and greater air pressure above the wing's surface.",
+      "C": "higher air pressure below the wing's surface and lower air pressure above the wing's surface"
+    },
+    "correct": "C",
+    "explanation": "The wing is designed to produce lift resulting from: The air moving past the wing curves downward, creating a strong downwash behind the wing. Lift is the reaction that results from the action of forcing air downward. The air pressure above a wing is reduced because the shape of the airfoil and the angle of attack cause air to flow faster over the upper surface of the wing. Air flowing along the lower surface of the wing slows down, causing its pressure to increase, and adding to lift. Aerodynamics and Performance Limitations",
+    "id": "6-7"
+  },
+  {
+    "plt": "CA.I.F.K3",
+    "category": "Pilot Qualifications",
+    "text": "The angle of attack of a wing directly controls the:",
+    "options": {
+      "A": "Lift coefficient and the coefficient of drag",
+      "B": "Airspeed and altitude",
+      "C": "Power output and fuel flow"
+    },
+    "correct": "A",
+    "explanation": "Angle of attack directly controls the lift coefficient and coefficient of drag. Increasing AoA increases both lift and drag (up to the critical angle).",
+    "id": "6-8"
+  },
+  {
+    "plt": "CA.I.F.K3",
+    "category": "Pilot Qualifications",
+    "text": "Which is true regarding the force of lift in steady, unaccelerated flight?",
+    "options": {
+      "A": "There is a corresponding indicated airspeed required for every angle of attack to generate sufficient lift to maintain altitude.",
+      "B": "An airfoil will always stall at the same indicated airspeed; therefore, an increase in weight will require an increase in speed to generate sufficient lift to maintain altitude.",
+      "C": "At lower airspeeds the angle of attack must be less to generate sufficient lift to maintain altitude"
+    },
+    "correct": "A",
+    "explanation": "For any particular amount of lift, a specific combination of angle of attack and airspeed applies. If you reduce the airspeed and maintain your altitude (air density) and airplane configuration (wing area), the lift equation shows that you must increase the coefficient of lift (angle of attack) to generate sufficient lift to maintain altitude. If you increase airspeed, you must reduce the angle of attack to stay at the same altitude.",
+    "id": "6-11"
+  },
+  {
+    "plt": "",
+    "category": "General",
+    "text": "To maintain altitude during a turn, the angle of attack must be increased to compensate for the decrease in the",
+    "options": {
+      "A": "forces opposing the resultant component of drag.",
+      "B": "vertical component of lift.",
+      "C": "horizontal component of lift."
+    },
+    "correct": "C",
+    "explanation": "The greater the angle of attack, the more drag is produced. At low speeds, a wing must fly at a higher angle of attack to generate enough lift to support the airplane, and more high pressure air from the lower surface flows around the wingtips, forming more powerful vortices, which are the primary cause of induced drag. Induced drag increases with a decrease in airspeed. Parasite drag increases with an increase in speed.",
+    "id": "6-20"
+  },
+  {
+    "plt": "CA.IV.C.K4",
+    "category": "Takeoffs, Landings & Go-Arounds",
+    "text": "To produce the same lift while in ground effect as when out of ground effect, the airplane requires",
+    "options": {
+      "A": "a lower angle of attack.",
+      "B": "the same angle of attack.",
+      "C": "a greater angle of attack"
+    },
+    "correct": "A",
+    "explanation": "When an airplane flies within a distance from the ground (or water) surface equal to its own wingspan or less, the amount of induced drag decreases. Therefore, in ground effect, a lower angle of attack is required to produce the same amount of lift as when out of ground effect. Aerodynamics and Performance Limitations",
+    "id": "6-23"
+  },
+  {
+    "plt": "CA.I.F.K3",
+    "category": "Pilot Qualifications",
+    "text": "When airspeed is doubled in level flight, parasite drag:",
+    "options": {
+      "A": "Increases four times (quadruples)",
+      "B": "Doubles",
+      "C": "Remains the same"
+    },
+    "correct": "A",
+    "explanation": "Parasite drag increases with the square of airspeed. Doubling airspeed results in four times the parasite drag.",
+    "id": "6-25"
+  },
+  {
+    "plt": "CA.I.F.K3",
+    "category": "Pilot Qualifications",
+    "text": "Why should flight speeds above VNE be avoided?",
+    "options": {
+      "A": "Excessive induced drag will result in structural failure.",
+      "B": "Design limit load factors may be exceeded, if gusts are encountered.",
+      "C": "Control effectiveness is so impaired that the aircraft becomes uncontrollable."
+    },
+    "correct": "B",
+    "explanation": "Never-exceed speed (V NE) corresponds to the red line on the airspeed indicator. Flying faster than VNE could cause control surface flutter, airframe structural damage, or failure. The range from VNo to VNE is the caution range represented by the yellow arc on the airspeed indicator. Because turbulence and gusts are more likely to cause high load factors at higher speeds, use this speed range only in smooth air.",
+    "id": "6-36"
+  },
+  {
+    "plt": "CA.I.F.R2",
+    "category": "Pilot Qualifications",
+    "text": "Structural damage or failure is more likely to occur in smooth air at speeds above",
+    "options": {
+      "A": "upper limit of the yellow arc.",
+      "B": "upper limit of the green arc.",
+      "C": "blue radial line."
+    },
+    "correct": "A",
+    "explanation": "Maximum structural cruising speed, VNO, is the top speed of the normal operating range and corresponds to the upper limit of the green arc on the airspeed indicator. Do not exceed this speed in rough air. The range from VNO to VNE is the caution range represented by the yellow arc on the airspeed indicator. Because turbulence and gusts are more likely to cause high load factors at higher speeds, use this speed range only in smooth air.",
+    "id": "6-37"
+  },
+  {
+    "plt": "CA.I.F.K3",
+    "category": "Pilot Qualifications",
+    "text": "(Refer to Figure 5.) The vertical line from point D to point G is represented on the airspeed indicator by the maximum speed limit of the",
+    "options": {
+      "A": "positive dynamic stability.",
+      "B": "positive static stability.",
+      "C": "neutral dynamic stability."
+    },
+    "correct": "A",
+    "explanation": "V-g diagrams show the maximum amount of positive or negative lift the airplane is capable of generating at a given speed, the safe load factor limits, and the load factor, or number of Gs, the airplane can sustain at various speeds. The vertical line from point D to point G represents maximum structural cruising speed, VNo, which is the top speed of the normal operating range and corresponds to the upper limit of the green arc on the airspeed indicator. Do not exceed this speed in rough air.",
+    "id": "6-40",
+    "figureRef": 5
+  },
+  {
+    "plt": "CA.I.F.K3",
+    "category": "Pilot Qualifications",
+    "text": "Longitudinal dynamic instability in an airplane can be identified by",
+    "options": {
+      "A": "rudder.",
+      "B": "elevator.",
+      "C": "ailerons."
+    },
+    "correct": "B",
+    "explanation": "Longitudinal stability involves the pitching motion, or tendency, of the airplane to move about its lateral axis. Dynamic stability describes how the airplane responds over time to a displacement from equilibrium. Combining the characteristics of static and dynamic stability describes a variety of stability conditions. Longitudinal instability in an airplane can be defined as positive static and negative dynamic stability-over time, oscillations increase and becomes more divergent. The divergence will continue until the pilot intervenes or the airplane is destroyed.",
+    "id": "6-43"
+  },
+  {
+    "plt": "CA.I.F.K3",
+    "category": "Pilot Qualifications",
+    "text": "As the slipstream produced by a clockwise rotating propeller (as seen from the rear) wraps around the fuselage, some of it strikes the left side of the vertical fin. This tends to rotate the airplane to the:",
+    "options": {
+      "A": "right, requiring right rudder to compensate",
+      "B": "left, requiring left rudder to compensate",
+      "C": "right only during low angles of attack"
+    },
+    "correct": "A",
+    "explanation": "The spiraling slipstream from a clockwise propeller strikes the left side of the vertical fin, yawing the airplane right. This is one component of P-factor. Right rudder is required to compensate.",
+    "id": "6-45"
+  },
+  {
+    "plt": "CA.I.F.K3",
+    "category": "Pilot Qualifications",
+    "text": "(Refer to Figure 3.) The L/D ratio at a 2° angle of attack is approximately the same as the L/D ratio for a",
+    "options": {
+      "A": "decreases and the horizontal component of lift increases.",
+      "B": "increases and the horizontal component of lift decreases.",
+      "C": "decreases and the horizontal component of lift remains constant."
+    },
+    "correct": "C",
+    "explanation": "To find the UDMAX value for a particular angle of attack: 1. Locate the 2° angle of attack on the x-axis of the graph and then move vertically to the UD curved line. 2. Move right until you intersect the UD curved line. 3. Follow the vertical reference line down to the corresponding angle of attack (16.5°) on the x-axis of the graph.",
+    "id": "6-48",
+    "figureRef": 3
+  },
+  {
+    "plt": "CA.I.F.K3",
+    "category": "Pilot Qualifications",
+    "text": "If airspeed is increased during a level turn, what action would be necessary to maintain altitude? The angle of attack",
+    "options": {
+      "A": "is constant and the stall speed increases.",
+      "B": "varies with the rate of turn.",
+      "C": "is constant and the stall speed decreases."
+    },
+    "correct": "C",
+    "explanation": "When you roll the airplane into a bank, the horizontal component of lift causes the airplane to turn. Diverting a portion of lift to turn the airplane reduces the vertical component of lift available to support the airplane's weight. However, if you increase airspeed, the vertical component of lift increases. To maintain the same vertical lift component and prevent a climb, you must compensate by either increasing the angle of bank (changing part of the vertical lift component to the horizontal lift component), and/or by decreasing the angle of attack.",
+    "id": "6-52"
+  },
+  {
+    "plt": "CA.VII.D.K1",
+    "category": "Slow Flight & Stalls",
+    "text": "(Refer to Figure 4.) What increase in load factor would take place if the angle of bank were increased from 60° to 80°?",
+    "options": {
+      "A": "Gs.",
+      "B": "3.5 Gs.",
+      "C": "Load factor remains constant if no change in bank angle occurs."
+    },
+    "correct": "C",
+    "explanation": "To find the increase in load factor from a 60° bank to a 80° bank: 1. Locate the 60° angle of attack on the x-axis of the graph and then move vertically to the load factor curved line. 2. Move right to read the load factor of 2 Gs on the y-axis. 3. Locate the 80° angle of attack on the x-axis of the graph and then move vertically to the load factor curved line. 4. Move right to read the load factor of 6 Gs on the y-axis. 5. Subtract the load factor at 60° bank from the load factor at 80° bank to find the increase (6 - 2 = 4 Gs).",
+    "id": "6-55",
+    "figureRef": 4
+  },
+  {
+    "plt": "CA.V.A.K2e",
+    "category": "Performance Maneuvers",
+    "text": "To maintain a standard-rate turn as the airspeed decreases, the bank angle of the airplane will need to",
+    "options": {
+      "A": "decrease the rate of turn resulting in a decreased load factor.",
+      "B": "decrease the rate of turn resulting in no change in load factor.",
+      "C": "increase the rate of turn resulting in no change in load factor."
+    },
+    "correct": "A",
+    "explanation": "Rate and radius of turn vary with both airspeed and bank angle. For example: When the angle of bank is held constant, decreasing the airspeed: decreases the turn radius. increases the turn rate. When the airspeed is held constant, increasing the bank angle: decreases the turn radius. increases the turn rate. Because the turn rate increases when the airspeed decreases, you must also decrease the bank angle to maintain the same rate of turn at a slower airspeed.",
+    "id": "6-59"
+  },
+  {
+    "plt": "CA.I.F.K1",
+    "category": "Pilot Qualifications",
+    "text": "(Refer to Figure 8.) Approximately how much fuel would be consumed when climbing at 75 percent power for 7 minutes?",
+    "options": {
+      "A": "2.66 gallons.",
+      "B": "2.88 gallons.",
+      "C": "3.2 gallons."
+    },
+    "correct": "C",
+    "explanation": "PH8 To determine the fuel consumption during the climb: 1. Follow the Takeoff and Climb diagonal line to where it intersects the vertical line of 75% maximum continuous power. 2. Move left horizontally to the fuel flow of 18.25 gallons per hour on the y-axis. 3. Use a flight computer or calculator to determine that the total fuel consumed during 7 minutes at a rate of 18.25 gallons per hour is approximately 2.13 gallons: 18.25 + 60 x 7 = 2.13.",
+    "id": "6-92",
+    "figureRef": 8
+  },
+  {
+    "plt": "CA.I.F.K1",
+    "category": "Pilot Qualifications",
+    "text": "(Refer to Figure 9.) GIVEN: Aircraft weight...3,500 lb Airport pressure altitude... 4,000 ft Temperature... 21 °C Using a normal climb, approximately how much fuel would be used from engine start to 10,000 feet pressure altitude?",
+    "options": {
+      "A": "23 pounds.",
+      "B": "31 pounds.",
+      "C": "35 pounds."
+    },
+    "correct": "C",
+    "explanation": "To determine the fuel to used to climb, subtract the fuel shown on the table at 4,000 feet from the fuel at 10,000 feet. 1. At the aircraft weight of 3,500 pounds, move right to the pressure altitude column. 2. Read the fuel used at 4,000 feet-11 pounds. 3. Read the fuel used at 10,000 feet-31 pounds. 4. Subtract the 2 values to determine the fuel used: 31 - 11 = 20 pounds of fuel. 5. Note 2-increase time, fuel, and distance by 10% for each 10°c above standard temperature (1 % change for every 1 °C). Standard temperature at sea level is 15°C and the standard lapse rate is 2°C per 1,000-foot increase in altitude. Standard temperature for an airport at 4,000 feet is 7°C (15°C - 8°C = 1°c). Subtract the standard temperature from the outside air temperature: 21 °c - 7°C = 14°C. Because a 14°C difference exists between the actual temperature and standard, increase the fuel used by 14%: 20 x 1.14 = 22.8 pounds. 6. Note 1-add 12 pounds for engine start, taxi and takeoff: 22.8 + 12 = 34.8 pounds. Aerodynamics and Performance Limitations",
+    "id": "6-94",
+    "figureRef": 9
+  },
+  {
+    "plt": "CA.I.F.K1",
+    "category": "Pilot Qualifications",
+    "text": "(Refer to Figure 9.) GIVEN: Aircraft weight...3,800 lb Airport pressure altitude... 4,000 ft Temperature... 26°C Using a normal climb, approximately how much fuel would be used from engine start to 12,000 feet pressure altitude?",
+    "options": {
+      "A": "46 pounds.",
+      "B": "51 pounds.",
+      "C": "58 pounds."
+    },
+    "correct": "C",
+    "explanation": "To determine the fuel to used to climb, subtract the fuel shown on the table at 4,000 feet from the fuel at 12,000 feet. 1. At the aircraft weight of 3,800 pounds, move right to the pressure altitude column. 2. Read the fuel used at 4,000 feet-12 pounds. 3. Read the fuel used at 12,000 feet-51 pounds. 4. Subtract the 2 values to determine the fuel used: 51 - 12 = 39 pounds of fuel. 5. Note 2-increase time, fuel, and distance by 10% for each 10°C above standard temperature (1 % change for every 1 °C). Standard temperature at sea level is 15°C and the standard lapse rate is 2°c per 1,000-foot increase in altitude. Standard temperature for an airport at 4,000 feet is 7°C (15°C - 8°C = 1°c). Subtract the standard temperature from the outside air temperature: 26°C - ?°C = 19°C. Because a 19°C difference exists.between the actual temperature and standard, increase the fuel used by 19%: 39 x 1.19 = 46.4 pounds. 6. Note 1-add 12 pounds for engine start, taxi and takeoff: 46.4 + 12 = 58.4 pounds.",
+    "id": "6-95",
+    "figureRef": 9
+  },
+  {
+    "plt": "CA.I.F.K1",
+    "category": "Pilot Qualifications",
+    "text": "(Refer to Figure 10.) GIVEN: Aircraft weight...3,200 lb Airport pressure altitude... 2,000 ft Temperature... 27°C Using a maximum rate of climb, approximately how much fuel would be used from engine start to 6,000 feet pressure altitude?",
+    "options": {
+      "A": "10 pounds.",
+      "B": "14 pounds.",
+      "C": "24 pounds."
+    },
+    "correct": "C",
+    "explanation": "To determine the fuel to used to climb, subtract the fuel shown on the table at 2,000 feet from the fuel at 6,000 feet. 1. At the aircraft weight of 3,200 pounds, move right to the pressure altitude column. 2. Read the fuel used at 2,000 feet-4 pounds. 3. Read the fuel used at 6,000 feet-14 pounds. 4. Subtract the 2 values to determine the fuel used: 14 - 4 = 10 pounds of fuel. 5. Note 2-increase time, fuel, and distance by 10% for each 10°c above standard temperature (1 % change for every 1 °C). Standard temperature at sea level is 15°C and the standard lapse rate is 2°c per 1,000-foot increase in altitude. Standard temperature for an airport at 2,000 feet is 11 °C (15°C - 4°C = 11 °C). Subtract the standard temperature from the outside air temperature: 27°C - 11 °C = 16°C. Because a 16°C difference exists between the actual temperature and standard, increase the fuel used by 16%: 10 x 1.16 = 11.6 pounds. 6. Note 1-add 12 pounds for engine start, taxi and takeoff: 11.6 + 12 = 23.6 pounds. Aerodynamics and Performance Limitations",
+    "id": "6-96",
+    "figureRef": 1
+  },
+  {
+    "plt": "CA.I.F.K1",
+    "category": "Pilot Qualifications",
+    "text": "(Refer to Figure 10.) GIVEN: Aircraft weight...3,800 lb Airport pressure altitude...4,000 ft Temperature... 30°C Using a maximum rate of climb, approximately how much fuel would be used from engine start to 10,000 feet pressure altitude?",
+    "options": {
+      "A": "28 pounds.",
+      "B": "35 pounds.",
+      "C": "40 pounds."
+    },
+    "correct": "C",
+    "explanation": "To determine the fuel to used to climb, subtract the fuel shown on the table at 4,000 feet from the fuel at 10,000 feet. 1. At the aircraft weight of 3,800 pounds, move right to the pressure altitude column. 2. Read the fuel used at 4,000 feet-12 pounds. 3. Read the fuel used at 10,000 feet-35 pounds. 4. Subtract the 2 values to determine the fuel used: 35 - 12 = 23 pounds of fuel. 5. Note 2-increase time, fuel, and distance by 10% for each 10°C above standard temperature (1 % change for every 1 °C). Standard temperature at sea level is 15°C and the standard lapse rate is 2°C per 1,000-foot increase in altitude. Standard temperature for an airport at 4,000 feet is 8°C (15°C - 8°C = 7°C). Subtract the standard temperature from the outside air temperature: 30°C - 7°C = 23°C. Because a 23°C difference exists between the actual temperature and standard, increase the fuel used by 23%: 23 x 1.23 = 28.29 pounds. 6. Note 1-add 12 pounds for engine start, taxi and takeoff: 28.29 + 12 = 40.29 pounds.",
+    "id": "6-97",
+    "figureRef": 10
+  },
+  {
+    "plt": "CA.III.A.KB",
+    "category": "Airport & Airspace Operations",
+    "text": "Notification to the NTSB is required when there has been substantial damage",
+    "options": {
+      "A": "which requires repairs to landing gear.",
+      "B": "to an engine caused by engine failure in flight.",
+      "C": "which adversely affects structural strength or flight characteristics."
+    },
+    "correct": "C",
+    "explanation": "NTSB 830.2 NTSB 830 defines substantial damage as damage or failure that adversely affects the structural strength, performance, or flight characteristics of the aircraft, and which would normally require major repair or replacement of the affected component. The definition specifically states that, among other things, engine failure and damage limited to one engine or damage to landing gear are not considered substantial damage.",
+    "id": "7-29"
+  },
+  {
+    "plt": "CA.III.A.KB",
+    "category": "Airport & Airspace Operations",
+    "text": "What period of time must a person be hospitalized before an injury may be defined by the NTSB as a \"serious injury?\"",
+    "options": {
+      "A": "In-flight fire.",
+      "B": "Ground fire resulting in fire equipment dispatch.",
+      "C": "Fire of the primary aircraft while in a hanger which results in damage to other property of more than $25,000. Commercial Flight Considerations."
+    },
+    "correct": "B",
+    "explanation": "NTSB 830.2 NTSB defines a serious injury as an injury that requires hospitalization for more than 48 hours within 7 days from the date the injury; a fracture of any bone (except simple fractures of fingers, toes, or nose); severe hemorrhages, nerve, muscle, or tendon damage; involves any internal organ; secondor third-degree burns, or any burns affecting more than 5 percent of the body surface.",
+    "id": "7-30"
+  },
+  {
+    "plt": "CA.III.A.KB",
+    "category": "Airport & Airspace Operations",
+    "text": "Which airborne incident would require that the nearest NTSB field office be notified immediately?",
+    "options": {
+      "A": "within 7 days.",
+      "B": "within 10 days.",
+      "C": "10."
+    },
+    "correct": "A",
+    "explanation": "NTS8 830.5 NTSB 830.5 states that the aircraft operator you must immediately notify the NTSB if an aircraft accident or serious incident occurs. Serious incidents include occurrences such as flight control system malfunction or failure; inability of any required flight crewmember to perform normal flight duties as a result of injury or illness; and in-flight fire.",
+    "id": "7-34"
+  },
+  {
+    "plt": "CA.I.H.K4",
+    "category": "Pilot Qualifications",
+    "text": "Which of the following is the final step of the DECIDE model for effective risk management and aeronautical decision making?",
+    "options": {
+      "A": "Detect, estimate, choose, identify, do, and evaluate.",
+      "B": "Determine, evaluate, choose, identify, do, and eliminate.",
+      "C": "Determine, eliminate, choose, identify, detect, and evaluate."
+    },
+    "correct": "B",
+    "explanation": "D/138, PHB The six steps of the DECIDE model are: 1. Detect the fact that a change has occurred. 2. Estimate the need to counter or react to the change. 3. Choose a desirable outcome for the success of the flight. 4. Identify actions that could successfully control the change. 5. Do the necessary action to adapt to the change. 6. Evaluate the effect of the action.",
+    "id": "7-40"
+  },
+  {
+    "plt": "CA.IV.B.K2",
+    "category": "Takeoffs, Landings & Go-Arounds",
+    "text": "What should be expected when making a downwind landing? The likelihood of",
+    "options": {
+      "A": "undershooting the intended landing spot and a faster airspeed at touchdown.",
+      "B": "overshooting the intended landing spot and a faster groundspeed at touchdown.",
+      "C": "undershooting the intended landing spot and a faster groundspeed at touchdown."
+    },
+    "correct": "A",
+    "explanation": "PPM13, AFH A tailwind increases the airplane's groundspeed and the landing distance. By landing downwind, you increase the risk of overshooting the intended landing spot and the airplane will have a faster groundspeed at touchdown.",
+    "id": "8-19"
+  },
+  {
+    "plt": "CA.IV.N.K2",
+    "category": "Takeoffs, Landings & Go-Arounds",
+    "text": "Which is true about airplane climb performance during a go-around?",
+    "options": {
+      "A": "A high density altitude increases climb performance.",
+      "B": "When initiating a go-around close to the ground, you must be aware of the apparent increase in performance due to ground effect.",
+      "C": "the airplane settling back to the runway."
+    },
+    "correct": "B",
+    "explanation": "PPM15, AFH When initiating a go-around close to the ground, be aware of the apparent increase in performance due to ground effect. Increasing the pitch too quickly could prevent the airplane from climbing or even maintaining altitude. Because full flaps produce more drag than extended landing gear, it is generally recommended that you partially retract the flaps before retracting the landing gear. This action also prevents damage if the airplane inadvertently touches down on the runway as you initiate the go-around. For a given pressure altitude, density altitude increases when temperature increases. The density of the air directly influences the performance of your airplane by altering the lift of the airframe, as well as the ability of the engine to produce power. A high density altitude decreases climb performance. Commercial Maneuvers",
+    "id": "8-21"
+  },
+  {
+    "plt": "CA.V.A.R2*",
+    "category": "Performance Maneuvers",
+    "text": "To scan properly for traffic, you should",
+    "options": {
+      "A": "only during takeoff and landing.",
+      "B": "while the crewmembers are at their stations.",
+      "C": "only during takeoff and landing when passengers are aboard the aircraft."
+    },
+    "correct": "A",
+    "explanation": "PP4A, AFH Effective traffic scanning must be accomplished by using a series of short, regularly spaced eye movements that bring successive areas of the sky into the central, or foveal, area of vision. A series of 10-degree movements while pausing in between each for approximately 1 second is most effective.",
+    "id": "8-22"
+  },
+  {
+    "plt": "CA.II.B.K1",
+    "category": "Preflight Procedures",
+    "text": "Each required flight crewmember is required to keep his or her shoulder harness fastened",
+    "options": {
+      "A": "Any maneuver except acrobatics or spins.",
+      "B": "Limited acrobatics, including spins (if approved).",
+      "C": "Limited acrobatics, excluding spins. Commercial Maneuvers."
+    },
+    "correct": "C",
+    "explanation": "FAR 91.105 Each required flight crewmember of a U.S.- registered civil aircraft shall, during takeoff and landing, keep his or her shoulder harness fastened while at his or her assigned duty station, unless the crewmember would be unable to perform required duties with the shoulder harness fastened.",
+    "id": "8-26"
+  }
+]

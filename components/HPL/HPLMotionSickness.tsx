@@ -291,7 +291,7 @@ const HPLMotionSickness: React.FC = () => {
 
 // ─── Tab Button ──────────────────────────────────────────────────────────────
 
-const TabButton = ({ active, onClick, icon: Icon, label }: { active: boolean; onClick: () => void; icon: React.ElementType; label: string }) => (
+const TabButton = ({ active, onClick, icon: Icon, label }: { active: boolean; onClick: () => void; icon: any; label: string }) => (
     <button
         onClick={onClick}
         className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-md transition-all font-medium text-sm ${active
@@ -587,7 +587,7 @@ const SusceptibilitySection = () => {
             <div className="space-y-3">
                 {susceptibilityFactors.map((factor, i) => {
                     const isExpanded = expandedIndex === i;
-                    const FIcon = factor.icon;
+                    const FIcon: any = factor.icon;
 
                     return (
                         <div key={factor.name}>
@@ -669,7 +669,7 @@ const PreventionSection = () => {
                 {/* Phase Selector */}
                 <div className="flex items-center justify-center gap-1 mb-6 flex-wrap">
                     {flowSteps.map((fs, i) => {
-                        const FSIcon = fs.icon;
+                        const FSIcon: any = fs.icon;
                         return (
                             <React.Fragment key={i}>
                                 <button
@@ -694,7 +694,7 @@ const PreventionSection = () => {
                 <div className="bg-emerald-900/15 border border-emerald-500/30 rounded-xl p-6">
                     <div className="flex items-center gap-3 mb-4">
                         <div className="p-2 bg-emerald-500/20 rounded-lg">
-                            <StepIcon size={22} className="text-emerald-400" />
+                            {React.createElement(step.icon as any, { size: 22, className: "text-emerald-400" })}
                         </div>
                         <div>
                             <h4 className="text-lg font-bold text-white">{step.title}</h4>

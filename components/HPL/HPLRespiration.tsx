@@ -161,7 +161,7 @@ const HPLRespiration: React.FC = () => {
 // ─── Shared Tab Button ───────────────────────────────────────────
 
 const TabButton = ({ active, onClick, icon: Icon, label }: {
-    active: boolean; onClick: () => void; icon: React.ElementType; label: string;
+    active: boolean; onClick: () => void; icon: any; label: string;
 }) => (
     <button
         onClick={onClick}
@@ -516,7 +516,7 @@ const HyperventilationSection = () => {
             <div className="grid md:grid-cols-3 gap-4">
                 {HYPERVENT_CARDS.map((card) => {
                     const isOpen = expandedCard === card.id;
-                    const Icon = card.icon;
+                    const Icon: any = card.icon;
                     return (
                         <div
                             key={card.id}

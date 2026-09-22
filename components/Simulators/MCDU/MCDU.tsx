@@ -45,7 +45,7 @@ const MCDU: React.FC<Props> = ({ onExit }) => {
         }
     });
 
-    const [msgTimeout, setMsgTimeout] = useState<NodeJS.Timeout | null>(null);
+    const [msgTimeout, setMsgTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
 
     // Helpers
     const showMsg = (msg: string) => {

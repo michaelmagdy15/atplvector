@@ -391,5 +391,10 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
     [View.EGYPTAIR_NAV_SIM]: React.lazy(() => import('../components/EgyptAir/EgyptAirNavSimulator')),
     [View.EGYPTAIR_PERF_CALC]: React.lazy(() => import('../components/EgyptAir/EgyptAirPerformanceCalc')),
     [View.EGYPTAIR_CRM_SIM]: React.lazy(() => import('../components/EgyptAir/EgyptAirADMCrmSimulator')),
+
+    // FAA Knowledge Test & General Aviation Flight Deck
+    [View.FAA_TEST_GUIDE]: React.lazy(() => import('../components/FAA/FAATestGuide')),
+    [View.C172_HUB]: React.lazy(() => import('../components/c172/C172Hub')),
+    [View.FAA_PPL_STUDY_GUIDE]: React.lazy(() => import('../components/ppl-guide/PPLStudyGuide')),
 };
 

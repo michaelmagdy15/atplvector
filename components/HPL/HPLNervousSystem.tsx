@@ -182,7 +182,7 @@ const ReflexTest = () => {
     const [gameState, setGameState] = useState<'idle' | 'waiting' | 'ready' | 'finished'>('idle');
     const [startTime, setStartTime] = useState(0);
     const [reactionTime, setReactionTime] = useState(0);
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const startGame = () => {
         setGameState('waiting');

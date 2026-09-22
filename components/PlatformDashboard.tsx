@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, User } from '../types';
-import { Plane, Scale, Clock, Trophy, ChevronRight, Settings, Activity, Weight, TrendingUp, Map, Users, Cloud, Radio, Navigation, Compass, BookOpen, Lock, Calendar, Flame, Target } from 'lucide-react';
+import { Plane, Scale, Clock, Trophy, ChevronRight, Settings, Activity, Weight, TrendingUp, Map, Users, Cloud, Radio, Navigation, Compass, BookOpen, Lock, Calendar, Flame, Target, Shield, Gauge, Award } from 'lucide-react';
 
 interface Props {
     onChangeView: (view: View) => void;
@@ -340,6 +340,83 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                                 <div className="flex items-center text-sm font-black uppercase tracking-widest text-white bg-cyan-600 px-8 py-4 rounded-2xl hover:bg-cyan-500 transition-all shadow-xl shadow-cyan-500/20 group-hover:translate-y-[-2px]">
                                     <span>Enter Portal</span>
                                     <ChevronRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* FAA Knowledge Test Suite */}
+                <div className="md:col-span-2 xl:col-span-3 mt-6 animate-in fade-in zoom-in duration-700 delay-700">
+                    <div className="flex items-center justify-between mb-4">
+                        <div>
+                            <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                                <Shield className="text-sky-400" size={20} />
+                                FAA Knowledge Test &amp; General Aviation Suite
+                            </h3>
+                            <p className="text-xs text-slate-400">Official FAA airman knowledge exam banks, C172 cockpit systems, and PPL ground school</p>
+                        </div>
+                        <button
+                            onClick={() => onChangeView(View.FAA_PPL_STUDY_GUIDE)}
+                            className="text-xs text-sky-400 hover:text-sky-300 flex items-center gap-1 font-semibold transition-colors"
+                        >
+                            <BookOpen size={14} /> PPL Study Handbook
+                        </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        {/* FAA Test Guide Card */}
+                        <div
+                            onClick={() => onChangeView(View.FAA_TEST_GUIDE)}
+                            className="group relative glass-card rounded-2xl p-1 overflow-hidden transition-all duration-300 hover:scale-[1.01] cursor-pointer shadow-xl shadow-sky-500/5"
+                        >
+                            <div className="bg-gradient-to-br from-sky-950/40 via-slate-900/60 to-slate-900/80 rounded-xl p-6 md:p-8 relative overflow-hidden flex flex-col h-full">
+                                <div className="absolute -top-20 -right-20 w-44 h-44 bg-sky-500/15 rounded-full blur-[40px] group-hover:opacity-40 transition-opacity"></div>
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="inline-flex items-center px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-sky-500/20 text-sky-300 border border-sky-500/30">
+                                        PPL · IR · CPL · ATP · C172
+                                    </div>
+                                    <div className="p-2.5 rounded-xl bg-sky-500/20 text-sky-400">
+                                        <Award size={22} />
+                                    </div>
+                                </div>
+                                <h4 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-sky-300 transition-colors">
+                                    FAA Knowledge Test Guide
+                                </h4>
+                                <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+                                    Interactive FAA exam simulator with 57 official figures, zero-latency sound synthesizer, mistake analytics, concept explorer, and timed practice tests.
+                                </p>
+                                <div className="flex items-center text-sm font-bold text-sky-400 group-hover:text-white transition-colors pt-4 border-t border-white/5 mt-auto">
+                                    <span>Launch FAA Test Center</span>
+                                    <ChevronRight className="ml-auto w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Cessna 172 Flight Deck Hub Card */}
+                        <div
+                            onClick={() => onChangeView(View.C172_HUB)}
+                            className="group relative glass-card rounded-2xl p-1 overflow-hidden transition-all duration-300 hover:scale-[1.01] cursor-pointer shadow-xl shadow-cyan-500/5"
+                        >
+                            <div className="bg-gradient-to-br from-cyan-950/40 via-slate-900/60 to-slate-900/80 rounded-xl p-6 md:p-8 relative overflow-hidden flex flex-col h-full">
+                                <div className="absolute -top-20 -right-20 w-44 h-44 bg-cyan-500/15 rounded-full blur-[40px] group-hover:opacity-40 transition-opacity"></div>
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="inline-flex items-center px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                                        Interactive Cockpit
+                                    </div>
+                                    <div className="p-2.5 rounded-xl bg-cyan-500/20 text-cyan-400">
+                                        <Gauge size={22} />
+                                    </div>
+                                </div>
+                                <h4 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">
+                                    Cessna 172 Flight Deck Hub
+                                </h4>
+                                <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+                                    Dynamic Airspeed Indicator with arc zones, V-Speed explorer, Lycoming IO-360 powerplant monitoring, fuel &amp; weight envelope, and emergency checklist trainer.
+                                </p>
+                                <div className="flex items-center text-sm font-bold text-cyan-400 group-hover:text-white transition-colors pt-4 border-t border-white/5 mt-auto">
+                                    <span>Enter C172 Cockpit Hub</span>
+                                    <ChevronRight className="ml-auto w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </div>
                             </div>
                         </div>

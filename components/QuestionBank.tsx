@@ -77,7 +77,7 @@ const QuestionBank: React.FC<QuestionBankProps> = ({ onChangeView, currentUser, 
 
     // Timer & Pacing
     useEffect(() => {
-        let interval: NodeJS.Timeout;
+        let interval: ReturnType<typeof setInterval>;
         if (view === 'PRACTICE' && currentTest && !currentTest.isCompleted) {
             interval = setInterval(() => {
                 setCurrentTest(prev => {

@@ -15,7 +15,7 @@ const PistonEngineVisualizer: React.FC = () => {
   const [speed, setSpeed] = useState(2); // seconds per cycle
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
     if (isPlaying) {
       interval = setInterval(() => {
         setActiveStrokeIndex((prev) => (prev + 1) % STROKES.length);

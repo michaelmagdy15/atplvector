@@ -36,7 +36,7 @@ import FocusTimer from './components/study/FocusTimer';
 import Scratchpad from './components/study/Scratchpad';
 import {
     Plane as PlaneIcon, Menu, X, BookOpen, Settings, Weight,
-    Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog, Wind, Search, Activity, Calendar, Clock, Radio, ChevronLeft
+    Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog, Wind, Search, Activity, Calendar, Clock, Radio, ChevronLeft, Shield, Gauge
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -1002,6 +1002,15 @@ const App: React.FC = () => {
                                         <MenuNavItem icon={Activity} label="Concept Lab" view={View.CONCEPT_LAB} color="text-cyan-400" bgColor="bg-cyan-500/10" />
                                         <MenuNavItem icon={Calendar} label="Exam Planner" view={View.EXAM_PLANNER} color="text-indigo-400" bgColor="bg-indigo-500/10" />
                                         <MenuNavItem icon={FolderCog} label="Flashcards" view={View.FLASHCARDS} />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h3 className="px-4 text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-3">FAA & Flight Deck</h3>
+                                    <div className="space-y-1 grid grid-cols-1">
+                                        <MenuNavItem icon={Shield} label="FAA Test Guide" view={View.FAA_TEST_GUIDE} color="text-sky-400" bgColor="bg-sky-500/10" />
+                                        <MenuNavItem icon={Gauge} label="C172 Flight Deck Hub" view={View.C172_HUB} color="text-emerald-400" bgColor="bg-emerald-500/10" />
+                                        <MenuNavItem icon={BookOpen} label="FAA PPL Study Guide" view={View.FAA_PPL_STUDY_GUIDE} color="text-amber-400" bgColor="bg-amber-500/10" />
                                     </div>
                                 </div>
 
