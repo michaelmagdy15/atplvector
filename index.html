@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#080d19" />
   <title>ATPLVector - Aviation Training & Preparation</title>
-  <meta name="description"
-    content="Master your ATPL exams with ATPLVector. Comprehensive aviation training resources, interactive learning modules, and exam preparation tools for aspiring pilots." />
-  <meta name="keywords"
-    content="ATPL, Aviation Training, Pilot Exams, EASA, Flight School, ATPL Questions, Aviation Learning" />
+  <meta name="description" content="Master your ATPL exams with ATPLVector. Comprehensive aviation training resources, interactive learning modules, and exam preparation tools for aspiring pilots." />
+  <meta name="keywords" content="ATPL, Aviation Training, Pilot Exams, EASA, Flight School, ATPL Questions, Aviation Learning" />
   <meta property="og:title" content="ATPLVector - Aviation Training" />
-  <meta property="og:description"
-    content="Master your ATPL exams with ATPLVector. The ultimate resource for aviation students." />
+  <meta property="og:description" content="Master your ATPL exams with ATPLVector. The ultimate resource for aviation students." />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="ATPLVector" />
@@ -19,121 +16,12 @@
   <link rel="icon" type="image/png" sizes="128x128" href="/icons/icon-128.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192.png" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap"
-    rel="stylesheet">
-  <style>
-    :root {
-      --sat: env(safe-area-inset-top, 0px);
-      --sab: env(safe-area-inset-bottom, 0px);
-      --sal: env(safe-area-inset-left, 0px);
-      --sar: env(safe-area-inset-right, 0px);
-    }
-
-    html, body {
-      touch-action: manipulation;
-      -webkit-text-size-adjust: 100%;
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      user-select: none;
-      overscroll-behavior: none;
-      min-height: 100%;
-      min-height: 100dvh;
-      margin: 0;
-      padding: 0;
-    }
-
-    input, textarea, [contenteditable="true"] {
-      -webkit-user-select: text;
-      user-select: text;
-      touch-action: auto;
-    }
-
-    body {
-      background-color: #030712;
-      color: #f8fafc;
-      /* Subtle noise texture for better gradient banding */
-      background-image: radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.1) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
-      background-attachment: fixed;
-      overflow-x: hidden;
-    }
-
-    /* Glassmorphism Utilities */
-    .glass-panel {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .glass-card {
-      background: linear-gradient(180deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
-
-    .glass-card:hover {
-      background: linear-gradient(180deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
-      border-color: rgba(255, 255, 255, 0.1);
-      transform: translateY(-2px);
-    }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #0f172a;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #334155;
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #475569;
-    }
-
-    /* Text Selection */
-    ::selection {
-      background: rgba(59, 130, 246, 0.3);
-      color: white;
-    }
-
-    .protected-content {
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-    }
-
-    @media print {
-      html {
-        display: none;
-      }
-    }
-
-    .bg-grid-pattern {
-      background-size: 40px 40px;
-      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-      -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-    }
-  </style>
-
-
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 </head>
-
 <body>
   <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
-
 </html>

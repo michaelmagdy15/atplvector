@@ -50,8 +50,12 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
 
         return (
             <div
+                role={locked ? undefined : 'button'}
+                tabIndex={locked ? -1 : 0}
+                aria-label={locked ? undefined : `Open ${title}`}
                 onClick={() => !locked && onClick()}
-                className={`group relative glass-card rounded-2xl p-1 overflow-hidden transition-all duration-300 will-change-transform ${locked ? 'opacity-80 cursor-not-allowed' : 'hover:scale-[1.01] active:scale-[0.98] cursor-pointer'}`}
+                onKeyDown={(event) => { if (!locked && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); onClick(); } }}
+                className={`group relative glass-card rounded-2xl p-1 overflow-hidden transition-[border-color,background-color,box-shadow] duration-200 ${locked ? 'opacity-80 cursor-not-allowed' : 'hover:border-cyan-300/30 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300'}`}
             >
                 {locked && (
                     <div className="absolute inset-0 z-30 bg-slate-950/80 flex flex-col items-center justify-center transition-opacity hover:bg-slate-950/70">
@@ -69,7 +73,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                 )}
 
                 <div className="bg-slate-900/40 rounded-xl h-full p-6 md:p-8 relative overflow-hidden flex flex-col">
-                    <div className={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${gradient} rounded-full blur-[40px] opacity-20 group-hover:opacity-30 transition-opacity duration-500`}></div>
+                    <div className={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${gradient} rounded-full blur-[40px] opacity-10 group-hover:opacity-20 transition-opacity duration-300`}></div>
                     <div className={`absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-12`}>
                         <Icon size={120} />
                     </div>
@@ -121,13 +125,24 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
 
     return (
         <div className="max-w-7xl mx-auto p-4 md:p-8">
+            {/* Primary study action */}
+            <section className="relative isolate overflow-hidden rounded-[2rem] border border-cyan-200/15 bg-[#0b1425] px-6 py-8 md:px-10 md:py-12 mb-8 shadow-[0_24px_80px_rgba(0,0,0,0.22)]">
+                <div className="pointer-events-none absolute inset-0 opacity-70" style={{ background: 'radial-gradient(circle at 80% 0%, rgba(53,131,208,.28), transparent 42%), linear-gradient(135deg, transparent 45%, rgba(94,231,247,.05) 45.2%, transparent 45.5%)' }} />
+                <div className="relative max-w-2xl">
+                    <div className="mb-5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.24em] text-cyan-300"><Navigation size={14} /> Flight plan · Today</div>
+                    <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-white leading-tight">Your next study session starts here.</h1>
+                    <p className="mt-4 max-w-xl text-sm md:text-base leading-relaxed text-slate-300">Build exam readiness one focused session at a time. Pick up with a subject or review your progress.</p>
+                    <div className="mt-7 flex flex-wrap gap-3">
+                        <button type="button" onClick={() => onChangeView(View.AIR_LAW_HOME)} className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-cyan-300 px-5 py-3 font-semibold text-slate-950 transition-colors hover:bg-cyan-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300">Start studying <ChevronRight size={18} /></button>
+                        <button type="button" onClick={() => onChangeView(View.PROGRESS_DASHBOARD)} className="inline-flex min-h-12 items-center rounded-xl border border-white/20 bg-white/5 px-5 py-3 font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300">View progress</button>
+                    </div>
+                </div>
+            </section>
             {/* Header / Stats */}
             <div className="flex flex-col xl:flex-row justify-between items-start xl:items-end mb-12 gap-8 pt-4">
                 <div className="animate-in fade-in slide-in-from-left duration-1000">
-                    <h1 className="text-4xl md:text-6xl font-black text-white mb-3 tracking-tighter uppercase leading-tight py-2">
-                        Pilot <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600 pr-2">Dashboard</span>
-                    </h1>
-                    <p className="text-slate-400 text-sm md:text-lg font-medium">Flight deck initialized. All systems nominal.</p>
+                    <h2 className="text-2xl md:text-3xl font-semibold text-white mb-2 tracking-tight">Your flight deck</h2>
+                    <p className="text-slate-400 text-sm md:text-base">Today’s momentum and your subject library.</p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap gap-3 sm:gap-4 w-full xl:w-auto animate-in fade-in slide-in-from-right duration-1000">
@@ -189,6 +204,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                 </div>
             </div>
 
+            <div className="mb-5 flex items-end justify-between gap-4"><div><p className="text-[11px] font-bold uppercase tracking-[0.22em] text-cyan-300 mb-2">Ground school</p><h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-white">Explore subjects</h2></div><span className="hidden sm:block text-sm text-slate-400">Choose a module to begin</span></div>
             {/* Subjects Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 animate-in fade-in zoom-in duration-700 delay-300">
                 <SubjectCard

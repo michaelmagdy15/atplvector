@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useState, useEffect, useRef } from 'react';
-import { Application } from '@splinetool/runtime';
+import type { Application } from '@splinetool/runtime';
 
 const Spline = lazy(() => import('@splinetool/react-spline'));
 
@@ -17,16 +17,18 @@ interface SplineVisualizerProps {
 }
 
 function shouldLoadSpline(mobileBreakpoint: number): boolean {
-    if (typeof window === 'undefined') return false;
+    if (window.innerWidth < mobileBreakpoint || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    if (connection?.saveData || connection?.effectiveType === 'slow-2g' || connection?.effectiveType === '2g') return false;
+    const device = navigator as Navigator & { deviceMemory?: number };
+    if ((device.deviceMemory && device.deviceMemory <= 2) ||
+        (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2)) return false;
 
-    const isMobile = window.innerWidth < mobileBreakpoint;
-
-    // Check WebGL support
     const canvas = document.createElement('canvas');
     const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
-    const noWebGL = !gl;
-
-    return !isMobile && !noWebGL;
+    if (!gl) return false;
+    gl.getExtension('WEBGL_lose_context')?.loseContext();
+    return true;
 }
 
 const SplineVisualizer: React.FC<SplineVisualizerProps> = ({
@@ -41,40 +43,67 @@ const SplineVisualizer: React.FC<SplineVisualizerProps> = ({
     onMouseHover,
     interactive = true,
 }) => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [canLoad, setCanLoad] = useState(false);
+    const [visible, setVisible] = useState(false);
+    const [startLoading, setStartLoading] = useState(false);
     const [splineLoaded, setSplineLoaded] = useState(false);
     const [splineFailed, setSplineFailed] = useState(false);
-    const [canLoad, setCanLoad] = useState(false);
-    const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
 
     useEffect(() => {
-        setCanLoad(shouldLoadSpline(mobileBreakpoint));
+        const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const connection = (navigator as Navigator & {
+            connection?: EventTarget & { saveData?: boolean; effectiveType?: string };
+        }).connection;
+        const update = () => setCanLoad(shouldLoadSpline(mobileBreakpoint));
+        update();
+        window.addEventListener('resize', update);
+        motion.addEventListener('change', update);
+        connection?.addEventListener?.('change', update);
+        return () => {
+            window.removeEventListener('resize', update);
+            motion.removeEventListener('change', update);
+            connection?.removeEventListener?.('change', update);
+        };
     }, [mobileBreakpoint]);
 
     useEffect(() => {
-        if (!canLoad) return;
+        const element = containerRef.current;
+        if (!element) return;
+        if (!('IntersectionObserver' in window)) {
+            setVisible(true);
+            return;
+        }
+        const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting));
+        observer.observe(element);
+        return () => observer.disconnect();
+    }, []);
 
-        // If Spline hasn't loaded after 15 seconds, show fallback
-        timeoutRef.current = setTimeout(() => {
-            if (!splineLoaded) {
-                setSplineFailed(true);
-            }
-        }, 15000);
+    useEffect(() => {
+        if (!canLoad || !visible || startLoading) return;
+        if ('requestIdleCallback' in window) {
+            const id = window.requestIdleCallback(() => setStartLoading(true), { timeout: 2000 });
+            return () => window.cancelIdleCallback(id);
+        }
+        const id = setTimeout(() => setStartLoading(true), 150);
+        return () => clearTimeout(id);
+    }, [canLoad, visible, startLoading]);
 
-        return () => clearTimeout(timeoutRef.current);
-    }, [canLoad, splineLoaded]);
+    useEffect(() => {
+        if (!canLoad || !startLoading || splineLoaded || splineFailed) return;
+        const id = window.setTimeout(() => setSplineFailed(true), 15000);
+        return () => window.clearTimeout(id);
+    }, [canLoad, startLoading, splineLoaded, splineFailed, sceneUrl]);
 
-    const handleLoad = (app: Application) => {
-        clearTimeout(timeoutRef.current);
-        setSplineLoaded(true);
-        if (onLoad) onLoad(app);
-    };
+    useEffect(() => {
+        setSplineLoaded(false);
+        setSplineFailed(false);
+    }, [sceneUrl]);
 
-    const showFallback = !canLoad || splineFailed;
+    const showSpline = canLoad && startLoading && !splineFailed;
 
     return (
-        <div
-            className={`relative w-full h-full overflow-hidden ${className}`}
-        >
+        <div ref={containerRef} className={`relative w-full h-full overflow-hidden ${className}`}>
             {/* Fallback layer */}
             <div
                 className="absolute inset-0 z-0 transition-opacity duration-1000"
@@ -82,16 +111,21 @@ const SplineVisualizer: React.FC<SplineVisualizerProps> = ({
                     background: fallbackImageUrl
                         ? `url(${fallbackImageUrl}) center/cover no-repeat`
                         : fallbackColor,
-                    opacity: splineLoaded && !showFallback ? 0 : 1,
+                    opacity: splineLoaded && showSpline ? 0 : 1,
+                    pointerEvents: 'none',
                 }}
             />
 
             {/* Spline scene */}
-            {canLoad && !splineFailed && (
+            {showSpline && (
                 <Suspense fallback={null}>
                     <Spline
+                        key={sceneUrl}
                         scene={sceneUrl}
-                        onLoad={handleLoad}
+                        onLoad={(app: Application) => {
+                            setSplineLoaded(true);
+                            onLoad?.(app);
+                        }}
                         onMouseDown={onMouseDown}
                         onMouseOver={onMouseHover}
                         style={{
@@ -102,7 +136,7 @@ const SplineVisualizer: React.FC<SplineVisualizerProps> = ({
                             zIndex: 0,
                             opacity: splineLoaded ? 1 : 0,
                             transition: 'opacity 1s ease',
-                            pointerEvents: interactive ? 'auto' : 'none',
+                            pointerEvents: interactive && splineLoaded ? 'auto' : 'none',
                         }}
                     />
                 </Suspense>
