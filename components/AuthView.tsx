@@ -1,24 +1,33 @@
-import React, { useState, useEffect, useRef } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { User } from '../types';
-import { 
-    Shield, Mail, CheckCircle, Lock, ArrowRight, Plane, Zap, Menu, X, 
-    User as UserIcon, HelpCircle, Eye, EyeOff, AlertTriangle, PlayCircle, 
-    Star, Globe, BarChart3, Radio, RefreshCw, KeyRound, Target, BookOpen, 
-    Layout, Dna, Rocket, Tablet, Smartphone, Download, ExternalLink, 
-    Sparkles, CheckCircle2, Laptop, Gauge, Compass, Award, ChevronRight,
-    ChevronDown, Sliders, Layers, Clock, Flame
-} from 'lucide-react';
+import { Shield, Mail, CheckCircle, Lock, ArrowRight, Plane, Zap, Menu, X, User as UserIcon, HelpCircle, Eye, EyeOff, AlertTriangle, PlayCircle, Star, Globe, BarChart3, Radio, RefreshCw, KeyRound, Target, BookOpen, Layout, Dna, Rocket, Tablet, Smartphone, Download, ExternalLink, Sparkles, CheckCircle2, Laptop } from 'lucide-react';
 import { auth, db, getSiteUrl, collection, doc } from '../lib/firebase';
 import { useSignIn, useSignUp } from '@clerk/clerk-react';
 import { query, where, getDocs, updateDoc, addDoc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { TestimonialService } from '../services/TestimonialService';
+import { Testimonial } from '../types';
 import Terms from './Terms';
 import Privacy from './Privacy';
 import Refund from './Refund';
 import Contact from './Contact';
 import StudyGuide from './StudyGuide';
-import CockpitInteractiveWidget from './visual/CockpitInteractiveWidget';
 
 type AuthViewMode = 'LOGIN' | 'SIGNUP' | 'FORGOT_PASS' | 'RESET_PASSWORD';
+
+const LazyImage = ({ src, alt, className, fallback }: { src: string, alt: string, className?: string, fallback?: React.ReactNode }) => {
+    const [isDesktop, setIsDesktop] = useState(false);
+
+    useEffect(() => {
+        const checkResolution = () => setIsDesktop(window.innerWidth >= 768);
+        checkResolution();
+        window.addEventListener('resize', checkResolution);
+        return () => window.removeEventListener('resize', checkResolution);
+    }, []);
+
+    if (!isDesktop) return <div className={className}>{fallback}</div>;
+    return <img src={src} alt={alt} className={className} loading="lazy" />;
+};
 
 interface Props {
     onAuthChange: (user: User) => void;
@@ -26,12 +35,10 @@ interface Props {
     initialView?: AuthViewMode;
 }
 
-export const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'LOGIN' }) => {
+const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'LOGIN' }) => {
     const [view, setView] = useState<AuthViewMode>(initialView);
-    const [activeHeroTab, setActiveHeroTab] = useState<'SIMULATOR' | 'AUTH'>('SIMULATOR');
     const [activeInfoPage, setActiveInfoPage] = useState<'TERMS' | 'PRIVACY' | 'REFUND' | 'CONTACT' | null>(null);
     const [agreeToTerms, setAgreeToTerms] = useState(false);
-    const authCardRef = useRef<HTMLDivElement>(null);
 
     // Clerk Hooks
     const { isLoaded: signInLoaded, signIn, setActive: setSignInActive } = useSignIn();
@@ -54,10 +61,11 @@ export const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialVi
     const [successMsg, setSuccessMsg] = useState('');
     const [passStrength, setPassStrength] = useState(0);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    // Resend Confirmation State
+    const [showResend, setShowResend] = useState(false);
     const [resendLoading, setResendLoading] = useState(false);
 
-    // Pricing Billing Frequency
-    const [billingPeriod, setBillingPeriod] = useState<'MONTHLY' | 'ANNUAL'>('ANNUAL');
 
     useEffect(() => {
         if (!password) { setPassStrength(0); return; }
@@ -145,6 +153,7 @@ export const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialVi
         try {
             let initialStatus = 'FREE_TRIAL';
 
+            // Notify admin of new signup attempt (fire-and-forget)
             sendAdminNotification(`New Signup Attempt (Clerk): ${email}`, {
                 email: email,
                 full_name: fullName,
@@ -206,6 +215,7 @@ export const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialVi
         setSuccessMsg('');
 
         try {
+            // Notify admin of password reset request (fire-and-forget)
             sendAdminNotification(`Reset Password Request: ${email}`, {
                 email: email,
                 type: 'PASSWORD_RESET_REQUEST',
@@ -289,13 +299,64 @@ export const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialVi
         }
     };
 
-    const openAuthWithMode = (mode: AuthViewMode) => {
-        setView(mode);
-        setActiveHeroTab('AUTH');
-        if (authCardRef.current) {
-            authCardRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-    };
+    // Hero 3D Interaction Logic - Direct DOM manipulation to avoid re-renders
+    useEffect(() => {
+        let rafId: number | null = null;
+        const heroText = document.getElementById('hero-text');
+
+        // Pre-select child elements for performance
+        const shimmerText = heroText?.querySelector('.hero-shimmer-text') as HTMLElement;
+        const shimmerOverlay = heroText?.querySelector('.hero-shimmer-overlay') as HTMLElement;
+
+        const handleMouseMove = (e: MouseEvent) => {
+            if (rafId || !heroText) return;
+
+            rafId = requestAnimationFrame(() => {
+                // Calculate normalized mouse position (-1 to 1) for tilt
+                const x = (e.clientX / window.innerWidth) * 2 - 1;
+                const y = (e.clientY / window.innerHeight) * 2 - 1;
+
+                // Update CSS variables for the shimmer/slider effect relative to text
+                const rect = heroText.getBoundingClientRect();
+                const relX = e.clientX - rect.left;
+                const relY = e.clientY - rect.top;
+
+                // Directly set styles on the element
+                heroText.style.transform = `rotateX(${y * -5}deg) rotateY(${x * 5}deg)`;
+                heroText.style.setProperty('--mouse-x', `${relX}px`);
+                heroText.style.setProperty('--mouse-y', `${relY}px`);
+
+                // Update specific background gradient if needed, but CSS var is better if supported
+                // For the radial gradient text effect:
+                heroText.style.backgroundImage = `radial-gradient(circle 300px at ${relX}px ${relY}px, rgba(255,255,255,0.4), transparent)`;
+                heroText.style.backgroundClip = 'text';
+                heroText.style.webkitBackgroundClip = 'text';
+
+                // Update children if they exist
+                if (shimmerText) {
+                    shimmerText.style.filter = `brightness(${1 + Math.abs(x) * 0.3}) saturate(${1 + Math.abs(y) * 0.2})`;
+                }
+
+                if (shimmerOverlay) {
+                    shimmerOverlay.style.transform = `translateX(${(x + 1) * 50}%) skewX(-20deg)`;
+                    shimmerOverlay.style.opacity = `${0.5 + Math.abs(x) * 0.5}`;
+                }
+
+                rafId = null;
+            });
+        };
+
+        // Only attach if we are in a view that shows the hero (e.g., LOGIN/SIGNUP on desktop)
+        // For simplicity, we attach always but checks are cheap
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+            if (rafId) cancelAnimationFrame(rafId);
+        };
+    }, []);
+
+
+
 
     const scrollToSection = (id: string) => {
         const el = document.getElementById(id);
@@ -304,7 +365,8 @@ export const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialVi
     };
 
     return (
-        <div className="min-h-screen font-sans text-slate-100 overflow-x-hidden selection:bg-cyan-500/30 selection:text-white bg-[#030712]">
+        <div className="min-h-screen font-sans text-slate-100 overflow-x-hidden selection:bg-blue-500/30 selection:text-white bg-slate-950">
+
             {/* Info Pages Overlay */}
             {activeInfoPage === 'TERMS' && <Terms onBack={() => setActiveInfoPage(null)} />}
             {activeInfoPage === 'PRIVACY' && <Privacy onBack={() => setActiveInfoPage(null)} />}
@@ -313,915 +375,885 @@ export const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialVi
 
             {activeInfoPage === null && (
                 <>
-                    {/* TOP AEROSPACE NAVBAR */}
-                    <header className="sticky top-0 w-full z-50 bg-[#030712]/85 backdrop-blur-xl border-b border-white/10 [padding-top:calc(max(env(safe-area-inset-top,0px),var(--sat,0px))+4px)]">
-                        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div className="h-16 md:h-20 flex items-center justify-between">
-                                {/* Brand Logo */}
-                                <div 
-                                    className="flex items-center space-x-3 cursor-pointer group shrink-0" 
-                                    onClick={() => scrollToSection('hero')}
-                                >
-                                    <div className="p-1 w-9 h-9 md:w-11 md:h-11 bg-slate-900/90 rounded-xl shadow-lg shadow-cyan-500/10 group-hover:scale-105 transition-all duration-300 border border-cyan-500/30 flex items-center justify-center overflow-hidden">
-                                        <img src="/logo.png" alt="ATPL Vector Logo" className="w-full h-full object-contain scale-[3.6] object-center" />
+                    {/* Professional Integrated Navbar */}
+                    <div className="sticky top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10 [padding-top:calc(max(env(safe-area-inset-top,0px),var(--sat,0px))+4px)] [padding-left:max(env(safe-area-inset-left,0px),var(--sal,0px))] [padding-right:max(env(safe-area-inset-right,0px),var(--sar,0px))]">
+                        <nav className="max-w-7xl mx-auto">
+                            <div className="px-6 md:px-10 h-16 md:h-20 flex items-center justify-between relative">
+                                <div className="hidden lg:block w-32"></div>
+
+                                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center space-x-2.5 cursor-pointer group z-20" onClick={() => scrollToSection('hero')}>
+                                    <div className="p-1.5 w-9 h-9 md:w-11 md:h-11 bg-slate-900/50 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-300 border border-white/10 flex items-center justify-center overflow-hidden">
+                                        <img src="/logo.png" alt="Logo" className="w-full h-full object-contain scale-[3.8] object-center" />
                                     </div>
-                                    <div className="flex flex-col">
-                                        <span className="text-lg md:text-2xl font-black text-white tracking-tighter">
-                                            ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400">VECTOR</span>
-                                        </span>
-                                        <span className="text-[9px] font-mono tracking-widest text-cyan-400/80 uppercase -mt-1 hidden sm:block">
-                                            FLIGHT TRAINING PLATFORM
-                                        </span>
-                                    </div>
+                                    <span className="text-xl md:text-2xl font-black text-white tracking-tighter">ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span></span>
                                 </div>
 
-                                {/* Desktop Navigation Links */}
-                                <div className="hidden lg:flex items-center space-x-6 xl:space-x-8 text-sm font-medium text-slate-300">
-                                    <button onClick={() => scrollToSection('interactive-sim')} className="hover:text-cyan-300 transition-colors flex items-center gap-1.5">
-                                        <Gauge size={15} className="text-cyan-400" />
-                                        <span>Cockpit Sim</span>
-                                    </button>
-                                    <button onClick={() => scrollToSection('features')} className="hover:text-cyan-300 transition-colors">Features</button>
-                                    <button onClick={() => scrollToSection('curriculum')} className="hover:text-cyan-300 transition-colors">14 Subjects</button>
-                                    <button onClick={() => scrollToSection('pricing')} className="hover:text-cyan-300 transition-colors">Pricing</button>
-                                    <button onClick={() => scrollToSection('study-guide')} className="hover:text-cyan-300 transition-colors">Live ROI Lab</button>
+                                <div className="hidden lg:flex items-center space-x-4 xl:space-x-8 text-sm font-medium text-slate-300 z-10">
+                                    <button onClick={() => scrollToSection('features')} className="hover:text-white transition hover:scale-105">Features</button>
+                                    <button onClick={() => scrollToSection('experience')} className="hover:text-white transition hover:scale-105">Experience</button>
+                                    <button onClick={() => scrollToSection('pricing')} className="hover:text-white transition hover:scale-105">Pricing</button>
+                                    <button onClick={() => { scrollToSection('hero'); setView('LOGIN'); }} className="text-white hover:text-blue-300 transition">Login</button>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl font-bold transition hover:shadow-lg hover:shadow-blue-500/20 active:scale-95 shadow-lg shadow-blue-500/10">Get Started</button>
                                 </div>
-
-                                {/* Action Buttons */}
-                                <div className="hidden sm:flex items-center gap-3">
-                                    {onDemoLogin && (
-                                        <button 
-                                            onClick={onDemoLogin}
-                                            className="px-4 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 text-xs font-bold font-mono transition-all flex items-center gap-1.5 active:scale-95 shadow-sm shadow-emerald-500/20"
-                                        >
-                                            <PlayCircle size={14} className="text-emerald-400" />
-                                            <span>Quick Demo Flight</span>
-                                        </button>
-                                    )}
-
-                                    <button 
-                                        onClick={() => openAuthWithMode('LOGIN')}
-                                        className="px-4 py-2 text-xs font-bold text-slate-200 hover:text-white transition-colors"
-                                    >
-                                        Aviator Login
-                                    </button>
-
-                                    <button 
-                                        onClick={() => openAuthWithMode('SIGNUP')}
-                                        className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white text-xs font-extrabold uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/20 active:scale-95 border border-cyan-400/30"
-                                    >
-                                        Get Started
-                                    </button>
-                                </div>
-
-                                {/* Mobile Hamburger */}
-                                <div className="lg:hidden flex items-center gap-2">
-                                    {onDemoLogin && (
-                                        <button 
-                                            onClick={onDemoLogin}
-                                            className="p-2 rounded-lg bg-emerald-500/20 text-emerald-300 text-xs font-bold"
-                                            title="Demo Access"
-                                        >
-                                            <PlayCircle size={18} />
-                                        </button>
-                                    )}
-                                    <button 
-                                        onClick={() => openAuthWithMode('LOGIN')}
-                                        className="text-xs font-bold text-slate-300 px-2 py-1"
-                                    >
-                                        Login
-                                    </button>
-                                    <button 
-                                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
-                                        className="text-white p-2 hover:bg-white/5 rounded-xl"
-                                        aria-label="Toggle Navigation Menu"
-                                    >
-                                        {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                                    </button>
+                                <div className="lg:hidden flex items-center gap-4 z-10">
+                                    <button onClick={() => { scrollToSection('hero'); setView('LOGIN'); }} className="text-xs font-bold text-slate-300">Login</button>
+                                    <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors">{mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}</button>
                                 </div>
                             </div>
                         </nav>
 
-                        {/* Mobile Menu Dropdown */}
+                        {/* Mobile Menu */}
                         {mobileMenuOpen && (
-                            <div className="lg:hidden bg-slate-950/95 backdrop-blur-2xl border-b border-white/10 p-5 space-y-3 animate-in slide-in-from-top-2">
-                                <button type="button" onClick={() => scrollToSection('interactive-sim')} className="w-full text-left px-4 py-3 text-slate-300 font-medium hover:bg-white/5 rounded-xl">Cockpit Simulator</button>
-                                <button type="button" onClick={() => scrollToSection('features')} className="w-full text-left px-4 py-3 text-slate-300 font-medium hover:bg-white/5 rounded-xl">Features</button>
-                                <button type="button" onClick={() => scrollToSection('curriculum')} className="w-full text-left px-4 py-3 text-slate-300 font-medium hover:bg-white/5 rounded-xl">14 EASA Subjects &amp; FAA</button>
-                                <button type="button" onClick={() => scrollToSection('pricing')} className="w-full text-left px-4 py-3 text-slate-300 font-medium hover:bg-white/5 rounded-xl">Subscription Pricing</button>
-                                
-                                <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
-                                    {onDemoLogin && (
-                                        <button 
-                                            type="button" 
-                                            onClick={onDemoLogin} 
-                                            className="w-full py-3 rounded-xl bg-emerald-500/20 text-emerald-300 font-bold text-center flex items-center justify-center gap-2"
-                                        >
-                                            <PlayCircle size={16} /> Instant Demo Flight
-                                        </button>
-                                    )}
-                                    <button 
-                                        type="button" 
-                                        onClick={() => { openAuthWithMode('LOGIN'); setMobileMenuOpen(false); }} 
-                                        className="w-full py-3 rounded-xl bg-white/10 text-white font-bold"
-                                    >
-                                        Sign In
-                                    </button>
-                                    <button 
-                                        type="button" 
-                                        onClick={() => { openAuthWithMode('SIGNUP'); setMobileMenuOpen(false); }} 
-                                        className="w-full py-3 rounded-xl bg-cyan-500 text-slate-950 font-bold"
-                                    >
-                                        Create Pilot Account
-                                    </button>
-                                </div>
+                            <div className="absolute top-full left-0 right-0 bg-slate-900/95 backdrop-blur-xl border-b border-white/10 p-4 flex flex-col space-y-2 lg:hidden z-50 shadow-2xl animate-in slide-in-from-top-2 duration-300">
+                                <button type="button" onClick={() => scrollToSection('features')} className="text-left px-6 py-4 text-slate-200 font-medium hover:bg-white/10 rounded-xl transition-all">Features</button>
+                                <button type="button" onClick={() => scrollToSection('pricing')} className="text-left px-6 py-4 text-slate-200 font-medium hover:bg-white/10 rounded-xl transition-all">Pricing</button>
+                                <button type="button" onClick={() => { scrollToSection('hero'); setView('LOGIN'); }} className="text-left px-6 py-4 text-white font-bold bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 rounded-xl transition-all">Login</button>
+                                <button type="button" onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="text-left px-6 py-4 text-white font-bold bg-blue-600 hover:bg-blue-500 rounded-xl transition-all shadow-lg shadow-blue-500/20">Get Started</button>
                             </div>
                         )}
-                    </header>
+                    </div>
 
-                    {/* HERO SECTION WITH LIVE FLIGHT DECK */}
-                    <section id="hero" className="relative pt-8 pb-16 lg:pt-14 lg:pb-24 overflow-hidden">
-                        {/* Background Cockpit Grid & Aerospace Glows */}
-                        <div className="absolute inset-0 bg-grid-pattern pointer-events-none opacity-60"></div>
-                        <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none -translate-x-1/2"></div>
-                        <div className="absolute top-32 right-10 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[160px] pointer-events-none"></div>
+                    {/* HERO SECTION */}
+                    <div id="hero" className="flex flex-col lg:flex-row min-h-screen pt-20 lg:pt-0 relative overflow-hidden">
+                        <div className="absolute inset-0 bg-grid-pattern pointer-events-none"></div>
 
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                            {/* Live Aerospace Telemetry Bar */}
-                            <div className="flex justify-center mb-6">
-                                <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 text-xs font-mono text-cyan-300 shadow-lg shadow-cyan-500/10 backdrop-blur-md">
-                                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                                    <span className="font-bold uppercase tracking-wider">EASA ECQB 2026 ALIGNED</span>
-                                    <span className="text-slate-600">·</span>
-                                    <span className="text-slate-300 hidden sm:inline">FAA AIRMAN STANDARDS</span>
-                                    <span className="text-slate-600 hidden sm:inline">·</span>
-                                    <span className="text-slate-300">65+ 3D COCKPIT SIMS</span>
+                        {/* Background FX */}
+                        <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[60px] animate-blob pointer-events-none will-change-transform"></div>
+                        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[60px] animate-blob animation-delay-2000 pointer-events-none will-change-transform"></div>
+
+                        {/* Left: Value Prop */}
+                        <div className="lg:w-1/2 flex flex-col justify-center px-8 lg:px-12 xl:px-20 relative z-10 pt-10 lg:pt-0 perspective-1000">
+                            <div className="space-y-8 max-w-xl">
+                                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/70 border border-blue-500/30 text-blue-300 text-xs font-bold uppercase tracking-wider backdrop-blur-md animate-in fade-in slide-in-from-bottom-4 duration-700 shadow-inner">
+                                    <Tablet className="w-4 h-4 text-blue-400 animate-pulse" />
+                                    <span>Web Registration • Native iPad Flight Deck</span>
+                                </div>
+                                <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight leading-tight text-white animate-in fade-in slide-in-from-bottom-6 duration-700 delay-150">
+                                    Master <br />
+                                    <span
+                                        className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400 drop-shadow-lg filter relative hero-shimmer-text"
+                                    >
+                                        ATPL Theory
+                                        {/* Interactive Slider / Shimmer Overlay */}
+                                        <span
+                                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none mix-blend-overlay hero-shimmer-overlay"
+                                        ></span>
+                                    </span>
+                                    <br />On Your Flight Deck.
+                                </h1>
+                                <p className="text-slate-300 text-base sm:text-lg font-light leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
+                                    Create your aviator account here on the web to unlock instant access inside our dedicated native iPad &amp; iOS application with offline study vaults and 3D cockpit visualizers.
+                                </p>
+                                <div className="flex flex-wrap gap-3 text-xs font-mono text-slate-300 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500">
+                                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/70 border border-slate-800">
+                                        <CheckCircle2 className="text-emerald-400 w-4 h-4" /> 14 ATPL Subjects
+                                    </div>
+                                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/70 border border-slate-800">
+                                        <Tablet className="text-blue-400 w-4 h-4" /> Native iPad &amp; iOS
+                                    </div>
+                                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/70 border border-slate-800">
+                                        <Lock className="text-indigo-400 w-4 h-4" /> Encrypted Offline Vault
+                                    </div>
+                                </div>
+
+                                <div className="pt-2 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-700 space-y-3">
+                                    <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-950/50 via-indigo-950/30 to-slate-900/70 border border-blue-500/20 backdrop-blur-md flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                        <div className="flex items-center gap-3">
+                                            <div className="p-2.5 bg-blue-500/10 rounded-xl text-blue-400 border border-blue-500/20">
+                                                <Tablet size={22} />
+                                            </div>
+                                            <div>
+                                                <div className="text-[10px] text-blue-400 font-bold uppercase tracking-widest flex items-center gap-1.5">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                                                    Flight Deck App Ready
+                                                </div>
+                                                <div className="text-white font-bold text-sm">Download on iPad &amp; iOS</div>
+                                                <div className="text-[11px] text-slate-400">Register on web &bull; Fly on the iPad App</div>
+                                            </div>
+                                        </div>
+                                        <a
+                                            href="https://testflight.apple.com"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold transition-all shadow-lg shadow-blue-500/20 active:scale-95 whitespace-nowrap"
+                                        >
+                                            <Download size={14} />
+                                            <span>Install on iPad</span>
+                                            <ExternalLink size={12} className="opacity-70" />
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
 
-                            {/* Headline */}
-                            <div className="text-center max-w-4xl mx-auto mb-10 space-y-5">
-                                <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.1]">
-                                    Master ATPL Theory on <br className="hidden sm:block" />
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 drop-shadow-[0_0_35px_rgba(6,182,212,0.3)]">
-                                        Your Modern Flight Deck.
-                                    </span>
-                                </h1>
-                                <p className="text-slate-300 text-base sm:text-xl font-normal leading-relaxed max-w-2xl mx-auto">
-                                    The comprehensive training suite for student pilots: GPU-accelerated avionics simulators, 15,000+ Chair-Flight ECQB questions, and instant AI debriefing. Fly on the web or offline on iPad.
-                                </p>
+                        {/* Right: Auth Form */}
+                        <div className="lg:w-1/2 flex items-center justify-center p-6 lg:p-12 xl:p-20 relative z-10">
+                            {/* Cockpit Glow */}
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-blue-600/15 rounded-full blur-[100px] pointer-events-none mix-blend-screen animate-pulse duration-[4000ms]"></div>
 
-                                {/* Action Buttons */}
-                                <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-                                    {onDemoLogin && (
-                                        <button
-                                            type="button"
-                                            onClick={onDemoLogin}
-                                            className="px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-extrabold text-sm uppercase tracking-wider transition-all shadow-xl shadow-emerald-500/25 active:scale-95 flex items-center gap-2 group"
-                                        >
-                                            <PlayCircle size={18} className="group-hover:scale-110 transition-transform" />
-                                            <span>Launch Free Test Flight</span>
-                                        </button>
+                            <div className="w-full max-w-md glass-card bg-slate-900/80 backdrop-blur-2xl border border-white/10 p-8 rounded-[2rem] relative overflow-hidden group shadow-2xl animate-in fade-in slide-in-from-right-8 duration-1000">
+                                <div className="relative z-10">
+                                    <div className="mb-8">
+                                        <h2 className="text-3xl font-bold text-white mb-2">
+                                            {verifying ? 'Verify Your Email' : (
+                                                view === 'LOGIN' ? 'Aviator Sign In' :
+                                                    view === 'SIGNUP' ? 'Create Pilot Account' :
+                                                        'Reset Password'
+                                            )}
+                                        </h2>
+                                        <p className="text-slate-400 text-sm">
+                                            {verifying ? `We've sent a verification code to ${email}.` : (
+                                                view === 'LOGIN' ? 'Sign in to manage your training track or launch flight deck.' :
+                                                    view === 'SIGNUP' ? 'Register on web to unlock your iPad & mobile app access.' :
+                                                        'We\'ll email you a secure reset link.'
+                                            )}
+                                        </p>
+                                    </div>
+
+                                    {errorMsg && (
+                                        <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-200 text-sm font-medium flex flex-col gap-3 animate-in slide-in-from-top-2">
+                                            <div className="flex items-start gap-3">
+                                                <AlertTriangle size={16} className="mt-0.5 text-red-400 shrink-0" />
+                                                <span>{errorMsg}</span>
+                                            </div>
+                                        </div>
                                     )}
 
-                                    <button
-                                        type="button"
-                                        onClick={() => openAuthWithMode('SIGNUP')}
-                                        className="px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-extrabold text-sm uppercase tracking-wider transition-all shadow-xl shadow-cyan-500/25 active:scale-95 flex items-center gap-2 border border-cyan-400/30"
-                                    >
-                                        <span>Create Aviator Account</span>
-                                        <ArrowRight size={18} />
-                                    </button>
+                                    {successMsg && (
+                                        <div className="mb-6 p-4 bg-green-500/10 border border-green-500/20 rounded-xl text-green-200 text-sm font-medium flex items-start gap-3 animate-in slide-in-from-top-2">
+                                            <CheckCircle size={16} className="mt-0.5 text-green-400 shrink-0" />
+                                            <span>{successMsg}</span>
+                                        </div>
+                                    )}
 
-                                    <a
-                                        href="https://testflight.apple.com"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="px-6 py-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800 border border-white/10 text-slate-300 hover:text-white font-bold text-sm transition-all flex items-center gap-2 active:scale-95"
-                                    >
-                                        <Tablet size={18} className="text-blue-400" />
-                                        <span>Install on iPad</span>
-                                        <ExternalLink size={14} className="opacity-60" />
-                                    </a>
-                                </div>
-                            </div>
-
-                            {/* DUAL COCKPIT CONSOLE (Tabs: Interactive Simulator vs. Sign In / Register) */}
-                            <div className="max-w-5xl mx-auto mt-6" ref={authCardRef}>
-                                <div className="flex justify-center mb-4">
-                                    <div className="p-1.5 bg-slate-950/90 rounded-2xl border border-white/10 flex items-center gap-2 shadow-xl">
-                                        <button
-                                            type="button"
-                                            onClick={() => setActiveHeroTab('SIMULATOR')}
-                                            className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
-                                                activeHeroTab === 'SIMULATOR'
-                                                    ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/25'
-                                                    : 'text-slate-400 hover:text-white'
-                                            }`}
-                                        >
-                                            <Gauge size={16} />
-                                            <span>Interactive Cockpit Simulator</span>
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() => setActiveHeroTab('AUTH')}
-                                            className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
-                                                activeHeroTab === 'AUTH'
-                                                    ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/25'
-                                                    : 'text-slate-400 hover:text-white'
-                                            }`}
-                                        >
-                                            <Lock size={16} />
-                                            <span>Pilot Sign In / Register</span>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                {activeHeroTab === 'SIMULATOR' ? (
-                                    <div id="interactive-sim" className="animate-in zoom-in-95 duration-300">
-                                        <CockpitInteractiveWidget />
-                                    </div>
-                                ) : (
-                                    /* EMBEDDED AUTH CONSOLE */
-                                    <div className="max-w-md mx-auto glass-card bg-slate-900/90 backdrop-blur-2xl border border-cyan-500/30 p-8 rounded-3xl shadow-2xl shadow-cyan-500/10 animate-in zoom-in-95 duration-300 relative overflow-hidden">
-                                        <div className="relative z-10">
-                                            <div className="mb-6 text-center">
-                                                <h3 className="text-2xl font-bold text-white mb-1.5">
-                                                    {verifying ? 'Verify Your Email' : (
-                                                        view === 'LOGIN' ? 'Aviator Sign In' :
-                                                            view === 'SIGNUP' ? 'Register Flight Account' :
-                                                                'Reset Password'
-                                                    )}
-                                                </h3>
-                                                <p className="text-slate-400 text-xs">
-                                                    {verifying ? `We sent a 6-digit code to ${email}.` : (
-                                                        view === 'LOGIN' ? 'Access your training syllabus, question bank, and flight labs.' :
-                                                            view === 'SIGNUP' ? 'Unlock full web access and offline iPad flight deck.' :
-                                                                'Enter your email to receive a secure recovery code.'
-                                                    )}
-                                                </p>
+                                    {verifying ? (
+                                        <form onSubmit={handleVerifyEmail} className="space-y-5">
+                                            <div className="animate-in slide-in-from-left-4 fade-in">
+                                                <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Verification Code</label>
+                                                <div className="relative">
+                                                    <KeyRound className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
+                                                    <input
+                                                        required
+                                                        type="text"
+                                                        value={verificationCode}
+                                                        onChange={e => setVerificationCode(e.target.value)}
+                                                        className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600 text-center font-mono text-lg tracking-[0.3em]"
+                                                        placeholder="000000"
+                                                        maxLength={6}
+                                                    />
+                                                </div>
                                             </div>
 
-                                            {errorMsg && (
-                                                <div className="mb-5 p-3.5 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-300 text-xs font-medium flex items-start gap-2.5 animate-in slide-in-from-top-2">
-                                                    <AlertTriangle size={16} className="mt-0.5 text-rose-400 shrink-0" />
-                                                    <span>{errorMsg}</span>
-                                                </div>
-                                            )}
+                                            <button
+                                                type="submit"
+                                                disabled={loading}
+                                                className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 disabled:opacity-50 text-white py-4 rounded-xl font-bold transition-all flex items-center justify-center shadow-lg transform active:scale-[0.98] animate-in zoom-in duration-300 hover:shadow-emerald-500/25"
+                                            >
+                                                {loading ? <Zap className="animate-spin w-5 h-5" /> : 'Verify & Activate'}
+                                                {!loading && <ArrowRight className="ml-2 w-5 h-5" />}
+                                            </button>
 
-                                            {successMsg && (
-                                                <div className="mb-5 p-3.5 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-300 text-xs font-medium flex items-start gap-2.5 animate-in slide-in-from-top-2">
-                                                    <CheckCircle size={16} className="mt-0.5 text-emerald-400 shrink-0" />
-                                                    <span>{successMsg}</span>
-                                                </div>
-                                            )}
+                                            <div className="text-center mt-4 space-y-2">
+                                                <button
+                                                    type="button"
+                                                    disabled={resendLoading}
+                                                    onClick={handleResendCode}
+                                                    className="text-sm text-blue-400 hover:text-blue-300 block w-full transition-colors font-semibold disabled:opacity-50"
+                                                >
+                                                    {resendLoading ? 'Resending...' : "Didn't get the code? Resend Code"}
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setVerifying(false);
+                                                        setErrorMsg('');
+                                                        setSuccessMsg('');
+                                                    }}
+                                                    className="text-sm text-slate-400 hover:text-white block w-full transition-colors"
+                                                >
+                                                    Back to Sign Up
+                                                </button>
+                                            </div>
+                                        </form>
+                                    ) : (
+                                        <form onSubmit={
+                                            view === 'LOGIN' ? handleLogin :
+                                                view === 'SIGNUP' ? handleSignup :
+                                                    view === 'FORGOT_PASS' ? handleForgotPassword :
+                                                        handleResetPassword
+                                        } className="space-y-5">
 
-                                            {/* Google Sign-in */}
-                                            {(view === 'LOGIN' || view === 'SIGNUP') && !verifying && (
-                                                <div className="mb-5 pb-5 border-b border-white/10">
+                                            {/* Google Sign-In moved to the top for frictionless access */}
+                                            {(view === 'LOGIN' || view === 'SIGNUP') && (
+                                                <div className="pb-6 border-b border-white/10 animate-in fade-in delay-300">
                                                     <button
                                                         type="button"
                                                         onClick={handleGoogleSignIn}
                                                         disabled={loading}
-                                                        className="w-full bg-white hover:bg-slate-100 disabled:opacity-50 text-slate-900 py-3 rounded-xl font-bold text-xs transition-all flex items-center justify-center shadow-lg active:scale-98"
+                                                        className="w-full bg-white hover:bg-gray-100 disabled:opacity-50 text-gray-900 py-3 rounded-xl font-bold transition-all flex items-center justify-center shadow-lg transform active:scale-[0.98] border border-gray-200"
                                                     >
-                                                        <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
-                                                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                                                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                                                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
-                                                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                                                        <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                                                            <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                                                            <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                                                            <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                                                            <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                                                         </svg>
-                                                        {view === 'SIGNUP' ? 'Sign up with Google' : 'Sign in with Google'}
+                                                        {loading ? (view === 'SIGNUP' ? 'Creating account...' : 'Signing in...') : (view === 'SIGNUP' ? 'Sign up with Google' : 'Sign in with Google')}
                                                     </button>
-                                                    <div className="mt-3 text-center">
-                                                        <span className="text-[10px] uppercase font-mono tracking-widest text-slate-500">Or use email</span>
+                                                    <div className="mt-4 text-center">
+                                                        <p className="text-xs text-slate-400 uppercase tracking-widest">Or use email</p>
                                                     </div>
                                                 </div>
                                             )}
 
-                                            {verifying ? (
-                                                <form onSubmit={handleVerifyEmail} className="space-y-4">
-                                                    <div>
-                                                        <label className="block text-[11px] font-bold text-slate-400 uppercase mb-1">Verification Code</label>
-                                                        <div className="relative">
-                                                            <KeyRound className="absolute left-3.5 top-3 text-slate-500 w-4 h-4" />
-                                                            <input
-                                                                required
-                                                                type="text"
-                                                                value={verificationCode}
-                                                                onChange={e => setVerificationCode(e.target.value)}
-                                                                className="w-full bg-slate-950 border border-slate-700 rounded-xl py-2.5 pl-10 pr-3 text-white text-center font-mono text-lg tracking-[0.3em] outline-none focus:border-cyan-400"
-                                                                placeholder="000000"
-                                                                maxLength={6}
-                                                            />
-                                                        </div>
+                                            {view === 'SIGNUP' && (
+                                                <div className="animate-in slide-in-from-left-4 fade-in">
+                                                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Full Name</label>
+                                                    <div className="relative">
+                                                        <UserIcon className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
+                                                        <input required type="text" value={fullName} onChange={e => setFullName(e.target.value)} className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600" placeholder="Captain Name" />
                                                     </div>
-                                                    <button
-                                                        type="submit"
-                                                        disabled={loading}
-                                                        className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 active:scale-95"
-                                                    >
-                                                        {loading ? <Zap className="animate-spin w-4 h-4" /> : 'Verify & Launch'}
-                                                    </button>
-                                                    <div className="text-center space-y-1 pt-2">
-                                                        <button
-                                                            type="button"
-                                                            disabled={resendLoading}
-                                                            onClick={handleResendCode}
-                                                            className="text-xs text-cyan-400 hover:text-cyan-300 font-semibold"
-                                                        >
-                                                            {resendLoading ? 'Resending...' : "Resend code"}
+                                                </div>
+                                            )}
+
+                                            {view !== 'RESET_PASSWORD' && (
+                                                <div className="animate-in slide-in-from-left-4 fade-in delay-75">
+                                                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Email Address</label>
+                                                    <div className="relative">
+                                                        <Mail className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
+                                                        <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600" placeholder="pilot@example.com" />
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {view === 'RESET_PASSWORD' && (
+                                                <div className="animate-in slide-in-from-left-4 fade-in">
+                                                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">Reset Code</label>
+                                                    <div className="relative">
+                                                        <KeyRound className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
+                                                        <input
+                                                            required
+                                                            type="text"
+                                                            value={verificationCode}
+                                                            onChange={e => setVerificationCode(e.target.value.trim())}
+                                                            className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600 font-mono text-center tracking-[0.2em]"
+                                                            placeholder="000000"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {view !== 'FORGOT_PASS' && (
+                                                <div className="animate-in slide-in-from-left-4 fade-in delay-100">
+                                                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">
+                                                        {view === 'RESET_PASSWORD' ? 'New Password' : 'Password'}
+                                                    </label>
+                                                    <div className="relative">
+                                                        <Lock className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
+                                                        <input required type={showPassword ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)} className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-10 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600" placeholder="••••••••" />
+                                                        <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-2 top-2 p-2 text-slate-500 hover:text-white transition-colors">
+                                                            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                                                         </button>
                                                     </div>
-                                                </form>
-                                            ) : (
-                                                <form 
-                                                    onSubmit={
-                                                        view === 'LOGIN' ? handleLogin :
-                                                            view === 'SIGNUP' ? handleSignup :
-                                                                view === 'FORGOT_PASS' ? handleForgotPassword :
-                                                                    handleResetPassword
-                                                    } 
-                                                    className="space-y-4"
-                                                >
-                                                    {view === 'SIGNUP' && (
-                                                        <div>
-                                                            <label className="block text-[11px] font-bold text-slate-400 uppercase mb-1">Full Name</label>
-                                                            <div className="relative">
-                                                                <UserIcon className="absolute left-3.5 top-3 text-slate-500 w-4 h-4" />
-                                                                <input 
-                                                                    required 
-                                                                    type="text" 
-                                                                    value={fullName} 
-                                                                    onChange={e => setFullName(e.target.value)} 
-                                                                    className="w-full bg-slate-950 border border-slate-700 rounded-xl py-2.5 pl-10 pr-3 text-white text-xs outline-none focus:border-cyan-400" 
-                                                                    placeholder="Captain Michael" 
-                                                                />
+                                                    {/* Strength Meter for Signup */}
+                                                    {(view === 'SIGNUP' || view === 'RESET_PASSWORD') && password && (
+                                                        <div className="mt-2 flex items-center gap-2">
+                                                            <div className="flex-1 h-1 bg-slate-700 rounded-full overflow-hidden">
+                                                                <div className={`h-full transition-all duration-500 ${passStrength <= 2 ? 'bg-red-500' : passStrength === 3 ? 'bg-yellow-500' : 'bg-green-500'}`} style={{ width: `${(passStrength / 4) * 100}%` }}></div>
                                                             </div>
+                                                            <span className="text-[10px] font-bold text-slate-400">{passStrength <= 2 ? 'Weak' : passStrength === 3 ? 'Good' : 'Strong'}</span>
                                                         </div>
                                                     )}
-
-                                                    {view !== 'RESET_PASSWORD' && (
-                                                        <div>
-                                                            <label className="block text-[11px] font-bold text-slate-400 uppercase mb-1">Email Address</label>
-                                                            <div className="relative">
-                                                                <Mail className="absolute left-3.5 top-3 text-slate-500 w-4 h-4" />
-                                                                <input 
-                                                                    required 
-                                                                    type="email" 
-                                                                    value={email} 
-                                                                    onChange={e => setEmail(e.target.value)} 
-                                                                    className="w-full bg-slate-950 border border-slate-700 rounded-xl py-2.5 pl-10 pr-3 text-white text-xs outline-none focus:border-cyan-400" 
-                                                                    placeholder="pilot@airline.com" 
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    )}
-
-                                                    {view === 'RESET_PASSWORD' && (
-                                                        <div>
-                                                            <label className="block text-[11px] font-bold text-slate-400 uppercase mb-1">Reset Code</label>
-                                                            <div className="relative">
-                                                                <KeyRound className="absolute left-3.5 top-3 text-slate-500 w-4 h-4" />
-                                                                <input
-                                                                    required
-                                                                    type="text"
-                                                                    value={verificationCode}
-                                                                    onChange={e => setVerificationCode(e.target.value.trim())}
-                                                                    className="w-full bg-slate-950 border border-slate-700 rounded-xl py-2.5 pl-10 pr-3 text-white text-center font-mono text-sm tracking-[0.2em] outline-none focus:border-cyan-400"
-                                                                    placeholder="000000"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    )}
-
-                                                    {view !== 'FORGOT_PASS' && (
-                                                        <div>
-                                                            <label className="block text-[11px] font-bold text-slate-400 uppercase mb-1">
-                                                                {view === 'RESET_PASSWORD' ? 'New Password' : 'Password'}
-                                                            </label>
-                                                            <div className="relative">
-                                                                <Lock className="absolute left-3.5 top-3 text-slate-500 w-4 h-4" />
-                                                                <input 
-                                                                    required 
-                                                                    type={showPassword ? "text" : "password"} 
-                                                                    value={password} 
-                                                                    onChange={e => setPassword(e.target.value)} 
-                                                                    className="w-full bg-slate-950 border border-slate-700 rounded-xl py-2.5 pl-10 pr-9 text-white text-xs outline-none focus:border-cyan-400" 
-                                                                    placeholder="••••••••" 
-                                                                />
-                                                                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-2.5 top-2.5 text-slate-500 hover:text-white">
-                                                                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                                                                </button>
-                                                            </div>
-
-                                                            {(view === 'SIGNUP' || view === 'RESET_PASSWORD') && password && (
-                                                                <div className="mt-2 flex items-center gap-2">
-                                                                    <div className="flex-1 h-1 bg-slate-800 rounded-full overflow-hidden">
-                                                                        <div className={`h-full transition-all duration-300 ${passStrength <= 2 ? 'bg-rose-500' : passStrength === 3 ? 'bg-amber-500' : 'bg-emerald-500'}`} style={{ width: `${(passStrength / 4) * 100}%` }}></div>
-                                                                    </div>
-                                                                    <span className="text-[10px] font-mono text-slate-400">{passStrength <= 2 ? 'Weak' : passStrength === 3 ? 'Good' : 'Strong'}</span>
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                    )}
-
-                                                    {(view === 'SIGNUP' || view === 'RESET_PASSWORD') && (
-                                                        <div>
-                                                            <label className="block text-[11px] font-bold text-slate-400 uppercase mb-1">Confirm Password</label>
-                                                            <div className="relative">
-                                                                <Lock className="absolute left-3.5 top-3 text-slate-500 w-4 h-4" />
-                                                                <input 
-                                                                    required 
-                                                                    type="password" 
-                                                                    value={confirmPassword} 
-                                                                    onChange={e => setConfirmPassword(e.target.value)} 
-                                                                    className="w-full bg-slate-950 border border-slate-700 rounded-xl py-2.5 pl-10 pr-3 text-white text-xs outline-none focus:border-cyan-400" 
-                                                                    placeholder="••••••••" 
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    )}
-
-                                                    {view === 'SIGNUP' && (
-                                                        <div className="flex items-start gap-2 pt-1">
-                                                            <input
-                                                                required
-                                                                type="checkbox"
-                                                                id="agreeTerms"
-                                                                checked={agreeToTerms}
-                                                                onChange={e => setAgreeToTerms(e.target.checked)}
-                                                                className="mt-0.5 accent-cyan-500 cursor-pointer"
-                                                            />
-                                                            <label htmlFor="agreeTerms" className="text-[11px] text-slate-400 leading-tight">
-                                                                I agree to the{' '}
-                                                                <button type="button" onClick={() => setActiveInfoPage('TERMS')} className="text-cyan-400 hover:underline">Terms</button>,{' '}
-                                                                <button type="button" onClick={() => setActiveInfoPage('PRIVACY')} className="text-cyan-400 hover:underline">Privacy</button>, and{' '}
-                                                                <button type="button" onClick={() => setActiveInfoPage('REFUND')} className="text-cyan-400 hover:underline">Refund Policy</button>.
-                                                            </label>
-                                                        </div>
-                                                    )}
-
-                                                    <button
-                                                        type="submit"
-                                                        disabled={loading}
-                                                        className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/25 active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50"
-                                                    >
-                                                        {loading ? <Zap className="animate-spin w-4 h-4" /> : (
-                                                            view === 'LOGIN' ? 'Enter Flight Deck' :
-                                                                view === 'SIGNUP' ? 'Create Aviator Account' :
-                                                                    view === 'FORGOT_PASS' ? 'Send Reset Link' :
-                                                                        'Confirm New Password'
-                                                        )}
-                                                        {!loading && <ArrowRight size={16} />}
-                                                    </button>
-
-                                                    {/* Toggle Links */}
-                                                    <div className="text-center text-xs text-slate-400 pt-2 space-y-2">
-                                                        {view === 'LOGIN' && (
-                                                            <>
-                                                                <div>
-                                                                    <button type="button" onClick={() => setView('FORGOT_PASS')} className="hover:text-white transition-colors">Forgot password?</button>
-                                                                </div>
-                                                                <div>
-                                                                    Don't have an account?{' '}
-                                                                    <button type="button" onClick={() => setView('SIGNUP')} className="text-cyan-400 font-bold hover:underline">Sign Up</button>
-                                                                </div>
-                                                            </>
-                                                        )}
-
-                                                        {view === 'SIGNUP' && (
-                                                            <div>
-                                                                Already registered?{' '}
-                                                                <button type="button" onClick={() => setView('LOGIN')} className="text-cyan-400 font-bold hover:underline">Sign In</button>
-                                                            </div>
-                                                        )}
-
-                                                        {(view === 'FORGOT_PASS' || view === 'RESET_PASSWORD') && (
-                                                            <div>
-                                                                <button type="button" onClick={() => setView('LOGIN')} className="text-cyan-400 font-bold hover:underline">Back to Login</button>
-                                                            </div>
-                                                        )}
-                                                    </div>
-
-                                                    {/* Instant Demo Shortcut */}
-                                                    {onDemoLogin && view === 'LOGIN' && (
-                                                        <div className="pt-3 border-t border-white/10 text-center">
-                                                            <button
-                                                                type="button"
-                                                                onClick={onDemoLogin}
-                                                                className="w-full py-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 text-emerald-300 font-bold text-xs flex items-center justify-center gap-1.5 transition-all"
-                                                            >
-                                                                <PlayCircle size={15} /> Instant 1-Click Demo Access
-                                                            </button>
-                                                        </div>
-                                                    )}
-                                                </form>
+                                                </div>
                                             )}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    </section>
 
-                    {/* AVIATION TRUST & TELEMETRY BAR */}
-                    <section className="border-y border-white/10 bg-slate-950/90 py-10 relative z-20">
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
-                                <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
-                                    <div className="text-3xl sm:text-4xl font-mono font-black text-cyan-400 mb-1">14/14</div>
-                                    <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">EASA ATPL Subjects</div>
-                                </div>
-                                <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
-                                    <div className="text-3xl sm:text-4xl font-mono font-black text-blue-400 mb-1">65+</div>
-                                    <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">3D Cockpit Sims</div>
-                                </div>
-                                <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
-                                    <div className="text-3xl sm:text-4xl font-mono font-black text-indigo-400 mb-1">15,000+</div>
-                                    <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">ECQB 2026 Questions</div>
-                                </div>
-                                <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
-                                    <div className="text-3xl sm:text-4xl font-mono font-black text-emerald-400 mb-1">94%</div>
-                                    <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Pass Rate Target</div>
-                                </div>
-                                <div className="col-span-2 md:col-span-1 p-4 rounded-2xl bg-white/[0.02] border border-white/5">
-                                    <div className="text-3xl sm:text-4xl font-mono font-black text-purple-400 mb-1">100%</div>
-                                    <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Offline iPad Sync</div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                                            {(view === 'SIGNUP' || view === 'RESET_PASSWORD') && (
+                                                <div className="animate-in slide-in-from-left-4 fade-in delay-150">
+                                                    <label className="block text-xs font-bold text-slate-400 uppercase mb-2 ml-1">
+                                                        {view === 'RESET_PASSWORD' ? 'Confirm New Password' : 'Confirm Password'}
+                                                    </label>
+                                                    <div className="relative">
+                                                        <Lock className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />
+                                                        <input required type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} className="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white focus:border-blue-500 outline-none transition-all placeholder-slate-600" placeholder="••••••••" />
+                                                    </div>
+                                                </div>
+                                            )}
 
-                    {/* FEATURES BENTO GRID: THE COMPLETE PILOT SUITE */}
-                    <section id="features" className="py-24 sm:py-32 relative overflow-hidden bg-slate-900/40">
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                            <div className="text-center max-w-3xl mx-auto mb-16">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 text-[10px] font-bold uppercase tracking-widest mb-4">
-                                    <Rocket size={12} /> THE PILOT TRAINING ARCHITECTURE
-                                </div>
-                                <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-                                    Engineered to conquer <br className="hidden sm:block" />
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
-                                        every aviation theory exam.
-                                    </span>
-                                </h2>
-                                <p className="text-slate-400 mt-4 text-base sm:text-lg">
-                                    Traditional question dumps cause rote memorization failures. ATPL Vector bridges deep aerodynamic visualization with real-time exam telemetry.
-                                </p>
-                            </div>
+                                            {view === 'SIGNUP' && (
+                                                <div className="flex items-start gap-3 mt-2 mb-4 animate-in slide-in-from-left-4 fade-in delay-200">
+                                                    <input
+                                                        required
+                                                        type="checkbox"
+                                                        id="agreeToTerms"
+                                                        checked={agreeToTerms}
+                                                        onChange={e => setAgreeToTerms(e.target.checked)}
+                                                        className="mt-1 w-4 h-4 bg-slate-900 border border-slate-700 rounded text-blue-600 focus:ring-blue-500 focus:ring-offset-slate-900 focus:ring-2 cursor-pointer"
+                                                    />
+                                                    <label htmlFor="agreeToTerms" className="text-xs text-slate-400 select-none leading-relaxed cursor-pointer">
+                                                        I agree to the{' '}
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setActiveInfoPage('TERMS')}
+                                                            className="text-blue-400 hover:text-blue-300 font-semibold underline inline"
+                                                        >
+                                                            Terms of Service
+                                                        </button>{' '}, {' '}
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setActiveInfoPage('PRIVACY')}
+                                                            className="text-blue-400 hover:text-blue-300 font-semibold underline inline"
+                                                        >
+                                                            Privacy Policy
+                                                        </button>{' '}, and acknowledge the{' '}
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setActiveInfoPage('REFUND')}
+                                                            className="text-blue-400 hover:text-blue-300 font-semibold underline inline"
+                                                        >
+                                                            Refund Policy
+                                                        </button>
+                                                        .
+                                                    </label>
+                                                </div>
+                                            )}
 
-                            {/* 6-Card Bento Grid */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {/* Bento 1: 65+ 3D Cockpit Sims */}
-                                <div className="p-8 rounded-3xl bg-slate-950/70 border border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-300 flex flex-col justify-between group shadow-xl">
-                                    <div>
-                                        <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                            <Gauge size={24} />
-                                        </div>
-                                        <h3 className="text-xl font-bold text-white mb-2">65+ 3D Cockpit &amp; Systems Labs</h3>
-                                        <p className="text-slate-400 text-sm leading-relaxed">
-                                            Turn abstract theory into muscle memory. Manipulate VOR/ILS radials, calibrate altimeter sub-scales, inspect Airbus MCDU flight management computers, and adjust PAPI glide paths.
-                                        </p>
-                                    </div>
-                                    <div className="mt-6 pt-4 border-t border-white/5 flex items-center text-xs font-mono text-cyan-400 font-bold">
-                                        <span>VOR · ILS · MCDU · PAPI · Gyros</span>
-                                    </div>
-                                </div>
+                                            <button
+                                                type="submit"
+                                                disabled={loading}
+                                                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 disabled:opacity-50 text-white py-4 rounded-xl font-bold transition-all flex items-center justify-center shadow-lg transform active:scale-[0.98] animate-in zoom-in duration-300 delay-200 hover:shadow-blue-500/25"
+                                            >
+                                                {loading ? <Zap className="animate-spin w-5 h-5" /> : (
+                                                    view === 'LOGIN' ? 'Sign In' :
+                                                        view === 'SIGNUP' ? 'Create Account' :
+                                                            view === 'FORGOT_PASS' ? 'Send Reset Link' :
+                                                                'Reset Password'
+                                                )}
+                                                {!loading && <ArrowRight className="ml-2 w-5 h-5" />}
+                                            </button>
 
-                                {/* Bento 2: Chair-Flight Powered Question Bank */}
-                                <div className="p-8 rounded-3xl bg-slate-950/70 border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300 flex flex-col justify-between group shadow-xl">
-                                    <div>
-                                        <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                            <BookOpen size={24} />
-                                        </div>
-                                        <h3 className="text-xl font-bold text-white mb-2">Chair-Flight ECQB 2026 Engine</h3>
-                                        <p className="text-slate-400 text-sm leading-relaxed">
-                                            Over 15,000 official ECQB questions with smart retest filters, error attribution algorithms, and AI-powered aeronautical debriefs that explain the "why" behind every option.
-                                        </p>
-                                    </div>
-                                    <div className="mt-6 pt-4 border-t border-white/5 flex items-center text-xs font-mono text-blue-400 font-bold">
-                                        <span>Smart Retest · AI Explanations</span>
-                                    </div>
-                                </div>
+                                            {/* Action Links */}
+                                            <div className="text-center space-y-3 mt-4">
+                                                {view === 'LOGIN' && (
+                                                    <>
+                                                        <button type="button" onClick={() => setView('FORGOT_PASS')} className="text-sm text-slate-400 hover:text-white block w-full transition-colors">Forgot Password?</button>
+                                                        <button type="button" onClick={() => setView('SIGNUP')} className="text-sm text-slate-400 hover:text-white block w-full transition-colors">Don't have an account? <strong className="text-blue-400">Sign Up</strong></button>
+                                                    </>
+                                                )}
+                                                {view === 'SIGNUP' && (
+                                                    <button type="button" onClick={() => setView('LOGIN')} className="text-sm text-slate-400 hover:text-white transition-colors">Already have an account? <strong className="text-blue-400">Log In</strong></button>
+                                                )}
+                                                {view === 'RESET_PASSWORD' && (
+                                                    <button
+                                                        type="button"
+                                                        disabled={resendLoading}
+                                                        onClick={handleResendResetCode}
+                                                        className="text-sm text-blue-400 hover:text-blue-300 block w-full transition-colors font-semibold disabled:opacity-50 animate-in fade-in"
+                                                    >
+                                                        {resendLoading ? 'Resending...' : "Didn't get the code? Resend Code"}
+                                                    </button>
+                                                )}
+                                                {(view === 'FORGOT_PASS' || view === 'RESET_PASSWORD') && (
+                                                    <>
+                                                        <button type="button" onClick={() => setView('LOGIN')} className="text-sm text-slate-400 hover:text-white block w-full transition-colors">Back to Login</button>
+                                                    </>
+                                                )}
+                                            </div>
 
-                                {/* Bento 3: Dual Syllabus: EASA + FAA Tracks */}
-                                <div className="p-8 rounded-3xl bg-slate-950/70 border border-sky-500/20 hover:border-sky-400/40 transition-all duration-300 flex flex-col justify-between group shadow-xl">
-                                    <div>
-                                        <div className="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                            <Shield size={24} />
-                                        </div>
-                                        <h3 className="text-xl font-bold text-white mb-2">Dual Track: EASA ATPL &amp; FAA Suite</h3>
-                                        <p className="text-slate-400 text-sm leading-relaxed">
-                                            Whether preparing for European airline captaincy or US FAA Airman Knowledge tests, switch between EASA ATPL and the FAA Knowledge Test Guide with 57 official figures and C172 systems.
-                                        </p>
-                                    </div>
-                                    <div className="mt-6 pt-4 border-t border-white/5 flex items-center text-xs font-mono text-sky-400 font-bold">
-                                        <span>57 Official Figures · C172 Hub</span>
-                                    </div>
-                                </div>
 
-                                {/* Bento 4: EgyptAir Cadet Ground School */}
-                                <div className="p-8 rounded-3xl bg-slate-950/70 border border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-300 flex flex-col justify-between group shadow-xl">
-                                    <div>
-                                        <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                            <Plane size={24} />
-                                        </div>
-                                        <h3 className="text-xl font-bold text-white mb-2">EgyptAir Cadet Portal (ABC 4th Ed.)</h3>
-                                        <p className="text-slate-400 text-sm leading-relaxed">
-                                            Specialized training track engineered for EgyptAir cadet candidates: ECAR regulations quizzes, Boeing/Airbus fuel buildup models, instrument holding pattern entries, and ADM/CRM scenarios.
-                                        </p>
-                                    </div>
-                                    <div className="mt-6 pt-4 border-t border-white/5 flex items-center text-xs font-mono text-cyan-300 font-bold">
-                                        <span>ECARs · CRM · Fuel Buildup</span>
-                                    </div>
-                                </div>
-
-                                {/* Bento 5: Exam Readiness & Pacing Telemetry */}
-                                <div className="p-8 rounded-3xl bg-slate-950/70 border border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-300 flex flex-col justify-between group shadow-xl">
-                                    <div>
-                                        <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                            <Target size={24} />
-                                        </div>
-                                        <h3 className="text-xl font-bold text-white mb-2">Predictive Readiness Telemetry</h3>
-                                        <p className="text-slate-400 text-sm leading-relaxed">
-                                            We track pacing down to the second (45s per question benchmark) and predict your CAA exam probability. Never sit an exam without knowing you will clear the 75% bar with a cushion.
-                                        </p>
-                                    </div>
-                                    <div className="mt-6 pt-4 border-t border-white/5 flex items-center text-xs font-mono text-emerald-400 font-bold">
-                                        <span>45s Pacing · 94% Target Score</span>
-                                    </div>
-                                </div>
-
-                                {/* Bento 6: Native iPad & iOS Offline Vault */}
-                                <div className="p-8 rounded-3xl bg-slate-950/70 border border-purple-500/20 hover:border-purple-400/40 transition-all duration-300 flex flex-col justify-between group shadow-xl">
-                                    <div>
-                                        <div className="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                            <Tablet size={24} />
-                                        </div>
-                                        <h3 className="text-xl font-bold text-white mb-2">Native iPad App &amp; Offline Vault</h3>
-                                        <p className="text-slate-400 text-sm leading-relaxed">
-                                            Study at FL390 without WiFi. Full encrypted offline question databases, iPad Split View, Apple Pencil scratchpad, and automatic cloud sync when you touch down.
-                                        </p>
-                                    </div>
-                                    <div className="mt-6 pt-4 border-t border-white/5 flex items-center text-xs font-mono text-purple-400 font-bold">
-                                        <span>Apple Pencil · Zero-Lag Offline</span>
-                                    </div>
+                                            {view === 'LOGIN' && onDemoLogin && (
+                                                <div className="pt-4 border-t border-white/10 animate-in fade-in delay-300">
+                                                    <button type="button" onClick={onDemoLogin} className="w-full bg-white/5 hover:bg-white/10 text-slate-300 py-3 rounded-xl font-bold transition-all flex items-center justify-center border border-white/10 hover:border-emerald-500/50 hover:text-emerald-400 group">
+                                                        <PlayCircle className="mr-2 w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform" /> Demo Access
+                                                    </button>
+                                                </div>
+                                            )}
+                                        </form>)}
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </div>
 
-                    {/* CURRICULUM SYLLABUS OVERVIEW */}
-                    <section id="curriculum" className="py-20 sm:py-28 bg-[#030712] border-t border-white/5">
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    {/* 3-STEP ONBOARDING WORKFLOW */}
+                    <section aria-label="How it works" className="w-full bg-slate-950/90 border-y border-white/5 py-14 relative z-20">
+                        <div className="max-w-7xl mx-auto px-6">
+                            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
                                 <div>
-                                    <span className="text-xs font-mono uppercase tracking-widest text-cyan-400 font-bold">Full Syllabus Coverage</span>
-                                    <h2 className="text-3xl sm:text-4xl font-black text-white mt-1">All 14 ATPL Subjects. Covered to Perfection.</h2>
-                                </div>
-                                <p className="text-slate-400 text-sm max-w-md">
-                                    Every module includes learning objectives mapped directly to EASA Part-FCL guidelines, interactive diagrams, and flashcard banks.
-                                </p>
-                            </div>
-
-                            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
-                                {[
-                                    { code: '010', title: 'Air Law' },
-                                    { code: '021', title: 'AGK Systems' },
-                                    { code: '022', title: 'Instruments' },
-                                    { code: '031', title: 'Mass & Balance' },
-                                    { code: '032', title: 'Performance' },
-                                    { code: '033', title: 'Flight Planning' },
-                                    { code: '040', title: 'Human Factors' },
-                                    { code: '050', title: 'Meteorology' },
-                                    { code: '061', title: 'General Nav' },
-                                    { code: '062', title: 'Radio Nav' },
-                                    { code: '070', title: 'Operational Proc' },
-                                    { code: '081', title: 'Principles of Flight' },
-                                    { code: '090', title: 'Communications' },
-                                    { code: '100', title: 'KSA 100' },
-                                ].map((sub) => (
-                                    <div key={sub.code} className="p-3.5 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-cyan-500/40 transition-colors">
-                                        <div className="text-[10px] font-mono font-bold text-cyan-400">SUB {sub.code}</div>
-                                        <div className="text-sm font-bold text-white mt-1 truncate">{sub.title}</div>
+                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-3">
+                                        <Sparkles size={12} /> Simple 3-Step Flight Plan
                                     </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* LIVE ROI STUDY GUIDE LAB PREVIEW */}
-                    <section id="study-guide" className="py-24 bg-slate-950 border-y border-white/10 relative overflow-hidden">
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                            <div className="text-center max-w-2xl mx-auto mb-12">
-                                <span className="text-xs font-mono uppercase tracking-widest text-cyan-400 font-bold">Interactive Tool Preview</span>
-                                <h2 className="text-3xl sm:text-5xl font-black text-white mt-1">Live Study Guide Analyzer</h2>
-                                <p className="text-slate-400 text-sm sm:text-base mt-3">
-                                    Interact with our actual Study Guide tool below. See which subjects have the highest Return On Investment for your study hours. No login required to test.
+                                    <h2 className="text-2xl md:text-3xl font-extrabold text-white">How ATPL Vector Works</h2>
+                                </div>
+                                <p className="text-xs sm:text-sm text-slate-400 max-w-md">
+                                    Register your profile on the web &bull; Train and study on our dedicated iPad and iOS application with full offline capability.
                                 </p>
                             </div>
 
-                            <div className="rounded-3xl border border-white/10 overflow-hidden shadow-2xl bg-slate-900/50 backdrop-blur-md">
-                                <StudyGuide />
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/5 relative overflow-hidden group hover:border-blue-500/30 hover:bg-slate-900/90 transition-all duration-300">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <span className="w-8 h-8 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono font-bold flex items-center justify-center">01</span>
+                                        <Laptop className="w-5 h-5 text-slate-500 group-hover:text-blue-400 transition-colors" />
+                                    </div>
+                                    <h3 className="font-bold text-white text-base mb-1.5">Sign Up on Web</h3>
+                                    <p className="text-xs text-slate-400 leading-relaxed">
+                                        Create your aviator account here on the web browser, choose your syllabus track (EASA / UK / PPL / ATPL), and manage your subscriptions.
+                                    </p>
+                                </div>
+
+                                <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/5 relative overflow-hidden group hover:border-indigo-500/30 hover:bg-slate-900/90 transition-all duration-300">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <span className="w-8 h-8 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-mono font-bold flex items-center justify-center">02</span>
+                                        <Tablet className="w-5 h-5 text-slate-500 group-hover:text-indigo-400 transition-colors" />
+                                    </div>
+                                    <h3 className="font-bold text-white text-base mb-1.5">Install on iPad &amp; iOS</h3>
+                                    <p className="text-xs text-slate-400 leading-relaxed">
+                                        Install our high-performance native app via TestFlight or App Store to unlock GPU-accelerated 3D cockpits, split-screen mode, and Apple Pencil support.
+                                    </p>
+                                </div>
+
+                                <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/5 relative overflow-hidden group hover:border-emerald-500/30 hover:bg-slate-900/90 transition-all duration-300">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <span className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono font-bold flex items-center justify-center">03</span>
+                                        <Plane className="w-5 h-5 text-slate-500 group-hover:text-emerald-400 transition-colors" />
+                                    </div>
+                                    <h3 className="font-bold text-white text-base mb-1.5">Fly Through Theory</h3>
+                                    <p className="text-xs text-slate-400 leading-relaxed">
+                                        Sign in with your web credentials to study all 14 subjects offline at FL390, practice exam questions, and master interactive aerodynamic labs.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </section>
+
+                    {/* FEATURES SHOWCASE */}
+                    <div id="features" className="py-32 bg-slate-900 relative overflow-hidden">
+                        {/* Background Accents */}
+                        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+                        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-600/5 rounded-full blur-[150px] translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
+
+                        <div className="max-w-7xl mx-auto px-6 relative z-10">
+                            <div className="text-center mb-24 animate-in fade-in slide-in-from-bottom-8 duration-700">
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-6">
+                                    <Rocket size={12} /> Complete Pilot Suite
+                                </div>
+                                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mt-2 tracking-tight">The ultimate <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">visual</span> study stack.</h2>
+                                <p className="text-slate-400 mt-6 max-w-2xl mx-auto text-lg">We've combined deep interactive theory with a professional-grade question bank and strategic analytics to give you the highest possible chance of passing first time.</p>
+                            </div>
+
+                            {/* Bento Grid Layout */}
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+                                {/* Card 1: Visual Theory (Large Interactive) */}
+                                <div className="lg:col-span-7 relative group rounded-[2.5rem] bg-slate-900/50 border border-white/5 overflow-hidden hover:border-blue-500/20 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                                    <div className="p-8 lg:p-10 h-full flex flex-col justify-between relative z-10">
+                                        <div className="space-y-4">
+                                            <div className="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 border border-blue-500/20">
+                                                <Layout size={24} />
+                                            </div>
+                                            <h3 className="text-3xl font-black text-white">Interactive Theory</h3>
+                                            <p className="text-slate-400 text-lg leading-relaxed max-w-md">Every subject is an interactive lab. Manipulate controls, simulate physics, and visualize systems in real-time.</p>
+                                        </div>
+                                        <div className="mt-8 relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group-hover:scale-[1.02] transition-transform duration-700">
+                                            <LazyImage
+                                                src={`${import.meta.env.BASE_URL}assets/walkthroughs/planner_demo.webp`}
+                                                alt="Sim"
+                                                className="w-full h-64 object-cover"
+                                                fallback={
+                                                    <div className="w-full h-full bg-gradient-to-br from-blue-600/40 to-indigo-900/40 flex items-center justify-center">
+                                                        <Plane size={64} className="text-blue-400/20" />
+                                                    </div>
+                                                }
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
+                                            <div className="absolute bottom-4 left-4 flex gap-3">
+                                                <div className="px-3 py-1.5 bg-black/60 backdrop-blur rounded-lg text-xs font-bold text-white border border-white/10 flex items-center gap-2">
+                                                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                                                    Live Simulation
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Card 2: Psychological Readiness (Tall Stats) */}
+                                <div className="lg:col-span-5 relative group rounded-[2.5rem] bg-slate-900/50 border border-white/5 overflow-hidden hover:border-purple-500/20 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/10">
+                                    <div className="absolute inset-0 bg-gradient-to-bl from-purple-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                                    <div className="p-8 lg:p-10 h-full flex flex-col relative z-10">
+                                        <div className="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-400 border border-purple-500/20 mb-6">
+                                            <BarChart3 size={24} />
+                                        </div>
+                                        <h3 className="text-3xl font-black text-white mb-4">Exam Readiness</h3>
+                                        <p className="text-slate-400 mb-8">We measure 94% accuracy and 45s pacing before we recommend sitting the exam.</p>
+
+                                        <div className="flex-1 grid grid-cols-1 gap-4">
+                                            <div className="p-5 bg-slate-800/40 rounded-2xl border border-white/5 flex items-center justify-between group-hover:bg-slate-800/60 transition-colors">
+                                                <div>
+                                                    <div className="text-purple-400 font-black text-2xl">94%</div>
+                                                    <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Accuracy Goal</div>
+                                                </div>
+                                                <div className="h-10 w-10 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400"><Target size={20} /></div>
+                                            </div>
+                                            <div className="p-5 bg-slate-800/40 rounded-2xl border border-white/5 flex items-center justify-between group-hover:bg-slate-800/60 transition-colors">
+                                                <div>
+                                                    <div className="text-emerald-400 font-black text-2xl">45s</div>
+                                                    <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Avg Pacing</div>
+                                                </div>
+                                                <div className="h-10 w-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400"><Zap size={20} /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Card 3: Question Bank (Wide) */}
+                                <div className="lg:col-span-12 relative group rounded-[2.5rem] bg-slate-900/50 border border-white/5 overflow-hidden hover:border-indigo-500/20 transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-500/10">
+                                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                                    <div className="p-8 lg:p-10 flex flex-col lg:flex-row items-center gap-10 relative z-10">
+                                        <div className="lg:w-1/2 space-y-6">
+                                            <div className="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400 border border-indigo-500/20">
+                                                <BookOpen size={24} />
+                                            </div>
+                                            <h3 className="text-3xl font-black text-white">Modern Question Bank</h3>
+                                            <p className="text-slate-400 text-lg leading-relaxed mb-4">
+                                                Built on **Chair-Flight** open source data. Includes Smart Retest workflows, Error Attribution, and AI-driven explanations.
+                                            </p>
+                                            <div className="bg-gradient-to-r from-indigo-600/20 to-blue-600/20 border border-indigo-500/30 p-4 rounded-xl mb-4 animate-pulse">
+                                                <p className="text-indigo-200 text-xs font-black uppercase tracking-widest text-center">
+                                                    Try now the Chairflight Question Bank on our platform enhanced for free!
+                                                </p>
+                                            </div>
+                                            <div className="flex flex-wrap gap-3">
+                                                <span className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-bold uppercase">ECQB 2026</span>
+                                                <span className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-bold uppercase">15,000+ Questions</span>
+                                                <span className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-bold uppercase">AI Explanation Support</span>
+                                            </div>
+                                        </div>
+                                        <div className="lg:w-1/2 w-full relative">
+                                            <div className="w-full aspect-video bg-slate-950 rounded-2xl border border-white/10 overflow-hidden relative group-hover:scale-[1.01] transition-transform duration-500">
+                                                {/* Simulated UI elements (Bento style) */}
+                                                <div className="absolute inset-0 p-6 flex flex-col gap-4">
+                                                    <div className="w-full h-8 bg-white/5 rounded-lg flex items-center px-4 gap-2">
+                                                        <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
+                                                        <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                                                        <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
+                                                    </div>
+                                                    <div className="flex-1 grid grid-cols-2 gap-4">
+                                                        <div className="bg-white/5 rounded-lg animate-pulse"></div>
+                                                        <div className="bg-white/5 rounded-lg animate-pulse delay-75"></div>
+                                                        <div className="col-span-2 bg-indigo-500/10 rounded-lg border border-indigo-500/20 p-4">
+                                                            <div className="h-2 w-1/3 bg-indigo-500/50 rounded-full mb-2"></div>
+                                                            <div className="h-2 w-2/3 bg-indigo-500/30 rounded-full"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {/* Glow behind */}
+                                            <div className="absolute -inset-4 bg-indigo-500/20 blur-2xl -z-10 opacity-50 group-hover:opacity-80 transition-opacity"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Card 4: Just Launched & PPL/EgyptAir Teaser */}
+                                <div className="lg:col-span-12 relative group rounded-[2.5rem] bg-gradient-to-r from-slate-900 to-indigo-950/40 border border-cyan-500/20 overflow-hidden hover:border-cyan-400/40 transition-all duration-500 hover:shadow-[0_0_50px_rgba(6,182,212,0.15)]">
+                                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                                    <div className="p-8 lg:p-12 flex flex-col md:flex-row items-center gap-10 relative z-10">
+                                        <div className="flex-1 space-y-6">
+                                            <div className="flex flex-wrap items-center gap-3">
+                                                <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-[0.2em] bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 animate-pulse">
+                                                    Just Launched Today!
+                                                </span>
+                                                <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-[0.2em] bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                                                    Dual ATPL & PPL Support
+                                                </span>
+                                            </div>
+                                            
+                                            <h3 className="text-3xl lg:text-5xl font-black text-white leading-tight">
+                                                Expanding the Skies:<br/>
+                                                ATPL & <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">PPL Ground School</span>
+                                            </h3>
+                                            
+                                            <p className="text-slate-300 text-lg leading-relaxed">
+                                                We are thrilled to announce that ATPLVector is officially live! In addition to our flagship EASA ATPL visual curriculum, we have launched full comprehensive support for <strong className="text-cyan-400">PPL (Private Pilot) students</strong>. Master Air Law, Meteorology, Navigation, and Principles of Flight with our legendary simulator-driven ground school.
+                                            </p>
+                                            
+                                            <div className="p-6 rounded-2xl bg-cyan-950/30 border border-cyan-500/20 backdrop-blur-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                                                <div className="space-y-1">
+                                                    <div className="text-xs text-cyan-400 font-bold uppercase tracking-widest">Special EgyptAir Cadets Update</div>
+                                                    <h4 className="text-white font-bold text-lg">ABC 4th Edition Ground School Preparation</h4>
+                                                    <p className="text-slate-400 text-sm">Access exclusive simulators, regulations quizzes, fuel planners, and CRM scenario builders tuned to EgyptAir cadet requirements.</p>
+                                                </div>
+                                                <button 
+                                                    onClick={() => {
+                                                        const el = document.getElementById('hero');
+                                                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                                                    }} 
+                                                    className="shrink-0 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-black uppercase tracking-wider px-6 py-3 rounded-xl transition-all shadow-lg shadow-cyan-500/20 active:scale-95 text-xs border border-cyan-500/30"
+                                                >
+                                                    Start Training Now
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="md:w-1/3 w-full flex items-center justify-center relative">
+                                            <div className="w-56 h-56 rounded-full bg-slate-900/80 border border-cyan-500/30 flex items-center justify-center relative group-hover:scale-105 transition-transform duration-700 shadow-inner overflow-hidden p-8">
+                                                <div className="absolute -inset-4 bg-cyan-500/10 rounded-full blur-xl animate-pulse"></div>
+                                                <img 
+                                                    src="/assets/egyptair_logo.png" 
+                                                    alt="EgyptAir Logo" 
+                                                    className="w-full h-full object-contain filter brightness-0 invert drop-shadow-[0_0_12px_rgba(6,182,212,0.3)]" 
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* 3D CINEMATIC SHOWCASE */}
+                    <div id="experience" className="py-32 bg-slate-950 relative overflow-hidden flex flex-col items-center">
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-blue-600/10 rounded-full blur-[180px] pointer-events-none"></div>
+
+                        <div className="max-w-7xl mx-auto px-6 text-center mb-20 relative z-10">
+                            <span className="text-blue-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">The Vector Experience</span>
+                            <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white tracking-tighter mb-6">Designed for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 italic">Immersion.</span></h2>
+                            <p className="text-slate-400 max-w-2xl mx-auto text-lg">We've engineered a platform that moves as fast as you do. Experience the most powerful study environment ever built for aviation.</p>
+                        </div>
+
+                        {/* 3D Floating Product Stack */}
+                        <div className="relative w-full lg:max-w-4xl xl:max-w-5xl aspect-[16/10] perspective-2000 group cursor-default mb-20">
+                            <div className="relative w-full h-full transition-all duration-1000 transform-gpu preserve-3d group-hover:rotate-x-5 group-hover:rotate-y-n10">
+
+                                {/* Background Layer (Dashboard) */}
+                                <div
+                                    className="absolute top-1/2 left-1/2 w-[85%] h-[85%] bg-slate-900 rounded-3xl border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden opacity-40 blur-[2px] group-hover:blur-0 transition-all duration-700"
+                                    style={{ transform: 'translate(-50%, -50%) translateZ(0px)' }}
+                                >
+                                    <LazyImage
+                                        src={`${import.meta.env.BASE_URL}assets/walkthroughs/planner_demo.webp`}
+                                        className="w-full h-full object-cover opacity-50"
+                                        alt="Dashboard Layer"
+                                        fallback={<div className="w-full h-full bg-slate-800"></div>}
+                                    />
+                                </div>
+
+                                {/* Mid Layer (Question Bank) */}
+                                <div
+                                    className="absolute top-1/2 left-1/2 w-[80%] h-[80%] bg-slate-800 rounded-3xl border border-white/20 shadow-2xl overflow-hidden transition-transform duration-500"
+                                    style={{ transform: 'translate(-50%, -50%) translateZ(100px) rotateX(2deg) rotateY(-5deg)' }}
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/20 to-transparent"></div>
+                                    <LazyImage
+                                        src={`${import.meta.env.BASE_URL}assets/walkthroughs/confidence_demo.webp`}
+                                        className="w-full h-full object-cover opacity-80"
+                                        alt="QB Layer"
+                                        fallback={<div className="w-full h-full bg-indigo-900/20"></div>}
+                                    />
+                                    <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 flex items-center gap-2">
+                                        <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+                                        <span className="text-[10px] font-bold text-white uppercase tracking-wider">Live Analysis</span>
+                                    </div>
+                                </div>
+
+                                {/* Top Layer (Interactive Sim) */}
+                                <div
+                                    className="absolute top-1/2 left-1/2 w-[70%] h-[70%] bg-white rounded-2xl shadow-[0_100px_150px_-30px_rgba(59,130,246,0.3)] overflow-hidden transition-transform duration-700"
+                                    style={{ transform: 'translate(-50%, -50%) translateZ(250px)' }}
+                                >
+                                    <div className="absolute inset-0 bg-slate-900 group">
+                                        <LazyImage
+                                            src={`${import.meta.env.BASE_URL}assets/walkthroughs/planner_demo.webp`}
+                                            className="w-full h-full object-cover opacity-90 scale-110 group-hover:scale-125 transition-transform duration-[10s]"
+                                            alt="Simulation Layer"
+                                            fallback={<div className="w-full h-full bg-blue-900/40"></div>}
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                                        <div className="absolute inset-0 flex items-center justify-center">
+                                            <div className="w-20 h-20 bg-blue-600/20 backdrop-blur-xl rounded-full border border-blue-500/50 flex items-center justify-center text-white scale-90 group-hover:scale-110 transition-transform shadow-2xl shadow-blue-500/50">
+                                                <PlayCircle size={40} className="ml-1" />
+                                            </div>
+                                        </div>
+                                        <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+                                            <div>
+                                                <div className="text-[10px] text-blue-400 font-black uppercase tracking-[0.2em] mb-1">Module 01</div>
+                                                <div className="text-white font-black text-xl tracking-tight">VFR Comms Lab</div>
+                                            </div>
+                                            <div className="px-4 py-2 bg-white/10 backdrop-blur rounded-xl border border-white/10 text-xs font-bold text-white">
+                                                4K Simulation
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Floating Decor Elements */}
+                                <div className="absolute top-10 right-20 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl animate-pulse transform translate-z-500"></div>
+                                <div className="absolute bottom-10 left-20 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000 transform translate-z-400"></div>
+                            </div>
+                        </div>
+
+                        {/* Feature Tickers */}
+                        <div className="w-full py-10 bg-white/[0.02] border-y border-white/5 relative z-10">
+                            <div className="max-w-7xl mx-auto px-6 overflow-hidden">
+                                <div className="flex flex-wrap justify-center gap-x-12 gap-y-6 text-slate-500 font-black text-[10px] uppercase tracking-[0.4em]">
+                                    <span className="flex items-center gap-2 hover:text-white transition-colors cursor-default"><Dna size={14} className="text-blue-500" /> Neural Explanations</span>
+                                    <span className="flex items-center gap-2 hover:text-white transition-colors cursor-default"><Rocket size={14} className="text-indigo-500" /> Hyper-Fast UI</span>
+                                    <span className="flex items-center gap-2 hover:text-white transition-colors cursor-default"><Target size={14} className="text-emerald-500" /> Pattern AI</span>
+                                    <span className="flex items-center gap-2 hover:text-white transition-colors cursor-default"><Layout size={14} className="text-purple-500" /> 3D Viewports</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     {/* PRICING SECTION */}
-                    <section id="pricing" className="py-24 sm:py-32 relative overflow-hidden bg-[#030712]">
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                            <div className="text-center max-w-3xl mx-auto mb-16">
-                                <span className="text-xs font-mono uppercase tracking-widest text-cyan-400 font-bold">Transparent Membership</span>
-                                <h2 className="text-3xl sm:text-5xl font-black text-white mt-2">Invest in Your Airline Pilot Seat.</h2>
-                                <p className="text-slate-400 text-base sm:text-lg mt-3">
-                                    Zero hidden fees. Unlimited access to all 14 subjects, 3D simulators, and AI explanation engines.
+                    <div id="pricing" className="py-24 relative overflow-hidden bg-slate-950">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-slate-950 to-slate-950 pointer-events-none"></div>
+
+                        <div className="max-w-7xl mx-auto px-6 relative z-10">
+                            <div className="text-center mb-16">
+                                <span className="text-indigo-400 font-bold uppercase tracking-widest text-sm">Clear & Fair Pricing</span>
+                                <h2 className="text-3xl md:text-5xl font-black text-white mt-2">Invest in Your Aviation Career.</h2>
+                                <p className="text-slate-400 mt-4 max-w-2xl mx-auto">
+                                    Affordable plans designed for pilots. Get full access to all 14 subjects, 3D simulations, and AI feedback.
                                 </p>
                             </div>
 
                             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                                {/* 1 Month */}
-                                <div className="bg-slate-950/80 rounded-3xl border border-white/10 p-8 flex flex-col hover:border-cyan-500/30 transition-all duration-300">
-                                    <div className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest mb-1">Sprint Revision</div>
-                                    <h3 className="text-2xl font-bold text-white mb-2">1 Month</h3>
-                                    <p className="text-slate-400 text-xs mb-6">Designed for final exam polish.</p>
-                                    <div className="text-4xl font-mono font-black text-white mb-6">€25<span className="text-sm font-normal text-slate-500">/mo</span></div>
-                                    <ul className="space-y-3.5 mb-8 flex-1 text-xs text-slate-300">
-                                        <li className="flex items-center gap-2.5"><CheckCircle size={16} className="text-emerald-400 shrink-0" /> Full access to 14 subjects</li>
-                                        <li className="flex items-center gap-2.5"><CheckCircle size={16} className="text-emerald-400 shrink-0" /> 65+ 3D Cockpit Simulators</li>
-                                        <li className="flex items-center gap-2.5"><CheckCircle size={16} className="text-emerald-400 shrink-0" /> AI Explanations &amp; Telemetry</li>
-                                        <li className="flex items-center gap-2.5"><CheckCircle size={16} className="text-emerald-400 shrink-0" /> Web &amp; iPad access</li>
+                                {/* 1 Month Plan */}
+                                <div className="bg-slate-900/50 rounded-3xl border border-slate-700/50 p-8 flex flex-col hover:border-blue-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 group">
+                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">1 Month</h3>
+                                    <p className="text-slate-400 text-sm mb-6">Perfect for final revision</p>
+                                    <div className="text-4xl font-black text-white mb-6">€25<span className="text-lg text-slate-500 font-normal">/mo</span></div>
+                                    <ul className="space-y-4 mb-8 flex-1">
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> Full access to 14 subjects</li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> 65+ 3D Interactive Simulators</li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> AI-Powered Explanations</li>
                                     </ul>
-                                    <button 
-                                        type="button" 
-                                        onClick={() => openAuthWithMode('SIGNUP')} 
-                                        className="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider border border-white/10 transition-colors"
-                                    >
-                                        Choose 1 Month
-                                    </button>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full bg-slate-800 hover:bg-blue-600 hover:text-white text-white py-3 rounded-xl font-bold transition-all duration-300">Get Started</button>
                                 </div>
 
-                                {/* 6 Months - HIGHLIGHTED */}
-                                <div className="bg-gradient-to-b from-cyan-950/40 via-slate-900/80 to-slate-950 rounded-3xl border-2 border-cyan-400/50 p-8 flex flex-col relative shadow-2xl shadow-cyan-500/15 md:-translate-y-3">
-                                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-cyan-400 text-slate-950 font-black text-[10px] uppercase tracking-widest shadow-md">
-                                        MOST POPULAR CADET PLAN
-                                    </div>
-                                    <div className="text-xs font-mono font-bold text-cyan-300 uppercase tracking-widest mb-1 mt-2">Steady Flight Path</div>
-                                    <h3 className="text-2xl font-bold text-white mb-2">6 Months</h3>
-                                    <p className="text-slate-400 text-xs mb-6">Ideal duration for all ATPL module phases.</p>
+                                {/* 6 Months Plan */}
+                                <div className="bg-gradient-to-b from-indigo-900/40 to-slate-900/50 rounded-3xl border border-indigo-500/30 p-8 flex flex-col relative transform md:-translate-y-4 shadow-2xl shadow-indigo-900/20 hover:border-indigo-400/50 transition-all duration-500 group">
+                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg shadow-indigo-500/30">Most Popular</div>
+                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-indigo-300 transition-colors">6 Months</h3>
+                                    <p className="text-indigo-200 text-sm mb-6">Ideal for steady progression</p>
                                     <div className="flex items-baseline gap-2 mb-6">
-                                        <div className="text-4xl font-mono font-black text-white">€70</div>
-                                        <div className="text-sm font-mono text-slate-500 line-through">€150</div>
-                                        <span className="text-[11px] font-bold text-emerald-400 ml-auto">Save €80</span>
+                                        <div className="text-4xl font-black text-white">€70</div>
+                                        <div className="text-sm text-slate-400 line-through">€150</div>
                                     </div>
-                                    <ul className="space-y-3.5 mb-8 flex-1 text-xs text-slate-300">
-                                        <li className="flex items-center gap-2.5"><CheckCircle size={16} className="text-cyan-400 shrink-0" /> Full access to 14 subjects</li>
-                                        <li className="flex items-center gap-2.5"><CheckCircle size={16} className="text-cyan-400 shrink-0" /> 65+ 3D Cockpit Simulators</li>
-                                        <li className="flex items-center gap-2.5"><CheckCircle size={16} className="text-cyan-400 shrink-0" /> Unlimited AI Tutor Debriefs</li>
-                                        <li className="flex items-center gap-2.5"><CheckCircle size={16} className="text-cyan-400 shrink-0" /> EgyptAir &amp; FAA Special Portals</li>
-                                        <li className="flex items-center gap-2.5"><CheckCircle size={16} className="text-cyan-400 shrink-0" /> Priority Support</li>
+                                    <ul className="space-y-4 mb-8 flex-1">
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-indigo-400 shrink-0" /> <span className="font-bold text-white text-indigo-300">Save €80</span> compared to monthly</li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-indigo-400 shrink-0" /> Full access to 14 subjects</li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-indigo-400 shrink-0" /> 65+ 3D Interactive Simulators</li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-indigo-400 shrink-0" /> Priority Support</li>
                                     </ul>
-                                    <button 
-                                        type="button" 
-                                        onClick={() => openAuthWithMode('SIGNUP')} 
-                                        className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-300 hover:to-blue-500 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/30 active:scale-95"
-                                    >
-                                        Enroll For 6 Months
-                                    </button>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-xl font-bold transition-all duration-300 shadow-lg shadow-indigo-500/25">Choose 6 Months</button>
                                 </div>
 
-                                {/* 12 Months */}
-                                <div className="bg-slate-950/80 rounded-3xl border border-white/10 p-8 flex flex-col hover:border-purple-500/30 transition-all duration-300">
-                                    <div className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest mb-1">Full License Journey</div>
-                                    <h3 className="text-2xl font-bold text-white mb-2">12 Months</h3>
-                                    <p className="text-slate-400 text-xs mb-6">Complete peace of mind from Day 1 to graduation.</p>
+                                {/* 12 Months Plan */}
+                                <div className="bg-slate-900/50 rounded-3xl border border-slate-700/50 p-8 flex flex-col hover:border-purple-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/10 group">
+                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">12 Months</h3>
+                                    <p className="text-slate-400 text-sm mb-6">For the complete journey</p>
                                     <div className="flex items-baseline gap-2 mb-6">
-                                        <div className="text-4xl font-mono font-black text-white">€105</div>
-                                        <div className="text-sm font-mono text-slate-500 line-through">€300</div>
-                                        <span className="text-[11px] font-bold text-emerald-400 ml-auto">Save €195</span>
+                                        <div className="text-4xl font-black text-white">€105</div>
+                                        <div className="text-sm text-slate-400 line-through">€300</div>
                                     </div>
-                                    <ul className="space-y-3.5 mb-8 flex-1 text-xs text-slate-300">
-                                        <li className="flex items-center gap-2.5"><CheckCircle size={16} className="text-purple-400 shrink-0" /> Full access to 14 subjects</li>
-                                        <li className="flex items-center gap-2.5"><CheckCircle size={16} className="text-purple-400 shrink-0" /> 65+ 3D Cockpit Simulators</li>
-                                        <li className="flex items-center gap-2.5"><CheckCircle size={16} className="text-purple-400 shrink-0" /> All curriculum updates free</li>
-                                        <li className="flex items-center gap-2.5"><CheckCircle size={16} className="text-purple-400 shrink-0" /> Best value for integrated cadets</li>
+                                    <ul className="space-y-4 mb-8 flex-1">
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> <span className="font-bold text-white text-emerald-300">Save €195 (Best Value)</span></li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> Full access to 14 subjects</li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> 65+ 3D Interactive Simulators</li>
+                                        <li className="flex gap-3 text-sm text-slate-300"><CheckCircle size={18} className="text-emerald-500 shrink-0" /> Free minor updates</li>
                                     </ul>
-                                    <button 
-                                        type="button" 
-                                        onClick={() => openAuthWithMode('SIGNUP')} 
-                                        className="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider border border-white/10 transition-colors"
-                                    >
-                                        Choose 12 Months
-                                    </button>
+                                    <button onClick={() => { scrollToSection('hero'); setView('SIGNUP'); }} className="w-full bg-slate-800 hover:bg-purple-600 hover:text-white text-white py-3 rounded-xl font-bold transition-all duration-300">Choose 12 Months</button>
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </div>
 
-                    {/* PILOT TESTIMONIALS */}
-                    <section className="py-20 bg-slate-950/70 border-t border-white/5">
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    {/* LIVE STUDY GUIDE DEMO */}
+                    <div className="py-24 bg-slate-900 border-y border-white/5 relative overflow-hidden">
+                        {/* Background Gradients */}
+                        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-900 to-slate-900 pointer-events-none"></div>
+
+                        <div className="max-w-7xl mx-auto px-6 relative z-10">
                             <div className="text-center mb-12">
-                                <span className="text-xs font-mono uppercase tracking-widest text-cyan-400 font-bold">Cadet Reviews</span>
-                                <h2 className="text-2xl sm:text-4xl font-bold text-white mt-1">Trusted by Aviators Across the Globe</h2>
+                                <span className="text-blue-400 font-bold uppercase tracking-widest text-sm">Live Demo</span>
+                                <h2 className="text-3xl md:text-5xl font-black text-white mt-2">Try the Analyzer Real-Time.</h2>
+                                <p className="text-slate-400 mt-4 max-w-2xl mx-auto">
+                                    Interact with our actual Study Guide tool below. See which subjects have the highest "Return on Investment" for your study time. No login required.
+                                </p>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/10 space-y-3">
-                                    <div className="flex gap-1 text-amber-400">
-                                        {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
-                                    </div>
-                                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed italic">
-                                        "The 3D Radio Navigation lab helped me understand VOR radials and DME arcs in 10 minutes, when textbook diagrams took me weeks. Cleared 062 with 96%!"
-                                    </p>
-                                    <div className="text-xs font-bold text-white pt-2 border-t border-white/5">
-                                        Capt. Ahmed K. <span className="text-slate-500 font-normal">· EgyptAir Cadet</span>
-                                    </div>
-                                </div>
-
-                                <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/10 space-y-3">
-                                    <div className="flex gap-1 text-amber-400">
-                                        {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
-                                    </div>
-                                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed italic">
-                                        "The Chair-Flight ECQB questions with AI debriefing make mistake analysis instant. Passed all 14 EASA exams first try in 6 months."
-                                    </p>
-                                    <div className="text-xs font-bold text-white pt-2 border-t border-white/5">
-                                        Luca R. <span className="text-slate-500 font-normal">· European Flight Academy</span>
-                                    </div>
-                                </div>
-
-                                <div className="p-6 rounded-2xl bg-slate-900/60 border border-white/10 space-y-3">
-                                    <div className="flex gap-1 text-amber-400">
-                                        {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
-                                    </div>
-                                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed italic">
-                                        "The offline iPad app is a lifesaver. Being able to practice 100 questions while in cruising transit without relying on aircraft Wi-Fi is unmatched."
-                                    </p>
-                                    <div className="text-xs font-bold text-white pt-2 border-t border-white/5">
-                                        Sarah T. <span className="text-slate-500 font-normal">· First Officer B737</span>
-                                    </div>
-                                </div>
+                            <div className="border border-white/10 rounded-3xl overflow-hidden shadow-2xl bg-slate-950/50 backdrop-blur-sm transform hover:scale-[1.01] transition-transform duration-500">
+                                {/* Pass empty callbacks to prevent navigation attempts in demo mode */}
+                                <StudyGuide />
                             </div>
                         </div>
-                    </section>
+                    </div>
 
-                    {/* REFINED FOOTER */}
-                    <footer className="py-16 bg-slate-950 border-t border-white/10">
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-                                <div className="col-span-1 md:col-span-2 space-y-4">
-                                    <div className="flex items-center space-x-3 cursor-pointer" onClick={() => scrollToSection('hero')}>
-                                        <div className="p-1 w-8 h-8 bg-slate-900 rounded-lg border border-cyan-500/30 flex items-center justify-center overflow-hidden">
+                    {/* FOOTER */}
+                    <footer className="py-20 bg-slate-950 border-t border-white/5 relative overflow-hidden">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
+                        <div className="max-w-7xl mx-auto px-6 relative z-10">
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                                <div className="col-span-1 md:col-span-2 space-y-6">
+                                    <div className="flex items-center space-x-2 cursor-pointer group" onClick={() => scrollToSection('hero')}>
+                                        <div className="p-1 w-8 h-8 bg-slate-900/50 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-300 border border-white/10 flex items-center justify-center overflow-hidden">
                                             <img src="/logo.png" alt="Logo" className="w-full h-full object-contain scale-[3.5]" />
                                         </div>
-                                        <span className="text-lg font-black text-white tracking-tighter">
-                                            ATPL<span className="text-cyan-400">VECTOR</span>
-                                        </span>
+                                        <span className="text-xl font-black text-white tracking-tighter">ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span></span>
                                     </div>
-                                    <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
-                                        Aviation flight training system designed for modern student pilots, flight academies, and commercial airline cadet programs.
+                                    <p className="text-slate-400 text-sm max-w-sm leading-relaxed">
+                                        Advanced visual learning for the next generation of airline pilots. Built for excellence, designed for clarity.
                                     </p>
-                                    <div className="text-[11px] font-mono text-slate-500">
-                                        Question Bank powered by <span className="text-slate-300 font-bold">Chair-Flight</span> open source data. Explanations augmented by AI.
+                                    <div className="flex items-center gap-4 pt-2">
+                                        <div className="p-3 bg-white/5 rounded-xl border border-white/5 group hover:border-blue-500/50 transition-colors cursor-pointer">
+                                            <Globe className="w-5 h-5 text-slate-500 group-hover:text-blue-400" />
+                                        </div>
+                                        <div className="p-3 bg-white/5 rounded-xl border border-white/5 group hover:border-blue-500/50 transition-colors cursor-pointer">
+                                            <Shield className="w-5 h-5 text-slate-500 group-hover:text-blue-400" />
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div>
-                                    <h4 className="text-xs font-bold font-mono text-cyan-400 uppercase tracking-widest mb-3">Navigation</h4>
-                                    <ul className="space-y-2 text-xs text-slate-400">
-                                        <li><button onClick={() => scrollToSection('interactive-sim')} className="hover:text-white transition-colors">Cockpit Simulator</button></li>
-                                        <li><button onClick={() => scrollToSection('features')} className="hover:text-white transition-colors">Features &amp; Tech</button></li>
-                                        <li><button onClick={() => scrollToSection('curriculum')} className="hover:text-white transition-colors">14 ATPL Subjects</button></li>
-                                        <li><button onClick={() => scrollToSection('pricing')} className="hover:text-white transition-colors">Plans &amp; Pricing</button></li>
+                                <div className="space-y-4">
+                                    <h4 className="text-white font-bold text-sm uppercase tracking-widest">Platform</h4>
+                                    <ul className="space-y-2 text-sm text-slate-500">
+                                        <li><button onClick={() => scrollToSection('features')} className="hover:text-white transition-colors">Features</button></li>
+                                        <li><button onClick={() => scrollToSection('pricing')} className="hover:text-white transition-colors">Pricing</button></li>
+                                        <li><button onClick={() => setActiveInfoPage('CONTACT')} className="hover:text-white transition-colors">Contact Support</button></li>
                                     </ul>
                                 </div>
-
-                                <div>
-                                    <h4 className="text-xs font-bold font-mono text-cyan-400 uppercase tracking-widest mb-3">Support &amp; Legal</h4>
-                                    <ul className="space-y-2 text-xs text-slate-400">
-                                        <li><button onClick={() => setActiveInfoPage('CONTACT')} className="hover:text-white transition-colors">Contact Flight Support</button></li>
-                                        <li><button onClick={() => setActiveInfoPage('TERMS')} className="hover:text-white transition-colors">Terms of Service</button></li>
-                                        <li><button onClick={() => setActiveInfoPage('PRIVACY')} className="hover:text-white transition-colors">Privacy Policy</button></li>
-                                        <li><button onClick={() => setActiveInfoPage('REFUND')} className="hover:text-white transition-colors">Refund Policy</button></li>
+                                <div className="space-y-4">
+                                    <h4 className="text-white font-bold text-sm uppercase tracking-widest">Legal</h4>
+                                    <ul className="space-y-2 text-sm text-slate-500">
+                                        <li><button onClick={() => setActiveInfoPage('TERMS')} className="hover:text-white transition-colors text-left w-full animate-in slide-in-from-bottom-2 duration-300">Terms of Service</button></li>
+                                        <li><button onClick={() => setActiveInfoPage('PRIVACY')} className="hover:text-white transition-colors text-left w-full animate-in slide-in-from-bottom-2 duration-300">Privacy Policy</button></li>
+                                        <li><button onClick={() => setActiveInfoPage('REFUND')} className="hover:text-white transition-colors text-left w-full animate-in slide-in-from-bottom-2 duration-300">Refund Policy</button></li>
                                     </ul>
                                 </div>
                             </div>
 
-                            <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-                                <div>
-                                    &copy; {new Date().getFullYear()} ATPL Vector. All rights reserved.
+                            <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                                <div className="text-xs text-slate-600">
+                                    © {new Date().getFullYear()} ATPL Vector. All rights reserved. Built by Michael Mitry.
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                                    <span>All Systems Operational · FL390</span>
+
+                                <div className="flex flex-col items-center md:items-end gap-2">
+                                    <div className="flex items-center gap-2 text-xs text-slate-500 bg-white/5 px-4 py-2 rounded-full border border-white/5">
+                                        <Shield size={12} className="text-blue-400" />
+                                        Question Bank powered by <span className="text-white font-bold">Chair-Flight</span> Open Source
+                                    </div>
+                                    <div className="text-[10px] text-slate-600">
+                                        Explanations augmented by AI.
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </footer>
                 </>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 };
 
