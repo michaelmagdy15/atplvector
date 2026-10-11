@@ -307,3 +307,5 @@ export class LearningSystemStorage {
     }
   }
 }
+
+export const learningStorage = new LearningSystemStorage('default_user');

@@ -31,6 +31,8 @@ import {
   getISAState,
   ISA_CONSTANTS
 } from '../../lib/atmospherePhysics';
+import { View } from '../../types';
+import FoundationReadinessPill from '../foundations/FoundationReadinessPill';
 
 interface PresetScenario {
   id: string;
@@ -96,7 +98,11 @@ const PRESET_SCENARIOS: PresetScenario[] = [
   }
 ];
 
-export const Density: React.FC = () => {
+interface DensityProps {
+  onChangeView?: (view: View) => void;
+}
+
+export const Density: React.FC<DensityProps> = ({ onChangeView }) => {
   // Input parameters
   const [elevation, setElevation] = useState<number>(5000); // ft
   const [qnh, setQnh] = useState<number>(1013); // hPa
@@ -294,10 +300,16 @@ export const Density: React.FC = () => {
           </div>
         </div>
 
-        {/* View mode navigation */}
-        <div className="flex bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800">
-          <button
-            onClick={() => setActiveTab('interactive')}
+        {/* View mode navigation & Prerequisite Pill */}
+        <div className="flex flex-wrap items-center gap-3">
+          <FoundationReadinessPill 
+            conceptId="FND_ALTIMETER_TEMP_ERR"
+            targetLO="050.01.06"
+            onNavigateToFullChain={onChangeView}
+          />
+          <div className="flex bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800">
+            <button
+              onClick={() => setActiveTab('interactive')}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === 'interactive'
                 ? 'bg-orange-600 text-white shadow-lg shadow-orange-950/50'
@@ -327,6 +339,7 @@ export const Density: React.FC = () => {
             <HelpCircle size={14} /> Misconceptions
           </button>
         </div>
+      </div>
       </header>
 
       {/* --- TAB 1: INTERACTIVE LAB --- */}

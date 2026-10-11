@@ -26,6 +26,7 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
     [View.CONCEPT_TURN_PERF]: React.lazy(() => import('../components/concepts/TurnPerformance')),
     [View.FOUNDATIONS_HUB]: React.lazy(() => import('../components/foundations/FoundationsHub')),
     [View.FOUNDATION_ATM_PERF_CHAIN]: React.lazy(() => import('../components/foundations/AtmosphericPerformanceChain')),
+    [View.FOUNDATION_NAV_TRIANGLE_CHAIN]: React.lazy(() => import('../components/foundations/NavigationTriangleChain')),
 
     // Air Law (010)
     [View.AIR_LAW_HOME]: React.lazy(() => import('../components/AirLawDashboard')),

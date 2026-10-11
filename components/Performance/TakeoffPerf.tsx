@@ -12,8 +12,14 @@ import {
   AtmosphericConditions,
   AircraftPreset
 } from '../../lib/aviation/aircraftPerformance';
+import { View } from '../../types';
+import FoundationReadinessPill from '../foundations/FoundationReadinessPill';
 
-export const TakeoffPerf: React.FC = () => {
+interface TakeoffPerfProps {
+  onChangeView?: (view: View) => void;
+}
+
+export const TakeoffPerf: React.FC<TakeoffPerfProps> = ({ onChangeView }) => {
   // Aircraft Selection
   const [selectedAircraftId, setSelectedAircraftId] = useState<string>('baron_g58');
   const aircraft: AircraftPreset = AIRCRAFT_PRESETS[selectedAircraftId] || AIRCRAFT_PRESETS.BARON_G58;
@@ -147,8 +153,14 @@ export const TakeoffPerf: React.FC = () => {
           </div>
         </div>
 
-        {/* Quick Scenario Buttons */}
+        {/* Quick Scenario Buttons & Prerequisite Pill */}
         <div className="flex flex-wrap items-center gap-2">
+          <FoundationReadinessPill 
+            conceptId="FND_AIR_DENSITY_EFFECT"
+            targetLO="032.01"
+            onNavigateToFullChain={onChangeView}
+          />
+          <div className="h-6 w-px bg-slate-300 dark:bg-slate-700 hidden sm:block mx-1" />
           <button
             onClick={() => applyScenario('SEALEVEL_ISA')}
             className="px-3 py-1.5 text-xs font-bold rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-emerald-500 dark:hover:border-emerald-400 transition-colors"

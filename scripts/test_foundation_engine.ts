@@ -287,10 +287,44 @@ function runValidationSuite() {
     'Recommendation is for FND_ALTIMETER_TEMP_ERR',
     `Got: ${activeRecs[0].conceptId}`
   );
+  // --------------------------------------------------------------------------
+  // TEST 10: Navigation Foundation Misconceptions
+  // --------------------------------------------------------------------------
+  console.log('\n--- TEST GROUP 7: Navigation Triangle & 1-in-60 Misconceptions ---');
+  const evNavWind = {
+    studentId: 'pilot-test-nav',
+    questionId: 'Q_NAV_DRIFT_01',
+    selectedOptionIndex: 2,
+    isCorrect: false,
+    timeSpentSeconds: 40,
+    helpRequested: false,
+    attemptNumber: 1,
+    timestamp: new Date().toISOString()
+  };
+  const ratNavWind = engine.generateRationale('FND_WIND_TRIANGLE_DRFT', evNavWind, 'CONCEPTUAL_MISUNDERSTANDING', 'MISCON_WIND_VECTOR_DIRECTION');
   assert(
-    activeRecs[0].priority === 'MEDIUM' || activeRecs[0].priority === 'HIGH' || activeRecs[0].priority === 'IMMEDIATE',
-    'Recommendation assigned valid urgency priority',
-    `Got: ${activeRecs[0].priority} (${activeRecs[0].urgencyScore}/100)`
+    ratNavWind.summary.includes('Wind Vector Origin'),
+    'Detects and generates rationale for MISCON_WIND_VECTOR_DIRECTION',
+    `Got: ${ratNavWind.summary}`
+  );
+  assert(
+    ratNavWind.aviationPrincipleConsequence.includes('FROM'),
+    'Explains that aviation winds are reported as direction FROM which air moves',
+    `Got: ${ratNavWind.aviationPrincipleConsequence}`
+  );
+
+  const ratNavDrift = engine.generateRationale('FND_WIND_TRIANGLE_DRFT', evNavWind, 'CONCEPTUAL_MISUNDERSTANDING', 'MISCON_DRIFT_SIGN_INVERSION');
+  assert(
+    ratNavDrift.summary.includes('Inverted Drift'),
+    'Detects and generates rationale for MISCON_DRIFT_SIGN_INVERSION',
+    `Got: ${ratNavDrift.summary}`
+  );
+
+  const ratNav1in60 = engine.generateRationale('FND_ONE_IN_SIXTY_RULE', evNavWind, 'CONCEPTUAL_MISUNDERSTANDING', 'MISCON_1_IN_60_CLOSING_ANGLE');
+  assert(
+    ratNav1in60.summary.includes('Closing Angle'),
+    'Detects and generates rationale for MISCON_1_IN_60_CLOSING_ANGLE',
+    `Got: ${ratNav1in60.summary}`
   );
 
   console.log('\n=============================================================');

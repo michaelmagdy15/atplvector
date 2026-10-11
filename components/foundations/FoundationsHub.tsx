@@ -26,6 +26,18 @@ export const FoundationsHub: React.FC<Props> = ({ onChangeView, onBack }) => {
       accentGlow: 'from-cyan-500/20 to-blue-500/20'
     },
     {
+      id: 'cluster-nav-triangle',
+      title: 'Wind Triangle, Drift & 1-in-60 Dead Reckoning',
+      subtitle: 'Vector Addition to En-Route In-Flight Interception',
+      subjects: ['061 Gen Nav', '022 Instruments', '062 Radio Nav'],
+      description: 'The essential navigation vector chain from heading/TAS vector mechanics and wind drift angle calculation, to mental dead reckoning (MDR) and 1-in-60 off-track course correction to destination.',
+      view: View.FOUNDATION_NAV_TRIANGLE_CHAIN,
+      status: 'PRODUCTION_READY',
+      badgeColor: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
+      icon: Compass,
+      accentGlow: 'from-emerald-500/20 to-teal-500/20'
+    },
+    {
       id: 'cluster-aero-lift',
       title: 'Aerodynamic Forces & Critical Angle of Attack',
       subtitle: 'Bernoulli, Boundary Layer & Stall Dynamics',

@@ -21,6 +21,8 @@ export type FoundationConceptId =
   | 'FND_ALTIMETER_SUBSCALE_RULE'  // High-to-low pressure altimeter over-reading rule
   | 'FND_CG_MOMENT_ARM'            // Center of gravity, datum, arm, and moment principles
   | 'FND_LIFT_WEIGHT_LOAD_FACTOR'  // Aerodynamic load factor (n=1/cos phi) & accelerated stall
+  | 'FND_WIND_TRIANGLE_DRFT'       // Track, Heading, Drift, and Vector Wind addition
+  | 'FND_ONE_IN_SIXTY_RULE'        // 1-in-60 rule, track error angle, closing angle & off-track corrections
   | 'FND_CALCULATION_PRECISION';   // Mental math rounding, unit conversions & arithmetic hygiene
 
 export interface FoundationConceptDefinition {
@@ -134,6 +136,28 @@ export const FOUNDATION_CONCEPT_CATALOG: Record<FoundationConceptId, FoundationC
     recommendedView: View.KSA_MENTAL_MATHS,
     visualLabId: 'MentalMathsLab',
     defaultStabilityDays: 14
+  },
+  FND_WIND_TRIANGLE_DRFT: {
+    id: 'FND_WIND_TRIANGLE_DRFT',
+    name: 'Wind Triangle Vector Addition & Drift Mechanics',
+    domain: 'General Navigation',
+    description: 'Vector addition of heading/TAS and wind velocity to produce ground track and groundspeed. Calculation of drift angle and wind correction angle.',
+    prerequisites: ['FND_AIR_DENSITY_EFFECT'],
+    targetLearningObjectives: ['061.01.03', '061.02.01', '022.02.01'],
+    recommendedView: View.FOUNDATION_NAV_TRIANGLE_CHAIN,
+    visualLabId: 'NavigationTriangleVisualizer',
+    defaultStabilityDays: 10
+  },
+  FND_ONE_IN_SIXTY_RULE: {
+    id: 'FND_ONE_IN_SIXTY_RULE',
+    name: '1-in-60 Rule & Mental Dead Reckoning Off-Track Corrections',
+    domain: 'General Navigation',
+    description: 'Mental calculation of Track Error Angle (TKE = XTE * 60 / DistFlown) and Closing Angle (CA = XTE * 60 / DistToGo). Regaining track vs direct to destination.',
+    prerequisites: ['FND_WIND_TRIANGLE_DRFT', 'FND_CALCULATION_PRECISION'],
+    targetLearningObjectives: ['061.02.01', '061.01.08'],
+    recommendedView: View.FOUNDATION_NAV_TRIANGLE_CHAIN,
+    visualLabId: 'OneInSixtyLab',
+    defaultStabilityDays: 10
   }
 };
 
@@ -150,6 +174,10 @@ export type MisconceptionCode =
   | 'MISCON_TRAN_ALT_VS_LEVEL'          // Confusing Transition Altitude with Transition Level
   | 'MISCON_CG_DATUM_INVERSION'         // Reversing moment arm sign relative to reference datum
   | 'MISCON_LOAD_FACTOR_LINEARITY'      // Believing stall speed increases linearly with bank angle
+  | 'MISCON_WIND_VECTOR_DIRECTION'      // Reversing wind direction (blowing towards vs from)
+  | 'MISCON_DRIFT_SIGN_INVERSION'       // Adding drift instead of subtracting to get heading (or vice-versa)
+  | 'MISCON_1_IN_60_CLOSING_ANGLE'      // Neglecting closing angle to destination, flying parallel
+  | 'MISCON_TAS_VS_GS_HEADWIND'         // Confusing Groundspeed with TAS under wind influence
   | 'MISCON_ARITHMETIC_PRECISION';      // Minor calculation slip with correct underlying model
 
 export type ErrorClassification =
@@ -730,6 +758,42 @@ export class FoundationRecommendationEngine {
           aviationPrincipleConsequence: 'Dynamic pressure is 1/2 * rho * V^2. Because air density (rho) drops rapidly with altitude, the aircraft must travel much faster through the airmass (higher TAS) to create the same indicated dynamic pressure.',
           pedagogicalObjective: `Review the airspeed conversion chain: IAS -> CAS -> EAS -> TAS.`,
           whyNow: `Critical for General Navigation time/speed/distance problems and High Speed Aerodynamics.`
+        };
+
+      case 'MISCON_WIND_VECTOR_DIRECTION':
+        return {
+          triggerQuestionId: evidence.questionId,
+          errorClassification: classification,
+          misconceptionCode,
+          summary: 'Wind Vector Origin vs Destination Inversion',
+          studentActionObservation: `You plotted wind blowing TOWARDS the given bearing rather than FROM it (e.g. treating wind 270° as blowing easterly towards 090°).`,
+          aviationPrincipleConsequence: 'Aviation winds are ALWAYS reported as the direction FROM which the air is moving. Inverting wind direction turns a headwind into a tailwind and flips drift from left to right, creating catastrophic fuel exhaustion and navigational track divergence.',
+          pedagogicalObjective: `Master the vector addition convention: Heading + Wind = Track.`,
+          whyNow: `Foundational to all General Navigation (061) and Flight Planning (033) exam questions.`
+        };
+
+      case 'MISCON_DRIFT_SIGN_INVERSION':
+        return {
+          triggerQuestionId: evidence.questionId,
+          errorClassification: classification,
+          misconceptionCode,
+          summary: 'Inverted Drift Angle Application (Heading vs Track)',
+          studentActionObservation: `With port (left) drift, you subtracted the drift angle from track to find heading, or added drift when heading should compensate into wind.`,
+          aviationPrincipleConsequence: 'Remember: "Wind pushes you drift-ward; you must turn into the wind to compensate". With Wind from Left, Drift is Starboard (Right, +). Heading must be into wind (Left, -): Heading = Track - Drift.',
+          pedagogicalObjective: `Practice rapid mental sign verification: if wind is from the left, heading must be LESS than track.`,
+          whyNow: `One of the most frequent point-loss sources in EASA 061 General Navigation examinations.`
+        };
+
+      case 'MISCON_1_IN_60_CLOSING_ANGLE':
+        return {
+          triggerQuestionId: evidence.questionId,
+          errorClassification: classification,
+          misconceptionCode,
+          summary: 'Omission of Closing Angle in 1-in-60 Off-Track Correction',
+          studentActionObservation: `You computed Track Error Angle (TKE) but omitted Closing Angle (CA), yielding a heading that only parallels the original track instead of intercepting the destination.`,
+          aviationPrincipleConsequence: 'Applying only TKE halts further drift away from track but leaves the aircraft permanently off track. To fly DIRECT to the next waypoint, Heading Change = TKE + CA.',
+          pedagogicalObjective: `Consistently structure 1-in-60 problems into two stages: (1) Parallel track (TKE) + (2) Intercept waypoint (CA).`,
+          whyNow: `Core LO 061.02.01 testing mental dead reckoning during VFR navigation.`
         };
 
       case 'MISCON_ARITHMETIC_PRECISION':
