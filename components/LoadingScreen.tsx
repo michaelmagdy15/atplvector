@@ -40,9 +40,9 @@ const LoadingScreen: React.FC = () => {
                         }}
                     >
                         <img
-                            src="/logo.png"
-                            alt="Logo"
-                            className="w-full h-full object-contain filter drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] scale-[3.5]"
+                            src="/brand-mark.png"
+                            alt="ATPLVector"
+                            className="w-full h-full object-contain object-center filter drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]"
                         />
                     </div>
                 </div>

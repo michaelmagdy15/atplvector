@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Scale, AlertTriangle, CheckCircle2, User, Luggage, Fuel } from 'lucide-react';
+import { Scale, AlertTriangle, CheckCircle2, User, Luggage, Fuel, PlaneTakeoff, ArrowRight, Gauge, Activity } from 'lucide-react';
+import { View } from '../../types';
+
+interface Props {
+  onChangeView?: (view: View) => void;
+  onNavigate?: (view: View) => void;
+}
 
 const AIRCRAFT = {
   emptyWeight: 1600, // lbs
@@ -30,7 +36,9 @@ const X_MAX = 50;
 const Y_MIN = 1400;
 const Y_MAX = 2700;
 
-const WeightAndBalanceCalc: React.FC = () => {
+export const WeightAndBalanceCalc: React.FC<Props> = ({ onChangeView, onNavigate }) => {
+  const navigate = onChangeView || onNavigate;
+
   const [frontPax, setFrontPax] = useState<number>(340); // 2 standard adults (170 lbs each)
   const [rearPax, setRearPax] = useState<number>(0);
   const [baggage, setBaggage] = useState<number>(50);
@@ -58,6 +66,16 @@ const WeightAndBalanceCalc: React.FC = () => {
 
   const isSafe = isWithinEnvelope();
 
+  // Aerodynamic & Performance coupling derived from calculated Weight and CG
+  const weightRatio = totalWeight / AIRCRAFT.maxTakeoffWeight;
+  const estGroundRollFt = Math.round(960 * Math.pow(weightRatio, 2));
+  const estScreenDistFt = Math.round(1630 * Math.pow(weightRatio, 2));
+  const estFactoredTodrFt = Math.round(estScreenDistFt * 1.25);
+  const vsCleanKts = Math.round(48 * Math.sqrt(weightRatio));
+
+  const isFwdCg = currentCG < 38.0;
+  const isAftCg = currentCG > 44.0;
+
   // SVG Mapping Helpers
   const mapX = (x: number) => ((x - X_MIN) / (X_MAX - X_MIN)) * 100;
   const mapY = (y: number) => 100 - ((y - Y_MIN) / (Y_MAX - Y_MIN)) * 100;
@@ -67,7 +85,7 @@ const WeightAndBalanceCalc: React.FC = () => {
   ).join(' ') + ' Z';
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-in fade-in duration-500">
       <div className="flex flex-col xl:flex-row gap-8">
         
         {/* Left: Load Stations */}
@@ -201,12 +219,64 @@ const WeightAndBalanceCalc: React.FC = () => {
 
           </div>
 
-          <div className="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl">
-            <h4 className="font-bold text-white mb-2">FAA Ground Lesson - Performance</h4>
-            <p className="text-sm text-slate-300">
-              Understanding weight and balance is critical for safety. Operating outside the CG envelope compromises aircraft stability, increases stall speed, and can make recovery from a stall or spin impossible.
-            </p>
+          {/* Direct Performance & Aerodynamic Coupling Preview */}
+          <div className="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
+            <div className="flex items-center justify-between">
+              <h4 className="font-bold text-white flex items-center gap-2">
+                <PlaneTakeoff className="text-amber-400" size={18} />
+                Calculated Takeoff & Aerodynamic Impact
+              </h4>
+              <span className="text-xs font-mono text-slate-400">ISA Sea Level Baseline</span>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+              <div className="bg-slate-800/60 p-3 rounded-xl">
+                <span className="text-slate-400 block mb-1">Takeoff Ground Roll</span>
+                <span className="text-lg font-bold font-mono text-white">{estGroundRollFt} ft</span>
+              </div>
+              <div className="bg-slate-800/60 p-3 rounded-xl">
+                <span className="text-slate-400 block mb-1">Distance to 50ft</span>
+                <span className="text-lg font-bold font-mono text-white">{estScreenDistFt} ft</span>
+              </div>
+              <div className="bg-slate-800/60 p-3 rounded-xl">
+                <span className="text-slate-400 block mb-1">Factored TODR (1.25×)</span>
+                <span className="text-lg font-bold font-mono text-purple-400">{estFactoredTodrFt} ft</span>
+              </div>
+              <div className="bg-slate-800/60 p-3 rounded-xl">
+                <span className="text-slate-400 block mb-1">Stall Speed (Clean)</span>
+                <span className="text-lg font-bold font-mono text-emerald-400">{vsCleanKts} kts IAS</span>
+              </div>
+            </div>
+
+            {/* Aerodynamic CG Behavior Insight */}
+            <div className="p-3 rounded-xl bg-slate-800/40 border border-white/5 text-xs text-slate-400 leading-relaxed">
+              {isFwdCg && (
+                <span>
+                  <strong className="text-amber-400">Forward CG Effect:</strong> Increases nose-heaviness and elevator backpressure required during takeoff rotation. Higher wing loading results in higher stall speed (+{Math.round((vsCleanKts/44 - 1)*100)}%) and longer takeoff roll.
+                </span>
+              )}
+              {isAftCg && (
+                <span>
+                  <strong className="text-rose-400">Aft CG Effect:</strong> Lightens control stick forces, shortens ground roll, but severely degrades longitudinal static stability. Spin and stall recovery margins are dangerously reduced.
+                </span>
+              )}
+              {!isFwdCg && !isAftCg && (
+                <span>
+                  <strong className="text-emerald-400">Balanced CG Position:</strong> Optimum balance between control harmony, longitudinal static stability, and minimum trim drag for takeoff and climb.
+                </span>
+              )}
+            </div>
+
+            {navigate && (
+              <button
+                onClick={() => navigate(View.PERF_TAKEOFF)}
+                className="w-full py-2.5 bg-lime-500 hover:bg-lime-400 text-slate-950 font-bold text-xs rounded-xl transition-all shadow flex items-center justify-center gap-2"
+              >
+                Simulate Takeoff at High Density Altitude (Samedan / Denver) <ArrowRight size={14} />
+              </button>
+            )}
           </div>
+
         </div>
 
       </div>

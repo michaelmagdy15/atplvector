@@ -367,12 +367,14 @@ export enum View {
   NUM_TIME_TRANSMIT = 'NUM_TIME_TRANSMIT',
   COMMS_DEFINITIONS = 'COMMS_DEFINITIONS',
 
-  // Visual Concept Lab
+  // Visual Concept Lab & Foundations System
   CONCEPT_LAB = 'CONCEPT_LAB',
   CONCEPT_FORCES_OF_FLIGHT = 'CONCEPT_FORCES_OF_FLIGHT',
   CONCEPT_HOLD_ENTRY = 'CONCEPT_HOLD_ENTRY',
   CONCEPT_GREAT_CIRCLE = 'CONCEPT_GREAT_CIRCLE',
   CONCEPT_TURN_PERF = 'CONCEPT_TURN_PERF',
+  FOUNDATIONS_HUB = 'FOUNDATIONS_HUB',
+  FOUNDATION_ATM_PERF_CHAIN = 'FOUNDATION_ATM_PERF_CHAIN',
   // AGK Instrumentation (022)
   INST_HOME = 'INST_HOME',
   INST_PITOT_STATIC = 'INST_PITOT_STATIC',
@@ -706,3 +708,7 @@ export interface QBStats {
   attributionCounts: Record<ErrorAttribution, number>;
   averagePacing: number; // Average seconds per question
 }
+
+// ─── Foundation Learning System Models ───────────────────────────────────────
+export * from './lib/learningSystem/types';
+

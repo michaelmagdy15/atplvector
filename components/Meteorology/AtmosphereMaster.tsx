@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Cloud, Sun, ArrowUp, Thermometer, Layers, Info } from 'lucide-react';
+import { getISAState, ISA_CONSTANTS } from '../../lib/atmospherePhysics';
 
 interface Props {
     initialView?: 'layers' | 'isa' | 'heat';
@@ -10,31 +11,12 @@ const AtmosphereMaster: React.FC<Props> = ({ initialView = 'layers' }) => {
     const [altitude, setAltitude] = useState(0); // Feet
     const [view, setView] = useState<'layers' | 'isa' | 'heat'>(initialView);
 
-    // ISA CALCS
-    // T = 15 - 1.98 * alt/1000 (up to 36090)
-    // P = 1013.25 * (1 - 0.0000225577 * alt)^5.25588
-    // Rho = 1.225 * (1 - 0.0000225577 * alt)^4.25588
+    // Standard atmospheric physics
+    const isa = getISAState(altitude);
+    const temp = isa.temperatureC;
+    const pressure = isa.pressureHpa;
+    const density = isa.densityKgM3;
 
-    // Simplifed for display:
-    const getISAValues = (alt: number) => {
-        let temp = 15;
-        if (alt <= 36090) {
-            temp = 15 - 1.98 * (alt / 1000);
-        } else {
-            temp = -56.5; // Stratosphere isothermal base
-        }
-
-        // Relative Pressure (approx)
-        const pressure = 1013.25 * Math.pow((1 - 2.25577e-5 * Math.min(alt, 36090)), 5.25588);
-
-        // Relative Density (approx) based on Pressure/Temp relation
-        // rho = p / R T (in Kelvin)
-        const density = pressure / (2.87 * (temp + 273.15)); // kg/m3 approx
-
-        return { temp, pressure, density };
-    };
-
-    const { temp, pressure, density } = getISAValues(altitude);
 
     const layers = [
         { name: 'Thermosphere', height: '85km+', temp: 'Rising Rapidly', desc: 'Auroras occur here. Temp rises due to UV absorption.', color: 'bg-purple-900/40' },
@@ -190,10 +172,10 @@ const AtmosphereMaster: React.FC<Props> = ({ initialView = 'layers' }) => {
                             <div className="absolute left-0 -bottom-6 text-[10px] text-slate-500">-60°C</div>
                             <div className="absolute right-0 -bottom-6 text-[10px] text-slate-500">+20°C</div>
 
-                            {/* Temp Line SVG (Approximation) */}
+                            {/* Temp Line SVG (Exact ISA Profile) */}
                             <svg className="absolute inset-0 w-full h-full overflow-visible">
                                 <path
-                                    d="M 90% 100% L 30% 40% L 30% 0%"
+                                    d="M 93.75% 100% L 4.375% 39.85% L 4.375% 0%"
                                     fill="none"
                                     stroke="#ef4444"
                                     strokeWidth="3"
@@ -201,18 +183,18 @@ const AtmosphereMaster: React.FC<Props> = ({ initialView = 'layers' }) => {
                                 />
                                 {/* Current Altitude Marker */}
                                 <circle
-                                    cx={altitude <= 36090 ? 90 - ((altitude / 36090) * 60) + '%' : '30%'} // Very rough vis logic
-                                    cy={100 - (altitude / 60000) * 100 + '%'}
+                                    cx={`${((temp - (-60)) / 80) * 100}%`}
+                                    cy={`${100 - (altitude / 60000) * 100}%`}
                                     r="6"
                                     fill="white"
                                 />
                                 <line
-                                    x1="0" y1={100 - (altitude / 60000) * 100 + '%'}
-                                    x2="100%" y2={100 - (altitude / 60000) * 100 + '%'}
+                                    x1="0" y1={`${100 - (altitude / 60000) * 100}%`}
+                                    x2="100%" y2={`${100 - (altitude / 60000) * 100}%`}
                                     stroke="white" strokeDasharray="4 4" opacity="0.2"
                                 />
                             </svg>
-                            <div className="absolute top-4 right-4 text-xs font-bold text-red-400">Temperature Profile</div>
+                            <div className="absolute top-4 right-4 text-xs font-bold text-red-400">ISA Temperature Profile</div>
                         </div>
                     </div>
                 </div>

@@ -36,7 +36,7 @@ import FocusTimer from './components/study/FocusTimer';
 import Scratchpad from './components/study/Scratchpad';
 import {
     Plane as PlaneIcon, Menu, X, BookOpen, Settings, Weight,
-    Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog, Wind, Search, Activity, Calendar, Clock, Radio, ChevronLeft, Shield, Gauge
+    Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog, Wind, Search, Activity, Calendar, Clock, Radio, ChevronLeft, Shield, Gauge, Layers
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -146,14 +146,7 @@ const App: React.FC = () => {
     const canGoForward = historyIndex < viewHistory.length - 1;
 
     const isSubjectNavView = (view: View) => {
-        return view !== View.PLATFORM_DASHBOARD &&
-            view !== View.PROFILE &&
-            view !== View.ACCOUNT_SETTINGS &&
-            view !== View.SYLLABUS_VIEWER &&
-            view !== View.SUBSCRIPTION_MANAGEMENT &&
-            view !== View.ADMIN_DASHBOARD &&
-            view !== View.EXAM_PLANNER &&
-            view !== View.PROGRESS_DASHBOARD;
+        return getSubjectConfig(view) !== null;
     };
 
     // Native iOS Edge-Swipe Gesture (Swipe from left edge to open Subject Sidebar or navigate back)
@@ -824,11 +817,15 @@ const App: React.FC = () => {
                                         navigateTo(View.PLATFORM_DASHBOARD);
                                     }}
                                 >
-                                    <div className="p-1 w-7 h-7 sm:w-10 sm:h-10 bg-slate-900/60 rounded-xl shadow-lg group-hover:shadow-blue-500/20 transition-all duration-300 group-hover:scale-105 border border-white/10 flex items-center justify-center overflow-hidden">
-                                        <img src="/logo.png" alt="Logo" className="w-full h-full object-contain scale-[3.5] object-center" />
+                                    <div className="p-1 w-7 h-7 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-white/[0.12] via-blue-500/[0.08] to-violet-500/[0.10] backdrop-blur-xl border border-cyan-200/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_8px_24px_rgba(37,99,235,0.18)] group-hover:border-cyan-200/35 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.24),0_10px_30px_rgba(34,211,238,0.22)] transition-all duration-300 group-hover:scale-105 flex items-center justify-center overflow-hidden">
+                                        <img
+                                            src="/brand-mark.png"
+                                            alt="ATPLVector"
+                                            className="w-full h-full object-contain object-center"
+                                        />
                                     </div>
                                     <span className="text-sm sm:text-xl font-black tracking-tight text-white whitespace-nowrap">
-                                        ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span>
+                                        ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-400">VECTOR</span>
                                     </span>
                                 </div>
 
@@ -998,6 +995,7 @@ const App: React.FC = () => {
                                     <h3 className="px-4 text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-3">Study Suite</h3>
                                     <div className="space-y-1 grid grid-cols-1">
                                         <MenuNavItem icon={Search} label="Question Bank" view={View.QUESTION_BANK} color="text-purple-400" bgColor="bg-purple-500/10" />
+                                        <MenuNavItem icon={Layers} label="Foundations Hub" view={View.FOUNDATIONS_HUB} color="text-amber-400" bgColor="bg-amber-500/10" />
                                         <MenuNavItem icon={Map} label="Study Guide" view={View.STUDY_GUIDE} color="text-blue-400" bgColor="bg-blue-500/10" />
                                         <MenuNavItem icon={Activity} label="Concept Lab" view={View.CONCEPT_LAB} color="text-cyan-400" bgColor="bg-cyan-500/10" />
                                         <MenuNavItem icon={Calendar} label="Exam Planner" view={View.EXAM_PLANNER} color="text-indigo-400" bgColor="bg-indigo-500/10" />

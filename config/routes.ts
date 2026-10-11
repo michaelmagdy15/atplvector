@@ -18,11 +18,14 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
     [View.PLATFORM_PROGRESS]: React.lazy(() => import('../components/PlatformProgress')),
     // [View.SAFE_FLIGHTS]: React.lazy(() => import('../components/SafeFlights/SafeFlightsApp')), // TODO: Port SafeFlights from separate project
 
-    // Concepts
+    // Concepts & Foundations
+    [View.CONCEPT_LAB]: React.lazy(() => import('../components/ConceptLab')),
     [View.CONCEPT_FORCES_OF_FLIGHT]: React.lazy(() => import('../components/concepts/ForcesOfFlight')),
     [View.CONCEPT_HOLD_ENTRY]: React.lazy(() => import('../components/concepts/HoldEntryVisualizer')),
     [View.CONCEPT_GREAT_CIRCLE]: React.lazy(() => import('../components/concepts/GreatCircleExplorer')),
     [View.CONCEPT_TURN_PERF]: React.lazy(() => import('../components/concepts/TurnPerformance')),
+    [View.FOUNDATIONS_HUB]: React.lazy(() => import('../components/foundations/FoundationsHub')),
+    [View.FOUNDATION_ATM_PERF_CHAIN]: React.lazy(() => import('../components/foundations/AtmosphericPerformanceChain')),
 
     // Air Law (010)
     [View.AIR_LAW_HOME]: React.lazy(() => import('../components/AirLawDashboard')),
@@ -349,8 +352,8 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
     // Performance (032)
     [View.PERF_HOME]: React.lazy(() => import('../components/Performance/PerfDashboard')),
     [View.PERF_INTRO]: React.lazy(() => import('../components/Performance/PerfIntro')),
-    [View.PERF_CLASS_A]: React.lazy(() => import('../components/GenericSubjectDashboard')),
-    [View.PERF_CLASS_B]: React.lazy(() => import('../components/GenericSubjectDashboard')),
+    [View.PERF_CLASS_A]: React.lazy(() => import('../components/Performance/ClassAPerf')),
+    [View.PERF_CLASS_B]: React.lazy(() => import('../components/Performance/ClassBPerf')),
     [View.PERF_TAKEOFF]: React.lazy(() => import('../components/Performance/TakeoffPerf')),
     [View.PERF_CLIMB]: React.lazy(() => import('../components/Performance/ClimbPerf')),
     [View.PERF_CRUISE]: React.lazy(() => import('../components/Performance/CruisePerf')),

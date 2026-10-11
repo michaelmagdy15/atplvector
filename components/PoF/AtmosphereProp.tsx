@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { Cloud, ArrowUp, Thermometer, Gauge } from 'lucide-react';
+import { getISAState, ISA_CONSTANTS } from '../../lib/atmospherePhysics';
 
 const AtmosphereProp: React.FC = () => {
     const [altitude, setAltitude] = useState(0); // Feet
 
-    // ISA Calculations (Simplified for visualization)
-    // T = 15 - 1.98 * (h/1000)
-    // P = 1013.25 * (1 - 2.25577e-5 * h)^5.25588
-    // Rho = P / (287.05 * (T + 273.15))
+    // ISA Calculations from certified atmospheric physics engine
+    const isa = getISAState(altitude);
+    const tempC = isa.temperatureC;
+    const pressHpa = isa.pressureHpa;
+    const density = isa.densityKgM3;
+    const densityRatio = isa.densityRatio; // Sigma
 
-    const tempC = 15 - (1.98 * (altitude / 1000));
-    const pressHpa = 1013.25 * Math.pow((1 - 2.25577e-5 * altitude), 5.25588);
-    const density = (pressHpa * 100) / (287.05 * (tempC + 273.15)); // kg/m3
-    const densityRatio = density / 1.225; // Sigma
 
     return (
         <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-700 backdrop-blur-sm">

@@ -382,10 +382,14 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                                 <div className="hidden lg:block w-32"></div>
 
                                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center space-x-2.5 cursor-pointer group z-20" onClick={() => scrollToSection('hero')}>
-                                    <div className="p-1.5 w-9 h-9 md:w-11 md:h-11 bg-slate-900/50 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-300 border border-white/10 flex items-center justify-center overflow-hidden">
-                                        <img src="/logo.png" alt="Logo" className="w-full h-full object-contain scale-[3.8] object-center" />
+                                    <div className="p-1.5 w-9 h-9 md:w-11 md:h-11 rounded-xl bg-gradient-to-br from-white/[0.12] via-blue-500/[0.08] to-violet-500/[0.10] backdrop-blur-xl border border-cyan-200/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_8px_24px_rgba(37,99,235,0.18)] group-hover:border-cyan-200/35 group-hover:scale-110 transition-all duration-300 flex items-center justify-center overflow-hidden">
+                                        <img
+                                            src="/brand-mark.png"
+                                            alt="ATPLVector"
+                                            className="w-full h-full object-contain object-center"
+                                        />
                                     </div>
-                                    <span className="text-xl md:text-2xl font-black text-white tracking-tighter">ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span></span>
+                                    <span className="text-xl md:text-2xl font-black text-white tracking-tighter">ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-400">VECTOR</span></span>
                                 </div>
 
                                 <div className="hidden lg:flex items-center space-x-4 xl:space-x-8 text-sm font-medium text-slate-300 z-10">
@@ -1198,10 +1202,14 @@ const AuthView: React.FC<Props> = ({ onAuthChange, onDemoLogin, initialView = 'L
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                                 <div className="col-span-1 md:col-span-2 space-y-6">
                                     <div className="flex items-center space-x-2 cursor-pointer group" onClick={() => scrollToSection('hero')}>
-                                        <div className="p-1 w-8 h-8 bg-slate-900/50 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-300 border border-white/10 flex items-center justify-center overflow-hidden">
-                                            <img src="/logo.png" alt="Logo" className="w-full h-full object-contain scale-[3.5]" />
+                                        <div className="p-1 w-8 h-8 rounded-xl bg-gradient-to-br from-white/[0.12] via-blue-500/[0.08] to-violet-500/[0.10] backdrop-blur-xl border border-cyan-200/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_8px_24px_rgba(37,99,235,0.18)] group-hover:border-cyan-200/35 group-hover:scale-110 transition-all duration-300 flex items-center justify-center overflow-hidden">
+                                            <img
+                                                src="/brand-mark.png"
+                                                alt="ATPLVector"
+                                                className="w-full h-full object-contain object-center"
+                                            />
                                         </div>
-                                        <span className="text-xl font-black text-white tracking-tighter">ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">VECTOR</span></span>
+                                        <span className="text-xl font-black text-white tracking-tighter">ATPL<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-400">VECTOR</span></span>
                                     </div>
                                     <p className="text-slate-400 text-sm max-w-sm leading-relaxed">
                                         Advanced visual learning for the next generation of airline pilots. Built for excellence, designed for clarity.

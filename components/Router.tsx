@@ -121,11 +121,14 @@ const Router: React.FC<RouterProps> = ({
         // --- DASHBOARDS needing specific props ---
         case currentView === View.PLATFORM_DASHBOARD: {
             if (track === 'PPL') {
-                return (
-                    <div className="w-full animate-in fade-in duration-500">
-                        <Component {...commonProps} />
-                    </div>
-                );
+                const PPLComponent = routes[View.PPL_DASHBOARD] as any;
+                if (PPLComponent) {
+                    return (
+                        <div className="w-full animate-in fade-in duration-500">
+                            <PPLComponent {...commonProps} />
+                        </div>
+                    );
+                }
             }
             return (
                 <div className="w-full animate-in fade-in duration-500">

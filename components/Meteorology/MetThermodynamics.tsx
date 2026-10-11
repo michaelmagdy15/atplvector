@@ -71,22 +71,17 @@ const StabilityModule: React.FC = () => {
                         <text x="10" y="20" fill="#94a3b8" fontSize="10">Height</text>
                         <text x="260" y="195" fill="#94a3b8" fontSize="10">Temp (+)</text>
 
-                        {/* ELR Line (Variable) */}
-                        {/* Start [40, 180] (Surface). 
-                            If DALR (3C) is steep slope.
-                            If ELR is small (Isothermal) it is vertical.
-                            Let's simulate slope. Higher ELR = More temp loss per height = leans LEFT more.
-                        */}
-                        <line x1="40" y1="180" x2={280 - (elr * 40)} y2="20" stroke={status.color.replace('text-', 'stroke-')} strokeWidth="3" />
-                        <text x={280 - (elr * 40)} y="15" fill="white" fontSize="10">ELR</text>
+                        {/* ELR Line (Variable) - Anchored at Surface (x=200, y=180) */}
+                        <line x1="200" y1="180" x2={200 - (elr * 30)} y2="20" stroke={status.color.replace('text-', 'stroke-')} strokeWidth="3" />
+                        <text x={Math.max(45, Math.min(270, 200 - (elr * 30)))} y="15" fill="white" fontSize="10" fontWeight="bold">ELR</text>
 
                         {/* DALR Reference */}
-                        <line x1="40" y1="180" x2={280 - (dalr * 40)} y2="20" stroke="#60a5fa" strokeWidth="2" strokeDasharray="4 4" opacity="0.5" />
-                        <text x={280 - (dalr * 40)} y="35" fill="#60a5fa" fontSize="10">DALR</text>
+                        <line x1="200" y1="180" x2={200 - (dalr * 30)} y2="20" stroke="#60a5fa" strokeWidth="2" strokeDasharray="4 4" opacity="0.6" />
+                        <text x={200 - (dalr * 30) - 10} y="35" fill="#60a5fa" fontSize="10">DALR (3°)</text>
 
                         {/* SALR Reference */}
-                        <line x1="40" y1="180" x2={280 - (salr * 40)} y2="20" stroke="#34d399" strokeWidth="2" strokeDasharray="4 4" opacity="0.5" />
-                        <text x={280 - (salr * 40)} y="35" fill="#34d399" fontSize="10">SALR</text>
+                        <line x1="200" y1="180" x2={200 - (salr * 30)} y2="20" stroke="#34d399" strokeWidth="2" strokeDasharray="4 4" opacity="0.6" />
+                        <text x={200 - (salr * 30) + 5} y="35" fill="#34d399" fontSize="10">SALR (1.8°)</text>
                     </svg>
                 </div>
 
