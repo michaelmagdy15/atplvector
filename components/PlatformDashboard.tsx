@@ -1,448 +1,528 @@
 import React from 'react';
 import { View, User } from '../types';
-import { Plane, Scale, Clock, Trophy, ChevronRight, Settings, Activity, Weight, TrendingUp, Map, Users, Cloud, Radio, Navigation, Compass, BookOpen, Lock, Calendar, Flame, Target, Shield, Gauge, Award } from 'lucide-react';
+import {
+  Plane,
+  Scale,
+  Clock,
+  Trophy,
+  ChevronRight,
+  Settings,
+  Activity,
+  Weight,
+  TrendingUp,
+  Map,
+  Users,
+  Cloud,
+  Radio,
+  Navigation,
+  Compass,
+  BookOpen,
+  Lock,
+  Calendar,
+  Flame,
+  Target,
+  Shield,
+  Gauge,
+  Award,
+} from 'lucide-react';
+import { Accent, CadButton } from './artcraft/SectionShell';
 
 interface Props {
-    onChangeView: (view: View) => void;
-    studyTime: number;
-    user: User;
+  onChangeView: (view: View) => void;
+  studyTime: number;
+  user: User;
 }
 
 const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) => {
-    // ... helper functions (formatTime, isLocked, getColorStyles) ...
-    const formatTime = (seconds: number) => {
-        const h = Math.floor(seconds / 3600);
-        const m = Math.floor((seconds % 3600) / 60);
-        return `${h}h ${m}m`;
+  const formatTime = (seconds: number) => {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    return `${h}h ${m}m`;
+  };
+
+  const isLocked = (subjectId: string) => {
+    const allowed = user.allowedSubjects || [];
+    if (allowed.includes('ALL')) return false;
+    return !allowed.includes(subjectId);
+  };
+
+  const getAccentHex = (color: string) => {
+    const hexMap: Record<string, string> = {
+      red: '#ef4444',
+      orange: '#f97316',
+      amber: '#f59e0b',
+      yellow: '#eab308',
+      lime: '#84cc16',
+      green: '#22c55e',
+      emerald: '#10b981',
+      teal: '#14b8a6',
+      cyan: '#06b6d4',
+      sky: '#38bdf8',
+      blue: '#3b82f6',
+      indigo: '#6366f1',
+      violet: '#8b5cf6',
+      purple: '#a855f7',
+      pink: '#ec4899',
     };
+    return hexMap[color] || '#3b82f6';
+  };
 
-    const isLocked = (subjectId: string) => {
-        const allowed = user.allowedSubjects || [];
-        if (allowed.includes('ALL')) return false;
-        return !allowed.includes(subjectId);
-    };
-
-    const getColorStyles = (color: string) => {
-        const styles: Record<string, string> = {
-            red: 'from-red-500 to-rose-600 text-red-100',
-            orange: 'from-orange-500 to-amber-600 text-orange-100',
-            amber: 'from-amber-400 to-orange-500 text-amber-100',
-            yellow: 'from-yellow-400 to-orange-500 text-yellow-100',
-            lime: 'from-lime-400 to-green-500 text-lime-100',
-            green: 'from-green-500 to-emerald-600 text-green-100',
-            emerald: 'from-emerald-500 to-teal-600 text-emerald-100',
-            teal: 'from-teal-400 to-cyan-500 text-teal-100',
-            cyan: 'from-cyan-400 to-sky-500 text-cyan-100',
-            sky: 'from-sky-400 to-blue-500 text-sky-100',
-            blue: 'from-blue-500 to-indigo-600 text-blue-100',
-            indigo: 'from-indigo-500 to-violet-600 text-indigo-100',
-            violet: 'from-violet-500 to-purple-600 text-violet-100',
-            purple: 'from-purple-500 to-fuchsia-600 text-purple-100',
-            pink: 'from-pink-500 to-rose-600 text-pink-100',
-        };
-        return styles[color] || styles['blue'];
-    };
-
-    // SubjectCard component
-    const SubjectCard = ({ id, code, title, desc, icon: Icon, color, onClick, progress, isComingSoon }: any) => {
-        const locked = isLocked(code) || isComingSoon;
-        const gradient = getColorStyles(color);
-
-        return (
-            <div
-                role={locked ? undefined : 'button'}
-                tabIndex={locked ? -1 : 0}
-                aria-label={locked ? undefined : `Open ${title}`}
-                onClick={() => !locked && onClick()}
-                onKeyDown={(event) => { if (!locked && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); onClick(); } }}
-                className={`group relative glass-card rounded-2xl p-1 overflow-hidden transition-[border-color,background-color,box-shadow] duration-200 ${locked ? 'opacity-80 cursor-not-allowed' : 'hover:border-cyan-300/30 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300'}`}
-            >
-                {locked && (
-                    <div className="absolute inset-0 z-30 bg-slate-950/80 flex flex-col items-center justify-center transition-opacity hover:bg-slate-950/70">
-                        <div className="p-3 bg-slate-900 border border-white/10 shadow-lg mb-3">
-                            {isComingSoon ? (
-                                <Calendar className="w-6 h-6 text-amber-500" />
-                            ) : (
-                                <Lock className="w-6 h-6 text-slate-400" />
-                            )}
-                        </div>
-                        <span className={`text-white font-black text-[10px] tracking-[0.2em] uppercase bg-black/60 px-4 py-1.5 rounded-full border ${isComingSoon ? 'border-amber-500/50 text-amber-400' : 'border-white/10 text-slate-300'}`}>
-                            {isComingSoon ? 'Coming Soon' : 'Locked'}
-                        </span>
-                    </div>
-                )}
-
-                <div className="bg-slate-900/40 rounded-xl h-full p-6 md:p-8 relative overflow-hidden flex flex-col">
-                    <div className={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${gradient} rounded-full blur-[40px] opacity-10 group-hover:opacity-20 transition-opacity duration-300`}></div>
-                    <div className={`absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-12`}>
-                        <Icon size={120} />
-                    </div>
-                    <div className="relative z-10 flex flex-col h-full">
-                        <div className="flex items-center justify-between mb-6">
-                            <div className={`inline-flex items-center px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider border bg-white/5 border-white/10 text-slate-300 shadow-sm`}>
-                                Subject {code}
-                            </div>
-                            <div className={`p-2 rounded-lg bg-gradient-to-br ${gradient} shadow-md opacity-80 group-hover:opacity-100 transition-opacity`}>
-                                <Icon size={24} className="text-white" />
-                            </div>
-                        </div>
-                        <h2 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-all">{title}</h2>
-                        <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-                            {desc}
-                        </p>
-                        {!locked && progress !== undefined && (
-                            <div className="mb-6">
-                                <div className="flex justify-between text-xs font-bold text-slate-400 mb-1">
-                                    <span>Progress</span>
-                                    <span>{progress}%</span>
-                                </div>
-                                <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-                                    <div
-                                        className={`h-full bg-gradient-to-r ${gradient} transition-transform duration-1000 origin-left will-change-transform`}
-                                        style={{ transform: `scaleX(${progress / 100})` }}
-                                    ></div>
-                                </div>
-                            </div>
-                        )}
-                        <div className="flex items-center text-sm font-bold text-white/80 group-hover:text-white transition-colors pt-4 border-t border-white/5 mt-auto">
-                            <span>Open Module</span>
-                            <ChevronRight className="ml-auto w-5 h-5 text-white/50 group-hover:text-white group-hover:translate-x-1 transition-all" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-    };
-
-    const commsLocked = isLocked('090');
-
-    // Gamification calculations
-    const todayDateStr = new Date().toISOString().split('T')[0];
-    const todayStudySeconds = user?.dailyStudyData?.[todayDateStr] || 0;
-    const dailyGoalSeconds = user?.dailyGoalSeconds || 3600;
-    const streakDays = user?.streakDays || 0;
-    const goalProgressPercent = Math.min(100, Math.round((todayStudySeconds / dailyGoalSeconds) * 100));
+  const SubjectCard = ({
+    code,
+    title,
+    desc,
+    icon: Icon,
+    color,
+    onClick,
+    progress,
+    isComingSoon,
+  }: any) => {
+    const locked = isLocked(code) || isComingSoon;
+    const accentHex = getAccentHex(color);
 
     return (
-        <div className="max-w-7xl mx-auto p-4 md:p-8">
-            {/* Primary study action */}
-            <section className="relative isolate overflow-hidden rounded-[2rem] border border-cyan-200/15 bg-[#0b1425] px-6 py-8 md:px-10 md:py-12 mb-8 shadow-[0_24px_80px_rgba(0,0,0,0.22)]">
-                <div className="pointer-events-none absolute inset-0 opacity-70" style={{ background: 'radial-gradient(circle at 80% 0%, rgba(53,131,208,.28), transparent 42%), linear-gradient(135deg, transparent 45%, rgba(94,231,247,.05) 45.2%, transparent 45.5%)' }} />
-                <div className="relative max-w-2xl">
-                    <div className="mb-5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.24em] text-cyan-300"><Navigation size={14} /> Flight plan · Today</div>
-                    <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-white leading-tight">Your next study session starts here.</h1>
-                    <p className="mt-4 max-w-xl text-sm md:text-base leading-relaxed text-slate-300">Build exam readiness one focused session at a time. Pick up with a subject or review your progress.</p>
-                    <div className="mt-7 flex flex-wrap gap-3">
-                        <button type="button" onClick={() => onChangeView(View.AIR_LAW_HOME)} className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-cyan-300 px-5 py-3 font-semibold text-slate-950 transition-colors hover:bg-cyan-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300">Start studying <ChevronRight size={18} /></button>
-                        <button type="button" onClick={() => onChangeView(View.PROGRESS_DASHBOARD)} className="inline-flex min-h-12 items-center rounded-xl border border-white/20 bg-white/5 px-5 py-3 font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300">View progress</button>
-                    </div>
-                </div>
-            </section>
-            {/* Header / Stats */}
-            <div className="flex flex-col xl:flex-row justify-between items-start xl:items-end mb-12 gap-8 pt-4">
-                <div className="animate-in fade-in slide-in-from-left duration-1000">
-                    <h2 className="text-2xl md:text-3xl font-semibold text-white mb-2 tracking-tight">Your flight deck</h2>
-                    <p className="text-slate-400 text-sm md:text-base">Today’s momentum and your subject library.</p>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap gap-3 sm:gap-4 w-full xl:w-auto animate-in fade-in slide-in-from-right duration-1000">
-                    {/* Gamification: Daily Goal */}
-                    <div className="glass-panel w-full sm:w-auto px-5 sm:px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/10 shadow-2xl relative overflow-hidden group">
-                        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-transparent w-full h-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div className="p-3 bg-emerald-500/10 rounded-xl text-emerald-400 relative z-10">
-                            <Target size={28} />
-                        </div>
-                        <div className="relative z-10">
-                            <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-1 flex justify-between">
-                                <span>Daily Goal</span>
-                                <span className="text-emerald-400">{goalProgressPercent}%</span>
-                            </div>
-                            <div className="h-1.5 w-32 bg-slate-800 rounded-full overflow-hidden mb-1">
-                                <div 
-                                    className="h-full bg-gradient-to-r from-emerald-400 to-teal-400 transition-all duration-1000" 
-                                    style={{ width: `${goalProgressPercent}%` }}
-                                />
-                            </div>
-                            <div className="text-xs font-mono font-bold text-slate-300">
-                                {formatTime(todayStudySeconds)} / {formatTime(dailyGoalSeconds)}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Gamification: Study Streak */}
-                    <div className="glass-panel w-full sm:w-auto px-5 sm:px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/10 shadow-2xl">
-                        <div className={`p-3 rounded-xl ${streakDays > 0 ? 'bg-orange-500/10 text-orange-400' : 'bg-slate-800 text-slate-500'}`}>
-                            <Flame size={28} className={streakDays > 0 ? 'animate-pulse' : ''} />
-                        </div>
-                        <div>
-                            <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-1">Study Streak</div>
-                            <div className="text-2xl font-bold text-white leading-none flex items-baseline gap-1">
-                                {streakDays} <span className="text-sm text-slate-400">Days</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="glass-panel w-full sm:w-auto px-5 sm:px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/10 shadow-2xl">
-                        <div className="p-3 bg-blue-500/10 rounded-xl text-blue-400">
-                            <Clock size={28} />
-                        </div>
-                        <div>
-                            <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-1">Total Flight Time</div>
-                            <div className="text-2xl font-mono font-bold text-white leading-none">{formatTime(studyTime)}</div>
-                        </div>
-                    </div>
-                    
-                    <div className="glass-panel w-full sm:w-auto px-5 sm:px-6 py-4 rounded-2xl flex items-center gap-4 border border-white/10 shadow-2xl hidden md:flex">
-                        <div className="p-3 bg-yellow-500/10 rounded-xl text-yellow-400">
-                            <Trophy size={28} />
-                        </div>
-                        <div>
-                            <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-1">Experience</div>
-                            <div className="text-2xl font-bold text-white leading-none">Cadet</div>
-                        </div>
-                    </div>
-                </div>
+      <div
+        role={locked ? undefined : 'button'}
+        tabIndex={locked ? -1 : 0}
+        aria-label={locked ? undefined : `Open ${title}`}
+        onClick={() => !locked && onClick()}
+        onKeyDown={(event) => {
+          if (!locked && (event.key === 'Enter' || event.key === ' ')) {
+            event.preventDefault();
+            onClick();
+          }
+        }}
+        className={`group relative bg-bg p-6 md:p-8 flex flex-col justify-between transition-colors ${
+          locked
+            ? 'opacity-70 cursor-not-allowed'
+            : 'hover:bg-bg-raised cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-cad-accent'
+        }`}
+      >
+        {locked && (
+          <div className="absolute inset-0 z-30 bg-bg/85 backdrop-blur-xs flex flex-col items-center justify-center">
+            <div className="p-3 bg-bg-raised border border-line mb-3">
+              {isComingSoon ? (
+                <Calendar className="w-5 h-5 text-amber-400" />
+              ) : (
+                <Lock className="w-5 h-5 text-muted" />
+              )}
             </div>
+            <span className="font-mono text-[10px] tracking-[0.2em] uppercase px-3 py-1 border border-line bg-bg text-ink">
+              {isComingSoon ? 'Coming Soon' : 'Locked'}
+            </span>
+          </div>
+        )}
 
-            <div className="mb-5 flex items-end justify-between gap-4"><div><p className="text-[11px] font-bold uppercase tracking-[0.22em] text-cyan-300 mb-2">Ground school</p><h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-white">Explore subjects</h2></div><span className="hidden sm:block text-sm text-slate-400">Choose a module to begin</span></div>
-            {/* Subjects Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 animate-in fade-in zoom-in duration-700 delay-300">
-                <SubjectCard
-                    code="010" title="Air Law"
-                    desc="International law, conventions, agreements and organizations. Annex 2, 7, 11 and 14."
-                    icon={Scale} color="red"
-                    onClick={() => onChangeView(View.AIR_LAW_HOME)}
-                />
-                <SubjectCard
-                    code="021" title="AGK: Systems"
-                    desc="Fuselage, hydraulics, landing gear, flight controls, pneumatics and electrics."
-                    icon={Settings} color="orange"
-                    onClick={() => onChangeView(View.AGK_SYSTEMS_HOME)}
-                />
-                <SubjectCard
-                    code="022" title="AGK: Instruments"
-                    desc="Sensors, instruments, measurement of air data, gyroscopic instruments and EFIS."
-                    icon={Activity} color="amber"
-                    onClick={() => onChangeView(View.INST_HOME)}
-                />
-                <SubjectCard
-                    code="031" title="Mass & Balance"
-                    desc="Center of gravity calculations, loading, weighing, and performance limitations."
-                    icon={Weight} color="yellow"
-                    onClick={() => onChangeView(View.MASS_BAL_HOME)}
-                />
-                <SubjectCard
-                    code="032" title="Performance (A)"
-                    desc="Take-off, climb, cruise, descent and landing performance for Class A/B aircraft."
-                    icon={TrendingUp} color="lime"
-                    onClick={() => onChangeView(View.PERF_HOME)}
-                />
-                <SubjectCard
-                    code="033" title="Flight Planning"
-                    desc="Fuel calculations, critical point limits, en-route log revisions, and flight plan layouts."
-                    icon={Map} color="blue"
-                    onClick={() => onChangeView(View.FLIGHT_PLAN_HOME)}
-                />
-                <SubjectCard
-                    code="040" title="Human Performance"
-                    desc="Physiology, psychology, sleep, stress, and error management in aviation."
-                    icon={Users} color="emerald"
-                    onClick={() => onChangeView(View.HPL_HOME)}
-                />
-                <SubjectCard
-                    code="050" title="Meteorology"
-                    desc="Atmosphere, wind, thermodynamics, clouds, fog, precipitation and climatology."
-                    icon={Cloud} color="teal"
-                    onClick={() => onChangeView(View.MET_HOME)}
-                />
-                <SubjectCard
-                    code="061" title="General Navigation"
-                    desc="Basics of navigation, magnetism, charts, dead reckoning and in-flight navigation."
-                    icon={Compass} color="cyan"
-                    onClick={() => onChangeView(View.GEN_NAV_HOME)}
-                />
-                <SubjectCard
-                    code="062" title="Radio Navigation"
-                    desc="Radio aids, radar, GNSS, area navigation systems and self-contained nav."
-                    icon={Radio} color="sky"
-                    onClick={() => onChangeView(View.RAD_NAV_HOME)}
-                />
-                <SubjectCard
-                    code="070" title="Operational Proc."
-                    desc="Special operational procedures, noise abatement, fire/smoke, wind shear and icing."
-                    icon={BookOpen} color="indigo"
-                    onClick={() => onChangeView(View.OPS_PROC_HOME)}
-                />
-                <SubjectCard
-                    code="081" title="Principles of Flight"
-                    desc="Subsonic aerodynamics, stability, control, lift, drag, and stalling."
-                    icon={Plane} color="violet"
-                    onClick={() => onChangeView(View.POF_HOME)}
-                />
-                <SubjectCard
-                    code="100" title="KSA"
-                    desc="Knowledge, Skills and Attitudes. Core competencies, TEM, and mental maths."
-                    icon={Users} color="pink"
-                    onClick={() => onChangeView(View.KSA_HOME)}
-                />
-
-                {/* Featured Module */}
-                <div className="md:col-span-2 xl:col-span-3">
-                    <div
-                        onClick={() => !commsLocked && onChangeView(View.DASHBOARD)}
-                        className={`group relative glass-card rounded-3xl p-1 overflow-hidden transition-all duration-500 ${commsLocked ? 'opacity-80 cursor-not-allowed' : 'hover:scale-[1.005] cursor-pointer shadow-2xl shadow-blue-500/10'}`}
-                    >
-                        {commsLocked && (
-                            <div className="absolute inset-0 z-30 bg-slate-950/80 flex flex-col items-center justify-center transition-opacity hover:bg-slate-950/70 rounded-3xl">
-                                <div className="p-3 bg-slate-900 border border-white/10 shadow-lg mb-3 rounded-xl">
-                                    <Lock className="w-6 h-6 text-slate-400" />
-                                </div>
-                                <span className="text-white font-black text-[10px] tracking-[0.2em] uppercase bg-black/60 px-4 py-1.5 rounded-full border border-white/10 text-slate-300">
-                                    Locked
-                                </span>
-                            </div>
-                        )}
-                        <div className="bg-gradient-to-r from-blue-900/40 to-indigo-900/40 rounded-3xl h-full p-10 relative overflow-hidden backdrop-blur-md">
-                            <div className="absolute -top-32 -right-32 w-96 h-96 bg-blue-600 rounded-full blur-[120px] opacity-20 group-hover:opacity-40 transition-opacity duration-1000"></div>
-                            <div className="absolute top-1/2 right-12 -translate-y-1/2 opacity-20 group-hover:opacity-40 transition-all duration-700 transform group-hover:scale-110 group-hover:rotate-6 hidden md:block">
-                                <Navigation size={220} className="text-blue-400" />
-                            </div>
-                            <div className="relative z-10 flex flex-col md:flex-row items-center gap-10">
-                                <div className="p-6 rounded-3xl bg-gradient-to-br from-blue-500 to-indigo-700 shadow-2xl shadow-blue-600/30">
-                                    <Navigation size={48} className="text-white" />
-                                </div>
-                                <div className="flex-1 text-center md:text-left">
-                                    <div className="inline-flex items-center px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] bg-blue-500/20 text-blue-300 border border-blue-500/30 mb-4 shadow-inner">
-                                        Featured Simulation
-                                    </div>
-                                    <h2 className="text-4xl font-black text-white mb-3 tracking-tight">VFR & IFR Communications</h2>
-                                    <p className="text-slate-300 text-lg leading-relaxed max-w-2xl opacity-80">
-                                        Master radio telephony with AI-powered ATC simulation. Interactive roleplay for all phases of flight.
-                                    </p>
-                                </div>
-                                <div className="flex items-center text-sm font-black uppercase tracking-widest text-white bg-blue-600 px-8 py-4 rounded-2xl hover:bg-blue-500 transition-all shadow-xl shadow-blue-500/20 group-hover:translate-y-[-2px]">
-                                    <span>Initialize</span>
-                                    <ChevronRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* EgyptAir Featured Portal */}
-                <div className="md:col-span-2 xl:col-span-3 mt-6 animate-in fade-in zoom-in duration-700 delay-500">
-                    <div
-                        onClick={() => onChangeView(View.EGYPTAIR_DASHBOARD)}
-                        className="group relative glass-card rounded-3xl p-1 overflow-hidden transition-all duration-500 hover:scale-[1.005] cursor-pointer shadow-2xl shadow-cyan-500/10"
-                    >
-                        <div className="bg-gradient-to-r from-cyan-950/40 to-slate-900/60 rounded-3xl h-full p-10 relative overflow-hidden backdrop-blur-md">
-                            <div className="absolute -top-32 -right-32 w-96 h-96 bg-cyan-600 rounded-full blur-[120px] opacity-20 group-hover:opacity-40 transition-opacity duration-1000"></div>
-                            <div className="absolute top-1/2 right-12 -translate-y-1/2 opacity-20 group-hover:opacity-40 transition-all duration-700 transform group-hover:scale-110 group-hover:rotate-6 hidden md:block">
-                                <Plane size={220} className="text-cyan-400" />
-                            </div>
-                            <div className="relative z-10 flex flex-col md:flex-row items-center gap-10">
-                                <div className="p-6 rounded-3xl bg-gradient-to-br from-cyan-500 to-blue-700 shadow-2xl shadow-cyan-600/30">
-                                    <Plane size={48} className="text-white" />
-                                </div>
-                                <div className="flex-1 text-center md:text-left">
-                                    <div className="inline-flex items-center px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 mb-4 shadow-inner">
-                                        EgyptAir Cadet Portal
-                                    </div>
-                                    <h2 className="text-4xl font-black text-white mb-3 tracking-tight">ABC 4th Edition Prep</h2>
-                                    <p className="text-slate-300 text-lg leading-relaxed max-w-2xl opacity-80">
-                                        Dedicated ground-school training system covering ECARs, company fuel buildup, instrument navigation (holds & DME Arc), jet aerodynamics, and ADM/CRM scenarios.
-                                    </p>
-                                </div>
-                                <div className="flex items-center text-sm font-black uppercase tracking-widest text-white bg-cyan-600 px-8 py-4 rounded-2xl hover:bg-cyan-500 transition-all shadow-xl shadow-cyan-500/20 group-hover:translate-y-[-2px]">
-                                    <span>Enter Portal</span>
-                                    <ChevronRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* FAA Knowledge Test Suite */}
-                <div className="md:col-span-2 xl:col-span-3 mt-6 animate-in fade-in zoom-in duration-700 delay-700">
-                    <div className="flex items-center justify-between mb-4">
-                        <div>
-                            <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                                <Shield className="text-sky-400" size={20} />
-                                FAA Knowledge Test &amp; General Aviation Suite
-                            </h3>
-                            <p className="text-xs text-slate-400">Official FAA airman knowledge exam banks, C172 cockpit systems, and PPL ground school</p>
-                        </div>
-                        <button
-                            onClick={() => onChangeView(View.FAA_PPL_STUDY_GUIDE)}
-                            className="text-xs text-sky-400 hover:text-sky-300 flex items-center gap-1 font-semibold transition-colors"
-                        >
-                            <BookOpen size={14} /> PPL Study Handbook
-                        </button>
-                    </div>
-
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        {/* FAA Test Guide Card */}
-                        <div
-                            onClick={() => onChangeView(View.FAA_TEST_GUIDE)}
-                            className="group relative glass-card rounded-2xl p-1 overflow-hidden transition-all duration-300 hover:scale-[1.01] cursor-pointer shadow-xl shadow-sky-500/5"
-                        >
-                            <div className="bg-gradient-to-br from-sky-950/40 via-slate-900/60 to-slate-900/80 rounded-xl p-6 md:p-8 relative overflow-hidden flex flex-col h-full">
-                                <div className="absolute -top-20 -right-20 w-44 h-44 bg-sky-500/15 rounded-full blur-[40px] group-hover:opacity-40 transition-opacity"></div>
-                                <div className="flex items-center justify-between mb-4">
-                                    <div className="inline-flex items-center px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-sky-500/20 text-sky-300 border border-sky-500/30">
-                                        PPL · IR · CPL · ATP · C172
-                                    </div>
-                                    <div className="p-2.5 rounded-xl bg-sky-500/20 text-sky-400">
-                                        <Award size={22} />
-                                    </div>
-                                </div>
-                                <h4 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-sky-300 transition-colors">
-                                    FAA Knowledge Test Guide
-                                </h4>
-                                <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-                                    Interactive FAA exam simulator with 57 official figures, zero-latency sound synthesizer, mistake analytics, concept explorer, and timed practice tests.
-                                </p>
-                                <div className="flex items-center text-sm font-bold text-sky-400 group-hover:text-white transition-colors pt-4 border-t border-white/5 mt-auto">
-                                    <span>Launch FAA Test Center</span>
-                                    <ChevronRight className="ml-auto w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Cessna 172 Flight Deck Hub Card */}
-                        <div
-                            onClick={() => onChangeView(View.C172_HUB)}
-                            className="group relative glass-card rounded-2xl p-1 overflow-hidden transition-all duration-300 hover:scale-[1.01] cursor-pointer shadow-xl shadow-cyan-500/5"
-                        >
-                            <div className="bg-gradient-to-br from-cyan-950/40 via-slate-900/60 to-slate-900/80 rounded-xl p-6 md:p-8 relative overflow-hidden flex flex-col h-full">
-                                <div className="absolute -top-20 -right-20 w-44 h-44 bg-cyan-500/15 rounded-full blur-[40px] group-hover:opacity-40 transition-opacity"></div>
-                                <div className="flex items-center justify-between mb-4">
-                                    <div className="inline-flex items-center px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
-                                        Interactive Cockpit
-                                    </div>
-                                    <div className="p-2.5 rounded-xl bg-cyan-500/20 text-cyan-400">
-                                        <Gauge size={22} />
-                                    </div>
-                                </div>
-                                <h4 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">
-                                    Cessna 172 Flight Deck Hub
-                                </h4>
-                                <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-                                    Dynamic Airspeed Indicator with arc zones, V-Speed explorer, Lycoming IO-360 powerplant monitoring, fuel &amp; weight envelope, and emergency checklist trainer.
-                                </p>
-                                <div className="flex items-center text-sm font-bold text-cyan-400 group-hover:text-white transition-colors pt-4 border-t border-white/5 mt-auto">
-                                    <span>Enter C172 Cockpit Hub</span>
-                                    <ChevronRight className="ml-auto w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div>
+          <div className="flex items-center justify-between mb-6">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 border border-line bg-bg-sunken">
+              <span
+                className="h-1.5 w-1.5 inline-block"
+                style={{ backgroundColor: accentHex }}
+              />
+              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-ink">
+                SUBJ {code}
+              </span>
             </div>
+            <div
+              className="h-9 w-9 border border-line flex items-center justify-center transition-colors group-hover:border-line-strong"
+              style={{ color: accentHex }}
+            >
+              <Icon size={18} />
+            </div>
+          </div>
+
+          <h2 className="font-display text-xl md:text-2xl font-medium tracking-[-0.025em] text-ink mb-2.5 group-hover:text-cad-accent transition-colors">
+            {title}
+          </h2>
+          <p className="text-muted text-sm leading-relaxed mb-6">{desc}</p>
         </div>
 
+        <div>
+          {!locked && progress !== undefined && (
+            <div className="mb-5">
+              <div className="flex justify-between font-mono text-[10px] uppercase tracking-wider text-muted mb-1.5">
+                <span>Mastery</span>
+                <span>{progress}%</span>
+              </div>
+              <div className="h-1 w-full bg-line overflow-hidden">
+                <div
+                  className="h-full transition-transform duration-700 origin-left"
+                  style={{
+                    backgroundColor: accentHex,
+                    transform: `scaleX(${progress / 100})`,
+                  }}
+                />
+              </div>
+            </div>
+          )}
+
+          <div className="flex items-center justify-between pt-4 border-t border-line font-mono text-[11px] uppercase tracking-[0.12em] text-muted group-hover:text-ink transition-colors">
+            <span>Open Module</span>
+            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-cad-accent" />
+          </div>
+        </div>
+      </div>
     );
+  };
+
+  const commsLocked = isLocked('090');
+
+  // Gamification calculations
+  const todayDateStr = new Date().toISOString().split('T')[0];
+  const todayStudySeconds = user?.dailyStudyData?.[todayDateStr] || 0;
+  const dailyGoalSeconds = user?.dailyGoalSeconds || 3600;
+  const streakDays = user?.streakDays || 0;
+  const goalProgressPercent = Math.min(
+    100,
+    Math.round((todayStudySeconds / dailyGoalSeconds) * 100)
+  );
+
+  return (
+    <div className="mx-auto max-w-[1280px] border-x border-line px-4 md:px-10 py-8 md:py-12">
+      {/* Primary CAD Flight Plan Hero Banner */}
+      <section className="relative border border-line bg-bg-raised p-6 md:p-10 mb-10">
+        <span className="tick tick-half absolute -top-[5px] -left-[6px] z-20 pointer-events-none" />
+        <span className="tick tick-half absolute -top-[5px] -right-[5px] z-20 pointer-events-none" />
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+          <div className="lg:col-span-7">
+            <div className="mb-4 inline-flex items-center gap-2 border border-line bg-bg px-2.5 py-1">
+              <Navigation size={12} className="text-cad-accent" />
+              <span className="hud-label text-ink">FLIGHT PLAN // ACTIVE DISPATCH</span>
+            </div>
+            <h1 className="font-display text-3xl md:text-5xl font-medium tracking-[-0.035em] leading-[1.02] text-ink">
+              Your next training vector{' '}
+              <Accent className="text-cad-accent">starts here</Accent>.
+            </h1>
+            <p className="mt-4 max-w-xl text-sm md:text-base leading-relaxed text-muted">
+              Build EASA exam readiness one focused simulator session at a time. Select a subject module below or inspect your telemetry analytics.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2.5">
+              <CadButton
+                variant="accent"
+                onClick={() => onChangeView(View.AIR_LAW_HOME)}
+              >
+                <span>Start Studying (010 Air Law)</span>
+                <ChevronRight size={15} />
+              </CadButton>
+              <CadButton
+                variant="ghost"
+                onClick={() => onChangeView(View.PROGRESS_DASHBOARD)}
+              >
+                <span>View Telemetry Progress</span>
+              </CadButton>
+            </div>
+          </div>
+
+          {/* 4-Cell Gapless Telemetry Readout */}
+          <div className="lg:col-span-5 grid grid-cols-2 gap-px bg-line border border-line">
+            <div className="bg-bg p-4">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="hud-label text-emerald-400">DAILY GOAL</span>
+                <Target size={14} className="text-emerald-400" />
+              </div>
+              <div className="font-display text-2xl font-medium text-ink">
+                {goalProgressPercent}%
+              </div>
+              <div className="h-1 w-full bg-line mt-2 mb-1 overflow-hidden">
+                <div
+                  className="h-full bg-emerald-400 transition-all duration-700"
+                  style={{ width: `${goalProgressPercent}%` }}
+                />
+              </div>
+              <div className="font-mono text-[10px] text-muted">
+                {formatTime(todayStudySeconds)} / {formatTime(dailyGoalSeconds)}
+              </div>
+            </div>
+
+            <div className="bg-bg p-4">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="hud-label text-cad-accent">STREAK</span>
+                <Flame size={14} className="text-cad-accent" />
+              </div>
+              <div className="font-display text-2xl font-medium text-ink">
+                {streakDays} <span className="font-mono text-xs text-muted">DAYS</span>
+              </div>
+              <div className="font-mono text-[10px] text-muted mt-3">
+                CONTINUOUS DISPATCH
+              </div>
+            </div>
+
+            <div className="bg-bg p-4">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="hud-label text-sky-400">FLIGHT TIME</span>
+                <Clock size={14} className="text-sky-400" />
+              </div>
+              <div className="font-display text-2xl font-medium text-ink">
+                {formatTime(studyTime)}
+              </div>
+              <div className="font-mono text-[10px] text-muted mt-1">
+                LOGGED SIMULATOR HOURS
+              </div>
+            </div>
+
+            <div className="bg-bg p-4">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="hud-label text-amber-400">RANK</span>
+                <Trophy size={14} className="text-amber-400" />
+              </div>
+              <div className="font-display text-2xl font-medium text-ink">Cadet</div>
+              <div className="font-mono text-[10px] text-muted mt-1">
+                EASA ATPL TRACK
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section Eyebrow for EASA Subjects */}
+      <div className="flex items-end justify-between gap-4 mb-5 pb-3 border-b border-line">
+        <div>
+          <div className="hud-label text-cad-accent mb-1">01 // EASA ECQB-2026 SYLLABUS</div>
+          <h2 className="font-display text-2xl md:text-3xl font-medium tracking-[-0.03em] text-ink">
+            Ground School <Accent className="text-cad-accent">Subject Matrix</Accent>
+          </h2>
+        </div>
+        <span className="hidden sm:block hud-label">14 SUBJECT MODULES · SELECT TO LAUNCH</span>
+      </div>
+
+      {/* Gapless CAD Subject Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-px bg-line border border-line">
+        <SubjectCard
+          code="010"
+          title="Air Law"
+          desc="International law, conventions, agreements and organizations. ICAO Annex 2, 7, 11 and 14."
+          icon={Scale}
+          color="red"
+          onClick={() => onChangeView(View.AIR_LAW_HOME)}
+        />
+        <SubjectCard
+          code="021"
+          title="AGK: Systems"
+          desc="Fuselage, hydraulics, landing gear, flight controls, pneumatics, electrics and powerplant."
+          icon={Settings}
+          color="orange"
+          onClick={() => onChangeView(View.AGK_SYSTEMS_HOME)}
+        />
+        <SubjectCard
+          code="022"
+          title="AGK: Instruments"
+          desc="Sensors, air data computers, gyroscopic instruments, inertial navigation and EFIS/FMS."
+          icon={Activity}
+          color="amber"
+          onClick={() => onChangeView(View.INST_HOME)}
+        />
+        <SubjectCard
+          code="031"
+          title="Mass & Balance"
+          desc="Center of gravity envelopes, %MAC calculations, cargo loading and structural limits."
+          icon={Weight}
+          color="yellow"
+          onClick={() => onChangeView(View.MASS_BAL_HOME)}
+        />
+        <SubjectCard
+          code="032"
+          title="Performance (A)"
+          desc="Take-off V-speeds, balanced field length, climb gradients, cruise and landing for Class A."
+          icon={TrendingUp}
+          color="lime"
+          onClick={() => onChangeView(View.PERF_HOME)}
+        />
+        <SubjectCard
+          code="033"
+          title="Flight Planning"
+          desc="Fuel policy calculations, Point of Equal Time (PET), PSR, ETOPS and ICAO ATS flight plans."
+          icon={Map}
+          color="blue"
+          onClick={() => onChangeView(View.FLIGHT_PLAN_HOME)}
+        />
+        <SubjectCard
+          code="040"
+          title="Human Performance"
+          desc="Aviation physiology, hypoxia, vestibular illusions, sleep cycles and SHELL/TEM error models."
+          icon={Users}
+          color="emerald"
+          onClick={() => onChangeView(View.HPL_HOME)}
+        />
+        <SubjectCard
+          code="050"
+          title="Meteorology"
+          desc="ISA thermodynamics, frontal systems, jet streams, icing, turbulence and METAR/TAF decoding."
+          icon={Cloud}
+          color="teal"
+          onClick={() => onChangeView(View.MET_HOME)}
+        />
+        <SubjectCard
+          code="061"
+          title="General Navigation"
+          desc="Great circle & rhumb line geometry, Lambert conformal charts, magnetism and solar time."
+          icon={Compass}
+          color="cyan"
+          onClick={() => onChangeView(View.GEN_NAV_HOME)}
+        />
+        <SubjectCard
+          code="062"
+          title="Radio Navigation"
+          desc="VOR, DME, ILS CAT IIIB, NDB, weather radar, GNSS/SBAS and RNAV/PBN specification labs."
+          icon={Radio}
+          color="sky"
+          onClick={() => onChangeView(View.RAD_NAV_HOME)}
+        />
+        <SubjectCard
+          code="070"
+          title="Operational Proc."
+          desc="All-weather operations, RVSM, MNPS/NAT HLA, noise abatement, windshear and wake turbulence."
+          icon={BookOpen}
+          color="indigo"
+          onClick={() => onChangeView(View.OPS_PROC_HOME)}
+        />
+        <SubjectCard
+          code="081"
+          title="Principles of Flight"
+          desc="Subsonic & transonic aerodynamics, Cl/Cd drag polars, high-lift devices, stall and stability."
+          icon={Plane}
+          color="violet"
+          onClick={() => onChangeView(View.POF_HOME)}
+        />
+        <SubjectCard
+          code="100"
+          title="KSA (100)"
+          desc="Knowledge, Skills and Attitudes. ICAO core competencies, FORDEC decision-making and mental math."
+          icon={Users}
+          color="pink"
+          onClick={() => onChangeView(View.KSA_HOME)}
+        />
+
+        {/* Subject 090 VFR & IFR Communications (Spans remaining 2 cols on XL) */}
+        <div
+          onClick={() => !commsLocked && onChangeView(View.DASHBOARD)}
+          className={`xl:col-span-2 bg-bg-raised p-6 md:p-8 flex flex-col justify-between relative group transition-colors ${
+            commsLocked ? 'opacity-70 cursor-not-allowed' : 'hover:bg-bg cursor-pointer'
+          }`}
+        >
+          {commsLocked && (
+            <div className="absolute inset-0 z-30 bg-bg/85 flex flex-col items-center justify-center">
+              <Lock className="w-5 h-5 text-muted mb-2" />
+              <span className="font-mono text-[10px] uppercase tracking-widest px-3 py-1 border border-line">
+                Locked
+              </span>
+            </div>
+          )}
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 border border-cad-accent/50 bg-cad-accent/10">
+                <span className="h-1.5 w-1.5 bg-cad-accent inline-block" />
+                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-cad-accent">
+                  SUBJ 090 // FEATURED ATC SIMULATOR
+                </span>
+              </div>
+              <Navigation size={20} className="text-cad-accent" />
+            </div>
+            <h2 className="font-display text-2xl md:text-3xl font-medium tracking-[-0.03em] text-ink mb-2.5">
+              VFR &amp; IFR <Accent className="text-cad-accent">Communications</Accent>
+            </h2>
+            <p className="text-muted text-sm md:text-base leading-relaxed max-w-xl">
+              Master standard ICAO radiotelephony with AI-powered ATC roleplay, distress/urgency phraseology, propagation physics, and Morse code identification.
+            </p>
+          </div>
+          <div className="flex items-center justify-between pt-4 mt-6 border-t border-line font-mono text-xs uppercase tracking-[0.12em] text-cad-accent">
+            <span>Initialize Comms Simulator</span>
+            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
+      </div>
+
+      {/* Specialized Airline & FAA Portals */}
+      <div className="mt-12 flex items-end justify-between gap-4 mb-5 pb-3 border-b border-line">
+        <div>
+          <div className="hud-label text-sky-400 mb-1">02 // SPECIALIZED AIRLINE &amp; FAA SUITES</div>
+          <h2 className="font-display text-2xl md:text-3xl font-medium tracking-[-0.03em] text-ink">
+            Cadet Assessment &amp; <Accent className="text-cad-accent">FAA Knowledge</Accent> Hubs
+          </h2>
+        </div>
+        <button
+          type="button"
+          onClick={() => onChangeView(View.FAA_PPL_STUDY_GUIDE)}
+          className="invert-block px-3 py-1.5 border border-line font-mono text-[11px] uppercase tracking-[0.12em] text-sky-400 inline-flex items-center gap-1.5 cursor-pointer"
+        >
+          <BookOpen size={13} />
+          <span>PPL Study Handbook</span>
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-line border border-line">
+        {/* EgyptAir Cadet Portal */}
+        <div
+          onClick={() => onChangeView(View.EGYPTAIR_DASHBOARD)}
+          className="bg-bg p-6 md:p-8 flex flex-col justify-between hover:bg-bg-raised transition-colors cursor-pointer group"
+        >
+          <div>
+            <div className="flex items-center justify-between mb-5">
+              <span className="hud-label text-cyan-400">AIRLINE PORTAL // EGYPTAIR</span>
+              <Plane size={18} className="text-cyan-400" />
+            </div>
+            <h3 className="font-display text-2xl font-medium text-ink mb-2 group-hover:text-cyan-400 transition-colors">
+              ABC 4th Edition Prep
+            </h3>
+            <p className="text-sm text-muted leading-relaxed">
+              Dedicated ground-school training covering ECARs, company fuel buildup, instrument holds &amp; DME arcs, jet aerodynamics, and ADM/CRM scenarios.
+            </p>
+          </div>
+          <div className="flex items-center justify-between pt-4 mt-6 border-t border-line font-mono text-[11px] uppercase tracking-[0.12em] text-cyan-400">
+            <span>Enter Cadet Portal</span>
+            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
+
+        {/* FAA Knowledge Test Guide */}
+        <div
+          onClick={() => onChangeView(View.FAA_TEST_GUIDE)}
+          className="bg-bg p-6 md:p-8 flex flex-col justify-between hover:bg-bg-raised transition-colors cursor-pointer group"
+        >
+          <div>
+            <div className="flex items-center justify-between mb-5">
+              <span className="hud-label text-sky-400">FAA EXAM // PPL · IR · CPL · ATP</span>
+              <Award size={18} className="text-sky-400" />
+            </div>
+            <h3 className="font-display text-2xl font-medium text-ink mb-2 group-hover:text-sky-400 transition-colors">
+              FAA Knowledge Test Guide
+            </h3>
+            <p className="text-sm text-muted leading-relaxed">
+              Interactive FAA exam simulator with 57 official figures, zero-latency sound synthesizer, mistake analytics, concept explorer, and timed practice tests.
+            </p>
+          </div>
+          <div className="flex items-center justify-between pt-4 mt-6 border-t border-line font-mono text-[11px] uppercase tracking-[0.12em] text-sky-400">
+            <span>Launch FAA Test Center</span>
+            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
+
+        {/* Cessna 172 Flight Deck Hub */}
+        <div
+          onClick={() => onChangeView(View.C172_HUB)}
+          className="bg-bg p-6 md:p-8 flex flex-col justify-between hover:bg-bg-raised transition-colors cursor-pointer group"
+        >
+          <div>
+            <div className="flex items-center justify-between mb-5">
+              <span className="hud-label text-emerald-400">AIRCRAFT // CESSNA 172SP</span>
+              <Gauge size={18} className="text-emerald-400" />
+            </div>
+            <h3 className="font-display text-2xl font-medium text-ink mb-2 group-hover:text-emerald-400 transition-colors">
+              Cessna 172 Flight Deck Hub
+            </h3>
+            <p className="text-sm text-muted leading-relaxed">
+              Dynamic Airspeed Indicator with arc zones, V-Speed explorer, Lycoming IO-360 powerplant monitoring, fuel &amp; weight envelope, and emergency checklists.
+            </p>
+          </div>
+          <div className="flex items-center justify-between pt-4 mt-6 border-t border-line font-mono text-[11px] uppercase tracking-[0.12em] text-emerald-400">
+            <span>Enter C172 Cockpit Hub</span>
+            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default PlatformDashboard;
-

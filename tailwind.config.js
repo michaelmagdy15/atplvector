@@ -15,7 +15,9 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Fira Sans', 'Inter', 'sans-serif'],
-                mono: ['Fira Code', 'JetBrains Mono', 'monospace'],
+                display: ['Archivo', 'Fira Sans', 'system-ui', 'sans-serif'],
+                serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+                mono: ['"JetBrains Mono"', 'Fira Code', 'monospace'],
             },
             colors: {
                 background: '#030712',
@@ -23,6 +25,19 @@ export default {
                 primary: '#1E40AF',
                 secondary: '#3B82F6',
                 accent: '#F59E0B',
+                bg: 'var(--bg)',
+                'bg-raised': 'var(--bg-raised)',
+                'bg-sunken': 'var(--bg-sunken)',
+                ink: 'var(--ink)',
+                'ink-strong': 'var(--ink-strong)',
+                muted: 'var(--muted)',
+                faint: 'var(--faint)',
+                line: 'var(--line)',
+                'line-strong': 'var(--line-strong)',
+                'cad-accent': 'var(--accent)',
+                'accent-ink': 'var(--accent-ink)',
+                'invert-bg': 'var(--invert-bg)',
+                'invert-fg': 'var(--invert-fg)',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
