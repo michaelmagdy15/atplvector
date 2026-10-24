@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Flame, AlertTriangle, Volume2, Snowflake, Wind, Droplets, ArrowRight } from 'lucide-react';
 import WakeTurbulence from './WakeTurbulence';
 import SurfaceContamination from './SurfaceContamination';
+import DeicingHoldoverVisualizer from './OpsModules/DeicingHoldoverVisualizer';
 
 const SpecialOpsDashboard: React.FC<{ isLocked?: boolean }> = ({ isLocked = false }) => {
     const [view, setView] = useState('menu'); // menu, wake, contam, dg, fire, noise
@@ -11,6 +12,7 @@ const SpecialOpsDashboard: React.FC<{ isLocked?: boolean }> = ({ isLocked = fals
         switch (view) {
             case 'wake': return <WakeTurbulence />;
             case 'contam': return <SurfaceContamination />;
+            case 'deicing': return <DeicingHoldoverVisualizer />;
             case 'dg': return <DangerousGoodsModule />;
             case 'fire': return <FireSmokeModule />;
             case 'noise': return <NoiseAbatementModule />;
@@ -74,7 +76,7 @@ const SpecialOpsDashboard: React.FC<{ isLocked?: boolean }> = ({ isLocked = fals
                 desc="Holdover times and fluid types (Type I, II, IV)."
                 icon={Droplets}
                 color="purple"
-                onClick={() => setView('contam')} // Reusing contam for now or add specific
+                onClick={() => setView('deicing')}
             />
         </div>
     );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View } from '../../types';
-import { ChevronLeft, Map, Compass, Info, HelpCircle } from 'lucide-react';
+import { ChevronLeft, Map, Compass, Info, HelpCircle, Layers, AlertTriangle, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface Props {
@@ -9,15 +9,20 @@ interface Props {
 
 const ProjectionsExplorer: React.FC<Props> = ({ onChangeView }) => {
   const [projection, setProjection] = useState<'MERCATOR' | 'LAMBERT' | 'POLAR'>('MERCATOR');
-  
+
   // Coordinates State for track changes
   const [latA, setLatA] = useState(60);
   const [lonA, setLonA] = useState(-30);
   const [latB, setLatB] = useState(60);
   const [lonB, setLonB] = useState(10);
-  
-  // Lambert specific: Parallel of Origin
-  const [parallelOfOrigin, setParallelOfOrigin] = useState(45); // degrees
+
+  // Lambert specific: Standard Parallels and Parallel of Origin
+  const [stdPar1, setStdPar1] = useState(30);
+  const [stdPar2, setStdPar2] = useState(60);
+  const [parallelOfOrigin, setParallelOfOrigin] = useState(45); // φ₀
+
+  // Mercator specific: Latitude for Scale Factor
+  const [mercatorLat, setMercatorLat] = useState(60);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -29,18 +34,22 @@ const ProjectionsExplorer: React.FC<Props> = ({ onChangeView }) => {
   const earthConvergency = deltaLon * Math.sin((meanLat * Math.PI) / 180);
 
   // Constant of the cone (n)
-  const n = projection === 'POLAR' 
-    ? 1 
-    : projection === 'LAMBERT' 
-      ? Math.sin((parallelOfOrigin * Math.PI) / 180) 
+  // For Lambert: n = sin(parallelOfOrigin)
+  // For Polar Stereographic: n = 1
+  // For Direct Mercator: n = 0
+  const n = projection === 'POLAR'
+    ? 1.0
+    : projection === 'LAMBERT'
+      ? Math.sin((parallelOfOrigin * Math.PI) / 180)
       : 0;
 
   // Chart Convergency = deltaLon * n
   const chartConvergency = deltaLon * n;
 
-  // Track Change on Straight Line on Chart
-  const trackChange = chartConvergency;
+  // Mercator Scale Factor: SF = sec(Lat) = 1 / cos(Lat)
+  const mercatorScaleFactor = 1 / Math.cos((mercatorLat * Math.PI) / 180);
 
+  // Canvas drawing
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -53,302 +62,484 @@ const ProjectionsExplorer: React.FC<Props> = ({ onChangeView }) => {
     const cx = w / 2;
     const cy = h / 2;
 
-    // Draw grid based on projection
     ctx.lineWidth = 1.5;
-    
+
     if (projection === 'MERCATOR') {
-      // Draw standard Mercator Grid
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
-      
-      // Parallel Meridians
-      for (let x = 40; x < w; x += 60) {
+      // Direct Mercator Grid
+      ctx.fillStyle = '#090d16';
+      ctx.fillRect(0, 0, w, h);
+
+      // Parallel Straight Meridians
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+      for (let x = 40; x < w; x += 55) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
         ctx.lineTo(x, h);
         ctx.stroke();
       }
 
-      // Parallels (Spacing expanding away from Equator)
+      // Parallels (Spacing expanding with sec(Lat) away from Equator at cy)
       let currentY = cy;
-      let spacing = 20;
+      let spacing = 18;
       for (let i = 0; currentY > 0; i++) {
         ctx.beginPath();
         ctx.moveTo(0, currentY);
         ctx.lineTo(w, currentY);
         ctx.stroke();
         currentY -= spacing;
-        spacing *= 1.25;
+        spacing *= 1.22; // secant expansion visualization
       }
       currentY = cy;
-      spacing = 20;
+      spacing = 18;
       for (let i = 0; currentY < h; i++) {
         ctx.beginPath();
         ctx.moveTo(0, currentY);
         ctx.lineTo(w, currentY);
         ctx.stroke();
         currentY += spacing;
-        spacing *= 1.25;
+        spacing *= 1.22;
       }
 
-      // Great Circle (Curved, concave to pole - N hemisphere is up)
-      ctx.strokeStyle = '#38bdf8'; // Sky Blue
+      // Equator
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+      ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(60, h - 80);
-      ctx.quadraticCurveTo(cx, 50, w - 60, h - 80);
+      ctx.moveTo(0, cy);
+      ctx.lineTo(w, cy);
       ctx.stroke();
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = '10px monospace';
+      ctx.fillText('EQUATOR (TRUE SCALE: SF = 1.0)', 10, cy - 4);
 
-      // Rhumb Line (Straight line)
-      ctx.strokeStyle = '#facc15'; // Yellow
-      ctx.setLineDash([4, 4]);
+      // Rhumb Line: Straight Line on Mercator
+      ctx.strokeStyle = '#f59e0b'; // Amber
+      ctx.setLineDash([5, 4]);
+      ctx.lineWidth = 2.5;
       ctx.beginPath();
-      ctx.moveTo(60, h - 80);
-      ctx.lineTo(w - 60, h - 80);
+      ctx.moveTo(50, cy - 30);
+      ctx.lineTo(w - 50, cy - 70);
       ctx.stroke();
       ctx.setLineDash([]);
 
+      // Great Circle: Curved Line, CONVEX to the nearer pole (Northern Pole is up)
+      ctx.strokeStyle = '#38bdf8'; // Sky blue
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(50, cy - 30);
+      ctx.quadraticCurveTo(cx, cy - 130, w - 50, cy - 70);
+      ctx.stroke();
+
+      // Labels on Canvas
+      ctx.fillStyle = '#38bdf8';
+      ctx.fillText('Great Circle (Curves to Pole)', cx - 60, cy - 135);
+      ctx.fillStyle = '#f59e0b';
+      ctx.fillText('Rhumb Line (Straight Line)', cx - 55, cy - 40);
+
     } else if (projection === 'LAMBERT') {
-      // Lambert Conformal Conic (Converging meridians)
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+      // Lambert Conformal Conic (Converging meridians & concentric parallels)
+      ctx.fillStyle = '#090d16';
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
       const apexX = cx;
-      const apexY = -80; // apex off-screen
+      const apexY = -90; // Apex of the cone
 
       // Meridians converging at apex
-      for (let angleDeg = -45; angleDeg <= 45; angleDeg += 15) {
+      for (let angleDeg = -42; angleDeg <= 42; angleDeg += 12) {
         const rad = (angleDeg * Math.PI) / 180;
         ctx.beginPath();
         ctx.moveTo(apexX, apexY);
-        ctx.lineTo(apexX + Math.sin(rad) * 450, apexY + Math.cos(rad) * 450);
+        ctx.lineTo(apexX + Math.sin(rad) * 460, apexY + Math.cos(rad) * 460);
         ctx.stroke();
       }
 
-      // Concentric Parallels
-      for (let radius = 200; radius <= 400; radius += 50) {
+      // Parallels (Concentric circular arcs)
+      for (let radius = 170; radius <= 420; radius += 45) {
         ctx.beginPath();
-        ctx.arc(apexX, apexY, radius, Math.PI / 2 - 0.8, Math.PI / 2 + 0.8);
+        ctx.arc(apexX, apexY, radius, Math.PI / 2 - 0.75, Math.PI / 2 + 0.75);
         ctx.stroke();
       }
 
-      // Great Circle (Straight line)
-      ctx.strokeStyle = '#38bdf8';
+      // Standard Parallels Highlighting (SP1 and SP2)
+      ctx.strokeStyle = 'rgba(16, 185, 129, 0.6)'; // Green = True scale
+      ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(cx - 120, 260);
-      ctx.lineTo(cx + 120, 260);
+      ctx.arc(apexX, apexY, 215, Math.PI / 2 - 0.75, Math.PI / 2 + 0.75);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(apexX, apexY, 350, Math.PI / 2 - 0.75, Math.PI / 2 + 0.75);
       ctx.stroke();
 
-      // Rhumb Line (Curved, concave to pole - pole is at top/apex)
-      ctx.strokeStyle = '#facc15';
-      ctx.setLineDash([4, 4]);
+      ctx.fillStyle = '#10b981';
+      ctx.font = '10px monospace';
+      ctx.fillText(`SP 2 (${stdPar2}°N) - SCALE TRUE (1.0)`, cx - 180, 135);
+      ctx.fillText(`SP 1 (${stdPar1}°N) - SCALE TRUE (1.0)`, cx - 180, 270);
+      ctx.fillStyle = '#f43f5e';
+      ctx.fillText('Between SPs: COMPRESSED (< 1.0)', cx - 80, 205);
+
+      // Great Circle on Lambert: Virtually a Straight Line!
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2.5;
       ctx.beginPath();
-      ctx.moveTo(cx - 120, 260);
-      ctx.quadraticCurveTo(cx, 290, cx + 120, 260);
+      ctx.moveTo(cx - 130, 240);
+      ctx.lineTo(cx + 130, 240);
+      ctx.stroke();
+
+      // Rhumb Line on Lambert: Curved, CONCAVE to the parallel of origin/apex
+      ctx.strokeStyle = '#f59e0b';
+      ctx.setLineDash([5, 4]);
+      ctx.beginPath();
+      ctx.moveTo(cx - 130, 240);
+      ctx.quadraticCurveTo(cx, 265, cx + 130, 240);
       ctx.stroke();
       ctx.setLineDash([]);
 
+      ctx.fillStyle = '#38bdf8';
+      ctx.fillText('Straight line ≈ Great Circle', cx - 60, 230);
+
     } else {
       // Polar Stereographic (Meridians radiating from center pole)
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+      ctx.fillStyle = '#090d16';
+      ctx.fillRect(0, 0, w, h);
 
-      // Radiating meridians
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+
+      // Radiating straight meridians from Pole (cx, cy)
       for (let angleDeg = 0; angleDeg < 360; angleDeg += 30) {
         const rad = (angleDeg * Math.PI) / 180;
         ctx.beginPath();
         ctx.moveTo(cx, cy);
-        ctx.lineTo(cx + Math.cos(rad) * 180, cy + Math.sin(rad) * 180);
+        ctx.lineTo(cx + Math.cos(rad) * 170, cy + Math.sin(rad) * 170);
         ctx.stroke();
       }
 
-      // Concentric circles
-      for (let r = 40; r <= 160; r += 40) {
+      // Concentric circles (Parallels of latitude)
+      for (let r = 35; r <= 150; r += 35) {
         ctx.beginPath();
         ctx.arc(cx, cy, r, 0, Math.PI * 2);
         ctx.stroke();
       }
 
-      // Great Circle (Straight line nearby pole)
+      // Pole label
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 11px monospace';
+      ctx.fillText('NORTH POLE (n = 1.0)', cx - 55, cy - 8);
+
+      // Great Circle (Nearly a straight line across polar cap)
       ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2.5;
       ctx.beginPath();
-      ctx.moveTo(cx - 100, cy - 60);
-      ctx.lineTo(cx + 100, cy - 60);
+      ctx.moveTo(cx - 110, cy - 50);
+      ctx.lineTo(cx + 110, cy - 50);
       ctx.stroke();
 
-      // Rhumb Line (Concentric spiral, visualised as curve concave to pole)
-      ctx.strokeStyle = '#facc15';
-      ctx.setLineDash([4, 4]);
+      // Rhumb Line (Spiral concave to the pole)
+      ctx.strokeStyle = '#f59e0b';
+      ctx.setLineDash([5, 4]);
       ctx.beginPath();
-      ctx.moveTo(cx - 100, cy - 60);
-      ctx.quadraticCurveTo(cx, cy - 20, cx + 100, cy - 60);
+      ctx.moveTo(cx - 110, cy - 50);
+      ctx.quadraticCurveTo(cx, cy - 20, cx + 110, cy - 50);
       ctx.stroke();
       ctx.setLineDash([]);
     }
-  }, [projection, parallelOfOrigin]);
+  }, [projection, parallelOfOrigin, stdPar1, stdPar2]);
 
   return (
-    <div className="max-w-7xl mx-auto p-4 md:p-8 animate-in fade-in duration-700">
+    <div className="max-w-7xl mx-auto p-4 md:p-8 space-y-8 animate-in fade-in duration-500 text-slate-100">
       {/* Back Button */}
-      <button 
+      <button
         onClick={() => onChangeView(View.GEN_NAV_HOME)}
-        className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-8 group"
+        className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group"
       >
-        <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> 
-        Back to Subject Dashboard
+        <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
+        <span>Back to General Navigation</span>
       </button>
 
-      {/* Header */}
-      <div className="glass-panel p-8 md:p-12 rounded-3xl border border-cyan-500/20 relative overflow-hidden mb-8">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4" />
-        <div className="flex items-center gap-4 mb-6 relative z-10">
-          <div className="p-4 bg-cyan-500/20 rounded-2xl text-cyan-400">
+      {/* Header Banner */}
+      <div className="glass-panel p-8 md:p-12 rounded-3xl border border-cyan-500/20 bg-gradient-to-r from-slate-900 via-cyan-950/30 to-slate-900 relative overflow-hidden">
+        <div className="flex items-center gap-4 mb-4 relative z-10">
+          <div className="p-3 bg-cyan-500/20 rounded-2xl text-cyan-400">
             <Map size={32} />
           </div>
-          <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight">ICAO Map Projections Explorer</h1>
+          <div>
+            <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight">
+              Aeronautical Chart Projections
+            </h1>
+            <p className="text-xs font-mono text-cyan-300 mt-1">EASA 061.04 CHARTS & CONFORMALITY</p>
+          </div>
         </div>
-        <p className="text-slate-300 text-lg max-w-2xl leading-relaxed relative z-10">
-          Simulate Earth geometry conversions, calculate the **Constant of the Cone**, and audit straight-line chart track deviations across standard projections.
+        <p className="text-slate-300 text-sm md:text-base max-w-3xl leading-relaxed relative z-10">
+          Analyze projection distortion mechanics: Direct Mercator scale expansion ($\sec \text{Lat}$), Lambert Conformal
+          conic standard parallels, and Polar Stereographic track convergency ($n = 1.0$).
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Column: Grid Selector & Track Math (5/12) */}
-        <div className="lg:col-span-5 bg-slate-900/50 p-6 md:p-8 rounded-3xl border border-white/5 space-y-6">
-          <h3 className="text-xl font-bold text-white border-b border-white/5 pb-3">Projection Settings</h3>
+        {/* Left Column: Selector & Formulas (5/12) */}
+        <div className="lg:col-span-5 bg-slate-900/60 p-6 md:p-8 rounded-3xl border border-slate-800 space-y-6">
+          <h3 className="text-lg font-bold text-white border-b border-slate-800 pb-3 flex items-center gap-2">
+            <Layers size={18} className="text-cyan-400" />
+            Projection Model Selector
+          </h3>
 
           {/* Tab Selector */}
           <div className="flex bg-slate-950 p-1 rounded-xl">
-            <button 
-              onClick={() => setProjection('MERCATOR')} 
-              className={`flex-1 py-2.5 text-xs font-bold rounded-lg transition-all ${projection === 'MERCATOR' ? 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/20' : 'text-slate-500 hover:text-slate-300'}`}
+            <button
+              onClick={() => setProjection('MERCATOR')}
+              className={`flex-1 py-2.5 text-xs font-bold rounded-lg transition-all ${
+                projection === 'MERCATOR'
+                  ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20'
+                  : 'text-slate-400 hover:text-white'
+              }`}
             >
               Direct Mercator
             </button>
-            <button 
-              onClick={() => setProjection('LAMBERT')} 
-              className={`flex-1 py-2.5 text-xs font-bold rounded-lg transition-all ${projection === 'LAMBERT' ? 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/20' : 'text-slate-500 hover:text-slate-300'}`}
+            <button
+              onClick={() => setProjection('LAMBERT')}
+              className={`flex-1 py-2.5 text-xs font-bold rounded-lg transition-all ${
+                projection === 'LAMBERT'
+                  ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20'
+                  : 'text-slate-400 hover:text-white'
+              }`}
             >
               Lambert Conic
             </button>
-            <button 
-              onClick={() => setProjection('POLAR')} 
-              className={`flex-1 py-2.5 text-xs font-bold rounded-lg transition-all ${projection === 'POLAR' ? 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/20' : 'text-slate-500 hover:text-slate-300'}`}
+            <button
+              onClick={() => setProjection('POLAR')}
+              className={`flex-1 py-2.5 text-xs font-bold rounded-lg transition-all ${
+                projection === 'POLAR'
+                  ? 'bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20'
+                  : 'text-slate-400 hover:text-white'
+              }`}
             >
               Polar Stereo
             </button>
           </div>
 
-          {/* Lambert specific control */}
-          {projection === 'LAMBERT' && (
-            <motion.div 
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              className="space-y-4 pt-2"
-            >
-              <div className="flex justify-between text-xs text-slate-400 font-mono">
-                <span>PARALLEL OF ORIGIN (φ₀)</span>
-                <span className="text-white font-bold">{parallelOfOrigin}° N</span>
+          {/* MERCATOR SPECIFIC: SCALE EXPANSION SLIDER */}
+          {projection === 'MERCATOR' && (
+            <div className="space-y-4 pt-2">
+              <div className="p-4 bg-slate-950 rounded-2xl border border-cyan-500/20 space-y-2">
+                <span className="text-[10px] font-mono text-slate-400 uppercase">MERCATOR SCALE EXPANSION</span>
+                <div className="text-xl font-black text-cyan-400 font-mono">
+                  Scale Factor = sec(Latitude) = 1 / cos(φ)
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Scale is only true at the Equator (SF = 1.0). Towards the poles, scale expands to infinity.
+                </p>
               </div>
-              <input 
-                type="range" 
-                min="10" 
-                max="80" 
-                value={parallelOfOrigin} 
-                onChange={e => setParallelOfOrigin(Number(e.target.value))} 
-                className="w-full accent-cyan-500" 
-              />
-            </motion.div>
+
+              <div>
+                <div className="flex justify-between text-xs text-slate-300 font-mono mb-2">
+                  <span>AUDIT LATITUDE (φ):</span>
+                  <strong className="text-cyan-400 font-bold">{mercatorLat}° N/S</strong>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="80"
+                  step="1"
+                  value={mercatorLat}
+                  onChange={e => setMercatorLat(Number(e.target.value))}
+                  className="w-full accent-cyan-500"
+                />
+                <div className="flex justify-between text-[10px] text-slate-500 mt-1 font-mono">
+                  <span>0° (Eq: 1.0×)</span>
+                  <span>60° (2.0× - Double!)</span>
+                  <span>80° (5.76× - Huge distortion)</span>
+                </div>
+              </div>
+
+              <div className="p-4 bg-slate-950 rounded-2xl border border-white/5 space-y-2 font-mono text-xs">
+                <div className="flex justify-between">
+                  <span className="text-slate-400">cos({mercatorLat}°):</span>
+                  <span className="text-white font-bold">{Math.cos((mercatorLat * Math.PI) / 180).toFixed(4)}</span>
+                </div>
+                <div className="flex justify-between border-t border-slate-800 pt-2 text-sm text-cyan-400 font-bold">
+                  <span>Scale Factor (sec φ):</span>
+                  <span>{mercatorScaleFactor.toFixed(3)}×</span>
+                </div>
+                <p className="text-[11px] text-slate-400 pt-1 italic">
+                  A 100 NM distance measured at {mercatorLat}° latitude appears {Math.round(100 * mercatorScaleFactor)} NM wide on the chart!
+                </p>
+              </div>
+            </div>
           )}
 
-          {/* Grid coordinates input for track computations */}
-          <div className="pt-4 border-t border-white/5 space-y-4">
-            <h4 className="text-sm font-bold text-slate-300">Track Deviation Calculator</h4>
-            
+          {/* LAMBERT SPECIFIC CONTROLS */}
+          {projection === 'LAMBERT' && (
+            <div className="space-y-4 pt-2">
+              <div className="p-4 bg-slate-950 rounded-2xl border border-cyan-500/20 space-y-2">
+                <span className="text-[10px] font-mono text-slate-400 uppercase">CONSTANT OF THE CONE (n)</span>
+                <div className="text-xl font-black text-cyan-400 font-mono">
+                  n = sin(Parallel of Origin φ₀)
+                </div>
+                <p className="text-xs text-slate-400">
+                  Chart Convergency = ΔLong × n.
+                </p>
+              </div>
+
+              <div>
+                <div className="flex justify-between text-xs text-slate-300 font-mono mb-2">
+                  <span>PARALLEL OF ORIGIN (φ₀):</span>
+                  <strong className="text-cyan-400 font-bold">{parallelOfOrigin}° N</strong>
+                </div>
+                <input
+                  type="range"
+                  min="15"
+                  max="75"
+                  value={parallelOfOrigin}
+                  onChange={e => {
+                    const po = Number(e.target.value);
+                    setParallelOfOrigin(po);
+                    setStdPar1(Math.max(10, po - 15));
+                    setStdPar2(Math.min(80, po + 15));
+                  }}
+                  className="w-full accent-cyan-500"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 text-xs font-mono">
+                <div className="p-3 bg-emerald-950/20 border border-emerald-500/30 rounded-xl">
+                  <span className="text-slate-400 block text-[10px]">STANDARD PARALLEL 1</span>
+                  <span className="text-emerald-400 font-bold text-sm">{stdPar1}° N (Scale True)</span>
+                </div>
+                <div className="p-3 bg-emerald-950/20 border border-emerald-500/30 rounded-xl">
+                  <span className="text-slate-400 block text-[10px]">STANDARD PARALLEL 2</span>
+                  <span className="text-emerald-400 font-bold text-sm">{stdPar2}° N (Scale True)</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* POLAR STEREOGRAPHIC SPECIFIC */}
+          {projection === 'POLAR' && (
+            <div className="p-4 bg-slate-950 rounded-2xl border border-cyan-500/20 space-y-3 text-xs">
+              <span className="text-[10px] font-mono text-slate-400 uppercase block">POLAR CONVERGENCY LAW</span>
+              <div className="text-xl font-black text-cyan-400 font-mono">n = 1.0000</div>
+              <p className="text-slate-300 leading-relaxed">
+                On a Polar Stereographic chart, the Constant of the Cone is exactly 1.
+                <strong> Chart Convergency = Change in Longitude (Δλ)</strong>.
+                A straight-line flight from 030°W to 050°E undergoes a track change of exactly 80°!
+              </p>
+            </div>
+          )}
+
+          {/* TRACK CONVERGENCY CALCULATOR */}
+          <div className="pt-4 border-t border-slate-800 space-y-4">
+            <h4 className="text-sm font-bold text-slate-300">Chart Track Deviation Calculator</h4>
+
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-[10px] text-slate-500 block mb-1">POINT A LONGITUDE</label>
-                <input 
-                  type="number" 
-                  value={lonA} 
+                <label className="text-[10px] text-slate-400 block mb-1 font-mono">POINT A LONGITUDE (°)</label>
+                <input
+                  type="number"
+                  value={lonA}
                   onChange={e => setLonA(Number(e.target.value))}
-                  className="w-full bg-slate-950 border border-slate-800 rounded px-2.5 py-1.5 text-white font-mono text-sm focus:outline-none" 
+                  className="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono text-sm"
                 />
               </div>
               <div>
-                <label className="text-[10px] text-slate-500 block mb-1">POINT B LONGITUDE</label>
-                <input 
-                  type="number" 
-                  value={lonB} 
+                <label className="text-[10px] text-slate-400 block mb-1 font-mono">POINT B LONGITUDE (°)</label>
+                <input
+                  type="number"
+                  value={lonB}
                   onChange={e => setLonB(Number(e.target.value))}
-                  className="w-full bg-slate-950 border border-slate-800 rounded px-2.5 py-1.5 text-white font-mono text-sm focus:outline-none" 
+                  className="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono text-sm"
                 />
               </div>
             </div>
 
-            <div className="p-4 bg-slate-950/60 rounded-2xl border border-white/5 space-y-3 font-mono text-xs">
+            <div className="p-4 bg-slate-950 rounded-2xl border border-white/5 space-y-2.5 font-mono text-xs">
               <div className="flex justify-between">
-                <span className="text-slate-500">Change in Longitude (Δλ):</span>
+                <span className="text-slate-400">Change in Longitude (Δλ):</span>
                 <span className="text-white font-bold">{deltaLon}°</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">Constant of Cone (n):</span>
+                <span className="text-slate-400">Constant of Cone (n):</span>
                 <span className="text-white font-bold">{n.toFixed(4)}</span>
               </div>
-              <div className="flex justify-between border-t border-white/5 pt-2 text-cyan-400 font-bold">
-                <span>Chart Convergency:</span>
+              <div className="flex justify-between border-t border-slate-800 pt-2 text-cyan-400 font-bold text-sm">
+                <span>Straight Line Track Change:</span>
                 <span>{chartConvergency.toFixed(2)}°</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Column: Canvas Grid & Explanations (7/12) */}
-        <div className="lg:col-span-7 space-y-8">
-          {/* Canvas Card */}
-          <div className="bg-slate-900/50 p-6 md:p-8 rounded-3xl border border-white/5 flex flex-col items-center">
-            <canvas 
-              ref={canvasRef} 
-              width={480} 
-              height={300} 
-              className="w-full bg-slate-950 rounded-2xl border border-slate-800 shadow-inner max-w-lg" 
+        {/* Right Column: Canvas Grid & Detailed ATPL Laws (7/12) */}
+        <div className="lg:col-span-7 space-y-6">
+          <div className="bg-slate-900/60 p-6 md:p-8 rounded-3xl border border-slate-800 flex flex-col items-center shadow-2xl">
+            <canvas
+              ref={canvasRef}
+              width={520}
+              height={320}
+              className="w-full bg-slate-950 rounded-2xl border border-slate-800 shadow-inner max-w-xl"
             />
-            <div className="flex gap-6 mt-4 text-xs font-bold text-center">
-              <span className="text-sky-400">── Great Circle Path</span>
-              <span className="text-yellow-400">--- Rhumb Line Path</span>
+            <div className="flex flex-wrap justify-between items-center w-full mt-4 text-xs font-bold gap-3 px-2">
+              <span className="text-sky-400 flex items-center gap-1.5">
+                <span className="w-4 h-1 bg-sky-400 rounded-full inline-block"></span>
+                Great Circle Path
+              </span>
+              <span className="text-amber-400 flex items-center gap-1.5">
+                <span className="w-4 h-0.5 border-t border-dashed border-amber-400 inline-block"></span>
+                Rhumb Line Path
+              </span>
             </div>
           </div>
 
-          {/* Projection Specific Properties & EASA Questions */}
-          <div className="bg-slate-900/50 p-6 md:p-8 rounded-3xl border border-white/5 space-y-4">
-            <h4 className="text-sm font-bold text-slate-300 uppercase tracking-wider">ICAO Conformality Properties</h4>
+          {/* Projection Conformality & Scale Distribution Table */}
+          <div className="bg-slate-900/60 p-6 md:p-8 rounded-3xl border border-slate-800 space-y-5">
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <Compass size={18} className="text-cyan-400" />
+              Chart Conformality & Scale Comparison
+            </h4>
 
-            <div className="space-y-4 text-xs text-slate-300">
-              <div className="flex gap-3">
-                <div className="p-2 bg-slate-950 rounded-lg text-cyan-400 font-bold h-max font-mono">01</div>
-                <div>
-                  <strong>Requirement for Conformality:</strong> To support navigation, charts must be conformal (maintain correct angular relationships locally). Straight lines drawn on the chart should closely approximate a **Great Circle** for quick course plotting.
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+              <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+                <strong className="text-cyan-400 block">Direct Mercator</strong>
+                <ul className="space-y-1.5 text-slate-300 list-disc pl-4">
+                  <li><strong>Meridians:</strong> Parallel straight lines.</li>
+                  <li><strong>Rhumb Line:</strong> Straight line.</li>
+                  <li><strong>Great Circle:</strong> Curved convex to nearer pole.</li>
+                  <li><strong>Scale:</strong> True ONLY at Equator; expands with $\sec(\text{Lat})$. Unusable above 70°.</li>
+                </ul>
               </div>
 
-              <div className="flex gap-3">
-                <div className="p-2 bg-slate-950 rounded-lg text-cyan-400 font-bold h-max font-mono">02</div>
-                <div>
-                  <strong>Earth vs Chart Convergency:</strong>
-                  <ul className="list-disc pl-4 mt-2 space-y-1">
-                    <li>Earth Convergency = Delta-Longitude * sin(Mean Latitude).</li>
-                    <li>Chart Convergency = Delta-Longitude * n.</li>
-                    <li>For Lambert: n = sin(Parallel of Origin).</li>
-                    <li>For Polar Stereographic: n = 1 (Chart convergency equals change in longitude).</li>
-                  </ul>
-                </div>
+              <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+                <strong className="text-emerald-400 block">Lambert Conformal</strong>
+                <ul className="space-y-1.5 text-slate-300 list-disc pl-4">
+                  <li><strong>Meridians:</strong> Straight lines converging at cone apex.</li>
+                  <li><strong>Rhumb Line:</strong> Curved concave to parallel of origin.</li>
+                  <li><strong>Great Circle:</strong> Practically a straight line!</li>
+                  <li><strong>Scale:</strong> True at standard parallels; compressed between, expanded outside.</li>
+                </ul>
               </div>
 
-              {projection === 'POLAR' && (
-                <div className="p-4 bg-cyan-950/20 border border-cyan-500/20 rounded-2xl font-mono space-y-2">
-                  <span className="text-cyan-400 block font-bold">Polar Stereographic Track Calculation</span>
-                  <p className="text-slate-400 leading-relaxed text-[11px]">
-                    Since n = 1, the straight line track change is exactly Delta-Longitude.
-                    For example, departing at **{lonA}°W** on a straight course and arriving at **{lonB}°E**, the track will change by exactly **{deltaLon}°**.
-                  </p>
-                </div>
-              )}
+              <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+                <strong className="text-purple-400 block">Polar Stereographic</strong>
+                <ul className="space-y-1.5 text-slate-300 list-disc pl-4">
+                  <li><strong>Meridians:</strong> Straight lines radiating from pole.</li>
+                  <li><strong>Parallels:</strong> Concentric circles centered at pole.</li>
+                  <li><strong>Great Circle:</strong> Straight line near the pole.</li>
+                  <li><strong>Convergency:</strong> $n = 1.0$ (Chart conv = $\Delta\text{Long}$).</li>
+                </ul>
+              </div>
             </div>
+
+            {/* Standard Parallels Scale Distribution Alert */}
+            {projection === 'LAMBERT' && (
+              <div className="p-4 bg-emerald-950/20 border border-emerald-500/30 rounded-2xl text-xs space-y-1.5 text-emerald-200">
+                <strong className="text-emerald-400 flex items-center gap-1.5">
+                  <CheckCircle2 size={16} /> Lambert Standard Parallels Law (EASA High-Yield Exam Fact)
+                </strong>
+                <p className="leading-relaxed">
+                  The cone cuts the sphere at two standard parallels.
+                  Between standard parallels ({stdPar1}° and {stdPar2}°), the chart surface is <strong>inside</strong> the Earth sphere, so the chart scale is <strong>smaller than nominal (compressed, SF &lt; 1.0)</strong>.
+                  Outside the standard parallels, the chart surface is <strong>outside</strong> the sphere, so the scale is <strong>larger than nominal (expanded, SF &gt; 1.0)</strong>.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

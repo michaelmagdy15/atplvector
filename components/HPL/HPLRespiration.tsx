@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
     Wind, Activity, Brain, Mountain, AlertTriangle,
     ChevronDown, ChevronUp, Heart, Zap,
-    ArrowDown, ArrowUp, Info
+    ArrowDown, ArrowUp, Info, AlertOctagon, Flame, ShieldCheck
 } from 'lucide-react';
 
 // ─── Data ────────────────────────────────────────────────────────
@@ -19,8 +19,8 @@ const ALTITUDE_DATA: {
     { maxAlt: 5000,  spo2: 97,  tuc: 'Unlimited',      zone: 'Safe Zone',              zoneColor: '#10b981', symptoms: ['Slight decrease in night vision above 4,000 ft'] },
     { maxAlt: 10000, spo2: 93,  tuc: 'Unlimited',      zone: 'Indifferent Zone',       zoneColor: '#a3e635', symptoms: ['Night vision impaired', 'Slight performance decrease'] },
     { maxAlt: 15000, spo2: 85,  tuc: '30 min+',        zone: 'Disturbance Zone',       zoneColor: '#facc15', symptoms: ['Drowsiness', 'Poor judgment', 'Impaired coordination', 'Headache'] },
-    { maxAlt: 18000, spo2: 78,  tuc: '20-30 min',      zone: 'Disturbance Zone',       zoneColor: '#f59e0b', symptoms: ['Euphoria', 'Belligerence', 'Tunnel vision', 'Cyanosis'] },
-    { maxAlt: 22000, spo2: 70,  tuc: '5-10 min',       zone: 'Critical Zone',          zoneColor: '#f97316', symptoms: ['Severe impairment', 'Loss of muscle control', 'Memory loss'] },
+    { maxAlt: 18000, spo2: 78,  tuc: '30-60 min',     zone: 'Disturbance Zone',       zoneColor: '#f59e0b', symptoms: ['Euphoria', 'Belligerence', 'Tunnel vision', 'Cyanosis'] },
+    { maxAlt: 20000, spo2: 74,  tuc: '10 min',         zone: 'Critical Zone',          zoneColor: '#f97316', symptoms: ['Impaired reasoning', 'Severe coordination deficit'] },
     { maxAlt: 25000, spo2: 60,  tuc: '3-5 min',        zone: 'Critical Zone',          zoneColor: '#ef4444', symptoms: ['Convulsions', 'Unconsciousness imminent', 'Circulatory failure'] },
     { maxAlt: 30000, spo2: 50,  tuc: '1-2 min',        zone: 'Critical Zone',          zoneColor: '#dc2626', symptoms: ['Rapid unconsciousness', 'Seizures', 'Death without O2'] },
     { maxAlt: 35000, spo2: 35,  tuc: '30-60 sec',      zone: 'Lethal Zone',            zoneColor: '#991b1b', symptoms: ['Near-instant incapacitation', 'Loss of consciousness'] },
@@ -113,11 +113,300 @@ function sliderGradientColor(pct: number) {
     return `hsl(${10 - (pct - 0.75) * 40}, 80%, 45%)`;
 }
 
+// ─── 4 Types of Hypoxia Module ────────────────────────────────────
+interface HypoxiaTypeInfo {
+    id: 'hypoxic' | 'hypemic' | 'stagnant' | 'histotoxic';
+    title: string;
+    subtitle: string;
+    mechanism: string;
+    gasLawOrPrinciple: string;
+    causes: string[];
+    cockpitScenario: string;
+    oximeterBehavior: string;
+    symptoms: string[];
+    pilotAction: string[];
+    color: string;
+    badge: string;
+    border: string;
+}
+
+const HYPOXIA_TYPES_DATA: HypoxiaTypeInfo[] = [
+    {
+        id: 'hypoxic',
+        title: 'Hypoxic Hypoxia (Altitude)',
+        subtitle: 'Insufficient partial pressure of oxygen in inspired air',
+        mechanism: 'Total atmospheric pressure decreases with altitude, proportionally reducing the partial pressure of inspired oxygen (pO2). Alveolar oxygen pressure falls, creating an insufficient pressure gradient across the alveolar-capillary membrane.',
+        gasLawOrPrinciple: "Dalton's Law: P_total = P_O2 + P_N2 + P_CO2 + P_H2O. At FL180, ambient pressure is halved; pO2 drops from 160 mmHg (sea level) to ~80 mmHg.",
+        causes: [
+            'Flight in unpressurized aircraft above 10,000 ft',
+            'Gradual, rapid, or explosive cabin depressurization',
+            'Depletion or failure of flight deck oxygen system',
+            'Improperly donned mask or leaking regulator valve',
+        ],
+        cockpitScenario: 'Cruising at FL350, a slow outflow valve failure goes unnoticed. The cabin altitude slowly climbs to 24,000 ft. Pilots develop insidious euphoria, tunnel vision, and sluggish cognition without feeling breathless.',
+        oximeterBehavior: 'SpO2 drops rapidly from 98% down to 60-70% or below.',
+        symptoms: ['Euphoria and false sense of well-being', 'Cyanosis (blue discoloration of fingernail beds and lips)', 'Loss of night vision & peripheral tunnel vision', 'Impaired judgment and fine motor coordination', 'Confusion, lethargy, and eventual unconsciousness'],
+        pilotAction: [
+            'Don quick-donning 100% oxygen mask under positive pressure immediately (within 5 seconds)',
+            'Establish crew communication on interphone (hot mic)',
+            'Initiate emergency descent to 10,000 ft or Minimum Enroute Altitude (MEA)',
+            'Deploy passenger oxygen masks if cabin altitude exceeds 14,000 ft',
+        ],
+        color: 'text-sky-400',
+        badge: 'bg-sky-500/20 text-sky-300 border-sky-500/30',
+        border: 'border-sky-500/40 bg-sky-950/20',
+    },
+    {
+        id: 'hypemic',
+        title: 'Hypemic / Anemic Hypoxia (Blood Transport)',
+        subtitle: 'Reduced oxygen-carrying capacity of the blood',
+        mechanism: 'Inspired oxygen pressure is normal, but the blood cannot carry sufficient oxygen to the tissues. Hemoglobin is either reduced in volume or bound to toxins that block oxygen binding sites.',
+        gasLawOrPrinciple: 'Henry’s Law & Chemical Affinity: Carbon Monoxide (CO) binds to Hemoglobin with 200–250 times greater affinity than Oxygen, forming stable Carboxyhemoglobin (HbCO).',
+        causes: [
+            'Carbon Monoxide (CO) poisoning from cracked piston exhaust shroud heaters',
+            'Cigarette smoking (3% to 8% HbCO, effectively raising physiological altitude by 4,000–5,000 ft)',
+            'Severe anemia or significant recent blood loss',
+            'Blood donation within 24 hours prior to flight',
+        ],
+        cockpitScenario: 'In a single-engine piston during a winter climb, cabin heat is turned ON. A hairline crack in the exhaust heat exchanger shroud leaks odorless CO into the cockpit. The pilot develops a dull frontal headache and nausea.',
+        oximeterBehavior: 'Standard pulse oximeters CANNOT differentiate HbCO from Oxyhemoglobin! SpO2 falsely reads 98-100% while tissue is severely starved of oxygen.',
+        symptoms: ['Throbbing frontal headache and temple tightness', 'Nausea, dizziness, and mental confusion', 'Flushed skin initially; cherry-red skin/lips only in terminal or post-mortem stages', 'Gradual loss of motor control and collapse'],
+        pilotAction: [
+            'Immediately turn cabin heater OFF',
+            'Open all fresh air vents and cockpit storm windows fully',
+            'Don 100% supplemental oxygen under positive pressure (reduces CO half-life from 300 min to ~80 min)',
+            'Land at nearest suitable airport and seek immediate medical evaluation (hyperbaric chamber if severe)',
+        ],
+        color: 'text-amber-400',
+        badge: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
+        border: 'border-amber-500/40 bg-amber-900/20',
+    },
+    {
+        id: 'stagnant',
+        title: 'Stagnant Hypoxia (Circulation Pooling)',
+        subtitle: 'Inadequate blood flow velocity or venous return',
+        mechanism: 'Blood has normal oxygen content and inspired air is normal, but blood circulation is sluggish, pooled, or arrested. Tissues do not receive enough oxygen molecules per unit time.',
+        gasLawOrPrinciple: 'Hydrostatic Fluid Dynamics: Delta P = rho * g * h. Sustained +Gz acceleration creates a downward inertial vector, preventing arterial blood from reaching the brain.',
+        causes: [
+            'Sustained high positive acceleration (+Gz) in steep turns, aerobatics, or combat maneuvers',
+            'Shock or cardiovascular failure (cardiac arrest, severe arrhythmias)',
+            'Extreme cold / hypothermia causing profound peripheral vasoconstriction',
+            'Arterial spasm, venous embolism, or localized tight tourniquets',
+        ],
+        cockpitScenario: 'During an aggressive 60-degree steep turn pulling +2.5 to +3.5 Gz, blood pools in the pilot’s abdomen and lower extremities. Cerebral perfusion pressure drops, causing retinal ischemia.',
+        oximeterBehavior: 'Pulse oximeter on fingertip or earlobe may lose pulse waveform entirely or show erratic, uncalibrated readouts due to weak peripheral perfusion.',
+        symptoms: ['Greyout: loss of color vision and dimming due to retinal ischemia', 'Tunnel vision: progressive loss of peripheral visual field', 'Blackout: complete loss of vision while consciousness remains briefly intact', 'G-LOC: G-induced Loss of Consciousness followed by confusion and myoclonic twitches'],
+        pilotAction: [
+            'Instantly reduce load factor: relax back-pressure on the flight controls (unload the Gs)',
+            'Perform Anti-G Straining Maneuver (AGSM / M-1 / L-1): tensing abdominal/leg muscles and breathing with closed glottis in 3-second bursts',
+            'Verify anti-G suit bladder inflation in high-performance aircraft',
+            'In case of G-LOC, recover wings-level and allow 15–30 seconds for cognitive disorientation to clear',
+        ],
+        color: 'text-purple-400',
+        badge: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
+        border: 'border-purple-500/40 bg-purple-900/20',
+    },
+    {
+        id: 'histotoxic',
+        title: 'Histotoxic Hypoxia (Cellular Poisoning)',
+        subtitle: 'Inability of cellular tissues to utilize delivered oxygen',
+        mechanism: 'Lungs, blood, and circulation all work normally, but cell mitochondria are poisoned. Cytochrome oxidase enzymes in the electron transport chain are inhibited, blocking ATP production from oxygen.',
+        gasLawOrPrinciple: 'Cellular Enzyme Inhibition: Toxins like cyanide or alcohol interfere with cellular respiration enzymes; blood returning in veins remains rich in unconsumed oxygen.',
+        causes: [
+            'Alcohol consumption (hangover: 1 oz alcohol raises physiological altitude by ~2,000 ft)',
+            'Cyanide or toxic pyrolysis gases from burning cabin plastics, foams, or insulation',
+            'Narcotics, sedatives, or over-the-counter antihistamines',
+            'Heavy industrial solvents, carbon tetrachloride fumes',
+        ],
+        cockpitScenario: 'Electrical fire behind the avionics bay generates thick acrid plastic fumes containing hydrogen cyanide (HCN). Even while breathing oxygen, crew cells cannot process the oxygen.',
+        oximeterBehavior: 'SpO2 reads high or normal (>95%) because hemoglobin is saturated; venous blood also returns oxygen-rich because cells cannot absorb it!',
+        symptoms: ['Rapid deep breathing (body senses cellular starvation)', 'Severe headache, confusion, and dizziness', 'Muscle weakness, tremors, convulsions, and sudden respiratory arrest', 'Loss of consciousness despite adequate ventilation'],
+        pilotAction: [
+            'Immediately don smoke hood / 100% positive-pressure oxygen mask with sealed goggles',
+            'Select emergency electrical fire/smoke checklist, isolate faulty bus, dump cabin smoke',
+            'Emergency descent and immediate landing; notify ATC and request hazardous materials ARFF',
+            'Hospital treatment: specific antidotes (hydroxocobalamin / sodium thiosulfate for cyanide)',
+        ],
+        color: 'text-rose-400',
+        badge: 'bg-rose-500/20 text-rose-300 border-rose-500/30',
+        border: 'border-rose-500/40 bg-rose-900/20',
+    },
+];
+
+const HypoxiaTypesExplorer: React.FC = () => {
+    const [selectedId, setSelectedId] = useState<'hypoxic' | 'hypemic' | 'stagnant' | 'histotoxic'>('hypoxic');
+    const selected = HYPOXIA_TYPES_DATA.find(h => h.id === selectedId) || HYPOXIA_TYPES_DATA[0];
+
+    return (
+        <div className="space-y-6 animate-in fade-in">
+            {/* Header description */}
+            <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                    <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                        <AlertOctagon className="text-teal-400" size={22} />
+                        The 4 Types of Hypoxia (EASA 040.01.02)
+                    </h3>
+                    <span className="text-xs font-mono px-3 py-1 bg-slate-800 text-teal-300 rounded-full border border-slate-700">
+                        Tissue Oxygen Deficiency
+                    </span>
+                </div>
+                <p className="text-sm text-slate-300 leading-relaxed">
+                    Hypoxia is defined as any condition in which the oxygen concentration in the body tissues is insufficient to maintain 
+                    normal physiological and cognitive function. Aviation medicine categorizes hypoxia into 4 distinct etiologies:
+                </p>
+            </div>
+
+            {/* Type selector cards */}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {HYPOXIA_TYPES_DATA.map(t => {
+                    const isSelected = t.id === selectedId;
+                    return (
+                        <button
+                            key={t.id}
+                            onClick={() => setSelectedId(t.id)}
+                            className={`p-4 rounded-xl border text-left transition-all relative overflow-hidden ${
+                                isSelected
+                                    ? 'bg-slate-800 border-teal-400 shadow-lg shadow-teal-900/30 ring-2 ring-teal-400/40'
+                                    : 'bg-slate-900/70 border-slate-700 hover:border-slate-500 hover:bg-slate-800/80'
+                            }`}
+                        >
+                            <span className={`text-[10px] font-mono px-2 py-0.5 rounded border uppercase font-bold ${t.badge}`}>
+                                {t.id}
+                            </span>
+                            <div className="font-bold text-white text-sm mt-2 mb-1">{t.title.split(' ')[0]} Hypoxia</div>
+                            <p className="text-[11px] text-slate-400 line-clamp-2">{t.subtitle}</p>
+                        </button>
+                    );
+                })}
+            </div>
+
+            {/* Selected Hypoxia Deep-Dive Card */}
+            <div className={`p-6 rounded-xl border-2 ${selected.border} space-y-6 transition-all`}>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-700/60 pb-4">
+                    <div>
+                        <span className={`text-xs font-mono uppercase font-bold tracking-wider ${selected.color}`}>
+                            Category: {selected.title}
+                        </span>
+                        <h4 className="text-2xl font-black text-white mt-0.5">{selected.subtitle}</h4>
+                    </div>
+                    <span className={`text-xs px-3 py-1 rounded-full font-bold border ${selected.badge} w-fit`}>
+                        Pulse Oximeter: {selected.oximeterBehavior.split(' ')[0]}
+                    </span>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4 text-xs">
+                    <div className="bg-slate-900/80 p-4 rounded-lg border border-slate-700/80 space-y-2">
+                        <strong className="text-sm font-bold text-teal-300 block">Biological Mechanism:</strong>
+                        <p className="text-slate-300 leading-relaxed">{selected.mechanism}</p>
+                        <div className="p-2.5 rounded bg-slate-950 border border-slate-800 text-[11px] text-teal-200/90 font-mono">
+                            {selected.gasLawOrPrinciple}
+                        </div>
+                    </div>
+
+                    <div className="bg-slate-900/80 p-4 rounded-lg border border-slate-700/80 space-y-2">
+                        <strong className="text-sm font-bold text-amber-300 block">Typical Aviation Causes:</strong>
+                        <ul className="text-slate-300 space-y-1.5 list-disc pl-4">
+                            {selected.causes.map((c, i) => (
+                                <li key={i}>{c}</li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+
+                {/* Scenario & Diagnostic Alert */}
+                <div className="bg-slate-900/90 p-4 rounded-lg border border-slate-700 space-y-2">
+                    <span className="text-xs font-bold uppercase tracking-wider text-sky-400 block">
+                        ✈ Cockpit Scenario &amp; Instrumentation Clue:
+                    </span>
+                    <p className="text-xs text-slate-200 italic leading-relaxed">{selected.cockpitScenario}</p>
+                    <div className="text-[11px] text-amber-300 font-semibold bg-amber-950/40 p-2.5 rounded border border-amber-500/30">
+                        ⚠️ Oximeter Note: {selected.oximeterBehavior}
+                    </div>
+                </div>
+
+                {/* Symptoms vs Actions */}
+                <div className="grid md:grid-cols-2 gap-4 text-xs">
+                    <div className="bg-rose-950/30 p-4 rounded-lg border border-rose-500/30 space-y-2">
+                        <strong className="text-sm font-bold text-rose-300 flex items-center gap-1.5">
+                            <AlertTriangle size={16} /> Clinical Symptoms:
+                        </strong>
+                        <ul className="text-slate-300 space-y-1.5 list-disc pl-4">
+                            {selected.symptoms.map((s, i) => (
+                                <li key={i}>{s}</li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div className="bg-emerald-950/30 p-4 rounded-lg border border-emerald-500/30 space-y-2">
+                        <strong className="text-sm font-bold text-emerald-300 flex items-center gap-1.5">
+                            <ShieldCheck size={16} /> Mandatory Cockpit Actions:
+                        </strong>
+                        <ul className="text-slate-200 space-y-1.5 list-disc pl-4 font-medium">
+                            {selected.pilotAction.map((a, i) => (
+                                <li key={i}>{a}</li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            {/* Hyperventilation vs Hypoxia Differentiation Matrix */}
+            <div className="bg-slate-900 p-6 rounded-xl border border-slate-700 space-y-4">
+                <div className="flex items-center gap-2">
+                    <AlertTriangle className="text-amber-400" size={20} />
+                    <h4 className="text-lg font-bold text-white">
+                        Diagnostic Trap: Hyperventilation vs. Hypoxia
+                    </h4>
+                </div>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                    Both conditions share almost identical initial symptoms due to inadequate tissue oxygenation (hyperventilation 
+                    causes hypocapnia / respiratory alkalosis, which shifts the Oxyhemoglobin Dissociation Curve to the left, 
+                    locking oxygen to hemoglobin via the <strong>Bohr Effect</strong> and constricting cerebral arterioles).
+                </p>
+
+                <div className="grid md:grid-cols-3 gap-3 text-xs">
+                    <div className="bg-slate-800 p-3.5 rounded-lg border border-slate-700 space-y-1.5">
+                        <span className="font-bold text-amber-400 block">Symptoms In Common:</span>
+                        <ul className="text-slate-300 list-disc pl-4 space-y-1 text-[11px]">
+                            <li>Tingling / numbness (Paresthesia) in fingers &amp; lips</li>
+                            <li>Dizziness and lightheadedness</li>
+                            <li>Visual disturbances and apprehension</li>
+                        </ul>
+                    </div>
+                    <div className="bg-slate-800 p-3.5 rounded-lg border border-sky-500/30 space-y-1.5">
+                        <span className="font-bold text-sky-400 block">Hypoxia Specifics:</span>
+                        <ul className="text-slate-300 list-disc pl-4 space-y-1 text-[11px]">
+                            <li>Cyanosis (blue fingernails and lips)</li>
+                            <li>Euphoria, belligerence, loss of self-criticism</li>
+                            <li>Drowsiness and rapid unconsciousness</li>
+                        </ul>
+                    </div>
+                    <div className="bg-slate-800 p-3.5 rounded-lg border border-purple-500/30 space-y-1.5">
+                        <span className="font-bold text-purple-400 block">Hyperventilation Specifics:</span>
+                        <ul className="text-slate-300 list-disc pl-4 space-y-1 text-[11px]">
+                            <li>Pale, clammy skin (NO cyanosis)</li>
+                            <li>Muscle spasms &amp; tetany (carpopedal claw hands)</li>
+                            <li>Rapid, deep chest breathing pattern</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div className="p-4 rounded-lg bg-teal-950/40 border border-teal-500/40 text-xs text-teal-200">
+                    <strong className="text-teal-300 font-bold block mb-1">🎯 Croucher ATPL Golden Rule:</strong>
+                    "If symptoms arise above 10,000 ft, NEVER attempt to determine whether it is hyperventilation or hypoxia. 
+                    ALWAYS assume Hypoxia first: immediately don 100% oxygen mask under positive pressure. 
+                    If symptoms do not improve within 30–60 seconds, then consciously regulate breathing rate to 10–12 breaths/minute."
+                </div>
+            </div>
+        </div>
+    );
+};
+
 // ─── Main Component ──────────────────────────────────────────────
 
 const HPLRespiration: React.FC = () => {
     const [activeTab, setActiveTab] = useState<
-        'altitude' | 'breathing' | 'hyperventilation' | 'exchange' | 'volumes' | 'control'
+        'altitude' | 'hypoxia-types' | 'breathing' | 'hyperventilation' | 'exchange' | 'volumes' | 'control'
     >('altitude');
 
     return (
@@ -138,6 +427,7 @@ const HPLRespiration: React.FC = () => {
             {/* Tabs */}
             <div className="flex flex-wrap gap-2 bg-slate-900 p-1 rounded-lg">
                 <TabButton active={activeTab === 'altitude'} onClick={() => setActiveTab('altitude')} icon={Mountain} label="Altitude Hypoxia" />
+                <TabButton active={activeTab === 'hypoxia-types'} onClick={() => setActiveTab('hypoxia-types')} icon={AlertOctagon} label="4 Hypoxia Types" />
                 <TabButton active={activeTab === 'breathing'} onClick={() => setActiveTab('breathing')} icon={Wind} label="Breathing Mechanics" />
                 <TabButton active={activeTab === 'hyperventilation'} onClick={() => setActiveTab('hyperventilation')} icon={AlertTriangle} label="Hyperventilation" />
                 <TabButton active={activeTab === 'exchange'} onClick={() => setActiveTab('exchange')} icon={Wind} label="Gas Exchange" />
@@ -148,6 +438,7 @@ const HPLRespiration: React.FC = () => {
             {/* Panels */}
             <div className="bg-slate-800 rounded-xl border border-slate-700 p-6 min-h-[400px]">
                 {activeTab === 'altitude' && <AltitudeHypoxiaSlider />}
+                {activeTab === 'hypoxia-types' && <HypoxiaTypesExplorer />}
                 {activeTab === 'breathing' && <BreathingMechanics />}
                 {activeTab === 'hyperventilation' && <HyperventilationSection />}
                 {activeTab === 'exchange' && <GasExchangeDiagram />}

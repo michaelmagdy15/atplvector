@@ -254,10 +254,13 @@ const JetStreams: React.FC = () => {
                                         {activeJet.catRisk}
                                     </div>
                                 </div>
-                                <div className="p-3 bg-slate-950 rounded-xl border border-slate-800">
-                                    <div className="text-[10px] text-slate-500 uppercase font-bold mb-2">CAT Location Rule</div>
-                                    <p className="text-[11px] text-slate-400">
-                                        Found on the <span className="text-red-400 font-bold">Cold Side</span> (Polar side) of the jet core, from core level down to 7,000 ft below tropopause.
+                                <div className="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+                                    <div className="text-[10px] text-red-400 uppercase font-bold">Croucher Ch 14 CAT Doctrine</div>
+                                    <p className="text-[11px] text-slate-300 leading-relaxed">
+                                        Severe CAT concentrates on the <strong className="text-red-400">cold low-pressure side (poleward)</strong> and directly beneath the jet core (up to 7,000 ft below tropopause break).
+                                    </p>
+                                    <p className="text-[11px] text-amber-300 leading-relaxed">
+                                        <strong>Radar Invisibility:</strong> Airborne radar cannot detect CAT because no hydrometeors (water droplets) exist in clear air. Rely on SIGWX charts, PIREPs, and OAT temperature drop rate (&gt;1°C/min).
                                     </p>
                                 </div>
                             </div>

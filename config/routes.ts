@@ -76,6 +76,8 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
     [View.AGK_PISTON_ENGINE]: React.lazy(() => import('../components/AGK/PistonEnginePrinciples')),
     [View.AGK_LANDING_GEAR]: React.lazy(() => import('../components/AGK/LandingGearSystem')),
     [View.AGK_FLIGHT_CONTROLS]: React.lazy(() => import('../components/AGK/FlightControlsSystem')),
+    [View.AGK_AIRFRAMES]: React.lazy(() => import('../components/021-agk-systems/AirframesStructures')),
+    [View.AGK_AIR_CONDITIONING]: React.lazy(() => import('../components/021-agk-systems/AirConditioningPressurization')),
     [View.AGK_SYSTEMS_OXYGEN]: React.lazy(() => import('../components/021-agk-systems/OxygenSystems')),
 
     // Instrumentation (022)
@@ -94,6 +96,7 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
     [View.INST_NAV_SYSTEMS]: React.lazy(() => import('../components/Instrumentation/NavigationSystems')),
     [View.INST_FMS_EFIS]: React.lazy(() => import('../components/Instrumentation/FMSEFIS')),
     [View.INST_GPWS]: React.lazy(() => import('../components/Instrumentation/GPWSSystem')),
+    [View.INST_TCAS]: React.lazy(() => import('../components/Instrumentation/TCASSystem')),
     [View.INST_AUTOPILOT]: React.lazy(() => import('../components/Instrumentation/AutopilotSystem')),
     [View.INST_AUTOLAND]: React.lazy(() => import('../components/Instrumentation/AutolandSystem')),
 
@@ -379,7 +382,8 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
 
     // PPL AGK Sub-modules
     [View.PPL_AGK_PISTON_ENGINE]: React.lazy(() => import('../components/AGK/PistonEnginePrinciples')), 
-    [View.PPL_AGK_ELECTRICS]: React.lazy(() => import('../components/AGK/ElectricsSystem')), 
+    [View.PPL_AGK_ELECTRICS]: React.lazy(() => import('../components/AGK/ElectricsSystem')),
+    [View.PPL_AGK_AIRFRAME]: React.lazy(() => import('../components/021-agk-systems/AirframesStructures')), 
 
     // Flight Planning (033)
     [View.FLIGHT_PLAN_HOME]: React.lazy(() => import('../components/FlightPlanning/FlightPlanningDashboard')),

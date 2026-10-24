@@ -646,12 +646,15 @@ const ErrorsSection = () => {
                         <div className="flex items-start gap-3">
                             <div className="p-2 bg-red-900/50 rounded-lg"><AlertTriangle className="text-red-400" size={20} /></div>
                             <div>
-                                <h4 className="font-bold text-red-400">False Glide Slopes</h4>
+                                <h4 className="font-bold text-red-400">False Glide Slopes & Reverse Sensing</h4>
                                 <p className="text-sm text-slate-300 mt-1">
-                                    Side lobes create "echoes" above the real glide path, often at <strong className="text-white">double the angle</strong> (e.g., 6° instead of 3°).
+                                    Ground reflections create secondary nulls and side lobes above the real 3° glide path at multiples (<strong className="text-white">6° and 9°</strong>).
+                                </p>
+                                <p className="text-xs text-rose-300 mt-2 font-mono">
+                                    ⚠️ Critical Hazard: False glide paths exhibit REVERSED SENSING (150 Hz lobe is on top, 90 Hz below). Following the needle commands a dangerous fly-down pitch into terrain!
                                 </p>
                                 <p className="text-xs text-slate-400 mt-2 italic">
-                                    Solution: Always intercept the glide slope from <strong className="text-white">below</strong>.
+                                    Standard SOP: Always intercept the glide slope from <strong className="text-white">BELOW</strong> at the published platform altitude.
                                 </p>
                             </div>
                         </div>

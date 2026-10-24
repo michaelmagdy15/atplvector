@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Briefcase, FileText, CheckSquare, ShieldAlert, Book, Fuel, Ruler, Wind, GraduationCap, FileCheck, Shield, Plane, Map, Users } from 'lucide-react';
+import { Briefcase, FileText, CheckSquare, ShieldAlert, Book, Fuel, Ruler, Wind, GraduationCap, FileCheck, Shield, Plane, Map, Users, ThermometerSnowflake } from 'lucide-react';
+import DeicingHoldoverVisualizer from './OpsModules/DeicingHoldoverVisualizer';
 import OpsManualVisualizer from './OpsModules/OpsManualVisualizer';
 import FuelPlanning from './OpsModules/FuelPlanning';
 import MinimaCalculator from './OpsModules/MinimaCalculator';
@@ -27,6 +28,7 @@ const OpsGeneral: React.FC = () => {
         { id: 'emergency', label: 'Emergency Eqp', icon: Shield },
         { id: 'oxy', label: 'Oxygen', icon: Wind },
         { id: 'train', label: 'Training', icon: GraduationCap },
+        { id: 'deicing', label: 'De-icing & HOT', icon: ThermometerSnowflake },
         { id: 'misc', label: 'Safety', icon: ShieldAlert },
     ];
 
@@ -90,45 +92,56 @@ const MelSimulator = () => {
     };
 
     const getStatus = () => {
-        if (failures.includes('radalt') && failures.includes('gpws')) return { status: 'NO-GO', reason: "Dual Safety System Failure", color: 'red' };
+        if (failures.includes('radalt') && failures.includes('gpws')) return { status: 'NO-GO', reason: "Dual Safety System Failure (RADALT + GPWS)", color: 'red' };
         if (failures.includes('pack_l') && failures.includes('pack_r')) return { status: 'NO-GO', reason: "No Pressurization Capability", color: 'red' };
-        if (failures.includes('pack_l')) return { status: 'GO (RESTRICTED)', reason: "FL250 Max due to Single Pack", color: 'orange' };
-        if (failures.includes('radalt')) return { status: 'GO', reason: "Cat I Only (No Autoland)", color: 'green' };
-        if (failures.includes('ap_1')) return { status: 'GO', reason: "Single Channel Approach Only", color: 'green' };
-        if (failures.length === 0) return { status: 'GO', reason: "Aircraft Serviceable", color: 'green' };
-        return { status: 'GO', reason: "Refer to MEL for Rectification Interval", color: 'green' };
+        if (failures.includes('pack_l')) return { status: 'GO (RESTRICTED)', reason: "FL250 Max Altitude due to Single Air Conditioning Pack", color: 'orange' };
+        if (failures.includes('radalt')) return { status: 'GO (RESTRICTED)', reason: "Cat I Only (Autoland & Cat II/III Prohibited)", color: 'orange' };
+        if (failures.includes('ap_1')) return { status: 'GO', reason: "Single Channel Autopilot Approach Authorized", color: 'green' };
+        if (failures.length === 0) return { status: 'GO', reason: "Aircraft Fully Serviceable", color: 'green' };
+        return { status: 'GO', reason: "Refer to MEL Part B for Rectification Interval & Operational (O) / Maintenance (M) Procedures", color: 'green' };
     };
 
     const result = getStatus();
 
     return (
-        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="flex items-center gap-3 mb-6">
+        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6">
+            <div className="flex items-center gap-3 mb-2">
                 <FileText className="w-8 h-8 text-blue-400" />
                 <div>
-                    <h2 className="text-2xl font-bold text-white">Minimum Equipment List (MEL)</h2>
-                    <p className="text-slate-400 text-sm">Go / No-Go Decision Making.</p>
+                    <h2 className="text-2xl font-bold text-white">Minimum Equipment List (MEL) Dispatch Logic</h2>
+                    <p className="text-slate-400 text-sm">EASA ORO.MLR.105 & Part-CAT • MMEL vs MEL, Rectification Intervals, and Brake Release Boundaries</p>
                 </div>
             </div>
 
-            <p className="text-slate-400 text-sm mb-6">
-                The Master MEL (MMEL) is established by the manufacturer. The Operator's MEL may be <strong>more</strong> restrictive, but never less. Found in Ops Manual Part B.
-            </p>
+            <div className="grid md:grid-cols-2 gap-4 text-xs">
+                <div className="p-4 bg-slate-900 rounded-xl border border-slate-700">
+                    <span className="text-slate-400 font-bold uppercase text-[10px] block mb-1">Hierarchy Principle</span>
+                    <p className="text-slate-300">
+                        The Master MEL (MMEL) is established by the manufacturer. The Operator's MEL can be <strong>more</strong> restrictive, but <strong>NEVER less restrictive</strong>. Located in Ops Manual Part B.
+                    </p>
+                </div>
+                <div className="p-4 bg-slate-900 rounded-xl border border-red-500/30">
+                    <span className="text-red-400 font-bold uppercase text-[10px] block mb-1">Brake Release Boundary</span>
+                    <p className="text-slate-300">
+                        The MEL applies strictly <strong>prior to the aircraft moving under its own power</strong>. Once taxi commences, the QRH and Commander's emergency discretion govern!
+                    </p>
+                </div>
+            </div>
 
             <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                    <h3 className="font-bold text-white text-sm uppercase">Simulate Failures</h3>
+                    <h3 className="font-bold text-white text-xs uppercase tracking-widest">Simulate Equipment Failures Before Pushback:</h3>
                     {[
                         { id: 'pack_l', label: 'Left Pack Inop' },
                         { id: 'pack_r', label: 'Right Pack Inop' },
                         { id: 'radalt', label: 'Radio Altimeter 1 Fail' },
-                        { id: 'gpws', label: 'GPWS Fail' },
+                        { id: 'gpws', label: 'GPWS Inop' },
                         { id: 'ap_1', label: 'Autopilot Ch A Fail' },
                     ].map(item => (
                         <button
                             key={item.id}
                             onClick={() => toggleFailure(item.id)}
-                            className={`w-full p-4 rounded-lg border flex justify-between items-center transition-all ${failures.includes(item.id) ? 'bg-red-900/30 border-red-500 text-white' : 'bg-slate-900 border-slate-700 text-slate-400 hover:bg-slate-800'}`}
+                            className={`w-full p-4 rounded-xl border flex justify-between items-center transition-all ${failures.includes(item.id) ? 'bg-red-900/30 border-red-500 text-white' : 'bg-slate-900 border-slate-700 text-slate-400 hover:bg-slate-800'}`}
                         >
                             <span className="font-bold">{item.label}</span>
                             <div className={`w-4 h-4 rounded-full border ${failures.includes(item.id) ? 'bg-red-500 border-red-500' : 'border-slate-600'}`}></div>
@@ -137,35 +150,44 @@ const MelSimulator = () => {
                 </div>
 
                 <div className="space-y-6">
-                    <div className={`rounded-xl p-8 border-2 flex flex-col items-center justify-center text-center transition-colors duration-300
-                        ${result.color === 'red' ? 'bg-red-950/50 border-red-500' :
-                            result.color === 'orange' ? 'bg-orange-950/50 border-orange-500' :
-                                'bg-emerald-950/50 border-emerald-500'}`}>
-                        <div className="text-5xl font-black text-white mb-2">{result.status}</div>
-                        <div className="text-lg opacity-80">{result.reason}</div>
+                    <div className={`rounded-2xl p-8 border-2 flex flex-col items-center justify-center text-center transition-colors duration-300 ${
+                        result.color === 'red' ? 'bg-red-950/50 border-red-500' :
+                        result.color === 'orange' ? 'bg-orange-950/50 border-orange-500' :
+                        'bg-emerald-950/50 border-emerald-500'}`}>
+                        <div className="text-4xl md:text-5xl font-black text-white mb-2">{result.status}</div>
+                        <div className="text-sm opacity-80 text-slate-200">{result.reason}</div>
                     </div>
 
-                    <div className="bg-slate-900 p-4 rounded-xl border border-slate-700">
-                        <h4 className="font-bold text-white mb-3">Rectification Intervals</h4>
-                        <div className="grid grid-cols-4 gap-2 text-center text-sm">
-                            <div className="bg-slate-800 p-2 rounded">
-                                <div className="font-black text-blue-400">A</div>
-                                <div className="text-xs text-slate-400">Specified</div>
+                    <div className="bg-slate-900 p-5 rounded-2xl border border-slate-700 space-y-3">
+                        <div className="flex justify-between items-center">
+                            <h4 className="font-bold text-white text-xs uppercase tracking-wider">Rectification Intervals (Cat A to D)</h4>
+                            <span className="text-[10px] text-slate-400 font-mono">Clock: 00:00 Midnight Start</span>
+                        </div>
+                        <div className="grid grid-cols-4 gap-2 text-center text-xs">
+                            <div className="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                                <div className="font-black text-blue-400 text-lg">A</div>
+                                <div className="text-[10px] font-bold text-white">Specified</div>
+                                <div className="text-[9px] text-slate-500">Non-extendable</div>
                             </div>
-                            <div className="bg-slate-800 p-2 rounded">
-                                <div className="font-black text-emerald-400">B</div>
-                                <div className="text-xs text-slate-400">3 Days</div>
+                            <div className="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                                <div className="font-black text-emerald-400 text-lg">B</div>
+                                <div className="text-[10px] font-bold text-white">72 Hours</div>
+                                <div className="text-[9px] text-emerald-400">3 Days (RIE +3d)</div>
                             </div>
-                            <div className="bg-slate-800 p-2 rounded">
-                                <div className="font-black text-yellow-400">C</div>
-                                <div className="text-xs text-slate-400">10 Days</div>
+                            <div className="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                                <div className="font-black text-yellow-400 text-lg">C</div>
+                                <div className="text-[10px] font-bold text-white">240 Hours</div>
+                                <div className="text-[9px] text-yellow-400">10 Days (RIE +10d)</div>
                             </div>
-                            <div className="bg-slate-800 p-2 rounded">
-                                <div className="font-black text-orange-400">D</div>
-                                <div className="text-xs text-slate-400">120 Days</div>
+                            <div className="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                                <div className="font-black text-orange-400 text-lg">D</div>
+                                <div className="text-[10px] font-bold text-white">120 Days</div>
+                                <div className="text-[9px] text-slate-500">Non-extendable</div>
                             </div>
                         </div>
-                        <p className="text-xs text-slate-500 mt-3">Starts at midnight that night. Expires 1 minute after midnight on the final day.</p>
+                        <p className="text-[11px] text-slate-400 leading-snug">
+                            <strong>Clock Rule:</strong> The rectification interval begins at 00:00 midnight following the day the defect was entered in the technical log. The day of discovery does NOT count against the interval.
+                        </p>
                     </div>
                 </div>
             </div>

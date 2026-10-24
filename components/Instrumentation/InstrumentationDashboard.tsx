@@ -13,6 +13,7 @@ import {
     RotateCcw,
     Radio,
     AlertOctagon,
+    ShieldAlert,
     Layout
 } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -49,7 +50,7 @@ const TopicCard: React.FC<TopicCardProps> = ({ title, description, view, icon: I
                 whileHover={{ x: 5 }}
                 className="ml-2"
             >
-                →
+                &rarr;
             </motion.span>
         </div>
     </motion.div>
@@ -59,28 +60,28 @@ const InstrumentationDashboard: React.FC<{ onChangeView: (view: View) => void; i
     const topics = [
         {
             title: "Pitot-Static System",
-            description: "The foundation of pressure instruments. Learn about dynamic, static, and total pressure probes.",
+            description: "The foundation of pressure instruments. Learn about dynamic, static, and total pressure probes, blockages, and alternate static.",
             view: View.INST_PITOT_STATIC,
             icon: Wind,
             color: "blue"
         },
         {
             title: "Altimeter Lab",
-            description: "Vertical distance measurement. Simulate barometric settings, temperature errors, and altimeter types.",
+            description: "Vertical distance measurement. Simulate barometric settings (QNH, QFE, STD), 27 ft/hPa rule, and cold temperature errors.",
             view: View.INST_ALTIMETER,
             icon: TrendingUp,
             color: "emerald"
         },
         {
             title: "Airspeed Indicator",
-            description: "Measure dynamic pressure. Understand IAS, CAS, EAS, and TAS corrections and blockage effects.",
+            description: "Dynamic pressure measurement. Master the ADC speed chain: IAS -> CAS -> EAS -> TAS, and high-speed compressibility.",
             view: View.INST_ASI,
             icon: Plane,
             color: "sky"
         },
         {
             title: "Vertical Speed Indicator",
-            description: "Rate of pressure change. Explore standard VSI lag vs. instantaneous IVSI response.",
+            description: "Rate of pressure change. Explore standard VSI capillary lag vs. instantaneous IVSI dashpot lead response.",
             view: View.INST_VSI,
             icon: Activity,
             color: "indigo"
@@ -94,7 +95,7 @@ const InstrumentationDashboard: React.FC<{ onChangeView: (view: View) => void; i
         },
         {
             title: "Gyroscope Principles",
-            description: "The physics of flight instruments. Interactively explore Rigidity and Precession.",
+            description: "The physics of flight instruments. Interactively explore Rigidity in Space, Angular Momentum, and 90° Precession.",
             view: View.INST_GYROS,
             icon: Settings,
             color: "orange"
@@ -108,7 +109,7 @@ const InstrumentationDashboard: React.FC<{ onChangeView: (view: View) => void; i
         },
         {
             title: "Directional Gyro",
-            description: "Gyro-stabilized heading reference. Explore apparent drift and transport wander effects.",
+            description: "Gyro-stabilized heading reference. Explore apparent drift, earth rate wander, and transport wander effects.",
             view: View.INST_DG,
             icon: Compass,
             color: "teal"
@@ -122,7 +123,7 @@ const InstrumentationDashboard: React.FC<{ onChangeView: (view: View) => void; i
         },
         {
             title: "Magnetic Compass",
-            description: "Terrestrial magnetism. Learn about Dip, ANDS, and UNOS errors in the cockpit.",
+            description: "Terrestrial magnetism. Learn about Dip, ANDS acceleration errors, and UNOS turning errors in the cockpit.",
             view: View.INST_COMPASS,
             icon: Compass,
             color: "yellow"
@@ -136,7 +137,7 @@ const InstrumentationDashboard: React.FC<{ onChangeView: (view: View) => void; i
         },
         {
             title: "Nav Systems (IRS/ADC)",
-            description: "Modern avionics. How ADCs and Inertial Reference Systems drive cockpit displays.",
+            description: "Modern avionics. How ADCs, Ring Laser Gyro IRS, and Flight Management Systems drive cockpit displays.",
             view: View.INST_NAV_SYSTEMS,
             icon: Database,
             color: "violet"
@@ -150,10 +151,17 @@ const InstrumentationDashboard: React.FC<{ onChangeView: (view: View) => void; i
         },
         {
             title: "GPWS / EGPWS",
-            description: "Ground Proximity Warning System. Modes 1-7 and terrain awareness.",
+            description: "Ground Proximity Warning System. Modes 1-7, digital terrain elevation databases (DTED), and look-ahead predictive warnings.",
             view: View.INST_GPWS,
             icon: AlertOctagon,
             color: "red"
+        },
+        {
+            title: "TCAS II (Traffic & Collision)",
+            description: "Mode S surveillance, Traffic Advisories (45s CPA), Resolution Advisories (30s CPA), and RA legal priority over ATC.",
+            view: View.INST_TCAS,
+            icon: ShieldAlert,
+            color: "rose"
         },
         {
             title: "Autopilot & AFCS",
@@ -189,7 +197,7 @@ const InstrumentationDashboard: React.FC<{ onChangeView: (view: View) => void; i
                     transition={{ delay: 0.1 }}
                     className="text-slate-400 max-w-2xl text-lg"
                 >
-                    Master the complex systems behind the cockpit. Explore interactive simulators for pressure instruments, gyroscopes, and modern inertial navigation.
+                    Master the complex systems behind the cockpit. Explore interactive simulators for pressure instruments, gyroscopes, ADC speed chains, TCAS II, and terrain awareness systems.
                 </motion.p>
             </div>
 
@@ -217,9 +225,9 @@ const InstrumentationDashboard: React.FC<{ onChangeView: (view: View) => void; i
                     <AlertTriangle className="text-amber-400 w-5 h-5" />
                 </div>
                 <div>
-                    <h4 className="text-white font-bold mb-1">Study Note</h4>
+                    <h4 className="text-white font-bold mb-1">Study Note & Golden Rule</h4>
                     <p className="text-slate-400 text-sm italic">
-                        "All instruments are calibrated to ISA (International Standard Atmosphere). Remember: Input = Error + Output."
+                        "All barometric and dynamic instruments are calibrated to ISA. Remember: In cold air or low pressure, look out below! And in a TCAS RA, vertical computerized commands always overrule ATC."
                     </p>
                 </div>
             </motion.div>

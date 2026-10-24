@@ -1,49 +1,75 @@
 import React, { useState } from 'react';
-import { Users, User, Briefcase, Info, Scale, Calculator } from 'lucide-react';
+import { Users, User, Briefcase, Info, Scale, Calculator, Baby, CheckCircle } from 'lucide-react';
 
 const StandardMasses: React.FC = () => {
     const [mopsc, setMopsc] = useState(180);
     const [includeHandBag, setIncludeHandBag] = useState(true);
 
-    // Standard masses (as per regulations)
+    // EASA Part-CAT Standard masses (Croucher Ch 10)
     const flightCrew = 85; // kg includes hand baggage
     const cabinCrew = 75;  // kg includes hand baggage
     const handBaggage = 6; // kg
     const clothing = 4;    // kg
 
+    // Passenger breakdown state
+    const [maleCount, setMaleCount] = useState<number>(75);
+    const [femaleCount, setFemaleCount] = useState<number>(65);
+    const [childCount, setChildCount] = useState<number>(10);
+    const [infantCount, setInfantCount] = useState<number>(3);
+    const [baggageType, setBaggageType] = useState<'domestic' | 'european' | 'intercontinental'>('european');
+
+    // Standard weights
+    const adultMaleMass = 88; // kg
+    const adultFemaleMass = 70; // kg
+    const allAdultAverage = 84; // kg
+    const childMass = 35; // kg
+    const infantMass = 0; // kg (handled on lap)
+
+    const baggageMasses = {
+        domestic: 11,
+        european: 13,
+        intercontinental: 15
+    };
+
     // Calculate passenger mass based on MOPSC
     const getPassengerMass = () => {
         if (mopsc < 10) {
-            // Statement from each person required
-            // Standard: +6kg hand baggage, +4kg clothing
             return includeHandBag ? 76 + handBaggage + clothing : 76;
         } else if (mopsc < 19) {
             return includeHandBag ? 76 : 76 - handBaggage;
         } else {
-            // Use standard tables
-            return 84; // Average adult
+            return allAdultAverage;
         }
     };
 
     const passengerMass = getPassengerMass();
 
+    // Fleet Traffic Load computation
+    const totalPassengers = maleCount + femaleCount + childCount + infantCount;
+    const separateGenderMass = (maleCount * adultMaleMass) + (femaleCount * adultFemaleMass) + (childCount * childMass) + (infantCount * infantMass);
+    const allAdultAvgMass = ((maleCount + femaleCount) * allAdultAverage) + (childCount * childMass) + (infantCount * infantMass);
+    const checkedBagMass = (maleCount + femaleCount + childCount) * baggageMasses[baggageType];
+    const totalTrafficLoad = separateGenderMass + checkedBagMass;
+
     return (
-        <div className="p-4 md:p-8 max-w-5xl mx-auto space-y-8 animate-in fade-in duration-500">
+        <div className="p-4 md:p-8 max-w-5xl mx-auto space-y-8 animate-in fade-in duration-500 font-sans">
             {/* Header */}
             <div className="text-center mb-8">
-                <div className="inline-flex items-center justify-center p-3 bg-teal-500/10 rounded-full mb-4">
+                <div className="inline-flex items-center justify-center p-3 bg-teal-500/10 border border-teal-500/20 rounded-full mb-4">
                     <Users className="w-8 h-8 text-teal-400" />
                 </div>
                 <h1 className="text-3xl font-black text-white tracking-tight uppercase">
-                    Standard <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-500">Masses</span>
+                    Standard <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-500">Mass Values</span>
                 </h1>
-                <p className="text-slate-400 mt-2">Crew and passenger standard mass values</p>
+                <p className="text-slate-400 mt-2 text-sm">
+                    EASA Part-CAT passenger and crew standard mass tables & MOPSC regulations (Croucher Ch 10)
+                </p>
             </div>
 
             {/* Crew Standard Masses */}
             <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700">
                 <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                    <User className="text-indigo-400" /> Crew Standard Masses
+                    <User className="text-indigo-400" /> Crew Standard Masses (Part-CAT)
                 </h3>
 
                 <div className="grid md:grid-cols-2 gap-6">
@@ -89,10 +115,47 @@ const StandardMasses: React.FC = () => {
                 </div>
             </div>
 
+            {/* Croucher EASA Passenger Standards Table */}
+            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 space-y-4">
+                <div className="flex justify-between items-center border-b border-slate-700 pb-3">
+                    <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                        <Users className="text-emerald-400" />
+                        EASA Part-CAT Passenger Standard Mass Values (MOPSC ≥ 20)
+                    </h3>
+                    <span className="text-xs font-mono text-emerald-400 font-bold">Croucher Ch 10</span>
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="bg-slate-900 p-4 rounded-xl border border-slate-700 text-center">
+                        <span className="text-xs text-slate-400 uppercase font-mono block">Adult Male</span>
+                        <span className="text-3xl font-black text-cyan-400 mt-1 block">88 kg</span>
+                        <span className="text-[10px] text-slate-500">Including hand baggage</span>
+                    </div>
+
+                    <div className="bg-slate-900 p-4 rounded-xl border border-slate-700 text-center">
+                        <span className="text-xs text-slate-400 uppercase font-mono block">Adult Female</span>
+                        <span className="text-3xl font-black text-pink-400 mt-1 block">70 kg</span>
+                        <span className="text-[10px] text-slate-500">Including hand baggage</span>
+                    </div>
+
+                    <div className="bg-slate-900 p-4 rounded-xl border border-slate-700 text-center">
+                        <span className="text-xs text-slate-400 uppercase font-mono block">All-Adult Average</span>
+                        <span className="text-3xl font-black text-emerald-400 mt-1 block">84 kg</span>
+                        <span className="text-[10px] text-slate-500">When gender not tracked</span>
+                    </div>
+
+                    <div className="bg-slate-900 p-4 rounded-xl border border-slate-700 text-center">
+                        <span className="text-xs text-slate-400 uppercase font-mono block">Child (2–12 yrs)</span>
+                        <span className="text-3xl font-black text-amber-400 mt-1 block">35 kg</span>
+                        <span className="text-[10px] text-slate-500">Infant (&lt;2y) = 0 kg (lap)</span>
+                    </div>
+                </div>
+            </div>
+
             {/* MOPSC Calculator */}
             <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700">
                 <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                    <Calculator className="text-amber-400" /> Passenger Mass Calculator (MOPSC Based)
+                    <Calculator className="text-amber-400" /> Passenger Mass Regulation by MOPSC
                 </h3>
 
                 <div className="grid md:grid-cols-2 gap-8">
@@ -124,50 +187,35 @@ const StandardMasses: React.FC = () => {
                                     <span className={`font-bold ${mopsc < 10 ? 'text-amber-400' : 'text-slate-500'}`}>MOPSC &lt; 10</span>
                                     {mopsc < 10 && <span className="text-xs bg-amber-500 text-black px-2 py-1 rounded-full font-bold">ACTIVE</span>}
                                 </div>
-                                <p className="text-xs text-slate-400 mt-1">Statement from each person required</p>
+                                <p className="text-xs text-slate-400 mt-1">Statement of actual mass from each person required (or add +6kg hand bag +4kg clothing to 76kg)</p>
                             </div>
-                            <div className={`p-3 rounded-lg border transition-all ${mopsc >= 10 && mopsc < 19 ? 'bg-cyan-900/30 border-cyan-500' : 'bg-slate-900 border-slate-700'}`}>
+                            <div className={`p-3 rounded-lg border transition-all ${mopsc >= 10 && mopsc < 20 ? 'bg-cyan-900/30 border-cyan-500' : 'bg-slate-900 border-slate-700'}`}>
                                 <div className="flex justify-between items-center">
-                                    <span className={`font-bold ${mopsc >= 10 && mopsc < 19 ? 'text-cyan-400' : 'text-slate-500'}`}>MOPSC 10-18</span>
-                                    {mopsc >= 10 && mopsc < 19 && <span className="text-xs bg-cyan-500 text-black px-2 py-1 rounded-full font-bold">ACTIVE</span>}
+                                    <span className={`font-bold ${mopsc >= 10 && mopsc < 20 ? 'text-cyan-400' : 'text-slate-500'}`}>MOPSC 10-19</span>
+                                    {mopsc >= 10 && mopsc < 20 && <span className="text-xs bg-cyan-500 text-black px-2 py-1 rounded-full font-bold">ACTIVE</span>}
                                 </div>
-                                <p className="text-xs text-slate-400 mt-1">No hand baggage = -6kg</p>
+                                <p className="text-xs text-slate-400 mt-1">No hand baggage allowance deduction (-6kg) applicable</p>
                             </div>
-                            <div className={`p-3 rounded-lg border transition-all ${mopsc >= 19 ? 'bg-emerald-900/30 border-emerald-500' : 'bg-slate-900 border-slate-700'}`}>
+                            <div className={`p-3 rounded-lg border transition-all ${mopsc >= 20 ? 'bg-emerald-900/30 border-emerald-500' : 'bg-slate-900 border-slate-700'}`}>
                                 <div className="flex justify-between items-center">
-                                    <span className={`font-bold ${mopsc >= 19 ? 'text-emerald-400' : 'text-slate-500'}`}>MOPSC ≥ 19</span>
-                                    {mopsc >= 19 && <span className="text-xs bg-emerald-500 text-black px-2 py-1 rounded-full font-bold">ACTIVE</span>}
+                                    <span className={`font-bold ${mopsc >= 20 ? 'text-emerald-400' : 'text-slate-500'}`}>MOPSC ≥ 20</span>
+                                    {mopsc >= 20 && <span className="text-xs bg-emerald-500 text-black px-2 py-1 rounded-full font-bold">ACTIVE</span>}
                                 </div>
-                                <p className="text-xs text-slate-400 mt-1">Use standard mass tables</p>
+                                <p className="text-xs text-slate-400 mt-1">Full standard mass tables: 88kg male, 70kg female, or 84kg all-adult average</p>
                             </div>
                         </div>
-
-                        {mopsc < 19 && (
-                            <div className="flex items-center gap-3 p-4 bg-slate-900 rounded-lg border border-slate-700">
-                                <input
-                                    type="checkbox"
-                                    id="handBag"
-                                    checked={includeHandBag}
-                                    onChange={e => setIncludeHandBag(e.target.checked)}
-                                    className="w-5 h-5 accent-amber-500"
-                                />
-                                <label htmlFor="handBag" className="text-sm text-slate-300">
-                                    Include hand baggage (+{handBaggage}kg)
-                                </label>
-                            </div>
-                        )}
                     </div>
 
                     {/* Result */}
                     <div className="flex flex-col justify-center">
-                        <div className="bg-gradient-to-br from-teal-900/30 to-emerald-900/30 rounded-xl p-8 border border-teal-500/30 text-center">
-                            <div className="text-xs uppercase text-slate-400 mb-2">Standard Passenger Mass</div>
+                        <div className="bg-gradient-to-br from-teal-900/30 to-emerald-900/30 rounded-2xl p-8 border border-teal-500/30 text-center space-y-4">
+                            <div className="text-xs uppercase text-slate-400">Standard Passenger Base Mass</div>
                             <div className="text-6xl font-black text-teal-400">{passengerMass}</div>
-                            <div className="text-xl text-white mt-2">kg per passenger</div>
+                            <div className="text-sm text-white">kg per passenger (Standard)</div>
 
                             {mopsc < 10 && (
-                                <div className="mt-4 p-3 bg-amber-900/30 rounded-lg text-xs text-amber-300">
-                                    <strong>Note:</strong> Includes +{handBaggage}kg hand baggage and +{clothing}kg clothing
+                                <div className="p-3 bg-amber-900/30 rounded-lg text-xs text-amber-300">
+                                    <strong>MOPSC &lt; 10 Rule:</strong> Includes +{handBaggage}kg hand baggage and +{clothing}kg clothing allowance.
                                 </div>
                             )}
                         </div>
@@ -175,34 +223,16 @@ const StandardMasses: React.FC = () => {
                 </div>
             </div>
 
-            {/* Weighing Equipment */}
-            <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700">
-                <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                    <Scale className="text-violet-400" /> Weighing Equipment Standards
-                </h3>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                    <div className="bg-violet-900/20 rounded-xl p-6 border border-violet-500/30">
-                        <div className="text-xs uppercase text-slate-400 mb-2">Scale Capacity</div>
-                        <div className="text-4xl font-black text-violet-400">150 <span className="text-lg">kg</span></div>
-                    </div>
-                    <div className="bg-violet-900/20 rounded-xl p-6 border border-violet-500/30">
-                        <div className="text-xs uppercase text-slate-400 mb-2">Graduation</div>
-                        <div className="text-4xl font-black text-violet-400">500 <span className="text-lg">g</span></div>
-                    </div>
-                </div>
-            </div>
-
             {/* Key Notes */}
             <div className="bg-blue-900/20 border border-blue-500/30 rounded-xl p-6">
                 <h3 className="text-lg font-bold text-blue-400 mb-3 flex items-center gap-2">
-                    <Info size={20} /> Key Points
+                    <Info size={20} /> EASA Part-CAT Key Rules
                 </h3>
-                <ul className="text-sm text-slate-300 space-y-2">
-                    <li>• Crew masses can be <strong>actual</strong> or <strong>standard</strong></li>
-                    <li>• Standard masses include hand baggage allowance</li>
-                    <li>• Operator must complete detailed weighing survey approved by Authority</li>
-                    <li>• For MOPSC &lt; 10: Statement required from each person</li>
+                <ul className="text-xs text-slate-300 space-y-2">
+                    <li>• Crew masses may be <strong>actual</strong> or <strong>standard</strong> (85 kg flight crew, 75 kg cabin crew).</li>
+                    <li>• Infants (&lt; 2 years) handled on an adult's lap carry a standard mass of <strong>0 kg</strong> for loadsheet purposes.</li>
+                    <li>• If 20 or more seats are installed (MOPSC ≥ 20), gender-specific values (88kg M / 70kg F) or all-adult average (84kg) must be applied.</li>
+                    <li>• Holiday charter flights may use reduced standard masses if certified by the national aviation authority.</li>
                 </ul>
             </div>
         </div>

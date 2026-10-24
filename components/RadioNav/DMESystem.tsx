@@ -383,32 +383,33 @@ const SignalCharacteristics: React.FC = () => {
 // ============================================================================
 const PrincipleOfOperation: React.FC = () => {
     const [showCalc, setShowCalc] = useState(false);
-    const [totalTime, setTotalTime] = useState(150); // microseconds (round trip)
+    const [totalTime, setTotalTime] = useState(173.6); // microseconds (round trip)
 
     const GROUND_DELAY = 50; // µs
-    const flightTime = (totalTime - GROUND_DELAY) / 2;
-    const speedOfLight = 299792.458; // km/s = 0.162 NM/µs
-    const distance = (flightTime * 0.162).toFixed(2);
+    const PULSE_ROUNDTRIP_PER_NM = 12.36; // µs per Nautical Mile (6.18 µs each way)
+    const transitTime = Math.max(0, totalTime - GROUND_DELAY);
+    const flightTime = transitTime / 2;
+    const distance = (transitTime / PULSE_ROUNDTRIP_PER_NM).toFixed(2);
 
     return (
         <div className="space-y-6">
             {/* Formula Card */}
             <div className="glass-panel p-6 rounded-2xl bg-gradient-to-br from-emerald-900/20 to-teal-900/20 border border-emerald-500/20">
                 <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                    <Timer className="text-emerald-400" /> Time-Based Distance Measurement
+                    <Timer className="text-emerald-400" /> Pulse Round-Trip Time Constant: 12.36 µs / NM
                 </h4>
 
                 <div className="text-center py-6 bg-slate-900/50 rounded-xl border border-slate-700">
                     <div className="text-2xl font-mono text-white mb-2">
-                        Distance = <span className="text-emerald-300">Speed</span> × <span className="text-amber-300">Time</span>
+                        Slant Range (NM) = <span className="text-amber-300">(Total Time - 50 µs)</span> / <span className="text-emerald-300">12.36 µs/NM</span>
                     </div>
                     <div className="text-sm text-slate-400">
-                        Since Speed ≈ 162 NM/ms (speed of light), we measure the round-trip time.
+                        Radio waves travel at the speed of light: 1 NM in <strong>6.18 µs</strong>. Round-trip pulse transit is exactly <strong>12.36 µs per Nautical Mile</strong>.
                     </div>
                 </div>
 
                 <div className="mt-4 text-center text-sm text-slate-400">
-                    The aircraft subtracts the known <strong className="text-amber-300">50 µs ground delay</strong>, halves the result for one-way distance.
+                    The airborne interrogator transmits paired pulses. The ground station introduces a fixed <strong className="text-amber-300">50 µs delay</strong> before replying to prevent receiver lockout.
                 </div>
             </div>
 
@@ -592,6 +593,28 @@ const SlantRangeSection: React.FC = () => {
 
                 {/* Controls & Data */}
                 <div className="space-y-4">
+                    {/* ATPL Presets */}
+                    <div className="flex flex-wrap gap-2 text-xs font-mono">
+                        <button
+                            onClick={() => { setAltitude(6076); setGroundDist(0); }}
+                            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-amber-300 rounded-lg border border-slate-700"
+                        >
+                            Overhead 6,000 ft (Reads 1.0 NM)
+                        </button>
+                        <button
+                            onClick={() => { setAltitude(30000); setGroundDist(10); }}
+                            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-rose-300 rounded-lg border border-slate-700"
+                        >
+                            FL300 close-in (10 NM Ground)
+                        </button>
+                        <button
+                            onClick={() => { setAltitude(30000); setGroundDist(30); }}
+                            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-emerald-300 rounded-lg border border-slate-700"
+                        >
+                            FL300 Rule of Thumb (30 NM)
+                        </button>
+                    </div>
+
                     <div className="glass-panel p-5 rounded-xl space-y-4">
                         <div>
                             <label className="text-xs text-slate-400 flex justify-between mb-2">

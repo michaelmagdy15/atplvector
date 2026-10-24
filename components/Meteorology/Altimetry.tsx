@@ -25,7 +25,19 @@ const Altimetry: React.FC = () => {
     const trueAlt = pitIndicatedAlt + tempCorr;
 
     // Visualizer State
-    const [visualMode, setVisualMode] = useState<'QNH' | 'QFE' | 'QNE'>('QNH');
+    const [visualMode, setVisualMode] = useState<'QNH' | 'QFE' | 'QNE' | 'QFF'>('QNH');
+
+    // Cold Temperature Error Calculator State
+    const [stationElev, setStationElev] = useState(2000); // ft
+    const [stationTemp, setStationTemp] = useState(-15); // deg C
+    const [targetAlt, setTargetAlt] = useState(5000); // ft indicated
+    
+    // Cold Temp Correction Math (ICAO: 4ft per 1000ft height above station per deg C below ISA)
+    const heightAboveStation = Math.max(0, targetAlt - stationElev);
+    const isaAtStation = 15 - (2 * (stationElev / 1000));
+    const coldIsaDev = stationTemp - isaAtStation; // negative if cold
+    const coldCorrectionFt = coldIsaDev < 0 ? Math.round(4 * (heightAboveStation / 1000) * Math.abs(coldIsaDev)) : 0;
+    const safeTargetAlt = targetAlt + coldCorrectionFt;
 
     return (
         <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-8">
@@ -97,6 +109,12 @@ const Altimetry: React.FC = () => {
                                             title: 'Standard Pressure Setting',
                                             desc: '1013.25 hPa datum. Altimeter reads Flight Levels. Used above Transition Altitude.',
                                             color: 'border-blue-500'
+                                        },
+                                        {
+                                            code: 'QFF',
+                                            title: 'Synoptic MSL Pressure (Actual Temp)',
+                                            desc: 'Atmospheric pressure reduced to MSL using ACTUAL ambient temperature lapse rate. Used by meteorologists for surface synoptic charts.',
+                                            color: 'border-cyan-500'
                                         },
                                     ].map(item => (
                                         <button
@@ -198,8 +216,63 @@ const Altimetry: React.FC = () => {
                                                     <text x="300" y="174" textAnchor="middle" fill="#60a5fa" fontSize="10" fontWeight="bold">FLIGHT LEVEL</text>
                                                 </motion.g>
                                             )}
+
+                                            {visualMode === 'QFF' && (
+                                                <motion.g key="qff" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                                                    {/* Column between Aerodrome elevation and MSL with ambient lapse */}
+                                                    <rect x="175" y="200" width="50" height="80" fill="#0891b2" fillOpacity="0.25" stroke="#06b6d4" strokeWidth="1.5" strokeDasharray="3 3" rx="4" />
+                                                    <line x1="170" y1="200" x2="230" y2="200" stroke="#06b6d4" strokeWidth="1" />
+                                                    <line x1="170" y1="280" x2="230" y2="280" stroke="#06b6d4" strokeWidth="1" />
+                                                    <text x="200" y="244" textAnchor="middle" fill="#22d3ee" fontSize="9" fontWeight="bold">AMBIENT COLUMN</text>
+                                                    <text x="200" y="258" textAnchor="middle" fill="#a5f3fc" fontSize="8">(Used for Synoptic QFF)</text>
+                                                </motion.g>
+                                            )}
                                         </AnimatePresence>
                                     </svg>
+                                </div>
+                            </div>
+
+                            {/* Q-Code Interrelationship Matrix */}
+                            <div className="col-span-1 lg:col-span-2 bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-4">
+                                <div className="flex items-center justify-between">
+                                    <h4 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                                        <Info size={16} className="text-emerald-400" />
+                                        Q-Codes Interrelationship & Physics (Croucher Ch 14)
+                                    </h4>
+                                    <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
+                                        ATPL Exam Standard
+                                    </span>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
+                                    <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+                                        <span className="text-slate-500 block text-[10px] uppercase font-bold mb-1">Sea Level Station</span>
+                                        <div className="text-emerald-400 font-mono font-bold text-base mb-1">QNH = QFE = QFF</div>
+                                        <p className="text-slate-400 text-[11px] leading-relaxed">
+                                            When aerodrome elevation is zero, no column reduction is required.
+                                        </p>
+                                    </div>
+                                    <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+                                        <span className="text-slate-500 block text-[10px] uppercase font-bold mb-1">Standard ISA Ambient Temp</span>
+                                        <div className="text-blue-400 font-mono font-bold text-base mb-1">QFF = QNH</div>
+                                        <p className="text-slate-400 text-[11px] leading-relaxed">
+                                            Actual lapse matches ISA (2°C/1,000ft), so ambient reduction equals standard reduction.
+                                        </p>
+                                    </div>
+                                    <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+                                        <span className="text-slate-500 block text-[10px] uppercase font-bold mb-1">Cold Ambient Air (&lt; ISA)</span>
+                                        <div className="text-cyan-400 font-mono font-bold text-base mb-1">QFF &gt; QNH</div>
+                                        <p className="text-slate-400 text-[11px] leading-relaxed">
+                                            Cold air is dense and heavy; pressure increases faster descending to sea level, so QFF is higher.
+                                        </p>
+                                    </div>
+                                    <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+                                        <span className="text-slate-500 block text-[10px] uppercase font-bold mb-1">Warm Ambient Air (&gt; ISA)</span>
+                                        <div className="text-orange-400 font-mono font-bold text-base mb-1">QFF &lt; QNH</div>
+                                        <p className="text-slate-400 text-[11px] leading-relaxed">
+                                            Warm air is less dense; pressure increases slower descending to sea level, so QFF is lower.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -367,30 +440,128 @@ const Altimetry: React.FC = () => {
 
                     {/* --- ERRORS TAB --- */}
                     {activeTab === 'errors' && (
-                        <div className="grid md:grid-cols-2 gap-8">
-                            <div className="bg-slate-800/50 p-8 rounded-3xl border border-white/5">
-                                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                                    <AlertTriangle className="text-orange-400" /> Temperature Error
-                                </h3>
-                                <p className="text-slate-400 leading-relaxed mb-6">
-                                    "Hot to Cold, Watch out Below." When flying into colder than ISA air, your altimeter overreads. The column of air shrinks, bringing 10,000' indicated closer to the ground.
-                                </p>
-                                <div className="bg-slate-900 p-4 rounded-xl border border-slate-700">
-                                    <div className="flex justify-between items-center text-sm mb-2">
-                                        <span className="text-slate-400">Formula approximation:</span>
+                        <div className="space-y-8">
+                            <div className="grid md:grid-cols-2 gap-8">
+                                <div className="bg-slate-800/50 p-8 rounded-3xl border border-white/5 space-y-4">
+                                    <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                                        <AlertTriangle className="text-orange-400" /> Temperature Error: "Cold Air is a Compressed Sponge"
+                                    </h3>
+                                    <p className="text-slate-300 text-sm leading-relaxed">
+                                        Croucher Mental Model: In cold air, gas molecules lose kinetic energy and pack closely together. The entire atmospheric column compresses like a squeezed sponge. Pressure surfaces sink toward the surface.
+                                    </p>
+                                    <div className="p-4 bg-slate-900 rounded-2xl border border-red-500/30">
+                                        <div className="text-red-400 font-bold text-xs uppercase tracking-wider mb-1">
+                                            Axiom: "High to Low, Hot to Cold, Look Out Below!"
+                                        </div>
+                                        <p className="text-xs text-slate-400 leading-relaxed">
+                                            Flying from warm to cold air while maintaining a constant indicated altitude forces your aircraft to descend with the collapsing isobars. Your <strong>True Altitude is lower than Indicated Altitude</strong>!
+                                        </p>
                                     </div>
-                                    <code className="text-orange-300 font-mono text-sm block">
-                                        4ft per 1,000ft per 1°C Dev
-                                    </code>
+                                    <div className="bg-slate-900 p-4 rounded-xl border border-slate-700">
+                                        <div className="flex justify-between items-center text-xs mb-1">
+                                            <span className="text-slate-400">Rule of Thumb Formula:</span>
+                                            <span className="text-orange-400 font-mono font-bold">~4% per 10°C ISA Dev</span>
+                                        </div>
+                                        <code className="text-orange-300 font-mono text-xs block">
+                                            Correction = 4 ft × (Height Above Station / 1,000 ft) × (-ΔISA)
+                                        </code>
+                                    </div>
+                                </div>
+
+                                <div className="bg-slate-800/50 p-8 rounded-3xl border border-white/5 space-y-4">
+                                    <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                                        <Mountain className="text-slate-400" /> Mountain & Orographic Pressure Drops
+                                    </h3>
+                                    <p className="text-slate-300 text-sm leading-relaxed">
+                                        Wind forced over high ridges accelerates via the Venturi / Bernoulli principle. The rapid kinetic speed drop lowers local static pressure.
+                                    </p>
+                                    <div className="p-4 bg-slate-900 rounded-2xl border border-slate-700">
+                                        <h4 className="text-xs font-bold text-white mb-1">Combined Hazard: Cold + Orographic</h4>
+                                        <p className="text-xs text-slate-400 leading-relaxed">
+                                            When cold arctic air flows over mountainous terrain, both temperature error and Bernoulli drop conspire: altimeter can overread by <strong>500 to 1,500+ ft</strong>, creating catastrophic CFIT risks if standard minimum vectoring altitudes are flown without corrections.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="bg-slate-800/50 p-8 rounded-3xl border border-white/5">
-                                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                                    <Mountain className="text-slate-400" /> Orographic Error
-                                </h3>
-                                <p className="text-slate-400 leading-relaxed">
-                                    Wind flowing over a mountain ridge accelerates (Bernoulli), causing local pressure to drop. This can result in the altimeter overreading significantly, putting you dangerously close to the ridge.
-                                </p>
+
+                            {/* Interactive ICAO Cold Temperature Calculator */}
+                            <div className="bg-slate-950 p-8 rounded-3xl border border-slate-800 space-y-6">
+                                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                                    <div>
+                                        <h4 className="text-lg font-bold text-white flex items-center gap-2">
+                                            <Calculator size={20} className="text-emerald-400" />
+                                            ICAO Cold Temperature Altimeter Correction Calculator
+                                        </h4>
+                                        <p className="text-xs text-slate-400 mt-1">
+                                            Computes mandatory approach altitude corrections for sub-zero aerodrome temperatures (PANS-OPS Doc 8168).
+                                        </p>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <button
+                                            onClick={() => { setStationElev(2000); setStationTemp(-20); setTargetAlt(5000); }}
+                                            className="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono rounded-lg transition-colors"
+                                        >
+                                            Arctic Approach (-20°C)
+                                        </button>
+                                        <button
+                                            onClick={() => { setStationElev(500); setStationTemp(-5); setTargetAlt(3000); }}
+                                            className="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono rounded-lg transition-colors"
+                                        >
+                                            Winter European (-5°C)
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div className="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                                        <label className="text-xs font-bold text-slate-400 uppercase block mb-2">Station Elevation (ft)</label>
+                                        <input
+                                            type="number"
+                                            value={stationElev}
+                                            onChange={e => setStationElev(Number(e.target.value))}
+                                            className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono text-lg font-bold"
+                                        />
+                                    </div>
+                                    <div className="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                                        <label className="text-xs font-bold text-cyan-400 uppercase block mb-2">Aerodrome Temp (°C)</label>
+                                        <input
+                                            type="number"
+                                            value={stationTemp}
+                                            onChange={e => setStationTemp(Number(e.target.value))}
+                                            className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono text-lg font-bold"
+                                        />
+                                    </div>
+                                    <div className="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                                        <label className="text-xs font-bold text-purple-400 uppercase block mb-2">Published Altitude / MDA (ft)</label>
+                                        <input
+                                            type="number"
+                                            value={targetAlt}
+                                            onChange={e => setTargetAlt(Number(e.target.value))}
+                                            className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono text-lg font-bold"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-5 bg-slate-900/90 rounded-2xl border border-slate-800 text-xs">
+                                    <div>
+                                        <span className="text-slate-500 uppercase font-bold block mb-1">Height Above Station</span>
+                                        <span className="text-white font-mono text-base font-bold">{heightAboveStation} ft</span>
+                                    </div>
+                                    <div>
+                                        <span className="text-slate-500 uppercase font-bold block mb-1">ISA Deviation at SFC</span>
+                                        <span className={`font-mono text-base font-bold ${coldIsaDev < 0 ? 'text-cyan-400' : 'text-orange-400'}`}>
+                                            {coldIsaDev > 0 ? `+${coldIsaDev.toFixed(1)}` : coldIsaDev.toFixed(1)}°C
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span className="text-slate-500 uppercase font-bold block mb-1">Additive Correction</span>
+                                        <span className="text-amber-400 font-mono text-base font-bold">+{coldCorrectionFt} ft</span>
+                                    </div>
+                                    <div className="bg-emerald-500/10 p-3 rounded-xl border border-emerald-500/30">
+                                        <span className="text-emerald-400 uppercase font-bold block text-[10px] mb-1">FLY THIS INDICATED ALT</span>
+                                        <span className="text-emerald-300 font-mono text-xl font-black">{safeTargetAlt} ft</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )}

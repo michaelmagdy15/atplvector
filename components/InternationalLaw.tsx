@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FREEDOMS_OF_THE_AIR_DATA, ICAO_ANNEXES_DATA } from '../data/courseData';
 import { 
   Globe, Plane, Gavel, FileText, ArrowRight, Shield, 
   Info, CheckCircle2, AlertCircle, BookOpen, Scale,
@@ -45,13 +46,7 @@ const InternationalLaw: React.FC = () => {
     "To cooperate with ICAO and other international organizations."
   ];
 
-  const freedoms = [
-    { id: 1, title: '1st Freedom', desc: 'The right to fly over a foreign country without landing (Transit).', type: 'Technical' },
-    { id: 2, title: '2nd Freedom', desc: 'The right to land in a foreign country for non-traffic purposes (Refueling/Maintenance).', type: 'Technical' },
-    { id: 3, title: '3rd Freedom', desc: 'The right to fly from one\'s own country to another country for commercial purposes.', type: 'Commercial' },
-    { id: 4, title: '4th Freedom', desc: 'The right to fly from another country back to one\'s own country for commercial purposes.', type: 'Commercial' },
-    { id: 5, title: '5th Freedom', desc: 'The right to fly between two foreign countries on a flight originating or ending in the home country.', type: 'Commercial' },
-  ];
+  const freedoms = FREEDOMS_OF_THE_AIR_DATA;
 
   const icaoAnnexes = [
     { nr: 1, title: 'Personnel Licensing', focus: 'Licenses for flight crew, ATC, and maintenance.' },
@@ -384,96 +379,107 @@ const InternationalLaw: React.FC = () => {
         {/* Freedoms Tab */}
         {activeTab === 'freedoms' && (
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="bg-slate-800/40 p-8 rounded-2xl border border-slate-700/50 relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-4">
-                <Plane className="text-slate-700 w-32 h-32 rotate-12 opacity-20" />
+            {/* Header info */}
+            <div className="bg-gradient-to-r from-sky-950/40 via-slate-900 to-indigo-950/40 p-6 rounded-2xl border border-sky-500/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+              <div>
+                <h3 className="text-xl font-black text-white flex items-center gap-2">
+                  <Plane className="text-sky-400" />
+                  Chicago Freedoms of the Air & Cabotage
+                </h3>
+                <p className="text-xs text-slate-400 mt-1 max-w-2xl">
+                  Formulated at the 1944 Chicago Convention. 1st & 2nd are technical transit rights; 3rd through 5th are commercial beyond rights; 8th & 9th are cabotage (strictly protected by national sovereignty).
+                </p>
               </div>
-              
-              <div className="relative z-10 flex flex-col md:flex-row gap-8">
-                <div className="w-full md:w-1/3 space-y-3">
+              <div className="px-3 py-1.5 rounded-lg bg-sky-900/30 border border-sky-500/30 text-sky-300 text-xs font-bold font-mono">
+                Chicago Art. 1 & 7
+              </div>
+            </div>
+
+            <div className="bg-slate-800/40 p-6 md:p-8 rounded-2xl border border-slate-700/50">
+              <div className="flex flex-col lg:flex-row gap-8">
+                {/* Freedoms List Buttons */}
+                <div className="w-full lg:w-1/3 space-y-2.5 max-h-[600px] overflow-y-auto pr-1">
                   {freedoms.map(f => (
                     <button
                       key={f.id}
                       onClick={() => setFreedom(f.id)}
-                      className={`w-full p-4 rounded-xl border text-left transition-all flex items-center justify-between group
-                        ${freedom === f.id 
-                          ? 'bg-sky-600 border-sky-400 shadow-xl shadow-sky-600/20 scale-[1.02]' 
-                          : 'bg-slate-900/60 border-slate-700 hover:border-sky-500/50'}`}
+                      className={`w-full p-3.5 rounded-xl border text-left transition-all flex items-center justify-between group ${
+                        freedom === f.id
+                          ? 'bg-sky-600 border-sky-400 shadow-xl shadow-sky-600/20 scale-[1.02] text-white'
+                          : 'bg-slate-900/70 border-slate-700 hover:border-sky-500/50 text-slate-300 hover:text-white'
+                      }`}
                     >
                       <div>
-                        <span className={`text-[10px] font-black uppercase tracking-widest block ${freedom === f.id ? 'text-sky-200' : 'text-slate-500'}`}>
-                          {f.type}
-                        </span>
-                        <h4 className={`font-bold ${freedom === f.id ? 'text-white' : 'text-slate-300'}`}>
-                          {f.title}
+                        <div className="flex items-center gap-2">
+                          <span className={`text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded ${
+                            freedom === f.id ? 'bg-sky-700 text-white' : 'bg-slate-800 text-slate-400'
+                          }`}>
+                            {f.type}
+                          </span>
+                          <span className="text-xs font-mono font-bold text-sky-400">
+                            {f.id <= 5 ? `${f.id}th Freedom` : f.title}
+                          </span>
+                        </div>
+                        <h4 className="font-bold text-sm mt-1 leading-snug">
+                          {f.name}
                         </h4>
                       </div>
-                      <ArrowRight className={`w-4 h-4 transition-transform ${freedom === f.id ? 'translate-x-1 text-white' : 'text-slate-600 group-hover:text-slate-400'}`} />
+                      <ArrowRight className={`w-4 h-4 shrink-0 transition-transform ${freedom === f.id ? 'translate-x-1 text-white' : 'text-slate-600 group-hover:text-slate-400'}`} />
                     </button>
                   ))}
                 </div>
 
-                <div className="flex-1 bg-slate-900/80 rounded-2xl border border-slate-700 flex flex-col">
-                  <div className="p-6 border-b border-slate-800">
-                    <h3 className="text-xl font-bold text-white mb-2">{freedoms[freedom-1].title}</h3>
-                    <p className="text-slate-400 text-sm">{freedoms[freedom-1].desc}</p>
-                  </div>
-                  <div className="flex-1 flex items-center justify-center p-12 relative min-h-[240px]">
-                    {/* Visualizer - Schematic */}
-                    <div className="flex items-center gap-12 text-sm font-bold w-full max-w-lg">
-                      <div className="flex flex-col items-center gap-2 flex-1">
-                        <div className="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center shadow-lg shadow-indigo-600/20 border-2 border-indigo-400">
-                          <Landmark className="text-white" />
+                {/* Selected Freedom Detail & Scenario */}
+                {(() => {
+                  const selFreedom = freedoms.find(f => f.id === freedom) || freedoms[0];
+                  return (
+                    <div className="flex-1 bg-slate-900/90 rounded-2xl border border-slate-700 p-6 md:p-8 space-y-6">
+                      <div className="border-b border-slate-800 pb-4">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <span className="text-xs font-bold text-sky-400 uppercase tracking-widest">
+                            {selFreedom.title} • {selFreedom.type}
+                          </span>
+                          <span className="text-xs bg-slate-800 text-slate-300 px-2.5 py-0.5 rounded-full font-bold">
+                            {selFreedom.trafficRights}
+                          </span>
                         </div>
-                        <span className="text-white text-xs uppercase tracking-widest">Home State</span>
+                        <h3 className="text-2xl font-black text-white mt-1">
+                          {selFreedom.name}
+                        </h3>
+                        <p className="text-slate-300 text-sm mt-2 leading-relaxed">
+                          {selFreedom.desc}
+                        </p>
                       </div>
 
-                      <div className="flex-grow flex items-center relative h-12">
-                        <div className="w-full h-0.5 bg-slate-700 border-t-2 border-dashed border-sky-500/30"></div>
-                        
-                        {/* The Plane Animation */}
-                        <div className={`absolute top-1/2 -translate-y-1/2 transition-all duration-1000 ease-in-out w-full
-                          ${freedom === 1 ? 'animate-fly-through' : ''}
-                          ${freedom === 2 ? 'animate-stop-at-b' : ''}
-                          ${freedom === 3 ? 'animate-home-to-b' : ''}
-                          ${freedom === 4 ? 'animate-b-to-home' : ''}
-                          ${freedom === 5 ? 'animate-home-to-c' : ''}
-                        `}>
-                          <Plane className={`text-sky-400 drop-shadow-[0_0_8px_rgba(56,189,248,0.5)] 
-                            ${freedom === 4 ? 'rotate-180' : ''}`} 
-                          />
-                        </div>
+                      {/* Real-world Operational Example */}
+                      <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                          Real-World Airline Route Example:
+                        </span>
+                        <p className="text-xs text-sky-200 font-medium leading-relaxed">
+                          {selFreedom.example}
+                        </p>
                       </div>
 
-                      <div className="flex flex-col items-center gap-2 flex-1 relative">
-                        <div className={`w-16 h-16 rounded-full flex items-center justify-center border-2 transition-all
-                          ${freedom >= 1 ? 'bg-emerald-600 border-emerald-400 shadow-lg shadow-emerald-600/20' : 'bg-slate-800 border-slate-700'}`}>
-                          <Globe className="text-white" />
-                        </div>
-                        <span className="text-white text-xs uppercase tracking-widest">State B</span>
-                        {freedom === 5 && (
-                          <div className="absolute -top-12 whitespace-nowrap bg-indigo-600 text-[10px] px-2 py-1 rounded text-white font-bold animate-bounce shadow-lg">
-                            PICK UP PASSENGERS
-                          </div>
-                        )}
+                      {/* RTFQ Exam Trap */}
+                      <div className="p-4 bg-red-950/20 rounded-xl border border-red-500/30 space-y-1">
+                        <span className="text-[10px] font-bold text-red-400 uppercase tracking-wider block">
+                          Air Law RTFQ Defense Tip:
+                        </span>
+                        <p className="text-xs text-red-200 leading-relaxed">
+                          {selFreedom.rtfqTrap}
+                        </p>
                       </div>
 
-                      {freedom >= 5 && (
-                        <>
-                          <div className="flex-grow flex items-center relative h-12">
-                            <div className="w-full h-0.5 bg-slate-700 border-t-2 border-dashed border-sky-500/30"></div>
-                          </div>
-                          <div className="flex flex-col items-center gap-2 flex-1">
-                            <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center border-2 border-purple-400 shadow-lg shadow-purple-600/20">
-                              <Globe className="text-white" />
-                            </div>
-                            <span className="text-white text-xs uppercase tracking-widest">State C</span>
-                          </div>
-                        </>
+                      {/* Chicago Art 7 Cabotage Protection Note */}
+                      {(selFreedom.id === 8 || selFreedom.id === 9) && (
+                        <div className="p-4 bg-amber-950/20 rounded-xl border border-amber-500/30 text-xs text-amber-200">
+                          <strong>Chicago Convention Article 7 (Cabotage):</strong> Each contracting State has the absolute right to refuse permission to foreign aircraft to take on passengers, cargo, and mail destined for another point within its territory. Furthermore, no State shall grant cabotage privileges on an exclusive basis to any other State!
+                        </div>
                       )}
                     </div>
-                  </div>
-                </div>
+                  );
+                })()}
               </div>
             </div>
           </div>

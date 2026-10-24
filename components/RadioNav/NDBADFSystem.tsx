@@ -135,22 +135,17 @@ const FundamentalsSection = () => {
                 <h3 className="text-xl font-bold text-amber-400 mb-4">Surface Wave Propagation</h3>
                 <p className="text-slate-300 mb-4">NDB signals follow the Earth's curvature via <strong>surface waves</strong>, refracting along the ground.</p>
                 <div className="relative h-48 bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
-                    {/* Earth curve */}
                     <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-emerald-900/50 to-transparent rounded-b-[100%]" />
-                    {/* NDB Tower */}
                     <div className="absolute bottom-16 left-8 flex flex-col items-center">
                         <div className="w-1 h-12 bg-amber-500" />
                         <div className="w-4 h-4 bg-amber-500 rounded-full animate-pulse shadow-[0_0_20px_#f59e0b]" />
                         <span className="text-[10px] text-amber-400 mt-1">NDB</span>
                     </div>
-                    {/* Surface waves */}
                     <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 150">
                         <path d="M 30 100 Q 100 90 200 95 Q 300 100 380 110" fill="none" stroke="#f59e0b" strokeWidth="2" strokeDasharray="5,5" className="animate-[dash_3s_linear_infinite]" opacity="0.6" />
                         <path d="M 30 90 Q 100 80 200 85 Q 300 90 380 100" fill="none" stroke="#f59e0b" strokeWidth="2" strokeDasharray="5,5" className="animate-[dash_3s_linear_infinite]" opacity="0.4" style={{ animationDelay: '0.5s' }} />
                     </svg>
-                    {/* Aircraft */}
                     <div className="absolute bottom-24 right-16 text-2xl">✈️</div>
-                    {/* Range label */}
                     <div className="absolute bottom-2 right-4 text-xs text-slate-500 bg-black/50 px-2 rounded">~300 NM range over land</div>
                 </div>
             </div>
@@ -270,18 +265,14 @@ const SignalsSection = () => {
 // === SECTION 3: ANTENNA PRINCIPLES ===
 const AntennaSection = () => {
     const [stage, setStage] = useState<1 | 2 | 3>(1);
-    const [signalAngle, setSignalAngle] = useState(45);
 
     const getPatternPath = () => {
         const cx = 150, cy = 150, scale = 100;
         if (stage === 1) {
-            // Figure-8 (Loop only)
             return `M ${cx} ${cy - scale} Q ${cx + scale * 0.5} ${cy - scale * 0.5} ${cx} ${cy} Q ${cx - scale * 0.5} ${cy + scale * 0.5} ${cx} ${cy + scale} Q ${cx + scale * 0.5} ${cy + scale * 0.5} ${cx} ${cy} Q ${cx - scale * 0.5} ${cy - scale * 0.5} ${cx} ${cy - scale}`;
         } else if (stage === 2) {
-            // Circle (Sense only)
             return `M ${cx} ${cy - scale} A ${scale} ${scale} 0 1 1 ${cx} ${cy + scale} A ${scale} ${scale} 0 1 1 ${cx} ${cy - scale}`;
         } else {
-            // Cardioid
             const points: string[] = [];
             for (let a = 0; a <= 360; a += 5) {
                 const rad = (a * Math.PI) / 180;
@@ -327,13 +318,11 @@ const AntennaSection = () => {
                 <div className="bg-slate-950 rounded-xl border border-slate-800 p-6 flex flex-col items-center justify-center">
                     <h4 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Polar Diagram</h4>
                     <svg width="300" height="300" className="transition-all duration-500">
-                        {/* Grid */}
                         <circle cx="150" cy="150" r="100" fill="none" stroke="#334155" strokeDasharray="4,4" />
                         <circle cx="150" cy="150" r="50" fill="none" stroke="#334155" strokeDasharray="4,4" />
                         <line x1="150" y1="50" x2="150" y2="250" stroke="#334155" strokeDasharray="4,4" />
                         <line x1="50" y1="150" x2="250" y2="150" stroke="#334155" strokeDasharray="4,4" />
 
-                        {/* Pattern */}
                         <path
                             d={getPatternPath()}
                             fill={stage === 1 ? 'rgba(245,158,11,0.2)' : stage === 2 ? 'rgba(34,197,94,0.2)' : 'rgba(56,189,248,0.2)'}
@@ -341,10 +330,8 @@ const AntennaSection = () => {
                             strokeWidth="2"
                         />
 
-                        {/* Center */}
                         <circle cx="150" cy="150" r="8" fill="#1e293b" stroke="#64748b" strokeWidth="2" />
 
-                        {/* Labels */}
                         <text x="150" y="40" textAnchor="middle" fill="#64748b" fontSize="12">N</text>
                         <text x="260" y="154" textAnchor="middle" fill="#64748b" fontSize="12">E</text>
                         <text x="150" y="268" textAnchor="middle" fill="#64748b" fontSize="12">S</text>
@@ -443,7 +430,6 @@ const InstrumentsSection = () => {
                 <div className="bg-slate-950 rounded-xl border border-slate-800 p-8 flex flex-col items-center justify-center">
                     <div className="text-xs text-slate-500 mb-4">{mode === 'RBI' ? 'RELATIVE BEARING INDICATOR' : 'RADIO MAGNETIC INDICATOR'}</div>
                     <div className="relative w-64 h-64 bg-[#1a1a1a] rounded-full border-8 border-[#2a2a2a] shadow-2xl">
-                        {/* Compass Card */}
                         <div className="absolute inset-2 rounded-full transition-transform duration-500" style={{ transform: mode === 'RMI' ? `rotate(${-heading}deg)` : 'rotate(0deg)' }}>
                             {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
                                 <div key={deg} className="absolute top-0 left-1/2 w-0.5 origin-bottom h-1/2 -translate-x-1/2" style={{ transform: `rotate(${deg}deg)` }}>
@@ -457,17 +443,14 @@ const InstrumentsSection = () => {
                             ))}
                         </div>
 
-                        {/* Index (Top) */}
                         <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[12px] border-t-amber-500" />
 
-                        {/* Needle */}
                         <div className="absolute inset-0 flex items-center justify-center transition-transform duration-300" style={{ transform: `rotate(${relBearing}deg)` }}>
                             <div className="w-1 h-48 bg-gradient-to-b from-amber-400 via-amber-500 to-transparent rounded-full shadow-[0_0_10px_#f59e0b]">
                                 <div className="w-4 h-4 bg-amber-500 rounded-full absolute -top-2 left-1/2 -translate-x-1/2" />
                             </div>
                         </div>
 
-                        {/* Center */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-slate-800 rounded-full border-2 border-slate-600 flex items-center justify-center">
                             <span className="text-[8px] text-amber-400">NDB</span>
                         </div>
@@ -483,27 +466,63 @@ const InstrumentsSection = () => {
 
 // === SECTION 5: ERRORS ===
 const ErrorsSection = () => {
-    const [activeError, setActiveError] = useState<string | null>('static');
-    const [isNight, setIsNight] = useState(false);
+    const [activeError, setActiveError] = useState<string | null>('coastal');
+    const [isNight, setIsNight] = useState(true);
+    const [coastalAngle, setCoastalAngle] = useState(45);
     const [needleWobble, setNeedleWobble] = useState(0);
 
     useEffect(() => {
         if (activeError === 'night' && isNight) {
             const interval = setInterval(() => {
-                setNeedleWobble(Math.random() * 30 - 15);
-            }, 200);
+                setNeedleWobble(Math.random() * 36 - 18);
+            }, 180);
             return () => clearInterval(interval);
+        } else if (activeError === 'coastal') {
+            const bendError = Math.sin((coastalAngle * Math.PI) / 180) * 12 * (coastalAngle < 90 ? 1 : -1);
+            setNeedleWobble(bendError);
+        } else if (activeError === 'static') {
+            setNeedleWobble(42);
         } else {
             setNeedleWobble(0);
         }
-    }, [activeError, isNight]);
+    }, [activeError, isNight, coastalAngle]);
 
     const errors = [
-        { id: 'static', name: 'Static Interference', icon: <Zap size={20} />, color: 'yellow', desc: 'Thunderstorms produce static that attracts the ADF needle toward the storm.' },
-        { id: 'night', name: 'Night Effect', icon: <Eye size={20} />, color: 'purple', desc: 'At night, the D-layer disappears, allowing skywaves to return. These polarized waves confuse the loop antenna.' },
-        { id: 'coastal', name: 'Coastal Refraction', icon: <Waves size={20} />, color: 'blue', desc: 'Radio waves speed up over water, causing the signal to bend toward the coast when crossing the shoreline.' },
-        { id: 'mountain', name: 'Mountain Effect', icon: <Navigation size={20} />, color: 'emerald', desc: 'Terrain reflects and refracts signals, causing bearing errors in mountainous areas.' },
-        { id: 'dip', name: 'Dip Error', icon: <Settings size={20} />, color: 'orange', desc: 'During banking turns, the antenna geometry causes temporary directional errors.' }
+        {
+            id: 'coastal',
+            name: 'Coastal Refraction',
+            icon: <Waves size={20} />,
+            color: 'blue',
+            desc: 'Radio waves travel faster over seawater than land. When crossing the shoreline, the wavefront speeds up and bends TOWARDS THE NORMAL, causing the ADF needle to pull towards the coast.'
+        },
+        {
+            id: 'night',
+            name: 'Night Effect (Skywave Interference)',
+            icon: <Eye size={20} />,
+            color: 'purple',
+            desc: 'At sunset, the D-layer recombines and disappears, allowing E and F skywaves to reflect back to Earth with elliptical polarization, generating unwanted EMF in the horizontal wires of the loop antenna.'
+        },
+        {
+            id: 'static',
+            name: 'Thunderstorm Static Attraction',
+            icon: <Zap size={20} />,
+            color: 'yellow',
+            desc: 'Cumulonimbus electrical activity generates intense broad-spectrum RF noise in LF/MF. The ADF needle swings away from the beacon and points directly at lightning strikes.'
+        },
+        {
+            id: 'mountain',
+            name: 'Mountain Effect & Reflection',
+            icon: <Navigation size={20} />,
+            color: 'emerald',
+            desc: 'Steep terrain and mountain ridges reflect and diffract LF/MF surface waves, creating multi-path phase cancellation and erroneous needle indications.'
+        },
+        {
+            id: 'quadrantal',
+            name: 'Quadrantal Error',
+            icon: <Settings size={20} />,
+            color: 'orange',
+            desc: 'Aircraft metallic fuselage acts as a secondary re-radiator. Zero error on cardinal headings (000°, 090°, 180°, 270°); maximum error at 45° quadrantal bearings.'
+        }
     ];
 
     const currentError = errors.find(e => e.id === activeError);
@@ -511,106 +530,161 @@ const ErrorsSection = () => {
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="grid lg:grid-cols-2 gap-8">
+                {/* Error Selector */}
                 <div className="space-y-4">
                     <h3 className="text-xl font-bold text-amber-400">NDB/ADF Error Sources</h3>
-                    <div className="space-y-2">
+                    <div className="space-y-2.5">
                         {errors.map((err) => (
                             <button
                                 key={err.id}
                                 onClick={() => setActiveError(err.id)}
-                                className={`w-full p-4 rounded-lg text-left transition-all flex items-center gap-4 ${activeError === err.id
-                                    ? `bg-${err.color}-600/20 border-2 border-${err.color}-500`
-                                    : 'bg-slate-800 border border-slate-700 hover:bg-slate-700'}`}
+                                className={`w-full p-4 rounded-xl text-left transition-all flex items-start gap-4 border ${
+                                    activeError === err.id
+                                        ? 'bg-amber-600/20 border-amber-500 shadow-lg shadow-amber-950/30'
+                                        : 'bg-slate-900 border-slate-800 hover:bg-slate-800 text-slate-400'
+                                }`}
                             >
-                                <div className={`p-2 rounded-lg bg-slate-700 text-${err.color}-400`}>{err.icon}</div>
-                                <div>
-                                    <div className="font-bold text-white">{err.name}</div>
-                                    <div className="text-sm text-slate-400 line-clamp-1">{err.desc}</div>
+                                <div className="p-2.5 rounded-xl bg-slate-800 text-amber-400 shrink-0 mt-0.5">
+                                    {err.icon}
+                                </div>
+                                <div className="space-y-1">
+                                    <div className="font-bold text-white text-sm">{err.name}</div>
+                                    <div className="text-xs text-slate-400 leading-relaxed line-clamp-2">{err.desc}</div>
                                 </div>
                             </button>
                         ))}
                     </div>
                 </div>
 
-                <div className="bg-slate-950 rounded-xl border border-slate-800 p-6">
-                    <h4 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Error Simulation</h4>
-
-                    {activeError === 'night' && (
-                        <div className="mb-4">
-                            <button onClick={() => setIsNight(!isNight)} className={`px-4 py-2 rounded-lg font-bold transition-all ${isNight ? 'bg-purple-600 text-white' : 'bg-slate-700 text-slate-400'}`}>
-                                {isNight ? '🌙 Night Mode' : '☀️ Day Mode'}
-                            </button>
+                {/* Interactive Error Visualizer */}
+                <div className="bg-slate-950 rounded-2xl border border-slate-800 p-6 space-y-6 flex flex-col justify-between">
+                    <div>
+                        <div className="flex justify-between items-center mb-4">
+                            <h4 className="text-sm font-bold text-slate-400 uppercase tracking-wider">
+                                {currentError?.name} Simulation
+                            </h4>
+                            {activeError === 'night' && (
+                                <button
+                                    onClick={() => setIsNight(!isNight)}
+                                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                                        isNight ? 'bg-purple-600 text-white' : 'bg-slate-800 text-slate-300'
+                                    }`}
+                                >
+                                    {isNight ? '🌙 Night (D-Layer Gone)' : '☀️ Day (D-Layer Absorbs)'}
+                                </button>
+                            )}
                         </div>
-                    )}
 
-                    <div className={`relative h-64 rounded-xl overflow-hidden transition-colors duration-500 ${activeError === 'night' && isNight ? 'bg-slate-950' : 'bg-slate-900'}`}>
-                        {/* Ionosphere for night effect */}
-                        {activeError === 'night' && (
-                            <div className={`absolute top-0 left-0 right-0 h-12 transition-opacity duration-500 ${isNight ? 'opacity-100' : 'opacity-30'}`}>
-                                <div className="h-full bg-gradient-to-b from-purple-500/30 to-transparent border-b border-purple-500/30" />
-                                {isNight && (
-                                    <svg className="absolute inset-0 w-full h-full">
-                                        <path d="M 50 60 Q 100 20 200 50 Q 250 80 150 100" fill="none" stroke="#a855f7" strokeWidth="2" strokeDasharray="5,5" className="animate-pulse" />
-                                    </svg>
-                                )}
-                            </div>
-                        )}
-
-                        {/* Static/Lightning */}
-                        {activeError === 'static' && (
-                            <div className="absolute top-4 right-8 animate-pulse">
-                                <Zap size={48} className="text-yellow-400 drop-shadow-[0_0_10px_#facc15]" />
-                                <div className="text-xs text-yellow-400 mt-1">Storm</div>
-                            </div>
-                        )}
-
-                        {/* Coast for coastal refraction */}
+                        {/* Coastal Refraction Angle Controller */}
                         {activeError === 'coastal' && (
-                            <>
-                                <div className="absolute bottom-0 left-0 w-1/2 h-8 bg-emerald-900/50" />
-                                <div className="absolute bottom-0 right-0 w-1/2 h-8 bg-blue-900/50" />
-                                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs text-slate-400">Coastline</div>
-                                <svg className="absolute inset-0 w-full h-full">
-                                    <path d="M 50 180 Q 150 170 200 150 Q 220 145 280 160" fill="none" stroke="#f59e0b" strokeWidth="2" strokeDasharray="4,4" />
-                                    <text x="180" y="130" fill="#64748b" fontSize="10">Signal bends</text>
-                                </svg>
-                            </>
-                        )}
-
-                        {/* Mountains */}
-                        {activeError === 'mountain' && (
-                            <div className="absolute bottom-0 left-0 right-0 h-16">
-                                <svg viewBox="0 0 300 60" className="w-full h-full">
-                                    <polygon points="0,60 50,20 100,60" fill="#1e3a5f" />
-                                    <polygon points="80,60 150,10 220,60" fill="#1e4d5f" />
-                                    <polygon points="200,60 260,25 300,60" fill="#1e3a5f" />
-                                </svg>
+                            <div className="mb-4 p-3 bg-slate-900 rounded-xl border border-slate-800 space-y-2">
+                                <div className="flex justify-between text-xs font-mono">
+                                    <span className="text-slate-400">Angle of Shoreline Crossing:</span>
+                                    <span className="text-sky-400 font-bold">{coastalAngle}°</span>
+                                </div>
+                                <input
+                                    type="range"
+                                    min="15"
+                                    max="90"
+                                    step="5"
+                                    value={coastalAngle}
+                                    onChange={e => setCoastalAngle(Number(e.target.value))}
+                                    className="w-full accent-sky-500"
+                                />
+                                <div className="flex justify-between text-[10px] text-slate-500 font-mono">
+                                    <span>15° (Severe Bending)</span>
+                                    <span>90° Normal (Zero Error!)</span>
+                                </div>
                             </div>
                         )}
 
-                        {/* Simple Needle Display */}
-                        <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 w-24 h-24 bg-slate-800 rounded-full border-4 border-slate-700 flex items-center justify-center">
-                            <div className="w-1 h-16 bg-amber-500 rounded-full transition-transform origin-bottom" style={{ transform: `rotate(${needleWobble}deg)` }} />
-                        </div>
+                        {/* Visual Display Screen */}
+                        <div className="relative h-64 rounded-xl overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center">
+                            {/* Night Effect Ionosphere */}
+                            {activeError === 'night' && (
+                                <div className={`absolute top-0 left-0 right-0 h-16 transition-opacity duration-500 ${isNight ? 'opacity-100 bg-purple-950/40 border-b border-purple-500/30' : 'opacity-20'}`}>
+                                    <div className="p-2 text-[10px] font-mono text-purple-300">
+                                        {isNight ? 'E & F LAYERS REFLECTING SKYWAVE (NO D-LAYER)' : 'D-LAYER ABSORBS MF SKYWAVES'}
+                                    </div>
+                                    {isNight && (
+                                        <svg className="absolute inset-0 w-full h-full">
+                                            <path d="M 40 50 Q 140 10 240 50" fill="none" stroke="#c084fc" strokeWidth="2" strokeDasharray="4,4" className="animate-pulse" />
+                                        </svg>
+                                    )}
+                                </div>
+                            )}
 
-                        {/* NDB Station */}
-                        <div className="absolute bottom-16 left-8 flex flex-col items-center">
-                            <div className="w-1 h-8 bg-amber-500" />
-                            <div className="w-3 h-3 bg-amber-500 rounded-full animate-pulse" />
-                            <span className="text-[10px] text-amber-400 mt-1">NDB</span>
-                        </div>
+                            {/* Coastal Refraction Shoreline */}
+                            {activeError === 'coastal' && (
+                                <div className="absolute inset-0">
+                                    <div className="w-1/2 h-full bg-emerald-950/30 border-r-2 border-amber-500/50 float-left p-3">
+                                        <span className="text-[10px] font-mono text-emerald-400">LAND (Low Conductivity)</span>
+                                    </div>
+                                    <div className="w-1/2 h-full bg-sky-950/30 float-right p-3 text-right">
+                                        <span className="text-[10px] font-mono text-sky-400">SEA (High Velocity)</span>
+                                    </div>
+                                    <svg className="absolute inset-0 w-full h-full pointer-events-none">
+                                        <line x1="50" y1="180" x2="160" y2="120" stroke="#f59e0b" strokeWidth="2" />
+                                        <line x1="160" y1="120" x2="280" y2="80" stroke="#38bdf8" strokeWidth="2.5" />
+                                        <text x="170" y="110" fill="#38bdf8" fontSize="9" fontFamily="monospace">Bends toward normal</text>
+                                    </svg>
+                                </div>
+                            )}
 
-                        {/* Description */}
-                        <div className="absolute bottom-2 left-2 right-2 bg-black/60 p-2 rounded text-xs text-slate-300">
-                            {currentError?.desc}
+                            {/* Lightning Storm */}
+                            {activeError === 'static' && (
+                                <div className="absolute top-6 right-8 flex flex-col items-center">
+                                    <Zap size={44} className="text-yellow-400 animate-bounce drop-shadow-[0_0_15px_#facc15]" />
+                                    <span className="text-[10px] font-mono text-yellow-300 mt-1 font-bold">CB CELL (LIGHTNING)</span>
+                                </div>
+                            )}
+
+                            {/* ADF Instrument Indicator */}
+                            <div className="relative z-10 w-28 h-28 bg-slate-950 rounded-full border-4 border-slate-700 flex items-center justify-center shadow-xl">
+                                <div className="text-[9px] font-mono text-slate-500 absolute top-2 font-bold">000°</div>
+                                <div
+                                    className="w-1.5 h-20 bg-amber-400 rounded-full transition-transform origin-center shadow-[0_0_10px_rgba(251,191,36,0.6)]"
+                                    style={{ transform: `rotate(${needleWobble}deg)` }}
+                                />
+                                <div className="w-3 h-3 bg-white rounded-full z-20"></div>
+                            </div>
                         </div>
                     </div>
 
-                    {activeError === 'night' && isNight && (
-                        <div className="mt-4 text-red-400 text-sm bg-red-900/20 p-3 rounded flex items-center gap-2">
-                            <AlertTriangle size={16} /> Needle unstable due to skywave interference!
-                        </div>
-                    )}
+                    {/* Operational Advice Box */}
+                    <div className="p-4 bg-slate-900 rounded-xl border border-white/5 space-y-2 text-xs">
+                        <strong className="text-amber-400 block font-bold">ICAO / EASA Operational Recovery Rule:</strong>
+                        {activeError === 'coastal' && (
+                            <p className="text-slate-300">
+                                <strong>Coastal Mitigation:</strong> Cross coastlines as close to 90° (normal) as possible.
+                                At 90° incidence, angle of refraction is 0°, eliminating coastal error entirely.
+                                Avoid using NDB stations located far inland when flying over coastal waters.
+                            </p>
+                        )}
+                        {activeError === 'night' && (
+                            <p className="text-slate-300">
+                                <strong>Night Effect Mitigation:</strong> Error is worst during twilight (sunrise and sunset).
+                                Use ground waves only (limit range to within ~50-70 NM).
+                                Average fluctuating ADF needle readings or cross-check with VOR/DME.
+                            </p>
+                        )}
+                        {activeError === 'static' && (
+                            <p className="text-slate-300">
+                                <strong>Storm Warning:</strong> Never use ADF navigation in the vicinity of cumulonimbus (CB) clouds.
+                                The needle will reliably indicate the location of electrical discharges rather than the beacon.
+                            </p>
+                        )}
+                        {activeError === 'mountain' && (
+                            <p className="text-slate-300">
+                                <strong>Mountain Terrain:</strong> Fly at higher altitudes to increase the ratio of direct surface wave to reflected waves.
+                            </p>
+                        )}
+                        {activeError === 'quadrantal' && (
+                            <p className="text-slate-300">
+                                <strong>Quadrantal Calibration:</strong> Modern ADF installations use electronic loop compensators or look-up tables to cancel airframe re-radiation.
+                            </p>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

@@ -93,7 +93,7 @@ const CircadianClock = () => {
 
     // State description
     const getPhysiologicalState = (h: number) => {
-        if (h >= 2 && h <= 5) return { state: 'Deep Sleep / WOCL', desc: 'Lowest body temperature, peak melatonin. Cognitive performance at minimum. Window of Circadian Low.', color: 'text-indigo-400' };
+        if (h >= 2 && h <= 5) return { state: 'Deep Sleep / WOCL', desc: 'Lowest body temperature nadir, peak melatonin. Cognitive alertness at minimum. Window of Circadian Low (WOCL: 02:00–05:59). High vulnerability to microsleeps and performance slips.', color: 'text-indigo-400' };
         if (h >= 6 && h <= 8) return { state: 'Wake-Up Phase', desc: 'Cortisol surge (Cortisol Awakening Response). Melatonin suppressed by light. Body temperature rising.', color: 'text-amber-400' };
         if (h >= 9 && h <= 11) return { state: 'Morning Peak', desc: 'High alertness, good for complex cognitive tasks. Body temperature climbing.', color: 'text-emerald-400' };
         if (h >= 12 && h <= 14) return { state: 'Post-Lunch Dip', desc: 'Mild circadian dip (not just food-related). Secondary low in alertness.', color: 'text-yellow-400' };
@@ -593,12 +593,14 @@ const JetLagCalc = () => {
                             <label className="block text-slate-400 text-xs font-bold uppercase mb-3">Flight Direction</label>
                             <div className="flex gap-2">
                                 <button onClick={() => setDirection('WEST')}
-                                    className={`flex-1 py-3 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 ${direction === 'WEST' ? 'bg-sky-600 text-white shadow-lg shadow-sky-500/20' : 'bg-slate-800 text-slate-400 hover:bg-slate-750'}`}>
-                                    ← WEST <span className="text-[10px] opacity-70">(Easier)</span>
+                                    className={`flex-1 py-3 rounded-lg text-sm font-bold transition-all flex flex-col items-center justify-center gap-1 ${direction === 'WEST' ? 'bg-sky-600 text-white shadow-lg shadow-sky-500/20' : 'bg-slate-800 text-slate-400 hover:bg-slate-750'}`}>
+                                    <span>← WEST ("West is Best")</span>
+                                    <span className="text-[10px] opacity-80 font-normal">Phase Delay · Day lengthened · 1 day/zone</span>
                                 </button>
                                 <button onClick={() => setDirection('EAST')}
-                                    className={`flex-1 py-3 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2 ${direction === 'EAST' ? 'bg-orange-600 text-white shadow-lg shadow-orange-500/20' : 'bg-slate-800 text-slate-400 hover:bg-slate-750'}`}>
-                                    EAST → <span className="text-[10px] opacity-70">(Harder)</span>
+                                    className={`flex-1 py-3 rounded-lg text-sm font-bold transition-all flex flex-col items-center justify-center gap-1 ${direction === 'EAST' ? 'bg-orange-600 text-white shadow-lg shadow-orange-500/20' : 'bg-slate-800 text-slate-400 hover:bg-slate-750'}`}>
+                                    <span>EAST → ("East is Least")</span>
+                                    <span className="text-[10px] opacity-80 font-normal">Phase Advance · Day shortened · 1.5 days/zone</span>
                                 </button>
                             </div>
                         </div>
@@ -872,34 +874,55 @@ const SleepStagesCards = () => {
             pilotNote: 'Sleep spindles protect against external noise. Important for crew rest in noisy environments.',
         },
         {
-            id: 'n3', name: 'NREM Stage 3 (N3 / SWS)', color: 'from-purple-700 to-purple-500', borderColor: 'border-purple-500/50',
-            brief: '15-20% of sleep · Deep/SWS · Physical restoration',
-            duration: '~15-20% of total sleep time',
-            eeg: 'Delta waves (0.5-4 Hz) — high amplitude, slow',
-            characteristics: ['Deepest sleep stage — very difficult to awaken', 'Growth hormone secretion peaks', 'Immune system restoration', 'Parasomnias may occur (sleepwalking, night terrors)', 'Dominates the first third of the night'],
-            function: 'Physical repair and restoration. Tissue growth, immune strengthening, energy restoration.',
-            deprivation: 'Severe fatigue, weakened immunity, impaired glucose metabolism, high sleep inertia on forced awakening.',
-            pilotNote: 'Waking from deep sleep causes significant sleep inertia (grogginess). Plan naps to avoid N3 (keep naps <30 min).',
+            id: 'n3', name: 'Stage 3 / Stage 4 SWS (Slow Wave Sleep)', color: 'from-purple-700 to-purple-500', borderColor: 'border-purple-500/50',
+            brief: '15-20% of sleep · Deep/SWS · PHYSICAL RESTORATION',
+            duration: '~15-20% of total sleep time (first third of the night)',
+            eeg: 'Delta waves (0.5-4 Hz) — high amplitude, slow synchrony',
+            characteristics: ['Deepest sleep stage — highest arousal threshold', 'Human Growth Hormone (HGH) secretion peaks', 'Cellular and muscular tissue repair', 'Parasomnias (sleepwalking, night terrors) occur here', 'Dominates the first third of the night'],
+            function: 'Physical repair and muscular restoration. Tissue growth, immune strengthening, energy replenishment.',
+            deprivation: 'Physical fatigue, muscle soreness, weakened immunity, and severe sleep inertia upon abrupt awakening.',
+            pilotNote: 'Waking from Stage 4 SWS produces profound Sleep Inertia (mental fogginess up to 20-30 min). Power naps should be kept under 26-30 mins to avoid entering SWS.',
         },
         {
-            id: 'rem', name: 'REM Sleep', color: 'from-amber-600 to-yellow-500', borderColor: 'border-yellow-500/50',
-            brief: '20-25% of sleep · Dreaming · Mental restoration',
-            duration: '~20-25% of total sleep time',
-            eeg: 'Beta-like activity (desynchronized, low voltage, fast) — paradoxically similar to wakefulness',
-            characteristics: ['Rapid Eye Movements (conjugate)', 'Skeletal muscle atonia (paralysis) — except diaphragm and eye muscles', 'Vivid dreaming', 'Irregular heart rate and breathing', 'Periods lengthen through the night (longest near morning)', 'Also called "Paradoxical Sleep" (active brain, paralyzed body)'],
-            function: 'Mental restoration, emotional processing, procedural and declarative memory consolidation.',
-            deprivation: 'Irritability, difficulty concentrating, poor emotional regulation, potential hallucinations with extended deprivation.',
-            pilotNote: 'REM dominates the second half of sleep. Cutting sleep short (early wake) primarily robs REM time, impairing cognitive and emotional function.',
+            id: 'rem', name: 'REM Sleep (Rapid Eye Movement)', color: 'from-amber-600 to-yellow-500', borderColor: 'border-yellow-500/50',
+            brief: '20-25% of sleep · Dreaming · COGNITIVE RESTORATION',
+            duration: '~20-25% of total sleep time (second half of the night)',
+            eeg: 'Beta-like activity (desynchronized, low voltage, fast) — resembles active wakefulness',
+            characteristics: ['Rapid Eye Movements (conjugate bursts)', 'Complete skeletal muscle atonia (motor paralysis to protect against acting out dreams)', 'Vivid emotional dreaming', 'Irregular heart rate and respiration', 'Episodes lengthen toward morning (up to 30–45 min)', 'Also called "Paradoxical Sleep" (brain highly active, body paralyzed)'],
+            function: 'Cognitive and mental restoration, emotional regulation, procedural flying skills consolidation, and long-term memory synthesis.',
+            deprivation: 'Severe cognitive decline, mental irritability, impaired decision-making, slowed reaction times, and perceptual distortions.',
+            pilotNote: 'REM dominates the final cycles of sleep. Early wake-ups (e.g. 04:00 sign-in) drastically truncate REM sleep, directly eroding pilot cognitive reserve.',
         },
     ];
 
     return (
-        <div className="space-y-3">
+        <div className="space-y-4">
             <div className="flex items-center gap-2 mb-2">
                 <Brain className="text-indigo-400" size={18} />
-                <h3 className="font-bold text-white">Sleep Stages Quick Reference</h3>
+                <h3 className="font-bold text-white">Sleep Stages &amp; Dual Restoration Architecture</h3>
             </div>
-            <p className="text-xs text-slate-400 mb-4">Click any stage to expand detailed information. All percentages are for healthy adult sleep.</p>
+            
+            {/* Dual Recovery Callout Banner */}
+            <div className="grid sm:grid-cols-2 gap-3 p-4 rounded-xl bg-slate-900 border border-slate-700">
+                <div className="p-3 rounded-lg bg-amber-950/30 border border-yellow-500/30">
+                    <span className="text-xs font-black text-amber-400 uppercase tracking-wider block mb-1">
+                        🧠 REM Sleep = Cognitive Recovery
+                    </span>
+                    <p className="text-[11px] text-slate-300">
+                        Synthesizes memory, restores executive brain function, and recharges mental stamina. Deprivation leads to cognitive tunneling and calculation blunders.
+                    </p>
+                </div>
+                <div className="p-3 rounded-lg bg-purple-950/30 border border-purple-500/30">
+                    <span className="text-xs font-black text-purple-400 uppercase tracking-wider block mb-1">
+                        💪 Stage 4 SWS = Physical Recovery
+                    </span>
+                    <p className="text-[11px] text-slate-300">
+                        Deep slow wave sleep repairs muscles, replenishes cellular glycogen, and releases growth hormones. Deprivation leads to physical exhaustion and tremors.
+                    </p>
+                </div>
+            </div>
+
+            <p className="text-xs text-slate-400 mb-2">Click any stage to expand detailed neurophysiological information.</p>
 
             {stages.map(stage => {
                 const isOpen = expanded === stage.id;

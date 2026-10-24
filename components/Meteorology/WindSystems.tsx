@@ -3,9 +3,11 @@ import { Wind, Globe, Compass, RefreshCw, Sun, Moon, ArrowRight, Activity, Zap }
 import { motion, AnimatePresence } from 'framer-motion';
 
 const WindSystems: React.FC = () => {
-    const [activeTab, setActiveTab] = useState<'forces' | 'jets' | 'local'>('forces');
+    const [activeTab, setActiveTab] = useState<'forces' | 'friction' | 'jets' | 'local'>('forces');
     const [pressureGradient, setPressureGradient] = useState(50);
     const [isDay, setIsDay] = useState(true); // For Sea Breeze animation
+    const [frictionAlt, setFrictionAlt] = useState(0); // 0 to 3000 ft
+    const [surfaceType, setSurfaceType] = useState<'land' | 'water'>('land');
 
     // Cycle Day/Night automatically for Local Winds
     useEffect(() => {
@@ -30,15 +32,20 @@ const WindSystems: React.FC = () => {
                     </p>
                 </div>
 
-                <div className="flex bg-slate-900/80 p-1.5 rounded-2xl border border-white/10 backdrop-blur-md">
-                    {['forces', 'jets', 'local'].map((t) => (
+                <div className="flex bg-slate-900/80 p-1.5 rounded-2xl border border-white/10 backdrop-blur-md overflow-x-auto">
+                    {[
+                        { id: 'forces', label: 'Geostrophic Forces' },
+                        { id: 'friction', label: 'Friction Layer (Veer/Back)' },
+                        { id: 'jets', label: 'Jet Streams' },
+                        { id: 'local', label: 'Local Winds' }
+                    ].map((tab) => (
                         <button
-                            key={t}
-                            onClick={() => setActiveTab(t as any)}
-                            className={`px-6 py-2 rounded-xl font-bold text-sm transition-all duration-300 capitalize ${activeTab === t ? 'bg-teal-600 text-white shadow-lg shadow-teal-900/50' : 'text-slate-400 hover:text-white hover:bg-white/5'
+                            key={tab.id}
+                            onClick={() => setActiveTab(tab.id as any)}
+                            className={`px-5 py-2 rounded-xl font-bold text-sm transition-all duration-300 whitespace-nowrap ${activeTab === tab.id ? 'bg-teal-600 text-white shadow-lg shadow-teal-900/50' : 'text-slate-400 hover:text-white hover:bg-white/5'
                                 }`}
                         >
-                            {t}
+                            {tab.label}
                         </button>
                     ))}
                 </div>
@@ -142,21 +149,191 @@ const WindSystems: React.FC = () => {
                         <div className="space-y-6">
                             <div className="bg-slate-800/50 p-6 rounded-2xl border border-white/5 backdrop-blur-md">
                                 <h4 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
-                                    <RefreshCw className="text-red-400" size={18} /> Coriolis Force
+                                    <RefreshCw className="text-red-400" size={18} /> Coriolis Force (CF)
                                 </h4>
-                                <p className="text-slate-400 text-sm leading-relaxed">
-                                    An apparent force caused by Earth's rotation. It pulls wind to the <strong>RIGHT</strong> in the Northern Hemisphere. It acts perpendicular to the wind direction and balances the Pressure Gradient Force (PGF).
+                                <p className="text-slate-400 text-sm leading-relaxed mb-3">
+                                    Apparent deflecting force due to Earth's rotation: <code className="text-red-300 font-mono text-xs">CF = 2ΩV sin(φ)</code>. Deflects wind to the <strong>RIGHT</strong> in the Northern Hemisphere (Left in Southern Hemisphere). Zero at the equator, maximum at the poles.
                                 </p>
                             </div>
                             <div className="bg-slate-800/50 p-6 rounded-2xl border border-white/5 backdrop-blur-md">
                                 <h4 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
-                                    <Compass className="text-blue-400" size={18} /> Buys Ballot's Law
+                                    <Compass className="text-blue-400" size={18} /> Buys Ballot's Law (Croucher Ch 14)
                                 </h4>
-                                <p className="text-slate-400 text-sm leading-relaxed border-l-2 border-blue-500 pl-4 py-1">
-                                    "Stand with your back to the wind in the Northern Hemisphere, and the Low Pressure is on your LEFT."
+                                <p className="text-slate-300 text-sm leading-relaxed border-l-2 border-blue-500 pl-4 py-1">
+                                    "In the Northern Hemisphere, stand with your back to the wind, and low pressure is on your <strong>LEFT</strong>."
+                                </p>
+                                <p className="text-xs text-slate-500 mt-2 pl-4">
+                                    At the surface, because friction turns wind across isobars, the low center is actually positioned about 30° forward of your left arm.
                                 </p>
                             </div>
                         </div>
+                    </motion.div>
+                )}
+
+                {activeTab === 'friction' && (
+                    <motion.div
+                        key="friction"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        className="space-y-8"
+                    >
+                        {(() => {
+                            const fraction = Math.min(1, Math.max(0, frictionAlt / 2000));
+                            const maxBacking = surfaceType === 'land' ? 30 : 20;
+                            const speedFactor = surfaceType === 'land' ? 0.5 : 0.7;
+                            const currentAngle = Math.round(270 - (1 - fraction) * maxBacking);
+                            const currentSpeed = Math.round(30 * (speedFactor + (1 - speedFactor) * fraction));
+                            const crossIsobarAngle = Math.round((1 - fraction) * maxBacking);
+
+                            return (
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                    {/* Visual Simulation Card */}
+                                    <div className="bg-slate-900 border border-slate-800 p-8 rounded-[2rem] flex flex-col justify-between min-h-[480px]">
+                                        <div>
+                                            <div className="flex justify-between items-center mb-6">
+                                                <h3 className="text-2xl font-bold text-white">Boundary Layer Wind Profile</h3>
+                                                <div className="flex bg-slate-950 p-1 rounded-xl border border-slate-800">
+                                                    <button
+                                                        onClick={() => setSurfaceType('land')}
+                                                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${surfaceType === 'land' ? 'bg-teal-600 text-white' : 'text-slate-400'}`}
+                                                    >
+                                                        Over Land (30° / 50%)
+                                                    </button>
+                                                    <button
+                                                        onClick={() => setSurfaceType('water')}
+                                                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${surfaceType === 'water' ? 'bg-teal-600 text-white' : 'text-slate-400'}`}
+                                                    >
+                                                        Over Water (20° / 30%)
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            {/* Compass & Wind Rose Display */}
+                                            <div className="relative h-60 bg-slate-950 rounded-2xl border border-slate-800 flex items-center justify-center overflow-hidden">
+                                                {/* Isobars Background (East-West lines, High to South, Low to North) */}
+                                                <div className="absolute inset-0 flex flex-col justify-around opacity-20 pointer-events-none">
+                                                    <div className="border-b border-dashed border-cyan-400 w-full"></div>
+                                                    <div className="border-b border-dashed border-cyan-400 w-full"></div>
+                                                    <div className="border-b border-dashed border-cyan-400 w-full"></div>
+                                                </div>
+
+                                                <div className="absolute top-3 left-4 text-[10px] font-mono text-cyan-400">LOW PRESSURE (North)</div>
+                                                <div className="absolute bottom-3 left-4 text-[10px] font-mono text-orange-400">HIGH PRESSURE (South)</div>
+
+                                                {/* Compass Circle */}
+                                                <div className="w-44 h-44 rounded-full border border-slate-700/60 relative flex items-center justify-center">
+                                                    <span className="absolute top-1 text-[9px] font-bold text-slate-500">360°</span>
+                                                    <span className="absolute bottom-1 text-[9px] font-bold text-slate-500">180°</span>
+                                                    <span className="absolute left-2 text-[9px] font-bold text-slate-500">270° (W)</span>
+                                                    <span className="absolute right-2 text-[9px] font-bold text-slate-500">090° (E)</span>
+
+                                                    {/* 2000ft Gradient Wind Ghost (270° / 30kt) */}
+                                                    <div
+                                                        className="absolute w-28 h-0.5 bg-slate-600 origin-right right-1/2"
+                                                        style={{ transform: 'rotate(0deg)' }}
+                                                    >
+                                                        <span className="absolute left-0 -top-4 text-[9px] font-mono text-slate-500">2,000ft: 270°/30kt</span>
+                                                    </div>
+
+                                                    {/* Active Altitude Wind Vector */}
+                                                    <motion.div
+                                                        className="absolute origin-right right-1/2 flex items-center justify-start"
+                                                        style={{
+                                                            width: `${Math.max(30, currentSpeed * 2.8)}px`,
+                                                            transform: `rotate(${currentAngle - 270}deg)`
+                                                        }}
+                                                        transition={{ type: 'spring', stiffness: 120 }}
+                                                    >
+                                                        <div className="w-full h-1.5 bg-teal-400 rounded-full shadow-[0_0_12px_#2dd4bf] relative">
+                                                            <div className="absolute -left-1.5 -top-1 w-0 h-0 border-r-[8px] border-r-teal-400 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent"></div>
+                                                        </div>
+                                                    </motion.div>
+                                                </div>
+
+                                                {/* Live Readout Badge */}
+                                                <div className="absolute bottom-3 right-4 bg-slate-900/90 border border-slate-700 px-3 py-1 rounded-xl text-right">
+                                                    <div className="text-[10px] text-slate-500 uppercase font-bold">Effective Wind</div>
+                                                    <div className="text-sm font-mono font-black text-teal-300">
+                                                        {currentAngle}° / {currentSpeed} kts
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Altitude Slider */}
+                                        <div className="mt-6 space-y-2">
+                                            <div className="flex justify-between items-center text-sm font-bold">
+                                                <span className="text-slate-400">Altitude in Friction Layer</span>
+                                                <span className="text-white font-mono">{frictionAlt} ft AGL</span>
+                                            </div>
+                                            <input
+                                                type="range"
+                                                min="0"
+                                                max="3000"
+                                                step="100"
+                                                value={frictionAlt}
+                                                onChange={(e) => setFrictionAlt(Number(e.target.value))}
+                                                className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                                            />
+                                            <div className="flex justify-between text-[10px] text-slate-500 font-mono">
+                                                <span>Surface (0 ft)</span>
+                                                <span>1,000 ft</span>
+                                                <span>2,000 ft (Gradient Level)</span>
+                                                <span>3,000 ft (Free Stream)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Croucher Rules Card */}
+                                    <div className="space-y-6">
+                                        <div className="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
+                                            <h4 className="text-base font-bold text-white flex items-center gap-2">
+                                                <Wind className="text-teal-400" size={20} />
+                                                Croucher Friction Rules (Northern Hemisphere)
+                                            </h4>
+
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                                                    <span className="text-[10px] text-orange-400 font-bold uppercase tracking-wider block mb-1">
+                                                        Climbing (Takeoff / Go-Around)
+                                                    </span>
+                                                    <div className="text-xl font-black text-white mb-1">VEERS & INCREASES</div>
+                                                    <p className="text-xs text-slate-400 leading-relaxed">
+                                                        Turns <strong>clockwise</strong> by 20°–30°. Speed increases by 40%–100%. Watch for sudden drift changes.
+                                                    </p>
+                                                </div>
+
+                                                <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                                                    <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-wider block mb-1">
+                                                        Descending (Approach & Landing)
+                                                    </span>
+                                                    <div className="text-xl font-black text-white mb-1">BACKS & DECREASES</div>
+                                                    <p className="text-xs text-slate-400 leading-relaxed">
+                                                        Turns <strong>counter-clockwise</strong> by 20°–30°. Speed drops significantly. Anticipate power additions.
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-2 text-xs text-slate-300">
+                                                <div className="font-bold text-white">Why does friction cause the wind to back?</div>
+                                                <p className="text-slate-400 leading-relaxed">
+                                                    Surface friction slows wind velocity (<code className="text-teal-300">V</code>). Since Coriolis force depends directly on speed (<code className="text-teal-300">CF = 2ΩV sinφ</code>), Coriolis weakens. The Pressure Gradient Force (PGF) now overpowers Coriolis, pulling the airflow across the isobars <strong>toward the Low pressure center</strong> by {crossIsobarAngle}°!
+                                                </p>
+                                            </div>
+
+                                            <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-2 text-xs text-slate-300">
+                                                <div className="font-bold text-amber-300">Diurnal Effect (Day vs Night):</div>
+                                                <p className="text-slate-400 leading-relaxed">
+                                                    • <strong>Daytime:</strong> Solar surface heating creates turbulent mixing, bringing upper fast wind down to the ground. Surface winds are stronger and gustier.<br />
+                                                    • <strong>Nighttime:</strong> Terrestrial radiation cools the ground, creating a surface inversion. The surface layer decouples from the air above, making night surface wind calm and backed, while at 2,000 ft wind accelerates (nocturnal jet).
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })()}
                     </motion.div>
                 )}
 

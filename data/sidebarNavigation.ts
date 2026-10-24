@@ -215,6 +215,7 @@ export const NAV_MAP: SubjectConfig[] = [
             { label: 'Nav Systems (IRS/ADC)', view: View.INST_NAV_SYSTEMS, icon: Database },
             { label: 'FMS & EFIS', view: View.INST_FMS_EFIS, icon: Plane },
             { label: 'GPWS / EGPWS', view: View.INST_GPWS, icon: AlertCircle },
+            { label: 'TCAS II', view: View.INST_TCAS, icon: AlertCircle },
             { label: 'Autopilot & AFCS', view: View.INST_AUTOPILOT, icon: Settings },
             { label: 'Autoland', view: View.INST_AUTOLAND, icon: Plane },
         ]

@@ -172,6 +172,7 @@ const FundamentalsSection = () => {
 // === SECTION 2: PRINCIPLES ===
 const PrinciplesSection = () => {
     const [mode, setMode] = useState<'STANDARD' | 'DOPPLER'>('STANDARD');
+    const [selectedRadial, setSelectedRadial] = useState(90);
     const [phase, setPhase] = useState(0);
 
     useEffect(() => {
@@ -184,9 +185,10 @@ const PrinciplesSection = () => {
             <div className="grid lg:grid-cols-2 gap-8">
                 <div className="space-y-6">
                     <div className="glass-panel p-6 rounded-xl border border-slate-700 bg-slate-900/50">
-                        <h3 className="text-xl font-bold text-blue-400 mb-4">Phase Difference Principle</h3>
-                        <p className="text-slate-300 mb-4 text-sm">
-                            The receiver compares two 30 Hz signals to determine the bearing.
+                        <h3 className="text-xl font-bold text-blue-400 mb-4">Phase Difference Principle (30 Hz)</h3>
+                        <p className="text-slate-300 mb-4 text-sm leading-relaxed">
+                            The VOR ground station transmits two 30 Hz signals. The receiver measures the <strong>phase difference</strong> between them.
+                            Every degree of phase difference corresponds to <strong>1° of magnetic bearing FROM the beacon (Radial)</strong>.
                         </p>
 
                         <div className="space-y-3">
@@ -194,72 +196,98 @@ const PrinciplesSection = () => {
                                 onClick={() => setMode('STANDARD')}
                                 className={`w-full p-4 rounded-lg text-left transition-all ${mode === 'STANDARD' ? 'bg-blue-600/20 border-2 border-blue-500' : 'bg-slate-800 border border-slate-700'}`}
                             >
-                                <div className="font-bold text-white">Standard VOR (CVOR)</div>
-                                <div className="text-sm text-slate-400">Reference: FM | Variable: AM (Rotating)</div>
+                                <div className="font-bold text-white">Conventional VOR (CVOR)</div>
+                                <div className="text-xs text-slate-400 mt-1">Reference: 30 Hz FM (on 9960 Hz subcarrier) | Variable: 30 Hz AM (Rotating antenna at 1800 rpm)</div>
                             </button>
                             <button
                                 onClick={() => setMode('DOPPLER')}
                                 className={`w-full p-4 rounded-lg text-left transition-all ${mode === 'DOPPLER' ? 'bg-purple-600/20 border-2 border-purple-500' : 'bg-slate-800 border border-slate-700'}`}
                             >
                                 <div className="font-bold text-white">Doppler VOR (DVOR)</div>
-                                <div className="text-sm text-slate-400">Reference: AM | Variable: FM (Doppler shift)</div>
+                                <div className="text-xs text-slate-400 mt-1">Reference: 30 Hz AM (Omnidirectional) | Variable: 30 Hz FM (Simulated rotation via 48-50 ring antennas)</div>
                             </button>
                         </div>
 
-                        <div className="mt-6 p-4 bg-slate-800 rounded-lg text-xs leading-relaxed">
-                            <strong className="text-blue-400 block mb-1">How it works:</strong>
-                            {mode === 'STANDARD' ? (
-                                "Uses a stationary reference signal and a rotating signal. At Magnetic North, signals are in phase. As the beam rotates, the phase difference increases proportionally to the bearing."
-                            ) : (
-                                "Uses a circular array of antennas to simulate a rotating source, creating a Doppler shift. This design is highly resistant to signal reflection errors (site error)."
-                            )}
+                        <div className="mt-6 p-4 bg-slate-800 rounded-lg text-xs leading-relaxed space-y-2">
+                            <strong className="text-blue-400 block font-bold">ATPL Modulation Inversion Rule:</strong>
+                            <p className="text-slate-300">
+                                {mode === 'STANDARD'
+                                    ? "CVOR: Reference is FM and Variable is AM. Susceptible to terrain reflections (site scalloping error)."
+                                    : "DVOR: Modulation is INVERTED! Reference is AM and Variable is FM (Doppler shifted). Counter-clockwise electronic antenna switching produces simulated clockwise rotation. Virtually eliminates site errors!"}
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-slate-950 rounded-xl border border-slate-800 p-6 flex flex-col items-center justify-center">
-                    <h4 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-8">Phase Comparison (30 Hz)</h4>
+                <div className="bg-slate-950 rounded-xl border border-slate-800 p-6 flex flex-col justify-between">
+                    <div>
+                        <div className="flex justify-between items-center mb-4">
+                            <h4 className="text-sm font-bold text-slate-400 uppercase tracking-wider">Interactive Phase Comparator</h4>
+                            <span className="text-xs font-mono text-blue-400 font-bold">RADIAL: {selectedRadial.toString().padStart(3, '0')}°</span>
+                        </div>
 
-                    <div className="relative w-full h-48 bg-black/50 rounded-lg border border-slate-800 overflow-hidden px-4">
-                        <svg className="w-full h-full" viewBox="0 0 400 200">
-                            {/* Grid */}
-                            <line x1="0" y1="100" x2="400" y2="100" stroke="#334155" strokeDasharray="5,5" />
-
-                            {/* Reference Signal */}
-                            <path
-                                d={`M ${Array.from({ length: 40 }).map((_, i) => {
-                                    const x = i * 10;
-                                    const y = 100 + Math.sin((x + phase) * 0.05) * 40;
-                                    return `${x},${y}`;
-                                }).join(' L ')}`}
-                                fill="none" stroke="#22c55e" strokeWidth="2" opacity="0.6"
+                        {/* Radial Selector */}
+                        <div className="mb-4 space-y-1">
+                            <input
+                                type="range"
+                                min="0"
+                                max="359"
+                                step="5"
+                                value={selectedRadial}
+                                onChange={e => setSelectedRadial(Number(e.target.value))}
+                                className="w-full accent-blue-500"
                             />
+                            <div className="flex justify-between text-[10px] text-slate-500 font-mono">
+                                <span>000° (North - In Phase)</span>
+                                <span>090° (East - 90° Lag)</span>
+                                <span>180° (South - 180° Anti)</span>
+                                <span>270° (West - 270° Lag)</span>
+                            </div>
+                        </div>
 
-                            {/* Variable Signal */}
-                            <path
-                                d={`M ${Array.from({ length: 40 }).map((_, i) => {
-                                    const x = i * 10;
-                                    const y = 100 + Math.sin((x + phase + 90) * 0.05) * 40;
-                                    return `${x},${y}`;
-                                }).join(' L ')}`}
-                                fill="none" stroke="#3b82f6" strokeWidth="3"
-                            />
-                        </svg>
+                        {/* Oscilloscope */}
+                        <div className="relative w-full h-44 bg-black/60 rounded-xl border border-slate-800 overflow-hidden px-4">
+                            <svg className="w-full h-full" viewBox="0 0 400 200">
+                                <line x1="0" y1="100" x2="400" y2="100" stroke="#334155" strokeDasharray="5,5" />
+
+                                {/* Reference Signal (Green) */}
+                                <path
+                                    d={`M ${Array.from({ length: 41 }).map((_, i) => {
+                                        const x = i * 10;
+                                        const y = 100 + Math.sin((x + phase) * 0.05) * 45;
+                                        return `${x},${y}`;
+                                    }).join(' L ')}`}
+                                    fill="none" stroke="#22c55e" strokeWidth="2.5" opacity="0.7"
+                                />
+
+                                {/* Variable Signal (Blue - shifted by selectedRadial) */}
+                                <path
+                                    d={`M ${Array.from({ length: 41 }).map((_, i) => {
+                                        const x = i * 10;
+                                        const radPhase = (selectedRadial * Math.PI) / 180;
+                                        const y = 100 + Math.sin((x + phase) * 0.05 - radPhase) * 45;
+                                        return `${x},${y}`;
+                                    }).join(' L ')}`}
+                                    fill="none" stroke="#38bdf8" strokeWidth="3"
+                                />
+                            </svg>
+                        </div>
                     </div>
 
-                    <div className="mt-6 grid grid-cols-2 gap-4 w-full">
-                        <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 bg-green-500 rounded-full" />
-                            <span className="text-[10px] text-slate-400">Reference Signal</span>
+                    <div className="mt-4 pt-3 border-t border-slate-800/80">
+                        <div className="grid grid-cols-2 gap-3 text-xs">
+                            <div className="flex items-center gap-2 p-2 bg-slate-900 rounded-lg">
+                                <div className="w-3 h-3 bg-green-500 rounded-full" />
+                                <span className="text-slate-300 font-mono">Ref Signal (30 Hz)</span>
+                            </div>
+                            <div className="flex items-center gap-2 p-2 bg-slate-900 rounded-lg">
+                                <div className="w-3 h-3 bg-sky-400 rounded-full" />
+                                <span className="text-slate-300 font-mono">Var Signal (Phase: {selectedRadial}°)</span>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 bg-blue-500 rounded-full" />
-                            <span className="text-[10px] text-slate-400">Variable (Phase: 90°)</span>
-                        </div>
-                    </div>
-                    <div className="mt-4 text-center">
-                        <div className="text-lg font-mono text-white">Bearing: 090°</div>
-                        <div className="text-[10px] text-slate-500 italic">Phase shift = Azimuth</div>
+                        <p className="text-[11px] text-slate-400 mt-2 text-center font-mono">
+                            Phase Difference = <strong>{selectedRadial}°</strong> → Aircraft is positioned on <strong>Radial {selectedRadial.toString().padStart(3, '0')}° FROM</strong> beacon.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -442,6 +470,12 @@ const InstrumentsSection = () => {
                             <span className="bg-slate-800 px-2 py-1 rounded">1 dot = 2°</span>
                             <span className="bg-slate-800 px-2 py-1 rounded">FSD = 10°</span>
                         </div>
+                    </div>
+
+                    {/* Reverse Sensing Alert */}
+                    <div className="mt-4 p-3 bg-rose-950/20 border border-rose-500/30 rounded-xl text-xs text-rose-200 text-left w-full max-w-xs">
+                        <strong className="text-rose-400 block font-bold mb-1">⚠️ Reverse Sensing Warning</strong>
+                        Tracking INBOUND with reciprocal OBS set causes reverse needle deflection! Always set the course you intend to FLY, regardless of heading.
                     </div>
                 </div>
             </div>

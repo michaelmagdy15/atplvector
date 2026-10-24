@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View } from '../../types';
-import { ChevronLeft, LineChart, AlertTriangle, CheckCircle, Navigation, Shield } from 'lucide-react';
+import { ChevronLeft, LineChart, AlertTriangle, CheckCircle, Navigation, Shield, Compass } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface Props {
@@ -21,7 +21,7 @@ const InFlightMonitor: React.FC<Props> = ({ onChangeView }) => {
   const [checkpoints, setCheckpoints] = useState<Checkpoint[]>([
     { name: 'EGLL (DEP)', distToNext: 80, plannedTime: 0, actualTime: 0, plannedFuel: 4200, actualFuel: 4200 },
     { name: 'DTY', distToNext: 120, plannedTime: 18, actualTime: 22, plannedFuel: 3950, actualFuel: 3880 },
-    { name: 'GAM', distToNext: 150, plannedTime: 45, actualTime: 54, plannedFuel: 3500, actualFuel: 3350 },
+    { name: 'GAM', distToNext: 150, plannedTime: 45, actualTime: 54, plannedFuel: 3500, actualFuel: 3310 },
     { name: 'LFPG (DEST)', distToNext: 0, plannedTime: 80, actualTime: null, plannedFuel: 2800, actualFuel: null },
   ]);
 
@@ -32,26 +32,25 @@ const InFlightMonitor: React.FC<Props> = ({ onChangeView }) => {
   const [aircraftMass, setAircraftMass] = useState(65000); // kg (for landing mass calculations)
 
   // Calculations at GAM (last checked point)
-  // Distance from DEP to GAM = 80 + 120 = 200 NM
-  // Time from DEP to GAM = 54 mins
-  // GS actual = (200 NM / 54 mins) * 60 = 222 KT
-  // Planned GS = (200 NM / 45 mins) * 60 = 266 KT
-  // Delay = 9 mins (Headwind deviation)
   const distFlown = 200;
   const timeFlown = 54;
   const gsActual = Math.round((distFlown / timeFlown) * 60);
 
-  // Fuel actual burn = 4200 - 3350 = 850 kg
-  // Fuel burn rate actual = (850 kg / 54 mins) * 60 = 944 kg/hr
-  const fuelBurned = 850;
+  // Fuel actual burn = 4200 - 3310 = 890 kg
+  // Planned burn = 4200 - 3500 = 700 kg
+  // Fuel deviation = (890 - 700) / 700 = +27.1% overburn!
+  const fuelBurned = 890;
+  const plannedBurn = 700;
+  const fuelDeviationPct = ((fuelBurned - plannedBurn) / plannedBurn) * 100;
+  const isHighFuelDeviation = fuelDeviationPct > 5.0;
+
   const fuelFlowActual = Math.round((fuelBurned / timeFlown) * 60);
 
   // Projections for Destination (LFPG)
-  // Remaining distance = 150 NM
   const distRemaining = 150;
   const timeRemaining = (distRemaining / gsActual) * 60; // mins
   const etaMins = timeFlown + timeRemaining;
-  const fuelRemainingAtDest = 3350 - (timeRemaining / 60) * fuelFlowActual;
+  const fuelRemainingAtDest = 3310 - (timeRemaining / 60) * fuelFlowActual;
 
   // EASA reserves safety threshold
   const alternateFuelRequired = 600; // kg
@@ -64,34 +63,39 @@ const InFlightMonitor: React.FC<Props> = ({ onChangeView }) => {
   const landingMassAtDiv = aircraftMass - fuelToDiv;
 
   return (
-    <div className="max-w-7xl mx-auto p-4 md:p-8 animate-in fade-in duration-700">
+    <div className="max-w-7xl mx-auto p-4 md:p-8 animate-in fade-in duration-700 font-sans space-y-8">
       {/* Back Button */}
       <button 
         onClick={() => onChangeView(View.FLIGHT_PLAN_HOME)}
-        className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-8 group"
+        className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group"
       >
         <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> 
         Back to Subject Dashboard
       </button>
 
       {/* Header */}
-      <div className="glass-panel p-8 md:p-12 rounded-3xl border border-emerald-500/20 relative overflow-hidden mb-8">
+      <div className="glass-panel p-8 md:p-12 rounded-3xl border border-emerald-500/20 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4" />
-        <div className="flex items-center gap-4 mb-6 relative z-10">
+        <div className="flex items-center gap-4 mb-4 relative z-10">
           <div className="p-4 bg-emerald-500/20 rounded-2xl text-emerald-400">
             <LineChart size={32} />
           </div>
-          <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight">In-Flight Log Monitor</h1>
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-400 text-xs font-bold uppercase tracking-widest mb-2">
+              Subject 033 • En-Route Flight Monitoring
+            </div>
+            <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight">In-Flight Navigation & Fuel Monitor</h1>
+          </div>
         </div>
         <p className="text-slate-300 text-lg max-w-2xl leading-relaxed relative z-10">
-          Realtime en-route check-point visualizer. Detect delays, compute revised actual ground speeds, and audit commander diversion reserve compliance.
+          Real-time en-route checkpoint tracker. Audit time deviations, compute groundspeed revisions, monitor 30–60 min fuel burn variances, and execute in-flight diversion analysis.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column: Log Table (8/12) */}
         <div className="lg:col-span-8 bg-slate-900/50 p-6 md:p-8 rounded-3xl border border-white/5 space-y-6">
-          <h3 className="text-xl font-bold text-white border-b border-white/5 pb-3">En-Route Checkpoints & Tracking</h3>
+          <h3 className="text-lg font-bold text-white border-b border-white/5 pb-3">En-Route Waypoints & Real-Time Tracking</h3>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs md:text-sm font-mono">
@@ -115,7 +119,7 @@ const InFlightMonitor: React.FC<Props> = ({ onChangeView }) => {
                       {cp.actualTime !== null ? (
                         `${cp.actualTime}m`
                       ) : (
-                        <span className="text-slate-600 font-bold">PROJ: {Math.round(etaMins)}m</span>
+                        <span className="text-slate-500 font-bold">PROJ: {Math.round(etaMins)}m</span>
                       )}
                     </td>
                     <td className="py-4">{cp.plannedFuel} kg</td>
@@ -123,7 +127,7 @@ const InFlightMonitor: React.FC<Props> = ({ onChangeView }) => {
                       {cp.actualFuel !== null ? (
                         `${cp.actualFuel} kg`
                       ) : (
-                        <span className="text-slate-600 font-bold">PROJ: {Math.round(fuelRemainingAtDest)} kg</span>
+                        <span className="text-slate-500 font-bold">PROJ: {Math.round(fuelRemainingAtDest)} kg</span>
                       )}
                     </td>
                   </tr>
@@ -132,24 +136,39 @@ const InFlightMonitor: React.FC<Props> = ({ onChangeView }) => {
             </table>
           </div>
 
+          {/* Revisions Computer */}
           <div className="p-4 bg-slate-950/60 rounded-2xl border border-white/5 space-y-3">
             <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Cockpit Revision Computer</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="bg-slate-900 p-3 rounded-xl border border-white/5 text-center">
-                <span className="text-[10px] text-slate-500 block">ACTUAL GROUND SPEED</span>
+                <span className="text-[10px] text-slate-500 block uppercase font-mono">ACTUAL GROUND SPEED</span>
                 <span className="text-lg font-bold text-white font-mono">{gsActual} KT</span>
                 <span className="text-[9px] text-red-400 block mt-1">44 KT slower (Headwind)</span>
               </div>
               <div className="bg-slate-900 p-3 rounded-xl border border-white/5 text-center">
-                <span className="text-[10px] text-slate-500 block">ACTUAL FUEL FLOW</span>
+                <span className="text-[10px] text-slate-500 block uppercase font-mono">ACTUAL FUEL FLOW</span>
                 <span className="text-lg font-bold text-white font-mono">{fuelFlowActual} kg/hr</span>
+                <span className={`text-[9px] block mt-1 font-bold ${isHighFuelDeviation ? 'text-amber-400' : 'text-slate-400'}`}>
+                  Deviation: +{fuelDeviationPct.toFixed(1)}%
+                </span>
               </div>
               <div className="bg-slate-900 p-3 rounded-xl border border-white/5 text-center">
-                <span className="text-[10px] text-slate-500 block">REVISED ETA (DEST)</span>
+                <span className="text-[10px] text-slate-500 block uppercase font-mono">REVISED DEST ETA</span>
                 <span className="text-lg font-bold text-yellow-400 font-mono">+{Math.round(etaMins - 80)} MINS</span>
+                <span className="text-[9px] text-slate-400 block mt-1">ETA: {Math.round(etaMins)} mins</span>
               </div>
             </div>
           </div>
+
+          {/* Croucher 5% Deviation Rule Warning */}
+          {isHighFuelDeviation && (
+            <div className="p-4 bg-amber-950/30 border border-amber-500/40 rounded-2xl flex items-start gap-3">
+              <AlertTriangle className="text-amber-400 w-5 h-5 shrink-0 mt-0.5" />
+              <div className="text-xs text-amber-200 leading-relaxed">
+                <strong className="text-amber-300">Croucher Ch 15 Operational Takeaway:</strong> Fuel burns must be cross-checked every 30–60 minutes in flight. A fuel burn deviation exceeding <strong>5% from the OFP</strong> (+{fuelDeviationPct.toFixed(1)}% detected here) requires immediate root-cause analysis: verify whether excess consumption is caused by unexpected headwinds/low altitude or an active <strong>fuel leak</strong>!
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Right Column: Commander Decision Matrix (4/12) */}
@@ -157,7 +176,7 @@ const InFlightMonitor: React.FC<Props> = ({ onChangeView }) => {
           <div className="bg-slate-900/50 p-6 rounded-3xl border border-white/5 space-y-4">
             <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
               <Shield className="text-emerald-400" />
-              Commander Review
+              Commander Decision Review
             </h3>
 
             {fuelRemainingAtDest < safeReserveThreshold ? (
@@ -165,12 +184,12 @@ const InFlightMonitor: React.FC<Props> = ({ onChangeView }) => {
                 <div className="flex items-start gap-3">
                   <AlertTriangle className="text-red-400 w-5 h-5 shrink-0 mt-0.5" />
                   <div className="text-xs text-red-200 leading-relaxed">
-                    <strong>RESERVE ALERT:</strong> Expected landing fuel (**{Math.round(fuelRemainingAtDest)} kg**) is below required safe reserves (**{safeReserveThreshold} kg**). Alternate fuel would be compromised.
+                    <strong>RESERVE ALERT:</strong> Expected landing fuel (<strong>{Math.round(fuelRemainingAtDest)} kg</strong>) is below required safe reserves (<strong>{safeReserveThreshold} kg</strong>). Destination alternate reserve would be compromised.
                   </div>
                 </div>
                 <button 
                   onClick={() => setIsDiverting(true)}
-                  className="w-full py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-red-950/20 active:scale-95"
+                  className="w-full py-2.5 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-red-950/20 active:scale-95"
                 >
                   Initiate Diversion Re-Routing
                 </button>
@@ -192,7 +211,7 @@ const InFlightMonitor: React.FC<Props> = ({ onChangeView }) => {
               animate={{ opacity: 1, y: 0 }}
               className="bg-slate-900/50 p-6 rounded-3xl border border-red-500/30 space-y-4"
             >
-              <h4 className="text-sm font-bold text-red-400 uppercase tracking-wider">Diversion Performance Planning</h4>
+              <h4 className="text-xs font-bold text-red-400 uppercase tracking-wider">Diversion Performance Planning</h4>
               
               <div>
                 <label className="text-[10px] text-slate-500 font-bold block mb-1">DIVERSION AIRPORT</label>
@@ -222,15 +241,15 @@ const InFlightMonitor: React.FC<Props> = ({ onChangeView }) => {
               <div className="bg-slate-950/60 p-4 rounded-xl space-y-2 border border-white/5 font-mono text-xs text-slate-400">
                 <div className="flex justify-between">
                   <span>EET to ALTN:</span>
-                  <span className="text-white">{Math.round(timeToDiv)} mins</span>
+                  <span className="text-white font-bold">{Math.round(timeToDiv)} mins</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Required Fuel:</span>
-                  <span className="text-white">{Math.round(fuelToDiv)} kg</span>
+                  <span className="text-white font-bold">{Math.round(fuelToDiv)} kg</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Remaining Landing Mass:</span>
-                  <span className="text-white">{Math.round(landingMassAtDiv / 100) / 10} t</span>
+                  <span className="text-white font-bold">{Math.round(landingMassAtDiv / 100) / 10} t</span>
                 </div>
               </div>
             </motion.div>

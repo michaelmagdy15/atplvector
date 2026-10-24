@@ -51,11 +51,15 @@ export const subjectConfigs: Partial<Record<View, SubjectConfig>> = {
         description: "Fuselage, hydraulics, landing gear, flight controls, pneumatics and electrics.",
         icon: Settings,
         modules: [
-            { title: 'Piston Engines', desc: 'Otto Cycle, mixture, and ignition.', view: View.AGK_PISTON_ENGINE },
-            { title: 'Gas Turbines', desc: 'Jet principles, Brayton Cycle.', view: View.AGK_JET_ENGINE },
-            { title: 'Electrics', desc: 'Generation, distribution, protection.', view: View.AGK_ELECTRICS },
-            { title: 'Hydraulics', desc: 'Pascal\'s Law, pumps and actuators.', view: View.AGK_HYDRAULICS },
-            { title: 'Landing Gear', desc: 'Retraction, braking, squat switches.', view: View.AGK_LANDING_GEAR },
+            { title: 'Airframes & Structures', desc: 'Safe Life, Fail-Safe, Damage Tolerance, +2.5g/-1.0g limits.', view: View.AGK_AIRFRAMES },
+            { title: 'Flight Controls & Flutter', desc: 'Primary controls, mass balancing, flutter suppression.', view: View.AGK_FLIGHT_CONTROLS },
+            { title: 'Hydraulics & PTU', desc: "Pascal's Law, Skydrol, accumulators, PTU handshake.", view: View.AGK_HYDRAULICS },
+            { title: 'Air Conditioning & Press.', desc: 'Bleed air, ACM bootstrap packs, outflow valves.', view: View.AGK_AIR_CONDITIONING },
+            { title: 'Electrics', desc: '115V/200V 400Hz, CSD disconnect, TRUs, emergency bus.', view: View.AGK_ELECTRICS },
+            { title: 'Landing Gear & Brakes', desc: 'Retraction logic, 3 greens, squat switch, anti-skid.', view: View.AGK_LANDING_GEAR },
+            { title: 'Oxygen Systems', desc: 'Diluter demand, 14,000 ft drop, chemical candles, PBE.', view: View.AGK_SYSTEMS_OXYGEN },
+            { title: 'Piston Engines', desc: 'Otto Cycle, 4-stroke principles, mixture, ignition.', view: View.AGK_PISTON_ENGINE },
+            { title: 'Gas Turbines', desc: 'Jet principles, Brayton Cycle, compressor stalls.', view: View.AGK_JET_ENGINE },
         ]
     },
     [View.INST_HOME]: {
@@ -76,6 +80,8 @@ export const subjectConfigs: Partial<Record<View, SubjectConfig>> = {
             { title: 'Magnetic Compass', desc: 'Dip, ANDS, and UNOS errors.', view: View.INST_COMPASS },
             { title: 'IRS / ADC', desc: 'Modern digital nav computers.', view: View.INST_NAV_SYSTEMS },
             { title: 'FMS & EFIS', desc: 'Display modes and data management.', view: View.INST_FMS_EFIS },
+            { title: 'GPWS / EGPWS', desc: 'Modes 1-7 and terrain look-ahead databases.', view: View.INST_GPWS },
+            { title: 'TCAS II', desc: 'Surveillance, TA/RA alerts, and legal priority.', view: View.INST_TCAS },
             { title: 'Autopilot', desc: 'Inner/outer loops and servos.', view: View.INST_AUTOPILOT },
         ]
     },

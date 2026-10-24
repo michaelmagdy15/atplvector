@@ -74,57 +74,95 @@ const AirspaceLayers: React.FC = () => {
           </div>
 
           {selectedData && (
-            <div className="bg-slate-900 rounded-lg p-6 flex-grow border border-slate-700 relative overflow-hidden shadow-inner">
+            <div className="bg-slate-900 rounded-2xl p-6 flex-grow border border-slate-700 relative overflow-hidden shadow-inner space-y-6">
               <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
                 <span className="text-9xl font-black">{selectedData.class}</span>
               </div>
               
               <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className={`p-3 rounded-lg ${selectedData.type === 'Controlled' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-500/20 text-slate-400'}`}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className={`p-3 rounded-xl ${selectedData.type === 'Controlled' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-500/20 text-slate-400 border border-slate-700'}`}>
                     {selectedData.type === 'Controlled' ? <ShieldCheck size={32} /> : <ShieldAlert size={32} />}
                   </div>
                   <div>
-                    <h3 className="text-3xl font-bold text-white">Class {selectedData.class}</h3>
-                    <p className={`${selectedData.type === 'Controlled' ? 'text-emerald-400' : 'text-slate-400'} font-medium`}>
+                    <h3 className="text-3xl font-black text-white">Class {selectedData.class} Airspace</h3>
+                    <p className={`${selectedData.type === 'Controlled' ? 'text-emerald-400' : 'text-slate-400'} font-bold text-xs uppercase tracking-wider`}>
                       {selectedData.type} Airspace
                     </p>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <div className="bg-slate-800/50 p-3 rounded border border-slate-700 transition-colors hover:border-slate-500">
-                      <p className="text-xs text-slate-400 uppercase mb-1">Separation</p>
-                      <p className="text-sm font-semibold">{selectedData.separation}</p>
-                    </div>
-                    <div className="bg-slate-800/50 p-3 rounded border border-slate-700 transition-colors hover:border-slate-500">
-                      <p className="text-xs text-slate-400 uppercase mb-1">VFR Allowed?</p>
-                      <p className={`text-sm font-bold ${selectedData.vfrAllowed ? 'text-emerald-400' : 'text-red-400'}`}>
-                        {selectedData.vfrAllowed ? 'YES' : 'NO'}
-                      </p>
-                    </div>
+                {/* Core Parameters Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-4">
+                  <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
+                    <p className="text-[10px] text-slate-400 uppercase font-bold mb-1">VFR Allowed?</p>
+                    <p className={`text-sm font-black ${selectedData.vfrAllowed ? 'text-emerald-400' : 'text-red-400'}`}>
+                      {selectedData.vfrAllowed ? 'YES' : 'NO (IFR Only)'}
+                    </p>
                   </div>
-
-                  <div className="space-y-4">
-                    <div className="bg-slate-800/50 p-3 rounded border border-slate-700 transition-colors hover:border-slate-500">
-                      <p className="text-xs text-slate-400 uppercase mb-1">Radio Required?</p>
-                      <p className="text-sm font-semibold">{selectedData.radioReq ? 'Yes' : 'No'}</p>
-                    </div>
-                    <div className="bg-slate-800/50 p-3 rounded border border-slate-700 transition-colors hover:border-slate-500">
-                      <p className="text-xs text-slate-400 uppercase mb-1">Clearance Required?</p>
-                      <p className="text-sm font-semibold">{selectedData.clearanceReq ? 'Yes' : 'No'}</p>
-                    </div>
+                  <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
+                    <p className="text-[10px] text-slate-400 uppercase font-bold mb-1">ATC Clearance</p>
+                    <p className="text-sm font-bold text-white">{selectedData.clearanceReq ? 'Mandatory' : 'Not Required'}</p>
+                  </div>
+                  <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
+                    <p className="text-[10px] text-slate-400 uppercase font-bold mb-1">Two-Way Radio</p>
+                    <p className="text-sm font-bold text-white">{selectedData.radioReq ? 'Mandatory' : 'Not Required'}</p>
+                  </div>
+                  <div className="bg-slate-950/70 p-3 rounded-xl border border-slate-800">
+                    <p className="text-[10px] text-slate-400 uppercase font-bold mb-1">Speed Limit</p>
+                    <p className="text-xs font-bold text-cyan-300">{selectedData.speedLimit || '250 kt IAS below FL100'}</p>
                   </div>
                 </div>
 
-                <div className="mt-6 pt-6 border-t border-slate-800">
-                  <div className="flex gap-2 items-start">
-                    <div className="w-1 h-full min-h-[2rem] bg-indigo-500 rounded-full"></div>
-                    <p className="text-indigo-300 text-sm italic">
-                       {selectedData.notes}
-                    </p>
+                {/* Separation Matrix */}
+                {selectedData.separationDetails && (
+                  <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 mb-4 space-y-2">
+                    <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider block">
+                      ATC Separation Standard Matrix:
+                    </span>
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div className="p-2 rounded bg-slate-900 border border-slate-800">
+                        <span className="text-slate-400 block text-[10px]">IFR from IFR:</span>
+                        <span className="font-bold text-white">{selectedData.separationDetails.ifrFromIfr}</span>
+                      </div>
+                      <div className="p-2 rounded bg-slate-900 border border-slate-800">
+                        <span className="text-slate-400 block text-[10px]">IFR from VFR:</span>
+                        <span className="font-bold text-white">{selectedData.separationDetails.ifrFromVfr}</span>
+                      </div>
+                      <div className="p-2 rounded bg-slate-900 border border-slate-800">
+                        <span className="text-slate-400 block text-[10px]">VFR from IFR:</span>
+                        <span className="font-bold text-white">{selectedData.separationDetails.vfrFromIfr}</span>
+                      </div>
+                      <div className="p-2 rounded bg-slate-900 border border-slate-800">
+                        <span className="text-slate-400 block text-[10px]">VFR from VFR:</span>
+                        <span className="font-bold text-white">{selectedData.separationDetails.vfrFromVfr}</span>
+                      </div>
+                    </div>
                   </div>
+                )}
+
+                {/* VMC Minima */}
+                {selectedData.vmcMinima && (
+                  <div className="p-3 bg-slate-950/80 rounded-xl border border-slate-800 mb-3 text-xs">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase block mb-0.5">VMC Minima Criteria:</span>
+                    <span className="text-slate-200">{selectedData.vmcMinima}</span>
+                  </div>
+                )}
+
+                {/* RTFQ Exam Trap */}
+                {selectedData.rtfqTrap && (
+                  <div className="p-3 bg-red-950/20 rounded-xl border border-red-500/30 text-xs text-red-200">
+                    <strong className="text-red-400 uppercase tracking-wider block mb-0.5">RTFQ Defense:</strong>
+                    {selectedData.rtfqTrap}
+                  </div>
+                )}
+
+                {/* Description Note */}
+                <div className="mt-4 pt-3 border-t border-slate-800 flex gap-2 items-start">
+                  <div className="w-1 h-full min-h-[2rem] bg-indigo-500 rounded-full"></div>
+                  <p className="text-slate-400 text-xs italic leading-relaxed">
+                    {selectedData.notes}
+                  </p>
                 </div>
               </div>
             </div>

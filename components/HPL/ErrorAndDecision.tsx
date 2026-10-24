@@ -258,25 +258,90 @@ const ErrorChain: React.FC = () => {
 };
 
 // ─── Decision Making Models (Tabbed Comparison) ──────────────────
-type DecisionModel = 'analytical' | 'rpd' | 'fordec';
+type DecisionModel = 'analytical' | 'rpd' | 'fordec' | 'decide';
 
 const DecisionModelTabs: React.FC<{ onSelectFordec: () => void }> = ({ onSelectFordec }) => {
     const [model, setModel] = useState<DecisionModel>('analytical');
+    const [decideStep, setDecideStep] = useState<number>(0);
 
     const tabs: { key: DecisionModel; label: string; icon: React.ReactNode }[] = [
         { key: 'analytical', label: 'Analytical', icon: <ClipboardList size={16} /> },
         { key: 'rpd', label: 'Naturalistic / RPD', icon: <Eye size={16} /> },
         { key: 'fordec', label: 'FOR-DEC Model', icon: <GitMerge size={16} /> },
+        { key: 'decide', label: 'DECIDE Model (ADM)', icon: <Target size={16} /> },
+    ];
+
+    const decideSteps = [
+        {
+            letter: 'D',
+            word: 'Detect',
+            title: 'Detect the fact that a change has occurred',
+            desc: 'The pilot recognizes sensory input, warning systems, or ATC changes indicating that an operational problem or deviation exists.',
+            cockpit: 'Master Caution flashes; oil pressure on Engine 2 drops from 60 PSI to 32 PSI with oil temperature climbing steadily toward the redline in IMC.',
+            action: 'Acknowledge caution, verify indications across primary and secondary flight/engine displays.',
+            color: 'text-amber-400',
+            bg: 'bg-amber-900/20 border-amber-500/40'
+        },
+        {
+            letter: 'E',
+            word: 'Estimate',
+            title: 'Estimate the need to counter or react to the change',
+            desc: 'Assess the criticality, urgency, and available time buffer. Over-reacting or delaying both hazard safety.',
+            cockpit: 'Oil loss is progressive and uncontained. Complete engine failure and seizure is imminent within 5–8 minutes if power remains high.',
+            action: 'Categorize as high-urgency, non-immediate bailout. Single-engine cruise performance and terrain clearance must be calculated.',
+            color: 'text-orange-400',
+            bg: 'bg-orange-900/20 border-orange-500/40'
+        },
+        {
+            letter: 'C',
+            word: 'Choose',
+            title: 'Choose a desirable outcome for the flight',
+            desc: 'Define the objective that guarantees maximum safety of aircraft and occupants rather than commercial convenience.',
+            cockpit: 'Objective: Land safely at the nearest suitable airport with emergency services on standby; avoid continued flight over mountainous terrain on single engine.',
+            action: 'Establish flight goal: Divert to Lyon (LFLL) with ILS Cat II runway and 3,500m concrete.',
+            color: 'text-yellow-400',
+            bg: 'bg-yellow-900/20 border-yellow-500/40'
+        },
+        {
+            letter: 'I',
+            word: 'Identify',
+            title: 'Identify actions which can successfully control the change',
+            desc: 'Formulate practical alternative paths, cross-check checklist items, consult QRH, evaluate weather and ATC routing.',
+            cockpit: 'Action set: 1) Execute Engine Oil Low/Limit Exceeded QRH, 2) Request immediate descent out of icing layers, 3) Declare PAN PAN with ATC and divert.',
+            action: 'Cross-check options between PF and PM: idle engine vs shutdown before seizure.',
+            color: 'text-sky-400',
+            bg: 'bg-sky-900/20 border-sky-500/40'
+        },
+        {
+            letter: 'D',
+            word: 'Do',
+            title: 'Do the necessary action to adapt to the change',
+            desc: 'Execute chosen interventions methodically following standard challenge-and-response protocol.',
+            cockpit: 'PM reads QRH; PF throttles back Engine 2 to idle, confirms parameters, shuts down engine, trims rudder, programs FMC divert to LFLL.',
+            action: 'Communicate with ATC: "Mayday, Mayday, Mayday, Speedbird 412, engine shutdown, diverting to Lyon, request vector."',
+            color: 'text-emerald-400',
+            bg: 'bg-emerald-900/20 border-emerald-500/40'
+        },
+        {
+            letter: 'E',
+            word: 'Evaluate',
+            title: 'Evaluate the effect of the action',
+            desc: 'The feedback loop. Has the action countered the change? Is the new status stable? Continuously reassess.',
+            cockpit: 'Single-engine drift-down completed at FL210. Speed stable. Cabin crew briefed (NITS format). Passenger announcement made. ILS setup verified.',
+            action: 'Re-scan instruments: Is single engine operating normally? Fuel balance acceptable? If status deteriorates, loop back to "Detect".',
+            color: 'text-indigo-400',
+            bg: 'bg-indigo-900/20 border-indigo-500/40'
+        },
     ];
 
     return (
         <div>
             <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                 <Brain size={20} className="text-amber-400" />
-                Decision Making Models
+                Decision Making Models (ADM &amp; Cognitive Frameworks)
             </h3>
             {/* Tab bar */}
-            <div className="flex bg-slate-900 p-1 rounded-lg mb-4 overflow-x-auto">
+            <div className="flex bg-slate-900 p-1 rounded-lg mb-4 overflow-x-auto gap-1">
                 {tabs.map(t => (
                     <button
                         key={t.key}
@@ -370,6 +435,96 @@ const DecisionModelTabs: React.FC<{ onSelectFordec: () => void }> = ({ onSelectF
                     >
                         <Play size={16} /> Try Interactive FOR-DEC Walkthrough
                     </button>
+                </div>
+            )}
+
+            {/* DECIDE Model (ADM) */}
+            {model === 'decide' && (
+                <div className="bg-slate-900 rounded-xl border border-slate-700 p-6 space-y-6">
+                    <div>
+                        <div className="flex items-center justify-between mb-2">
+                            <span className="text-xs font-mono text-amber-400 uppercase tracking-widest font-bold">FAA / ICAO ADM Framework</span>
+                            <span className="text-xs text-slate-400">Step {decideStep + 1} of 6</span>
+                        </div>
+                        <h4 className="text-xl font-bold text-white">The DECIDE Model for Aeronautical Decision Making</h4>
+                        <p className="text-xs text-slate-400 mt-1">
+                            A structured 6-step loop designed to assist pilots in making logical, timely, and defensible decisions under stress.
+                        </p>
+                    </div>
+
+                    {/* Step selector pills */}
+                    <div className="grid grid-cols-6 gap-2">
+                        {decideSteps.map((step, idx) => (
+                            <button
+                                key={step.letter}
+                                onClick={() => setDecideStep(idx)}
+                                className={`p-2.5 rounded-lg border text-center transition-all ${
+                                    decideStep === idx
+                                        ? 'bg-amber-600 border-amber-400 text-white shadow-lg shadow-amber-600/30 ring-2 ring-amber-400/50'
+                                        : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700 hover:text-white'
+                                }`}
+                            >
+                                <span className="text-xl font-black block leading-none">{step.letter}</span>
+                                <span className="text-[10px] font-bold block mt-1 truncate">{step.word}</span>
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Active Step Card */}
+                    {(() => {
+                        const cur = decideSteps[decideStep];
+                        return (
+                            <div className={`p-5 rounded-xl border ${cur.bg} space-y-4 animate-in fade-in`}>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-12 h-12 rounded-xl bg-slate-900/90 border border-slate-700 flex items-center justify-center shrink-0">
+                                        <span className={`text-2xl font-black ${cur.color}`}>{cur.letter}</span>
+                                    </div>
+                                    <div>
+                                        <div className={`text-sm font-black uppercase tracking-wider ${cur.color}`}>{cur.word}</div>
+                                        <div className="text-base font-bold text-white">{cur.title}</div>
+                                    </div>
+                                </div>
+
+                                <p className="text-xs text-slate-300 leading-relaxed">{cur.desc}</p>
+
+                                <div className="grid md:grid-cols-2 gap-3 pt-2">
+                                    <div className="bg-slate-900/80 p-3.5 rounded-lg border border-slate-700/60">
+                                        <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block mb-1">
+                                            ✈ Cockpit In-Flight Context:
+                                        </span>
+                                        <p className="text-xs text-slate-200">{cur.cockpit}</p>
+                                    </div>
+                                    <div className="bg-slate-900/80 p-3.5 rounded-lg border border-slate-700/60">
+                                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 block mb-1">
+                                            ⚡ Action Protocol:
+                                        </span>
+                                        <p className="text-xs text-slate-200">{cur.action}</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex justify-between items-center pt-2">
+                                    <button
+                                        onClick={() => setDecideStep(prev => Math.max(0, prev - 1))}
+                                        disabled={decideStep === 0}
+                                        className="px-3 py-1.5 rounded text-xs bg-slate-800 text-slate-300 hover:text-white disabled:opacity-40"
+                                    >
+                                        ← Previous Step
+                                    </button>
+                                    <button
+                                        onClick={() => setDecideStep(prev => Math.min(decideSteps.length - 1, prev + 1))}
+                                        disabled={decideStep === decideSteps.length - 1}
+                                        className="px-3 py-1.5 rounded text-xs bg-amber-600 text-white font-bold hover:bg-amber-500 disabled:opacity-40"
+                                    >
+                                        Next Step →
+                                    </button>
+                                </div>
+                            </div>
+                        );
+                    })()}
+
+                    <div className="bg-slate-800/60 p-4 rounded-lg border border-slate-700 text-xs text-slate-400">
+                        <strong className="text-white">ATPL Exam Tip:</strong> The DECIDE model focuses on dynamic change adaptation. Unlike simple checklists, the final step (<strong className="text-indigo-400">Evaluate</strong>) transforms it into a closed continuous feedback loop rather than a linear sequence.
+                    </div>
                 </div>
             )}
         </div>
@@ -738,15 +893,246 @@ const ErrorManagement: React.FC = () => {
     );
 };
 
+// ─── Reason's Swiss Cheese Model Interactive ────────────────────────
+interface BarrierState {
+    id: string;
+    level: string;
+    type: 'latent' | 'active';
+    title: string;
+    description: string;
+    holeFlaw: string;
+    fortifiedDefense: string;
+    isFortified: boolean;
+    color: string;
+    badgeColor: string;
+}
+
+const SwissCheeseModel: React.FC = () => {
+    const [barriers, setBarriers] = useState<BarrierState[]>([
+        {
+            id: 'org',
+            level: 'Layer 1',
+            type: 'latent',
+            title: 'Organizational Influences',
+            description: 'Top-level corporate policy, resource allocation, commercial pressure, and safety culture.',
+            holeFlaw: 'Commercial push: strict 20-min turnaround targets & cost-cutting on de-icing fluids.',
+            fortifiedDefense: 'SMS hazard reporting, robust safety buffer funding, and Just Culture policy.',
+            isFortified: false,
+            color: 'from-amber-600/30 to-amber-900/30 border-amber-500/50',
+            badgeColor: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
+        },
+        {
+            id: 'supervision',
+            level: 'Layer 2',
+            type: 'latent',
+            title: 'Unsafe Supervision',
+            description: 'Rostering, training standards, line management oversight, and failure to correct known hazards.',
+            holeFlaw: 'Rostering pairs two junior pilots on a red-eye flight into mountainous airport with CAT II weather.',
+            fortifiedDefense: 'Crew pairing risk matrix rules preventing two low-time crew on demanding routes.',
+            isFortified: false,
+            color: 'from-orange-600/30 to-orange-900/30 border-orange-500/50',
+            badgeColor: 'bg-orange-500/20 text-orange-300 border-orange-500/30',
+        },
+        {
+            id: 'preconditions',
+            level: 'Layer 3',
+            type: 'latent',
+            title: 'Preconditions for Unsafe Acts',
+            description: 'Environmental states, extreme fatigue, Window of Circadian Low (02:00-05:59), cockpit noise, and interface confusion.',
+            holeFlaw: 'High workload during descent: approach plate print illegible in dark cockpit; crew awake 16 hours.',
+            fortifiedDefense: 'Sterile cockpit rule below 10,000 ft, high-contrast backlit charts, and controlled rest.',
+            isFortified: false,
+            color: 'from-yellow-600/30 to-yellow-900/30 border-yellow-500/50',
+            badgeColor: 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
+        },
+        {
+            id: 'unsafe_acts',
+            level: 'Layer 4',
+            type: 'active',
+            title: 'Unsafe Acts (Active Failures)',
+            description: 'Direct human slips, lapses, mistakes, and procedural violations at the sharp end.',
+            holeFlaw: 'Pilot flying continues descent past Decision Altitude (DA) with zero runway visual contact.',
+            fortifiedDefense: 'Pilot Monitoring standard callout: "MINIMUMS - NO CONTACT - GO AROUND!" + EGPWS Terrain Alert.',
+            isFortified: false,
+            color: 'from-red-600/30 to-red-900/30 border-red-500/50',
+            badgeColor: 'bg-red-500/20 text-red-300 border-red-500/30',
+        },
+    ]);
+
+    const toggleBarrier = (id: string) => {
+        setBarriers(prev => prev.map(b => b.id === id ? { ...b, isFortified: !b.isFortified } : b));
+    };
+
+    const firstFortifiedIndex = barriers.findIndex(b => b.isFortified);
+    const accidentOccurred = firstFortifiedIndex === -1;
+
+    return (
+        <div className="space-y-6 animate-in fade-in">
+            {/* Header */}
+            <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                    <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                        <Layers className="text-amber-400" size={22} />
+                        Reason's Swiss Cheese Model (James Reason, 1990)
+                    </h3>
+                    <span className="text-xs font-mono px-3 py-1 bg-slate-800 text-sky-400 rounded-full border border-slate-700">
+                        Systemic Accident Causation
+                    </span>
+                </div>
+                <p className="text-sm text-slate-300 leading-relaxed">
+                    Accidents in complex socio-technical systems rarely stem from a solitary human blunder. 
+                    Instead, multiple defensive barriers each contain <strong className="text-amber-400">holes</strong> (deficiencies). 
+                    When <strong className="text-amber-300">Latent Conditions</strong> (organizational, supervisory, environmental) 
+                    align with an <strong className="text-red-400">Active Failure</strong> at the sharp end, the trajectory of 
+                    accident opportunity passes clean through all barriers, causing disaster.
+                </p>
+
+                {/* Mental Model Callout */}
+                <div className="mt-4 p-4 rounded-lg bg-sky-950/40 border border-sky-500/30 text-xs text-sky-200">
+                    <strong className="text-sky-300 font-bold block mb-1">🧠 Croucher ATPL Mental Model: "The Swiss Cheese Alignment"</strong>
+                    "Never look for a single villain in an incident; find the holes in training, procedures, and cockpit ergonomics that permitted the active slip to become catastrophic."
+                </div>
+            </div>
+
+            {/* Trajectory Status Banner */}
+            <div className={`p-4 rounded-xl border-2 transition-all duration-500 text-center ${
+                accidentOccurred 
+                    ? 'bg-red-950/60 border-red-500 text-red-200 shadow-lg shadow-red-900/30 animate-pulse'
+                    : 'bg-emerald-950/60 border-emerald-500 text-emerald-200 shadow-lg shadow-emerald-900/30'
+            }`}>
+                <div className="text-xs uppercase tracking-widest font-mono font-bold mb-1">
+                    {accidentOccurred ? 'CRITICAL HAZARD PATH' : 'DEFENSE-IN-DEPTH SUCCEEDED'}
+                </div>
+                <div className="text-xl font-black">
+                    {accidentOccurred
+                        ? '💥 ACCIDENT: Trajectory of Accident Opportunity Penetrated All 4 Barriers!'
+                        : `🛡️ INCIDENT CONTAINED: Hazard Blocked at ${barriers[firstFortifiedIndex].title}!`}
+                </div>
+                <p className="text-xs mt-1 text-slate-300">
+                    {accidentOccurred
+                        ? 'Every defensive layer failed. Click "Fortify Defense" on any barrier below to plug the hole and break the accident chain.'
+                        : `The reinforced defensive barrier (${barriers[firstFortifiedIndex].level}) trapped the chain before it reached catastrophic loss.`}
+                </p>
+            </div>
+
+            {/* Swiss Cheese Slices Grid */}
+            <div className="grid md:grid-cols-4 gap-4">
+                {barriers.map((barrier, idx) => {
+                    const isTraversed = accidentOccurred || idx <= firstFortifiedIndex;
+                    const isBlockedHere = !accidentOccurred && idx === firstFortifiedIndex;
+
+                    return (
+                        <div
+                            key={barrier.id}
+                            className={`rounded-xl border-2 p-4 transition-all duration-300 flex flex-col justify-between relative overflow-hidden bg-gradient-to-b ${
+                                barrier.isFortified 
+                                    ? 'from-emerald-900/20 to-slate-900 border-emerald-500/60 shadow-md shadow-emerald-950/40' 
+                                    : `${barrier.color} bg-slate-900`
+                            }`}
+                        >
+                            {/* Visual Hole Indicator */}
+                            <div className="flex items-center justify-between mb-3">
+                                <span className={`text-[10px] font-mono px-2 py-0.5 rounded border uppercase font-bold ${barrier.badgeColor}`}>
+                                    {barrier.level} · {barrier.type}
+                                </span>
+                                <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center font-black text-xs transition-all ${
+                                    barrier.isFortified 
+                                        ? 'bg-emerald-600/30 border-emerald-400 text-emerald-300' 
+                                        : 'bg-red-600/30 border-red-500 text-red-300 animate-pulse'
+                                }`}>
+                                    {barrier.isFortified ? '✓' : 'O'}
+                                </div>
+                            </div>
+
+                            <div className="space-y-2 mb-4">
+                                <h4 className="text-sm font-bold text-white">{barrier.title}</h4>
+                                <p className="text-[11px] text-slate-400 leading-snug">{barrier.description}</p>
+                            </div>
+
+                            {/* Hole vs Defense Details */}
+                            <div className="space-y-2 text-[11px] mb-4">
+                                <div className={`p-2.5 rounded border ${
+                                    barrier.isFortified 
+                                        ? 'bg-slate-900/60 border-slate-700 opacity-50 line-through text-slate-500' 
+                                        : 'bg-red-950/40 border-red-500/30 text-red-200'
+                                }`}>
+                                    <span className="font-bold block text-[10px] uppercase text-red-400">Latent Hole / Active Slip:</span>
+                                    {barrier.holeFlaw}
+                                </div>
+
+                                <div className={`p-2.5 rounded border ${
+                                    barrier.isFortified 
+                                        ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-200' 
+                                        : 'bg-slate-900/60 border-slate-700 text-slate-400'
+                                }`}>
+                                    <span className="font-bold block text-[10px] uppercase text-emerald-400">Defense Mechanism:</span>
+                                    {barrier.fortifiedDefense}
+                                </div>
+                            </div>
+
+                            {/* Action Button */}
+                            <button
+                                onClick={() => toggleBarrier(barrier.id)}
+                                className={`w-full py-2 px-3 rounded-lg font-bold text-xs transition-all duration-200 flex items-center justify-center gap-1.5 ${
+                                    barrier.isFortified
+                                        ? 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-600'
+                                        : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-900/40'
+                                }`}
+                            >
+                                {barrier.isFortified ? 'Unlock Barrier (Create Hole)' : 'Fortify Defense (Plug Hole)'}
+                            </button>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {/* ATPL Exam Concepts Grid */}
+            <div className="grid sm:grid-cols-2 gap-4">
+                <div className="bg-slate-900 p-5 rounded-xl border border-slate-700 space-y-2">
+                    <h4 className="text-sm font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                        <AlertTriangle size={16} /> Latent Conditions (Systemic)
+                    </h4>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                        Decisions made in corporate offices, engineering bays, and regulatory bodies days, months, or years before the flight. 
+                        They remain dormant until activated by a specific set of operational triggers.
+                    </p>
+                    <ul className="text-xs text-slate-400 list-disc pl-4 space-y-1 pt-1">
+                        <li>Poor ergonomics or confusing panel labels (Hawkins L-H)</li>
+                        <li>Unrealistic scheduling and flight duty period extensions</li>
+                        <li>Inadequate simulator training for non-standard emergencies</li>
+                    </ul>
+                </div>
+
+                <div className="bg-slate-900 p-5 rounded-xl border border-slate-700 space-y-2">
+                    <h4 className="text-sm font-bold text-red-400 uppercase tracking-wider flex items-center gap-2">
+                        <Zap size={16} /> Active Failures (Sharp End)
+                    </h4>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                        Errors and procedural violations committed by pilots, air traffic controllers, or maintenance technicians 
+                        whose actions have immediate, direct consequences on flight trajectory.
+                    </p>
+                    <ul className="text-xs text-slate-400 list-disc pl-4 space-y-1 pt-1">
+                        <li>Slips: Action not as intended (flaps selected instead of gear)</li>
+                        <li>Lapses: Memory failure (omitting an item on the after-takeoff checklist)</li>
+                        <li>Mistakes: Flawed mental model in novel circumstances</li>
+                        <li>Violations: Deliberate deviations from standard operating procedures</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 // ─── Main Component ──────────────────────────────────────────────
-type MainTab = 'error-tree' | 'decision-models' | 'fordec-walkthrough' | 'error-management';
+type MainTab = 'error-tree' | 'swiss-cheese' | 'decision-models' | 'fordec-walkthrough' | 'error-management';
 
 const ErrorAndDecision: React.FC = () => {
     const [tab, setTab] = useState<MainTab>('error-tree');
 
     const tabConfig: { key: MainTab; label: string; icon: React.ReactNode }[] = [
         { key: 'error-tree', label: 'Error Classification', icon: <TreePine size={16} /> },
-        { key: 'decision-models', label: 'Decision Models', icon: <Brain size={16} /> },
+        { key: 'swiss-cheese', label: "Swiss Cheese Model", icon: <Layers size={16} /> },
+        { key: 'decision-models', label: 'Decision Models (ADM)', icon: <Brain size={16} /> },
         { key: 'fordec-walkthrough', label: 'FOR-DEC Sim', icon: <Play size={16} /> },
         { key: 'error-management', label: 'Management', icon: <Shield size={16} /> },
     ];
@@ -760,7 +1146,7 @@ const ErrorAndDecision: React.FC = () => {
                         <GitMerge className="text-orange-400" />
                         Error & Decision (040.03)
                     </h2>
-                    <p className="text-slate-400 text-sm">Human Error Theory, Decision Making Models, and Error Management.</p>
+                    <p className="text-slate-400 text-sm">Human Error Theory, Reason&apos;s Swiss Cheese Model, DECIDE/FOR-DEC Models, and Error Management.</p>
                 </div>
                 <div className="flex bg-slate-900 p-1 rounded-lg overflow-x-auto">
                     {tabConfig.map(t => (
@@ -795,6 +1181,8 @@ const ErrorAndDecision: React.FC = () => {
                         <ErrorChain />
                     </div>
                 )}
+
+                {tab === 'swiss-cheese' && <SwissCheeseModel />}
 
                 {tab === 'decision-models' && (
                     <DecisionModelTabs onSelectFordec={() => setTab('fordec-walkthrough')} />

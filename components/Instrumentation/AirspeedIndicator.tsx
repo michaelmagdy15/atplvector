@@ -1,347 +1,380 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Plane, Zap, Info, ShieldAlert, Thermometer, Wind, Activity } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Plane, Zap, Info, ShieldAlert, Thermometer, Wind, Activity, ArrowRight, CheckCircle2, ChevronRight } from 'lucide-react';
 
 const AirspeedIndicator: React.FC = () => {
-    const [ias, setIas] = useState(150);
-    const [altitude, setAltitude] = useState(0);
-    const [oat, setOat] = useState(15);
-    const [showCorrection, setShowCorrection] = useState(false);
+    const [ias, setIas] = useState(250);
+    const [altitude, setAltitude] = useState(28000); // 28,000 ft
+    const [oat, setOat] = useState(-41); // OAT in °C
+    const [positionError, setPositionError] = useState(3); // kt
+    const [instrumentError, setInstrumentError] = useState(1); // kt
+    const [activeChainStep, setActiveChainStep] = useState<number | null>(null);
 
-    // Simplistic speed correction logic
-    // CAS = IAS + Position/Instrument Error (fixed small value here)
-    const cas = ias + 2;
+    // 1. CAS = IAS + Instrument Error + Position Error
+    const cas = ias + instrumentError + positionError;
 
-    // EAS = CAS - Compressibility (negligible below 10,000ft / 300kts)
-    const compressibility = altitude > 10000 ? (cas / 100) * (altitude / 10000) * 1.5 : 0;
-    const eas = cas - compressibility;
+    // 2. EAS = CAS - Compressibility Correction
+    // Compressibility becomes significant above 200 kt / Mach 0.3
+    // EASA approximation: delta_V_c ~ (CAS/100)^2 * (Alt/10000) * 0.5
+    const machApprox = cas / 661;
+    const compressibilityCorrection = altitude > 5000 && cas > 150
+        ? Math.min(25, Math.round(((cas / 100) ** 2) * (altitude / 10000) * 0.45))
+        : 0;
+    const eas = Math.max(0, cas - compressibilityCorrection);
 
-    // TAS = EAS corrected for Density
-    // Rule of thumb: TAS increases 2% for every 1000ft
-    const densityFactor = 1 + (altitude / 1000) * 0.02;
-    // Further temp correction: roughly 1% per 5°C deviation from ISA
+    // 3. TAS = EAS * sqrt(rho_0 / rho)
+    // Standard ISA temperature at altitude
     const isaTempAtAlt = 15 - (altitude / 1000) * 1.98;
-    const tempDev = oat - isaTempAtAlt;
-    const tempFactor = 1 + (tempDev / 5) * 0.01;
+    const tempKelvin = oat + 273.15;
+    const isaTempKelvin = isaTempAtAlt + 273.15;
+    
+    // Density ratio approximation (considering pressure altitude and temperature deviation)
+    // Pressure ratio delta = (1 - 2.25577e-5 * h)^5.25588
+    const pressureRatio = Math.max(0.1, (1 - 0.0000225577 * altitude) ** 5.25588);
+    const densityRatio = pressureRatio * (288.15 / tempKelvin);
+    const tas = eas / Math.sqrt(Math.max(0.1, densityRatio));
 
-    const tas = eas * densityFactor * tempFactor;
+    // 4. Local Speed of Sound (LSS) & Mach Number
+    // a = 38.945 * sqrt(T_K)
+    const lss = 38.945 * Math.sqrt(tempKelvin);
+    const mach = tas / lss;
 
-    // Marker Colors
-    const V_SO = 60;   // Stall Full Flap
-    const V_S1 = 70;   // Stall Clean
-    const V_FE = 110;  // Max Flap
-    const V_NO = 160;  // Max Structural
-    const V_NE = 200;  // Never Exceed
+    // ASI Color Arc Definitions (Light twin / turboprop typical numbers)
+    const V_SO = 65;   // Stall speed landing configuration (bottom of white)
+    const V_FE = 125;  // Max Flap Extended speed (top of white)
+    const V_S1 = 78;   // Stall speed clean (bottom of green)
+    const V_NO = 210;  // Max Structural Cruising speed (top of green / bottom of yellow)
+    const V_NE = 280;  // Never Exceed speed (red radial line)
 
     return (
         <div className="max-w-6xl mx-auto px-6 py-12">
-            <div className="mb-12">
+            <div className="mb-10">
+                <div className="flex items-center gap-2 text-xs font-bold text-sky-400 uppercase tracking-widest mb-2">
+                    <span>AGK 022</span>
+                    <span>•</span>
+                    <span>Dynamic Pressure & Airspeed Architecture</span>
+                </div>
                 <h1 className="text-3xl font-black text-white mb-2 flex items-center gap-3">
                     <Plane className="text-sky-400" />
-                    Airspeed Indicator (ASI)
+                    Airspeed Indicator (ASI) & ADC Speed Chain
                 </h1>
-                <p className="text-slate-400 max-w-2xl">
-                    Dynamic pressure in action. Learn the relationship between indicated, calibrated, equivalent, and true airspeeds across the altitude envelope.
+                <p className="text-slate-400 max-w-3xl leading-relaxed text-sm">
+                    The Airspeed Indicator measures dynamic pressure (<span className="text-sky-400 font-mono font-bold">q = &frac12;&rho;V&sup2; = P<sub>t</sub> − P<sub>s</sub></span>).
+                    Explore how raw probe pressure progresses through the <strong className="text-white">Air Data Computer (ADC) Speed Chain</strong>:
+                    <span className="text-white font-mono font-bold"> IAS &rarr; CAS &rarr; EAS &rarr; TAS</span> and High-Mach compressibility.
                 </p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Control Panel */}
+                {/* Flight & Atmospheric Inputs */}
                 <div className="lg:col-span-1 space-y-6">
-                    <div className="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl">
-                        <h3 className="text-white font-bold mb-6 flex items-center gap-2">
+                    <div className="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl shadow-xl">
+                        <h3 className="text-white font-bold mb-5 flex items-center gap-2 text-sm uppercase tracking-wider">
                             <Zap className="text-amber-400 w-4 h-4" />
-                            Cockpit Inputs
+                            Cockpit & Air Data Inputs
                         </h3>
 
-                        <div className="space-y-8">
+                        <div className="space-y-5">
                             <div>
                                 <label className="flex justify-between text-xs font-bold text-slate-400 uppercase mb-2">
-                                    <span>Indicated Speed (IAS)</span>
-                                    <span className="text-white font-mono">{ias} KTS</span>
+                                    <span>Indicated Airspeed (IAS)</span>
+                                    <span className="text-white font-mono font-bold">{ias} KTS</span>
                                 </label>
                                 <input
-                                    type="range" min="40" max="250" step="1"
+                                    type="range" min="60" max="320" step="5"
                                     value={ias}
                                     onChange={(e) => setIas(parseInt(e.target.value))}
                                     className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-sky-500"
                                 />
+                                <div className="flex justify-between text-[10px] text-slate-500 mt-1 font-mono">
+                                    <span>60 KTS</span>
+                                    <span>200 KTS</span>
+                                    <span>320 KTS</span>
+                                </div>
                             </div>
 
                             <div>
                                 <label className="flex justify-between text-xs font-bold text-slate-400 uppercase mb-2">
                                     <span>Pressure Altitude</span>
-                                    <span className="text-white font-mono">{altitude} FT</span>
+                                    <span className="text-white font-mono font-bold">{altitude.toLocaleString()} FT</span>
                                 </label>
                                 <input
-                                    type="range" min="0" max="45000" step="500"
+                                    type="range" min="0" max="45000" step="1000"
                                     value={altitude}
-                                    onChange={(e) => setAltitude(parseInt(e.target.value))}
-                                    className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-slate-500"
+                                    onChange={(e) => {
+                                        const alt = parseInt(e.target.value);
+                                        setAltitude(alt);
+                                        setOat(Math.round(15 - (alt / 1000) * 1.98));
+                                    }}
+                                    className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
                                 />
+                                <div className="flex justify-between text-[10px] text-slate-500 mt-1 font-mono">
+                                    <span>SL (0 FT)</span>
+                                    <span>FL200</span>
+                                    <span>FL450</span>
+                                </div>
                             </div>
 
                             <div>
                                 <label className="flex justify-between text-xs font-bold text-slate-400 uppercase mb-2">
-                                    <span>Static Air Temp (SAT)</span>
-                                    <span className={`font-mono ${oat < isaTempAtAlt ? 'text-blue-400' : 'text-orange-400'}`}>{oat}°C</span>
+                                    <span>Outside Air Temp (OAT / SAT)</span>
+                                    <span className="text-orange-400 font-mono font-bold">{oat}°C</span>
                                 </label>
                                 <input
-                                    type="range" min="-60" max="40" step="1"
+                                    type="range" min="-70" max="40" step="1"
                                     value={oat}
                                     onChange={(e) => setOat(parseInt(e.target.value))}
                                     className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-orange-500"
                                 />
-                                <div className="mt-2 text-[10px] text-slate-500 flex justify-between">
-                                    <span>ISA: {isaTempAtAlt.toFixed(1)}°C</span>
-                                    <span>DEV: {tempDev > 0 ? '+' : ''}{tempDev.toFixed(1)}°C</span>
+                                <div className="flex justify-between text-[10px] text-slate-500 mt-1 font-mono">
+                                    <span>ISA Standard: {isaTempAtAlt.toFixed(0)}°C</span>
+                                    <span>LSS: {lss.toFixed(0)} KT</span>
+                                </div>
+                            </div>
+
+                            {/* Position & Instrument Calibration */}
+                            <div className="pt-2 border-t border-slate-800 space-y-3">
+                                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest block">ADC Calibration Corrections</span>
+                                <div className="grid grid-cols-2 gap-2 text-xs">
+                                    <div className="bg-slate-950 p-2.5 rounded-xl border border-white/5">
+                                        <div className="text-[10px] text-slate-400">Position Error:</div>
+                                        <div className="font-mono font-bold text-white">+{positionError} KT</div>
+                                    </div>
+                                    <div className="bg-slate-950 p-2.5 rounded-xl border border-white/5">
+                                        <div className="text-[10px] text-slate-400">Instrument Error:</div>
+                                        <div className="font-mono font-bold text-white">+{instrumentError} KT</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <button
-                            onClick={() => setShowCorrection(!showCorrection)}
-                            className="w-full mt-8 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-bold text-xs uppercase tracking-widest transition-colors border border-slate-700"
-                        >
-                            {showCorrection ? 'Hide Corrections' : 'Show Speed Chain'}
-                        </button>
                     </div>
 
-                    <div className="bg-sky-500/10 border border-sky-500/20 p-6 rounded-2xl">
-                        <h4 className="flex items-center gap-2 text-sky-400 font-bold mb-2 text-sm uppercase">
-                            <Info className="w-4 h-4" />
-                            Correction Logic
+                    {/* Mnemonic Banner */}
+                    <div className="bg-sky-500/10 border border-sky-500/20 p-5 rounded-2xl">
+                        <h4 className="flex items-center gap-2 text-sky-400 font-bold mb-2 text-xs uppercase tracking-wider">
+                            <Info size={15} />
+                            ATPL Speed Chain Mnemonic
                         </h4>
-                        <p className="text-[11px] text-slate-400 leading-relaxed italic">
-                            "CAS corrected for compressibility is EAS. EAS corrected for density is TAS. As altitude increases, dynamic pressure decreases, so TAS must increase to maintain the same IAS."
+                        <p className="text-xs text-slate-300 font-semibold mb-2">
+                            "Ice Cold Beer / In Chicago Eating Tacos"
                         </p>
+                        <div className="text-[11px] text-slate-400 space-y-1">
+                            <div><strong className="text-white">I</strong>AS &rarr; <span className="text-slate-500">Position/Instrument error</span></div>
+                            <div><strong className="text-white">C</strong>AS &rarr; <span className="text-slate-500">Compressibility correction</span></div>
+                            <div><strong className="text-white">E</strong>AS &rarr; <span className="text-slate-500">Density correction (&radic;&rho;<sub>0</sub>/&rho;)</span></div>
+                            <div><strong className="text-orange-400">T</strong>AS &rarr; <span className="text-slate-500">True Airspeed through the air mass</span></div>
+                        </div>
                     </div>
                 </div>
 
-                {/* Main Instrument Display */}
-                <div className="lg:col-span-2 space-y-8">
-                    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 md:p-12 flex flex-col items-center relative overflow-hidden min-h-[400px] md:min-h-[500px]">
+                {/* Speed Chain Visualizer & ASI Face */}
+                <div className="lg:col-span-2 space-y-6">
+                    {/* The 4-Stage ADC Speed Chain Pipeline */}
+                    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl">
+                        <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-6">
+                            <span className="text-xs font-black text-white uppercase tracking-widest flex items-center gap-2">
+                                <Activity className="w-4 h-4 text-sky-400" />
+                                Air Data Computer (ADC) Compensation Chain
+                            </span>
+                            <span className="text-[10px] font-mono text-emerald-400 font-bold">
+                                Live Computation
+                            </span>
+                        </div>
 
-                        {/* Speed Chain Visualizer */}
-                        {showCorrection && (
-                            <motion.div
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                className="absolute left-4 md:left-8 top-12 bottom-12 w-40 md:w-48 bg-black/40 backdrop-blur-md rounded-2xl p-4 border border-white/5 z-20 flex flex-col justify-between"
+                        {/* Interactive Steps Flow */}
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            {/* Step 1: IAS */}
+                            <div
+                                onClick={() => setActiveChainStep(1)}
+                                className={`p-4 rounded-2xl border cursor-pointer transition-all ${
+                                    activeChainStep === 1 ? 'bg-sky-500/20 border-sky-500 shadow-lg' : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
+                                }`}
                             >
-                                <div className="space-y-1">
-                                    <div className="text-[8px] font-black text-slate-500 uppercase">Indicated</div>
-                                    <div className="text-xl font-black text-white">{ias}</div>
-                                </div>
-                                <div className="text-center text-slate-600">↓ Error</div>
-                                <div className="space-y-1">
-                                    <div className="text-[8px] font-black text-sky-500 uppercase">Calibrated</div>
-                                    <div className="text-xl font-black text-sky-400">{cas}</div>
-                                </div>
-                                <div className="text-center text-slate-600">↓ Compress</div>
-                                <div className="space-y-1">
-                                    <div className="text-[8px] font-black text-indigo-500 uppercase">Equivalent</div>
-                                    <div className="text-xl font-black text-indigo-400">{Math.round(eas)}</div>
-                                </div>
-                                <div className="text-center text-slate-600">↓ Density</div>
-                                <div className="space-y-1">
-                                    <div className="text-[8px] font-black text-orange-500 uppercase">True Airspeed</div>
-                                    <div className="text-2xl font-black text-orange-400">{Math.round(tas)}</div>
-                                </div>
-                            </motion.div>
-                        )}
+                                <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest block mb-1">Raw Dynamic</span>
+                                <div className="text-xs font-bold text-white mb-1">IAS</div>
+                                <div className="text-2xl font-black text-white font-mono">{ias} <span className="text-xs font-normal text-slate-500">KT</span></div>
+                                <p className="text-[10px] text-slate-400 mt-2">Uncorrected dial reading.</p>
+                            </div>
 
-                        {/* ASI Face */}
-                        <div className="w-64 h-64 md:w-72 md:h-72 rounded-full bg-slate-950 border-[12px] border-slate-800 shadow-2xl relative flex items-center justify-center transform scale-95 md:scale-100">
-                            {/* Color Arcs */}
+                            {/* Step 2: CAS */}
+                            <div
+                                onClick={() => setActiveChainStep(2)}
+                                className={`p-4 rounded-2xl border cursor-pointer transition-all ${
+                                    activeChainStep === 2 ? 'bg-blue-500/20 border-blue-500 shadow-lg' : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
+                                }`}
+                            >
+                                <span className="text-[9px] font-black text-blue-400 uppercase tracking-widest block mb-1">+ Errors ({instrumentError + positionError} KT)</span>
+                                <div className="text-xs font-bold text-white mb-1">CAS</div>
+                                <div className="text-2xl font-black text-blue-400 font-mono">{cas} <span className="text-xs font-normal text-blue-500/60">KT</span></div>
+                                <p className="text-[10px] text-slate-400 mt-2">Position & instrument corrected.</p>
+                            </div>
+
+                            {/* Step 3: EAS */}
+                            <div
+                                onClick={() => setActiveChainStep(3)}
+                                className={`p-4 rounded-2xl border cursor-pointer transition-all ${
+                                    activeChainStep === 3 ? 'bg-indigo-500/20 border-indigo-500 shadow-lg' : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
+                                }`}
+                            >
+                                <span className="text-[9px] font-black text-indigo-400 uppercase tracking-widest block mb-1">− Compress ({compressibilityCorrection} KT)</span>
+                                <div className="text-xs font-bold text-white mb-1">EAS</div>
+                                <div className="text-2xl font-black text-indigo-400 font-mono">{eas} <span className="text-xs font-normal text-indigo-500/60">KT</span></div>
+                                <p className="text-[10px] text-slate-400 mt-2">Compressibility corrected.</p>
+                            </div>
+
+                            {/* Step 4: TAS */}
+                            <div
+                                onClick={() => setActiveChainStep(4)}
+                                className={`p-4 rounded-2xl border cursor-pointer transition-all ${
+                                    activeChainStep === 4 ? 'bg-orange-500/20 border-orange-500 shadow-lg' : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
+                                }`}
+                            >
+                                <span className="text-[9px] font-black text-orange-400 uppercase tracking-widest block mb-1">&times; &radic;(&rho;<sub>0</sub>/&rho;)</span>
+                                <div className="text-xs font-bold text-white mb-1">TAS</div>
+                                <div className="text-2xl font-black text-orange-400 font-mono">{Math.round(tas)} <span className="text-xs font-normal text-orange-500/60">KT</span></div>
+                                <p className="text-[10px] text-slate-400 mt-2">Density corrected.</p>
+                            </div>
+                        </div>
+
+                        {/* Step Details Drawer */}
+                        <div className="mt-4 p-4 bg-slate-950 rounded-xl border border-white/5 text-xs text-slate-300">
+                            {activeChainStep === 1 && (
+                                <div>
+                                    <strong className="text-white">Indicated Airspeed (IAS):</strong> Direct mechanical measurement of dynamic pressure (<span className="text-sky-400 font-mono">P<sub>t</sub> − P<sub>s</sub></span>) based on standard sea-level density (1.225 kg/m³).
+                                </div>
+                            )}
+                            {activeChainStep === 2 && (
+                                <div>
+                                    <strong className="text-white">Calibrated Airspeed (CAS):</strong> Corrected for <em>Instrument Error</em> (friction and mechanical linkage imperfections) and <em>Position/Pressure Error</em> (boundary layer airflow displacement around the static port and pitot probe as Angle of Attack changes).
+                                </div>
+                            )}
+                            {activeChainStep === 3 && (
+                                <div>
+                                    <strong className="text-white">Equivalent Airspeed (EAS):</strong> Corrected for adiabatic air compression inside the pitot tube. Above 200–250 KT or Mach 0.3, air compresses rather than flowing smoothly, artificially raising pitot pressure. Therefore, <span className="text-indigo-400 font-bold">EAS is always LESS than or equal to CAS</span>!
+                                </div>
+                            )}
+                            {(!activeChainStep || activeChainStep === 4) && (
+                                <div>
+                                    <strong className="text-white">True Airspeed (TAS):</strong> Corrected for actual ambient air density (<span className="text-orange-400 font-mono">&rho;</span>) at {altitude} FT. Because air is thinner at altitude, the aircraft must fly significantly faster to generate the same dynamic impact pressure on the pitot tube. At FL{altitude/100}, TAS is <strong className="text-orange-400">{Math.round(tas)} KTS</strong> (Mach {mach.toFixed(2)}).
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Cockpit Dial & Speeds */}
+                    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 relative flex flex-col md:flex-row items-center justify-around gap-8">
+                        {/* Dial Face */}
+                        <div className="w-64 h-64 rounded-full bg-slate-950 border-[12px] border-slate-800 shadow-2xl relative flex items-center justify-center shrink-0">
+                            {/* Color Arcs (SVG) */}
                             <svg className="absolute inset-0 w-full h-full -rotate-90">
-                                {/* White Arc (Flaps) */}
+                                {/* White Arc (Flaps Extended: 65 to 125 kt) */}
                                 <circle
-                                    cx="50%" cy="50%" r="45%"
+                                    cx="50%" cy="50%" r="44%"
                                     className="stroke-white fill-none"
-                                    strokeWidth="10"
-                                    strokeDasharray={`${(V_FE - V_SO) * 0.8} 1000`}
-                                    strokeDashoffset={`-${V_SO * 0.8}`}
+                                    strokeWidth="8"
+                                    strokeDasharray={`${(V_FE - V_SO) * 0.9} 1000`}
+                                    strokeDashoffset={`-${V_SO * 0.9}`}
                                 />
-                                {/* Green Arc (Normal) */}
+                                {/* Green Arc (Normal Operating: 78 to 210 kt) */}
                                 <circle
-                                    cx="50%" cy="50%" r="45%"
+                                    cx="50%" cy="50%" r="44%"
                                     className="stroke-emerald-500 fill-none"
-                                    strokeWidth="10"
-                                    strokeDasharray={`${(V_NO - V_S1) * 0.8} 1000`}
-                                    strokeDashoffset={`-${V_S1 * 0.8}`}
+                                    strokeWidth="8"
+                                    strokeDasharray={`${(V_NO - V_S1) * 0.9} 1000`}
+                                    strokeDashoffset={`-${V_S1 * 0.9}`}
                                 />
-                                {/* Yellow Arc (Caution) */}
+                                {/* Yellow Arc (Caution Range: 210 to 280 kt) */}
                                 <circle
-                                    cx="50%" cy="50%" r="45%"
-                                    className="stroke-yellow-500 fill-none"
-                                    strokeWidth="10"
-                                    strokeDasharray={`${(V_NE - V_NO) * 0.8} 1000`}
-                                    strokeDashoffset={`-${V_NO * 0.8}`}
+                                    cx="50%" cy="50%" r="44%"
+                                    className="stroke-amber-400 fill-none"
+                                    strokeWidth="8"
+                                    strokeDasharray={`${(V_NE - V_NO) * 0.9} 1000`}
+                                    strokeDashoffset={`-${V_NO * 0.9}`}
                                 />
                             </svg>
 
-                            {/* Numbers */}
-                            {[0, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240].map((num) => (
+                            {/* Numbers around the dial */}
+                            {[0, 60, 100, 140, 180, 220, 260, 300].map((num) => (
                                 <div
                                     key={num}
-                                    className="absolute inset-4 text-center"
-                                    style={{ transform: `rotate(${num * 1.5}deg)` }}
+                                    className="absolute inset-3 text-center"
+                                    style={{ transform: `rotate(${num * 1.1}deg)` }}
                                 >
-                                    <span className="text-[10px] font-bold text-slate-500" style={{ transform: `rotate(-${num * 1.5}deg)` }}>
+                                    <span className="text-[10px] font-bold text-slate-500 block" style={{ transform: `rotate(-${num * 1.1}deg)` }}>
                                         {num}
                                     </span>
                                 </div>
                             ))}
 
-                            {/* Pointer */}
+                            {/* IAS Needle (Main White) */}
                             <motion.div
-                                animate={{ rotate: ias * 1.5 }}
-                                className="absolute w-1.5 h-28 md:h-32 bg-white origin-bottom bottom-1/2 rounded-full shadow-lg z-10"
+                                animate={{ rotate: ias * 1.1 }}
+                                transition={{ type: 'spring', damping: 20 }}
+                                className="absolute w-1.5 h-28 bg-white origin-bottom bottom-1/2 rounded-full shadow-lg z-10"
                             />
 
-                            {/* TAS Pointer (Optional/Secondary) */}
+                            {/* TAS Needle / Bug (Orange) */}
                             <motion.div
-                                animate={{ rotate: tas * 1.5 }}
-                                className="absolute w-1 h-28 md:h-32 bg-orange-500/40 origin-bottom bottom-1/2 rounded-full z-0"
+                                animate={{ rotate: Math.min(350, tas) * 1.1 }}
+                                transition={{ type: 'spring', damping: 20 }}
+                                className="absolute w-1 h-28 bg-orange-500/60 origin-bottom bottom-1/2 rounded-full z-0"
                             />
 
-                            <div className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-slate-800 rounded-full border-2 border-slate-900 z-20"></div>
+                            {/* Center Nut */}
+                            <div className="w-5 h-5 bg-slate-700 rounded-full border-2 border-slate-900 z-20 shadow-md" />
 
-                            <div className="mt-24 text-center">
-                                <div className="text-[8px] font-black text-slate-600 uppercase tracking-widest">Knots</div>
+                            <div className="mt-20 text-center">
+                                <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">KNOTS</span>
                                 <div className="text-2xl font-black text-white font-mono">{ias}</div>
                             </div>
                         </div>
 
-                        {/* ASI Markings Legend */}
-                        <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4 w-full">
-                            <div className="bg-slate-800/50 p-3 rounded-xl border border-white/5 flex items-center gap-3">
-                                <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
-                                <div>
-                                    <div className="text-[8px] text-slate-500 uppercase font-bold">White Arc</div>
-                                    <div className="text-[10px] text-white">Full Flap Range ({V_SO}-{V_FE})</div>
+                        {/* Dial Color Markings Legend & V-Speeds */}
+                        <div className="space-y-3 w-full max-w-xs">
+                            <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-2">ASI Operating Limitations</h4>
+                            
+                            <div className="p-2.5 bg-slate-950 rounded-xl border border-white/5 flex items-center justify-between text-xs">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-3 h-3 rounded bg-white" />
+                                    <span className="text-slate-300 font-semibold">White Arc</span>
+                                </div>
+                                <span className="font-mono text-slate-400">{V_SO} &ndash; {V_FE} KT (Flap Range)</span>
+                            </div>
+
+                            <div className="p-2.5 bg-slate-950 rounded-xl border border-white/5 flex items-center justify-between text-xs">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-3 h-3 rounded bg-emerald-500" />
+                                    <span className="text-slate-300 font-semibold">Green Arc</span>
+                                </div>
+                                <span className="font-mono text-slate-400">{V_S1} &ndash; {V_NO} KT (Normal Op)</span>
+                            </div>
+
+                            <div className="p-2.5 bg-slate-950 rounded-xl border border-white/5 flex items-center justify-between text-xs">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-3 h-3 rounded bg-amber-400" />
+                                    <span className="text-slate-300 font-semibold">Yellow Arc</span>
+                                </div>
+                                <span className="font-mono text-slate-400">{V_NO} &ndash; {V_NE} KT (Smooth Air)</span>
+                            </div>
+
+                            <div className="p-2.5 bg-slate-950 rounded-xl border border-red-500/20 flex items-center justify-between text-xs">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-3 h-3 rounded bg-red-500" />
+                                    <span className="text-red-300 font-semibold">Red Radial Line</span>
+                                </div>
+                                <span className="font-mono text-red-400 font-bold">{V_NE} KT (Never Exceed)</span>
+                            </div>
+
+                            <div className="p-3 bg-orange-500/10 border border-orange-500/20 rounded-xl text-[11px] text-orange-300 space-y-1">
+                                <div className="flex justify-between">
+                                    <span>Calculated Mach:</span>
+                                    <span className="font-mono font-bold">M {mach.toFixed(2)}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                    <span>TAS vs IAS Delta:</span>
+                                    <span className="font-mono font-bold">+{Math.round(tas - ias)} KTS</span>
                                 </div>
                             </div>
-                            <div className="bg-slate-800/50 p-3 rounded-xl border border-white/5 flex items-center gap-3">
-                                <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
-                                <div>
-                                    <div className="text-[8px] text-slate-500 uppercase font-bold">Green Arc</div>
-                                    <div className="text-[10px] text-white">Normal Op ({V_S1}-{V_NO})</div>
-                                </div>
-                            </div>
-                            <div className="bg-slate-800/50 p-3 rounded-xl border border-white/5 flex items-center gap-3">
-                                <div className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></div>
-                                <div>
-                                    <div className="text-[8px] text-slate-500 uppercase font-bold">Yellow Arc</div>
-                                    <div className="text-[10px] text-white">Caution (Calm Air)</div>
-                                </div>
-                            </div>
-                            <div className="bg-slate-800/50 p-3 rounded-xl border border-red-500/30 flex items-center gap-3">
-                                <div className="w-1.5 h-1.5 bg-red-500 rounded-full"></div>
-                                <div>
-                                    <div className="text-[8px] text-slate-500 uppercase font-bold">Red Line</div>
-                                    <div className="text-[10px] text-white">V<sub>NE</sub> ({V_NE} Kts)</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* V-Speeds Detail */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl">
-                            <h4 className="flex items-center gap-2 text-white font-bold mb-4">
-                                <ShieldAlert className="text-orange-400 w-4 h-4" />
-                                V-Speed Definitions
-                            </h4>
-                            <ul className="text-xs text-slate-400 space-y-2">
-                                <li><strong>V<sub>SO</sub>:</strong> Smallest speed. Stall speed with full flaps (bottom of white).</li>
-                                <li><strong>V<sub>S1</sub>:</strong> Stall speed clean (bottom of green).</li>
-                                <li><strong>V<sub>LE</sub>:</strong> Max landing gear extended speed.</li>
-                                <li><strong>V<sub>LO</sub>:</strong> Max landing gear operating speed (moving).</li>
-                            </ul>
-                        </div>
-
-                        <div className="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl">
-                            <h4 className="flex items-center gap-2 text-white font-bold mb-4 text-sm uppercase">
-                                <Activity className="text-sky-400 w-4 h-4" />
-                                Critical Truths
-                            </h4>
-                            <p className="text-xs text-slate-400 leading-relaxed">
-                                The ASI measures <strong>Dynamic Pressure (q)</strong>. It is the difference between Pitot (Total) and Static.
-                            </p>
-                            <div className="mt-4 p-3 bg-black/40 rounded border border-white/5 text-center">
-                                <span className="text-[10px] font-mono text-slate-500 uppercase mr-2">Formula:</span>
-                                <span className="text-xs font-bold text-white font-mono tracking-widest">q = ½ ρ v²</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Advanced ASI Theory (NEW) */}
-            <div className="mt-12 pt-12 border-t border-slate-800 grid md:grid-cols-2 gap-12">
-                <div>
-                    <h3 className="text-xl font-bold text-white mb-6">The Speed Chain</h3>
-                    <div className="space-y-4">
-                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-sky-500/30 transition-colors">
-                            <h4 className="font-bold text-white text-sm mb-1 uppercase tracking-wider">IAS &rarr; CAS</h4>
-                            <p className="text-xs text-slate-400 leading-relaxed">
-                                Corrected for <strong>Instrument</strong> (manufacturing) and <strong>Position</strong> (airflow around fuselage) errors. Usually very small difference in modern jets.
-                            </p>
-                        </div>
-                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-sky-500/30 transition-colors">
-                            <h4 className="font-bold text-white text-sm mb-1 uppercase tracking-wider">CAS &rarr; EAS</h4>
-                            <p className="text-xs text-slate-400 leading-relaxed">
-                                Corrected for <strong>Compressibility</strong>. Crucial above 260 kts / Mach 0.4. IAS will overread as air particles compress into the probe.
-                            </p>
-                        </div>
-                        <div className="bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-sky-500/30 transition-colors">
-                            <h4 className="font-bold text-white text-sm mb-1 uppercase tracking-wider">EAS &rarr; TAS</h4>
-                            <p className="text-xs text-slate-400 leading-relaxed">
-                                Corrected for <strong>Density</strong>. Since density (ρ) decreases with altitude, TAS is always higher than IAS at height (Ice Cold Beer &rarr; IAS CAS EAS TAS).
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 className="text-xl font-bold text-white mb-6">Failure & Mach Theory</h3>
-                    <div className="space-y-4">
-                        <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-600">
-                            <div className="flex justify-between items-center mb-2">
-                                <h4 className="text-xs font-black text-slate-200 uppercase">Pitot Blockage</h4>
-                                <span className="text-[10px] bg-red-500/20 text-red-500 px-2 py-0.5 rounded font-bold italic">ACTS AS ALTIMETER</span>
-                            </div>
-                            <p className="text-[11px] text-slate-400">
-                                In a climb, trapped air in the capsule expands against lower ambient static pressure &rarr; <strong>ASI Overreads</strong>. PUD: Underreads in Descent.
-                            </p>
-                        </div>
-
-                        <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-600">
-                            <div className="flex justify-between items-center mb-2">
-                                <h4 className="text-xs font-black text-slate-200 uppercase">Mach Number (M)</h4>
-                            </div>
-                            <p className="text-[11px] text-slate-400 mb-2">Ratio of True Airspeed (TAS) to Local Speed of Sound (LSS).</p>
-                            <div className="grid grid-cols-2 gap-2 text-center">
-                                <div className="p-2 bg-black/40 rounded border border-white/5">
-                                    <p className="text-[8px] text-slate-500 uppercase">Mach</p>
-                                    <p className="text-xs font-bold text-white font-mono">TAS / LSS</p>
-                                </div>
-                                <div className="p-2 bg-black/40 rounded border border-white/5">
-                                    <p className="text-[8px] text-slate-500 uppercase">LSS @ SL (ISA)</p>
-                                    <p className="text-xs font-bold text-white font-mono">661 KTS</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="bg-sky-900/10 p-4 rounded-xl border border-sky-900/50">
-                            <h4 className="text-xs font-bold text-sky-400 mb-2 uppercase flex items-center gap-2">
-                                <Thermometer size={14} /> Critical Mach
-                            </h4>
-                            <p className="text-[10px] text-slate-300 leading-relaxed">
-                                <strong>M<sub>CRIT</sub>:</strong> The speed at which airflow over any part of the wing first reaches the speed of sound.
-                            </p>
                         </div>
                     </div>
                 </div>

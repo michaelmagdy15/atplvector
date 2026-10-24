@@ -2,18 +2,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
     Eye, Compass, Move, AlertOctagon, RotateCw, Plane,
     ChevronDown, ChevronRight, Shield, Moon, Sun, Activity,
-    AlertTriangle, Info, Clock, Zap, Navigation
+    AlertTriangle, Info, Clock, Zap, Navigation, CheckCircle2
 } from 'lucide-react';
 
 /* ─────────────────────────────────────────────
    Main Component
    ───────────────────────────────────────────── */
 const HPLDisorientation: React.FC = () => {
-    const [tab, setTab] = useState<'vestibular' | 'illusions' | 'nightvision' | 'prevention'>('vestibular');
+    const [tab, setTab] = useState<'vestibular' | 'illusions' | 'nightvision' | 'worked-example' | 'prevention'>('vestibular');
 
     const tabs = [
         { id: 'vestibular' as const, label: 'Vestibular Sim', icon: <RotateCw size={14} /> },
         { id: 'illusions' as const, label: 'Illusion Explorer', icon: <AlertOctagon size={14} /> },
+        { id: 'worked-example' as const, label: 'Night Takeoff (Worked Ex)', icon: <Plane size={14} /> },
         { id: 'nightvision' as const, label: 'Night Vision', icon: <Moon size={14} /> },
         { id: 'prevention' as const, label: 'Prevention', icon: <Shield size={14} /> },
     ];
@@ -50,6 +51,7 @@ const HPLDisorientation: React.FC = () => {
 
             {tab === 'vestibular' && <VestibularSimulator />}
             {tab === 'illusions' && <IllusionExplorer />}
+            {tab === 'worked-example' && <NightTakeoffWorkedExample />}
             {tab === 'nightvision' && <NightVisionTimeline />}
             {tab === 'prevention' && <PreventionAccordion />}
         </div>
@@ -950,6 +952,195 @@ const PreventionAccordion = () => {
                         </p>
                     </div>
                 </div>
+            </div>
+        </div>
+    );
+};
+
+// ─── Worked Example: Night Takeoff Acceleration & Somatogravic Illusion ───
+const NightTakeoffWorkedExample: React.FC = () => {
+    const [actionChoice, setActionChoice] = useState<'reflex' | 'crm' | null>(null);
+    const [accelG, setAccelG] = useState<number>(0.6); // Forward acceleration in G
+
+    // Sensed pitch calculation: theta = atan(a / g) in degrees
+    const sensedPitchDeg = Math.round(Math.atan(accelG / 1.0) * (180 / Math.PI));
+    const actualPitchDeg = 15; // Standard jet climb pitch
+
+    return (
+        <div className="space-y-6 animate-in fade-in">
+            {/* Header */}
+            <div className="bg-slate-900 p-6 rounded-xl border border-slate-700">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                    <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                        <Plane className="text-violet-400" size={22} />
+                        Croucher Worked Example: Night Takeoff Somatogravic Illusion
+                    </h3>
+                    <span className="text-xs font-mono px-3 py-1 bg-slate-800 text-violet-300 rounded-full border border-slate-700">
+                        ATPL Case Study
+                    </span>
+                </div>
+                <p className="text-sm text-slate-300 leading-relaxed">
+                    A classic scenario illustrating the fatal conflict between vestibular sensations and instrument reality. 
+                    Linear acceleration stimulates the <strong className="text-white">otolith organs (utricle &amp; saccule)</strong>, 
+                    deflecting microscopic hair cell stereocilia backwards — which the brain perceives as an extreme climb attitude.
+                </p>
+                <div className="mt-4 p-4 rounded-lg bg-violet-950/40 border border-violet-500/30 text-xs text-violet-200">
+                    <strong className="text-violet-300 font-bold block mb-1">🧠 Croucher ATPL Mental Model:</strong>
+                    "Trust the Instruments, Never the Seat of Your Pants: The vestibular system cannot distinguish sustained tilt from gravity plus linear acceleration."
+                </div>
+            </div>
+
+            {/* Scenario Breakdown Grid */}
+            <div className="grid md:grid-cols-2 gap-6">
+                {/* Physical Scenario */}
+                <div className="bg-slate-900 p-5 rounded-xl border border-slate-700 space-y-4">
+                    <h4 className="font-bold text-white text-base flex items-center gap-2">
+                        <Activity className="text-amber-400" size={18} />
+                        Flight Deck Situation
+                    </h4>
+                    <div className="space-y-2 text-xs text-slate-300">
+                        <div className="p-3 bg-slate-800/80 rounded-lg border border-slate-700">
+                            <strong className="text-amber-400 block mb-0.5">Event:</strong>
+                            Twin-engine commercial jet takes off from a coastal runway directly into pitch-black ocean overcast at night with zero visual horizon and no ground lighting.
+                        </div>
+                        <div className="p-3 bg-slate-800/80 rounded-lg border border-slate-700">
+                            <strong className="text-violet-400 block mb-0.5">Sensory Trigger:</strong>
+                            Takeoff thrust and rapid clean-up acceleration produce strong forward acceleration (G_x). 
+                            The gravito-inertial vector tilts backwards by <strong className="text-white">{sensedPitchDeg}&deg;</strong>.
+                        </div>
+                        <div className="p-3 bg-slate-800/80 rounded-lg border border-slate-700">
+                            <strong className="text-rose-400 block mb-0.5">Visceral Illusion:</strong>
+                            The pilot’s inner ear reports a massive <strong className="text-rose-300 font-mono">+{actualPitchDeg + sensedPitchDeg}&deg; nose-up pitch</strong> (danger of imminent aerodynamic stall!).
+                        </div>
+                    </div>
+
+                    {/* Interactive Acceleration Slider */}
+                    <div className="pt-2 border-t border-slate-800">
+                        <div className="flex justify-between items-center text-xs mb-1">
+                            <span className="text-slate-400">Aircraft Forward Acceleration:</span>
+                            <span className="font-mono text-white font-bold">{accelG} G ({Math.round(accelG * 9.81)} m/s²)</span>
+                        </div>
+                        <input
+                            type="range"
+                            min="0.2"
+                            max="1.0"
+                            step="0.05"
+                            value={accelG}
+                            onChange={e => setAccelG(Number(e.target.value))}
+                            className="w-full accent-violet-500"
+                        />
+                        <div className="flex justify-between text-[10px] text-slate-500 mt-1 font-mono">
+                            <span>0.2 G (Gentle)</span>
+                            <span>0.6 G (Standard Jet Climb)</span>
+                            <span>1.0 G (Fighter Full Reheat)</span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Sensed vs Actual Comparison Visualizer */}
+                <div className="bg-slate-900 p-5 rounded-xl border border-slate-700 flex flex-col justify-between space-y-4">
+                    <h4 className="font-bold text-white text-base">Perception vs. Instrument Reality</h4>
+                    
+                    <div className="grid grid-cols-2 gap-4 text-center my-auto">
+                        {/* Actual Instrument Reality */}
+                        <div className="p-4 rounded-xl bg-slate-800 border-2 border-emerald-500/50">
+                            <span className="text-[10px] font-mono uppercase text-emerald-400 font-bold block mb-1">
+                                ADI Instrument Reality
+                            </span>
+                            <div className="text-3xl font-black text-emerald-400 font-mono">+{actualPitchDeg}&deg;</div>
+                            <span className="text-xs text-slate-300 mt-1 block">Normal Climb Pitch</span>
+                            <span className="text-[10px] text-slate-500 block mt-2">VSI: +2,200 fpm climbing</span>
+                        </div>
+
+                        {/* Visceral Sensation */}
+                        <div className="p-4 rounded-xl bg-slate-800 border-2 border-red-500/50">
+                            <span className="text-[10px] font-mono uppercase text-red-400 font-bold block mb-1">
+                                Otolith False Sensation
+                            </span>
+                            <div className="text-3xl font-black text-red-400 font-mono">+{actualPitchDeg + sensedPitchDeg}&deg;</div>
+                            <span className="text-xs text-slate-300 mt-1 block">Perceived Pitch-Up</span>
+                            <span className="text-[10px] text-red-400/80 block mt-2">"STALL IMMINENT!"</span>
+                        </div>
+                    </div>
+
+                    <div className="text-xs text-slate-400 italic text-center">
+                        Total false pitch angle = Actual Pitch ({actualPitchDeg}&deg;) + Vestibular Acceleration Illusion ({sensedPitchDeg}&deg;)
+                    </div>
+                </div>
+            </div>
+
+            {/* Decision & Action Interactive Gate */}
+            <div className="bg-slate-900 p-6 rounded-xl border border-slate-700 space-y-4">
+                <h4 className="font-bold text-white text-base flex items-center gap-2">
+                    <Shield size={18} className="text-violet-400" />
+                    How Does the Crew Respond? Select Action:
+                </h4>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                    <button
+                        onClick={() => setActionChoice('reflex')}
+                        className={`p-4 rounded-xl border text-left transition-all ${
+                            actionChoice === 'reflex'
+                                ? 'bg-red-950/70 border-red-500 text-white shadow-lg ring-2 ring-red-500/40'
+                                : 'bg-slate-800 border-slate-700 text-slate-400 hover:text-white'
+                        }`}
+                    >
+                        <span className="text-xs font-bold uppercase text-red-400 block mb-1">Option A: Visceral Instinct</span>
+                        <div className="text-sm font-bold text-white mb-1">Push Control Column Forward</div>
+                        <p className="text-xs text-slate-400">
+                            Pilot yields to the powerful physiological sensation of an excessive climb and pushes the yoke forward to prevent a perceived stall.
+                        </p>
+                    </button>
+
+                    <button
+                        onClick={() => setActionChoice('crm')}
+                        className={`p-4 rounded-xl border text-left transition-all ${
+                            actionChoice === 'crm'
+                                ? 'bg-emerald-950/70 border-emerald-500 text-white shadow-lg ring-2 ring-emerald-500/40'
+                                : 'bg-slate-800 border-slate-700 text-slate-400 hover:text-white'
+                        }`}
+                    >
+                        <span className="text-xs font-bold uppercase text-emerald-400 block mb-1">Option B: Standard CRM Protocol</span>
+                        <div className="text-sm font-bold text-white mb-1">Lock Eyes on ADI &amp; Challenge-Callout</div>
+                        <p className="text-xs text-slate-400">
+                            Pilot Flying locks eyes on the Attitude Director Indicator; Pilot Monitoring cross-checks VSI and calls out positive climb.
+                        </p>
+                    </button>
+                </div>
+
+                {/* Outcome Display */}
+                {actionChoice === 'reflex' && (
+                    <div className="p-4 rounded-xl bg-red-950/40 border border-red-500/50 space-y-2 animate-in fade-in">
+                        <div className="flex items-center gap-2 text-red-400 font-bold text-sm">
+                            <AlertOctagon size={18} />
+                            <span>CATASTROPHIC OUTCOME: Controlled Flight Into Terrain (CFIT)</span>
+                        </div>
+                        <p className="text-xs text-slate-300 leading-relaxed">
+                            Pushing the control column forward pitches the aircraft down into a shallow or steep dive. 
+                            Because there is no external horizon over the dark ocean, the aircraft accelerates further downwards. 
+                            The increased speed amplifies the somatogravic pitch-up sensation, causing the pilot to push even harder. 
+                            The aircraft impacts water at high speed within seconds. 
+                            (Matches classic accident reports: Gulf Air 072, Flash Airlines 604).
+                        </p>
+                    </div>
+                )}
+
+                {actionChoice === 'crm' && (
+                    <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/50 space-y-2 animate-in fade-in">
+                        <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+                            <CheckCircle2 size={18} />
+                            <span>SAFE CLIMB: Defensive CRM Traps the Sensory Illusion</span>
+                        </div>
+                        <div className="text-xs text-slate-300 leading-relaxed space-y-1.5 font-mono">
+                            <div className="text-sky-300">PF: &quot;Attitude checked, passing 1,500 ft, climb 15 degrees nose up.&quot;</div>
+                            <div className="text-emerald-300">PM: &quot;Check pitch, positive climb 15 degrees nose up, VSI +2,200 fpm, speed 180 kts.&quot;</div>
+                        </div>
+                        <p className="text-xs text-slate-300 mt-2">
+                            PF consciously suppresses visceral otolith sensations and flies strictly by instruments until entering level flight. 
+                            Safety envelope is fully maintained.
+                        </p>
+                    </div>
+                )}
             </div>
         </div>
     );

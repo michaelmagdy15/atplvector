@@ -83,6 +83,8 @@ export enum View {
   AGK_ELECTRICS = 'AGK_ELECTRICS',
   AGK_LANDING_GEAR = 'AGK_LANDING_GEAR',
   AGK_FLIGHT_CONTROLS = 'AGK_FLIGHT_CONTROLS',
+  AGK_AIRFRAMES = 'AGK_AIRFRAMES',
+  AGK_AIR_CONDITIONING = 'AGK_AIR_CONDITIONING',
   AGK_SYSTEMS_OXYGEN = 'AGK_SYSTEMS_OXYGEN',
   AGK_ASI = 'AGK_ASI',
   AGK_GYROS = 'AGK_GYROS',
@@ -392,6 +394,7 @@ export enum View {
   INST_DG = 'INST_DG',
   INST_RADIO_ALT = 'INST_RADIO_ALT',
   INST_GPWS = 'INST_GPWS',
+  INST_TCAS = 'INST_TCAS',
   INST_AUTOPILOT = 'INST_AUTOPILOT',
   INST_AUTOLAND = 'INST_AUTOLAND',
 
@@ -484,6 +487,64 @@ export interface AirspaceData {
   radioReq: boolean;
   clearanceReq: boolean;
   notes: string;
+  speedLimit?: string;
+  vmcMinima?: string;
+  rtfqTrap?: string;
+  separationDetails?: {
+    ifrFromIfr: string;
+    ifrFromVfr: string;
+    vfrFromIfr: string;
+    vfrFromVfr: string;
+  };
+}
+
+export interface IcaoAnnexDef {
+  nr: number;
+  title: string;
+  domain: string;
+  focus: string;
+  mnemonic: string;
+  croucherKey: string;
+  rtfqTrap: string;
+}
+
+export interface FreedomOfAirDef {
+  id: number;
+  title: string;
+  name: string;
+  type: 'Transit' | 'Commercial' | 'Cabotage';
+  desc: string;
+  example: string;
+  trafficRights: string;
+  rtfqTrap: string;
+}
+
+export interface MelIntervalDef {
+  category: 'A' | 'B' | 'C' | 'D';
+  duration: string;
+  hoursOrDays: string;
+  description: string;
+  extensionAllowed: boolean;
+  croucherRule: string;
+}
+
+export interface AwoMinimaDef {
+  category: 'CAT I' | 'CAT II' | 'CAT IIIA' | 'CAT IIIB' | 'CAT IIIC';
+  dh: string;
+  rvr: string;
+  visualRefRequired: string;
+  systemReq: string;
+  croucherNotes: string;
+}
+
+export interface DeicingHoldoverDef {
+  fluidType: 'Type I' | 'Type II' | 'Type III' | 'Type IV';
+  color: string;
+  thickened: boolean;
+  minVr: string;
+  hotRange: string;
+  primaryUse: string;
+  keyRule: string;
 }
 
 export interface User {

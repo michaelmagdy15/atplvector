@@ -628,3 +628,448 @@ export function evaluateObstacleClearance(
     requiredGradientToClearPct: Math.round(requiredGradientToClearPct * 10) / 10,
   };
 }
+
+
+/**
+ * ============================================================================
+ * CROUCHER ATPL CHAPTER 9 ENHANCEMENTS: REGULATORY FORMULAS & FRAMEWORKS
+ * ============================================================================
+ */
+
+export type EngineCount = 2 | 3 | 4;
+
+/**
+ * 8. Declared Distances Framework (ICAO Annex 14 / EASA CS-ADR-DSN)
+ * - TORA: Take-Off Run Available
+ * - TODA: TORA + Clearway (Clearway max 50% of TORA)
+ * - ASDA: TORA + Stopway (Stopway must be load-bearing)
+ * - LDA: Landing Distance Available (from displaced threshold)
+ */
+export interface DeclaredDistancesResult {
+  toraFt: number;
+  clearwayFt: number;
+  stopwayFt: number;
+  displacedThresholdFt: number;
+  maxAllowableClearwayFt: number; // Max 50% of TORA
+  effectiveClearwayFt: number;    // Clamped to 50% TORA
+  isClearwayCapped: boolean;
+  todaFt: number;                 // TORA + effective Clearway
+  unrestrictedTodaFt: number;     // TORA + raw Clearway
+  asdaFt: number;                 // TORA + Stopway
+  ldaFt: number;                  // TORA - displaced threshold
+}
+
+export function calculateDeclaredDistances(
+  toraFt: number,
+  clearwayFt: number,
+  stopwayFt: number,
+  displacedThresholdFt: number = 0
+): DeclaredDistancesResult {
+  const maxAllowableClearwayFt = toraFt * 0.5;
+  const isClearwayCapped = clearwayFt > maxAllowableClearwayFt;
+  const effectiveClearwayFt = Math.min(clearwayFt, maxAllowableClearwayFt);
+
+  const todaFt = toraFt + effectiveClearwayFt;
+  const unrestrictedTodaFt = toraFt + clearwayFt;
+  const asdaFt = toraFt + stopwayFt;
+  const ldaFt = Math.max(0, toraFt - displacedThresholdFt);
+
+  return {
+    toraFt,
+    clearwayFt,
+    stopwayFt,
+    displacedThresholdFt,
+    maxAllowableClearwayFt,
+    effectiveClearwayFt,
+    isClearwayCapped,
+    todaFt,
+    unrestrictedTodaFt,
+    asdaFt,
+    ldaFt,
+  };
+}
+
+/**
+ * 9. V-Speed Certification Hierarchy (CS-25 / Class A)
+ * Enforces:
+ *   V_MCG <= V1 <= VR <= V_MBE
+ *   VR >= 1.05 * V_MCA
+ *   V2 >= 1.13 * V_SR
+ *   V_REF >= 1.23 * V_SR0
+ */
+export interface VSpeedHierarchyCheck {
+  isV1AboveVmcg: boolean;
+  isV1BelowVr: boolean;
+  isVrBelowVmbe: boolean;
+  isVrAboveVmca: boolean;
+  isV2AboveVsr: boolean;
+  isVrefAboveVsr0: boolean;
+  allCompliant: boolean;
+  reasons: string[];
+}
+
+export function validateVSpeedHierarchy(speeds: {
+  vmcg: number;
+  v1: number;
+  vr: number;
+  vmbe: number;
+  vmca: number;
+  v2: number;
+  vsr: number;
+  vref?: number;
+  vsr0?: number;
+}): VSpeedHierarchyCheck {
+  const reasons: string[] = [];
+
+  const isV1AboveVmcg = speeds.v1 >= speeds.vmcg;
+  if (!isV1AboveVmcg) {
+    reasons.push(`V1 (${speeds.v1} kt) must be >= VMCG (${speeds.vmcg} kt) to ensure ground directional rudder control on one engine.`);
+  }
+
+  const isV1BelowVr = speeds.v1 <= speeds.vr;
+  if (!isV1BelowVr) {
+    reasons.push(`V1 (${speeds.v1} kt) cannot exceed VR (${speeds.vr} kt); rotation must occur at or after decision speed.`);
+  }
+
+  const isVrBelowVmbe = speeds.vr <= speeds.vmbe;
+  if (!isVrBelowVmbe) {
+    reasons.push(`VR (${speeds.vr} kt) exceeds VMBE (${speeds.vmbe} kt); rejected takeoff near VR will cause brake thermal rupture.`);
+  }
+
+  const minVrForVmca = Number((speeds.vmca * 1.05).toFixed(1));
+  const isVrAboveVmca = speeds.vr >= minVrForVmca;
+  if (!isVrAboveVmca) {
+    reasons.push(`VR (${speeds.vr} kt) must be >= 1.05 * VMCA (${minVrForVmca} kt) for airborne directional control.`);
+  }
+
+  const minV2ForVsr = Number((speeds.vsr * 1.13).toFixed(1));
+  const isV2AboveVsr = speeds.v2 >= minV2ForVsr;
+  if (!isV2AboveVsr) {
+    reasons.push(`V2 (${speeds.v2} kt) must be >= 1.13 * VSR (${minV2ForVsr} kt) for stall margin in 1st/2nd segments.`);
+  }
+
+  let isVrefAboveVsr0 = true;
+  if (speeds.vref !== undefined && speeds.vsr0 !== undefined) {
+    const minVref = Number((speeds.vsr0 * 1.23).toFixed(1));
+    isVrefAboveVsr0 = speeds.vref >= minVref;
+    if (!isVrefAboveVsr0) {
+      reasons.push(`VREF (${speeds.vref} kt) must be >= 1.23 * VSR0 (${minVref} kt) for landing stall margin.`);
+    }
+  }
+
+  const allCompliant =
+    isV1AboveVmcg && isV1BelowVr && isVrBelowVmbe && isVrAboveVmca && isV2AboveVsr && isVrefAboveVsr0;
+
+  return {
+    isV1AboveVmcg,
+    isV1BelowVr,
+    isVrBelowVmbe,
+    isVrAboveVmca,
+    isV2AboveVsr,
+    isVrefAboveVsr0,
+    allCompliant,
+    reasons,
+  };
+}
+
+/**
+ * 10. Balanced Field Length Model: TODR = ASDR at V1
+ * Shows how TODR and ASDR vary with V1, and determines the Balanced V1
+ * where required distance is minimized and payload/takeoff mass is maximized.
+ */
+export interface BalancedFieldPoint {
+  v1Ratio: number; // V1 / VR ratio, typically 0.80 to 1.00
+  v1IasKts: number;
+  todrFt: number; // Take-off distance required (engine failure at this V1)
+  asdrFt: number; // Accelerate-stop distance required (RTO at this V1)
+  requiredFieldLengthFt: number; // max(TODR, ASDR)
+}
+
+export interface BalancedFieldResult {
+  balancedV1IasKts: number;
+  balancedFieldLengthFt: number;
+  minV1IasKts: number;
+  maxV1IasKts: number;
+  points: BalancedFieldPoint[];
+  explanation: string;
+}
+
+export function calculateBalancedField(
+  vrIasKts: number,
+  baseFieldDistFt: number,
+  surfaceFrictionFactor: number = 1.0
+): BalancedFieldResult {
+  const points: BalancedFieldPoint[] = [];
+
+  // V1 range from 0.78 * VR up to 1.00 * VR
+  const steps = 11;
+  const minRatio = 0.78;
+  const maxRatio = 1.00;
+
+  let bestDiff = Infinity;
+  let balancedV1 = vrIasKts * 0.90;
+  let balancedDist = baseFieldDistFt;
+
+  for (let i = 0; i < steps; i++) {
+    const ratio = minRatio + (i / (steps - 1)) * (maxRatio - minRatio);
+    const v1 = Math.round(vrIasKts * ratio);
+
+    // If V1 is low: engine failure occurs early -> aircraft must accelerate on 1 engine for long distance -> high TODR
+    const todr = Math.round(baseFieldDistFt * (0.88 + 1.65 * Math.pow(1 - ratio, 1.25)));
+
+    // If V1 is high: high kinetic energy at RTO (E = 0.5 * m * V^2) -> long stopping distance -> high ASDR
+    const asdr = Math.round(baseFieldDistFt * Math.pow(ratio / 0.90, 2.1) * surfaceFrictionFactor);
+
+    const required = Math.max(todr, asdr);
+
+    points.push({
+      v1Ratio: Number(ratio.toFixed(2)),
+      v1IasKts: v1,
+      todrFt: todr,
+      asdrFt: asdr,
+      requiredFieldLengthFt: required,
+    });
+
+    const diff = Math.abs(todr - asdr);
+    if (diff < bestDiff) {
+      bestDiff = diff;
+      balancedV1 = v1;
+      balancedDist = Math.round((todr + asdr) / 2);
+    }
+  }
+
+  return {
+    balancedV1IasKts: balancedV1,
+    balancedFieldLengthFt: balancedDist,
+    minV1IasKts: points[0].v1IasKts,
+    maxV1IasKts: points[points.length - 1].v1IasKts,
+    points,
+    explanation:
+      'Balanced Field Length occurs where TODR (with engine failure at V1) equals ASDR. At this exact V1, the field length required is minimized, allowing the highest possible takeoff mass.',
+  };
+}
+
+/**
+ * 11. The Four CS-25 Engine-Out Take-off Climb Segments
+ */
+export interface ClimbSegmentSpec {
+  segmentNumber: 1 | 2 | 3 | 4;
+  name: string;
+  startBoundary: string;
+  endBoundary: string;
+  gearState: 'DOWN' | 'RETRACTING' | 'UP';
+  flapState: 'TAKEOFF' | 'RETRACTING' | 'CLEAN';
+  targetSpeed: string;
+  thrustSetting: 'TAKEOFF_OEI' | 'MCT';
+  minGrossGradientPct: number;
+  regulatoryDeductionPct: number;
+  minNetGradientPct: number;
+  description: string;
+}
+
+export function getCs25ClimbSegments(engineCount: EngineCount): ClimbSegmentSpec[] {
+  // Regulatory Gross minimums by engine count (CS-25.121):
+  // 1st Segment: Positive (>0%) for 2-eng; 0.3% for 3-eng; 0.5% for 4-eng
+  const seg1Gross = engineCount === 2 ? 0.01 : engineCount === 3 ? 0.3 : 0.5;
+  // 2nd Segment: 2.4% for 2-eng; 2.7% for 3-eng; 3.0% for 4-eng
+  const seg2Gross = engineCount === 2 ? 2.4 : engineCount === 3 ? 2.7 : 3.0;
+  // 3rd Segment: Level acceleration
+  const seg3Gross = 0.0;
+  // 4th Segment: 1.2% for 2-eng; 1.5% for 3-eng; 1.7% for 4-eng
+  const seg4Gross = engineCount === 2 ? 1.2 : engineCount === 3 ? 1.5 : 1.7;
+
+  // Regulatory Net deductions by engine count (CS-25.115):
+  // 2-eng: 0.8%; 3-eng: 0.9%; 4-eng: 1.0%
+  const deduction = engineCount === 2 ? 0.8 : engineCount === 3 ? 0.9 : 1.0;
+
+  return [
+    {
+      segmentNumber: 1,
+      name: '1st Segment',
+      startBoundary: 'Screen Height (35 ft dry / 15 ft wet)',
+      endBoundary: 'Landing gear fully retracted',
+      gearState: 'RETRACTING',
+      flapState: 'TAKEOFF',
+      targetSpeed: 'V2',
+      thrustSetting: 'TAKEOFF_OEI',
+      minGrossGradientPct: seg1Gross,
+      regulatoryDeductionPct: deduction,
+      minNetGradientPct: Number((seg1Gross - deduction).toFixed(2)),
+      description: 'Begins at 35 ft screen height (15 ft wet). High gear parasitic drag. Requires positive gross climb for 2-eng.',
+    },
+    {
+      segmentNumber: 2,
+      name: '2nd Segment (Critical)',
+      startBoundary: 'Gear fully retracted',
+      endBoundary: 'Acceleration altitude (min 400 ft AGL)',
+      gearState: 'UP',
+      flapState: 'TAKEOFF',
+      targetSpeed: 'V2',
+      thrustSetting: 'TAKEOFF_OEI',
+      minGrossGradientPct: seg2Gross,
+      regulatoryDeductionPct: deduction,
+      minNetGradientPct: Number((seg2Gross - deduction).toFixed(2)),
+      description: 'Most restrictive segment! Flaps in takeoff config, max takeoff thrust on live engine(s) up to 10 min.',
+    },
+    {
+      segmentNumber: 3,
+      name: '3rd Segment (Acceleration)',
+      startBoundary: 'Acceleration altitude (min 400 ft AGL)',
+      endBoundary: 'Flaps fully retracted & speed VFTO reached',
+      gearState: 'UP',
+      flapState: 'RETRACTING',
+      targetSpeed: 'Accelerating V2 -> VFTO',
+      thrustSetting: 'TAKEOFF_OEI',
+      minGrossGradientPct: seg3Gross,
+      regulatoryDeductionPct: deduction,
+      minNetGradientPct: Number((seg3Gross - deduction).toFixed(2)),
+      description: 'Horizontal level flight segment. Engine thrust accelerates aircraft to retract flaps and reach VFTO.',
+    },
+    {
+      segmentNumber: 4,
+      name: '4th Segment (Final Takeoff)',
+      startBoundary: 'Clean configuration reached',
+      endBoundary: '1,500 ft AGL or transition to en-route',
+      gearState: 'UP',
+      flapState: 'CLEAN',
+      targetSpeed: 'VFTO (Green Dot)',
+      thrustSetting: 'MCT',
+      minGrossGradientPct: seg4Gross,
+      regulatoryDeductionPct: deduction,
+      minNetGradientPct: Number((seg4Gross - deduction).toFixed(2)),
+      description: 'En-route climb configuration at Maximum Continuous Thrust (MCT) until at least 1,500 ft AGL.',
+    },
+  ];
+}
+
+/**
+ * 12. Net Obstacle Clearance Evaluator (Croucher Ch09 Worked Example)
+ * - Regulatory net margin: -0.8% (twin), -0.9% (tri), -1.0% (quad)
+ * - Required obstacle clearance: 35 ft (dry runway) / 15 ft (wet runway)
+ * - Screen height: 35 ft (dry) / 15 ft (wet)
+ */
+export interface NetObstacleClearanceCalculation {
+  obstacleDistanceFt: number;
+  obstacleElevationAboveDerFt: number;
+  screenHeightFt: number;
+  grossGradientPct: number;
+  netDeductionPct: number;
+  netGradientPct: number;
+  altitudeGainedFt: number;
+  aircraftNetAltitudeAboveDerFt: number;
+  clearanceAboveObstacleFt: number;
+  requiredClearanceFt: number;
+  isCompliant: boolean;
+  clearanceMarginSurplusFt: number;
+}
+
+export function calculateNetObstacleClearance(params: {
+  obstacleDistanceFt: number;
+  obstacleElevationAboveDerFt: number;
+  grossGradientPct: number;
+  engineCount: EngineCount;
+  isWetRunway?: boolean;
+}): NetObstacleClearanceCalculation {
+  const {
+    obstacleDistanceFt,
+    obstacleElevationAboveDerFt,
+    grossGradientPct,
+    engineCount,
+    isWetRunway = false,
+  } = params;
+
+  const screenHeightFt = isWetRunway ? 15 : 35;
+  const requiredClearanceFt = isWetRunway ? 15 : 35;
+  const netDeductionPct = engineCount === 2 ? 0.8 : engineCount === 3 ? 0.9 : 1.0;
+
+  const netGradientPct = Number((grossGradientPct - netDeductionPct).toFixed(2));
+  const altitudeGainedFt = Number(((netGradientPct / 100) * obstacleDistanceFt).toFixed(1));
+  const aircraftNetAltitudeAboveDerFt = Number((screenHeightFt + altitudeGainedFt).toFixed(1));
+  const clearanceAboveObstacleFt = Number(
+    (aircraftNetAltitudeAboveDerFt - obstacleElevationAboveDerFt).toFixed(1)
+  );
+  const isCompliant = clearanceAboveObstacleFt >= requiredClearanceFt;
+  const clearanceMarginSurplusFt = Number(
+    (clearanceAboveObstacleFt - requiredClearanceFt).toFixed(1)
+  );
+
+  return {
+    obstacleDistanceFt,
+    obstacleElevationAboveDerFt,
+    screenHeightFt,
+    grossGradientPct,
+    netDeductionPct,
+    netGradientPct,
+    altitudeGainedFt,
+    aircraftNetAltitudeAboveDerFt,
+    clearanceAboveObstacleFt,
+    requiredClearanceFt,
+    isCompliant,
+    clearanceMarginSurplusFt,
+  };
+}
+
+/**
+ * 13. Landing Distance Required (LDR) - CS-25 60% Rule & Wet / Contaminated Factoring
+ * - Dry Runway: Actual Landing Distance (ALD) must not exceed 60% of LDA.
+ *   LDR_dry = ALD / 0.60 = 1.667 * ALD
+ * - Wet Runway: LDR_wet = LDR_dry * 1.15 = 1.917 * ALD
+ * - Contaminated Runway (> 3 mm standing water, slush, ice):
+ *   Severe loss of braking coefficient + aquaplaning risk.
+ *   LDR_cont = ALD * 1.667 * 1.40 = 2.333 * ALD
+ * - Threshold screen height: 50 ft at VREF >= 1.23 * VSR0
+ */
+export interface LandingDistanceCalculation {
+  actualLandingDistanceFt: number;
+  dryFactoredLdrFt: number;
+  wetFactoredLdrFt: number;
+  contaminatedLdrFt: number;
+  activeRequiredLdrFt: number;
+  ldaFt: number;
+  marginFt: number;
+  isCompliant: boolean;
+  factorMultiplier: number;
+  thresholdScreenHeightFt: number;
+  minVrefMultiplier: number; // 1.23
+}
+
+export function calculateLandingDistanceRequired(
+  actualLandingDistanceFt: number,
+  ldaFt: number,
+  surfaceState: 'DRY' | 'WET' | 'CONTAMINATED'
+): LandingDistanceCalculation {
+  // Dry 60% rule: ALD / 0.60 = 1.667 * ALD
+  const dryFactoredLdrFt = Math.round(actualLandingDistanceFt * 1.6667);
+  // Wet: 115% of Dry factored = 1.9167 * ALD
+  const wetFactoredLdrFt = Math.round(dryFactoredLdrFt * 1.15);
+  // Contaminated: 140% of Dry factored = 2.333 * ALD
+  const contaminatedLdrFt = Math.round(dryFactoredLdrFt * 1.40);
+
+  let activeRequiredLdrFt = dryFactoredLdrFt;
+  let factorMultiplier = 1.667;
+
+  if (surfaceState === 'WET') {
+    activeRequiredLdrFt = wetFactoredLdrFt;
+    factorMultiplier = 1.917;
+  } else if (surfaceState === 'CONTAMINATED') {
+    activeRequiredLdrFt = contaminatedLdrFt;
+    factorMultiplier = 2.333;
+  }
+
+  const marginFt = ldaFt - activeRequiredLdrFt;
+  const isCompliant = marginFt >= 0;
+
+  return {
+    actualLandingDistanceFt,
+    dryFactoredLdrFt,
+    wetFactoredLdrFt,
+    contaminatedLdrFt,
+    activeRequiredLdrFt,
+    ldaFt,
+    marginFt,
+    isCompliant,
+    factorMultiplier,
+    thresholdScreenHeightFt: 50,
+    minVrefMultiplier: 1.23,
+  };
+}
