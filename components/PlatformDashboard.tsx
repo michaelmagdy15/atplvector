@@ -24,6 +24,8 @@ import {
   Shield,
   Gauge,
   Award,
+  ShieldAlert,
+  BookMarked,
 } from 'lucide-react';
 import { Accent, CadButton } from './artcraft/SectionShell';
 
@@ -517,6 +519,72 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
           </div>
           <div className="flex items-center justify-between pt-4 mt-6 border-t border-line font-mono text-[11px] uppercase tracking-[0.12em] text-emerald-400">
             <span>Enter C172 Cockpit Hub</span>
+            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
+      </div>
+
+      {/* Phil Croucher EASA Exam Defense & Reference Engine */}
+      <div className="mt-12 flex items-end justify-between gap-4 mb-5 pb-3 border-b border-line">
+        <div>
+          <div className="hud-label text-amber-400 mb-1">03 // EXAM DEFENSE &amp; CROUCHER METHODOLOGY</div>
+          <h2 className="font-display text-2xl md:text-3xl font-medium tracking-[-0.03em] text-ink">
+            RTFQ Defense &amp; <Accent className="text-amber-400">Operational Cheatsheet</Accent>
+          </h2>
+        </div>
+        <button
+          type="button"
+          onClick={() => window.dispatchEvent(new CustomEvent('openCheatsheet'))}
+          className="invert-block px-3 py-1.5 border border-amber-500/40 font-mono text-[11px] uppercase tracking-[0.12em] text-amber-400 inline-flex items-center gap-1.5 cursor-pointer hover:bg-amber-500/10 transition-colors"
+        >
+          <BookMarked size={13} />
+          <span>Open Cheatsheet Drawer</span>
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-line border border-line">
+        {/* RTFQ Exam Trap Defense Trainer */}
+        <div
+          onClick={() => onChangeView(View.RTFQ_TRAINER)}
+          className="bg-bg p-6 md:p-8 flex flex-col justify-between hover:bg-bg-raised transition-colors cursor-pointer group"
+        >
+          <div>
+            <div className="flex items-center justify-between mb-5">
+              <span className="hud-label text-amber-400">EXAM DEFENSE // PHIL CROUCHER CH 00</span>
+              <ShieldAlert size={18} className="text-amber-400" />
+            </div>
+            <h3 className="font-display text-2xl font-medium text-ink mb-2 group-hover:text-amber-400 transition-colors">
+              RTFQ Exam Trap &amp; Defense Trainer
+            </h3>
+            <p className="text-sm text-muted leading-relaxed">
+              Drill against the classic EASA examiner traps: unit divergence (USG vs Imp Gal), negative polarity stems (NOT/EXCEPT), intermediate calculation distractors, and false opposites.
+            </p>
+          </div>
+          <div className="flex items-center justify-between pt-4 mt-6 border-t border-line font-mono text-[11px] uppercase tracking-[0.12em] text-amber-400">
+            <span>Launch RTFQ Defense Drills</span>
+            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
+
+        {/* Operational Cheatsheet */}
+        <div
+          onClick={() => window.dispatchEvent(new CustomEvent('openCheatsheet'))}
+          className="bg-bg p-6 md:p-8 flex flex-col justify-between hover:bg-bg-raised transition-colors cursor-pointer group"
+        >
+          <div>
+            <div className="flex items-center justify-between mb-5">
+              <span className="hud-label text-amber-400">QUICK REFERENCE // PILOT FORMULAS</span>
+              <BookMarked size={18} className="text-amber-400" />
+            </div>
+            <h3 className="font-display text-2xl font-medium text-ink mb-2 group-hover:text-amber-400 transition-colors">
+              Operational Pilot Cheatsheet &amp; Rules of Thumb
+            </h3>
+            <p className="text-sm text-muted leading-relaxed">
+              Instant access to CS-25 V-speed hierarchy, 4 takeoff climb segment gradients, AWO Category I-IIIB minima, altimeter temperature correction rules, 1-in-60 formulas, and emergency squawk codes.
+            </p>
+          </div>
+          <div className="flex items-center justify-between pt-4 mt-6 border-t border-line font-mono text-[11px] uppercase tracking-[0.12em] text-amber-400">
+            <span>Open Quick Cheatsheet</span>
             <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </div>
         </div>

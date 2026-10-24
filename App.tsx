@@ -34,6 +34,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { ToastProvider } from './components/ui/ToastContext';
 import FocusTimer from './components/study/FocusTimer';
 import Scratchpad from './components/study/Scratchpad';
+const CroucherCheatsheetModal = React.lazy(() => import('./components/study/CroucherCheatsheetModal'));
 import {
     Plane as PlaneIcon, Menu, X, BookOpen, Settings, Weight,
     Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog, Wind, Search, Activity, Calendar, Clock, Radio, ChevronLeft, Shield, Gauge, Layers
@@ -53,6 +54,13 @@ const App: React.FC = () => {
     const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
     const [unlockModalOpen, setUnlockModalOpen] = useState(false);
     const [devBypassed, setDevBypassed] = useState(() => localStorage.getItem('atpl_dev_bypass') === 'true');
+    const [cheatsheetOpen, setCheatsheetOpen] = useState(false);
+
+    useEffect(() => {
+        const handleOpenCheatsheet = () => setCheatsheetOpen(true);
+        window.addEventListener('openCheatsheet', handleOpenCheatsheet);
+        return () => window.removeEventListener('openCheatsheet', handleOpenCheatsheet);
+    }, []);
 
     // Global Command Palette Listener
     useEffect(() => {
@@ -1055,6 +1063,14 @@ const App: React.FC = () => {
                         <>
                             <FocusTimer />
                             <Scratchpad />
+                            {cheatsheetOpen && (
+                                <React.Suspense fallback={null}>
+                                    <CroucherCheatsheetModal
+                                        isOpen={cheatsheetOpen}
+                                        onClose={() => setCheatsheetOpen(false)}
+                                    />
+                                </React.Suspense>
+                            )}
                             <CommandPalette
                                 isOpen={commandPaletteOpen}
                                 onClose={() => setCommandPaletteOpen(false)}

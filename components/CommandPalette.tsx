@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Search, Map, BookOpen, Settings, User as UserIcon, LogOut, Layout, Wifi, Cloud, Box, GraduationCap, X } from 'lucide-react';
+import { Search, Map, BookOpen, Settings, User as UserIcon, LogOut, Layout, Wifi, Cloud, Box, GraduationCap, X, ShieldAlert, BookMarked } from 'lucide-react';
 import { View } from '../types';
 import { NAV_MAP } from '../data/sidebarNavigation';
 
@@ -46,6 +46,24 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose, onNavi
             { id: 'home', label: 'Dashboard', category: 'Navigation', icon: <Layout size={18} />, action: () => onNavigate(View.PLATFORM_DASHBOARD) },
             { id: 'profile', label: 'Profile', category: 'General', icon: <UserIcon size={18} />, action: () => onNavigate(View.PROFILE) },
             { id: 'settings', label: 'Settings', category: 'General', icon: <Settings size={18} />, action: () => onNavigate(View.ACCOUNT_SETTINGS) },
+            { 
+                id: 'rtfq-trainer', 
+                label: 'RTFQ Exam Defense Trainer', 
+                subtitle: 'Phil Croucher Anti-Trap Methodology & EASA Question Defense',
+                category: 'Study Engines', 
+                icon: <ShieldAlert size={18} className="text-amber-400" />, 
+                action: () => onNavigate(View.RTFQ_TRAINER) 
+            },
+            { 
+                id: 'croucher-cheatsheet', 
+                label: 'Pilot Decision Cheatsheet & Operational Rules', 
+                subtitle: 'V-speeds, climb gradients, AWO minima, 1-in-60, squawks',
+                category: 'Study Engines', 
+                icon: <BookMarked size={18} className="text-amber-400" />, 
+                action: () => {
+                    window.dispatchEvent(new CustomEvent('openCheatsheet'));
+                } 
+            },
 
             // Subjects
             ...NAV_MAP.flatMap(subject => [

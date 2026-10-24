@@ -248,5 +248,51 @@ export const subjectConfigs: Partial<Record<View, SubjectConfig>> = {
             { title: 'General Requirements', desc: 'MEL, Equipment, AOC, Safety.', view: View.OPS_GENERAL },
             { title: 'Ground Ops', desc: 'Marshalling & Safety.', view: View.AIR_LAW_GROUND_OPS },
         ]
+    },
+    [View.PERF_HOME]: {
+        subjectCode: "032",
+        subjectName: "Flight Performance",
+        color: "lime",
+        description: "Class A and B aeroplanes, declared distances, climb segments, and obstacle clearance.",
+        icon: TrendingUp,
+        modules: [
+            { title: 'Intro & Speeds', desc: 'Performance groups, V-speed hierarchy, and declared distances.', view: View.PERF_INTRO },
+            { title: 'Class A (Jets)', desc: 'CS-25 4 climb segments, Net vs Gross, and obstacle clearance.', view: View.PERF_CLASS_A },
+            { title: 'Class B (Props)', desc: 'Single and multi-engine piston/turboprop operations.', view: View.PERF_CLASS_B },
+            { title: 'Takeoff Lab', desc: 'Balanced field length (TODR = ASDR), clearways, and stopways.', view: View.PERF_TAKEOFF },
+            { title: 'Climb Lab', desc: 'Second segment gradients and driftdown profiles.', view: View.PERF_CLIMB },
+            { title: 'Cruise & Range', desc: 'Max range, Long Range Cruise, and altitude steps.', view: View.PERF_CRUISE },
+            { title: 'Landing Lab', desc: 'Factored landing distances (dry 1.67x, wet 1.92x, contaminated 2.33x).', view: View.PERF_LANDING },
+        ]
+    },
+    [View.FLIGHT_PLAN_HOME]: {
+        subjectCode: "033",
+        subjectName: "Flight Planning and Monitoring",
+        color: "sky",
+        description: "Fuel policy, navigation logs, ICAO flight plan Form 2012, and PET/PSR.",
+        icon: Map,
+        modules: [
+            { title: 'Planning Intro', desc: 'Route selection, airway charts, and airspace blocks.', view: View.FLIGHT_PLAN_INTRO },
+            { title: 'Fuel Planning', desc: 'Part-CAT fuel policy: taxi, trip, contingency, alternate, and final reserve.', view: View.FLIGHT_PLAN_FUEL },
+            { title: 'IFR Flight Plan', desc: 'ICAO Form 2012 / CA48 items and CTOT slot rules.', view: View.FLIGHT_PLAN_IFR },
+        ]
+    },
+    [View.MET_HOME]: {
+        subjectCode: "050",
+        subjectName: "Meteorology",
+        color: "teal",
+        description: "Atmospheric physics, stability, lapse rates, fronts, thunderstorms, and icing.",
+        icon: Cloud,
+        modules: [
+            { title: 'Atmosphere & ISA', desc: 'Layers, lapse rates, and ISA standard atmosphere.', view: View.MET_ATMOSPHERE },
+            { title: 'Altimetry & Q-Codes', desc: 'QNH, QFE, QNE, QFF, and cold temperature errors.', view: View.MET_ALTIMETRY },
+            { title: 'Wind & Circulation', desc: 'Geostrophic balance, PGF, Coriolis, and surface friction.', view: View.MET_WIND },
+            { title: 'Thermodynamics', desc: 'DALR, SALR, ELR stability and Bradbury cloudbase rule.', view: View.MET_TEMPERATURE },
+            { title: 'Frontal Systems', desc: 'Polar front lifecycle, warm vs cold front slopes and weather.', view: View.MET_FRONTS },
+            { title: 'Icing Hazards', desc: 'Clear vs rime ice, supercooled droplets, and freezing rain.', view: View.MET_ICING },
+            { title: 'Thunderstorms & Windshear', desc: 'Cb lifecycles, microbursts, and gust fronts.', view: View.MET_THUNDERSTORMS },
+            { title: 'Jetstreams & CAT', desc: 'Core dynamics, tropopause breaks, and Clear Air Turbulence.', view: View.MET_JET_STREAMS },
+            { title: 'METAR & TAF', desc: 'Automated weather decoder and airfield observation interpretation.', view: View.MET_METAR_TAF },
+        ]
     }
 };
