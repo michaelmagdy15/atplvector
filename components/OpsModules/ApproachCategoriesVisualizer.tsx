@@ -162,11 +162,11 @@ const ApproachCategoriesVisualizer: React.FC = () => {
         </div>
       </div>
 
-      {/* Visual References Croucher Framework */}
+      {/* Visual References EASA Standard Framework */}
       <div className="bg-slate-900 p-6 rounded-2xl border border-slate-700 space-y-4">
         <h3 className="font-bold text-white text-sm uppercase tracking-wider flex items-center gap-2">
           <Eye className="w-5 h-5 text-emerald-400" />
-          Required Visual References for Precision Approaches (Croucher Standard)
+          Required Visual References for Precision Approaches (EASA Standard)
         </h3>
         <div className="grid md:grid-cols-2 gap-4 text-xs">
           <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-2">

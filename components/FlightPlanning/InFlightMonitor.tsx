@@ -160,12 +160,12 @@ const InFlightMonitor: React.FC<Props> = ({ onChangeView }) => {
             </div>
           </div>
 
-          {/* Croucher 5% Deviation Rule Warning */}
+          {/* EASA Standard 5% Deviation Rule Warning */}
           {isHighFuelDeviation && (
             <div className="p-4 bg-amber-950/30 border border-amber-500/40 rounded-2xl flex items-start gap-3">
               <AlertTriangle className="text-amber-400 w-5 h-5 shrink-0 mt-0.5" />
               <div className="text-xs text-amber-200 leading-relaxed">
-                <strong className="text-amber-300">Croucher Ch 15 Operational Takeaway:</strong> Fuel burns must be cross-checked every 30–60 minutes in flight. A fuel burn deviation exceeding <strong>5% from the OFP</strong> (+{fuelDeviationPct.toFixed(1)}% detected here) requires immediate root-cause analysis: verify whether excess consumption is caused by unexpected headwinds/low altitude or an active <strong>fuel leak</strong>!
+                <strong className="text-amber-300">EASA Ch 15 Operational Takeaway:</strong> Fuel burns must be cross-checked every 30–60 minutes in flight. A fuel burn deviation exceeding <strong>5% from the OFP</strong> (+{fuelDeviationPct.toFixed(1)}% detected here) requires immediate root-cause analysis: verify whether excess consumption is caused by unexpected headwinds/low altitude or an active <strong>fuel leak</strong>!
               </div>
             </div>
           )}

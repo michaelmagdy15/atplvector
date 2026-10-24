@@ -22,7 +22,7 @@ export enum View {
   PLATFORM_PROGRESS = 'PLATFORM_PROGRESS',
   SAFE_FLIGHTS = 'SAFE_FLIGHTS',
   RTFQ_TRAINER = 'RTFQ_TRAINER',
-  CROUCHER_CHEATSHEET = 'CROUCHER_CHEATSHEET',
+  PILOT_CHEATSHEET = 'PILOT_CHEATSHEET',
 
   // Auth Specific
   AUTH_LOGIN = 'AUTH_LOGIN',
@@ -506,7 +506,7 @@ export interface IcaoAnnexDef {
   domain: string;
   focus: string;
   mnemonic: string;
-  croucherKey: string;
+  examKey: string;
   rtfqTrap: string;
 }
 
@@ -527,7 +527,7 @@ export interface MelIntervalDef {
   hoursOrDays: string;
   description: string;
   extensionAllowed: boolean;
-  croucherRule: string;
+  examRule: string;
 }
 
 export interface AwoMinimaDef {
@@ -536,7 +536,7 @@ export interface AwoMinimaDef {
   rvr: string;
   visualRefRequired: string;
   systemReq: string;
-  croucherNotes: string;
+  examNotes: string;
 }
 
 export interface DeicingHoldoverDef {

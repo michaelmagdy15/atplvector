@@ -297,13 +297,13 @@ const TotalDrag: React.FC = () => {
                 </div>
             </div>
 
-            {/* Croucher ch03 Frameworks & Mental Models */}
+            {/* EASA Aerodynamics Frameworks & Mental Models */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Mental Model: The Seesaw of Drag */}
                 <div className="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 space-y-3">
                     <div className="flex items-center gap-2 text-amber-400 font-bold text-sm">
                         <ArrowRightLeft size={20} />
-                        <span>Croucher Mental Model: &quot;The Seesaw of Drag&quot;</span>
+                        <span>Cockpit Mental Model: &quot;The Seesaw of Drag&quot;</span>
                     </div>
                     <p className="text-xs text-slate-300 leading-relaxed">
                         Picture induced drag on the left and parasite drag on the right of a seesaw. At low airspeeds, high angle of attack tilts the seesaw toward massive induced drag (<span className="text-red-400 font-mono">D<sub>i</sub> ∝ 1/V²</span>). As the aircraft accelerates, induced drag drops off steeply while parasite drag (<span className="text-emerald-400 font-mono">D<sub>p</sub> ∝ V²</span>) rocks up.

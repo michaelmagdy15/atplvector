@@ -254,7 +254,7 @@ const LateralDirectionalCoupling: React.FC<Props> = ({ onChangeView }) => {
           </div>
         </div>
 
-        {/* Right Column: Dynamic Animation & Croucher Principles (7/12) */}
+        {/* Right Column: Dynamic Animation & EASA Standard Principles (7/12) */}
         <div className="lg:col-span-7 space-y-6">
           {/* Visual Flight Motion Wireframe */}
           <div className="bg-slate-900/50 p-6 md:p-8 rounded-3xl border border-white/5 flex flex-col items-center justify-center min-h-[300px] relative overflow-hidden">
@@ -327,9 +327,9 @@ const LateralDirectionalCoupling: React.FC<Props> = ({ onChangeView }) => {
             </div>
           )}
 
-          {/* Croucher ch03 Principles & Anti-Patterns */}
+          {/* EASA Aerodynamics Principles & Anti-Patterns */}
           <div className="bg-slate-900/50 p-6 md:p-8 rounded-3xl border border-white/5 space-y-4">
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Croucher ATPL Principles: Swept Wings & Dutch Roll</h4>
+            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Aerodynamic Principles: Swept Wings & Dutch Roll</h4>
             
             <div className="space-y-3 text-xs text-slate-300">
               <div className="p-3 bg-slate-950 rounded-xl border border-white/5 space-y-1">

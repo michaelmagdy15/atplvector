@@ -109,7 +109,7 @@ export const ClassAPerf: React.FC = () => {
   const isSeg4Compliant = seg4GrossGrad >= seg4GrossReq;
 
   // -------------------------------------------------------------
-  // Croucher Chapter 9 Worked Example: Net Obstacle Clearance
+  // Class A Net Obstacle Clearance Worked Example: Net Obstacle Clearance
   // -------------------------------------------------------------
   // Default scenario: Tower at 4,000m (13,123 ft), elevation 280 ft above screen height
   const [obstacleDistanceMeters, setObstacleDistanceMeters] = useState<number>(4000);
@@ -197,7 +197,7 @@ export const ClassAPerf: React.FC = () => {
               <span className="text-xs font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/30">
                 EASA CS-25 & CAT.POL.A.200+
               </span>
-              <span className="text-xs text-slate-500 font-mono">Croucher Ch 09: Flight Performance</span>
+              <span className="text-xs text-slate-500 font-mono">EASA Ch 09: Flight Performance</span>
             </div>
             <h1 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
               Class A Jet Performance Masterclass
@@ -353,7 +353,7 @@ export const ClassAPerf: React.FC = () => {
               : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
         >
-          <Compass size={16} /> Croucher Obstacle Clearance (Net vs Gross)
+          <Compass size={16} /> Class A Obstacle Clearance (Net vs Gross)
         </button>
         <button
           onClick={() => setActiveTab('vSpeeds')}
@@ -609,14 +609,14 @@ export const ClassAPerf: React.FC = () => {
         </div>
       )}
 
-      {/* TAB 2: CROUCHER WORKED EXAMPLE INTERACTIVE OBSTACLE CALCULATOR */}
+      {/* TAB 2: NET OBSTACLE CLEARANCE CALCULATOR */}
       {activeTab === 'obstacleCalc' && (
         <div className="space-y-6 animate-in fade-in">
           <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-blue-950 border border-blue-500/30 rounded-3xl p-6 md:p-8 space-y-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <span className="text-xs font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">
-                  Croucher ATPL Ch 09 Worked Example
+                  EASA ATPL Ch 09 Worked Example
                 </span>
                 <h3 className="text-2xl font-black text-white mt-2">
                   Net Obstacle Clearance Verifier (Class A)
@@ -661,7 +661,7 @@ export const ClassAPerf: React.FC = () => {
                   onChange={(e) => setObstacleDistanceMeters(Number(e.target.value))}
                   className="w-full accent-blue-500"
                 />
-                <span className="text-[10px] text-slate-500">Croucher baseline: 4,000 meters (13,123 ft)</span>
+                <span className="text-[10px] text-slate-500">Standard baseline: 4,000 meters (13,123 ft)</span>
               </div>
 
               <div className="space-y-2">
@@ -678,7 +678,7 @@ export const ClassAPerf: React.FC = () => {
                   onChange={(e) => setObstacleElevationAboveScreenFt(Number(e.target.value))}
                   className="w-full accent-blue-500"
                 />
-                <span className="text-[10px] text-slate-500">Croucher baseline: 280 ft tower</span>
+                <span className="text-[10px] text-slate-500">Standard baseline: 280 ft tower</span>
               </div>
 
               <div className="space-y-2">
@@ -695,7 +695,7 @@ export const ClassAPerf: React.FC = () => {
                   onChange={(e) => setSimulatedGrossGradientPct(Number(e.target.value))}
                   className="w-full accent-rose-500"
                 />
-                <span className="text-[10px] text-slate-500">Croucher baseline: 3.4% Gross</span>
+                <span className="text-[10px] text-slate-500">Standard baseline: 3.4% Gross</span>
               </div>
             </div>
 

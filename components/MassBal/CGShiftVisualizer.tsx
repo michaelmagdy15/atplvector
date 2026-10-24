@@ -14,13 +14,13 @@ interface ScenarioPreset {
     mode: 'move' | 'find_mass' | 'add_remove';
     targetCg?: number;
     isAdded?: boolean;
-    croucherNote?: string;
+    examNote?: string;
 }
 
 const PRESETS: ScenarioPreset[] = [
     {
-        id: 'croucher-ch10',
-        title: 'Croucher Ch 10 Worked Example (60t Airliner)',
+        id: 'easa-ch10',
+        title: 'EASA Ch 10 Worked Example (60t Airliner)',
         description: 'CG is at 15.5m (0.5m out of fwd limit 16.0m). Moving baggage from Fwd Hold (10m) to Aft Hold (35m).',
         aircraftMass: 60000,
         oldCg: 15.5,
@@ -29,7 +29,7 @@ const PRESETS: ScenarioPreset[] = [
         unit: 'm',
         mode: 'find_mass',
         targetCg: 16.0,
-        croucherNote: 'Mass to Shift = Total Mass × (ΔCG / Distance) = 60,000 × (0.5 / 25.0) = 1,200 kg.'
+        examNote: 'Mass to Shift = Total Mass × (ΔCG / Distance) = 60,000 × (0.5 / 25.0) = 1,200 kg.'
     },
     {
         id: 'pax-reseat',
@@ -41,7 +41,7 @@ const PRESETS: ScenarioPreset[] = [
         dist: 20.0,
         unit: 'm',
         mode: 'move',
-        croucherNote: 'Standard Part-CAT adult passenger mass = 84 kg. Distance = 32m - 12m = 20m.'
+        examNote: 'Standard Part-CAT adult passenger mass = 84 kg. Distance = 32m - 12m = 20m.'
     },
     {
         id: 'ballast-add',
@@ -54,7 +54,7 @@ const PRESETS: ScenarioPreset[] = [
         unit: 'in',
         mode: 'add_remove',
         isAdded: true,
-        croucherNote: 'New CG = (Old Mass × Old CG + Added Mass × Added Arm) / (Old Mass + Added Mass).'
+        examNote: 'New CG = (Old Mass × Old CG + Added Mass × Added Arm) / (Old Mass + Added Mass).'
     }
 ];
 
@@ -167,7 +167,7 @@ const CGShiftVisualizer: React.FC = () => {
             <div className="bg-slate-900/70 p-4 rounded-xl border border-slate-700 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
                     <BookOpen className="w-4 h-4 text-cyan-400" />
-                    EASA & Croucher Worked Exam Scenarios:
+                    EASA Worked Exam Scenarios:
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                     {PRESETS.map(p => (
@@ -482,11 +482,11 @@ const CGShiftVisualizer: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Step-by-Step Croucher Formula Proof */}
+                    {/* Step-by-Step Formula Proof */}
                     <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-3 font-mono text-xs">
                         <div className="flex items-center justify-between border-b border-slate-800 pb-2">
                             <span className="text-cyan-400 font-bold uppercase tracking-wider">
-                                Croucher Mathematical Proof (Ch 10 Formula)
+                                Aviation Mathematical Proof (Mass & Balance Formula)
                             </span>
                             <span className="text-[11px] text-slate-500 font-sans">EASA ATPL 031 Standard</span>
                         </div>

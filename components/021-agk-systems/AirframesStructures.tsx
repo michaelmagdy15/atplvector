@@ -173,7 +173,7 @@ export default function AirframesStructures() {
                             <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6">
                                 <h4 className="text-sm font-mono uppercase text-blue-400 tracking-wider font-bold mb-3 flex items-center gap-2">
                                     <Compass className="w-4 h-4" />
-                                    Croucher Mental Model: "The Spider Web"
+                                    Cockpit Mental Model: "The Spider Web"
                                 </h4>
                                 <p className="text-sm text-slate-300 leading-relaxed">
                                     Think of modern airframes like a web. Severing one strand transfers tension to surrounding strands without causing the web to tear apart. But under <em>Damage Tolerance</em>, technicians inspect the web regularly so micro-frays are repaired before dynamic aerodynamic loads tear the web.
@@ -481,7 +481,7 @@ export default function AirframesStructures() {
                             <div className="space-y-4">
                                 <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
                                     <h4 className="text-sm font-mono uppercase text-blue-400 font-bold mb-2">
-                                        Croucher Mental Model: "The Lever"
+                                        Cockpit Mental Model: "The Lever"
                                     </h4>
                                     <p className="text-xs text-slate-300 leading-relaxed mb-3">
                                         Adding lead weights <strong>forward of the control surface hinge line</strong> shifts the surface center of gravity ahead of the pivot. When the wing flexes upwards, the inertia of the lead mass forces the trailing edge down, counteracting wing twisting and extinguishing resonant vibration!
@@ -564,7 +564,7 @@ export default function AirframesStructures() {
                         <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 overflow-hidden">
                             <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                                 <Wrench className="text-blue-400" />
-                                Aerospace Structural Materials Matrix (Croucher Ch 02)
+                                Aerospace Structural Materials Matrix (EASA Ch 02)
                             </h3>
 
                             <div className="overflow-x-auto">

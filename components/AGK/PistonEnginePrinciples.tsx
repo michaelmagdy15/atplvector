@@ -43,7 +43,7 @@ const PistonEnginePrinciples: React.FC = () => {
                     </p>
                 </div>
                 <div className="bg-slate-900/80 border border-slate-800 px-4 py-2 rounded-xl text-xs text-slate-400">
-                    <span className="text-orange-400 font-bold uppercase tracking-wider">Croucher ATPL Chapter 5</span> Grounded
+                    <span className="text-orange-400 font-bold uppercase tracking-wider">EASA ATPL Engines Chapter</span> Grounded
                 </div>
             </div>
 
@@ -299,13 +299,13 @@ const OttoCycle: React.FC = () => {
                 </div>
             </div>
 
-            {/* CROUCHER CHAPTER 5 COMPARISON TABLE: OTTO VS BRAYTON */}
+            {/* THERMODYNAMIC COMPARISON TABLE: OTTO VS BRAYTON */}
             <div className="bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-2xl shadow-xl">
                 <div className="flex items-center gap-3 mb-6">
                     <Scale className="text-orange-400 w-6 h-6" />
                     <div>
                         <h3 className="text-xl font-bold text-white">Otto Cycle vs Continuous Brayton Cycle</h3>
-                        <p className="text-xs text-slate-400 mt-0.5">Core comparison from Croucher ATPL Ch05 (Engines)</p>
+                        <p className="text-xs text-slate-400 mt-0.5">Core comparison from EASA ATPL Ch05 (Engines)</p>
                     </div>
                 </div>
 
@@ -375,7 +375,7 @@ const MixtureControl: React.FC = () => {
     const [mixture, setMixture] = useState(100); // 0 (Cutoff) to 100 (Full Rich)
 
     // Air density decreases with altitude.
-    // If un-leaned during climb, mixture becomes increasingly over-rich (anti-pattern from Croucher ch05).
+    // If un-leaned during climb, mixture becomes increasingly over-rich (anti-pattern from EASA Engines Module).
     const optimalMixture = Math.max(0, 100 - (altitude / 10000) * 35);
     const deviation = mixture - optimalMixture;
 
@@ -402,7 +402,7 @@ const MixtureControl: React.FC = () => {
         cht = 350;
         status = "Severely Over-Rich (High Altitude Un-leaned)";
         statusColor = "text-blue-400";
-        riskNote = "Croucher Ch05 Anti-Pattern: Excess fuel causes spark plug lead fouling, carbon deposits, and severe power loss!";
+        riskNote = "EASA Engines Module Anti-Pattern: Excess fuel causes spark plug lead fouling, carbon deposits, and severe power loss!";
     } else if (deviation > 5) {
         egt = 1420;
         cht = 425;
@@ -683,7 +683,7 @@ const IgnitionSystem: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* CROUCHER CH05: IMPULSE COUPLING MASTERCLASS */}
+                    {/* MAGNETO IMPULSE COUPLING MASTERCLASS */}
                     <div className="bg-slate-900 border border-slate-800 p-6 rounded-2xl shadow-xl space-y-3">
                         <div className="flex items-center gap-2">
                             <RotateCw className="text-orange-400 w-5 h-5" />

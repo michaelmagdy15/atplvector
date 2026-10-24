@@ -353,7 +353,7 @@ const HighLiftDevices: React.FC = () => {
                 </div>
             </div>
 
-            {/* Croucher ch03 Boundary Layer Physics Table */}
+            {/* EASA Aerodynamics Boundary Layer Physics Table */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 space-y-3">
                     <div className="flex items-center gap-2 text-sky-400 font-bold text-sm">

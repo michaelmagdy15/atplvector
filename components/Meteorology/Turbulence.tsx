@@ -115,7 +115,7 @@ const Turbulence: React.FC = () => {
                         <div className="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
                             <h4 className="text-base font-bold text-white flex items-center gap-2">
                                 <EyeOff className="text-red-400" size={18} />
-                                Radar Invisibility Hazard (Croucher Ch 14)
+                                Radar Invisibility Hazard (EASA Ch 14)
                             </h4>
                             <p className="text-xs text-slate-300 leading-relaxed">
                                 Airborne weather radar operates on electromagnetic backscatter from liquid water droplets and wet hail. CAT occurs in completely moisture-free clear air. <strong>Airborne weather radar CANNOT detect CAT!</strong>

@@ -217,13 +217,13 @@ const GroundEffect: React.FC = () => {
                 </div>
             </div>
 
-            {/* Croucher ch03 Principles & Anti-Patterns */}
+            {/* EASA Aerodynamics Principles & Anti-Patterns */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Anti-Pattern: Stretching Glide in Ground Effect */}
                 <div className="bg-red-950/20 border border-red-500/30 p-6 rounded-2xl space-y-3">
                     <div className="flex items-center gap-2 text-red-400 font-bold text-sm">
                         <ShieldAlert size={20} />
-                        <span>Croucher Anti-Pattern: Stretching a Glide in Ground Effect</span>
+                        <span>Critical Flight Pitfall: Stretching a Glide in Ground Effect</span>
                     </div>
                     <p className="text-xs text-slate-300 leading-relaxed">
                         Pulling back on the control column to stretch a landing flare increases angle of attack. As the aircraft slows or slightly balloons out of the sweet spot of ground effect, induced drag rockets up (<span className="text-red-400 font-mono">D<sub>i</sub> ∝ 1/V²</span>), airspeed collapses, and the aircraft drops onto the runway in an abrupt, heavy touchdown with possible tailstrike.

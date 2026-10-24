@@ -123,7 +123,7 @@ const FrontalSystems: React.FC = () => {
                                     key="cold-card"
                                     title="Cold Front Dynamics"
                                     description="Dense polar air aggressively undercuts the warm moist air mass. The steep frontal slope (1:50) acts as a high-speed wedge, throwing warm air vertically into violent convective overturning."
-                                    examTip="Croucher Exam Rule: Slope 1:50 • Speed 25-50 kts • Severe Squall Lines • Abrupt Wind Veer & Rapid Pressure Spike"
+                                    examTip="Exam Golden Rule: Slope 1:50 • Speed 25-50 kts • Severe Squall Lines • Abrupt Wind Veer & Rapid Pressure Spike"
                                     tags={['Steep 1:50 Slope', 'Cumulonimbus (CB)', 'Hail & Microbursts', 'Abrupt Veer', 'Excellent Post-Front Vis']}
                                     colorTheme="blue"
                                 />
@@ -133,7 +133,7 @@ const FrontalSystems: React.FC = () => {
                                     key="warm-card"
                                     title="Warm Front Dynamics"
                                     description="Lighter tropical air glides over a retreating wedge of cold air. The gentle slope (1:150 to 1:200) forces gradual widespread stratiform condensation extending up to 800-1,000 km ahead."
-                                    examTip="Croucher Cloud Warning Sequence: Ci → Cs (Halo) → As (Watery Sun) → Ns (Continuous Rain) • Steady Wind Veer"
+                                    examTip="Cloud Warning Sequence: Ci → Cs (Halo) → As (Watery Sun) → Ns (Continuous Rain) • Steady Wind Veer"
                                     tags={['Shallow 1:150 Slope', 'Ci → Cs → As → Ns', 'Continuous Steady Rain', 'Low Ceilings', 'Poor Visibility / Mist']}
                                     colorTheme="red"
                                 />
@@ -154,7 +154,7 @@ const FrontalSystems: React.FC = () => {
                         <div className="bg-amber-500/10 rounded-2xl p-6 border border-amber-500/20 flex items-start gap-4">
                             <AlertTriangle className="text-amber-400 shrink-0 mt-0.5" />
                             <div>
-                                <h4 className="text-white font-bold text-sm mb-1">Croucher Tactical Rule: Frontal Penetration</h4>
+                                <h4 className="text-white font-bold text-sm mb-1">Tactical Flight Rule: Frontal Penetration</h4>
                                 <p className="text-slate-300 text-xs leading-relaxed">
                                     Never attempt to penetrate a cold front near the <strong>apex (center of the Low)</strong>. Convergence and vertical velocities peak at the wave tip, harboring embedded microbursts, severe turbulence, and line squalls. Cross perpendicularly at the lowest active radar intensity or circumnavigate.
                                 </p>
@@ -168,7 +168,7 @@ const FrontalSystems: React.FC = () => {
                     <div>
                         <h3 className="text-2xl font-bold text-white mb-2">The Norwegian Polar Front Model (Depression Lifecycle)</h3>
                         <p className="text-slate-400 text-sm">
-                            The full 5-stage evolutionary lifecycle of an extratropical frontal depression (Croucher Ch 14).
+                            The full 5-stage evolutionary lifecycle of an extratropical frontal depression (EASA Ch 14).
                         </p>
                     </div>
 
@@ -228,20 +228,20 @@ const FrontalSystems: React.FC = () => {
                 </div>
             )}
 
-            {/* Comprehensive Croucher Ch 14 Frontal Reference Table */}
+            {/* Comprehensive EASA Ch 14 Frontal Reference Table */}
             <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 space-y-6">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
                         <h3 className="text-xl font-bold text-white flex items-center gap-2">
                             <Layers className="text-indigo-400" size={20} />
-                            Croucher Frontal Systems Comparison Matrix
+                            Frontal Systems Comparison Matrix
                         </h3>
                         <p className="text-slate-400 text-xs mt-1">
                             Exact ATPL examination benchmarks for synoptic parameters across both frontal types.
                         </p>
                     </div>
                     <span className="text-xs font-mono px-3 py-1 bg-slate-950 text-indigo-300 rounded-full border border-indigo-500/30">
-                        Croucher Ch 14 Official Table
+                        EASA Ch 14 Official Table
                     </span>
                 </div>
 

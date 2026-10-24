@@ -223,7 +223,7 @@ interface Props {
   onClose: () => void;
 }
 
-export const CroucherCheatsheetModal: React.FC<Props> = ({ isOpen, onClose }) => {
+export const PilotCheatsheetModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const [search, setSearch] = useState('');
   const [selectedCat, setSelectedCat] = useState<string>('ALL');
   const [copiedText, setCopiedText] = useState<string | null>(null);
@@ -268,7 +268,7 @@ export const CroucherCheatsheetModal: React.FC<Props> = ({ isOpen, onClose }) =>
             </div>
             <div>
               <div className="text-xs font-mono uppercase tracking-wider text-amber-400 font-semibold flex items-center gap-1.5">
-                Phil Croucher EPPS Quick Reference
+                EASA ATPL Quick Reference
               </div>
               <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
                 Operational Pilot Cheatsheet
@@ -397,7 +397,7 @@ export const CroucherCheatsheetModal: React.FC<Props> = ({ isOpen, onClose }) =>
 
         {/* Footer */}
         <div className="px-6 py-3 bg-slate-950 border-t border-white/10 flex items-center justify-between text-xs text-slate-500 font-mono">
-          <span>Phil Croucher • EASA Professional Pilot Studies Reference</span>
+          <span>EASA Professional Pilot Operations Reference</span>
           <span>Tip: Tap any value to copy to scratchpad</span>
         </div>
       </div>
@@ -405,4 +405,4 @@ export const CroucherCheatsheetModal: React.FC<Props> = ({ isOpen, onClose }) =>
   );
 };
 
-export default CroucherCheatsheetModal;
+export default PilotCheatsheetModal;

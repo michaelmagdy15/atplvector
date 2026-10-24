@@ -143,7 +143,7 @@ const ColdFront2D: React.FC = () => {
                 {/* Banner with Wind Veer & Hazard Alert */}
                 <rect x="20" y="15" width="410" height="26" rx="6" fill="#0f172a" fillOpacity="0.85" stroke="#334155" strokeWidth="1" />
                 <text x="30" y="32" fill="#60a5fa" fontSize="11" fontWeight="bold">
-                    Croucher: Slope 1:50 • Abrupt Wind Veer • Squalls & Hail
+                    EASA Profile: Slope 1:50 • Abrupt Wind Veer • Squalls & Hail
                 </text>
             </svg>
         </div>

@@ -5,7 +5,7 @@ const StandardMasses: React.FC = () => {
     const [mopsc, setMopsc] = useState(180);
     const [includeHandBag, setIncludeHandBag] = useState(true);
 
-    // EASA Part-CAT Standard masses (Croucher Ch 10)
+    // EASA Part-CAT Standard masses (EASA Ch 10)
     const flightCrew = 85; // kg includes hand baggage
     const cabinCrew = 75;  // kg includes hand baggage
     const handBaggage = 6; // kg
@@ -62,7 +62,7 @@ const StandardMasses: React.FC = () => {
                     Standard <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-500">Mass Values</span>
                 </h1>
                 <p className="text-slate-400 mt-2 text-sm">
-                    EASA Part-CAT passenger and crew standard mass tables & MOPSC regulations (Croucher Ch 10)
+                    EASA Part-CAT passenger and crew standard mass tables & MOPSC regulations (EASA Ch 10)
                 </p>
             </div>
 
@@ -115,14 +115,14 @@ const StandardMasses: React.FC = () => {
                 </div>
             </div>
 
-            {/* Croucher EASA Passenger Standards Table */}
+            {/* EASA Standard EASA Passenger Standards Table */}
             <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 space-y-4">
                 <div className="flex justify-between items-center border-b border-slate-700 pb-3">
                     <h3 className="text-lg font-bold text-white flex items-center gap-2">
                         <Users className="text-emerald-400" />
                         EASA Part-CAT Passenger Standard Mass Values (MOPSC ≥ 20)
                     </h3>
-                    <span className="text-xs font-mono text-emerald-400 font-bold">Croucher Ch 10</span>
+                    <span className="text-xs font-mono text-emerald-400 font-bold">EASA Ch 10</span>
                 </div>
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

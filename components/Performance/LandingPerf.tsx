@@ -67,7 +67,7 @@ export const LandingPerf: React.FC = () => {
               <span className="text-xs font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30">
                 EASA CS-25 & CAT.POL.A.230
               </span>
-              <span className="text-xs text-slate-500 font-mono">Croucher Ch 09: Landing Performance</span>
+              <span className="text-xs text-slate-500 font-mono">EASA Ch 09: Landing Performance</span>
             </div>
             <h1 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
               Landing Distance Required (LDR) Engine
@@ -300,7 +300,7 @@ export const LandingPerf: React.FC = () => {
 
       </div>
 
-      {/* Interactive Controls & Croucher Regulatory Rules Grid */}
+      {/* Interactive Controls & EASA Standard Regulatory Rules Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         {/* Left Column: Sliders & Condition Selectors */}
@@ -430,7 +430,7 @@ export const LandingPerf: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Column: Croucher Ch 09 Theory & Regulatory Standards */}
+        {/* Right Column: EASA Ch 09 Theory & Regulatory Standards */}
         <div className="lg:col-span-6 space-y-4">
           
           {/* The 60% Rule Card */}

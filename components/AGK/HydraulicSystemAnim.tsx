@@ -672,7 +672,7 @@ const HydraulicSystemAnim: React.FC = () => {
                                     </div>
                                 </div>
 
-                                {/* Reset to Croucher Example Button */}
+                                {/* Reset to Standard Example Button */}
                                 <button
                                     onClick={() => {
                                         setPascalSysPressure(3000);
@@ -680,14 +680,14 @@ const HydraulicSystemAnim: React.FC = () => {
                                     }}
                                     className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-xl text-xs font-bold transition-colors"
                                 >
-                                    Load Croucher Chapter 4 Worked Example (3000 PSI, 3" Piston)
+                                    Load Standard Chapter 4 Worked Example (3000 PSI, 3" Piston)
                                 </button>
                             </div>
 
                             {/* Worked Example Card */}
                             <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 space-y-4">
                                 <h4 className="text-sm font-mono uppercase text-purple-400 font-bold">
-                                    Croucher Worked Example: Flap Actuator Sizing
+                                    Hydraulics Worked Example: Flap Actuator Sizing
                                 </h4>
                                 <div className="space-y-3 text-xs text-slate-300 leading-relaxed">
                                     <p>

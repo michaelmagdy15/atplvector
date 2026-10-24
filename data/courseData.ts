@@ -257,7 +257,7 @@ export const AIRSPACE_DATA: AirspaceData[] = [
 ];
 
 // =========================================================================
-// CROUCHER FRAMEWORK: ICAO ANNEXES (1 TO 19)
+// EASA OPERATIONAL FRAMEWORK: ICAO ANNEXES (1 TO 19)
 // =========================================================================
 export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
   {
@@ -266,7 +266,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Personnel',
     focus: 'Flight crew, ATC, and maintenance personnel licensing, ratings, medical certificates.',
     mnemonic: '1 pilot at the controls holding a licence.',
-    croucherKey: 'Class 1 medical validity: 12 months (6 months for 60+ in multi-crew, 40+ in single-pilot commercial pax ops).',
+    examKey: 'Class 1 medical validity: 12 months (6 months for 60+ in multi-crew, 40+ in single-pilot commercial pax ops).',
     rtfqTrap: 'TRAP: Commercial operations over 60 years old: cannot fly single-pilot CAT; multi-crew allowed up to 65 if other pilot is under 60.'
   },
   {
@@ -275,7 +275,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Operations',
     focus: 'General flight rules, Right of Way rules, VMC minima, Special VFR, semi-circular level rules.',
     mnemonic: '2 rules of the road (VFR & IFR).',
-    croucherKey: 'Convergence is a Watch Hands Rule: Always give way to the right; head-on both turn right; overtake on the right.',
+    examKey: 'Convergence is a Watch Hands Rule: Always give way to the right; head-on both turn right; overtake on the right.',
     rtfqTrap: 'TRAP: Aircraft being overtaken has right of way! Overtaking aircraft must alter heading to the right and keep out of the way.'
   },
   {
@@ -284,7 +284,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Environment',
     focus: 'METAR, TAF, SPECI, SIGMET, AIRMET, VOLMET, and meteorological briefing standards.',
     mnemonic: '3 cloud layers (Low, Medium, High).',
-    croucherKey: 'SIGMET covers severe phenomena affecting ALL aircraft (severe turbulence, severe icing, volcanic ash, severe mountain waves).',
+    examKey: 'SIGMET covers severe phenomena affecting ALL aircraft (severe turbulence, severe icing, volcanic ash, severe mountain waves).',
     rtfqTrap: 'TRAP: AIRMET is specifically for LOW-LEVEL operations (below FL 100 or FL 150 in mountainous terrain); SIGMET is for all flight levels.'
   },
   {
@@ -293,7 +293,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Operations',
     focus: 'Standard chart projections, scales, colors, symbols, WAC 1:1,000,000, Topographic 1:500,000, Instrument Approach Charts.',
     mnemonic: '4 corners of a navigation map / 4 cardinal points.',
-    croucherKey: 'Lambert Conformal Conic is standard for mid-latitudes; Mercator for equatorial routes; Polar Stereographic for polar regions.',
+    examKey: 'Lambert Conformal Conic is standard for mid-latitudes; Mercator for equatorial routes; Polar Stereographic for polar regions.',
     rtfqTrap: 'TRAP: 1:500,000 chart is mandatory for visual air navigation; WAC 1:1,000,000 covers larger continental regions.'
   },
   {
@@ -302,7 +302,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Technical',
     focus: 'SI units, standardized non-SI alternatives (nautical miles, knots, feet).',
     mnemonic: '5 fingers on a hand for measuring.',
-    croucherKey: 'Standard vertical dimension: Foot (ft); horizontal distance: Nautical Mile (NM); speed: Knot (kt); altimeter: Hectopascal (hPa).',
+    examKey: 'Standard vertical dimension: Foot (ft); horizontal distance: Nautical Mile (NM); speed: Knot (kt); altimeter: Hectopascal (hPa).',
     rtfqTrap: 'TRAP: Standard pressure is 1013.25 hPa (or mb), NOT 1013.25 psi!'
   },
   {
@@ -311,7 +311,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Operations',
     focus: 'Part I (Commercial Air Transport - Aeroplanes), Part II (General Aviation), Part III (Helicopters). Operator responsibilities, MEL, oxygen, fuel.',
     mnemonic: 'Route 66 of aircraft operations.',
-    croucherKey: 'Part-CAT Operations Manual: Part A (General), Part B (Type-specific / MEL), Part C (Routes & Aerodromes), Part D (Training).',
+    examKey: 'Part-CAT Operations Manual: Part A (General), Part B (Type-specific / MEL), Part C (Routes & Aerodromes), Part D (Training).',
     rtfqTrap: 'TRAP: Operator MEL can NEVER be less restrictive than the Master MEL (MMEL) created by the manufacturer and certified by the state.'
   },
   {
@@ -320,7 +320,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Technical',
     focus: 'Common marks, registration lettering, fireproof identification plate, state of registry.',
     mnemonic: 'Lucky 007 license plate on an aircraft tail.',
-    croucherKey: 'Aircraft have nationality of the State where registered (Chicago Art 17). Dual registration is strictly prohibited (Art 18).',
+    examKey: 'Aircraft have nationality of the State where registered (Chicago Art 17). Dual registration is strictly prohibited (Art 18).',
     rtfqTrap: 'TRAP: Identification plate must be secured to the aircraft in a prominent position near the main entrance or exterior tail, made of fireproof metal.'
   },
   {
@@ -329,7 +329,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Technical',
     focus: 'Type certification, Certificate of Airworthiness (CofA), continuing airworthiness, Airworthiness Directives (ADs).',
     mnemonic: 'Figure 8 is an infinity loop of continuous maintenance.',
-    croucherKey: 'State of Design issues Type Certificate; State of Manufacture oversees production; State of Registry issues and maintains CofA.',
+    examKey: 'State of Design issues Type Certificate; State of Manufacture oversees production; State of Registry issues and maintains CofA.',
     rtfqTrap: 'TRAP: Under EASA, the CofA has unlimited validity, but remains valid ONLY if the Airworthiness Review Certificate (ARC) is renewed annually.'
   },
   {
@@ -338,7 +338,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Administration',
     focus: 'Customs, immigration, public health, baggage clearance, airport transit areas, passenger manifest, cargo declaration.',
     mnemonic: 'Cloud 9 smooth passage through border control.',
-    croucherKey: 'States must facilitate smooth customs/immigration without unnecessary delay to international air commerce.',
+    examKey: 'States must facilitate smooth customs/immigration without unnecessary delay to international air commerce.',
     rtfqTrap: 'TRAP: General Declaration (GenDec) and Passenger Manifest are required documents under Annex 9 for border crossing facilitation.'
   },
   {
@@ -347,7 +347,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Technical',
     focus: 'Vol I (Radio Nav Aids), Vol II (Comms Procedures), Vol III (Data links), Vol IV (Surveillance radar & ACAS), Vol V (Freq spectrum).',
     mnemonic: '10-4 Roger on the radio telecom frequency.',
-    croucherKey: 'Emergency frequencies: 121.5 MHz (VHF guard), 243.0 MHz (military UHF), 406 MHz (COSPAS-SARSAT digital ELT).',
+    examKey: 'Emergency frequencies: 121.5 MHz (VHF guard), 243.0 MHz (military UHF), 406 MHz (COSPAS-SARSAT digital ELT).',
     rtfqTrap: 'TRAP: ACAS II (TCAS II) mandates Resolution Advisories (RA) in vertical plane only; pilots must follow RA immediately, overriding ATC.'
   },
   {
@@ -356,7 +356,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Operations',
     focus: 'Air Traffic Control (ATC), Flight Information Service (FIS), Alerting Service. Airspace classes A through G.',
     mnemonic: '11 = Two parallel control towers watching the runway.',
-    croucherKey: 'ATS has 3 core services: ATC (prevent collisions), FIS (advice and useful info), Alerting Service (notify SAR organizations).',
+    examKey: 'ATS has 3 core services: ATC (prevent collisions), FIS (advice and useful info), Alerting Service (notify SAR organizations).',
     rtfqTrap: 'TRAP: Alerting service is provided to ALL aircraft with a flight plan, and to all aircraft known to ATS, even in Class G uncontrolled airspace!'
   },
   {
@@ -365,7 +365,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Safety',
     focus: 'Emergency phases (INCERFA, ALERFA, DETRESFA), SAR regions, ground-to-air visual signaling codes.',
     mnemonic: '12 disciples searching / 121.5 MHz homing.',
-    croucherKey: 'Emergency Phases: 1) INCERFA (Uncertainty - no comms within 30 min of ETA), 2) ALERFA (Alert - failed comms, apprehension), 3) DETRESFA (Distress - grave danger).',
+    examKey: 'Emergency Phases: 1) INCERFA (Uncertainty - no comms within 30 min of ETA), 2) ALERFA (Alert - failed comms, apprehension), 3) DETRESFA (Distress - grave danger).',
     rtfqTrap: 'TRAP: Ground-to-air signal "V" means "Require assistance"; "X" means "Require medical assistance"; "Y" means "Yes/Affirmative"; "N" means "No/Negative".'
   },
   {
@@ -374,7 +374,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Safety',
     focus: 'Investigation procedures, notification, state rights, accredited representative, safety recommendations.',
     mnemonic: 'Unlucky 13 accident investigation.',
-    croucherKey: 'The SOLE objective of investigation is the PREVENTION of future accidents and incidents. NOT to apportion blame or legal liability!',
+    examKey: 'The SOLE objective of investigation is the PREVENTION of future accidents and incidents. NOT to apportion blame or legal liability!',
     rtfqTrap: 'TRAP: State of Occurrence leads investigation. Accredited representatives can be appointed by State of Registry, Operator, Design, Manufacture.'
   },
   {
@@ -383,7 +383,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Infrastructure',
     focus: 'Vol I (Aerodrome Design & Operations - runways, taxiways, lighting, markings, RFF), Vol II (Heliports).',
     mnemonic: 'Runway 14 at the aerodrome.',
-    croucherKey: 'Aerodrome Reference Code: Code Number (Runway field length 1 to 4) + Code Letter (Wingspan & Outer Main Gear Wheel Span A to F).',
+    examKey: 'Aerodrome Reference Code: Code Number (Runway field length 1 to 4) + Code Letter (Wingspan & Outer Main Gear Wheel Span A to F).',
     rtfqTrap: 'TRAP: RFF Category response time: Mandatory 2 minutes, not exceeding 3 minutes to the end of each operational runway.'
   },
   {
@@ -392,7 +392,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Information',
     focus: 'Integrated Aeronautical Information Package: AIP, AIP Supplements, AIC (Aeronautical Information Circulars), NOTAM, Pre-flight PIB.',
     mnemonic: '15 NOTAMs printed in your pre-flight briefing packet.',
-    croucherKey: 'AIRAC cycle is strictly 28 days! Operationally significant changes must be distributed 28 days in advance (or 56 days for major changes).',
+    examKey: 'AIRAC cycle is strictly 28 days! Operationally significant changes must be distributed 28 days in advance (or 56 days for major changes).',
     rtfqTrap: 'TRAP: AIC Series A is distributed internationally; Series B is distributed nationally only. White = admin, Yellow = ops, Pink = safety, Green = maps.'
   },
   {
@@ -401,7 +401,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Environment',
     focus: 'Vol I (Aircraft Noise certification - Chapters 2, 3, 4, 14), Vol II (Aircraft Engine Emissions), Vol III (CO2 emissions).',
     mnemonic: 'Sweet 16 quiet neighborhood (noise abatement).',
-    croucherKey: 'Chapter 14 is the most stringent current noise standard. Chapter 3 and Chapter 4 phased out older Chapter 2 "heavy roar" jets.',
+    examKey: 'Chapter 14 is the most stringent current noise standard. Chapter 3 and Chapter 4 phased out older Chapter 2 "heavy roar" jets.',
     rtfqTrap: 'TRAP: Noise certificate must be carried on board during international operations under Chicago Convention Article 29.'
   },
   {
@@ -410,7 +410,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Security',
     focus: 'Airport security zones, access control, baggage screening, cockpit door security, unruly passengers, hijack procedures.',
     mnemonic: 'Armed security guard on patrol at 1700 hours.',
-    croucherKey: 'Flight deck door on commercial transport must be bullet-proof/intrusion-resistant, lockable from inside, with CCTV/spyhole monitoring.',
+    examKey: 'Flight deck door on commercial transport must be bullet-proof/intrusion-resistant, lockable from inside, with CCTV/spyhole monitoring.',
     rtfqTrap: 'TRAP: Transponder code 7500 indicates Unlawful Interference / Hijack. If unable to talk, pilot sets 7500 on squawk.'
   },
   {
@@ -419,7 +419,7 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Safety',
     focus: 'Classes 1 through 9 hazardous materials, forbidden goods, Cargo Aircraft Only (CAO), NOTOC, packaging, labeling.',
     mnemonic: '18+ legal age for handling explosive and hazardous cargo.',
-    croucherKey: 'NOTOC (Notification to Captain) must be delivered in writing to the Pilot-in-Command BEFORE departure, indicating location and hazard classes.',
+    examKey: 'NOTOC (Notification to Captain) must be delivered in writing to the Pilot-in-Command BEFORE departure, indicating location and hazard classes.',
     rtfqTrap: 'TRAP: Class 1 = Explosives; Class 7 = Radioactive; Class 8 = Corrosives; Class 9 = Miscellaneous (includes Lithium batteries and dry ice).'
   },
   {
@@ -428,13 +428,13 @@ export const ICAO_ANNEXES_DATA: IcaoAnnexDef[] = [
     domain: 'Safety',
     focus: 'State Safety Programme (SSP), Safety Management Systems (SMS), Safety Risk Management (SRM), Safety Assurance, Just Culture.',
     mnemonic: 'COVID-19 pandemic triggered the latest global safety management evolution.',
-    croucherKey: 'SMS 4 Pillars: 1) Safety Policy & Objectives, 2) Safety Risk Management, 3) Safety Assurance, 4) Safety Promotion.',
+    examKey: 'SMS 4 Pillars: 1) Safety Policy & Objectives, 2) Safety Risk Management, 3) Safety Assurance, 4) Safety Promotion.',
     rtfqTrap: 'TRAP: Mandatory Occurrence Reporting (MOR) under Just Culture protects honest human error from punitive prosecution, except in cases of gross negligence.'
   }
 ];
 
 // =========================================================================
-// CROUCHER FRAMEWORK: CHICAGO FREEDOMS OF THE AIR (1ST TO 5TH & CABOTAGE)
+// EASA OPERATIONAL FRAMEWORK: CHICAGO FREEDOMS OF THE AIR (1ST TO 5TH & CABOTAGE)
 // =========================================================================
 export const FREEDOMS_OF_THE_AIR_DATA: FreedomOfAirDef[] = [
   {
@@ -530,7 +530,7 @@ export const FREEDOMS_OF_THE_AIR_DATA: FreedomOfAirDef[] = [
 ];
 
 // =========================================================================
-// CROUCHER FRAMEWORK: MEL DISPATCH INTERVALS & LOGIC
+// EASA OPERATIONAL FRAMEWORK: MEL DISPATCH INTERVALS & LOGIC
 // =========================================================================
 export const MEL_DISPATCH_INTERVALS_DATA: MelIntervalDef[] = [
   {
@@ -539,7 +539,7 @@ export const MEL_DISPATCH_INTERVALS_DATA: MelIntervalDef[] = [
     hoursOrDays: 'Variable (flight cycles, calendar hours, or specific days)',
     description: 'No standard default interval; must be rectified within the exact time limit, flight cycles, or date specified in the Remarks or Exceptions column.',
     extensionAllowed: false,
-    croucherRule: 'Category A rectification intervals CANNOT be extended by the operator under any circumstances! Non-extendable.'
+    examRule: 'Category A rectification intervals CANNOT be extended by the operator under any circumstances! Non-extendable.'
   },
   {
     category: 'B',
@@ -547,7 +547,7 @@ export const MEL_DISPATCH_INTERVALS_DATA: MelIntervalDef[] = [
     hoursOrDays: '72 Hours (excluding the day of defect discovery)',
     description: 'Items in this category shall be rectified within 3 consecutive calendar days (72 hours), beginning at midnight on the day the defect was recorded in the aircraft technical log.',
     extensionAllowed: true,
-    croucherRule: 'Clock starts at MIDNIGHT on the day of discovery. Can be extended once for an additional 3 days (72h) under approved Rectification Interval Extension (RIE).'
+    examRule: 'Clock starts at MIDNIGHT on the day of discovery. Can be extended once for an additional 3 days (72h) under approved Rectification Interval Extension (RIE).'
   },
   {
     category: 'C',
@@ -555,7 +555,7 @@ export const MEL_DISPATCH_INTERVALS_DATA: MelIntervalDef[] = [
     hoursOrDays: '240 Hours (excluding the day of defect discovery)',
     description: 'Items in this category shall be rectified within 10 consecutive calendar days (240 hours), beginning at midnight on the day of discovery.',
     extensionAllowed: true,
-    croucherRule: 'Most common avionics and auxiliary equipment interval. Clock starts at 00:00 midnight that night. Can be extended once for an additional 10 days (240h) with RIE.'
+    examRule: 'Most common avionics and auxiliary equipment interval. Clock starts at 00:00 midnight that night. Can be extended once for an additional 10 days (240h) with RIE.'
   },
   {
     category: 'D',
@@ -563,12 +563,12 @@ export const MEL_DISPATCH_INTERVALS_DATA: MelIntervalDef[] = [
     hoursOrDays: '120 consecutive calendar days',
     description: 'Optional / non-essential equipment items (e.g. cabin entertainment, passenger convenience systems) to be rectified within 120 consecutive calendar days.',
     extensionAllowed: false,
-    croucherRule: 'Category D items are strictly for convenience and cosmetic items. Non-extendable under standard EASA RIE rules.'
+    examRule: 'Category D items are strictly for convenience and cosmetic items. Non-extendable under standard EASA RIE rules.'
   }
 ];
 
 // =========================================================================
-// CROUCHER FRAMEWORK: ALL-WEATHER OPERATIONS (AWO) MINIMA & APPROACH BAN
+// EASA OPERATIONAL FRAMEWORK: ALL-WEATHER OPERATIONS (AWO) MINIMA & APPROACH BAN
 // =========================================================================
 export const AWO_OPERATING_MINIMA_DATA: AwoMinimaDef[] = [
   {
@@ -577,7 +577,7 @@ export const AWO_OPERATING_MINIMA_DATA: AwoMinimaDef[] = [
     rvr: '>= 550 m (or vis >= 800 m)',
     visualRefRequired: 'At least ONE light element of approach or runway lights (e.g. approach lights, threshold, TDZ, or runway edge).',
     systemReq: 'Standard ILS receiver, flight director, or autopilot coupled.',
-    croucherNotes: 'Standard precision approach. If visual reference lost below DH, immediate go-around mandatory.'
+    examNotes: 'Standard precision approach. If visual reference lost below DH, immediate go-around mandatory.'
   },
   {
     category: 'CAT II',
@@ -585,7 +585,7 @@ export const AWO_OPERATING_MINIMA_DATA: AwoMinimaDef[] = [
     rvr: '>= 300 m',
     visualRefRequired: 'At least THREE consecutive lights of approach centerline, runway centerline, TDZ lights, or edge lights PLUS a lateral ground pattern element.',
     systemReq: 'Autoland or HUD approved to touchdown, dual flight directors, auto-throttle, radio altimeter mandatory.',
-    croucherNotes: 'Requires LVP in force at aerodrome. Decision Height based on Radio Altimeter (RA).'
+    examNotes: 'Requires LVP in force at aerodrome. Decision Height based on Radio Altimeter (RA).'
   },
   {
     category: 'CAT IIIA',
@@ -593,7 +593,7 @@ export const AWO_OPERATING_MINIMA_DATA: AwoMinimaDef[] = [
     rvr: '>= 175 m (ICAO 200 m / EASA 175 m)',
     visualRefRequired: 'At least THREE consecutive lights of runway centerline or touchdown zone lights.',
     systemReq: 'Fail-passive autoland system minimum; automatic rollout or manual rollout with visual reference.',
-    croucherNotes: 'Fail-passive: In the event of a failure, there is no significant out-of-trim condition, but pilot must disconnect and complete landing manually.'
+    examNotes: 'Fail-passive: In the event of a failure, there is no significant out-of-trim condition, but pilot must disconnect and complete landing manually.'
   },
   {
     category: 'CAT IIIB',
@@ -601,7 +601,7 @@ export const AWO_OPERATING_MINIMA_DATA: AwoMinimaDef[] = [
     rvr: '75 m <= RVR < 175 m',
     visualRefRequired: 'At least ONE centerline light.',
     systemReq: 'Fail-operational autoland and automatic rollout system mandatory.',
-    croucherNotes: 'Fail-operational: Following any failure below alert height, approach, flare, and landing can be completed automatically by the remaining channel.'
+    examNotes: 'Fail-operational: Following any failure below alert height, approach, flare, and landing can be completed automatically by the remaining channel.'
   },
   {
     category: 'CAT IIIC',
@@ -609,12 +609,12 @@ export const AWO_OPERATING_MINIMA_DATA: AwoMinimaDef[] = [
     rvr: 'NO RVR limitation (0 m)',
     visualRefRequired: 'None required for landing or rollout (Zero-Zero).',
     systemReq: 'Full automated landing, rollout, and taxi guidance.',
-    croucherNotes: 'Zero-Zero operations. Currently theoretical and NOT operationally approved anywhere in the world due to emergency vehicle evacuation limitations!'
+    examNotes: 'Zero-Zero operations. Currently theoretical and NOT operationally approved anywhere in the world due to emergency vehicle evacuation limitations!'
   }
 ];
 
 // =========================================================================
-// CROUCHER FRAMEWORK: DE-ICING, HOLDOVER TIMES & CLEAN AIRCRAFT CONCEPT
+// EASA OPERATIONAL FRAMEWORK: DE-ICING, HOLDOVER TIMES & CLEAN AIRCRAFT CONCEPT
 // =========================================================================
 export const DEICING_HOLDOVER_DATA: DeicingHoldoverDef[] = [
   {
@@ -651,7 +651,7 @@ export const DEICING_HOLDOVER_DATA: DeicingHoldoverDef[] = [
     minVr: 'Vr >= 100 kt (high-speed transport jets)',
     hotRange: 'Longest (typically 45 minutes to 3+ hours in light frost/snow)',
     primaryUse: 'Advanced Anti-icing: Highest viscosity and longest Holdover Time for heavy commercial airline operations.',
-    keyRule: 'Croucher Rule: The Holdover Time clock begins at the START of the anti-icing application step, NEVER when spraying finishes!'
+    keyRule: 'Golden Rule: The Holdover Time clock begins at the START of the anti-icing application step, NEVER when spraying finishes!'
   }
 ];
 

@@ -335,7 +335,7 @@ export default function AirConditioningPressurization() {
                             <div className="lg:col-span-2 space-y-6">
                                 <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
                                     <h3 className="text-xl font-bold text-white mb-4">
-                                        Croucher Mental Model: "The Leaky Bucket"
+                                        Cockpit Mental Model: "The Leaky Bucket"
                                     </h3>
                                     <p className="text-sm text-slate-300 leading-relaxed mb-6">
                                         Engine bleed air provides a <em>continuous, constant inflow</em> of air into the pressure vessel—like a wide-open water tap running at full bore. The <strong>Outflow Valve</strong> at the bottom of the fuselage is the variable drain plug. By adjusting the size of the drain, the pressurization controller maintains the exact desired air mass and cabin altitude.

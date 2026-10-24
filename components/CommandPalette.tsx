@@ -49,13 +49,13 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose, onNavi
             { 
                 id: 'rtfq-trainer', 
                 label: 'RTFQ Exam Defense Trainer', 
-                subtitle: 'Phil Croucher Anti-Trap Methodology & EASA Question Defense',
+                subtitle: 'EASA ATPL Anti-Trap Methodology & Question Defense',
                 category: 'Study Engines', 
                 icon: <ShieldAlert size={18} className="text-amber-400" />, 
                 action: () => onNavigate(View.RTFQ_TRAINER) 
             },
             { 
-                id: 'croucher-cheatsheet', 
+                id: 'pilot-cheatsheet', 
                 label: 'Pilot Decision Cheatsheet & Operational Rules', 
                 subtitle: 'V-speeds, climb gradients, AWO minima, 1-in-60, squawks',
                 category: 'Study Engines', 

@@ -17,7 +17,7 @@ export const routes: Record<string, React.LazyExoticComponent<any>> = {
     [View.PROGRESS_DASHBOARD]: React.lazy(() => import('../components/ProgressDashboard')),
     [View.PLATFORM_PROGRESS]: React.lazy(() => import('../components/PlatformProgress')),
     [View.RTFQ_TRAINER]: React.lazy(() => import('../components/study/RTFQExamTrainer')),
-    [View.CROUCHER_CHEATSHEET]: React.lazy(() => import('../components/study/CroucherCheatsheetModal') as any),
+    [View.PILOT_CHEATSHEET]: React.lazy(() => import('../components/study/PilotCheatsheetModal') as any),
     // [View.SAFE_FLIGHTS]: React.lazy(() => import('../components/SafeFlights/SafeFlightsApp')), // TODO: Port SafeFlights from separate project
 
     // Concepts & Foundations

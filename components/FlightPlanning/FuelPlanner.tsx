@@ -377,7 +377,7 @@ const FuelPlanner: React.FC<Props> = ({ onChangeView }) => {
             </div>
           </div>
 
-          {/* Mandatory Emergency Fuel Protocol Section (Croucher Ch 15) */}
+          {/* Mandatory Emergency Fuel Protocol Section (EASA Ch 15) */}
           <div className="bg-slate-900/60 p-6 md:p-8 rounded-3xl border border-red-500/30 space-y-4">
             <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
               <Shield className="w-6 h-6 text-red-400" />
@@ -386,7 +386,7 @@ const FuelPlanner: React.FC<Props> = ({ onChangeView }) => {
                   In-Flight Emergency Fuel Declarations (Part-CAT)
                 </h3>
                 <p className="text-xs text-slate-400">
-                  Croucher Mental Model: "Final Reserve is Untouchable Concrete"
+                  Cockpit Mental Model: "Final Reserve is Untouchable Concrete"
                 </p>
               </div>
             </div>

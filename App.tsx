@@ -34,7 +34,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { ToastProvider } from './components/ui/ToastContext';
 import FocusTimer from './components/study/FocusTimer';
 import Scratchpad from './components/study/Scratchpad';
-const CroucherCheatsheetModal = React.lazy(() => import('./components/study/CroucherCheatsheetModal'));
+const PilotCheatsheetModal = React.lazy(() => import('./components/study/PilotCheatsheetModal'));
 import {
     Plane as PlaneIcon, Menu, X, BookOpen, Settings, Weight,
     Users, Cloud, Compass, Wifi, TrendingUp, Map, FolderCog, Wind, Search, Activity, Calendar, Clock, Radio, ChevronLeft, Shield, Gauge, Layers
@@ -1065,7 +1065,7 @@ const App: React.FC = () => {
                             <Scratchpad />
                             {cheatsheetOpen && (
                                 <React.Suspense fallback={null}>
-                                    <CroucherCheatsheetModal
+                                    <PilotCheatsheetModal
                                         isOpen={cheatsheetOpen}
                                         onClose={() => setCheatsheetOpen(false)}
                                     />

@@ -428,7 +428,7 @@ const MacVisualizer: React.FC = () => {
 
                     {/* Step-by-Step Mathematical Proof Card */}
                     <div className="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3 font-mono text-xs">
-                        <span className="text-purple-400 font-bold uppercase tracking-wider block">Croucher Mathematical Proof (Ch 10)</span>
+                        <span className="text-purple-400 font-bold uppercase tracking-wider block">Mathematical Proof (Mass & Balance Formula)</span>
                         {direction === 'stationToMac' ? (
                             <div className="space-y-2 text-slate-300">
                                 <div className="p-2 bg-slate-900 rounded border border-slate-800 text-purple-300 font-bold">

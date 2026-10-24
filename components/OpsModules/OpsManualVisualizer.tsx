@@ -294,7 +294,7 @@ const OpsManualVisualizer: React.FC = () => {
                     {mel.description}
                   </p>
                   <div className="p-3 bg-emerald-950/20 rounded-lg border border-emerald-500/20 text-xs text-emerald-200">
-                    <strong>Croucher Gold Rule:</strong> {mel.croucherRule}
+                    <strong>Operational Golden Rule:</strong> {mel.examRule}
                   </div>
                 </div>
               );

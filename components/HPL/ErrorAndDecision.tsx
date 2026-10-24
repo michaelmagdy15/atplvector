@@ -989,7 +989,7 @@ const SwissCheeseModel: React.FC = () => {
 
                 {/* Mental Model Callout */}
                 <div className="mt-4 p-4 rounded-lg bg-sky-950/40 border border-sky-500/30 text-xs text-sky-200">
-                    <strong className="text-sky-300 font-bold block mb-1">🧠 Croucher ATPL Mental Model: "The Swiss Cheese Alignment"</strong>
+                    <strong className="text-sky-300 font-bold block mb-1">🧠 Cockpit Mental Model: "The Swiss Cheese Alignment"</strong>
                     "Never look for a single villain in an incident; find the holes in training, procedures, and cockpit ergonomics that permitted the active slip to become catastrophic."
                 </div>
             </div>

@@ -231,7 +231,7 @@ const Icing: React.FC = () => {
                     <div className="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
                         <h4 className="text-base font-bold text-white flex items-center gap-2">
                             <AlertTriangle className="text-red-400" size={18} />
-                            Aerodynamic Degradation (Croucher Ch 14)
+                            Aerodynamic Degradation (EASA Ch 14)
                         </h4>
 
                         <div className="space-y-3 text-xs">
@@ -268,7 +268,7 @@ const Icing: React.FC = () => {
                             Freezing rain requires an <strong>inversion aloft</strong>. Snow or ice crystals fall into an upper warm wedge (&gt;0°C), melt into liquid rain, and then fall through a sub-zero cold dome near the ground.
                         </p>
                         <div className="p-3 bg-slate-950 rounded-xl border border-purple-500/20 text-xs">
-                            <span className="text-purple-300 font-bold block mb-1">Croucher Mandatory Action:</span>
+                            <span className="text-purple-300 font-bold block mb-1">EASA Standard Mandatory Action:</span>
                             <div className="flex items-center gap-2 text-white font-bold">
                                 <RotateCcw size={14} className="text-emerald-400" /> Immediate 180° Turn OR Climb
                             </div>

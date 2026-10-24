@@ -632,7 +632,7 @@ export function evaluateObstacleClearance(
 
 /**
  * ============================================================================
- * CROUCHER ATPL CHAPTER 9 ENHANCEMENTS: REGULATORY FORMULAS & FRAMEWORKS
+ * EASA ATPL PERFORMANCE ENHANCEMENTS: REGULATORY FORMULAS & FRAMEWORKS
  * ============================================================================
  */
 
@@ -943,7 +943,7 @@ export function getCs25ClimbSegments(engineCount: EngineCount): ClimbSegmentSpec
 }
 
 /**
- * 12. Net Obstacle Clearance Evaluator (Croucher Ch09 Worked Example)
+ * 12. Net Obstacle Clearance Evaluator (EASA Standard Ch09 Worked Example)
  * - Regulatory net margin: -0.8% (twin), -0.9% (tri), -1.0% (quad)
  * - Required obstacle clearance: 35 ft (dry runway) / 15 ft (wet runway)
  * - Screen height: 35 ft (dry) / 15 ft (wet)

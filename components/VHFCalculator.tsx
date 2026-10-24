@@ -58,7 +58,7 @@ const VHFCalculator: React.FC = () => {
           onClick={() => loadPreset(400, 36000)}
           className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-sky-300 rounded-xl border border-slate-700"
         >
-          Croucher ATPL: FL360 + 400 ft VOR (258 NM)
+          Standard ATPL: FL360 + 400 ft VOR (258 NM)
         </button>
         <button
           onClick={() => loadPreset(100, 10000)}

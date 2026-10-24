@@ -524,10 +524,10 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
         </div>
       </div>
 
-      {/* Phil Croucher EASA Exam Defense & Reference Engine */}
+      {/* EASA Exam Defense & Reference Engine */}
       <div className="mt-12 flex items-end justify-between gap-4 mb-5 pb-3 border-b border-line">
         <div>
-          <div className="hud-label text-amber-400 mb-1">03 // EXAM DEFENSE &amp; CROUCHER METHODOLOGY</div>
+          <div className="hud-label text-amber-400 mb-1">03 // EXAM DEFENSE &amp; ATPL METHODOLOGY</div>
           <h2 className="font-display text-2xl md:text-3xl font-medium tracking-[-0.03em] text-ink">
             RTFQ Defense &amp; <Accent className="text-amber-400">Operational Cheatsheet</Accent>
           </h2>
@@ -550,7 +550,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
         >
           <div>
             <div className="flex items-center justify-between mb-5">
-              <span className="hud-label text-amber-400">EXAM DEFENSE // PHIL CROUCHER CH 00</span>
+              <span className="hud-label text-amber-400">EXAM DEFENSE // EASA ATPL METHODOLOGY</span>
               <ShieldAlert size={18} className="text-amber-400" />
             </div>
             <h3 className="font-display text-2xl font-medium text-ink mb-2 group-hover:text-amber-400 transition-colors">

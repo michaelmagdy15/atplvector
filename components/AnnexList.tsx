@@ -78,7 +78,7 @@ const AnnexList: React.FC = () => {
               The 19 ICAO Annexes (SARPs)
             </h2>
             <p className="text-slate-400 text-sm">
-              Chicago Convention Standards & Recommended Practices • Complete Reference & Croucher Memory Hooks
+              Chicago Convention Standards & Recommended Practices • Complete Reference & Operational Memory Hooks
             </p>
           </div>
         </div>
@@ -180,7 +180,7 @@ const AnnexList: React.FC = () => {
                 </span>
               </div>
               <p className="text-xs text-slate-300 leading-relaxed">
-                <strong>Core Rule:</strong> {currentDrillAnnex.croucherKey}
+                <strong>Core Rule:</strong> {currentDrillAnnex.examKey}
               </p>
               <div className="p-3 bg-red-950/20 rounded-xl border border-red-500/30 text-xs text-red-300">
                 {currentDrillAnnex.rtfqTrap}
@@ -287,11 +287,11 @@ const AnnexList: React.FC = () => {
                     </p>
                   </div>
 
-                  {/* Croucher Mnemonic */}
+                  {/* Operational Mnemonic */}
                   <div className="p-4 bg-indigo-950/40 rounded-2xl border border-indigo-500/30 space-y-1">
                     <div className="flex items-center gap-2 text-indigo-300 font-bold text-xs uppercase tracking-wider">
                       <Lightbulb size={16} className="text-amber-400" />
-                      Croucher Memory Hook
+                      Operational Memory Hook
                     </div>
                     <p className="text-xs text-white font-medium italic">
                       "{selectedAnnex.mnemonic}"
@@ -304,7 +304,7 @@ const AnnexList: React.FC = () => {
                       Core Exam Principle:
                     </span>
                     <p className="text-xs text-slate-300 leading-relaxed">
-                      {selectedAnnex.croucherKey}
+                      {selectedAnnex.examKey}
                     </p>
                   </div>
 

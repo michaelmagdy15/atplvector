@@ -255,7 +255,7 @@ const JetStreams: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
-                                    <div className="text-[10px] text-red-400 uppercase font-bold">Croucher Ch 14 CAT Doctrine</div>
+                                    <div className="text-[10px] text-red-400 uppercase font-bold">EASA Ch 14 CAT Doctrine</div>
                                     <p className="text-[11px] text-slate-300 leading-relaxed">
                                         Severe CAT concentrates on the <strong className="text-red-400">cold low-pressure side (poleward)</strong> and directly beneath the jet core (up to 7,000 ft below tropopause break).
                                     </p>

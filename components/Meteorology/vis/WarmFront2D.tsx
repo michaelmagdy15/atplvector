@@ -145,7 +145,7 @@ const WarmFront2D: React.FC = () => {
                 {/* Sequence Banner on Top */}
                 <rect x="20" y="15" width="360" height="26" rx="6" fill="#0f172a" fillOpacity="0.85" stroke="#334155" strokeWidth="1" />
                 <text x="30" y="32" fill="#f87171" fontSize="11" fontWeight="bold">
-                    Croucher Sequence: Ci → Cs → As → Ns (Advance Warning)
+                    Cloud Sequence: Ci → Cs → As → Ns (Advance Warning)
                 </text>
             </svg>
         </div>

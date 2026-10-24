@@ -843,7 +843,7 @@ export const TakeoffPerf: React.FC<TakeoffPerfProps> = ({ onChangeView }) => {
         </div>
       )}
 
-      {/* TAB 2: BALANCED FIELD LENGTH CONCEPT (CROUCHER CH 09) */}
+      {/* TAB 2: BALANCED FIELD LENGTH CONCEPT (CS-25) */}
       {activeTab === 'balancedField' && (
         <div className="space-y-6 animate-in fade-in">
           
@@ -852,7 +852,7 @@ export const TakeoffPerf: React.FC<TakeoffPerfProps> = ({ onChangeView }) => {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <span className="text-xs font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                  Croucher ATPL Ch 09: Optimization Framework
+                  EASA ATPL Ch 09: Optimization Framework
                 </span>
                 <h2 className="text-2xl md:text-3xl font-black text-white mt-2">
                   The Balanced Field Length Concept: TODR = ASDR at V1

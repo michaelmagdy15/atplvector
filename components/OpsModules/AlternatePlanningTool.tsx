@@ -312,10 +312,10 @@ const AlternatePlanningTool: React.FC = () => {
               </span>
             </div>
 
-            {/* Croucher Rule Breakdown */}
+            {/* EASA Standard Rule Breakdown */}
             <div className="bg-slate-900 p-5 rounded-2xl border border-slate-700 text-xs space-y-3">
               <span className="font-bold text-white uppercase text-[10px] block">
-                Croucher Exam Rule: The "No-Alternate" Triple Gate
+                Exam Golden Rule: The "No-Alternate" Triple Gate
               </span>
               <p className="text-slate-400 leading-relaxed">
                 To dispatch without a destination alternate, you MUST satisfy ALL THREE conditions simultaneously:

@@ -206,7 +206,7 @@ const OneInSixty: React.FC = () => {
                                 onClick={setWorkedExample}
                                 className="text-xs px-2.5 py-1 rounded bg-indigo-500/20 text-indigo-300 font-mono hover:bg-indigo-500/30 border border-indigo-500/30"
                             >
-                                Load Croucher ATPL Example
+                                Load Standard ATPL Example
                             </button>
                         </div>
 

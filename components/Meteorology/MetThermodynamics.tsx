@@ -48,7 +48,7 @@ const MetThermodynamics: React.FC = () => {
 const StabilityModule: React.FC = () => {
     const [elr, setElr] = useState(2.0); // Environmental Lapse Rate C/1000ft
 
-    // Croucher canonical ATPL values
+    // Standard canonical ATPL values
     const dalr = 3.0; // 3.0°C / 1,000 ft (1.0°C / 100m)
     const salr = 1.8; // ~1.8°C / 1,000 ft (0.6°C / 100m)
     const isaLapse = 2.0; // Standard atmosphere: 1.98°C rounded to 2.0°C / 1,000 ft
@@ -267,7 +267,7 @@ const StabilityModule: React.FC = () => {
                 <div className="bg-slate-900 border border-slate-800 p-6 rounded-3xl">
                     <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                         <BookOpen size={18} className="text-orange-400" />
-                        ATPL Stability Framework (Croucher Ch 14)
+                        ATPL Stability Framework (EASA Ch 14)
                     </h3>
                     <div className="space-y-4 text-sm">
                         <div className="p-3 bg-slate-950 rounded-xl border border-slate-800">
@@ -305,7 +305,7 @@ const StabilityModule: React.FC = () => {
                 <div className="bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/20 p-6 rounded-3xl">
                     <h4 className="text-sm font-bold text-amber-300 uppercase tracking-wider mb-2 flex items-center gap-2">
                         <AlertTriangle size={16} />
-                        Croucher Operational Rules of Thumb
+                        Operational Flight Rules of Thumb
                     </h4>
                     <ul className="text-xs text-slate-300 space-y-2 leading-relaxed">
                         <li>
@@ -442,11 +442,11 @@ const CloudBaseModule: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Croucher Worked Example Box */}
+                {/* Operational Worked Example Box */}
                 <div className="mt-8 bg-slate-800/40 p-6 rounded-2xl border border-white/5 space-y-4">
                     <h4 className="text-sm font-bold text-white flex items-center gap-2">
                         <Sparkles size={16} className="text-amber-400" />
-                        Croucher Ch 14 Official Worked Example
+                        EASA Ch 14 Official Worked Example
                     </h4>
                     <div className="bg-slate-950 p-4 rounded-xl font-mono text-xs text-slate-300 border border-slate-800">
                         <span className="text-teal-400 font-bold">METAR:</span> EHAM 121200Z 24015KT 9999 <span className="text-amber-300 font-bold">FEW040</span> 18/08 Q1015

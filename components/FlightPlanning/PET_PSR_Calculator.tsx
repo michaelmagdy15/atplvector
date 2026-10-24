@@ -21,8 +21,8 @@ interface ScenarioPreset {
 
 const PRESETS: ScenarioPreset[] = [
   {
-    id: 'croucher-ch15',
-    name: 'Croucher Ch 15 Worked Example',
+    id: 'easa-ch15',
+    name: 'EASA Ch 15 Worked Example',
     desc: '1,200 NM oceanic sector, 420 kt TAS, 40 kt Headwind outbound. Returning is faster with tailwind.',
     distance: 1200,
     tas: 420,
@@ -150,11 +150,11 @@ const PET_PSR_Calculator: React.FC<Props> = ({ onChangeView }) => {
         </div>
       </div>
 
-      {/* Croucher Presets Bar */}
+      {/* Standard Flight Presets Bar */}
       <div className="bg-slate-900/60 p-4 rounded-2xl border border-slate-700 space-y-2">
         <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
           <BookOpen className="w-4 h-4 text-blue-400" />
-          Pre-Loaded Croucher & EASA Exam Sectors:
+          Pre-Loaded Standard EASA Exam Sectors:
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {PRESETS.map(p => (
@@ -280,7 +280,7 @@ const PET_PSR_Calculator: React.FC<Props> = ({ onChangeView }) => {
           </div>
         </div>
 
-        {/* Right Column: Visual Timeline & Croucher Math Proof (7/12 cols) */}
+        {/* Right Column: Visual Timeline & Navigation Math Proof (7/12 cols) */}
         <div className="lg:col-span-7 space-y-6">
           {/* Visual Scale Diagram */}
           <div className="bg-slate-900/50 p-6 md:p-8 rounded-3xl border border-white/5 space-y-6">
@@ -381,11 +381,11 @@ const PET_PSR_Calculator: React.FC<Props> = ({ onChangeView }) => {
               </div>
             </div>
 
-            {/* Croucher Mental Model Box */}
+            {/* Cockpit Mental Model Box */}
             <div className="p-4 bg-blue-950/20 border border-blue-500/30 rounded-2xl flex items-start gap-3">
               <Info className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
               <div className="text-xs text-slate-300 leading-relaxed">
-                <strong className="text-blue-400">Croucher Mental Model: "Wind Shifts the PET Into the Wind":</strong> Notice that an outbound headwind shifts the PET forward <em>towards the destination</em> ({Math.round(dPet)} NM &gt; {halfDistance} NM). This happens because the aircraft returns home with a high-speed tailwind ({gsHome} KT), making the return flight faster than the outbound leg!
+                <strong className="text-blue-400">Cockpit Mental Model: "Wind Shifts the PET Into the Wind":</strong> Notice that an outbound headwind shifts the PET forward <em>towards the destination</em> ({Math.round(dPet)} NM &gt; {halfDistance} NM). This happens because the aircraft returns home with a high-speed tailwind ({gsHome} KT), making the return flight faster than the outbound leg!
               </div>
             </div>
 
@@ -407,10 +407,10 @@ const PET_PSR_Calculator: React.FC<Props> = ({ onChangeView }) => {
             )}
           </div>
 
-          {/* Mathematical Proof Card (Croucher Ch 15) */}
+          {/* Mathematical Proof Card (EASA Ch 15) */}
           <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-3 font-mono text-xs">
             <span className="text-blue-400 font-bold uppercase tracking-wider block">
-              Croucher Mathematical Proof (Ch 15 Formulas)
+              Mathematical Proof (PET / PSR Navigation Formulas)
             </span>
 
             <div className="space-y-3 text-slate-300">

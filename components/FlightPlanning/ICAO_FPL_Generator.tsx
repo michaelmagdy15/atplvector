@@ -440,7 +440,7 @@ const ICAO_FPL_Generator: React.FC<Props> = ({ onChangeView }) => {
               )}
             </div>
 
-            {/* CTOT Slot Window Simulation (Croucher Ch 15 Rule) */}
+            {/* CTOT Slot Window Simulation (EASA Ch 15 Rule) */}
             <div className="bg-slate-900/50 p-6 rounded-3xl border border-white/5 space-y-4">
               <div className="flex items-center gap-2 text-cyan-400 text-xs font-bold uppercase tracking-wider">
                 <Clock className="w-4 h-4" />
@@ -651,11 +651,11 @@ const ICAO_FPL_Generator: React.FC<Props> = ({ onChangeView }) => {
                 </div>
               </div>
 
-              {/* Step Climb & Optimum Altitude Theory (Croucher Ch 15) */}
+              {/* Step Climb & Optimum Altitude Theory (EASA Ch 15) */}
               <div className="bg-slate-900/60 p-6 rounded-3xl border border-white/5 space-y-4">
                 <h4 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
                   <TrendingUp className="w-4 h-4 text-cyan-400" />
-                  Step Climbs & Optimum Aerodynamic Altitude (Croucher Ch 15)
+                  Step Climbs & Optimum Aerodynamic Altitude (EASA Ch 15)
                 </h4>
 
                 <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-3 text-xs text-slate-300">

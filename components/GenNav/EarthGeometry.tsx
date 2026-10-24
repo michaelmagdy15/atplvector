@@ -763,7 +763,7 @@ const EarthGeometry: React.FC<Props> = ({ onNavigate }) => {
                             </div>
 
                             <div className="p-4 bg-indigo-950/30 border border-indigo-500/30 rounded-2xl text-xs space-y-2">
-                                <span className="font-bold text-indigo-300 block">Worked Example from Croucher ATPL:</span>
+                                <span className="font-bold text-indigo-300 block">Operational Worked Example:</span>
                                 <p className="text-slate-300 leading-relaxed font-mono">
                                     A Rhumb line track from A (52°N 010°W) to B (52°N 020°E) is 090°T.<br />
                                     • ΔLong = 10°W + 20°E = 30°<br />

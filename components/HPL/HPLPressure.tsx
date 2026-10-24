@@ -309,7 +309,7 @@ const DecompressionSection = () => {
         }
     };
 
-    // Croucher ATPL TUC Table
+    // Standard ATPL TUC Table
     const tucTable = [
         { alt: 'FL 180 (18,000 ft)', normal: '30 to 60 min', rapid: '15 to 30 min', comment: 'Noticeable judgment drop, euphoria' },
         { alt: 'FL 200 (20,000 ft)', normal: '10 min', rapid: '5 min', comment: 'Coordination loss, blue fingernails' },

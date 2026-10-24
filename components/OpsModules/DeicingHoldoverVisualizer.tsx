@@ -95,13 +95,13 @@ const DeicingHoldoverVisualizer: React.FC = () => {
         </div>
       </div>
 
-      {/* Croucher Mental Model Banner */}
+      {/* Cockpit Mental Model Banner */}
       <div className="bg-gradient-to-r from-amber-500/10 via-slate-900 to-cyan-500/10 border-l-4 border-amber-500 p-5 rounded-r-xl border border-slate-700/50">
         <div className="flex items-start gap-3">
           <AlertTriangle className="text-amber-400 w-6 h-6 shrink-0 mt-0.5" />
           <div>
             <h4 className="text-amber-300 font-black text-sm uppercase tracking-wider mb-1">
-              CROUCHER CORE MENTAL MODEL: The Clock Starts with the First Drop
+              CORE OPERATIONAL MENTAL MODEL: The Clock Starts with the First Drop
             </h4>
             <p className="text-slate-300 text-xs md:text-sm leading-relaxed">
               <strong>The Holdover Time clock begins at the START of the final application step</strong> (the anti-icing step), 

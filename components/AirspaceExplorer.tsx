@@ -14,11 +14,11 @@ const AirspaceExplorer: React.FC = () => {
         </p>
       </div>
 
-      {/* Croucher Mental Model Banner */}
+      {/* Cockpit Mental Model Banner */}
       <div className="bg-slate-900 border border-indigo-500/30 p-4 rounded-2xl flex items-center gap-3">
         <Info className="text-indigo-400 w-5 h-5 shrink-0" />
         <p className="text-xs text-indigo-200">
-          <strong>Croucher Mental Model — "Controlled Airspace as a Filter":</strong> Class A blocks all VFR; Class B separates everyone from everyone; 
+          <strong>Cockpit Mental Model — "Controlled Airspace as a Filter":</strong> Class A blocks all VFR; Class B separates everyone from everyone; 
           Class C and D progressively offload separation responsibilities to VFR pilots; Class E controls only IFR; and Class G provides no separation.
         </p>
       </div>

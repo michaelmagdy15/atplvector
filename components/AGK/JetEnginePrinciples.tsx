@@ -67,7 +67,7 @@ const JetEnginePrinciples: React.FC = () => {
                     </p>
                 </div>
                 <div className="bg-slate-900/80 border border-slate-800 px-4 py-2 rounded-xl text-xs text-slate-400">
-                    <span className="text-orange-400 font-bold uppercase tracking-wider">Croucher ATPL Chapter 5</span> Grounded
+                    <span className="text-orange-400 font-bold uppercase tracking-wider">EASA ATPL Engines Chapter</span> Grounded
                 </div>
             </div>
 
@@ -173,11 +173,11 @@ const BraytonCycle: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Anti-Pattern Alert from Croucher Ch05 */}
+                    {/* Anti-Pattern Alert from EASA Engines Module */}
                     <div className="w-full mt-4 p-3 bg-red-950/30 border border-red-900/40 rounded-xl text-xs text-red-300 flex items-start gap-2">
                         <AlertTriangle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
                         <div>
-                            <strong>Croucher Ch05 Anti-Pattern:</strong> Snapping turbine throttles open abruptly dumps excess fuel into combustors, spikes backpressure, and drives compressor blades into an <strong>instantaneous surge</strong>.
+                            <strong>EASA Engines Module Anti-Pattern:</strong> Snapping turbine throttles open abruptly dumps excess fuel into combustors, spikes backpressure, and drives compressor blades into an <strong>instantaneous surge</strong>.
                         </div>
                     </div>
                 </div>
@@ -231,7 +231,7 @@ const BraytonCycle: React.FC = () => {
                 </div>
             </div>
 
-            {/* Direct Croucher ATPL Reference Table */}
+            {/* Direct Standard ATPL Reference Table */}
             <div className="bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-2xl shadow-xl">
                 <div className="flex items-center gap-3 mb-6">
                     <Scale className="text-orange-400 w-6 h-6" />
@@ -308,7 +308,7 @@ const DiffuserAirflow: React.FC = () => {
                         <Wind className="text-sky-400 w-6 h-6" />
                         <div>
                             <h3 className="text-xl font-bold text-white">The Divergent Duct Principle</h3>
-                            <p className="text-xs text-slate-400">Mental Model from Croucher ATPL Ch05</p>
+                            <p className="text-xs text-slate-400">Mental Model from EASA ATPL Ch05</p>
                         </div>
                     </div>
 
@@ -429,7 +429,7 @@ const EngineTypesAndBPR: React.FC = () => {
                 </div>
             </div>
 
-            {/* CROUCHER CH05 INTERACTIVE BPR CALCULATOR */}
+            {/* TURBOFAN HIGH/LOW BPR CALCULATOR */}
             <div className="bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-2xl shadow-xl space-y-6">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
                     <div>
@@ -438,7 +438,7 @@ const EngineTypesAndBPR: React.FC = () => {
                             High-Bypass Turbofan Thrust Split &amp; Efficiency Calculator
                         </h3>
                         <p className="text-xs text-slate-400 mt-1">
-                            Grounding Croucher Ch05: 80% thrust from fan cold air, 20% from core hot exhaust.
+                            Grounding EASA Engines Module: 80% thrust from fan cold air, 20% from core hot exhaust.
                         </p>
                     </div>
                     <div className="bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 text-xs font-mono text-sky-300">
@@ -588,7 +588,7 @@ const CompressorStallSurge: React.FC = () => {
                         <AlertTriangle className="text-red-500 w-6 h-6" />
                         <div>
                             <h3 className="text-xl font-bold text-white">Compressor Stall vs Surge Mechanics</h3>
-                            <p className="text-xs text-slate-400">Mental Model: &quot;Compressor Blade as a Wing&quot; (Croucher Ch05)</p>
+                            <p className="text-xs text-slate-400">Mental Model: &quot;Compressor Blade as a Wing&quot; (EASA Engines Module)</p>
                         </div>
                     </div>
 
@@ -821,7 +821,7 @@ const TurbineCreepAndFlexTakeoff: React.FC = () => {
     const [assumedTemp, setAssumedTemp] = useState<number>(48); // °C (Flex temp)
     const runwayAvailable = 3000; // meters
 
-    // Grounding Croucher Chapter 5 Worked Example:
+    // Grounding Engine Performance Worked Example:
     // Full rated thrust at 22°C: Peak EGT = 920°C, Takeoff run = 2,000m
     // Assumed temperature = 48°C:
     // FADEC meters reduced fuel flow matching 48°C lower air density
@@ -873,7 +873,7 @@ const TurbineCreepAndFlexTakeoff: React.FC = () => {
                 </div>
             </div>
 
-            {/* CROUCHER CHAPTER 5 WORKED EXAMPLE CALCULATOR */}
+            {/* FLEX DERATE TEMPERATURE CALCULATOR */}
             <div className="bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-2xl shadow-xl space-y-6">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
                     <div>
@@ -882,7 +882,7 @@ const TurbineCreepAndFlexTakeoff: React.FC = () => {
                             Assumed Temperature (Flex) Takeoff Method Calculator
                         </h3>
                         <p className="text-xs text-slate-400 mt-1">
-                            Exact worked scenario from Croucher ATPL Ch05: Actual OAT 22°C vs Assumed Temp 48°C.
+                            Exact worked scenario from EASA ATPL Ch05: Actual OAT 22°C vs Assumed Temp 48°C.
                         </p>
                     </div>
                     <div className="bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 text-xs font-mono text-emerald-300">
@@ -920,7 +920,7 @@ const TurbineCreepAndFlexTakeoff: React.FC = () => {
                             />
                             <div className="flex justify-between text-[10px] text-slate-500 mt-1">
                                 <span>{actualOAT}°C (Full Rated Thrust)</span>
-                                <span>48°C (Croucher Standard Flex)</span>
+                                <span>48°C (Standard Flex Derate)</span>
                                 <span>60°C (Max Derate Cutoff)</span>
                             </div>
                         </div>

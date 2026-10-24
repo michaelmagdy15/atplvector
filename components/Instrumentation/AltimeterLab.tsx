@@ -368,7 +368,7 @@ const AltimeterLab: React.FC = () => {
                         {/* Step-by-Step Worked Derivation Box */}
                         <div className="mt-4 p-4 bg-slate-950/80 rounded-2xl border border-white/5 space-y-2">
                             <span className="text-[10px] font-black text-amber-400 uppercase tracking-wider block">
-                                Mathematical Derivation (Croucher ATPL Method)
+                                Mathematical Derivation (Standard ATPL Method)
                             </span>
                             <div className="text-xs text-slate-300 font-mono space-y-1 leading-relaxed">
                                 <div>1. Standard ISA Temp at {indicatedAlt} FT = 15 − (2 &times; {indicatedAlt / 1000}) = <span className="text-white font-bold">{isaTempAtAlt.toFixed(0)}°C</span></div>

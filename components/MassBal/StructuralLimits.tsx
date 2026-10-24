@@ -128,7 +128,7 @@ const StructuralLimits: React.FC = () => {
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4 mb-6">
                     <div>
                         <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-500/10 border border-red-500/20 rounded-full text-red-400 text-xs font-bold uppercase tracking-wider mb-1">
-                            <Activity className="w-3.5 h-3.5" /> Croucher Ch 10 Physics Focus
+                            <Activity className="w-3.5 h-3.5" /> EASA Ch 10 Physics Focus
                         </div>
                         <h2 className="text-2xl font-black text-white tracking-tight">
                             Maximum Zero Fuel Mass (MZFM) & Wing Bending Relief
@@ -217,12 +217,12 @@ const StructuralLimits: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Croucher Anti-pattern & Mental Model Warning */}
+                {/* Critical Operational Pitfall & Mental Model Warning */}
                 <div className="mt-6 grid md:grid-cols-2 gap-4">
                     <div className="p-4 bg-slate-950/70 border border-slate-800 rounded-2xl">
                         <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-1 flex items-center gap-2">
                             <Info className="w-4 h-4 text-amber-400" />
-                            Croucher Mental Model: "Wing Bending Relief"
+                            Cockpit Mental Model: "Wing Bending Relief"
                         </h4>
                         <p className="text-xs text-slate-300 leading-relaxed">
                             Lift pushes the wings upward; heavy fuel inside the wing tanks pushes downward against lift. Burning fuel out of the wings removes this relief, concentrating bending force directly at the wing root. Therefore, the most critical structural condition occurs at touchdown with zero fuel in the wings.
@@ -232,7 +232,7 @@ const StructuralLimits: React.FC = () => {
                     <div className="p-4 bg-red-950/30 border border-red-500/40 rounded-2xl">
                         <h4 className="text-xs font-bold text-red-400 uppercase tracking-wider mb-1 flex items-center gap-2">
                             <AlertTriangle className="w-4 h-4 text-red-400" />
-                            Croucher Anti-Pattern: Exceeding MZFM by Adding More Fuel
+                            Critical Flight Pitfall: Exceeding MZFM by Adding More Fuel
                         </h4>
                         <p className="text-xs text-slate-300 leading-relaxed">
                             Fuel CANNOT compensate for excess cargo! If ZFM exceeds MZFM, the aircraft is structurally non-compliant even if total mass remains below MTOM. The wing root is already overstressed before fuel is loaded. Cargo or passengers must be offloaded.

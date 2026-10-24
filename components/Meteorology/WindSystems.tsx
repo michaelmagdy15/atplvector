@@ -157,7 +157,7 @@ const WindSystems: React.FC = () => {
                             </div>
                             <div className="bg-slate-800/50 p-6 rounded-2xl border border-white/5 backdrop-blur-md">
                                 <h4 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
-                                    <Compass className="text-blue-400" size={18} /> Buys Ballot's Law (Croucher Ch 14)
+                                    <Compass className="text-blue-400" size={18} /> Buys Ballot's Law (EASA Ch 14)
                                 </h4>
                                 <p className="text-slate-300 text-sm leading-relaxed border-l-2 border-blue-500 pl-4 py-1">
                                     "In the Northern Hemisphere, stand with your back to the wind, and low pressure is on your <strong>LEFT</strong>."
@@ -285,12 +285,12 @@ const WindSystems: React.FC = () => {
                                         </div>
                                     </div>
 
-                                    {/* Croucher Rules Card */}
+                                    {/* EASA Standard Rules Card */}
                                     <div className="space-y-6">
                                         <div className="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
                                             <h4 className="text-base font-bold text-white flex items-center gap-2">
                                                 <Wind className="text-teal-400" size={20} />
-                                                Croucher Friction Rules (Northern Hemisphere)
+                                                Surface Friction Rules (Northern Hemisphere)
                                             </h4>
 
                                             <div className="grid grid-cols-2 gap-4">

@@ -59,7 +59,7 @@ const MinimaCalculator: React.FC = () => {
 
   const altResult = getAlternateMinima();
 
-  // Approach Ban Logic (Croucher Ch 08)
+  // Approach Ban Logic (EASA Part-CAT)
   const isBelowMinima = reportedRvr < requiredRvr;
   const isAbove1000ftGate = currentAltitude >= 1000;
 
@@ -178,8 +178,8 @@ const MinimaCalculator: React.FC = () => {
                 </div>
 
                 <div className="p-4 bg-indigo-950/30 rounded-2xl border border-indigo-500/20 text-xs text-indigo-200">
-                  <strong className="text-indigo-300 block mb-0.5">Croucher Technical Context:</strong>
-                  {current.croucherNotes}
+                  <strong className="text-indigo-300 block mb-0.5">Operational Technical Context:</strong>
+                  {current.examNotes}
                 </div>
               </div>
             );
@@ -206,7 +206,7 @@ const MinimaCalculator: React.FC = () => {
         </div>
       )}
 
-      {/* TAB 2: APPROACH BAN RULES ENGINE (CROUCHER WORKED EXAMPLE) */}
+      {/* TAB 2: APPROACH BAN RULES ENGINE (OPERATIONAL WORKED EXAMPLE) */}
       {activeTab === 'ban' && (
         <div className="space-y-6 animate-in fade-in">
           <div className="grid lg:grid-cols-12 gap-6">
@@ -352,10 +352,10 @@ const MinimaCalculator: React.FC = () => {
                 </p>
               </div>
 
-              {/* The Two Worked Examples from Croucher */}
+              {/* The Two Worked Examples from EASA Standard */}
               <div className="bg-slate-900 p-5 rounded-2xl border border-slate-700 text-xs space-y-3">
                 <span className="font-bold text-white uppercase text-[10px] block">
-                  Croucher ATPL Worked Examples Reference:
+                  EASA ATPL Worked Examples Reference:
                 </span>
                 <div className="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
                   <div className="font-bold text-amber-400">Case 1: At 1,200 ft AGL, RVR drops to 450 m (Min: 550 m)</div>

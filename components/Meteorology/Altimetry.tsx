@@ -237,7 +237,7 @@ const Altimetry: React.FC = () => {
                                 <div className="flex items-center justify-between">
                                     <h4 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
                                         <Info size={16} className="text-emerald-400" />
-                                        Q-Codes Interrelationship & Physics (Croucher Ch 14)
+                                        Q-Codes Interrelationship & Physics (EASA Ch 14)
                                     </h4>
                                     <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
                                         ATPL Exam Standard
@@ -447,7 +447,7 @@ const Altimetry: React.FC = () => {
                                         <AlertTriangle className="text-orange-400" /> Temperature Error: "Cold Air is a Compressed Sponge"
                                     </h3>
                                     <p className="text-slate-300 text-sm leading-relaxed">
-                                        Croucher Mental Model: In cold air, gas molecules lose kinetic energy and pack closely together. The entire atmospheric column compresses like a squeezed sponge. Pressure surfaces sink toward the surface.
+                                        Cockpit Mental Model: In cold air, gas molecules lose kinetic energy and pack closely together. The entire atmospheric column compresses like a squeezed sponge. Pressure surfaces sink toward the surface.
                                     </p>
                                     <div className="p-4 bg-slate-900 rounded-2xl border border-red-500/30">
                                         <div className="text-red-400 font-bold text-xs uppercase tracking-wider mb-1">

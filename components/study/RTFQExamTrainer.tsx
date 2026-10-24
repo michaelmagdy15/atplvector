@@ -39,7 +39,7 @@ export interface TrapQuestion {
     examinerDistractorNote: string;
   }[];
   explanation: string;
-  croucherRule: string;
+  goldenRule: string;
   easaReference: string;
 }
 
@@ -80,8 +80,8 @@ const TRAP_QUESTIONS: TrapQuestion[] = [
       }
     ],
     explanation: 'US Gallons and Imperial Gallons are frequent EASA exam distractors. Remember: 1 US Gallon = 3.785 Litres (approx 6 lbs AVGAS). 1 Imperial Gallon = 4.546 Litres (approx 7.2 lbs AVGAS). Always write the conversion factor before touching the keypad.',
-    croucherRule: 'Rule of Thumb: US gallon is the "smaller" gallon (3.785 L). Imperial gallon is the "large" British gallon (4.546 L). Write "USG × 3.785 × SG = kg" on your scratchpad before calculating.',
-    easaReference: 'EASA TK Syllabus 031.01 & Croucher Ch 00 / Ch 15'
+    goldenRule: 'Rule of Thumb: US gallon is the "smaller" gallon (3.785 L). Imperial gallon is the "large" British gallon (4.546 L). Write "USG × 3.785 × SG = kg" on your scratchpad before calculating.',
+    easaReference: 'EASA TK Syllabus 031.01 & EASA Operations Manual'
   },
   {
     id: 'rtfq-02',
@@ -119,8 +119,8 @@ const TRAP_QUESTIONS: TrapQuestion[] = [
       }
     ],
     explanation: 'Examiners use negative stems to exploit fast readers. Forward CG creates a larger nose-down moment, requiring greater downward tailplane aerodynamic download. Therefore, the main wing must generate Lift = Weight + Tail Download. This increases induced drag, increases stall speed, and INCREASES stability. Statement A falsely claims stability decreases.',
-    croucherRule: 'When you see "NOT" or "EXCEPT", cross out true facts with your pencil. The one false statement is your golden target.',
-    easaReference: 'EASA TK Syllabus 081.02.01 & Croucher Ch 03'
+    goldenRule: 'When you see "NOT" or "EXCEPT", cross out true facts with your pencil. The one false statement is your golden target.',
+    easaReference: 'EASA TK Syllabus 081.02.01 & EASA Aerodynamics Principles'
   },
   {
     id: 'rtfq-03',
@@ -158,8 +158,8 @@ const TRAP_QUESTIONS: TrapQuestion[] = [
       }
     ],
     explanation: '1-in-60 rule: Track Error Angle = (Dist Off × 60) / Dist Flown = (5 × 60) / 75 = 4°. To fly parallel, turn 4° right. Closing Angle = (Dist Off × 60) / Dist to Go = (5 × 60) / 45 = 6.67° (approx 7°). To intercept destination directly, the total turn is TEA + CA = 4° + 7° = 11° Right. EASA always puts TEA (4°) as an early distractor!',
-    croucherRule: 'Phil Croucher Formula: Parallel = TEA. Intercept = TEA + Closing Angle. Never pick TEA alone when the destination is the target.',
-    easaReference: 'EASA TK Syllabus 061.01.03 & Croucher Ch 13'
+    goldenRule: 'Standard Flight Calculation Formula: Parallel = TEA. Intercept = TEA + Closing Angle. Never pick TEA alone when the destination is the target.',
+    easaReference: 'EASA TK Syllabus 061.01.03 & EASA Navigation Standards'
   },
   {
     id: 'rtfq-04',
@@ -197,8 +197,8 @@ const TRAP_QUESTIONS: TrapQuestion[] = [
       }
     ],
     explanation: 'CS-25 net takeoff flight path penalties: Twin-engine = 0.8% gross deduction; Three-engine = 0.9%; Four-engine = 1.0%. Net = Gross - 0.8% = 3.4% - 0.8% = 2.6%. The gross gradient of 2.4% is merely the certification basement for twins.',
-    croucherRule: 'Twin = 0.8%. Tri = 0.9%. Quad = 1.0%. Gross is what the test pilot achieved; Net is what you give the obstacles to keep passengers alive.',
-    easaReference: 'CS-25.115 / CS-25.121 & Croucher Ch 05'
+    goldenRule: 'Twin = 0.8%. Tri = 0.9%. Quad = 1.0%. Gross is what the test pilot achieved; Net is what you give the obstacles to keep passengers alive.',
+    easaReference: 'CS-25.115 / CS-25.121 & CS-25 Flight Manual Standards'
   },
   {
     id: 'rtfq-05',
@@ -235,8 +235,8 @@ const TRAP_QUESTIONS: TrapQuestion[] = [
       }
     ],
     explanation: 'On contaminated or wet surfaces, tire braking coefficient drops drastically. To maintain the abort capability within the Accelerate-Stop Distance Available (ASDA), V1 must be reduced (often down to the wet V1 or V1mcg boundary). Note that screen height at 35 ft is reduced to 15 ft in wet/contaminated calculations.',
-    croucherRule: 'Slippery runway = stop is harder = V1 goes DOWN. Screen height goes down to 15 ft. Reverse thrust is credited.',
-    easaReference: 'CS-25 Subpart B & Croucher Ch 05'
+    goldenRule: 'Slippery runway = stop is harder = V1 goes DOWN. Screen height goes down to 15 ft. Reverse thrust is credited.',
+    easaReference: 'CS-25 Subpart B & CS-25 Flight Manual Standards'
   },
   {
     id: 'rtfq-06',
@@ -274,8 +274,8 @@ const TRAP_QUESTIONS: TrapQuestion[] = [
       }
     ],
     explanation: 'Altimeters are calibrated to the ISA atmosphere (15°C at sea level, lapsing at 1.98°C/1,000 ft). When air is colder than ISA, air density is higher and pressure levels collapse closer to the ground. The rule of thumb is 4 ft of error per 1,000 ft of altitude per degree Celsius of ISA deviation. In cold air, the aircraft is significantly closer to terrain than the needle indicates!',
-    croucherRule: 'Cold Air = True Altitude is LOWER than Indicated. When approaching mountains in winter, apply ICAO 8168 temperature corrections to MDA/DA.',
-    easaReference: 'EASA TK Syllabus 050.01.03 & Croucher Ch 11'
+    goldenRule: 'Cold Air = True Altitude is LOWER than Indicated. When approaching mountains in winter, apply ICAO 8168 temperature corrections to MDA/DA.',
+    easaReference: 'EASA TK Syllabus 050.01.03 & ICAO Doc 8168 Standards'
   }
 ];
 
@@ -336,7 +336,7 @@ export const RTFQExamTrainer: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono text-xs uppercase tracking-wider mb-3">
               <ShieldAlert className="w-4 h-4 text-amber-400 animate-pulse" />
-              <span>Phil Croucher Methodology // Chapter 00</span>
+              <span>EASA ATPL Defense Methodology // Core Principles</span>
             </div>
             <h1 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
               RTFQ <span className="text-amber-400">Exam Defense</span> Trainer
@@ -574,18 +574,18 @@ export const RTFQExamTrainer: React.FC = () => {
           })}
         </div>
 
-        {/* Explanation & Phil Croucher Defense Protocol */}
+        {/* Explanation & Defense Protocol */}
         {showExplanation && (
           <div className="mt-6 pt-6 border-t border-white/10 space-y-4 animate-in fade-in slide-in-from-top-4 duration-300">
-            {/* Croucher Rule Box */}
+            {/* Operational Rule Box */}
             <div className="bg-amber-950/30 border border-amber-500/40 rounded-2xl p-4 flex items-start gap-3">
               <Zap className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
               <div>
                 <div className="text-xs font-mono uppercase tracking-wider text-amber-300 font-bold">
-                  Phil Croucher Operational Rule
+                  Flight Operations Golden Rule
                 </div>
                 <div className="text-sm text-amber-100/90 mt-1 leading-relaxed font-sans">
-                  {currentQ.croucherRule}
+                  {currentQ.goldenRule}
                 </div>
               </div>
             </div>

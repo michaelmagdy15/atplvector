@@ -392,7 +392,7 @@ const HypoxiaTypesExplorer: React.FC = () => {
                 </div>
 
                 <div className="p-4 rounded-lg bg-teal-950/40 border border-teal-500/40 text-xs text-teal-200">
-                    <strong className="text-teal-300 font-bold block mb-1">🎯 Croucher ATPL Golden Rule:</strong>
+                    <strong className="text-teal-300 font-bold block mb-1">🎯 Cockpit Golden Rule:</strong>
                     "If symptoms arise above 10,000 ft, NEVER attempt to determine whether it is hyperventilation or hypoxia. 
                     ALWAYS assume Hypoxia first: immediately don 100% oxygen mask under positive pressure. 
                     If symptoms do not improve within 30–60 seconds, then consciously regulate breathing rate to 10–12 breaths/minute."

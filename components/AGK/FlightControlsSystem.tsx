@@ -323,7 +323,7 @@ const FlightControlsSystem: React.FC = () => {
                 </div>
             </div>
 
-            {/* CROUCHER TECHNICAL MODULES */}
+            {/* TECHNICAL FLIGHT CONTROL MODULES */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* 1. Flutter Suppression & Mass Balancing */}
                 <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 space-y-6">
@@ -358,7 +358,7 @@ const FlightControlsSystem: React.FC = () => {
 
                     <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-3">
                         <h4 className="text-xs font-mono uppercase text-blue-400 font-bold">
-                            Croucher Mental Model: "Mass Balancing as a Lever"
+                            Cockpit Mental Model: "Mass Balancing as a Lever"
                         </h4>
                         <p className="text-xs text-slate-300 leading-relaxed">
                             Control surfaces must have their <strong>Center of Gravity positioned forward of the hinge line</strong>. Lead or depleted uranium weights placed on extensions forward of the hinge act as a lever. When a gust bends the wing upward, inertia on the forward weight forces the trailing edge down, instantly damping the twisting oscillation and suppressing catastrophic flutter!

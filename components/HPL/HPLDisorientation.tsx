@@ -973,7 +973,7 @@ const NightTakeoffWorkedExample: React.FC = () => {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                     <h3 className="text-xl font-bold text-white flex items-center gap-2">
                         <Plane className="text-violet-400" size={22} />
-                        Croucher Worked Example: Night Takeoff Somatogravic Illusion
+                        Operational Worked Example: Night Takeoff Somatogravic Illusion
                     </h3>
                     <span className="text-xs font-mono px-3 py-1 bg-slate-800 text-violet-300 rounded-full border border-slate-700">
                         ATPL Case Study
@@ -985,7 +985,7 @@ const NightTakeoffWorkedExample: React.FC = () => {
                     deflecting microscopic hair cell stereocilia backwards — which the brain perceives as an extreme climb attitude.
                 </p>
                 <div className="mt-4 p-4 rounded-lg bg-violet-950/40 border border-violet-500/30 text-xs text-violet-200">
-                    <strong className="text-violet-300 font-bold block mb-1">🧠 Croucher ATPL Mental Model:</strong>
+                    <strong className="text-violet-300 font-bold block mb-1">🧠 Cockpit Mental Model:</strong>
                     "Trust the Instruments, Never the Seat of Your Pants: The vestibular system cannot distinguish sustained tilt from gravity plus linear acceleration."
                 </div>
             </div>

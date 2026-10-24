@@ -413,13 +413,13 @@ const LiftDragCoeff: React.FC = () => {
                 </div>
             </div>
 
-            {/* Croucher ch03 Principles & Anti-Patterns */}
+            {/* EASA Aerodynamics Principles & Anti-Patterns */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Stall Recovery with Ailerons Anti-Pattern */}
                 <div className="bg-red-950/20 border border-red-500/30 p-6 rounded-2xl space-y-3">
                     <div className="flex items-center gap-2 text-red-400 font-bold text-sm">
                         <ShieldAlert size={20} />
-                        <span>Croucher Anti-Pattern: Stall Recovery with Ailerons</span>
+                        <span>Critical Flight Pitfall: Stall Recovery with Ailerons</span>
                     </div>
                     <p className="text-xs text-slate-300 leading-relaxed">
                         Using ailerons near or during stall is a lethal mistake. Deflecting an aileron downward to raise a dropping wingtip increases that wingtip&apos;s effective camber and local angle of attack, driving it past α<sub>crit</sub> into a deeper, asymmetric stall and triggering an immediate spin entry.

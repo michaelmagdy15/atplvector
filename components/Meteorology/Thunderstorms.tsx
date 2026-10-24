@@ -352,7 +352,7 @@ const Thunderstorms: React.FC = () => {
                     <div>
                         <h3 className="text-2xl font-bold text-white flex items-center gap-2">
                             <ShieldAlert className="text-amber-400" />
-                            Croucher Mental Model: "The Anvil Points the Way"
+                            Cockpit Mental Model: "The Anvil Points the Way"
                         </h3>
                         <p className="text-slate-400 text-xs mt-1">
                             High-altitude tropospheric winds shear the top of mature Cb cells into a spreading cirrus anvil blown downwind.
@@ -412,7 +412,7 @@ const Thunderstorms: React.FC = () => {
                             </div>
 
                             <div className="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-2">
-                                <h4 className="text-amber-300 font-bold text-sm">Croucher Separation Rules</h4>
+                                <h4 className="text-amber-300 font-bold text-sm">Operational Separation Rules</h4>
                                 <ul className="space-y-1.5 text-slate-400">
                                     <li>• <strong className="text-white">Lateral Clearance:</strong> Maintain at least <strong>20 NM</strong> separation from any severe Cb cell.</li>
                                     <li>• <strong className="text-white">Vertical Clearance (Topping):</strong> At least <strong>1,000 ft per 10 kts</strong> of wind speed over the top, or minimum <strong>5,000 ft clearance</strong> above cloud top.</li>

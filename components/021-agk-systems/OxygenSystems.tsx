@@ -168,7 +168,7 @@ export default function OxygenSystems() {
                             Chemical Oxygen Candle vs Gaseous Systems
                         </h3>
                         <span className="text-xs font-mono text-amber-400 bg-amber-950/40 px-3 py-1 rounded-xl border border-amber-500/30">
-                            Croucher Ch 04 Core Focus
+                            EASA Ch 04 Core Focus
                         </span>
                     </div>
                     

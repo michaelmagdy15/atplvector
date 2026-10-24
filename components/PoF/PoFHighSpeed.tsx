@@ -9,7 +9,7 @@ const PoFHighSpeed: React.FC = () => {
     const [activeTab, setActiveTab] = useState<Tab>('COMPRESSIBILITY');
 
     // Tab 1 States: Compressibility & Speed of Sound
-    const [altitude, setAltitude] = useState(35000); // default to FL350 for Croucher worked example
+    const [altitude, setAltitude] = useState(35000); // default to FL350 for standard worked example
     const [tas, setTas] = useState(450); // kt
     
     const tempK = useMemo(() => {
@@ -91,7 +91,7 @@ const PoFHighSpeed: React.FC = () => {
             rationale: "Mcrit is the speed where the fastest moving air over the wing (usually upper surface peak camber) first accelerates to Mach 1.0." 
         },
         { 
-            q: "According to Croucher, what is the Speed of Sound formula in knots as a function of temperature?", 
+            q: "What is the standard Speed of Sound formula in knots as a function of absolute temperature?", 
             options: ["a = 20.05 √T", "a = 38.94 √T (with T in Kelvin)", "a = 661 × (P / P0)", "a = 38.94 × T (Celsius)"], 
             answer: 1, 
             rationale: "In aviation units: a = 38.94 √T(Kelvin) knots. Temperature is the ONLY parameter governing the speed of sound in air." 
@@ -230,7 +230,7 @@ const PoFHighSpeed: React.FC = () => {
                                             {[
                                                 { label: 'Sea Level (ISA)', alt: 0, speed: 450 },
                                                 { label: 'FL250', alt: 25000, speed: 450 },
-                                                { label: 'FL350 (Croucher)', alt: 35000, speed: 450 },
+                                                { label: 'FL350 (Standard)', alt: 35000, speed: 450 },
                                                 { label: 'FL410 (Tropopause)', alt: 41000, speed: 450 }
                                             ].map((preset, idx) => (
                                                 <button
@@ -261,11 +261,11 @@ const PoFHighSpeed: React.FC = () => {
                                     </div>
                                 </div>
 
-                                {/* Croucher Worked Example Card */}
+                                {/* Operational Worked Example Card */}
                                 <div className="bg-slate-800 p-6 rounded-2xl border border-indigo-500/30 space-y-3">
                                     <div className="flex items-center gap-2 text-indigo-400 font-bold text-sm">
                                         <BookOpen size={18} />
-                                        <span>Croucher Worked Example: FL350 Cruise Speed of Sound</span>
+                                        <span>Standard Worked Example: FL350 Cruise Speed of Sound</span>
                                     </div>
                                     <div className="space-y-2 text-xs text-slate-300 leading-relaxed font-mono bg-slate-950 p-4 rounded-xl border border-white/5">
                                         <div>Standard ISA Temp at FL350 = -56.5°C = 216.65 Kelvin</div>
@@ -466,7 +466,7 @@ const PoFHighSpeed: React.FC = () => {
                                         </ResponsiveContainer>
                                     </div>
 
-                                    {/* Croucher ch03 Framework Box */}
+                                    {/* EASA Aerodynamics Framework Box */}
                                     <div className="mt-4 p-4 bg-indigo-950/30 border border-indigo-500/20 rounded-xl space-y-2 text-xs">
                                         <span className="font-bold text-indigo-300 block">The Three Pillars of Mach Tuck Recovery:</span>
                                         <ul className="list-disc pl-4 space-y-1 text-slate-300">

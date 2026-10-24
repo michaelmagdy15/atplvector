@@ -15,7 +15,7 @@ const CGEffects: React.FC = () => {
     const SWEET_SPOT_MIN = 28;
     const SWEET_SPOT_MAX = 33;
 
-    // Derived Aerodynamic & Flight Mechanics (Based on Croucher Ch 10)
+    // Derived Aerodynamic & Flight Mechanics (Based on EASA Ch 10)
     // 1. Static Margin & Longitudinal Stability (Distance between CG and Neutral Point)
     // At Fwd CG (15%): Static margin is large (~25%), stability is high (95%), heavy stick forces
     // At Aft CG (35%): Static margin approaches certified minimum, stability drops to ~30%, sensitive stick
@@ -174,7 +174,7 @@ const CGEffects: React.FC = () => {
                     <div className="p-4 bg-slate-950/70 border border-slate-800 rounded-xl flex items-start gap-3 z-10">
                         <Info className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                         <div className="text-xs text-slate-300 leading-relaxed">
-                            <strong className="text-amber-400">Croucher Mental Model — &quot;The Seesaw with a Wing Fulcrum&quot;:</strong> The Center of Pressure (CP) acts as the seesaw pivot. Because the CG sits forward of the CP, the aircraft naturally pitches down. To keep level flight, the tailplane must generate a <strong>downward aerodynamic force</strong>. This tail download is effectively <em>dead weight</em> that the main wing must generate extra lift to support (L<sub>wing</sub> = Mass × g + Tail Download).
+                            <strong className="text-amber-400">Cockpit Mental Model — &quot;The Seesaw with a Wing Fulcrum&quot;:</strong> The Center of Pressure (CP) acts as the seesaw pivot. Because the CG sits forward of the CP, the aircraft naturally pitches down. To keep level flight, the tailplane must generate a <strong>downward aerodynamic force</strong>. This tail download is effectively <em>dead weight</em> that the main wing must generate extra lift to support (L<sub>wing</sub> = Mass × g + Tail Download).
                         </div>
                     </div>
                 </div>
@@ -315,11 +315,11 @@ const CGEffects: React.FC = () => {
                 )}
             </div>
 
-            {/* Croucher Complete Reference Comparison Table */}
+            {/* EASA Standard Complete Reference Comparison Table */}
             <div className="bg-slate-900/60 p-6 rounded-2xl border border-slate-700 space-y-4">
                 <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-cyan-400" />
-                    Croucher Summary Matrix: Operational Effects of CG Position (Ch 10)
+                    Operational Summary Matrix: Operational Effects of CG Position (Ch 10)
                 </h3>
 
                 <div className="overflow-x-auto">
