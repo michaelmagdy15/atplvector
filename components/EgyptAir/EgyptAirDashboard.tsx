@@ -169,11 +169,19 @@ export const EgyptAirDashboard: React.FC<Props> = ({ onChangeView }) => {
 
   const stats = [
     { label: "Manual Edition", value: "4th Edition", icon: BookOpen, color: "text-blue-400" },
-    { label: "SOP Modules", value: "5 Active Lab Units", icon: Award, color: "text-cyan-400" },
+    { label: "SOP & Psychometric Labs", value: "6 Active Suites (9 COMPASS Tests)", icon: Award, color: "text-cyan-400" },
     { label: "Study Progress", value: "First Officer Track", icon: Clock, color: "text-indigo-400" }
   ];
 
   const simulatorsList = [
+    {
+      title: "COMPASS™ & AON Psychometric Suite",
+      description: "Full 9-module airline screening battery: RBI/Horizon/Compass 5x5 Orientation Grid, FMS Memory, Math, Technical Insight, Task Manager, 60fps Control Task, Aviation English, Verbal Reasoning & Personality Profile.",
+      icon: Award,
+      view: View.EGYPTAIR_COMPASS_HUB,
+      gradient: "from-fuchsia-600 via-indigo-600 to-cyan-500",
+      stats: "9 Official COMPASS Modules · Stanine 1–9"
+    },
     {
       title: "ECAA & ECAR Regulations Quiz",
       description: "Interactive test on ECAR 121 rules, Operations Manual formats, and regulatory agency roles (ECAA, ICAO, EGALPA).",
@@ -257,6 +265,23 @@ export const EgyptAirDashboard: React.FC<Props> = ({ onChangeView }) => {
             <p className="text-slate-300 text-lg leading-relaxed opacity-95">
               Welcome to the official cadet preparation space. This training syllabus aggregates regulations, operations, flight characteristics, and crew coordination protocols direct from the ABC manual to equip you for airline operations.
             </p>
+
+            <div className="flex flex-wrap gap-3 pt-2">
+              <button
+                onClick={() => onChangeView(View.EGYPTAIR_COMPASS_HUB)}
+                className="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-cyan-500/20 transition-all cursor-pointer active:scale-95"
+              >
+                <Award className="w-4 h-4" />
+                Launch COMPASS™ &amp; AON Psychometric Suite (9 Tests)
+                <ChevronRight className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setActiveTab('SIMULATORS')}
+                className="inline-flex items-center gap-2 px-4 py-3 bg-slate-900/80 hover:bg-slate-800 text-slate-200 font-bold text-xs uppercase tracking-wider rounded-xl border border-white/10 transition-all cursor-pointer"
+              >
+                Explore All 6 SOP Simulators
+              </button>
+            </div>
 
             {/* Quick Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">

@@ -453,7 +453,30 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-line border border-line">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
+        {/* COMPASS & AON Psychometric Assessment Suite */}
+        <div
+          onClick={() => onChangeView(View.EGYPTAIR_COMPASS_HUB)}
+          className="bg-bg p-6 md:p-8 flex flex-col justify-between hover:bg-bg-raised transition-colors cursor-pointer group"
+        >
+          <div>
+            <div className="flex items-center justify-between mb-5">
+              <span className="hud-label text-fuchsia-400">PSYCHOMETRICS // COMPASS &amp; AON</span>
+              <Compass size={18} className="text-fuchsia-400" />
+            </div>
+            <h3 className="font-display text-2xl font-medium text-ink mb-2 group-hover:text-fuchsia-400 transition-colors">
+              COMPASS™ &amp; AON Aptitude Suite
+            </h3>
+            <p className="text-sm text-muted leading-relaxed">
+              Full 9-module airline screening battery: RBI/Horizon/Compass 5x5 Orientation Grid, FMS Memory, Math, Technical Insight, Task Manager &amp; 60fps Control Task.
+            </p>
+          </div>
+          <div className="flex items-center justify-between pt-4 mt-6 border-t border-line font-mono text-[11px] uppercase tracking-[0.12em] text-fuchsia-400">
+            <span>Launch 9-Test Battery</span>
+            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
+
         {/* EgyptAir Cadet Portal */}
         <div
           onClick={() => onChangeView(View.EGYPTAIR_DASHBOARD)}
