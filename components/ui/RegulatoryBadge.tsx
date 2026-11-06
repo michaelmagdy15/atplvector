@@ -3,8 +3,10 @@ import React from 'react';
 export type RegulatoryJurisdiction = 'EASA' | 'UK_CAA' | 'FAA' | 'ICAO';
 
 interface RegulatoryBadgeProps {
-  jurisdiction: RegulatoryJurisdiction;
+  jurisdiction?: RegulatoryJurisdiction;
+  authority?: RegulatoryJurisdiction;
   citation?: string;
+  label?: string;
   className?: string;
   variant?: 'solid' | 'outline' | 'subtle';
 }
@@ -62,11 +64,15 @@ const BADGE_CONFIG: Record<RegulatoryJurisdiction, {
  */
 export const RegulatoryBadge: React.FC<RegulatoryBadgeProps> = ({
   jurisdiction,
+  authority,
   citation,
+  label,
   className = '',
   variant = 'subtle',
 }) => {
-  const config = BADGE_CONFIG[jurisdiction];
+  const resolvedJurisdiction: RegulatoryJurisdiction = jurisdiction || authority || 'EASA';
+  const config = BADGE_CONFIG[resolvedJurisdiction] || BADGE_CONFIG.EASA;
+  const resolvedCitation = citation || label;
 
   const variantClass = variant === 'solid'
     ? config.bgSolid
@@ -75,15 +81,15 @@ export const RegulatoryBadge: React.FC<RegulatoryBadgeProps> = ({
   return (
     <span
       role="note"
-      aria-label={`Regulatory authority: ${config.label}${citation ? `, Citation: ${citation}` : ''}`}
+      aria-label={`Regulatory authority: ${config.label}${resolvedCitation ? `, Citation: ${resolvedCitation}` : ''}`}
       title={config.subtext}
       className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide transition-colors ${variantClass} ${className}`}
     >
       <span className={`w-1.5 h-1.5 rounded-full ${config.dotColor} animate-pulse`} aria-hidden="true" />
       <span>{config.label}</span>
-      {citation && (
+      {resolvedCitation && (
         <span className="text-[10px] opacity-80 border-l border-current/30 pl-1.5 ml-0.5 font-mono">
-          {citation}
+          {resolvedCitation}
         </span>
       )}
     </span>

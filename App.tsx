@@ -4,7 +4,7 @@ import { GamificationProvider } from './context/GamificationContext';
 import { auth, db, doc, collection } from './lib/firebase';
 import { signInWithCustomToken } from 'firebase/auth';
 import { useUser, useAuth } from '@clerk/clerk-react';
-import { getDoc, setDoc, updateDoc, getDocs, increment, onSnapshot } from 'firebase/firestore';
+import { getDoc, setDoc, updateDoc, getDocs, increment, onSnapshot, query, where } from 'firebase/firestore';
 import { AnimatePresence } from 'framer-motion';
 import AnimatedPageWrapper from './components/AnimatedPageWrapper';
 import { CourseModeProvider } from './context/CourseModeContext';
@@ -102,6 +102,15 @@ const App: React.FC = () => {
             setMainMenuOpen(prev => !prev);
         };
         window.addEventListener('togglePortal', handleTogglePortal);
+
+        if (typeof window !== 'undefined') {
+            const params = new URLSearchParams(window.location.search);
+            const hash = window.location.hash.toLowerCase();
+            const path = window.location.pathname.toLowerCase();
+            if (params.get('admin') === '1' || hash === '#admin' || path === '/admin') {
+                navigateTo(View.ADMIN_DASHBOARD);
+            }
+        }
 
         return () => {
             unregister();
@@ -255,6 +264,47 @@ const App: React.FC = () => {
             }
 
             // Try to get profile from Firestore
+            const cleanEmail = email.trim().toLowerCase();
+            const preProvisionedDocId = `pilot_${cleanEmail.replace(/[^a-z0-9]/g, '_')}`;
+            const detectedTz = typeof Intl !== 'undefined' ? Intl.DateTimeFormat().resolvedOptions().timeZone : 'UTC';
+            const tzLocationMap: Record<string, { country: string; city: string; code: string }> = {
+                'Africa/Cairo': { country: 'Egypt', city: 'Cairo', code: 'EG' },
+                'Asia/Riyadh': { country: 'Saudi Arabia', city: 'Riyadh', code: 'SA' },
+                'Asia/Dubai': { country: 'United Arab Emirates', city: 'Dubai', code: 'AE' },
+                'Asia/Kuwait': { country: 'Kuwait', city: 'Kuwait City', code: 'KW' },
+                'Asia/Qatar': { country: 'Qatar', city: 'Doha', code: 'QA' },
+                'Asia/Amman': { country: 'Jordan', city: 'Amman', code: 'JO' },
+                'Europe/London': { country: 'United Kingdom', city: 'London', code: 'GB' },
+                'Europe/Paris': { country: 'France', city: 'Paris', code: 'FR' },
+                'Europe/Berlin': { country: 'Germany', city: 'Frankfurt', code: 'DE' },
+                'America/New_York': { country: 'United States', city: 'New York', code: 'US' }
+            };
+            const fallbackGeo = tzLocationMap[detectedTz] || {
+                country: detectedTz.includes('/') ? detectedTz.split('/')[0] : 'International',
+                city: detectedTz.includes('/') ? detectedTz.split('/')[1].replace(/_/g, ' ') : 'Global',
+                code: 'UN'
+            };
+            const vip12MonthAccounts: Record<string, { fullName: string; expiresAt: string; plan: string }> = {
+                'omarwaelsaudi1907@gmail.com': {
+                    fullName: 'Omar Wael Saudi',
+                    expiresAt: '2027-10-28T23:59:59.000Z',
+                    plan: '12_MONTHS'
+                }
+            };
+            const vipAccount = vip12MonthAccounts[cleanEmail];
+            const nowIso = new Date().toISOString();
+            let preProvisionedSub: any = null;
+            let preProvisionedProfile: any = null;
+            try {
+                if (uid !== preProvisionedDocId) {
+                    const preSubSnap = await getDoc(doc(db, 'subscriptions', preProvisionedDocId));
+                    if (preSubSnap.exists()) preProvisionedSub = preSubSnap.data();
+                    const preProfSnap = await getDoc(doc(db, 'profiles', preProvisionedDocId));
+                    if (preProfSnap.exists()) preProvisionedProfile = preProfSnap.data();
+                }
+            } catch (e) {
+                console.warn('Pre-provisioned lookup skipped:', e);
+            }
             const profileRef = doc(db, 'profiles', uid);
             const profileSnap = await getDoc(profileRef);
             let profile = profileSnap.data() as any;
@@ -267,7 +317,7 @@ const App: React.FC = () => {
                 profile = {
                     id: uid,
                     email: email,
-                    full_name: 'Pilot',
+                    full_name: vipAccount?.fullName || preProvisionedProfile?.full_name || 'Pilot',
                     study_seconds: 0,
                     trial_start_date: trialStartDate,
                     trial_subjects: TRIAL_SUBJECTS,
@@ -275,20 +325,64 @@ const App: React.FC = () => {
                     current_device_id: localDeviceId
                 };
 
-                await setDoc(profileRef, profile);
+                await setDoc(profileRef, { ...profile, last_active_at: nowIso, is_online: true, timezone: detectedTz, country: preProvisionedProfile?.country || fallbackGeo.country, city: preProvisionedProfile?.city || fallbackGeo.city, country_code: preProvisionedProfile?.country_code || fallbackGeo.code }, { merge: true });
                 // Also ensure subscription exists
                 const subRef = doc(db, 'subscriptions', uid);
-                await setDoc(subRef, { user_id: uid, plan: 'CUSTOM', status: 'inactive' });
+                if (vipAccount) {
+                    await setDoc(subRef, {
+                        user_id: uid,
+                        email: cleanEmail,
+                        plan: vipAccount.plan,
+                        status: 'active',
+                        allowed_subjects: ['ALL'],
+                        expires_at: vipAccount.expiresAt
+                    }, { merge: true });
+                } else {
+                    await setDoc(subRef, { user_id: uid, plan: 'CUSTOM', status: 'inactive' });
+                }
             } else {
-                // If profile already exists, update current_device_id
-                await updateDoc(profileRef, { current_device_id: localDeviceId });
+                // If profile already exists, update current_device_id and ensure VIP name if generic
+                const updatedFullName = (vipAccount && (!profile.full_name || profile.full_name === 'Pilot'))
+                    ? vipAccount.fullName
+                    : profile.full_name;
+                profile.full_name = updatedFullName;
+                await setDoc(profileRef, { full_name: updatedFullName, current_device_id: localDeviceId, last_active_at: nowIso, is_online: true, timezone: profile.timezone || detectedTz, country: profile.country || fallbackGeo.country, city: profile.city || fallbackGeo.city, country_code: profile.country_code || fallbackGeo.code }, { merge: true });
                 profile.current_device_id = localDeviceId;
             }
 
             // Get subscription
             const subRef = doc(db, 'subscriptions', uid);
             const subSnap = await getDoc(subRef);
-            const sub = subSnap.data() as any;
+            let sub = subSnap.data() as any;
+            if ((!sub || sub.status !== 'active') && (preProvisionedSub?.status === 'active' || vipAccount)) {
+                sub = vipAccount ? {
+                    user_id: uid,
+                    email: cleanEmail,
+                    plan: vipAccount.plan,
+                    status: 'active',
+                    allowed_subjects: ['ALL'],
+                    expires_at: vipAccount.expiresAt
+                } : {
+                    ...preProvisionedSub,
+                    user_id: uid,
+                    email: cleanEmail
+                };
+                await setDoc(subRef, sub, { merge: true });
+            }
+            // Background IP geolocation enrichment
+            fetch('https://ipapi.co/json/')
+                .then(r => r.ok ? r.json() : null)
+                .then(geo => {
+                    if (geo && geo.country_name) {
+                        setDoc(profileRef, {
+                            country: geo.country_name,
+                            city: geo.city || fallbackGeo.city,
+                            country_code: geo.country_code || fallbackGeo.code,
+                            timezone: geo.timezone || detectedTz
+                        }, { merge: true }).catch(() => {});
+                    }
+                })
+                .catch(() => {});
 
             let subTier: any = 'CUSTOM';
             let allowedSubjects: string[] = []; // Default to none, must activate demo
@@ -371,10 +465,19 @@ const App: React.FC = () => {
                 // Determine final status
                 let finalStatus: AuthStatus = status;
 
-                const isOwner = email === 'michaelmitry13@gmail.com';
+                const isOwner = cleanEmail === 'michaelmitry13@gmail.com' || cleanEmail === 'michaelmagdy15@gmail.com';
+                const isVip = Boolean(vipAccount);
+                if (isVip) {
+                    subTier = vipAccount.plan;
+                    allowedSubjects = ['ALL'];
+                    subscriptionExpiresAt = vipAccount.expiresAt;
+                    if (!profile.full_name || profile.full_name === 'Pilot') {
+                        profile.full_name = vipAccount.fullName;
+                    }
+                }
 
                 // Priority: ACTIVE > DEMO > FREE_TRIAL > DEMO_EXPIRED > TRIAL_EXPIRED > PENDING_APPROVAL
-                if (isOwner || hasActiveSubscription) {
+                if (isOwner || isVip || hasActiveSubscription) {
                     finalStatus = AuthStatus.ACTIVE;
                 } else if (isDemoActive) {
                     finalStatus = AuthStatus.DEMO_PREVIEW;
@@ -442,18 +545,21 @@ const App: React.FC = () => {
                 });
             } else {
                 // Fallback if profile creation failed completely
-                const isOwner = email === 'michaelmitry13@gmail.com';
+                const lowerEmail = email.trim().toLowerCase();
+                const isOwner = lowerEmail === 'michaelmitry13@gmail.com' || lowerEmail === 'michaelmagdy15@gmail.com';
+                const isOmarVip = lowerEmail === 'omarwaelsaudi1907@gmail.com';
                 const cachedSeconds = parseInt(localStorage.getItem(`atpl_study_seconds_${uid}`) || '0', 10);
                 setUser({
                     id: uid,
                     email: email,
-                    fullName: isOwner ? 'Michael Mitry' : 'Pilot',
-                    status: isOwner ? AuthStatus.ACTIVE : AuthStatus.FREE_TRIAL,
+                    fullName: isOwner ? 'Michael Mitry' : isOmarVip ? 'Omar Wael Saudi' : 'Pilot',
+                    status: (isOwner || isOmarVip) ? AuthStatus.ACTIVE : AuthStatus.FREE_TRIAL,
                     studySeconds: cachedSeconds,
-                    subscriptionTier: isOwner ? 'OWNER' : 'CUSTOM',
-                    allowedSubjects: isOwner ? ['ALL'] : [],
+                    subscriptionTier: isOwner ? 'OWNER' : isOmarVip ? '12_MONTHS' : 'CUSTOM',
+                    allowedSubjects: (isOwner || isOmarVip) ? ['ALL'] : [],
                     isAdmin: isOwner ? true : false,
-                    isApproved: true
+                    isApproved: true,
+                    subscriptionExpiresAt: isOmarVip ? '2027-10-28T23:59:59.000Z' : undefined
                 });
                 setStudyTime(cachedSeconds);
             }
@@ -461,18 +567,21 @@ const App: React.FC = () => {
             console.error('Error fetching user data:', error);
             
             // Fallback profile if Firestore read/write fails completely (e.g. offline or permission issue)
-            const isOwner = email === 'michaelmitry13@gmail.com';
+            const lowerEmail = email.trim().toLowerCase();
+            const isOwner = lowerEmail === 'michaelmitry13@gmail.com' || lowerEmail === 'michaelmagdy15@gmail.com';
+            const isOmarVip = lowerEmail === 'omarwaelsaudi1907@gmail.com';
             const cachedSeconds = parseInt(localStorage.getItem(`atpl_study_seconds_${uid}`) || '0', 10);
             setUser({
                 id: uid,
                 email: email,
-                fullName: isOwner ? 'Michael Mitry' : 'Pilot',
-                status: isOwner ? AuthStatus.ACTIVE : AuthStatus.FREE_TRIAL,
+                fullName: isOwner ? 'Michael Mitry' : isOmarVip ? 'Omar Wael Saudi' : 'Pilot',
+                status: (isOwner || isOmarVip) ? AuthStatus.ACTIVE : AuthStatus.FREE_TRIAL,
                 studySeconds: cachedSeconds,
-                subscriptionTier: isOwner ? 'OWNER' : 'CUSTOM',
-                allowedSubjects: isOwner ? ['ALL'] : [],
+                subscriptionTier: isOwner ? 'OWNER' : isOmarVip ? '12_MONTHS' : 'CUSTOM',
+                allowedSubjects: (isOwner || isOmarVip) ? ['ALL'] : [],
                 isAdmin: isOwner ? true : false,
-                isApproved: true
+                isApproved: true,
+                subscriptionExpiresAt: isOmarVip ? '2027-10-28T23:59:59.000Z' : undefined
             });
             setStudyTime(cachedSeconds);
         } finally {
@@ -510,6 +619,8 @@ const App: React.FC = () => {
 
                         updateDoc(doc(db, 'profiles', user.id), { 
                             study_seconds: newValue,
+                            last_active_at: new Date().toISOString(),
+                            is_online: true,
                             [`daily_study_data.${todayDateStr}`]: increment(30)
                         }).catch(error => {
                             console.error("Failed to auto-save study time:", error);
@@ -585,7 +696,8 @@ const App: React.FC = () => {
             try {
                 await updateDoc(doc(db, 'profiles', user.id), { 
                     study_seconds: studyTime,
-                    current_device_id: null
+                    current_device_id: null,
+                    is_online: false
                 });
             } catch (err) {
                 console.warn("Failed to clear device ID on logout:", err);
@@ -852,6 +964,19 @@ const App: React.FC = () => {
 
                             {/* Right Section: Actions with Apple HIG 44px touch targets */}
                             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 z-10">
+                                {user.isAdmin && (
+                                    <button
+                                        onClick={() => {
+                                            triggerHaptic('selection');
+                                            navigateTo(View.ADMIN_DASHBOARD);
+                                        }}
+                                        className="p-2 sm:px-3 bg-indigo-500/15 hover:bg-indigo-500/25 text-indigo-300 border border-indigo-500/30 rounded-xl transition-all flex items-center justify-center gap-1.5 min-h-[40px] active:scale-95"
+                                        title="Admin Command Center"
+                                    >
+                                        <Shield size={16} className="text-indigo-400" />
+                                        <span className="text-[10px] font-black uppercase tracking-widest hidden md:inline">Admin</span>
+                                    </button>
+                                )}
                                 <button
                                     onClick={() => {
                                         triggerHaptic('light');

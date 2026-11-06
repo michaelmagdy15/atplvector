@@ -11,8 +11,9 @@ import { QuizTab } from './QuizTab';
 import { UnitSystem } from './c172Data';
 
 interface C172HubProps {
-    onModeSwitch: (mode: TestMode) => void;
+    onModeSwitch?: (mode: TestMode) => void;
     onBack?: () => void;
+    onChangeView?: (view: any) => void;
 }
 
 const SECTIONS = [
@@ -86,7 +87,7 @@ export const C172Hub: React.FC<C172HubProps> = ({ onModeSwitch, onBack }) => {
                     {MODES.map((m) => (
                         <button
                             key={m.id}
-                            onClick={() => { sfx.playSelect(); onModeSwitch(m.id); }}
+                            onClick={() => { sfx.playSelect(); if (onModeSwitch) onModeSwitch(m.id); }}
                             onMouseEnter={() => sfx.playHover()}
                             style={{
                                 display: 'flex', alignItems: 'center', gap: '0.3rem',

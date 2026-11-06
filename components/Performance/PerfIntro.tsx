@@ -9,7 +9,9 @@ const PerfIntro: React.FC = () => {
         { id: 'groups', label: 'Performance Groups', icon: <Shield size={18} /> },
         { id: 'atmosphere', label: 'Atmosphere', icon: <Cloud size={18} /> },
         { id: 'distances', label: 'Distances (TORA/TODA/ASDA/LDA)', icon: <Ruler size={18} /> },
-        { id: 'speeds', label: 'V-Speed Hierarchy', icon: <Activity size={18} /> }
+        { id: 'speeds', label: 'V-Speeds & Stall Definitions', icon: <Activity size={18} /> },
+        { id: 'tables', label: 'Screen Heights, Bank & Gradients', icon: <Scale size={18} /> },
+        { id: 'formulas', label: 'Contamination, Flex & Obstacle Math', icon: <CheckCircle2 size={18} /> }
     ];
 
     return (
@@ -332,6 +334,360 @@ const PerfIntro: React.FC = () => {
                                     </div>
                                 </div>
 
+                                {/* Exact Stall Speed Definitions & VMO/VS Ratio Matrix */}
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+                                    <div className="bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 space-y-3">
+                                        <h3 className="font-bold text-base text-slate-900 dark:text-white">
+                                            Exact EASA Stall Speed Definitions (CS-25 / CS-23)
+                                        </h3>
+                                        <div className="space-y-2 text-xs">
+                                            <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                                <strong className="text-lime-400 font-mono">VSR1:</strong> Reference stall speed in a <strong>specific configuration</strong>.
+                                            </div>
+                                            <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                                <strong className="text-lime-400 font-mono">VSR0:</strong> Reference stall speed in the <strong>landing configuration</strong> (governed by CLmax and load factor ≥ 1).
+                                            </div>
+                                            <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                                <strong className="text-sky-400 font-mono">VS1g:</strong> 1-g stall speed at which the aeroplane can develop a lift force normal to the flight path equal to its weight.
+                                            </div>
+                                            <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                                <strong className="text-amber-400 font-mono">VS1 / VS0:</strong> Minimum steady flight speed at which the aeroplane is controllable in a specific (VS1) or landing (VS0) configuration.
+                                            </div>
+                                            <div className="p-2.5 rounded-lg bg-lime-500/10 border border-lime-500/30 text-slate-300">
+                                                <strong>Stall Warning &amp; V2 Limits:</strong> Stall warning activates <strong>5% or 5 kt</strong> above VSR. <strong>VMCA</strong> limits V2 at <em>low altitude / cold</em>; <strong>VSR</strong> limits V2 at <em>high altitude / warm</em>.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 space-y-4">
+                                        <h3 className="font-bold text-base text-slate-900 dark:text-white">
+                                            VMO Relative to VS &amp; Key Speed Multipliers
+                                        </h3>
+                                        <table className="w-full text-left text-xs font-mono border-collapse">
+                                            <thead>
+                                                <tr className="border-b border-slate-300 dark:border-slate-700 text-slate-500 uppercase">
+                                                    <th className="py-2">Propulsion</th>
+                                                    <th className="py-2">Clean Config</th>
+                                                    <th className="py-2">Flaps Extended</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                                                <tr>
+                                                    <td className="py-2.5 font-bold text-sky-400">Turbojet</td>
+                                                    <td className="py-2.5 font-bold text-white">1.6 VS</td>
+                                                    <td className="py-2.5 font-bold text-white">1.4 VS</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="py-2.5 font-bold text-amber-400">Propeller</td>
+                                                    <td className="py-2.5 font-bold text-white">1.3 VS</td>
+                                                    <td className="py-2.5 font-bold text-white">1.2 VS</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div className="grid grid-cols-2 gap-2 text-xs font-mono pt-2">
+                                            <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                                <span className="text-[10px] text-slate-400 block">Class A Approach / Landing</span>
+                                                <strong className="text-lime-400">VREF = 1.23 VSR0</strong>
+                                                <span className="block text-[10px] text-slate-400">VAPP = 1.33 VS</span>
+                                            </div>
+                                            <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                                <span className="text-[10px] text-slate-400 block">Class B Takeoff / Landing</span>
+                                                <strong className="text-amber-400">VR ≥ 1.05 VMCA / 1.1 VS1</strong>
+                                                <span className="block text-[10px] text-slate-400">V2 ≥ 1.1 VMCA | VREF = 1.3 VS0</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </motion.div>
+                        )}
+
+                        {activeTab === 'tables' && (
+                            <motion.div
+                                key="tables"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                className="space-y-6"
+                            >
+                                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                                    Screen Heights, Bank Angles &amp; Climb Gradients (Christmas Rule)
+                                </h2>
+
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    {/* Screen Heights & Obstacle Clearance Table */}
+                                    <div className="bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 space-y-3">
+                                        <h3 className="font-bold text-base text-lime-500">
+                                            Screen Heights &amp; Vertical Obstacle Clearance
+                                        </h3>
+                                        <table className="w-full text-left text-xs font-mono border-collapse">
+                                            <thead>
+                                                <tr className="border-b border-slate-300 dark:border-slate-700 text-slate-400 uppercase">
+                                                    <th className="py-2">Phase / Rule</th>
+                                                    <th className="py-2">Class A</th>
+                                                    <th className="py-2">Class B</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                                                <tr>
+                                                    <td className="py-2.5 font-bold">Takeoff Screen Height</td>
+                                                    <td className="py-2.5 text-emerald-400 font-bold">35 ft Dry / 15 ft Wet</td>
+                                                    <td className="py-2.5 text-amber-400 font-bold">50 ft</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="py-2.5 font-bold">Landing Screen Height</td>
+                                                    <td className="py-2.5 text-sky-400 font-bold">50 ft (35 ft Steep ≥ 4.5°)</td>
+                                                    <td className="py-2.5 text-amber-400 font-bold">50 ft</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="py-2.5 font-bold">Obstacle Clearance (Net)</td>
+                                                    <td className="py-2.5 text-rose-400 font-bold" colSpan={2}>
+                                                        35 ft Dry | 15 ft Wet | 50 ft if Bank &gt; 15°
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    {/* Maximum Bank Angles Table */}
+                                    <div className="bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 space-y-3">
+                                        <h3 className="font-bold text-base text-sky-400">
+                                            Maximum Bank Angle After Takeoff (OEI)
+                                        </h3>
+                                        <table className="w-full text-left text-xs font-mono border-collapse">
+                                            <thead>
+                                                <tr className="border-b border-slate-300 dark:border-slate-700 text-slate-400 uppercase">
+                                                    <th className="py-2">Height Above Runway</th>
+                                                    <th className="py-2">Normal Max Bank</th>
+                                                    <th className="py-2">Special Authorization</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                                                <tr>
+                                                    <td className="py-2 font-bold">0 – 50 ft</td>
+                                                    <td className="py-2 text-rose-400 font-bold">0° (Wings Level)</td>
+                                                    <td className="py-2 text-slate-400">0°</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="py-2 font-bold">50 – 200 ft</td>
+                                                    <td className="py-2 text-amber-400 font-bold">15°</td>
+                                                    <td className="py-2 text-slate-400">15°</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="py-2 font-bold">200 – 400 ft</td>
+                                                    <td className="py-2 text-emerald-400 font-bold">15°</td>
+                                                    <td className="py-2 text-sky-400 font-bold">20° (Special)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="py-2 font-bold">&gt; 400 ft</td>
+                                                    <td className="py-2 text-emerald-400 font-bold">25°</td>
+                                                    <td className="py-2 text-sky-400 font-bold">30° (Special)</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                {/* Christmas Mnemonic Climb Gradients + Gross/Net Deductions */}
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    <div className="bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 space-y-3">
+                                        <h3 className="font-bold text-base text-emerald-400">
+                                            Min Gross Climb Gradients — "Christmas Rule" (24.12)
+                                        </h3>
+                                        <table className="w-full text-left text-xs font-mono border-collapse">
+                                            <thead>
+                                                <tr className="border-b border-slate-300 dark:border-slate-700 text-slate-400 uppercase">
+                                                    <th className="py-2">Engines</th>
+                                                    <th className="py-2">1st Seg</th>
+                                                    <th className="py-2">2nd Seg</th>
+                                                    <th className="py-2">4th Seg</th>
+                                                    <th className="py-2">Mnemonic</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                                                <tr>
+                                                    <td className="py-2.5 font-bold text-white">2-Eng</td>
+                                                    <td className="py-2.5 text-lime-400 font-bold">&gt; 0%</td>
+                                                    <td className="py-2.5 text-lime-400 font-bold">2.4%</td>
+                                                    <td className="py-2.5 text-lime-400 font-bold">1.2%</td>
+                                                    <td className="py-2.5 text-slate-300">"0 presents on 24.12"</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="py-2.5 font-bold text-white">3-Eng</td>
+                                                    <td className="py-2.5 text-amber-400 font-bold">0.3%</td>
+                                                    <td className="py-2.5 text-amber-400 font-bold">2.7%</td>
+                                                    <td className="py-2.5 text-amber-400 font-bold">1.5%</td>
+                                                    <td className="py-2.5 text-slate-300">"Buy 3 → add 0.3%"</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="py-2.5 font-bold text-white">4-Eng</td>
+                                                    <td className="py-2.5 text-sky-400 font-bold">0.5%</td>
+                                                    <td className="py-2.5 text-sky-400 font-bold">3.0%</td>
+                                                    <td className="py-2.5 text-sky-400 font-bold">1.7%</td>
+                                                    <td className="py-2.5 text-slate-300">"High 5, 3 gifts, age 1-7"</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div className="bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 space-y-3">
+                                        <h3 className="font-bold text-base text-purple-400">
+                                            Gross ↔ Net Gradient Deductions &amp; Approach / Balked Climb
+                                        </h3>
+                                        <table className="w-full text-left text-xs font-mono border-collapse">
+                                            <thead>
+                                                <tr className="border-b border-slate-300 dark:border-slate-700 text-slate-400 uppercase">
+                                                    <th className="py-2">Engines</th>
+                                                    <th className="py-2">Climb (Gross→Net)</th>
+                                                    <th className="py-2">Descent (Gross→Net)</th>
+                                                    <th className="py-2">Appr Climb (OEI)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                                                <tr>
+                                                    <td className="py-2 font-bold">2-Eng</td>
+                                                    <td className="py-2 text-rose-400 font-bold">± 0.8%</td>
+                                                    <td className="py-2 text-sky-400 font-bold">± 1.2%</td>
+                                                    <td className="py-2 text-emerald-400 font-bold">2.1% (2nd − 0.3%)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="py-2 font-bold">3-Eng</td>
+                                                    <td className="py-2 text-rose-400 font-bold">± 0.9%</td>
+                                                    <td className="py-2 text-sky-400 font-bold">± 1.4%</td>
+                                                    <td className="py-2 text-emerald-400 font-bold">2.4% (2nd − 0.3%)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="py-2 font-bold">4-Eng</td>
+                                                    <td className="py-2 text-rose-400 font-bold">± 1.0%</td>
+                                                    <td className="py-2 text-sky-400 font-bold">± 1.6%</td>
+                                                    <td className="py-2 text-emerald-400 font-bold">2.7% (2nd − 0.3%)</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div className="text-xs text-slate-300 space-y-1 pt-1">
+                                            <p>• <strong>Class A Landing / Balked Climb (AEO, gear down, flaps land, 8s idle→GA):</strong> <strong>3.2%</strong> gross.</p>
+                                            <p>• <strong>Class B MEP Gradients:</strong> Takeoff AEO = <strong>4%</strong> (to 1,500 ft); OEI = positive to 400 ft, <strong>0.75%</strong> to 1,500 ft; Balked AEO = <strong>2.5%</strong>; Missed Appr OEI = <strong>0.75%</strong>.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+
+                        {activeTab === 'formulas' && (
+                            <motion.div
+                                key="formulas"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                className="space-y-6"
+                            >
+                                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                                    Contamination, Hydroplaning, Flex vs Derate &amp; Obstacle Math
+                                </h2>
+
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    {/* Hydroplaning & Runway Contamination */}
+                                    <div className="bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 space-y-3">
+                                        <h3 className="font-bold text-base text-sky-400">
+                                            Hydroplaning Formulas &amp; Runway Surface Definitions
+                                        </h3>
+                                        <div className="grid grid-cols-2 gap-3 font-mono text-xs">
+                                            <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                                <span className="text-[10px] text-slate-400 block">Dynamic (Rotating / Takeoff)</span>
+                                                <strong className="text-base text-sky-400">VP = 9 × √P (psi)</strong>
+                                            </div>
+                                            <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                                <span className="text-[10px] text-slate-400 block">Viscous (Locked / Landing)</span>
+                                                <strong className="text-base text-amber-400">VP = 7.7 × √P (psi)</strong>
+                                            </div>
+                                        </div>
+                                        <ul className="text-xs text-slate-300 space-y-1.5 leading-relaxed">
+                                            <li>• <strong>Damp:</strong> Surface not dry, moisture does <em>not</em> give a shiny appearance.</li>
+                                            <li>• <strong>Wet:</strong> Covered by water ≤ 3 mm deep, reflective/shiny appearance.</li>
+                                            <li>• <strong>Frost:</strong> Granular frozen moisture crystals formed on cold surface.</li>
+                                            <li>• <strong>Slush:</strong> Water-saturated snow that splatters when stepped on heavily.</li>
+                                            <li>• <strong>Wet Snow:</strong> Forms a snowball when squeezed, <em>no</em> free water released.</li>
+                                            <li>• <strong>Compacted Snow:</strong> Compressed into solid mass — <strong>TOD remains same, ASD increases!</strong></li>
+                                        </ul>
+                                    </div>
+
+                                    {/* Reduced (Flex) vs Derated Thrust */}
+                                    <div className="bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 space-y-3">
+                                        <h3 className="font-bold text-base text-amber-400">
+                                            Reduced Thrust (FLEX / Assumed Temp) vs. Derated Thrust
+                                        </h3>
+                                        <table className="w-full text-left text-xs font-mono border-collapse">
+                                            <thead>
+                                                <tr className="border-b border-slate-300 dark:border-slate-700 text-slate-400 uppercase">
+                                                    <th className="py-2">Parameter</th>
+                                                    <th className="py-2 text-emerald-400">Reduced (FLEX)</th>
+                                                    <th className="py-2 text-sky-400">Derated Thrust</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
+                                                <tr>
+                                                    <td className="py-2 font-bold">VMCA / VMCG</td>
+                                                    <td className="py-2 font-bold text-white">Remains SAME</td>
+                                                    <td className="py-2 font-bold text-emerald-400">DECREASES (Lower VMC)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="py-2 font-bold">Contaminated RWY</td>
+                                                    <td className="py-2 font-bold text-rose-400">PROHIBITED (Wet OK)</td>
+                                                    <td className="py-2 font-bold text-emerald-400">ALLOWED</td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="py-2 font-bold">TOGA Application</td>
+                                                    <td className="py-2 text-slate-300">Can advance to full TOGA without VMC violation</td>
+                                                    <td className="py-2 text-slate-300">Advancing to full TOGA below original VMCA risks loss of control!</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                {/* Class B Factors & Obstacle / Ref Zero / Cloud Base Formulas */}
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                    <div className="bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 space-y-3">
+                                        <h3 className="font-bold text-base text-lime-400">
+                                            Class B Factors &amp; Regulatory Multipliers
+                                        </h3>
+                                        <div className="space-y-2 text-xs font-mono text-slate-300">
+                                            <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                                <strong className="text-lime-400">Takeoff Surface:</strong> 1.0× Paved Wet | 1.2× Grass Dry | 1.3× Grass Wet | +5% per 1% Upslope (×1.05)
+                                            </div>
+                                            <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                                <strong className="text-sky-400">Takeoff Regulatory:</strong> Balanced: TOD × 1.25 = TODR | Unbalanced: TOD × 1.0 = TORR, × 1.15 = TODR, × 1.30 = ASDR
+                                            </div>
+                                            <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                                <strong className="text-amber-400">Landing Factors:</strong> Class A: LD × 1.67 (LDA × 0.6) | Class B: LD × 1.43 (LDA × 0.7) | Wet/Grass: × 1.15 | +5% per 1% Downslope
+                                            </div>
+                                            <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                                <strong className="text-purple-400">Class B Net Conversions:</strong> Net Climb = Gross × 0.77 | Net Glide Gradient = Gross + 0.5%
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 space-y-3">
+                                        <h3 className="font-bold text-base text-rose-400">
+                                            Obstacle Math, Reference Zero &amp; SEP Glide Above Clouds
+                                        </h3>
+                                        <div className="space-y-2 text-xs font-mono text-slate-300">
+                                            <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                                <strong className="text-emerald-400">Reference Zero:</strong> Ref Zero = BRP − (TODR × Runway Incline %)
+                                            </div>
+                                            <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                                <strong className="text-sky-400">Climb Gradient &amp; Distance:</strong> Grad % = ROC / TAS | Air Dist = (ΔHeight / Grad %) × 100 | Ground Dist = Air Dist × (GS / TAS)
+                                            </div>
+                                            <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                                <strong className="text-amber-400">SEP Glide Above Clouds:</strong> Must glide to <strong>1,000 ft</strong> above suitable landing area; cloud base must be above MSA.
+                                            </div>
+                                            <div className="p-2.5 rounded-lg bg-rose-500/10 border border-rose-500/30">
+                                                <strong className="text-rose-400">Classic Exam Numerical Key (SEP Glide / Cloud Base):</strong> Distances: <strong>4.82 NM, 5.35 NM, 6.65 NM</strong> | Heights/Speeds: <strong>156, 172, 215, 248, 275</strong>.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </motion.div>
                         )}
                     </AnimatePresence>

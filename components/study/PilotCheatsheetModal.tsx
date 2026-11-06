@@ -215,6 +215,70 @@ const CHEATSHEET_SECTIONS: CheatsheetSection[] = [
         details: 'EASA exam mnemonic: "Don\'t Underestimate Direct Flights, Mind Regularity".'
       }
     ]
+  },
+  {
+    id: 'perf-christmas-gradients',
+    title: 'Christmas Climb Gradients, Deductions & Screen Heights',
+    category: 'Performance',
+    badge: '032 / CS-25',
+    icon: TrendingUp,
+    items: [
+      {
+        label: 'Christmas Rule (Min Gross Climb)',
+        value: '2-Eng: >0% | 2.4% | 1.2%  •  3-Eng: 0.3% | 2.7% | 1.5%  •  4-Eng: 0.5% | 3.0% | 1.7%',
+        details: '1st, 2nd & 4th Segment minimum gross climb gradients.',
+        ruleOfThumb: 'Mnemonic: "0 presents for 24.12" (Twin), "buy 3 → add 0.3%", "high 5, 3 presents, age 1-7".'
+      },
+      {
+        label: 'Gross ↔ Net Deductions (Climb & Descent)',
+        value: 'Climb: 2E ±0.8%, 3E ±0.9%, 4E ±1.0%  |  Descent: 2E ±1.2%, 3E ±1.4%, 4E ±1.6%',
+        details: 'Climb deduction formula = 0.6 + (0.1 × N_engines). Class B Net Climb = Gross × 0.77; Class B Net Glide = Gross + 0.5%.',
+        ruleOfThumb: 'Obstacle clearance always uses the NET flight path!'
+      },
+      {
+        label: 'Screen Heights & Obstacle Clearance',
+        value: 'T/O: 35 ft Dry, 15 ft Wet (Class A) | 50 ft (Class B) • LDG: 50 ft (35 ft Steep ≥4.5°)',
+        details: 'Vertical obstacle clearance along net takeoff flight path: 35 ft dry, 15 ft wet, 50 ft when bank > 15°.'
+      },
+      {
+        label: 'Max Bank Angle After Takeoff (OEI)',
+        value: '0-50 ft: 0° | 50-200 ft: 15° | 200-400 ft: 15° (20° spec) | >400 ft: 25° (30° spec)',
+        details: 'Approach Climb (OEI, gear up, flaps appr = 2nd seg - 0.3%): 2.1% / 2.4% / 2.7%. Balked Landing (AEO, 8s): 3.2%.'
+      }
+    ]
+  },
+  {
+    id: 'perf-cruise-contamination',
+    title: 'Cruise Range/Endurance, Hydroplaning, Flex vs Derate & Class B',
+    category: 'Performance',
+    badge: '032 MASTER',
+    icon: Gauge,
+    items: [
+      {
+        label: 'Jet vs Prop Range & Endurance Speeds',
+        value: 'Jet Range = 1.32 VMD (Drag tan) | Jet End = VMD | Prop Range = VMD (Power tan) | Prop End = VMP',
+        details: 'Optimum Endurance Altitudes: Piston = Low (SL), Turboprop = Mid (~10,000 ft), Jet = High Altitude. SFC = FF / Thrust.',
+        ruleOfThumb: 'EnduroX: Mass affects Endurance & VX; Wind affects Range & VY. PRAT: Power=ROC, Angle=Thrust.'
+      },
+      {
+        label: 'Stall Definitions & VMO/VS Ratios',
+        value: 'Jet VMO: 1.6 VS Clean / 1.4 VS Flaps  |  Prop VMO: 1.3 VS Clean / 1.2 VS Flaps',
+        details: 'VSR0 = Ref stall landing config; VSR1 = Ref stall specific config; VS1g = 1g stall normal lift. Stall warning: 5% or 5 kt above VSR.',
+        ruleOfThumb: 'VMCA limits V2 at low alt/cold; VSR limits V2 at high alt/warm.'
+      },
+      {
+        label: 'Hydroplaning & Flex vs Derate',
+        value: 'Dynamic (Rotating/T-O) = 9√P(psi)  |  Viscous (Locked/LDG) = 7.7√P(psi)',
+        details: 'FLEX (Reduced): VMCG/VMCA stay SAME, NOT allowed on contaminated (Wet OK). Derated: Lowers VMCG/VMCA, ALLOWED on contaminated.',
+        ruleOfThumb: 'Compacted snow: TOD stays same, ASD increases!'
+      },
+      {
+        label: 'Class B Factors, Ref Zero & SEP Glide Key',
+        value: 'Class A LD × 1.67 (0.6 LDA) | Class B LD × 1.43 (0.7 LDA) | Wet/Grass LD × 1.15',
+        details: 'T/O Surface: 1.0 Wet, 1.2 Grass Dry, 1.3 Grass Wet (+5% per 1% slope). Ref Zero = BRP - (TODR × Incline%).',
+        ruleOfThumb: 'SEP Glide Exam Key: 4.82, 5.35, 6.65 NM | 156, 172, 215, 248, 275.'
+      }
+    ]
   }
 ];
 

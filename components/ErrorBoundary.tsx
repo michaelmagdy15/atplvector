@@ -1,8 +1,9 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { WifiOff, RefreshCw } from 'lucide-react';
+import { WifiOff, RefreshCw, Home } from 'lucide-react';
 
 interface Props {
     children?: ReactNode;
+    onResetView?: () => void;
 }
 
 interface State {
@@ -31,6 +32,15 @@ export class ErrorBoundary extends Component<Props, State> {
 
     private handleReset = () => {
         this.setState({ hasError: false, error: null });
+        if (this.props.onResetView) {
+            this.props.onResetView();
+        } else {
+            window.location.reload();
+        }
+    };
+
+    private handleHardReload = () => {
+        this.setState({ hasError: false, error: null });
         window.location.reload();
     };
 
@@ -49,25 +59,36 @@ export class ErrorBoundary extends Component<Props, State> {
                         <h1 className="text-2xl font-bold text-white mb-3">
                             {isChunkError ? 'Connection Interrupted' : 'System Glitch Detected'}
                         </h1>
-                        <p className="text-slate-400 mb-8 text-sm">
+                        <p className="text-slate-400 mb-6 text-sm">
                             {isChunkError 
                                 ? 'A network error prevented the module from loading. This usually happens when the app updates or your connection drops.'
                                 : 'An unexpected error occurred while rendering this module. Our telemetry has captured the fault.'}
                         </p>
                         
-                        <div className="bg-slate-950/50 rounded-xl p-4 mb-8 border border-slate-800 text-left overflow-hidden">
-                            <p className="text-xs font-mono text-red-400 truncate opacity-70">
+                        <div className="bg-slate-950/60 rounded-xl p-4 mb-6 border border-slate-800 text-left">
+                            <p className="text-xs font-mono text-red-400 break-words opacity-85">
                                 {this.state.error?.message || 'Unknown Error'}
                             </p>
                         </div>
 
-                        <button
-                            onClick={this.handleReset}
-                            className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-900/20 flex items-center justify-center gap-2 active:scale-95"
-                        >
-                            <RefreshCw size={18} />
-                            <span>Reboot System</span>
-                        </button>
+                        <div className="space-y-3">
+                            {this.props.onResetView && (
+                                <button
+                                    onClick={this.handleReset}
+                                    className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-900/20 flex items-center justify-center gap-2 active:scale-95"
+                                >
+                                    <Home size={18} />
+                                    <span>Return to Hangar</span>
+                                </button>
+                            )}
+                            <button
+                                onClick={this.handleHardReload}
+                                className="w-full py-3.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl font-bold transition-all border border-white/10 flex items-center justify-center gap-2 active:scale-95"
+                            >
+                                <RefreshCw size={18} />
+                                <span>Reboot System</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             );

@@ -571,6 +571,13 @@ export interface User {
   learningObjectivesRatings?: Record<string, number>; // Map of LO ID to rating (0-5)
   exam_plan?: any; // Stored in Firebase
   subscriptionExpiresAt?: string; // ISO date string when subscription expires
+  country?: string;
+  city?: string;
+  countryCode?: string;
+  timezone?: string;
+  lastActiveAt?: string;
+  isOnline?: boolean;
+  currentDeviceId?: string;
 }
 
 export interface QCode {

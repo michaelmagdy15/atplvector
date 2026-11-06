@@ -71,7 +71,7 @@ const SECTIONS: SectionDef[] = [
     },
 ];
 
-export const PPLStudyGuide: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
+export const PPLStudyGuide: React.FC<{ onBack?: () => void; onChangeView?: (view: any) => void }> = ({ onBack, onChangeView }) => {
     const [activeSection, setActiveSection] = useState<string | null>(null);
 
     if (activeSection) {
@@ -107,7 +107,7 @@ export const PPLStudyGuide: React.FC<{ onBack?: () => void }> = ({ onBack }) => 
             {/* Header */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
                 <button
-                    onClick={() => { sfx.playSelect(); onBack(); }}
+                    onClick={() => { sfx.playSelect(); if (onBack) onBack(); else if (onChangeView) onChangeView('PLATFORM_DASHBOARD'); }}
                     onMouseEnter={() => sfx.playHover()}
                     style={{
                         display: 'flex', alignItems: 'center', gap: '0.3rem', background: 'none', border: 'none',

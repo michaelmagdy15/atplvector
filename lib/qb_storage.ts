@@ -1,138 +1,127 @@
-import { SavedTest, QBStats, TestResult } from '../types';
+import { Question, QBStats, SavedTest } from '../types';
 
-const QB_STATS_KEY = 'atpl_qb_stats';
-const QB_SAVED_TESTS_KEY = 'atpl_qb_saved_tests';
+const STORAGE_KEYS = {
+    STATS: 'atpl_qb_stats',
+    SAVED_TESTS: 'atpl_qb_saved_tests',
+    USER_INTERACTIONS: 'atpl_qb_interactions', // Map of questionId -> { seen, correct, wrong, flagged, pinned }
+};
+
+export interface QuestionInteraction {
+    seen: boolean;
+    correct: boolean;
+    wrong: boolean;
+    flagged: boolean;
+    pinned: boolean;
+    lastAnswered?: string;
+}
+
+const DEFAULT_STATS: QBStats = {
+    totalAnswered: 0,
+    correctCount: 0,
+    averageScore: 0,
+    testsCompleted: 0,
+    attributionCounts: {
+        realExam: 0,
+        other: 0,
+    },
+    scoreHistory: [],
+};
 
 export const QBStorage = {
-    // Stats
     getStats: (): QBStats => {
-        const data = localStorage.getItem(QB_STATS_KEY);
-        if (!data) {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEYS.STATS);
+            if (!raw) return DEFAULT_STATS;
+            const parsed = JSON.parse(raw);
             return {
-                averageScore: 0,
-                questionsSeen: 0,
-                totalTestsCompleted: 0,
-                scoreHistory: [],
-                flaggedQuestionIds: [],
-                incorrectQuestionIds: [],
-                seenQuestionIds: [],
-                attributionCounts: { misread: 0, formula: 0, concept: 0, careless: 0, time: 0, unknown: 0 },
-                averagePacing: 0
+                ...DEFAULT_STATS,
+                ...parsed,
+                attributionCounts: {
+                    realExam: parsed?.attributionCounts?.realExam || 0,
+                    other: parsed?.attributionCounts?.other || 0,
+                },
+                scoreHistory: Array.isArray(parsed?.scoreHistory) ? parsed.scoreHistory : [],
             };
+        } catch {
+            return DEFAULT_STATS;
         }
-        const stats = JSON.parse(data);
-        return {
-            ...stats,
-            flaggedQuestionIds: stats.flaggedQuestionIds || [],
-            incorrectQuestionIds: stats.incorrectQuestionIds || [],
-            seenQuestionIds: stats.seenQuestionIds || [],
-            attributionCounts: stats.attributionCounts || { misread: 0, formula: 0, concept: 0, careless: 0, time: 0, unknown: 0 },
-            averagePacing: stats.averagePacing || 0
-        };
     },
 
-    updateStats: (newResult: {
-        score: number,
-        type: 'study' | 'exam',
-        seenCount: number,
-        incorrectIds: string[],
-        seenIds: string[],
-        attributions?: Record<string, number>, // { attributionType: count }
-        averagePacing?: number // seconds per question for this test
-    }) => {
+    updateStats: (sessionScore: number, totalInSession: number, correctInSession: number) => {
         const stats = QBStorage.getStats();
-        stats.totalTestsCompleted += 1;
-        stats.questionsSeen += newResult.seenCount;
-
-        // Simple average calculation
-        const currentTotalScore = stats.averageScore * (stats.totalTestsCompleted - 1);
-        stats.averageScore = (currentTotalScore + newResult.score) / stats.totalTestsCompleted;
+        stats.totalAnswered += totalInSession;
+        stats.correctCount += correctInSession;
+        stats.testsCompleted += 1;
+        stats.averageScore = Math.round(((stats.averageScore * (stats.testsCompleted - 1)) + sessionScore) / stats.testsCompleted);
 
         stats.scoreHistory.push({
             date: new Date().toISOString(),
-            score: newResult.score,
-            type: newResult.type
+            score: sessionScore,
         });
 
-        // Add incorrect IDs without duplicates
-        const newIncorrect = new Set([...stats.incorrectQuestionIds, ...newResult.incorrectIds]);
-        stats.incorrectQuestionIds = Array.from(newIncorrect);
-
-        // Update attributions
-        if (newResult.attributions) {
-            Object.entries(newResult.attributions).forEach(([key, count]) => {
-                const attrKey = key as any;
-                stats.attributionCounts[attrKey] = (stats.attributionCounts[attrKey] || 0) + count;
-            });
-        }
-
-        // Update average pacing
-        if (newResult.averagePacing) {
-            const currentTotalQuestions = stats.questionsSeen - newResult.seenCount;
-            const totalPreviousTime = currentTotalQuestions * stats.averagePacing;
-            const totalNewTime = totalPreviousTime + (newResult.seenCount * newResult.averagePacing);
-            stats.averagePacing = totalNewTime / stats.questionsSeen;
-        }
-
-        const newSeen = new Set([...stats.seenQuestionIds, ...newResult.seenIds]);
-        stats.seenQuestionIds = Array.from(newSeen);
-
-        // Keep only last 50 for performance
-        if (stats.scoreHistory.length > 50) {
-            stats.scoreHistory.shift();
-        }
-
-        localStorage.setItem(QB_STATS_KEY, JSON.stringify(stats));
+        localStorage.setItem(STORAGE_KEYS.STATS, JSON.stringify(stats));
+        return stats;
     },
 
-    toggleFlaggedQuestion: (id: string) => {
+    getInteractions: (): Record<string, QuestionInteraction> => {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEYS.USER_INTERACTIONS);
+            return raw ? JSON.parse(raw) : {};
+        } catch {
+            return {};
+        }
+    },
+
+    saveInteraction: (questionId: string, update: Partial<QuestionInteraction>) => {
+        const all = QBStorage.getInteractions();
+        const current = all[questionId] || {
+            seen: false,
+            correct: false,
+            wrong: false,
+            flagged: false,
+            pinned: false,
+        };
+
+        all[questionId] = { ...current, ...update };
+        localStorage.setItem(STORAGE_KEYS.USER_INTERACTIONS, JSON.stringify(all));
+    },
+
+    recordVote: (type: 'realExam' | 'other') => {
         const stats = QBStorage.getStats();
-        const set = new Set(stats.flaggedQuestionIds);
-        if (set.has(id)) set.delete(id);
-        else set.add(id);
-        stats.flaggedQuestionIds = Array.from(set);
-        localStorage.setItem(QB_STATS_KEY, JSON.stringify(stats));
-        return stats.flaggedQuestionIds.includes(id);
+        stats.attributionCounts[type] += 1;
+        localStorage.setItem(STORAGE_KEYS.STATS, JSON.stringify(stats));
     },
 
-    isQuestionFlagged: (id: string): boolean => {
-        const stats = QBStorage.getStats();
-        return stats.flaggedQuestionIds.includes(id);
-    },
-
-    // Saved Tests
     getSavedTests: (): SavedTest[] => {
-        const data = localStorage.getItem(QB_SAVED_TESTS_KEY);
-        if (!data) return [];
-        return JSON.parse(data).sort((a: SavedTest, b: SavedTest) =>
-            new Date(b.lastResumedAt).getTime() - new Date(a.lastResumedAt).getTime()
-        );
+        try {
+            const raw = localStorage.getItem(STORAGE_KEYS.SAVED_TESTS);
+            if (!raw) return [];
+            const parsed = JSON.parse(raw);
+            if (!Array.isArray(parsed)) return [];
+            return parsed.filter(Boolean).map((t: any) => ({
+                ...t,
+                questionIds: Array.isArray(t.questionIds) ? t.questionIds : [],
+                userAnswers: t.userAnswers || {},
+                flaggedQuestions: Array.isArray(t.flaggedQuestions) ? t.flaggedQuestions : [],
+            }));
+        } catch {
+            return [];
+        }
     },
 
     saveTest: (test: SavedTest) => {
-        const tests = QBStorage.getSavedTests();
-        const index = tests.findIndex(t => t.id === test.id);
-
+        const all = QBStorage.getSavedTests();
+        const index = all.findIndex(t => t.id === test.id);
         if (index >= 0) {
-            tests[index] = { ...test, lastResumedAt: new Date().toISOString() };
+            all[index] = test;
         } else {
-            tests.push({ ...test, lastResumedAt: new Date().toISOString() });
+            all.unshift(test);
         }
-
-        // Keep only last 10 local tests
-        if (tests.length > 10) {
-            tests.pop();
-        }
-
-        localStorage.setItem(QB_SAVED_TESTS_KEY, JSON.stringify(tests));
+        localStorage.setItem(STORAGE_KEYS.SAVED_TESTS, JSON.stringify(all.slice(0, 20))); // Keep last 20
     },
 
     deleteTest: (id: string) => {
-        const tests = QBStorage.getSavedTests().filter(t => t.id !== id);
-        localStorage.setItem(QB_SAVED_TESTS_KEY, JSON.stringify(tests));
-    },
-
-    getTestById: (id: string): SavedTest | undefined => {
-        return QBStorage.getSavedTests().find(t => t.id === id);
+        const all = QBStorage.getSavedTests().filter(t => t.id !== id);
+        localStorage.setItem(STORAGE_KEYS.SAVED_TESTS, JSON.stringify(all));
     }
 };

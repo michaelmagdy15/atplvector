@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
-import { User } from '../types';
+import { User, AuthStatus } from '../types';
 import { SUBJECTS } from '../data/learningObjectives';
 import { Check, CreditCard, Shield, Zap, ArrowLeft, CheckCircle, Layout, History, Save } from 'lucide-react';
 import { db, collection, doc } from '../lib/firebase';
-import { query, where, getDocs, updateDoc, setDoc } from 'firebase/firestore';
+import { query, where, getDocs, getDoc, updateDoc, setDoc } from 'firebase/firestore';
 
 interface Props {
     user: User;
@@ -66,6 +66,83 @@ const SubscriptionManagement: React.FC<Props> = ({ user, onUpdateUser, onBack })
         setLoading(true);
 
         try {
+            const cleanKey = licenseKey.trim().toUpperCase();
+            const masterGiftKeys: Record<string, { plan: '12_MONTHS' | '6_MONTHS' | '3_MONTHS' | '1_MONTH'; days: number }> = {
+                'ATPL-GIFT-2026-PRO1': { plan: '12_MONTHS', days: 365 },
+                'ATPL-OMAR-12MO-2026': { plan: '12_MONTHS', days: 365 },
+                'ATPL-VIP1-2026-FULL': { plan: '12_MONTHS', days: 365 }
+            };
+            let giftMatch = masterGiftKeys[cleanKey] || null;
+            let giftDocId: string | null = null;
+            try {
+                const directCodeSnap = await getDoc(doc(db, 'access_codes', cleanKey));
+                if (directCodeSnap.exists()) {
+                    const codeData = directCodeSnap.data() as any;
+                    if (!codeData.is_used || masterGiftKeys[cleanKey]) {
+                        giftMatch = { plan: codeData.plan || '12_MONTHS', days: codeData.duration_days || 365 };
+                        giftDocId = directCodeSnap.id;
+                    }
+                } else {
+                    const codeQuery = query(collection(db, 'access_codes'), where('code', '==', cleanKey));
+                    const codeSnap = await getDocs(codeQuery);
+                    if (!codeSnap.empty) {
+                        const codeDoc = codeSnap.docs[0];
+                        const codeData = codeDoc.data() as any;
+                        if (!codeData.is_used) {
+                            giftMatch = { plan: codeData.plan || '12_MONTHS', days: codeData.duration_days || 365 };
+                            giftDocId = codeDoc.id;
+                        }
+                    }
+                }
+            } catch (codeErr) {
+                console.warn('Firestore gift key lookup warning:', codeErr);
+            }
+            if (giftMatch) {
+                const actualPlan = giftMatch.plan;
+                const expiresAt = new Date();
+                expiresAt.setDate(expiresAt.getDate() + giftMatch.days);
+                const expiresIso = expiresAt.toISOString();
+                const nowIso = new Date().toISOString();
+                await setDoc(doc(db, 'subscriptions', user.id), {
+                    user_id: user.id,
+                    email: user.email,
+                    status: 'active',
+                    plan: actualPlan,
+                    allowed_subjects: ['ALL'],
+                    gumroad_license_key: cleanKey,
+                    updated_at: nowIso,
+                    expires_at: expiresIso
+                }, { merge: true });
+                await setDoc(doc(db, 'profiles', user.id), {
+                    status: 'ACTIVE',
+                    is_approved: true,
+                    subscription_tier: actualPlan,
+                    allowed_subjects: ['ALL'],
+                    subscription_expires_at: expiresIso,
+                    updated_at: nowIso
+                }, { merge: true });
+                if (giftDocId) {
+                    await setDoc(doc(db, 'access_codes', giftDocId), {
+                        is_used: true,
+                        used_by_user: user.email,
+                        used_at: nowIso
+                    }, { merge: true }).catch(() => {});
+                }
+                const updatedUser: User = {
+                    ...user,
+                    status: AuthStatus.ACTIVE,
+                    subscriptionTier: actualPlan,
+                    allowedSubjects: ['ALL'],
+                    subscriptionExpiresAt: expiresIso
+                };
+                onUpdateUser(updatedUser);
+                setPlan(actualPlan as any);
+                setSuccessMsg(`Gift License Key Verified! ${actualPlan.replace('_', ' ')} Full Access Activated!`);
+                setLicenseKey('');
+                setTimeout(() => setSuccessMsg(null), 5000);
+                setLoading(false);
+                return;
+            }
             // --- GUMROAD API VERIFICATION ---
             const response = await fetch('https://api.gumroad.com/v2/licenses/verify', {
                 method: 'POST',
