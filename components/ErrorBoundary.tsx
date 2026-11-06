@@ -11,6 +11,37 @@ interface State {
     error: Error | null;
 }
 
+function isDynamicImportError(error: Error | null | undefined): boolean {
+    if (!error) return false;
+    const msg = error.message || '';
+    return (
+        error.name === 'ChunkLoadError' ||
+        /Failed to fetch dynamically imported module/i.test(msg) ||
+        /Importing a module script failed/i.test(msg) ||
+        /error loading dynamically imported module/i.test(msg) ||
+        /Unable to preload CSS/i.test(msg) ||
+        /Load failed/i.test(msg)
+    );
+}
+
+async function clearStaleCachesAndReload() {
+    try {
+        if ('serviceWorker' in navigator) {
+            const registrations = await navigator.serviceWorker.getRegistrations();
+            await Promise.all(registrations.map((r) => r.unregister()));
+        }
+        if ('caches' in window) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map((k) => caches.delete(k)));
+        }
+    } catch (e) {
+        console.warn('Cache cleanup skipped:', e);
+    }
+    const url = new URL(window.location.href);
+    url.searchParams.set('_v', Date.now().toString());
+    window.location.replace(url.toString());
+}
+
 export class ErrorBoundary extends Component<Props, State> {
     public state: State = {
         hasError: false,
@@ -23,10 +54,14 @@ export class ErrorBoundary extends Component<Props, State> {
 
     public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
         console.error('Uncaught error:', error, errorInfo);
-        
-        // Auto-reload on chunk load errors (often caused by new deployments)
-        if (error.name === 'ChunkLoadError' || error.message.includes('Failed to fetch dynamically imported module')) {
-            window.location.reload();
+
+        // Auto-reload on chunk/module script load errors (including iOS Safari "Importing a module script failed.")
+        if (isDynamicImportError(error)) {
+            const lastReload = Number(sessionStorage.getItem('atpl_chunk_reload_ts') || '0');
+            if (Date.now() - lastReload > 10000) {
+                sessionStorage.setItem('atpl_chunk_reload_ts', Date.now().toString());
+                clearStaleCachesAndReload();
+            }
         }
     }
 
@@ -35,20 +70,18 @@ export class ErrorBoundary extends Component<Props, State> {
         if (this.props.onResetView) {
             this.props.onResetView();
         } else {
-            window.location.reload();
+            clearStaleCachesAndReload();
         }
     };
 
     private handleHardReload = () => {
         this.setState({ hasError: false, error: null });
-        window.location.reload();
+        clearStaleCachesAndReload();
     };
 
     public render() {
         if (this.state.hasError) {
-            // Check if it's a chunk error specifically to show a better message
-            const isChunkError = this.state.error?.name === 'ChunkLoadError' || 
-                               this.state.error?.message.includes('Failed to fetch dynamically imported module');
+            const isChunkError = isDynamicImportError(this.state.error);
 
             return (
                 <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6 font-sans">
@@ -57,11 +90,11 @@ export class ErrorBoundary extends Component<Props, State> {
                             <WifiOff className="w-8 h-8 text-red-400" />
                         </div>
                         <h1 className="text-2xl font-bold text-white mb-3">
-                            {isChunkError ? 'Connection Interrupted' : 'System Glitch Detected'}
+                            {isChunkError ? 'Updating Application Module...' : 'System Glitch Detected'}
                         </h1>
                         <p className="text-slate-400 mb-6 text-sm">
                             {isChunkError 
-                                ? 'A network error prevented the module from loading. This usually happens when the app updates or your connection drops.'
+                                ? 'A newer version of this simulator module was deployed. Tap Reboot System below to load the latest build.'
                                 : 'An unexpected error occurred while rendering this module. Our telemetry has captured the fault.'}
                         </p>
                         

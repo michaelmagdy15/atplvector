@@ -898,7 +898,24 @@ const App: React.FC = () => {
                     <nav className="max-w-7xl mx-auto">
                         <div className="px-3 sm:px-6 h-13 sm:h-16 flex items-center justify-between relative">
                             {/* Left Section: Mobile Back / Sidebar Toggle + Brand Logo */}
-                            <div className="flex items-center gap-1.5 sm:gap-4 z-10 min-w-0">
+                            <div className="flex items-center gap-1.5 sm:gap-3 z-10 min-w-0">
+                                {/* Always-visible Mobile Sidebar Button on top-left */}
+                                <button
+                                    onClick={() => {
+                                        triggerHaptic('light');
+                                        if (subjectConfig) {
+                                            setSidebarOpen(!sidebarOpen);
+                                        } else {
+                                            setMainMenuOpen(true);
+                                        }
+                                    }}
+                                    className="lg:hidden p-2 -ml-1 text-slate-200 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl min-w-[40px] min-h-[40px] flex items-center justify-center transition-all active:scale-90"
+                                    aria-label="Open Navigation Sidebar"
+                                    title="Open Navigation Sidebar"
+                                >
+                                    <Menu size={20} className="text-cyan-400" />
+                                </button>
+
                                 {currentView !== View.PLATFORM_DASHBOARD && (
                                     <button
                                         onClick={() => {
@@ -909,7 +926,7 @@ const App: React.FC = () => {
                                                 navigateTo(View.PLATFORM_DASHBOARD);
                                             }
                                         }}
-                                        className="sm:hidden p-1.5 -ml-1 text-slate-300 hover:text-white hover:bg-white/10 rounded-xl min-w-[36px] min-h-[36px] flex items-center justify-center transition-all active:scale-90"
+                                        className="sm:hidden p-1.5 text-slate-300 hover:text-white hover:bg-white/10 rounded-xl min-w-[36px] min-h-[36px] flex items-center justify-center transition-all active:scale-90"
                                         aria-label="Go Back"
                                     >
                                         <ChevronLeft size={22} className="text-blue-400" />
@@ -920,12 +937,13 @@ const App: React.FC = () => {
                                     <button
                                         onClick={() => {
                                             triggerHaptic('light');
-                                            setSidebarOpen(!sidebarOpen);
+                                            setMainMenuOpen(true);
                                         }}
-                                        className="lg:hidden p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-xl min-w-[40px] min-h-[40px] flex items-center justify-center transition-all active:scale-90"
-                                        aria-label="Toggle Subject Sidebar"
+                                        className="lg:hidden p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-xl min-w-[38px] min-h-[38px] flex items-center justify-center transition-all active:scale-90"
+                                        aria-label="Open Mission Control Menu"
+                                        title="Mission Control Menu"
                                     >
-                                        <BookOpen size={20} />
+                                        <BookOpen size={18} />
                                     </button>
                                 )}
 
@@ -1089,12 +1107,12 @@ const App: React.FC = () => {
                 </footer>
 
                 {mainMenuOpen && (
-                    <div className="fixed inset-0 z-[9999] flex justify-end pointer-events-auto">
+                    <div className="fixed inset-0 z-[9999] flex justify-start sm:justify-end pointer-events-auto">
                         <div
                             className="absolute inset-0 bg-slate-950/70 backdrop-blur-md animate-in fade-in duration-300"
                             onClick={() => setMainMenuOpen(false)}
                         ></div>
-                        <div className="relative w-full max-w-sm bg-slate-900 border-l border-white/10 shadow-2xl animate-in slide-in-from-right duration-500 flex flex-col h-full [padding-top:max(env(safe-area-inset-top,0px),var(--sat,0px))] [padding-bottom:max(env(safe-area-inset-bottom,0px),var(--sab,0px))]">
+                        <div className="relative w-[86vw] max-w-sm bg-slate-900 border-r sm:border-r-0 sm:border-l border-white/10 shadow-2xl animate-in slide-in-from-left sm:slide-in-from-right duration-300 flex flex-col h-full [padding-top:max(env(safe-area-inset-top,0px),var(--sat,0px))] [padding-bottom:max(env(safe-area-inset-bottom,0px),var(--sab,0px))]">
                             <div className="p-4 sm:p-6 border-b border-white/5 flex items-center justify-between">
                                 <div className="flex items-center gap-3">
                                     <div className="p-2 bg-blue-500/20 rounded-xl">
@@ -1125,9 +1143,50 @@ const App: React.FC = () => {
                                 </div>
 
                                 <div>
+                                    <h3 className="px-4 text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-3">ATPL Subjects (010–090)</h3>
+                                    <div className="grid grid-cols-2 gap-1.5 px-2">
+                                        {[
+                                            { code: '010', name: 'Air Law', view: View.AIR_LAW_HOME },
+                                            { code: '021', name: 'AGK Systems', view: View.AGK_SYSTEMS_HOME },
+                                            { code: '022', name: 'Instruments', view: View.INST_HOME },
+                                            { code: '031', name: 'Mass & Bal', view: View.MASS_BAL_HOME },
+                                            { code: '032', name: 'Performance', view: View.PERF_HOME },
+                                            { code: '033', name: 'Flight Plan', view: View.FLIGHT_PLAN_HOME },
+                                            { code: '040', name: 'Human Perf', view: View.HPL_HOME },
+                                            { code: '050', name: 'Meteorology', view: View.MET_HOME },
+                                            { code: '061', name: 'Gen Nav', view: View.GEN_NAV_HOME },
+                                            { code: '062', name: 'Radio Nav', view: View.RADIO_NAV_HOME },
+                                            { code: '070', name: 'Ops Proc', view: View.OPS_PROC_HOME },
+                                            { code: '081', name: 'Principles', view: View.POF_HOME },
+                                            { code: '090', name: 'VFR/IFR Comms', view: View.COMMS_HOME },
+                                            { code: 'PPL', name: 'PPL Track', view: View.PPL_DASHBOARD },
+                                        ].map((s) => (
+                                            <button
+                                                key={s.code}
+                                                onClick={() => {
+                                                    navigateTo(s.view);
+                                                    setMainMenuOpen(false);
+                                                }}
+                                                className={`flex items-center gap-2 px-2.5 py-2 rounded-xl text-left border transition-all ${
+                                                    currentView === s.view
+                                                        ? 'bg-blue-600/25 border-blue-500/50 text-white'
+                                                        : 'bg-white/[0.03] border-white/5 text-slate-300 hover:bg-white/10 hover:text-white'
+                                                }`}
+                                            >
+                                                <span className="text-[10px] font-mono font-black px-1.5 py-0.5 rounded bg-blue-500/20 text-cyan-300">
+                                                    {s.code}
+                                                </span>
+                                                <span className="text-xs font-bold truncate">{s.name}</span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div>
                                     <h3 className="px-4 text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-3">Study Suite</h3>
                                     <div className="space-y-1 grid grid-cols-1">
                                         <MenuNavItem icon={Search} label="Question Bank" view={View.QUESTION_BANK} color="text-purple-400" bgColor="bg-purple-500/10" />
+                                        <MenuNavItem icon={Shield} label="RTFQ Exam Defense" view={View.RTFQ_TRAINER} color="text-amber-400" bgColor="bg-amber-500/10" />
                                         <MenuNavItem icon={Layers} label="Foundations Hub" view={View.FOUNDATIONS_HUB} color="text-amber-400" bgColor="bg-amber-500/10" />
                                         <MenuNavItem icon={Map} label="Study Guide" view={View.STUDY_GUIDE} color="text-blue-400" bgColor="bg-blue-500/10" />
                                         <MenuNavItem icon={Activity} label="Concept Lab" view={View.CONCEPT_LAB} color="text-cyan-400" bgColor="bg-cyan-500/10" />
