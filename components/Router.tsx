@@ -62,9 +62,11 @@ const Router: React.FC<RouterProps> = ({
     const commonProps = {
         user,
         currentUser: user,
+        currentView,
         studyTime,
         onChangeView: navigateTo,
         onNavigate: navigateTo,
+        setCurrentView: navigateTo,
         onLogout: handleLogout,
         onUpdateUser: handleUserUpdate,
         onOpenSyllabus: handleOpenSyllabus,
@@ -81,11 +83,14 @@ const Router: React.FC<RouterProps> = ({
         return (
             <Component
                 {...subjectConfig}
+                currentView={currentView}
                 modules={subjectConfig.modules.map(mod => ({
                     ...mod,
                     isLocked: !isSubjectAllowed(subjectConfig.subjectCode)
                 }))}
                 onChangeView={navigateTo}
+                onNavigate={navigateTo}
+                setCurrentView={navigateTo}
                 onOpenSyllabus={handleOpenSyllabus}
             />
         );

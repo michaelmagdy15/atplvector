@@ -58,106 +58,121 @@ export interface AircraftPreset {
   };
 }
 
-export const AIRCRAFT_PRESETS: Record<string, AircraftPreset> = {
-  C172_SP: {
-    id: 'c172_sp',
-    name: 'Cessna 172S Skyhawk (Class B Single Piston)',
-    category: 'CLASS_B',
-    engineType: 'PISTON_NA',
-    enginesCount: 1,
-    maxTakeoffWeightLbs: 2550,
-    emptyWeightLbs: 1660,
-    wingAreaSqFt: 174,
-    screenHeightFt: 50,
-    speeds: {
-      vs0Ias: 40,
-      vs1Ias: 48,
-      vrIas: 55,
-      vxIas: 62,
-      vyIas: 74,
-    },
-    seaLevelBase: {
-      groundRollFt: 960,
-      distanceToScreenFt: 1630,
-      maxSeaLevelRocFpm: 730,
-      ratedPowerHpOrThrustLbs: 180, // BHP (Lycoming IO-360-L2A)
-    }
+const PRESET_C172_SP: AircraftPreset = {
+  id: 'c172_sp',
+  name: 'Cessna 172S Skyhawk (Class B Single Piston)',
+  category: 'CLASS_B',
+  engineType: 'PISTON_NA',
+  enginesCount: 1,
+  maxTakeoffWeightLbs: 2550,
+  emptyWeightLbs: 1660,
+  wingAreaSqFt: 174,
+  screenHeightFt: 50,
+  speeds: {
+    vs0Ias: 40,
+    vs1Ias: 48,
+    vrIas: 55,
+    vxIas: 62,
+    vyIas: 74,
   },
-  BARON_G58: {
-    id: 'baron_g58',
-    name: 'Beechcraft Baron G58 (Class B Light Twin Piston)',
-    category: 'CLASS_B',
-    engineType: 'PISTON_NA',
-    enginesCount: 2,
-    maxTakeoffWeightLbs: 5500,
-    emptyWeightLbs: 3950,
-    wingAreaSqFt: 199.2,
-    screenHeightFt: 50,
-    speeds: {
-      vs0Ias: 73,
-      vs1Ias: 84,
-      vrIas: 85,
-      vxIas: 92,
-      vyIas: 105,
-    },
-    seaLevelBase: {
-      groundRollFt: 1400,
-      distanceToScreenFt: 2300,
-      maxSeaLevelRocFpm: 1700,
-      ratedPowerHpOrThrustLbs: 600, // 2x 300 HP Continental IO-550
-    }
-  },
-  CITATION_MUSTANG: {
-    id: 'citation_mustang',
-    name: 'Cessna Citation Mustang (Class A Entry Light Jet)',
-    category: 'CLASS_A',
-    engineType: 'TURBOJET',
-    enginesCount: 2,
-    maxTakeoffWeightLbs: 8645,
-    emptyWeightLbs: 5350,
-    wingAreaSqFt: 209.9,
-    screenHeightFt: 35,
-    speeds: {
-      vs0Ias: 75,
-      vs1Ias: 88,
-      vrIas: 91,
-      vxIas: 120,
-      vyIas: 170,
-      v2Ias: 97,
-    },
-    seaLevelBase: {
-      groundRollFt: 1900,
-      distanceToScreenFt: 3110,
-      maxSeaLevelRocFpm: 3010,
-      ratedPowerHpOrThrustLbs: 2920, // 2x 1460 lbf PW615F
-    }
-  },
-  AIRBUS_A320: {
-    id: 'airbus_a320',
-    name: 'Airbus A320-200 (Class A Transport Jet)',
-    category: 'CLASS_A',
-    engineType: 'TURBOJET',
-    enginesCount: 2,
-    maxTakeoffWeightLbs: 170000, // ~77,000 kg MTOW
-    emptyWeightLbs: 93900,
-    wingAreaSqFt: 1320,
-    screenHeightFt: 35,
-    speeds: {
-      vs0Ias: 115,
-      vs1Ias: 128,
-      vrIas: 142,
-      vxIas: 175,
-      vyIas: 250,
-      v2Ias: 148,
-    },
-    seaLevelBase: {
-      groundRollFt: 4600,
-      distanceToScreenFt: 6200,
-      maxSeaLevelRocFpm: 3200,
-      ratedPowerHpOrThrustLbs: 54000, // 2x 27,000 lbf CFM56-5B4
-    }
+  seaLevelBase: {
+    groundRollFt: 960,
+    distanceToScreenFt: 1630,
+    maxSeaLevelRocFpm: 730,
+    ratedPowerHpOrThrustLbs: 180, // BHP (Lycoming IO-360-L2A)
   }
 };
+
+const PRESET_BARON_G58: AircraftPreset = {
+  id: 'baron_g58',
+  name: 'Beechcraft Baron G58 (Class B Light Twin Piston)',
+  category: 'CLASS_B',
+  engineType: 'PISTON_NA',
+  enginesCount: 2,
+  maxTakeoffWeightLbs: 5500,
+  emptyWeightLbs: 3950,
+  wingAreaSqFt: 199.2,
+  screenHeightFt: 50,
+  speeds: {
+    vs0Ias: 73,
+    vs1Ias: 84,
+    vrIas: 85,
+    vxIas: 92,
+    vyIas: 105,
+  },
+  seaLevelBase: {
+    groundRollFt: 1400,
+    distanceToScreenFt: 2300,
+    maxSeaLevelRocFpm: 1700,
+    ratedPowerHpOrThrustLbs: 600, // 2x 300 HP Continental IO-550
+  }
+};
+
+const PRESET_CITATION_MUSTANG: AircraftPreset = {
+  id: 'citation_mustang',
+  name: 'Cessna Citation Mustang (Class A Entry Light Jet)',
+  category: 'CLASS_A',
+  engineType: 'TURBOJET',
+  enginesCount: 2,
+  maxTakeoffWeightLbs: 8645,
+  emptyWeightLbs: 5350,
+  wingAreaSqFt: 209.9,
+  screenHeightFt: 35,
+  speeds: {
+    vs0Ias: 75,
+    vs1Ias: 88,
+    vrIas: 91,
+    vxIas: 120,
+    vyIas: 170,
+    v2Ias: 97,
+  },
+  seaLevelBase: {
+    groundRollFt: 1900,
+    distanceToScreenFt: 3110,
+    maxSeaLevelRocFpm: 3010,
+    ratedPowerHpOrThrustLbs: 2920, // 2x 1460 lbf PW615F
+  }
+};
+
+const PRESET_AIRBUS_A320: AircraftPreset = {
+  id: 'airbus_a320',
+  name: 'Airbus A320-200 (Class A Transport Jet)',
+  category: 'CLASS_A',
+  engineType: 'TURBOJET',
+  enginesCount: 2,
+  maxTakeoffWeightLbs: 170000, // ~77,000 kg MTOW
+  emptyWeightLbs: 93900,
+  wingAreaSqFt: 1320,
+  screenHeightFt: 35,
+  speeds: {
+    vs0Ias: 115,
+    vs1Ias: 128,
+    vrIas: 142,
+    vxIas: 175,
+    vyIas: 250,
+    v2Ias: 148,
+  },
+  seaLevelBase: {
+    groundRollFt: 4600,
+    distanceToScreenFt: 6200,
+    maxSeaLevelRocFpm: 3200,
+    ratedPowerHpOrThrustLbs: 54000, // 2x 27,000 lbf CFM56-5B4
+  }
+};
+
+export const AIRCRAFT_PRESETS: Record<string, AircraftPreset> = {
+  c172_sp: PRESET_C172_SP,
+  baron_g58: PRESET_BARON_G58,
+  citation_mustang: PRESET_CITATION_MUSTANG,
+  airbus_a320: PRESET_AIRBUS_A320,
+};
+
+Object.defineProperties(AIRCRAFT_PRESETS, {
+  C172_SP: { value: PRESET_C172_SP, enumerable: false },
+  BARON_G58: { value: PRESET_BARON_G58, enumerable: false },
+  CITATION_MUSTANG: { value: PRESET_CITATION_MUSTANG, enumerable: false },
+  AIRBUS_A320: { value: PRESET_AIRBUS_A320, enumerable: false },
+});
 
 /**
  * 1. Calculate Standard ISA Atmosphere parameters

@@ -3,11 +3,18 @@ import { PlaneTakeoff, Plane, PlaneLanding, TrendingUp, BookOpen, Layers, Target
 import { View } from '../../types';
 
 interface Props {
-    currentView: View;
-    setCurrentView: (view: View) => void;
+    currentView?: View;
+    setCurrentView?: (view: View) => void;
+    onChangeView?: (view: View) => void;
+    onNavigate?: (view: View) => void;
 }
 
-export const PerfDashboard: React.FC<Props> = ({ setCurrentView }) => {
+export const PerfDashboard: React.FC<Props> = ({ setCurrentView, onChangeView, onNavigate }) => {
+    const handleSelectView = (view: View) => {
+        if (onChangeView) return onChangeView(view);
+        if (setCurrentView) return setCurrentView(view);
+        if (onNavigate) return onNavigate(view);
+    };
     const categories = [
         {
             title: "Introduction to Performance",
@@ -76,8 +83,8 @@ export const PerfDashboard: React.FC<Props> = ({ setCurrentView }) => {
                 {categories.map((category, index) => (
                     <button
                         key={index}
-                        onClick={() => setCurrentView(category.view)}
-                        className="flex flex-col text-left p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-lime-400 dark:hover:border-lime-500 transition-all group relative overflow-hidden"
+                        onClick={() => handleSelectView(category.view)}
+                        className="flex flex-col text-left p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-lime-400 dark:hover:border-lime-500 transition-all group relative overflow-hidden cursor-pointer"
                     >
                         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity transform group-hover:scale-110">
                             {category.icon}

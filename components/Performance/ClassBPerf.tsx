@@ -16,7 +16,7 @@ import {
 export const ClassBPerf: React.FC = () => {
   // Aircraft model: Default to Baron G58 (Light Twin CS-23)
   const [selectedAircraftId, setSelectedAircraftId] = useState<'baron_g58' | 'c172_sp'>('baron_g58');
-  const aircraft = AIRCRAFT_PRESETS[selectedAircraftId];
+  const aircraft = AIRCRAFT_PRESETS[selectedAircraftId] || AIRCRAFT_PRESETS.baron_g58 || Object.values(AIRCRAFT_PRESETS)[0];
 
   // Parameters
   const [weightLbs, setWeightLbs] = useState<number>(5500);

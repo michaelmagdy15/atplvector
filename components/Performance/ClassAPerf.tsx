@@ -18,7 +18,7 @@ import {
 export const ClassAPerf: React.FC = () => {
   // Aircraft selection: Default to A320 or Citation Mustang
   const [selectedAircraftId, setSelectedAircraftId] = useState<'airbus_a320' | 'citation_mustang'>('airbus_a320');
-  const aircraft = AIRCRAFT_PRESETS[selectedAircraftId];
+  const aircraft = AIRCRAFT_PRESETS[selectedAircraftId] || AIRCRAFT_PRESETS.airbus_a320 || Object.values(AIRCRAFT_PRESETS)[0];
 
   // Engine Count override (default 2 for twin, but allow testing 3-engine tri-jet or 4-engine quad-jet regulations)
   const [engineCount, setEngineCount] = useState<EngineCount>(2);
