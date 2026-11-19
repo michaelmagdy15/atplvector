@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920, initial-scale=1.0" />
+<title>ATPLVector Netflix Documentary Stage</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+  html, body {
+    width: 1080px;
+    height: 1920px;
+    overflow: hidden;
+    background: #040814;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #f8fafc;
+  }
+  #stage {
+    position: relative;
+    width: 1080px;
+    height: 1920px;
+    overflow: hidden;
+  }
+
+  /* 3D WebGL Layer (Acts 1 & 2) */
+  #gl-canvas {
+    position: absolute;
+    inset: 0;
+    width: 1080px;
+    height: 1920px;
+    display: block;
+    z-index: 1;
+  }
+
+  /* Tilt-shift miniature DOF mask for Act 2 Isometric Diorama */
+  .tilt-shift {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 310px;
+    z-index: 4;
+    pointer-events: none;
+    backdrop-filter: blur(5.5px);
+    opacity: 0;
+  }
+  #ts-top {
+    top: 0;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  }
+  #ts-bot {
+    bottom: 0;
+    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  }
+
+  /* Persistent Brand Logo Bug (top-left inside Reels safe zone) */
+  #brand-bug {
+    position: absolute;
+    top: 108px;
+    left: 52px;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 18px 10px 12px;
+    border-radius: 16px;
+    background: rgba(8, 14, 28, 0.58);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  }
+  #brand-bug img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+  #brand-bug span {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    color: #f8fafc;
+  }
+
+  /* Act 1 Cockpit HUD Overlay */
+  #act1-hud {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .hud-speed-box {
+    position: absolute;
+    left: 54px;
+    top: 380px;
+    padding: 20px 28px;
+    border-radius: 16px;
+    background: rgba(6, 14, 28, 0.65);
+    border: 2px solid rgba(34, 211, 238, 0.65);
+    box-shadow: 0 0 36px rgba(34, 211, 238, 0.25);
+  }
+  .hud-lbl {
+    font-family: Consolas, monospace;
+    font-size: 22px;
+    letter-spacing: 0.18em;
+    color: #67e8f9;
+    font-weight: 700;
+  }
+  .hud-spd {
+    font-family: Consolas, monospace;
+    font-size: 94px;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.05;
+  }
+  #eng-fail-alert {
+    position: absolute;
+    left: 50%;
+    top: 250px;
+    transform: translateX(-50%) scale(0.9);
+    padding: 18px 36px;
+    border-radius: 14px;
+    background: rgba(225, 29, 72, 0.92);
+    border: 3px solid #fda4af;
+    box-shadow: 0 0 50px rgba(244, 63, 94, 0.7);
+    font-family: Consolas, monospace;
+    font-size: 38px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+    white-space: nowrap;
+    opacity: 0;
+  }
+  #act1-question {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 240px;
+    text-align: center;
+    opacity: 0;
+  }
+  #act1-question .big {
+    display: inline-block;
+    padding: 18px 42px;
+    border-radius: 18px;
+    background: rgba(6, 11, 22, 0.80);
+    border: 2px solid rgba(251, 191, 36, 0.6);
+    font-size: 62px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    color: #ffffff;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6);
+  }
+  #act1-question em { font-style: normal; color: #fbbf24; }
+
+  /* Act 2 Floating Diorama Callouts */
+  #act2-ui {
+    position: absolute;
+    inset: 0;
+    z-index: 12;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .diorama-tag {
+    position: absolute;
+    padding: 16px 30px;
+    border-radius: 16px;
+    font-size: 40px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+    opacity: 0;
+  }
+  #tag-v1 {
+    left: 50%;
+    top: 235px;
+    transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.90);
+    border: 3px solid #f59e0b;
+    color: #fde68a;
+    white-space: nowrap;
+  }
+  #tag-asda {
+    left: 64px;
+    bottom: 340px;
+    background: rgba(136, 19, 55, 0.92);
+    border: 3px solid #fb7185;
+    color: #ffe4e6;
+  }
+  #tag-toda {
+    right: 64px;
+    bottom: 340px;
+    background: rgba(6, 78, 59, 0.92);
+    border: 3px solid #34d399;
+    color: #d1fae5;
+  }
+
+  /* Act 3: Netflix Investigative Evidence Board (Ref 5) */
+  #act3-board {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    background:
+      radial-gradient(circle at 50% 42%, #132544 0%, #07101f 68%, #040812 100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(56, 189, 248, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56, 189, 248, 0.06) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  .mac-win {
+    position: absolute;
+    background: #f5f3ee;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 36px 90px rgba(0, 0, 0, 0.72), 0 0 0 2px rgba(255, 255, 255, 0.14);
+    transform-origin: center center;
+  }
+  .mac-bar {
+    height: 60px;
+    background: #e5e1d8;
+    border-bottom: 2px solid #d4cfc4;
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+    gap: 11px;
+  }
+  .dot { width: 17px; height: 17px; border-radius: 50%; }
+  .dot-r { background: #ef4444; }
+  .dot-y { background: #f59e0b; }
+  .dot-g { background: #10b981; }
+  .win-title {
+    margin-left: 16px;
+    font-family: Consolas, monospace;
+    font-size: 24px;
+    font-weight: 800;
+    color: #334155;
+    letter-spacing: 0.06em;
+  }
+  #win-fcom {
+    left: 60px;
+    top: 235px;
+    width: 680px;
+    padding-bottom: 34px;
+    transform: rotate(-2.2deg);
+  }
+  .fcom-body { padding: 30px 36px 8px; }
+  .fcom-rule {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 10px;
+    background: #fef08a;
+    color: #0f172a;
+    font-family: Consolas, monospace;
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 18px;
+  }
+  .greek-line {
+    height: 15px;
+    border-radius: 7px;
+    background: #d6d2c8;
+    margin-bottom: 15px;
+  }
+  #win-chart {
+    right: 54px;
+    top: 520px;
+    width: 930px;
+    height: 1040px;
+    transform: rotate(1.1deg);
+  }
+  #cursor-arrow {
+    position: absolute;
+    width: 68px;
+    height: 68px;
+    z-index: 30;
+    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.55));
+    transform-origin: 8px 6px;
+  }
+  #click-ripple {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 6px solid #f59e0b;
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0;
+    z-index: 29;
+  }
+
+  /* Acts 4 & 5: Noir Amber Spotlight Quiz & Verdict (Ref 6) */
+  #act45-stage {
+    position: absolute;
+    inset: 0;
+    z-index: 35;
+    background: #0a0f18;
+    opacity: 0;
+    pointer-events: none;
+  }
+  #spotlight-beam {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 310px;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, #f59e0b 0%, #ea580c 100%);
+    box-shadow: 0 0 140px rgba(245, 158, 11, 0.45);
+    transition: background 0.1s;
+  }
+  .quiz-wrap {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    padding: 230px 64px 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .quiz-badge {
+    padding: 12px 30px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.92);
+    border: 2px solid rgba(251, 191, 36, 0.7);
+    font-family: Consolas, monospace;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    color: #fbbf24;
+    margin-bottom: 28px;
+  }
+  .quiz-headline {
+    font-size: 68px;
+    font-weight: 900;
+    line-height: 1.12;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 0 12px 36px rgba(0, 0, 0, 0.75);
+    margin-bottom: 48px;
+  }
+  .quiz-headline span {
+    background: rgba(10, 15, 24, 0.86);
+    padding: 6px 22px;
+    border-radius: 14px;
+    display: inline-block;
+  }
+  .options-row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-bottom: 48px;
+  }
+  .opt-card {
+    padding: 36px 24px;
+    border-radius: 22px;
+    background: rgba(15, 23, 42, 0.94);
+    border: 3px solid rgba(148, 163, 184, 0.35);
+    text-align: center;
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.65);
+  }
+  .opt-key {
+    font-family: Consolas, monospace;
+    font-size: 28px;
+    font-weight: 800;
+    color: #94a3b8;
+    margin-bottom: 10px;
+  }
+  .opt-val {
+    font-size: 56px;
+    font-weight: 900;
+    color: #ffffff;
+  }
+  #ring-wrap {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #ring-num {
+    position: absolute;
+    font-size: 112px;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+  }
+  #comment-cta {
+    margin-top: 26px;
+    padding: 12px 32px;
+    border-radius: 14px;
+    background: rgba(10, 15, 24, 0.85);
+    font-family: Consolas, monospace;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    color: #fde68a;
+  }
+  #verdict-callout {
+    margin-top: 8px;
+    padding: 20px 38px;
+    border-radius: 18px;
+    background: rgba(6, 78, 59, 0.96);
+    border: 3px solid #34d399;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+    font-size: 46px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    color: #ffffff;
+    text-align: center;
+    display: none;
+  }
+  #verdict-rules {
+    position: absolute;
+    left: 64px;
+    right: 64px;
+    bottom: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    opacity: 0;
+  }
+  .v-rule {
+    padding: 28px 34px;
+    border-radius: 20px;
+    background: rgba(6, 78, 59, 0.94);
+    border: 3px solid #34d399;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  .v-rule-main { font-size: 52px; font-weight: 900; color: #ffffff; }
+  .v-rule-sub { font-family: Consolas, monospace; font-size: 26px; font-weight: 700; color: #a7f3d0; }
+
+  /* Act 6: Branded ATPLVector Outro Sting */
+  #act6-outro {
+    position: absolute;
+    inset: 0;
+    z-index: 70;
+    background: radial-gradient(circle at 50% 45%, #0c2348 0%, #050b18 65%, #02040a 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  #outro-logo {
+    width: 240px;
+    height: 240px;
+    border-radius: 52px;
+    box-shadow: 0 0 90px rgba(56, 189, 248, 0.55);
+  }
+  #outro-brand {
+    font-size: 82px;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    color: #ffffff;
+  }
+  #outro-sub {
+    font-family: Consolas, monospace;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    color: #38bdf8;
+  }
+
+  /* Global Cinema Vignette */
+  #vignette {
+    position: absolute;
+    inset: 0;
+    z-index: 80;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 56%, rgba(0,0,0,0.68) 100%);
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="gl-canvas" width="1080" height="1920"></canvas>
+  <div id="ts-top" class="tilt-shift"></div>
+  <div id="ts-bot" class="tilt-shift"></div>
+
+  <div id="brand-bug">
+    <img id="bug-img" src="/public/icons/icon-512.png" alt="ATPLVector" />
+    <span>ATPLVECTOR</span>
+  </div>
+
+  <!-- Act 1 HUD -->
+  <div id="act1-hud">
+    <div id="eng-fail-alert">▲ MASTER WARN · ENG 2 FAIL</div>
+    <div class="hud-speed-box">
+      <div class="hud-lbl">IAS // WET RWY</div>
+      <div class="hud-spd" id="hud-kt">085 KT</div>
+    </div>
+    <div id="act1-question"><div class="big"><em>FLY</em> OR <em>STOP</em>?</div></div>
+  </div>
+
+  <!-- Act 2 Diorama Callouts -->
+  <div id="act2-ui">
+    <div id="tag-v1" class="diorama-tag">V1 DECISION GATE</div>
+    <div id="tag-asda" class="diorama-tag">ASDA · STOPWAY</div>
+    <div id="tag-toda" class="diorama-tag">TODA · CLEARWAY</div>
+  </div>
+
+  <!-- Act 3 Evidence Board -->
+  <div id="act3-board">
+    <div class="grid-overlay"></div>
+    <div id="win-fcom" class="mac-win">
+      <div class="mac-bar">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <div class="win-title">EASA_FCOM_032.DOC</div>
+      </div>
+      <div class="fcom-body">
+        <div class="fcom-rule" id="fcom-highlight">ASDR = TODR · BALANCED V1</div>
+        <div class="greek-line" style="width:94%"></div>
+        <div class="greek-line" style="width:76%"></div>
+        <div class="greek-line" style="width:88%"></div>
+      </div>
+    </div>
+
+    <div id="win-chart" class="mac-win">
+      <div class="mac-bar">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <div class="win-title">CS25_BALANCED_FIELD.PDF</div>
+      </div>
+      <svg id="bf-svg" viewBox="0 0 930 960" width="930" height="960">
+        <!-- Subtle chart grid -->
+        <line x1="130" y1="80" x2="130" y2="820" stroke="#334155" stroke-width="5" />
+        <line x1="130" y1="820" x2="860" y2="820" stroke="#334155" stroke-width="5" />
+        <text x="80" y="62" fill="#475569" font-size="28" font-weight="800" font-family="Consolas">DIST</text>
+        <text x="495" y="885" text-anchor="middle" fill="#475569" font-size="30" font-weight="800" font-family="Segoe UI">DECISION SPEED (V1)</text>
+
+        <!-- Rising Red ASDR Path -->
+        <path id="path-asdr" d="M 190 730 Q 495 560 800 170" fill="none" stroke="#e11d48" stroke-width="16" stroke-linecap="round" stroke-dasharray="1000" stroke-dashoffset="1000" />
+        <g id="lbl-asdr" opacity="0">
+          <rect x="180" y="715" width="210" height="72" rx="14" fill="#f5f3ee" />
+          <text x="200" y="772" fill="#e11d48" font-size="60" font-weight="900">ASDR</text>
+        </g>
+
+        <!-- Falling Blue TODR Path -->
+        <path id="path-todr" d="M 190 210 Q 495 450 800 720" fill="none" stroke="#0284c7" stroke-width="16" stroke-linecap="round" stroke-dasharray="1000" stroke-dashoffset="1000" />
+        <g id="lbl-todr" opacity="0">
+          <rect x="175" y="105" width="215" height="72" rx="14" fill="#f5f3ee" />
+          <text x="192" y="162" fill="#0284c7" font-size="60" font-weight="900">TODR</text>
+        </g>
+
+        <!-- Intersection Circle + Balanced V1 -->
+        <g id="v1-node" opacity="0">
+          <circle cx="496" cy="488" r="56" fill="none" stroke="#d97706" stroke-width="12" />
+          <circle cx="496" cy="488" r="14" fill="#d97706" />
+          <rect x="330" y="575" width="332" height="122" rx="16" fill="#f5f3ee" stroke="#d97706" stroke-width="4" />
+          <text x="496" y="630" text-anchor="middle" fill="#b45309" font-size="48" font-weight="900">BALANCED</text>
+          <text x="496" y="684" text-anchor="middle" fill="#b45309" font-size="52" font-weight="900">V1</text>
+        </g>
+      </svg>
+    </div>
+
+    <div id="click-ripple"></div>
+    <svg id="cursor-arrow" viewBox="0 0 36 36">
+      <path d="M4 2 L4 30 L11 23 L17 34 L22 31 L16 20 L26 20 Z" fill="#ffffff" stroke="#0f172a" stroke-width="2.6" stroke-linejoin="round" />
+    </svg>
+  </div>
+
+  <!-- Acts 4 & 5 Noir Quiz + Verdict -->
+  <div id="act45-stage">
+    <div id="spotlight-beam"></div>
+    <div class="quiz-wrap">
+      <div class="quiz-badge" id="quiz-badge">PILOT CALL // EASA EXAM TRAP</div>
+      <div class="quiz-headline"><span>ENGINE FAILS 2 KT<br/>BEFORE V1</span></div>
+      <div class="options-row">
+        <div class="opt-card" id="opt-a">
+          <div class="opt-key">OPTION A</div>
+          <div class="opt-val">STOP</div>
+        </div>
+        <div class="opt-card" id="opt-b">
+          <div class="opt-key">OPTION B</div>
+          <div class="opt-val">GO</div>
+        </div>
+      </div>
+      <div id="ring-wrap">
+        <svg width="240" height="240" viewBox="0 0 240 240">
+          <circle cx="120" cy="120" r="98" fill="rgba(10,15,24,0.88)" stroke="rgba(255,255,255,0.16)" stroke-width="14" />
+          <circle id="ring-prog" cx="120" cy="120" r="98" fill="none" stroke="#fbbf24" stroke-width="14" stroke-linecap="round"
+                  stroke-dasharray="615.75" stroke-dashoffset="0" transform="rotate(-90 120 120)" />
+        </svg>
+        <div id="ring-num">3</div>
+      </div>
+      <div id="comment-cta">COMMENT YOUR CALL</div>
+      <div id="verdict-callout">REJECT TAKEOFF IMMEDIATELY</div>
+    </div>
+
+    <div id="verdict-rules">
+      <div class="v-rule" id="v-r1"><span class="v-rule-main">1. V1 ≥ VMCG</span><span class="v-rule-sub">STEERING CTRL</span></div>
+      <div class="v-rule" id="v-r2"><span class="v-rule-main">2. V1 ≤ VR</span><span class="v-rule-sub">BEFORE ROTATION</span></div>
+      <div class="v-rule" id="v-r3"><span class="v-rule-main">3. V1 ≤ VMBE</span><span class="v-rule-sub">BRAKE ENERGY</span></div>
+    </div>
+  </div>
+
+  <!-- Act 6 Outro -->
+  <div id="act6-outro">
+    <img id="outro-logo" src="/public/icons/icon-512.png" alt="ATPLVector Crest" />
+    <div id="outro-brand">ATPLVECTOR</div>
+    <div id="outro-sub">MASTER ALL 13 ATPL SUBJECTS</div>
+  </div>
+
+  <div id="vignette"></div>
+</div>
+
+<script type="module">
+import * as THREE from '/node_modules/three/build/three.module.js';
+
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const smooth = (t) => { t = clamp(t); return t * t * (3 - 2 * t); };
+const easeOut = (t) => 1 - Math.pow(1 - clamp(t), 3);
+
+// Wait for brand images to decode cleanly
+await Promise.all([
+  new Promise(r => { const i = document.getElementById('bug-img'); if (i.complete) r(); else i.onload = r; }),
+  new Promise(r => { const i = document.getElementById('outro-logo'); if (i.complete) r(); else i.onload = r; }),
+]);
+
+// ── Build Sculpted Twin-Engine 3D Jet Helper ─────────────────────────────
+function createJetMesh(darkMat = false) {
+  const g = new THREE.Group();
+  const bodyMat = new THREE.MeshStandardMaterial({ color: darkMat ? 0xdbe4ee : 0xf8fafc, roughness: 0.35, metalness: 0.35 });
+  const accentMat = new THREE.MeshStandardMaterial({ color: 0xe11d48, roughness: 0.4, metalness: 0.2 });
+  const glassMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.15, metalness: 0.85 });
+
+  // Fuselage cylinder + nosecone + tailcone
+  const fuse = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 5.4, 20), bodyMat);
+  fuse.rotation.x = Math.PI / 2;
+  fuse.position.y = 0.72;
+  fuse.castShadow = true;
+  g.add(fuse);
+
+  const nose = new THREE.Mesh(new THREE.ConeGeometry(0.55, 1.6, 20), bodyMat);
+  nose.rotation.x = -Math.PI / 2;
+  nose.position.set(0, 0.72, -3.5);
+  nose.castShadow = true;
+  g.add(nose);
+
+  const cockpit = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.28, 0.65), glassMat);
+  cockpit.position.set(0, 1.0, -3.0);
+  g.add(cockpit);
+
+  // Swept Wings
+  const wingShape = new THREE.Shape();
+  wingShape.moveTo(0, -0.8);
+  wingShape.lineTo(4.4, 1.5);
+  wingShape.lineTo(4.4, 2.2);
+  wingShape.lineTo(0, 0.9);
+  wingShape.closePath();
+  const extrude = new THREE.ExtrudeGeometry(wingShape, { depth: 0.12, bevelEnabled: false });
+  const rightWing = new THREE.Mesh(extrude, bodyMat);
+  rightWing.rotation.x = Math.PI / 2;
+  rightWing.position.set(0, 0.62, -0.4);
+  rightWing.castShadow = true;
+  g.add(rightWing);
+
+  const leftWing = rightWing.clone();
+  leftWing.scale.x = -1;
+  g.add(leftWing);
+
+  // Tailfin (red airline livery stripe!) + horizontal stabs
+  const vStab = new THREE.Mesh(new THREE.BoxGeometry(0.12, 1.65, 1.35), accentMat);
+  vStab.position.set(0, 1.7, 2.35);
+  vStab.rotation.x = 0.28;
+  vStab.castShadow = true;
+  g.add(vStab);
+
+  const hStab = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.09, 0.75), bodyMat);
+  hStab.position.set(0, 0.95, 2.55);
+  hStab.castShadow = true;
+  g.add(hStab);
+
+  // Twin Underwing Engine Nacelles
+  const engL = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.28, 1.35, 16), bodyMat);
+  engL.rotation.x = Math.PI / 2;
+  engL.position.set(-1.55, 0.35, -0.65);
+  engL.castShadow = true;
+  g.add(engL);
+
+  const engR = engL.clone();
+  engR.position.x = 1.55;
+  g.add(engR);
+
+  // glowing intake/exhaust highlights
+  const coreMat = new THREE.MeshBasicMaterial({ color: 0xfef3c7 });
+  const tailLight = new THREE.Mesh(new THREE.SphereGeometry(0.14, 10, 10), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+  tailLight.position.set(0, 2.5, 2.58);
+  g.add(tailLight);
+
+  return { group: g, engR, coreMat };
+}
+
+// ── Initialize Three.js WebGL Renderer ───────────────────────────────────
+const canvas = document.getElementById('gl-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+renderer.setSize(1080, 1920, false);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.15;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SCENE 1: DUSK WET RUNWAY + ENGINE 2 FAILURE (REF 2)
+// ═══════════════════════════════════════════════════════════════════════════
+const scene1 = new THREE.Scene();
+scene1.fog = new THREE.FogExp2(0x160e20, 0.0085);
+const cam1 = new THREE.PerspectiveCamera(48, 1080 / 1920, 0.5, 400);
+
+// Crimson-Indigo Sunset Sky Dome
+const skyGeo = new THREE.SphereGeometry(280, 32, 24);
+const skyMat = new THREE.ShaderMaterial({
+  side: THREE.BackSide,
+  uniforms: {},
+  vertexShader: `varying vec3 vPos; void main() { vPos = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+  fragmentShader: `
+    varying vec3 vPos;
+    void main() {
+      float h = normalize(vPos).y;
+      vec3 horizon = vec3(0.96, 0.26, 0.22);
+      vec3 mid = vec3(0.32, 0.14, 0.28);
+      vec3 zenith = vec3(0.05, 0.07, 0.16);
+      vec3 col = mix(horizon, mid, smoothstep(0.0, 0.14, max(0.0, h)));
+      col = mix(col, zenith, smoothstep(0.10, 0.42, max(0.0, h)));
+      gl_FragColor = vec4(col, 1.0);
+    }
+  `,
+});
+scene1.add(new THREE.Mesh(skyGeo, skyMat));
+
+scene1.add(new THREE.HemisphereLight(0xfb7185, 0x0f172a, 0.85));
+const duskSun = new THREE.DirectionalLight(0xfb923c, 2.2);
+duskSun.position.set(12, 16, -90);
+scene1.add(duskSun);
+
+// Ground + Dark Wet Asphalt Runway
+const ground1 = new THREE.Mesh(new THREE.PlaneGeometry(360, 420), new THREE.MeshStandardMaterial({ color: 0x070a10, roughness: 0.9 }));
+ground1.rotation.x = -Math.PI / 2;
+ground1.position.set(0, -0.02, -110);
+scene1.add(ground1);
+
+const rwy1 = new THREE.Mesh(new THREE.PlaneGeometry(18, 340), new THREE.MeshStandardMaterial({ color: 0x161a24, roughness: 0.28, metalness: 0.45 }));
+rwy1.rotation.x = -Math.PI / 2;
+rwy1.position.set(0, 0, -100);
+scene1.add(rwy1);
+
+// White centerline dashes, piano-key threshold stripes, and bright runway/taxi edge lights
+const markMat = new THREE.MeshBasicMaterial({ color: 0xf1f5f9 });
+for (let i = -3; i <= 3; i++) {
+  if (i === 0) continue;
+  const bar = new THREE.Mesh(new THREE.PlaneGeometry(1.1, 14), markMat);
+  bar.rotation.x = -Math.PI / 2;
+  bar.position.set(i * 2.1, 0.02, 22);
+  scene1.add(bar);
+}
+for (let z = 30; z >= -240; z -= 14) {
+  const dash = new THREE.Mesh(new THREE.PlaneGeometry(0.45, 7), markMat);
+  dash.rotation.x = -Math.PI / 2;
+  dash.position.set(0, 0.02, z);
+  scene1.add(dash);
+}
+const edgeMat = new THREE.MeshBasicMaterial({ color: 0xfef08a });
+const taxiMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+for (let z = 40; z >= -240; z -= 10) {
+  const l1 = new THREE.Mesh(new THREE.SphereGeometry(0.22, 8, 8), edgeMat);
+  l1.position.set(-9.2, 0.2, z);
+  scene1.add(l1);
+  const l2 = l1.clone();
+  l2.position.x = 9.2;
+  scene1.add(l2);
+  // Blue taxiway perimeter accents on flanks
+  if (z % 20 === 0) {
+    const t1 = new THREE.Mesh(new THREE.SphereGeometry(0.18, 8, 8), taxiMat);
+    t1.position.set(-22, 0.2, z);
+    scene1.add(t1);
+    const t2 = t1.clone();
+    t2.position.x = 22;
+    scene1.add(t2);
+  }
+}
+
+const jet1 = createJetMesh(true);
+scene1.add(jet1.group);
+
+// Engine 2 Spark/Fire Burst Group
+const sparks = new THREE.Group();
+const sparkMeshes = [];
+const sparkMat = new THREE.MeshBasicMaterial({ color: 0xfb923c, transparent: true });
+for (let i = 0; i < 24; i++) {
+  const sp = new THREE.Mesh(new THREE.SphereGeometry(0.24, 8, 8), sparkMat);
+  sp.userData = {
+    vx: (Math.sin(i * 3.1) * 0.7) + 0.35,
+    vy: Math.abs(Math.cos(i * 2.3)) * 0.9 + 0.15,
+    vz: 3.5 + (i % 6) * 1.4,
+  };
+  sparks.add(sp);
+  sparkMeshes.push(sp);
+}
+sparks.visible = false;
+scene1.add(sparks);
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SCENE 2: 3D ISOMETRIC CLAY MINIATURE AIRPORT DIORAMA (REFS 3 & 4)
+// ═══════════════════════════════════════════════════════════════════════════
+const scene2 = new THREE.Scene();
+scene2.background = new THREE.Color(0xd5a990);
+const cam2 = new THREE.PerspectiveCamera(32, 1080 / 1920, 1, 200);
+
+scene2.add(new THREE.HemisphereLight(0xfff1e6, 0xb8866c, 1.15));
+const claySun = new THREE.DirectionalLight(0xfff7ed, 1.75);
+claySun.position.set(18, 28, 16);
+claySun.castShadow = true;
+claySun.shadow.mapSize.set(2048, 2048);
+claySun.shadow.camera.left = -22;
+claySun.shadow.camera.right = 22;
+claySun.shadow.camera.top = 26;
+claySun.shadow.camera.bottom = -26;
+scene2.add(claySun);
+
+// Matte Clay Terrain
+const clayGround = new THREE.Mesh(
+  new THREE.PlaneGeometry(160, 160),
+  new THREE.MeshStandardMaterial({ color: 0xd4a98f, roughness: 0.92, metalness: 0.0 })
+);
+clayGround.rotation.x = -Math.PI / 2;
+clayGround.receiveShadow = true;
+scene2.add(clayGround);
+
+// Teal/Slate Raised Runway Strip (Ref 3) + Parallel Taxiway + Stopway + Clearway
+const rwyStrip = new THREE.Mesh(
+  new THREE.BoxGeometry(5.6, 0.24, 34),
+  new THREE.MeshStandardMaterial({ color: 0x386670, roughness: 0.85 })
+);
+rwyStrip.position.set(-2.2, 0.12, 2);
+rwyStrip.receiveShadow = true;
+scene2.add(rwyStrip);
+
+// Parallel taxiway & connectors
+const twyStrip = new THREE.Mesh(
+  new THREE.BoxGeometry(2.0, 0.18, 24),
+  new THREE.MeshStandardMaterial({ color: 0x386670, roughness: 0.85 })
+);
+twyStrip.position.set(2.5, 0.09, 2);
+twyStrip.receiveShadow = true;
+scene2.add(twyStrip);
+for (const cz of [-8, 12]) {
+  const conn = new THREE.Mesh(new THREE.BoxGeometry(4.2, 0.18, 2.0), new THREE.MeshStandardMaterial({ color: 0x386670, roughness: 0.85 }));
+  conn.position.set(0.2, 0.09, cz);
+  conn.receiveShadow = true;
+  scene2.add(conn);
+}
+
+// Amber Stopway Extension (ASDA) & Emerald Clearway Box (TODA)
+const stopway = new THREE.Mesh(
+  new THREE.BoxGeometry(5.6, 0.25, 6.2),
+  new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.78 })
+);
+stopway.position.set(-2.2, 0.125, -18.2);
+stopway.receiveShadow = true;
+scene2.add(stopway);
+
+const clearway = new THREE.Mesh(
+  new THREE.BoxGeometry(7.2, 0.12, 8.5),
+  new THREE.MeshStandardMaterial({ color: 0x10b981, transparent: true, opacity: 0.45, roughness: 0.7 })
+);
+clearway.position.set(-2.2, 0.07, -23.0);
+scene2.add(clearway);
+
+// Three Cream Arched Hangars (Ref 3)
+const hangarMat = new THREE.MeshStandardMaterial({ color: 0xf3e8d8, roughness: 0.82 });
+for (let hi = 0; hi < 3; hi++) {
+  const hz = -3 + hi * 5.6;
+  const baseH = new THREE.Mesh(new THREE.BoxGeometry(3.4, 1.35, 3.8), hangarMat);
+  baseH.position.set(5.8, 0.675, hz);
+  baseH.castShadow = true;
+  baseH.receiveShadow = true;
+  scene2.add(baseH);
+
+  const roof = new THREE.Mesh(new THREE.CylinderGeometry(1.9, 1.9, 3.4, 16, 1, false, 0, Math.PI), hangarMat);
+  roof.rotation.z = Math.PI / 2;
+  roof.position.set(5.8, 1.35, hz);
+  roof.castShadow = true;
+  scene2.add(roof);
+}
+
+// Clay Control Tower + Radar (positioned cleanly inside isometric viewport)
+const towerStem = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.75, 6.8, 8), hangarMat);
+towerStem.position.set(5.2, 3.4, -9.8);
+towerStem.castShadow = true;
+scene2.add(towerStem);
+
+const towerCab = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 0.85, 1.3, 8), new THREE.MeshStandardMaterial({ color: 0x3b4252, roughness: 0.4 }));
+towerCab.position.set(5.2, 7.2, -9.8);
+towerCab.castShadow = true;
+scene2.add(towerCab);
+
+const towerCap = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.5, 0.38, 8), hangarMat);
+towerCap.position.set(5.2, 8.0, -9.8);
+scene2.add(towerCap);
+
+const radarDish = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.5, 0.22), new THREE.MeshStandardMaterial({ color: 0xb45309, roughness: 0.6 }));
+radarDish.position.set(5.2, 8.65, -9.8);
+radarDish.castShadow = true;
+scene2.add(radarDish);
+
+// Miniature Jet on Diorama + Pulsing Halo Ring (Ref 4)
+const jet2 = createJetMesh(false);
+jet2.group.scale.setScalar(0.52);
+scene2.add(jet2.group);
+
+const haloRing = new THREE.Mesh(
+  new THREE.RingGeometry(2.3, 2.55, 48),
+  new THREE.MeshBasicMaterial({ color: 0xfffbeb, side: THREE.DoubleSide, transparent: true, opacity: 0.85 })
+);
+haloRing.rotation.x = -Math.PI / 2;
+haloRing.position.y = 0.28;
+scene2.add(haloRing);
+
+// Glowing V1 Decision Gate Line
+const v1Gate = new THREE.Mesh(
+  new THREE.BoxGeometry(6.4, 0.32, 0.45),
+  new THREE.MeshBasicMaterial({ color: 0xfbbf24 })
+);
+v1Gate.position.set(-2.2, 0.28, -2.5);
+scene2.add(v1Gate);
+
+// Glowing 3D ASDA Stop Tube & TODA Climb Tube
+const asdaCurve = new THREE.CatmullRomCurve3([
+  new THREE.Vector3(-2.2, 0.7, -2.5),
+  new THREE.Vector3(-2.2, 0.9, -11),
+  new THREE.Vector3(-2.2, 0.6, -19.5),
+]);
+const asdaRibbon = new THREE.Mesh(
+  new THREE.TubeGeometry(asdaCurve, 32, 0.26, 8, false),
+  new THREE.MeshBasicMaterial({ color: 0xf43f5e, transparent: true, opacity: 0 })
+);
+scene2.add(asdaRibbon);
+
+const todaCurve = new THREE.CatmullRomCurve3([
+  new THREE.Vector3(-2.2, 0.7, -2.5),
+  new THREE.Vector3(-2.2, 1.3, -11),
+  new THREE.Vector3(-2.2, 4.6, -24.5),
+]);
+const todaRibbon = new THREE.Mesh(
+  new THREE.TubeGeometry(todaCurve, 32, 0.26, 8, false),
+  new THREE.MeshBasicMaterial({ color: 0x10b981, transparent: true, opacity: 0 })
+);
+scene2.add(todaRibbon);
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DETERMINISTIC TIMELINE CONTROLLER
+// ═══════════════════════════════════════════════════════════════════════════
+let TL = null;
+window.initTimeline = (tl) => {
+  TL = tl;
+  window.__STAGE_READY__ = true;
+};
+
+window.renderAtTime = (t) => {
+  if (!TL) return;
+  const a1 = TL.acts['1'], a2 = TL.acts['2'], a3 = TL.acts['3'];
+  const a4 = TL.acts['4'], a5 = TL.acts['5'], a6 = TL.acts['6'];
+  const cues = TL.cues;
+
+  const bug = document.getElementById('brand-bug');
+  const hud1 = document.getElementById('act1-hud');
+  const tsTop = document.getElementById('ts-top');
+  const tsBot = document.getElementById('ts-bot');
+  const act2Ui = document.getElementById('act2-ui');
+  const act3Board = document.getElementById('act3-board');
+  const act45Stage = document.getElementById('act45-stage');
+  const act6Outro = document.getElementById('act6-outro');
+
+  // Hide persistent bug smoothly right when Act 6 centered logo crest opens
+  bug.style.opacity = t >= a6.start - 0.25 ? String(1 - smooth((t - (a6.start - 0.25)) / 0.25)) : '1';
+
+  // ── ACT 1: Three.js Dusk Runway ────────────────────────────────────────
+  if (t < a2.start + 0.35) {
+    const fadeOut = t > a2.start - 0.35 ? 1 - smooth((t - (a2.start - 0.35)) / 0.7) : 1;
+    const p1 = clamp((t - a1.start) / Math.max(0.1, a1.end - a1.start));
+    const speedProg = clamp((t - a1.start) / Math.max(0.1, cues.eng_fail - a1.start));
+    const speedKt = Math.round(112 + 28 * smooth(speedProg) + 4 * clamp(p1 - 0.4));
+    document.getElementById('hud-kt').textContent = `${String(speedKt).padStart(3, '0')} KT`;
+
+    const jetZ = 18 - p1 * 72;
+    jet1.group.position.set(0, 0, jetZ);
+    // Subtle handheld vibration & slight yaw drift on engine failure
+    const failT = t - cues.eng_fail;
+    const shake = failT > 0 ? Math.sin(failT * 42) * Math.exp(-failT * 2.5) * 0.14 : Math.sin(t * 14) * 0.03;
+    jet1.group.rotation.y = failT > 0 ? clamp(failT * 0.03, 0, 0.04) : 0;
+
+    cam1.position.set(shake, 4.6 + Math.cos(t * 5) * 0.05, jetZ + 17.5);
+    cam1.lookAt(0, 1.8, jetZ - 18);
+    renderer.render(scene1, cam1);
+
+    // Engine failure spark burst + Master Caution banner
+    if (failT > 0 && failT < 2.2) {
+      sparks.visible = true;
+      sparks.position.set(1.55, 0.38, jetZ - 0.1);
+      for (const sp of sparkMeshes) {
+        const dt = failT % 0.65;
+        sp.position.set(sp.userData.vx * dt * 2.2, Math.max(-0.3, sp.userData.vy * dt * 2.0 - 1.5 * dt * dt), sp.userData.vz * dt * 2.4);
+      }
+    } else {
+      sparks.visible = false;
+    }
+    const failAlert = document.getElementById('eng-fail-alert');
+    const aPop = smooth(clamp(failT / 0.18));
+    failAlert.style.opacity = String(aPop * fadeOut);
+    failAlert.style.transform = `translateX(-50%) scale(${0.86 + 0.14 * easeOut(failT / 0.25)})`;
+
+    const qPop = smooth(clamp((t - (cues.eng_fail + 1.25)) / 0.35));
+    const act1Q = document.getElementById('act1-question');
+    act1Q.style.opacity = String(qPop * fadeOut);
+    act1Q.style.transform = `translateY(${(1 - easeOut((t - (cues.eng_fail + 1.25)) / 0.35)) * 28}px)`;
+
+    hud1.style.opacity = String(fadeOut);
+  } else {
+    hud1.style.opacity = '0';
+  }
+
+  // ── ACT 2: Three.js 3D Isometric Clay Diorama ──────────────────────────
+  if (t >= a2.start - 0.35 && t < a3.start + 0.35) {
+    const enter = smooth((t - (a2.start - 0.35)) / 0.55);
+    const leave = t > a3.start - 0.35 ? 1 - smooth((t - (a3.start - 0.35)) / 0.55) : 1;
+    const vis = Math.min(enter, leave);
+
+    const p2 = clamp((t - a2.start) / Math.max(0.1, a2.end - a2.start));
+    // Smooth orbital isometric camera glide framing jet + control tower + hangars
+    const orb = p2 * 0.35;
+    cam2.position.set(26 * Math.cos(0.70 + orb), 22.0 - p2 * 1.8, 27 * Math.sin(0.70 + orb));
+    cam2.lookAt(0.8, 1.4, -4.8 - p2 * 3.0);
+    radarDish.rotation.y = t * 1.4;
+
+    // Miniature jet advances toward V1 gate then branches visually
+    const jetZ = 12 - Math.min(1, p2 * 1.45) * 14.5;
+    jet2.group.position.set(-2.2, 0.24, jetZ);
+    haloRing.position.set(-2.2, 0.28, jetZ);
+    const ringScale = 0.94 + 0.08 * Math.sin(t * 5.0);
+    haloRing.scale.set(ringScale, ringScale, 1);
+
+    const asdaOp = smooth((t - cues.asda_reveal) / 0.45);
+    const todaOp = smooth((t - cues.toda_reveal) / 0.45);
+    asdaRibbon.material.opacity = 0.92 * asdaOp;
+    todaRibbon.material.opacity = 0.92 * todaOp;
+
+    renderer.render(scene2, cam2);
+
+    tsTop.style.opacity = String(vis);
+    tsBot.style.opacity = String(vis);
+    act2Ui.style.opacity = String(vis);
+    document.getElementById('tag-v1').style.opacity = String(smooth((t - a2.start) / 0.35));
+    document.getElementById('tag-asda').style.opacity = String(asdaOp);
+    document.getElementById('tag-toda').style.opacity = String(todaOp);
+  } else {
+    tsTop.style.opacity = '0';
+    tsBot.style.opacity = '0';
+    act2Ui.style.opacity = '0';
+  }
+
+  // ── ACT 3: Netflix Investigative Evidence Board ────────────────────────
+  if (t >= a3.start - 0.3 && t < a4.start + 0.3) {
+    const enter = smooth((t - (a3.start - 0.3)) / 0.45);
+    const leave = t > a4.start - 0.3 ? 1 - smooth((t - (a4.start - 0.3)) / 0.45) : 1;
+    act3Board.style.opacity = String(Math.min(enter, leave));
+
+    const winFcom = document.getElementById('win-fcom');
+    const winChart = document.getElementById('win-chart');
+    const wIn1 = easeOut((t - a3.start) / 0.55);
+    const wIn2 = easeOut((t - (a3.start + 0.2)) / 0.6);
+    winFcom.style.transform = `translateY(${(1 - wIn1) * -70}px) rotate(-2.2deg)`;
+    winChart.style.transform = `translateY(${(1 - wIn2) * 90}px) rotate(1.1deg)`;
+
+    const asdrP = smooth((t - cues.asdr_draw) / 1.1);
+    const todrP = smooth((t - cues.todr_draw) / 1.1);
+    const v1P = smooth((t - (cues.v1_collide - 0.15)) / 0.30);
+
+    document.getElementById('path-asdr').style.strokeDashoffset = String(1000 * (1 - asdrP));
+    document.getElementById('lbl-asdr').setAttribute('opacity', String(smooth((asdrP - 0.25) / 0.4)));
+    document.getElementById('path-todr').style.strokeDashoffset = String(1000 * (1 - todrP));
+    document.getElementById('lbl-todr').setAttribute('opacity', String(smooth((todrP - 0.25) / 0.4)));
+    document.getElementById('v1-node').setAttribute('opacity', String(v1P));
+
+    // Animated Cursor gliding right to (x=590, y=1090) V1 node on screen
+    const curEl = document.getElementById('cursor-arrow');
+    const cMove = smooth((t - (cues.v1_collide - 0.8)) / 0.8);
+    const cx = 890 + (596 - 890) * cMove;
+    const cy = 1480 + (1095 - 1480) * cMove;
+    const dtClick = t - cues.v1_collide;
+    const cScale = (dtClick >= 0 && dtClick < 0.16) ? (1 - 0.22 * Math.sin(dtClick / 0.16 * Math.PI)) : 1.0;
+    curEl.style.left = `${cx}px`;
+    curEl.style.top = `${cy}px`;
+    curEl.style.transform = `scale(${cScale})`;
+
+    const rip = document.getElementById('click-ripple');
+    if (dtClick >= 0 && dtClick < 0.65) {
+      const rp = dtClick / 0.65;
+      rip.style.left = '596px';
+      rip.style.top = '1095px';
+      rip.style.opacity = String(1 - rp);
+      rip.style.transform = `translate(-50%, -50%) scale(${0.2 + 1.3 * rp})`;
+    } else {
+      rip.style.opacity = '0';
+    }
+  } else {
+    act3Board.style.opacity = '0';
+  }
+
+  // ── ACTS 4 & 5: Noir Spotlight Interactive Quiz & Verdict ──────────────
+  if (t >= a4.start - 0.3 && t < a6.start + 0.35) {
+    const enter = smooth((t - (a4.start - 0.3)) / 0.4);
+    const leave = t > a6.start - 0.3 ? 1 - smooth((t - (a6.start - 0.3)) / 0.45) : 1;
+    act45Stage.style.opacity = String(Math.min(enter, leave));
+
+    const beam = document.getElementById('spotlight-beam');
+    const ringWrap = document.getElementById('ring-wrap');
+    const ringNum = document.getElementById('ring-num');
+    const ringProg = document.getElementById('ring-prog');
+    const cta = document.getElementById('comment-cta');
+    const vCallout = document.getElementById('verdict-callout');
+    const optA = document.getElementById('opt-a');
+    const optB = document.getElementById('opt-b');
+    const vRules = document.getElementById('verdict-rules');
+
+    const vP = smooth((t - cues.verdict_stop) / 0.35);
+    if (vP < 0.05) {
+      // Quiz Countdown State (Act 4)
+      beam.style.background = 'linear-gradient(180deg, #f59e0b 0%, #ea580c 100%)';
+      beam.style.boxShadow = '0 0 140px rgba(245, 158, 11, 0.45)';
+      ringWrap.style.display = 'flex';
+      cta.style.display = 'block';
+      vCallout.style.display = 'none';
+      vRules.style.opacity = '0';
+      optA.style.borderColor = 'rgba(148, 163, 184, 0.35)';
+      optA.style.background = 'rgba(15, 23, 42, 0.94)';
+      optB.style.opacity = '1';
+
+      const qStart = cues.quiz_3;
+      const qEnd = a5.start;
+      const qFrac = clamp((t - qStart) / Math.max(0.1, qEnd - qStart));
+      ringProg.style.strokeDashoffset = String(615.75 * qFrac);
+      ringNum.textContent = t >= cues.quiz_1 ? '1' : t >= cues.quiz_2 ? '2' : '3';
+    } else {
+      // Verdict & Saveable Rules State (Act 5)
+      beam.style.background = 'linear-gradient(180deg, #10b981 0%, #059669 100%)';
+      beam.style.boxShadow = '0 0 150px rgba(16, 185, 129, 0.45)';
+      ringWrap.style.display = 'none';
+      cta.style.display = 'none';
+      vCallout.style.display = 'block';
+      vCallout.style.opacity = String(vP);
+      vCallout.style.transform = `scale(${0.92 + 0.08 * easeOut((t - cues.verdict_stop) / 0.35)})`;
+      vRules.style.opacity = '1';
+
+      optA.style.borderColor = '#34d399';
+      optA.style.background = 'rgba(6, 78, 59, 0.95)';
+      optB.style.opacity = '0.28';
+
+      const rp1 = easeOut((t - cues.rule_1) / 0.35);
+      const rp2 = easeOut((t - cues.rule_2) / 0.35);
+      const rp3 = easeOut((t - cues.rule_3) / 0.35);
+      [['v-r1', rp1], ['v-r2', rp2], ['v-r3', rp3]].forEach(([id, p]) => {
+        const el = document.getElementById(id);
+        el.style.opacity = String(p);
+        el.style.transform = `translateY(${(1 - p) * 28}px)`;
+      });
+    }
+  } else {
+    act45Stage.style.opacity = '0';
+  }
+
+  // ── ACT 6: Branded ATPLVector Outro Sting ──────────────────────────────
+  if (t >= a6.start - 0.3) {
+    const p6 = smooth((t - (a6.start - 0.3)) / 0.5);
+    act6Outro.style.opacity = String(p6);
+    const sc = 0.88 + 0.12 * easeOut((t - a6.start) / 0.65);
+    document.getElementById('outro-logo').style.transform = `scale(${sc})`;
+  } else {
+    act6Outro.style.opacity = '0';
+  }
+};
+</script>
+</body>
+</html>
