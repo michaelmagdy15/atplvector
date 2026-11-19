@@ -1,0 +1,2794 @@
+{
+  "totalTopics": 276,
+  "videosPerDay": 10,
+  "totalDays": 28,
+  "subjectCounts": {
+    "010": 37,
+    "021": 9,
+    "022": 17,
+    "031": 19,
+    "032": 7,
+    "033": 3,
+    "040": 40,
+    "050": 27,
+    "061": 7,
+    "062": 19,
+    "070": 5,
+    "081": 18,
+    "082": 8,
+    "090": 52,
+    "100": 8
+  },
+  "queue": [
+    {
+      "view": "PERF_INTRO",
+      "subjectCode": "032",
+      "subjectName": "Performance",
+      "label": "Introduction",
+      "desc": "Performance groups, V-speed hierarchy, and declared distances.",
+      "status": "rendered",
+      "dayBatch": 1,
+      "indexInBatch": 1,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\PERF_INTRO.mp4"
+    },
+    {
+      "view": "PERF_TAKEOFF",
+      "subjectCode": "032",
+      "subjectName": "Performance",
+      "label": "Take-off",
+      "desc": "Balanced field length (TODR = ASDR), clearways, and stopways.",
+      "status": "rendered",
+      "dayBatch": 1,
+      "indexInBatch": 2,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\PERF_TAKEOFF.mp4"
+    },
+    {
+      "view": "PERF_CLIMB",
+      "subjectCode": "032",
+      "subjectName": "Performance",
+      "label": "Climb",
+      "desc": "Second segment gradients and driftdown profiles.",
+      "status": "rendered",
+      "dayBatch": 1,
+      "indexInBatch": 3,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\PERF_CLIMB.mp4"
+    },
+    {
+      "view": "PERF_CRUISE",
+      "subjectCode": "032",
+      "subjectName": "Performance",
+      "label": "Cruise",
+      "desc": "Max range, Long Range Cruise, and altitude steps.",
+      "status": "rendered",
+      "dayBatch": 1,
+      "indexInBatch": 4,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\PERF_CRUISE.mp4"
+    },
+    {
+      "view": "PERF_LANDING",
+      "subjectCode": "032",
+      "subjectName": "Performance",
+      "label": "Landing",
+      "desc": "Factored landing distances (dry 1.67x, wet 1.92x, contaminated 2.33x).",
+      "status": "rendered",
+      "dayBatch": 1,
+      "indexInBatch": 5,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\PERF_LANDING.mp4"
+    },
+    {
+      "view": "PERF_CLASS_A",
+      "subjectCode": "032",
+      "subjectName": "Performance",
+      "label": "Class A (Jets)",
+      "desc": "CS-25 4 climb segments, Net vs Gross, and obstacle clearance.",
+      "status": "rendered",
+      "dayBatch": 1,
+      "indexInBatch": 6,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\PERF_CLASS_A.mp4"
+    },
+    {
+      "view": "PERF_CLASS_B",
+      "subjectCode": "032",
+      "subjectName": "Performance",
+      "label": "Class B (Prop)",
+      "desc": "Single and multi-engine piston/turboprop operations.",
+      "status": "rendered",
+      "dayBatch": 1,
+      "indexInBatch": 7,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\PERF_CLASS_B.mp4"
+    },
+    {
+      "view": "POF_HIGH_SPEED",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "High Speed Flight",
+      "desc": "Mach number, shockwaves.",
+      "status": "rendered",
+      "dayBatch": 1,
+      "indexInBatch": 8,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\POF_HIGH_SPEED.mp4"
+    },
+    {
+      "view": "POF_STALL",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "Stall & Spin",
+      "desc": "Stalling characteristics and recovery.",
+      "status": "rendered",
+      "dayBatch": 1,
+      "indexInBatch": 9,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\POF_STALL.mp4"
+    },
+    {
+      "view": "POF_DRAG",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "Total Drag",
+      "desc": "Parasite vs Induced Drag curves.",
+      "status": "rendered",
+      "dayBatch": 1,
+      "indexInBatch": 10,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\POF_DRAG.mp4"
+    },
+    {
+      "view": "AIR_LAW_ACCIDENT",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Accident Invest.",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 2,
+      "indexInBatch": 1
+    },
+    {
+      "view": "AIR_LAW_AERODROME_VIS",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Visual Aids",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 2,
+      "indexInBatch": 2
+    },
+    {
+      "view": "AIR_LAW_AIRWORTHINESS",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Airworthiness",
+      "desc": "C of A and technical requirements.",
+      "status": "pending",
+      "dayBatch": 2,
+      "indexInBatch": 3
+    },
+    {
+      "view": "AIR_LAW_AIS_DEEP_DIVE",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "AIS Deep Dive",
+      "desc": "NOTAMs and 56-day cycles.",
+      "status": "pending",
+      "dayBatch": 2,
+      "indexInBatch": 4
+    },
+    {
+      "view": "AIR_LAW_ALTIMETER",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Altimetry",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 2,
+      "indexInBatch": 5
+    },
+    {
+      "view": "AIR_LAW_ANNEXES",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "The 19 Annexes",
+      "desc": "Overview of all ICAO Annexes.",
+      "status": "pending",
+      "dayBatch": 2,
+      "indexInBatch": 6
+    },
+    {
+      "view": "AIR_LAW_CONVENTIONS",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Montreal/Warsaw",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 2,
+      "indexInBatch": 7
+    },
+    {
+      "view": "AIR_LAW_CRUISING",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Cruising Levels",
+      "desc": "Semi-circular rule calculator.",
+      "status": "pending",
+      "dayBatch": 2,
+      "indexInBatch": 8
+    },
+    {
+      "view": "AIR_LAW_DECLARED_DIST",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Declared Dist.",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 2,
+      "indexInBatch": 9
+    },
+    {
+      "view": "AIR_LAW_DOCS",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Docs Onboard",
+      "desc": "Mandatory ship papers.",
+      "status": "pending",
+      "dayBatch": 2,
+      "indexInBatch": 10
+    },
+    {
+      "view": "AIR_LAW_EMERGENCY",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Emergency Proc.",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 3,
+      "indexInBatch": 1
+    },
+    {
+      "view": "AIR_LAW_FACILITATION",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Facilitation (Annex 9)",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 3,
+      "indexInBatch": 2
+    },
+    {
+      "view": "AIR_LAW_GROUND_OPS",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Ground Ops",
+      "desc": "Marshalling & Safety.",
+      "status": "pending",
+      "dayBatch": 3,
+      "indexInBatch": 3
+    },
+    {
+      "view": "AIR_LAW_HOLDING",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Holding Patterns",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 3,
+      "indexInBatch": 4
+    },
+    {
+      "view": "AIR_LAW_IFR_VFR",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "IFR/VFR Explorer",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 3,
+      "indexInBatch": 5
+    },
+    {
+      "view": "AIR_LAW_INSTRUMENT",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Instrument Appr.",
+      "desc": "5 segments of an approach.",
+      "status": "pending",
+      "dayBatch": 3,
+      "indexInBatch": 6
+    },
+    {
+      "view": "AIR_LAW_INTERCEPT",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Interception",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 3,
+      "indexInBatch": 7
+    },
+    {
+      "view": "AIR_LAW_INT_LAW",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "International Law",
+      "desc": "Chicago Convention and freedoms of the air.",
+      "status": "pending",
+      "dayBatch": 3,
+      "indexInBatch": 8
+    },
+    {
+      "view": "AIR_LAW_LAYERS",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Airspace Classes",
+      "desc": "3D airspace classifications A-G.",
+      "status": "pending",
+      "dayBatch": 3,
+      "indexInBatch": 9
+    },
+    {
+      "view": "AIR_LAW_LIABILITY",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Liability & Rights",
+      "desc": "EC 261/2004 and Montreal Convention.",
+      "status": "pending",
+      "dayBatch": 3,
+      "indexInBatch": 10
+    },
+    {
+      "view": "AIR_LAW_LIGHTGUN",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Light Gun Signals",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 4,
+      "indexInBatch": 1
+    },
+    {
+      "view": "AIR_LAW_LIGHTING",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Lighting Systems",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 4,
+      "indexInBatch": 2
+    },
+    {
+      "view": "AIR_LAW_OPS_INFO",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Ops Info (AIS)",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 4,
+      "indexInBatch": 3
+    },
+    {
+      "view": "AIR_LAW_ORG",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Organisations",
+      "desc": "ICAO, EASA, and Eurocontrol structure.",
+      "status": "pending",
+      "dayBatch": 4,
+      "indexInBatch": 4
+    },
+    {
+      "view": "AIR_LAW_PANS_OPS",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "PANS-OPS",
+      "desc": "Departures and arrival criteria.",
+      "status": "pending",
+      "dayBatch": 4,
+      "indexInBatch": 5
+    },
+    {
+      "view": "AIR_LAW_PARALLEL_RWY",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Parallel Runway Ops",
+      "desc": "Independent and dependent ops.",
+      "status": "pending",
+      "dayBatch": 4,
+      "indexInBatch": 6
+    },
+    {
+      "view": "AIR_LAW_PERSONNEL",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Personnel Licensing",
+      "desc": "Medical and experience requirements.",
+      "status": "pending",
+      "dayBatch": 4,
+      "indexInBatch": 7
+    },
+    {
+      "view": "AIR_LAW_REF_CODE",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Aerodrome Codes",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 4,
+      "indexInBatch": 8
+    },
+    {
+      "view": "AIR_LAW_REGISTRATION",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Registration",
+      "desc": "Nationality and common marks.",
+      "status": "pending",
+      "dayBatch": 4,
+      "indexInBatch": 9
+    },
+    {
+      "view": "AIR_LAW_RULES_DETAILS",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Rules of the Air",
+      "desc": "Right of way and minimum heights.",
+      "status": "pending",
+      "dayBatch": 4,
+      "indexInBatch": 10
+    },
+    {
+      "view": "AIR_LAW_RULES_OF_AIR",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "VFR vs IFR",
+      "desc": "Visual vs Instrument flight rules.",
+      "status": "pending",
+      "dayBatch": 5,
+      "indexInBatch": 1
+    },
+    {
+      "view": "AIR_LAW_RWSL",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "RWSL",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 5,
+      "indexInBatch": 2
+    },
+    {
+      "view": "AIR_LAW_SAR",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Search & Rescue",
+      "desc": "Alerting phases and signals.",
+      "status": "pending",
+      "dayBatch": 5,
+      "indexInBatch": 3
+    },
+    {
+      "view": "AIR_LAW_SECURITY",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Security",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 5,
+      "indexInBatch": 4
+    },
+    {
+      "view": "AIR_LAW_SIGNS",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Signs & Signals",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 5,
+      "indexInBatch": 5
+    },
+    {
+      "view": "AIR_LAW_SURFACE_CON",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "Surface Contam.",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 5,
+      "indexInBatch": 6
+    },
+    {
+      "view": "AIR_LAW_TVASIS",
+      "subjectCode": "010",
+      "subjectName": "Air Law",
+      "label": "T-VASIS",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 5,
+      "indexInBatch": 7
+    },
+    {
+      "view": "AGK_AIRFRAMES",
+      "subjectCode": "021",
+      "subjectName": "AGK: Systems",
+      "label": "Airframes & Structures",
+      "desc": "Safe Life, Fail-Safe, Damage Tolerance, +2.5g/-1.0g limits.",
+      "status": "pending",
+      "dayBatch": 5,
+      "indexInBatch": 8
+    },
+    {
+      "view": "AGK_AIR_CONDITIONING",
+      "subjectCode": "021",
+      "subjectName": "AGK: Systems",
+      "label": "Air Conditioning & Press.",
+      "desc": "Bleed air, ACM bootstrap packs, outflow valves.",
+      "status": "pending",
+      "dayBatch": 5,
+      "indexInBatch": 9
+    },
+    {
+      "view": "AGK_ELECTRICS",
+      "subjectCode": "021",
+      "subjectName": "AGK: Systems",
+      "label": "Electrics",
+      "desc": "115V/200V 400Hz, CSD disconnect, TRUs, emergency bus.",
+      "status": "pending",
+      "dayBatch": 5,
+      "indexInBatch": 10
+    },
+    {
+      "view": "AGK_FLIGHT_CONTROLS",
+      "subjectCode": "021",
+      "subjectName": "AGK: Systems",
+      "label": "Flight Controls & Flutter",
+      "desc": "Primary controls, mass balancing, flutter suppression.",
+      "status": "pending",
+      "dayBatch": 6,
+      "indexInBatch": 1
+    },
+    {
+      "view": "AGK_HYDRAULICS",
+      "subjectCode": "021",
+      "subjectName": "AGK: Systems",
+      "label": "Hydraulics",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 6,
+      "indexInBatch": 2
+    },
+    {
+      "view": "AGK_JET_ENGINE",
+      "subjectCode": "021",
+      "subjectName": "AGK: Systems",
+      "label": "Jet Engines",
+      "desc": "Jet principles, Brayton Cycle, compressor stalls.",
+      "status": "pending",
+      "dayBatch": 6,
+      "indexInBatch": 3
+    },
+    {
+      "view": "AGK_LANDING_GEAR",
+      "subjectCode": "021",
+      "subjectName": "AGK: Systems",
+      "label": "Landing Gear & Brakes",
+      "desc": "Retraction logic, 3 greens, squat switch, anti-skid.",
+      "status": "pending",
+      "dayBatch": 6,
+      "indexInBatch": 4
+    },
+    {
+      "view": "AGK_PISTON_ENGINE",
+      "subjectCode": "021",
+      "subjectName": "AGK: Systems",
+      "label": "Piston Engines",
+      "desc": "Otto Cycle, 4-stroke principles, mixture, ignition.",
+      "status": "pending",
+      "dayBatch": 6,
+      "indexInBatch": 5
+    },
+    {
+      "view": "AGK_SYSTEMS_OXYGEN",
+      "subjectCode": "021",
+      "subjectName": "AGK: Systems",
+      "label": "Oxygen Systems",
+      "desc": "Diluter demand, 14,000 ft drop, chemical candles, PBE.",
+      "status": "pending",
+      "dayBatch": 6,
+      "indexInBatch": 6
+    },
+    {
+      "view": "INST_ALTIMETER",
+      "subjectCode": "022",
+      "subjectName": "Instrumentation",
+      "label": "Altimeter Lab",
+      "desc": "Barometric and temperature errors.",
+      "status": "pending",
+      "dayBatch": 6,
+      "indexInBatch": 7
+    },
+    {
+      "view": "INST_ASI",
+      "subjectCode": "022",
+      "subjectName": "Instrumentation",
+      "label": "Airspeed Indicator",
+      "desc": "IAS, CAS, EAS, and TAS corrections.",
+      "status": "pending",
+      "dayBatch": 6,
+      "indexInBatch": 8
+    },
+    {
+      "view": "INST_ATTITUDE",
+      "subjectCode": "022",
+      "subjectName": "Instrumentation",
+      "label": "Attitude Indicator",
+      "desc": "Artificial horizon and erection errors.",
+      "status": "pending",
+      "dayBatch": 6,
+      "indexInBatch": 9
+    },
+    {
+      "view": "INST_AUTOLAND",
+      "subjectCode": "022",
+      "subjectName": "Instrumentation",
+      "label": "Autoland",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 6,
+      "indexInBatch": 10
+    },
+    {
+      "view": "INST_AUTOPILOT",
+      "subjectCode": "022",
+      "subjectName": "Instrumentation",
+      "label": "Autopilot & AFCS",
+      "desc": "Inner/outer loops and servos.",
+      "status": "pending",
+      "dayBatch": 7,
+      "indexInBatch": 1
+    },
+    {
+      "view": "INST_COMPASS",
+      "subjectCode": "022",
+      "subjectName": "Instrumentation",
+      "label": "Magnetic Compass",
+      "desc": "Dip, ANDS, and UNOS errors.",
+      "status": "pending",
+      "dayBatch": 7,
+      "indexInBatch": 2
+    },
+    {
+      "view": "INST_DG",
+      "subjectCode": "022",
+      "subjectName": "Instrumentation",
+      "label": "Directional Gyro",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 7,
+      "indexInBatch": 3
+    },
+    {
+      "view": "INST_FMS_EFIS",
+      "subjectCode": "022",
+      "subjectName": "Instrumentation",
+      "label": "FMS & EFIS",
+      "desc": "Display modes and data management.",
+      "status": "pending",
+      "dayBatch": 7,
+      "indexInBatch": 4
+    },
+    {
+      "view": "INST_GPWS",
+      "subjectCode": "022",
+      "subjectName": "Instrumentation",
+      "label": "GPWS / EGPWS",
+      "desc": "Modes 1-7 and terrain look-ahead databases.",
+      "status": "pending",
+      "dayBatch": 7,
+      "indexInBatch": 5
+    },
+    {
+      "view": "INST_GYROS",
+      "subjectCode": "022",
+      "subjectName": "Instrumentation",
+      "label": "Gyro Principles",
+      "desc": "Rigidity and Precession physics.",
+      "status": "pending",
+      "dayBatch": 7,
+      "indexInBatch": 6
+    },
+    {
+      "view": "INST_MACHMETER",
+      "subjectCode": "022",
+      "subjectName": "Instrumentation",
+      "label": "Machmeter",
+      "desc": "TAS to Speed of Sound ratio.",
+      "status": "pending",
+      "dayBatch": 7,
+      "indexInBatch": 7
+    },
+    {
+      "view": "INST_NAV_SYSTEMS",
+      "subjectCode": "022",
+      "subjectName": "Instrumentation",
+      "label": "Nav Systems (IRS/ADC)",
+      "desc": "Modern digital nav computers.",
+      "status": "pending",
+      "dayBatch": 7,
+      "indexInBatch": 8
+    },
+    {
+      "view": "INST_PITOT_STATIC",
+      "subjectCode": "022",
+      "subjectName": "Instrumentation",
+      "label": "Pitot-Static System",
+      "desc": "Pressure probes and instruments.",
+      "status": "pending",
+      "dayBatch": 7,
+      "indexInBatch": 9
+    },
+    {
+      "view": "INST_RADIO_ALT",
+      "subjectCode": "022",
+      "subjectName": "Instrumentation",
+      "label": "Radio Altimeter",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 7,
+      "indexInBatch": 10
+    },
+    {
+      "view": "INST_TCAS",
+      "subjectCode": "022",
+      "subjectName": "Instrumentation",
+      "label": "TCAS II",
+      "desc": "Surveillance, TA/RA alerts, and legal priority.",
+      "status": "pending",
+      "dayBatch": 8,
+      "indexInBatch": 1
+    },
+    {
+      "view": "INST_TURN_INDICATOR",
+      "subjectCode": "022",
+      "subjectName": "Instrumentation",
+      "label": "Turn Indicator",
+      "desc": "Rate gyros and coordinated turns.",
+      "status": "pending",
+      "dayBatch": 8,
+      "indexInBatch": 2
+    },
+    {
+      "view": "INST_VSI",
+      "subjectCode": "022",
+      "subjectName": "Instrumentation",
+      "label": "Vertical Speed Ind.",
+      "desc": "Standard lag vs Instantaneous response.",
+      "status": "pending",
+      "dayBatch": 8,
+      "indexInBatch": 3
+    },
+    {
+      "view": "MASS_BAL_CARGO_TYPES",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "Cargo Types",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 8,
+      "indexInBatch": 4
+    },
+    {
+      "view": "MASS_BAL_CG_CALC",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "Weighing Procedure",
+      "desc": "Calculate CG from weighing forces.",
+      "status": "pending",
+      "dayBatch": 8,
+      "indexInBatch": 5
+    },
+    {
+      "view": "MASS_BAL_CG_EFFECTS",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "CG Position Effects",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 8,
+      "indexInBatch": 6
+    },
+    {
+      "view": "MASS_BAL_CG_SHIFT",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "CG Shift (Move/Add)",
+      "desc": "Effects of moving or adding mass.",
+      "status": "pending",
+      "dayBatch": 8,
+      "indexInBatch": 7
+    },
+    {
+      "view": "MASS_BAL_CONVERTER",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "Unit Converter",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 8,
+      "indexInBatch": 8
+    },
+    {
+      "view": "MASS_BAL_DEFINITIONS",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "Definitions",
+      "desc": "BEM, DOM, TOM, and ZFM.",
+      "status": "pending",
+      "dayBatch": 8,
+      "indexInBatch": 9
+    },
+    {
+      "view": "MASS_BAL_EFFECTS",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "Effects of Mass",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 8,
+      "indexInBatch": 10
+    },
+    {
+      "view": "MASS_BAL_FLEET",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "Fleet Weighing",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 9,
+      "indexInBatch": 1
+    },
+    {
+      "view": "MASS_BAL_FLOW_DIAGRAM",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "Flow Diagram",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 9,
+      "indexInBatch": 2
+    },
+    {
+      "view": "MASS_BAL_FUEL",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "Fuel Density",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 9,
+      "indexInBatch": 3
+    },
+    {
+      "view": "MASS_BAL_LIMITS",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "Loading Limits",
+      "desc": "Structural vs Performance limitations.",
+      "status": "pending",
+      "dayBatch": 9,
+      "indexInBatch": 4
+    },
+    {
+      "view": "MASS_BAL_LOADSHEET",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "Load Sheet Sim",
+      "desc": "Pax, Cargo, and Fuel planning.",
+      "status": "pending",
+      "dayBatch": 9,
+      "indexInBatch": 5
+    },
+    {
+      "view": "MASS_BAL_MAC",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "MAC Visualizer",
+      "desc": "Mean Aerodynamic Chord calculations.",
+      "status": "pending",
+      "dayBatch": 9,
+      "indexInBatch": 6
+    },
+    {
+      "view": "MASS_BAL_QUIZ",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "Guided Wizard",
+      "desc": "Step-by-step problem solver.",
+      "status": "pending",
+      "dayBatch": 9,
+      "indexInBatch": 7
+    },
+    {
+      "view": "MASS_BAL_SHIFT",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "Load Shift (Cargo)",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 9,
+      "indexInBatch": 8
+    },
+    {
+      "view": "MASS_BAL_STALL_SPEED",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "Stall Speed Calc",
+      "desc": "Calculate Vs based on mass.",
+      "status": "pending",
+      "dayBatch": 9,
+      "indexInBatch": 9
+    },
+    {
+      "view": "MASS_BAL_STD_MASSES",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "Standard Masses",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 9,
+      "indexInBatch": 10
+    },
+    {
+      "view": "MASS_BAL_STRUCTURAL",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "Structural Limits",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 10,
+      "indexInBatch": 1
+    },
+    {
+      "view": "MASS_BAL_TRIM_SHEET",
+      "subjectCode": "031",
+      "subjectName": "Mass & Balance",
+      "label": "Trim Sheet Sim",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 10,
+      "indexInBatch": 2
+    },
+    {
+      "view": "FLIGHT_PLAN_FUEL",
+      "subjectCode": "033",
+      "subjectName": "Flight Planning",
+      "label": "Fuel Planning",
+      "desc": "Part-CAT fuel policy: taxi, trip, contingency, alternate, and final reserve.",
+      "status": "pending",
+      "dayBatch": 10,
+      "indexInBatch": 3
+    },
+    {
+      "view": "FLIGHT_PLAN_IFR",
+      "subjectCode": "033",
+      "subjectName": "Flight Planning",
+      "label": "IFR Planning",
+      "desc": "ICAO Form 2012 / CA48 items and CTOT slot rules.",
+      "status": "pending",
+      "dayBatch": 10,
+      "indexInBatch": 4
+    },
+    {
+      "view": "FLIGHT_PLAN_INTRO",
+      "subjectCode": "033",
+      "subjectName": "Flight Planning",
+      "label": "Introduction",
+      "desc": "Route selection, airway charts, and airspace blocks.",
+      "status": "pending",
+      "dayBatch": 10,
+      "indexInBatch": 5
+    },
+    {
+      "view": "HPL_ACCELERATION",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Acceleration",
+      "desc": "G-Forces, G-LOC, Protections.",
+      "status": "pending",
+      "dayBatch": 10,
+      "indexInBatch": 6
+    },
+    {
+      "view": "HPL_AUTOMATION",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Automation",
+      "desc": "Levels, Irony, Mode Confusion.",
+      "status": "pending",
+      "dayBatch": 10,
+      "indexInBatch": 7
+    },
+    {
+      "view": "HPL_BASIC_CONCEPTS",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Basic Concepts",
+      "desc": "Accident stats, TEM, Safety Culture.",
+      "status": "pending",
+      "dayBatch": 10,
+      "indexInBatch": 8
+    },
+    {
+      "view": "HPL_BEHAVIOUR",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Behaviour",
+      "desc": "Hazardous Attitudes, Leadership, Crew.",
+      "status": "pending",
+      "dayBatch": 10,
+      "indexInBatch": 9
+    },
+    {
+      "view": "HPL_BIASES",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Biases",
+      "desc": "Confirmation, Sunk Cost, Gambler.",
+      "status": "pending",
+      "dayBatch": 10,
+      "indexInBatch": 10
+    },
+    {
+      "view": "HPL_CIRCULATION",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Circulation",
+      "desc": "Heart, Blood, BP.",
+      "status": "pending",
+      "dayBatch": 11,
+      "indexInBatch": 1
+    },
+    {
+      "view": "HPL_COCKPIT_MGMT",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Cockpit Mgmt",
+      "desc": "SOPs, Group Dynamics, Synergy.",
+      "status": "pending",
+      "dayBatch": 11,
+      "indexInBatch": 2
+    },
+    {
+      "view": "HPL_COMMS_STRESS",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Comms & Stress",
+      "desc": "Communication models, Stress, Workload.",
+      "status": "pending",
+      "dayBatch": 11,
+      "indexInBatch": 3
+    },
+    {
+      "view": "HPL_COMMUNICATION_PROCESS",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Communication Process",
+      "desc": "Models, Barriers, Readback.",
+      "status": "pending",
+      "dayBatch": 11,
+      "indexInBatch": 4
+    },
+    {
+      "view": "HPL_COMPETENCY",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Competency",
+      "desc": "KSA, Core Competencies.",
+      "status": "pending",
+      "dayBatch": 11,
+      "indexInBatch": 5
+    },
+    {
+      "view": "HPL_COOPERATION",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Cooperation",
+      "desc": "Group Dynamics, Synergy.",
+      "status": "pending",
+      "dayBatch": 11,
+      "indexInBatch": 6
+    },
+    {
+      "view": "HPL_CULTURE",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Culture",
+      "desc": "Hofstede, Safety Culture, SMS.",
+      "status": "pending",
+      "dayBatch": 11,
+      "indexInBatch": 7
+    },
+    {
+      "view": "HPL_ERGONOMICS",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Ergonomics",
+      "desc": "Anthropometry, DEP, Biomechanics.",
+      "status": "pending",
+      "dayBatch": 11,
+      "indexInBatch": 8
+    },
+    {
+      "view": "HPL_ERROR_DECISION",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Error & Decision",
+      "desc": "Error models, FOR-DEC, Error Chains.",
+      "status": "pending",
+      "dayBatch": 11,
+      "indexInBatch": 9
+    },
+    {
+      "view": "HPL_HEALTH",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Health",
+      "desc": "Gas Laws, Hypoxia, TUC, Barotrauma.",
+      "status": "pending",
+      "dayBatch": 11,
+      "indexInBatch": 10
+    },
+    {
+      "view": "HPL_HEALTH_HYGIENE",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Health & Hygiene",
+      "desc": "Alcohol, Drugs, Diet & Hygiene.",
+      "status": "pending",
+      "dayBatch": 12,
+      "indexInBatch": 1
+    },
+    {
+      "view": "HPL_HEARING",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Hearing",
+      "desc": "The Ear, Vestibular System, Spatial Disorientation.",
+      "status": "pending",
+      "dayBatch": 12,
+      "indexInBatch": 2
+    },
+    {
+      "view": "HPL_INCAPACITATION",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Incapacitation",
+      "desc": "Procedures, 2-Comms Rule, Fume Events.",
+      "status": "pending",
+      "dayBatch": 12,
+      "indexInBatch": 3
+    },
+    {
+      "view": "HPL_INCIDENTS",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Incidents",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 12,
+      "indexInBatch": 4
+    },
+    {
+      "view": "HPL_INFO_PROCESSING",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Info Processing",
+      "desc": "Attention, Vigilance, Situation Awareness.",
+      "status": "pending",
+      "dayBatch": 12,
+      "indexInBatch": 5
+    },
+    {
+      "view": "HPL_MEMORY",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Memory",
+      "desc": "Sensory, STM, LTM, Motor Programs.",
+      "status": "pending",
+      "dayBatch": 12,
+      "indexInBatch": 6
+    },
+    {
+      "view": "HPL_METABOLISM",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Metabolism",
+      "desc": "BMR, Blood Sugar, BMI.",
+      "status": "pending",
+      "dayBatch": 12,
+      "indexInBatch": 7
+    },
+    {
+      "view": "HPL_MOTION_SICKNESS",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Motion Sickness",
+      "desc": "Sensory Conflict, Prevention.",
+      "status": "pending",
+      "dayBatch": 12,
+      "indexInBatch": 8
+    },
+    {
+      "view": "HPL_NERVOUS",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Nervous System",
+      "desc": "CNS, PNS, Autonomic.",
+      "status": "pending",
+      "dayBatch": 12,
+      "indexInBatch": 9
+    },
+    {
+      "view": "HPL_PERCEPTION",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Perception",
+      "desc": "Visual Illusions, Runway Illusions.",
+      "status": "pending",
+      "dayBatch": 12,
+      "indexInBatch": 10
+    },
+    {
+      "view": "HPL_PHYSIOLOGY",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Physiology",
+      "desc": "Hypoxia, Respiration, Circulation.",
+      "status": "pending",
+      "dayBatch": 13,
+      "indexInBatch": 1
+    },
+    {
+      "view": "HPL_PRESSURE",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Pressure",
+      "desc": "Barotrauma, Decompression, TUC.",
+      "status": "pending",
+      "dayBatch": 13,
+      "indexInBatch": 2
+    },
+    {
+      "view": "HPL_RADIATION",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Radiation",
+      "desc": "Cosmic, Solar, Ozone.",
+      "status": "pending",
+      "dayBatch": 13,
+      "indexInBatch": 3
+    },
+    {
+      "view": "HPL_RESPIRATION",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Respiration",
+      "desc": "Lungs, Gas Exchange, Control.",
+      "status": "pending",
+      "dayBatch": 13,
+      "indexInBatch": 4
+    },
+    {
+      "view": "HPL_SAFETY",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Safety Culture",
+      "desc": "Swiss Cheese, Just Culture, SMS.",
+      "status": "pending",
+      "dayBatch": 13,
+      "indexInBatch": 5
+    },
+    {
+      "view": "HPL_SHELL",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "SHELL Model",
+      "desc": "Software, Hardware, Environment, Liveware.",
+      "status": "pending",
+      "dayBatch": 13,
+      "indexInBatch": 6
+    },
+    {
+      "view": "HPL_SLEEP",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Sleep & Rhythms",
+      "desc": "Circadian rhythms, Jet Lag, Sleep Stages.",
+      "status": "pending",
+      "dayBatch": 13,
+      "indexInBatch": 7
+    },
+    {
+      "view": "HPL_SLEEP_DISORDERS",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Sleep Disorders",
+      "desc": "Apnea, Insomnia, Narcolepsy.",
+      "status": "pending",
+      "dayBatch": 13,
+      "indexInBatch": 8
+    },
+    {
+      "view": "HPL_TEM",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "TEM Model",
+      "desc": "Threats, Errors, UAS, and Countermeasures.",
+      "status": "pending",
+      "dayBatch": 13,
+      "indexInBatch": 9
+    },
+    {
+      "view": "HPL_THERMAL",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Thermal",
+      "desc": "Hypothermia, Heat Stroke, Reg.",
+      "status": "pending",
+      "dayBatch": 13,
+      "indexInBatch": 10
+    },
+    {
+      "view": "HPL_TOXIC",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Toxic Hazards",
+      "desc": "CO, Alcohol, Smoking, Drugs.",
+      "status": "pending",
+      "dayBatch": 14,
+      "indexInBatch": 1
+    },
+    {
+      "view": "HPL_TROPICAL_DISEASES",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Tropical Diseases",
+      "desc": "Infectious diseases and travel health.",
+      "status": "pending",
+      "dayBatch": 14,
+      "indexInBatch": 2
+    },
+    {
+      "view": "HPL_VESTIBULAR",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Vestibular",
+      "desc": "Leans, Coriolis, Somatogravic.",
+      "status": "pending",
+      "dayBatch": 14,
+      "indexInBatch": 3
+    },
+    {
+      "view": "HPL_VISION",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Vision",
+      "desc": "Eye anatomy, Scanning, and Visual Illusions.",
+      "status": "pending",
+      "dayBatch": 14,
+      "indexInBatch": 4
+    },
+    {
+      "view": "HPL_WORKLOAD",
+      "subjectCode": "040",
+      "subjectName": "Human Performance",
+      "label": "Workload",
+      "desc": "Yerkes-Dodson, ANC, DODAR.",
+      "status": "pending",
+      "dayBatch": 14,
+      "indexInBatch": 5
+    },
+    {
+      "view": "MET_AIR_MASSES",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Air Masses",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 14,
+      "indexInBatch": 6
+    },
+    {
+      "view": "MET_ALTIMETRY",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Altimetry",
+      "desc": "QNH, QFE, QNE, QFF, and cold temperature errors.",
+      "status": "pending",
+      "dayBatch": 14,
+      "indexInBatch": 7
+    },
+    {
+      "view": "MET_ATMOSPHERE",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Atmosphere",
+      "desc": "Layers, lapse rates, and ISA standard atmosphere.",
+      "status": "pending",
+      "dayBatch": 14,
+      "indexInBatch": 8
+    },
+    {
+      "view": "MET_CHARTS",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Wx Charts",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 14,
+      "indexInBatch": 9
+    },
+    {
+      "view": "MET_CIRCULATION",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Circulation",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 14,
+      "indexInBatch": 10
+    },
+    {
+      "view": "MET_CLIMATOLOGY",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Climatology",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 15,
+      "indexInBatch": 1
+    },
+    {
+      "view": "MET_CLOUD_TYPES",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Clouds",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 15,
+      "indexInBatch": 2
+    },
+    {
+      "view": "MET_DENSITY",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Density Alt",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 15,
+      "indexInBatch": 3
+    },
+    {
+      "view": "MET_DEPRESSIONS_ANTICYCLONES",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Depressions",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 15,
+      "indexInBatch": 4
+    },
+    {
+      "view": "MET_FRONTS",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Fronts",
+      "desc": "Polar front lifecycle, warm vs cold front slopes and weather.",
+      "status": "pending",
+      "dayBatch": 15,
+      "indexInBatch": 5
+    },
+    {
+      "view": "MET_HUMIDITY",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Humidity",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 15,
+      "indexInBatch": 6
+    },
+    {
+      "view": "MET_ICING",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Icing",
+      "desc": "Clear vs rime ice, supercooled droplets, and freezing rain.",
+      "status": "pending",
+      "dayBatch": 15,
+      "indexInBatch": 7
+    },
+    {
+      "view": "MET_JET_STREAMS",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Jet Streams",
+      "desc": "Core dynamics, tropopause breaks, and Clear Air Turbulence.",
+      "status": "pending",
+      "dayBatch": 15,
+      "indexInBatch": 8
+    },
+    {
+      "view": "MET_LOCAL_WINDS",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Local Winds",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 15,
+      "indexInBatch": 9
+    },
+    {
+      "view": "MET_METAR_TAF",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Reporting",
+      "desc": "Automated weather decoder and airfield observation interpretation.",
+      "status": "pending",
+      "dayBatch": 15,
+      "indexInBatch": 10
+    },
+    {
+      "view": "MET_OPTICAL",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Optical Phenom.",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 16,
+      "indexInBatch": 1
+    },
+    {
+      "view": "MET_PRECIPITATION",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Precipitation",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 16,
+      "indexInBatch": 2
+    },
+    {
+      "view": "MET_PRESSURE",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Pressure",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 16,
+      "indexInBatch": 3
+    },
+    {
+      "view": "MET_SATELLITE",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Sat & Radar",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 16,
+      "indexInBatch": 4
+    },
+    {
+      "view": "MET_SPECIAL_HAZARDS",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Hazards",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 16,
+      "indexInBatch": 5
+    },
+    {
+      "view": "MET_STATION_MODEL",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Station Models",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 16,
+      "indexInBatch": 6
+    },
+    {
+      "view": "MET_TEMPERATURE",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "ISA & Temp",
+      "desc": "DALR, SALR, ELR stability and Bradbury cloudbase rule.",
+      "status": "pending",
+      "dayBatch": 16,
+      "indexInBatch": 7
+    },
+    {
+      "view": "MET_THUNDERSTORMS",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Thunderstorms",
+      "desc": "Cb lifecycles, microbursts, and gust fronts.",
+      "status": "pending",
+      "dayBatch": 16,
+      "indexInBatch": 8
+    },
+    {
+      "view": "MET_TRS",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Tropical Wx",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 16,
+      "indexInBatch": 9
+    },
+    {
+      "view": "MET_TURBULENCE",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Turbulence",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 16,
+      "indexInBatch": 10
+    },
+    {
+      "view": "MET_VISIBILITY",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Visibility",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 17,
+      "indexInBatch": 1
+    },
+    {
+      "view": "MET_WIND",
+      "subjectCode": "050",
+      "subjectName": "Meteorology",
+      "label": "Wind Systems",
+      "desc": "Geostrophic balance, PGF, Coriolis, and surface friction.",
+      "status": "pending",
+      "dayBatch": 17,
+      "indexInBatch": 2
+    },
+    {
+      "view": "GEN_NAV_BASICS",
+      "subjectCode": "061",
+      "subjectName": "General Navigation",
+      "label": "Basics of Nav",
+      "desc": "Direction, distance, and speed.",
+      "status": "pending",
+      "dayBatch": 17,
+      "indexInBatch": 3
+    },
+    {
+      "view": "GEN_NAV_CHARTS",
+      "subjectCode": "061",
+      "subjectName": "General Navigation",
+      "label": "Charts",
+      "desc": "Lamberts, Mercator, and Stereo.",
+      "status": "pending",
+      "dayBatch": 17,
+      "indexInBatch": 4
+    },
+    {
+      "view": "GEN_NAV_DATELINE",
+      "subjectCode": "061",
+      "subjectName": "General Navigation",
+      "label": "Date Line Crossing",
+      "desc": "International Date Line calendar jumps.",
+      "status": "pending",
+      "dayBatch": 17,
+      "indexInBatch": 5
+    },
+    {
+      "view": "GEN_NAV_EARTH",
+      "subjectCode": "061",
+      "subjectName": "General Navigation",
+      "label": "Great Circles",
+      "desc": "Convergency and rhumb lines.",
+      "status": "pending",
+      "dayBatch": 17,
+      "indexInBatch": 6
+    },
+    {
+      "view": "GEN_NAV_TIME",
+      "subjectCode": "061",
+      "subjectName": "General Navigation",
+      "label": "Time",
+      "desc": "UTC, LMT, and solar system.",
+      "status": "pending",
+      "dayBatch": 17,
+      "indexInBatch": 7
+    },
+    {
+      "view": "GEN_NAV_VFR",
+      "subjectCode": "061",
+      "subjectName": "General Navigation",
+      "label": "VFR Navigation",
+      "desc": "Wind Triangle and CRP-5 usage.",
+      "status": "pending",
+      "dayBatch": 17,
+      "indexInBatch": 8
+    },
+    {
+      "view": "NAV_60_1",
+      "subjectCode": "061",
+      "subjectName": "General Navigation",
+      "label": "1 in 60 Rule",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 17,
+      "indexInBatch": 9
+    },
+    {
+      "view": "NAV_GNSS",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "GNSS Theory",
+      "desc": "GPS, GLONASS, GALILEO satellites.",
+      "status": "pending",
+      "dayBatch": 17,
+      "indexInBatch": 10
+    },
+    {
+      "view": "RAD_NAV_ADF",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "ADF/NDB",
+      "desc": "RBI/RMI tracking and homing.",
+      "status": "pending",
+      "dayBatch": 18,
+      "indexInBatch": 1
+    },
+    {
+      "view": "RAD_NAV_ANTENNA",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "Antenna Theory",
+      "desc": "Radiation patterns, dipoles and loops.",
+      "status": "pending",
+      "dayBatch": 18,
+      "indexInBatch": 2
+    },
+    {
+      "view": "RAD_NAV_CLASS_1",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "Class 1: Fundamentals",
+      "desc": "Waves, Spectrum, Modulation, Propagation (New).",
+      "status": "pending",
+      "dayBatch": 18,
+      "indexInBatch": 3
+    },
+    {
+      "view": "RAD_NAV_DME",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "DME",
+      "desc": "Slant range vs Ground distance.",
+      "status": "pending",
+      "dayBatch": 18,
+      "indexInBatch": 4
+    },
+    {
+      "view": "RAD_NAV_FMS",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "FMS",
+      "desc": "CDU/MCDU Waypoint entry.",
+      "status": "pending",
+      "dayBatch": 18,
+      "indexInBatch": 5
+    },
+    {
+      "view": "RAD_NAV_ILS",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "ILS",
+      "desc": "Localizer and Glidepath lobes.",
+      "status": "pending",
+      "dayBatch": 18,
+      "indexInBatch": 6
+    },
+    {
+      "view": "RAD_NAV_IONOSPHERE",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "Ionosphere",
+      "desc": "Sky wave propagation, layers and skip distance.",
+      "status": "pending",
+      "dayBatch": 18,
+      "indexInBatch": 7
+    },
+    {
+      "view": "RAD_NAV_MLS",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "MLS",
+      "desc": "Microwave Landing System TRSB.",
+      "status": "pending",
+      "dayBatch": 18,
+      "indexInBatch": 8
+    },
+    {
+      "view": "RAD_NAV_MODULATION",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "Modulation",
+      "desc": "AM, FM, Phase and Pulse modulation.",
+      "status": "pending",
+      "dayBatch": 18,
+      "indexInBatch": 9
+    },
+    {
+      "view": "RAD_NAV_RADAR",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "Radar Theory",
+      "desc": "Pulse technique, PRF, PRI.",
+      "status": "pending",
+      "dayBatch": 18,
+      "indexInBatch": 10
+    },
+    {
+      "view": "RAD_NAV_RNAV",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "RNAV/PBN",
+      "desc": "Area Navigation and Kalman Filtering.",
+      "status": "pending",
+      "dayBatch": 19,
+      "indexInBatch": 1
+    },
+    {
+      "view": "RAD_NAV_SBAS",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "SBAS/ABAS",
+      "desc": "EGNOS, WAAS and augmentation.",
+      "status": "pending",
+      "dayBatch": 19,
+      "indexInBatch": 2
+    },
+    {
+      "view": "RAD_NAV_SPECTRUM",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "Spectrum Explorer",
+      "desc": "VLF to EHF bands and aviation usage.",
+      "status": "pending",
+      "dayBatch": 19,
+      "indexInBatch": 3
+    },
+    {
+      "view": "RAD_NAV_SSR",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "SSR/Transponder",
+      "desc": "Mode A/C/S, Codes and Interrogation.",
+      "status": "pending",
+      "dayBatch": 19,
+      "indexInBatch": 4
+    },
+    {
+      "view": "RAD_NAV_VDF",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "VDF",
+      "desc": "QDM/QDR and homing.",
+      "status": "pending",
+      "dayBatch": 19,
+      "indexInBatch": 5
+    },
+    {
+      "view": "RAD_NAV_VOR",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "VOR Lab",
+      "desc": "CDI, TO/FROM, Radial Interception.",
+      "status": "pending",
+      "dayBatch": 19,
+      "indexInBatch": 6
+    },
+    {
+      "view": "RAD_NAV_WAVE_PROP",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "Wave Propagation",
+      "desc": "Wavelength, Frequency, Amplitude visualized.",
+      "status": "pending",
+      "dayBatch": 19,
+      "indexInBatch": 7
+    },
+    {
+      "view": "RAD_NAV_WX_RADAR",
+      "subjectCode": "062",
+      "subjectName": "Radio Navigation",
+      "label": "Weather Radar",
+      "desc": "Tilt, Iso-Echo, Attenuation and shadows.",
+      "status": "pending",
+      "dayBatch": 19,
+      "indexInBatch": 8
+    },
+    {
+      "view": "OPS_AWO",
+      "subjectCode": "070",
+      "subjectName": "Operational Procedures",
+      "label": "All Weather Ops",
+      "desc": "LVP, Minima, Approach Bans.",
+      "status": "pending",
+      "dayBatch": 19,
+      "indexInBatch": 9
+    },
+    {
+      "view": "OPS_FTL",
+      "subjectCode": "070",
+      "subjectName": "Operational Procedures",
+      "label": "FTL & Crew",
+      "desc": "FDP Calculator & Rest Rules.",
+      "status": "pending",
+      "dayBatch": 19,
+      "indexInBatch": 10
+    },
+    {
+      "view": "OPS_GENERAL",
+      "subjectCode": "070",
+      "subjectName": "Operational Procedures",
+      "label": "General Req.",
+      "desc": "MEL, Equipment, AOC, Safety.",
+      "status": "pending",
+      "dayBatch": 20,
+      "indexInBatch": 1
+    },
+    {
+      "view": "OPS_LONG_RANGE",
+      "subjectCode": "070",
+      "subjectName": "Operational Procedures",
+      "label": "Long Range / MNPS",
+      "desc": "NAT HLA, ETOPS, Polar.",
+      "status": "pending",
+      "dayBatch": 20,
+      "indexInBatch": 2
+    },
+    {
+      "view": "OPS_SPECIAL",
+      "subjectCode": "070",
+      "subjectName": "Operational Procedures",
+      "label": "Special Ops",
+      "desc": "Fire, DG, Contamination, Noise.",
+      "status": "pending",
+      "dayBatch": 20,
+      "indexInBatch": 3
+    },
+    {
+      "view": "POF_3D_AIRFLOW",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "3D Airflow",
+      "desc": "Wingtip vortices, Downwash, Induced Drag.",
+      "status": "pending",
+      "dayBatch": 20,
+      "indexInBatch": 4
+    },
+    {
+      "view": "POF_AEROFOIL",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "Aerofoil Geom",
+      "desc": "Camber, Chord, Thickness, Angle of Attack.",
+      "status": "pending",
+      "dayBatch": 20,
+      "indexInBatch": 5
+    },
+    {
+      "view": "POF_AIRFLOW",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "Airflow Basics",
+      "desc": "Streamlines, Bernoulli, and Continuity.",
+      "status": "pending",
+      "dayBatch": 20,
+      "indexInBatch": 6
+    },
+    {
+      "view": "POF_ATMOSPHERE",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "Atmosphere (ISA)",
+      "desc": "ISA properties: Temperature, Pressure, Density.",
+      "status": "pending",
+      "dayBatch": 20,
+      "indexInBatch": 7
+    },
+    {
+      "view": "POF_CONTROL",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "Control",
+      "desc": "Primary controls, balancing.",
+      "status": "pending",
+      "dayBatch": 20,
+      "indexInBatch": 8
+    },
+    {
+      "view": "POF_COUPLING",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "Coupling Dynamics",
+      "desc": "Dutch Roll and Spiral Divergence.",
+      "status": "pending",
+      "dayBatch": 20,
+      "indexInBatch": 9
+    },
+    {
+      "view": "POF_FLIGHT_MECHANICS",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "Flight Mechanics",
+      "desc": "Climb, Descent, Turn.",
+      "status": "pending",
+      "dayBatch": 20,
+      "indexInBatch": 10
+    },
+    {
+      "view": "POF_GROUND_EFFECT",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "Ground Effect",
+      "desc": "Cushioning effect near surface.",
+      "status": "pending",
+      "dayBatch": 21,
+      "indexInBatch": 1
+    },
+    {
+      "view": "POF_HIGH_LIFT",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "High Lift Devices",
+      "desc": "Flaps and Slats performance.",
+      "status": "pending",
+      "dayBatch": 21,
+      "indexInBatch": 2
+    },
+    {
+      "view": "POF_LIFT_DRAG",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "Lift & Drag Coeff",
+      "desc": "Coefficient curves, polar diagrams.",
+      "status": "pending",
+      "dayBatch": 21,
+      "indexInBatch": 3
+    },
+    {
+      "view": "POF_LIMITATIONS",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "Limitations",
+      "desc": "V-g envelope, flutter.",
+      "status": "pending",
+      "dayBatch": 21,
+      "indexInBatch": 4
+    },
+    {
+      "view": "POF_PROPELLERS",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "Propellers",
+      "desc": "Blade element theory.",
+      "status": "pending",
+      "dayBatch": 21,
+      "indexInBatch": 5
+    },
+    {
+      "view": "POF_STABILITY",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "Stability",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 21,
+      "indexInBatch": 6
+    },
+    {
+      "view": "POF_STABILITY_SIM",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "Stability",
+      "desc": "Static and Dynamic stability.",
+      "status": "pending",
+      "dayBatch": 21,
+      "indexInBatch": 7
+    },
+    {
+      "view": "POF_WING_GEOM",
+      "subjectCode": "081",
+      "subjectName": "Principles of Flight",
+      "label": "Wing Geom",
+      "desc": "Aspect Ratio, Taper, Sweep, Planform.",
+      "status": "pending",
+      "dayBatch": 21,
+      "indexInBatch": 8
+    },
+    {
+      "view": "POF_HELI_EQUILIBRIUM",
+      "subjectCode": "082",
+      "subjectName": "PoF - Helicopters",
+      "label": "Equilibrium",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 21,
+      "indexInBatch": 9
+    },
+    {
+      "view": "POF_HELI_FLIGHT_MECH",
+      "subjectCode": "082",
+      "subjectName": "PoF - Helicopters",
+      "label": "Flight Mechanics",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 21,
+      "indexInBatch": 10
+    },
+    {
+      "view": "POF_HELI_MAIN_ROTOR_AERO",
+      "subjectCode": "082",
+      "subjectName": "PoF - Helicopters",
+      "label": "Main Rotor Aero",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 22,
+      "indexInBatch": 1
+    },
+    {
+      "view": "POF_HELI_MAIN_ROTOR_MECH",
+      "subjectCode": "082",
+      "subjectName": "PoF - Helicopters",
+      "label": "Main Rotor Mech",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 22,
+      "indexInBatch": 2
+    },
+    {
+      "view": "POF_HELI_ROTORCRAFT_TYPES",
+      "subjectCode": "082",
+      "subjectName": "PoF - Helicopters",
+      "label": "Rotorcraft Types",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 22,
+      "indexInBatch": 3
+    },
+    {
+      "view": "POF_HELI_SUBSONIC",
+      "subjectCode": "082",
+      "subjectName": "PoF - Helicopters",
+      "label": "Subsonic",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 22,
+      "indexInBatch": 4
+    },
+    {
+      "view": "POF_HELI_TAIL_ROTORS",
+      "subjectCode": "082",
+      "subjectName": "PoF - Helicopters",
+      "label": "Tail Rotors",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 22,
+      "indexInBatch": 5
+    },
+    {
+      "view": "POF_HELI_TRANSONIC",
+      "subjectCode": "082",
+      "subjectName": "PoF - Helicopters",
+      "label": "Transonic",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 22,
+      "indexInBatch": 6
+    },
+    {
+      "view": "ADV_PHRASEOLOGY",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Advanced Phrase.",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 22,
+      "indexInBatch": 7
+    },
+    {
+      "view": "AIREP_SPEC",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "AIREP Special",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 22,
+      "indexInBatch": 8
+    },
+    {
+      "view": "AI_QUIZ",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "AI Examiner",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 22,
+      "indexInBatch": 9
+    },
+    {
+      "view": "AI_ROLEPLAY",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "AI Roleplay",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 22,
+      "indexInBatch": 10
+    },
+    {
+      "view": "ALTIMETER",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Altimeter Lab",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 23,
+      "indexInBatch": 1
+    },
+    {
+      "view": "ALT_SPEAK",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Number Tx",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 23,
+      "indexInBatch": 2
+    },
+    {
+      "view": "BLIND_TX",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Blind Tx",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 23,
+      "indexInBatch": 3
+    },
+    {
+      "view": "CLOUD_MASTER",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Cloud Master",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 23,
+      "indexInBatch": 4
+    },
+    {
+      "view": "COMM_FAIL",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Comms Failure",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 23,
+      "indexInBatch": 5
+    },
+    {
+      "view": "EMERGENCY",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Distress Builder",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 23,
+      "indexInBatch": 6
+    },
+    {
+      "view": "EMERGENCY_OPS",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Emergency Ops",
+      "desc": "Fuel dump, TCAS, Distress.",
+      "status": "pending",
+      "dayBatch": 23,
+      "indexInBatch": 7
+    },
+    {
+      "view": "FLIGHT_RULES",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Protocols",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 23,
+      "indexInBatch": 8
+    },
+    {
+      "view": "FLIRT_TRAINER",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "FLIRT Trainer",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 23,
+      "indexInBatch": 9
+    },
+    {
+      "view": "FREQ_EXPLORER",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Freq Explorer",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 23,
+      "indexInBatch": 10
+    },
+    {
+      "view": "GENERAL_THEORY",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "General Theory",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 24,
+      "indexInBatch": 1
+    },
+    {
+      "view": "HOLDING",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Holding Calc",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 24,
+      "indexInBatch": 2
+    },
+    {
+      "view": "INTERCEPT",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Intercept",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 24,
+      "indexInBatch": 3
+    },
+    {
+      "view": "LIGHT_GUN",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Light Gun",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 24,
+      "indexInBatch": 4
+    },
+    {
+      "view": "METAR",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "METAR Decoder",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 24,
+      "indexInBatch": 5
+    },
+    {
+      "view": "MORSE",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Morse Master",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 24,
+      "indexInBatch": 6
+    },
+    {
+      "view": "NAV_NDB_VOR",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Nav Idents",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 24,
+      "indexInBatch": 7
+    },
+    {
+      "view": "PAPI_VIS",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "PAPI Vis",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 24,
+      "indexInBatch": 8
+    },
+    {
+      "view": "PHONETIC",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Phonetic Trainer",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 24,
+      "indexInBatch": 9
+    },
+    {
+      "view": "PHRASEOLOGY_EXPLORER",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "IFR Phraseology",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 24,
+      "indexInBatch": 10
+    },
+    {
+      "view": "POS_REPORT",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Position Reports",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 25,
+      "indexInBatch": 1
+    },
+    {
+      "view": "PRIORITY",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Priority",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 25,
+      "indexInBatch": 2
+    },
+    {
+      "view": "PROPAGATION_THEORY",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Propagation",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 25,
+      "indexInBatch": 3
+    },
+    {
+      "view": "QCODE_CARDS",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Q-Codes",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 25,
+      "indexInBatch": 4
+    },
+    {
+      "view": "Q_COMPASS",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Direction Finding",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 25,
+      "indexInBatch": 5
+    },
+    {
+      "view": "RADIO_NAV_DATA",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Data Link",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 25,
+      "indexInBatch": 6
+    },
+    {
+      "view": "READABILITY_SIM",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Readability",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 25,
+      "indexInBatch": 7
+    },
+    {
+      "view": "READBACK",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Readback",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 25,
+      "indexInBatch": 8
+    },
+    {
+      "view": "RUNWAY",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Runway Lights",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 25,
+      "indexInBatch": 9
+    },
+    {
+      "view": "RUNWAY_MARKING",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Runway Marking",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 25,
+      "indexInBatch": 10
+    },
+    {
+      "view": "RVR_CODE",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "RVR Decoder",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 26,
+      "indexInBatch": 1
+    },
+    {
+      "view": "RVR_SIM",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "RVR Simulator",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 26,
+      "indexInBatch": 2
+    },
+    {
+      "view": "SERVICE_CODES",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Service Codes",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 26,
+      "indexInBatch": 3
+    },
+    {
+      "view": "SIGMET_DECODER",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "SIGMET Decoder",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 26,
+      "indexInBatch": 4
+    },
+    {
+      "view": "SNOWTAM",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "SNOWTAM",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 26,
+      "indexInBatch": 5
+    },
+    {
+      "view": "SUFFIX_MATCH",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Station Suffixes",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 26,
+      "indexInBatch": 6
+    },
+    {
+      "view": "SURFACE_LIGHT",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Surface Lights",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 26,
+      "indexInBatch": 7
+    },
+    {
+      "view": "TAXIWAY_LIGHT",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Taxiway Lights",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 26,
+      "indexInBatch": 8
+    },
+    {
+      "view": "TECH_PHYSICS",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Tech Physics",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 26,
+      "indexInBatch": 9
+    },
+    {
+      "view": "TIME_REPORT",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Time Tx",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 26,
+      "indexInBatch": 10
+    },
+    {
+      "view": "TIME_ZONER",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Time Zones",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 27,
+      "indexInBatch": 1
+    },
+    {
+      "view": "TRAFFIC_CLOCK",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Traffic Info",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 27,
+      "indexInBatch": 2
+    },
+    {
+      "view": "TRANSPONDER",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Transponder",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 27,
+      "indexInBatch": 3
+    },
+    {
+      "view": "VFR_COMMS_SIM",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "VFR Sim",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 27,
+      "indexInBatch": 4
+    },
+    {
+      "view": "VOLMET_SIM",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "VOLMET/ATIS",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 27,
+      "indexInBatch": 5
+    },
+    {
+      "view": "WAKE_TURB",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Wake Turb",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 27,
+      "indexInBatch": 6
+    },
+    {
+      "view": "WEATHER_MINIMA",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Weather Minima",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 27,
+      "indexInBatch": 7
+    },
+    {
+      "view": "WORD_MATCH",
+      "subjectCode": "090",
+      "subjectName": "Communications",
+      "label": "Standard Words",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 27,
+      "indexInBatch": 8
+    },
+    {
+      "view": "KSA_COMPETENCIES",
+      "subjectCode": "100",
+      "subjectName": "KSA",
+      "label": "Competencies",
+      "desc": "Instruction and Assessment indicators.",
+      "status": "pending",
+      "dayBatch": 27,
+      "indexInBatch": 9
+    },
+    {
+      "view": "KSA_CRM",
+      "subjectCode": "100",
+      "subjectName": "KSA",
+      "label": "CRM",
+      "desc": "Crew Resource Management eval.",
+      "status": "pending",
+      "dayBatch": 27,
+      "indexInBatch": 10
+    },
+    {
+      "view": "KSA_FORDEC",
+      "subjectCode": "100",
+      "subjectName": "KSA",
+      "label": "FORDEC Model",
+      "desc": "Decision making model training.",
+      "status": "pending",
+      "dayBatch": 28,
+      "indexInBatch": 1
+    },
+    {
+      "view": "KSA_MENTAL_MATHS",
+      "subjectCode": "100",
+      "subjectName": "KSA",
+      "label": "Mental Maths",
+      "desc": "Interactive aviation arithmetic.",
+      "status": "pending",
+      "dayBatch": 28,
+      "indexInBatch": 2
+    },
+    {
+      "view": "KSA_PROCEDURES",
+      "subjectCode": "100",
+      "subjectName": "KSA",
+      "label": "Procedures",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 28,
+      "indexInBatch": 3
+    },
+    {
+      "view": "KSA_RESILIENCE",
+      "subjectCode": "100",
+      "subjectName": "KSA",
+      "label": "Resilience",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 28,
+      "indexInBatch": 4
+    },
+    {
+      "view": "KSA_TEM",
+      "subjectCode": "100",
+      "subjectName": "KSA",
+      "label": "TEM",
+      "desc": "",
+      "status": "pending",
+      "dayBatch": 28,
+      "indexInBatch": 5
+    },
+    {
+      "view": "KSA_UPRT",
+      "subjectCode": "100",
+      "subjectName": "KSA",
+      "label": "UPRT",
+      "desc": "Upset prevention and recovery.",
+      "status": "pending",
+      "dayBatch": 28,
+      "indexInBatch": 6
+    }
+  ]
+}

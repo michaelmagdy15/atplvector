@@ -25,6 +25,7 @@ import NativeAppUnlockModal from './components/NativeAppUnlockModal';
 import ContentProtection from './components/ContentProtection';
 import NavigationBar from './components/NavigationBar';
 import SubjectSidebar from './components/SubjectSidebar';
+import TopicVideoBanner from './components/ui/TopicVideoBanner';
 import { getSubjectConfig } from './data/sidebarNavigation';
 import LoadingScreen from './components/LoadingScreen';
 const SplineVisualizer = React.lazy(() => import('./components/visual/SplineVisualizer'));
@@ -1080,6 +1081,7 @@ const App: React.FC = () => {
 
                         <div key={currentView} className="flex-1 min-w-0 animate-in fade-in duration-200">
                             <ErrorBoundary>
+                                <TopicVideoBanner currentView={currentView} onNavigate={navigateTo} />
                                 <React.Suspense fallback={<LoadingScreen />}>
                                     <Router
                                         currentView={currentView}
