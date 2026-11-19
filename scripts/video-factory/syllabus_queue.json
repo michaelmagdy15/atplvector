@@ -26,10 +26,12 @@
       "subjectName": "Performance",
       "label": "Introduction",
       "desc": "Performance groups, V-speed hierarchy, and declared distances.",
-      "status": "rendered",
+      "status": "rendered_v3",
       "dayBatch": 1,
       "indexInBatch": 1,
-      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\PERF_INTRO.mp4"
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01_v3\\PERF_INTRO.mp4",
+      "durationSec": 58.87,
+      "sizeMb": 46.92
     },
     {
       "view": "PERF_TAKEOFF",
@@ -37,10 +39,12 @@
       "subjectName": "Performance",
       "label": "Take-off",
       "desc": "Balanced field length (TODR = ASDR), clearways, and stopways.",
-      "status": "rendered",
+      "status": "rendered_v3",
       "dayBatch": 1,
       "indexInBatch": 2,
-      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\PERF_TAKEOFF.mp4"
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01_v3\\PERF_TAKEOFF.mp4",
+      "durationSec": 56.17,
+      "sizeMb": 44.71
     },
     {
       "view": "PERF_CLIMB",
@@ -48,10 +52,12 @@
       "subjectName": "Performance",
       "label": "Climb",
       "desc": "Second segment gradients and driftdown profiles.",
-      "status": "rendered",
+      "status": "rendered_v3",
       "dayBatch": 1,
       "indexInBatch": 3,
-      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\PERF_CLIMB.mp4"
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01_v3\\PERF_CLIMB.mp4",
+      "durationSec": 60.73,
+      "sizeMb": 48.4
     },
     {
       "view": "PERF_CRUISE",
@@ -59,10 +65,12 @@
       "subjectName": "Performance",
       "label": "Cruise",
       "desc": "Max range, Long Range Cruise, and altitude steps.",
-      "status": "rendered",
+      "status": "rendered_v3",
       "dayBatch": 1,
       "indexInBatch": 4,
-      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\PERF_CRUISE.mp4"
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01_v3\\PERF_CRUISE.mp4",
+      "durationSec": 57.2,
+      "sizeMb": 45.53
     },
     {
       "view": "PERF_LANDING",
@@ -70,10 +78,12 @@
       "subjectName": "Performance",
       "label": "Landing",
       "desc": "Factored landing distances (dry 1.67x, wet 1.92x, contaminated 2.33x).",
-      "status": "rendered",
+      "status": "rendered_v3",
       "dayBatch": 1,
       "indexInBatch": 5,
-      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\PERF_LANDING.mp4"
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01_v3\\PERF_LANDING.mp4",
+      "durationSec": 62.97,
+      "sizeMb": 50.2
     },
     {
       "view": "PERF_CLASS_A",
@@ -81,10 +91,12 @@
       "subjectName": "Performance",
       "label": "Class A (Jets)",
       "desc": "CS-25 4 climb segments, Net vs Gross, and obstacle clearance.",
-      "status": "rendered",
+      "status": "rendered_v3",
       "dayBatch": 1,
       "indexInBatch": 6,
-      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\PERF_CLASS_A.mp4"
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01_v3\\PERF_CLASS_A.mp4",
+      "durationSec": 57.77,
+      "sizeMb": 45.94
     },
     {
       "view": "PERF_CLASS_B",
@@ -92,10 +104,12 @@
       "subjectName": "Performance",
       "label": "Class B (Prop)",
       "desc": "Single and multi-engine piston/turboprop operations.",
-      "status": "rendered",
+      "status": "rendered_v3",
       "dayBatch": 1,
       "indexInBatch": 7,
-      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\PERF_CLASS_B.mp4"
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01_v3\\PERF_CLASS_B.mp4",
+      "durationSec": 54.13,
+      "sizeMb": 43.11
     },
     {
       "view": "POF_HIGH_SPEED",
@@ -103,10 +117,12 @@
       "subjectName": "Principles of Flight",
       "label": "High Speed Flight",
       "desc": "Mach number, shockwaves.",
-      "status": "rendered",
+      "status": "rendered_v3",
       "dayBatch": 1,
       "indexInBatch": 8,
-      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\POF_HIGH_SPEED.mp4"
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01_v3\\POF_HIGH_SPEED.mp4",
+      "durationSec": 52.67,
+      "sizeMb": 41.94
     },
     {
       "view": "POF_STALL",
@@ -114,10 +130,12 @@
       "subjectName": "Principles of Flight",
       "label": "Stall & Spin",
       "desc": "Stalling characteristics and recovery.",
-      "status": "rendered",
+      "status": "rendered_v3",
       "dayBatch": 1,
       "indexInBatch": 9,
-      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\POF_STALL.mp4"
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01_v3\\POF_STALL.mp4",
+      "durationSec": 56.07,
+      "sizeMb": 44.67
     },
     {
       "view": "POF_DRAG",
@@ -125,10 +143,12 @@
       "subjectName": "Principles of Flight",
       "label": "Total Drag",
       "desc": "Parasite vs Induced Drag curves.",
-      "status": "rendered",
+      "status": "rendered_v3",
       "dayBatch": 1,
       "indexInBatch": 10,
-      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01\\POF_DRAG.mp4"
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_01_v3\\POF_DRAG.mp4",
+      "durationSec": 56.83,
+      "sizeMb": 45.22
     },
     {
       "view": "AIR_LAW_ACCIDENT",

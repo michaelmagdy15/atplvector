@@ -19,11 +19,17 @@ import argparse
 import json
 import math
 import subprocess
+import sys
 from pathlib import Path
 
 import cv2
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
+
+THIS_DIR = Path(__file__).resolve().parent
+if str(THIS_DIR) not in sys.path:
+    sys.path.insert(0, str(THIS_DIR))
+from v3_topic_specs import get_topic_spec  # noqa: E402
 
 W, H = 1080, 1920
 FPS = 30
@@ -217,20 +223,34 @@ def _center_text(
     text: str,
     font: ImageFont.FreeTypeFont,
     fill: tuple[int, int, int, int],
+    pad_x: int = 24,
 ) -> None:
     x0, y0, x1, y1 = box
-    bb = draw.textbbox((0, 0), text, font=font)
-    tw, th = bb[2] - bb[0], bb[3] - bb[1]
+    max_w = max(40, (x1 - x0) - pad_x)
+    active_font = font
+    bb = draw.textbbox((0, 0), text, font=active_font)
+    tw = bb[2] - bb[0]
+    if tw > max_w and getattr(font, "path", None):
+        scaled = max(16, int(font.size * (max_w / max(tw, 1))))
+        active_font = ImageFont.truetype(font.path, scaled)
+        bb = draw.textbbox((0, 0), text, font=active_font)
+        tw = bb[2] - bb[0]
+    th = bb[3] - bb[1]
     tx = x0 + (x1 - x0 - tw) // 2 - bb[0]
     ty = y0 + (y1 - y0 - th) // 2 - bb[1]
-    draw.text((tx, ty), text, font=font, fill=fill)
+    draw.text((tx, ty), text, font=active_font, fill=fill)
 
 
 class PrebuiltAssets:
     """Pre-renders all vector/typography cards cleanly once for fast frame compositing."""
 
-    def __init__(self, fonts: FontBank) -> None:
+    def __init__(self, fonts: FontBank, spec: dict) -> None:
         self.fonts = fonts
+        self.spec = spec
+        hud = spec["act1_hud"]
+        pills = spec["act2_pills"]
+        board = spec["act3_board"]
+        quiz = spec["act45_quiz"]
 
         # 1. Persistent Brand Bug (top-left x=52, y=108)
         bug_img, bd, (ox, oy) = _draw_pill_stamp(
@@ -255,7 +275,6 @@ class PrebuiltAssets:
         ]
 
         # 3. Act 1 Overlays
-        # Legibility bottom gradient scrim
         scrim = np.zeros((H, W, 4), dtype=np.uint8)
         for row in range(H):
             t = max(0.0, (row - 1250) / (H - 1250)) ** 1.4
@@ -264,24 +283,24 @@ class PrebuiltAssets:
         self.act1_scrim = scrim
 
         warn_img, wd, (ox, oy) = _draw_pill_stamp(
-            780, 92, 18, (200, 18, 58, 238), (253, 164, 175, 255), border_w=4
+            840, 92, 18, (200, 18, 58, 238), (253, 164, 175, 255), border_w=4
         )
         _center_text(
             wd,
-            (ox, oy, ox + 780, oy + 92),
-            "▲ MASTER WARN · ENG 2 FAIL",
+            (ox, oy, ox + 840, oy + 92),
+            hud["warn_banner"],
             fonts.pill,
             (255, 255, 255, 255),
         )
         self.eng_fail_banner = np.array(warn_img)
 
         q_img, qd, (ox, oy) = _draw_pill_stamp(
-            910, 128, 24, (6, 11, 22, 228), (251, 191, 36, 210), border_w=3
+            930, 128, 24, (6, 11, 22, 234), (251, 191, 36, 215), border_w=3
         )
         _center_text(
             qd,
-            (ox, oy, ox + 910, oy + 128),
-            "FLY — OR SLAM THE BRAKES?",
+            (ox, oy, ox + 930, oy + 128),
+            hud["question_pill"],
             fonts.card_big,
             (251, 191, 36, 255),
         )
@@ -289,27 +308,27 @@ class PrebuiltAssets:
 
         # 4. Act 2 Diorama Pills
         v1_img, vd, (ox, oy) = _draw_pill_stamp(
-            560, 86, 20, (15, 23, 42, 235), (245, 158, 11, 255), border_w=4
+            680, 86, 20, (15, 23, 42, 235), (245, 158, 11, 255), border_w=4
         )
         _center_text(
-            vd, (ox, oy, ox + 560, oy + 86), "V1 · DECISION GATE", fonts.pill, (253, 230, 138, 255)
+            vd, (ox, oy, ox + 680, oy + 86), pills["top_pill"], fonts.pill, (253, 230, 138, 255)
         )
         self.tag_v1 = np.array(v1_img)
 
         asda_img, ad, (ox, oy) = _draw_pill_stamp(
             470, 186, 24, (136, 19, 55, 238), (251, 113, 133, 255), border_w=4
         )
-        _center_text(ad, (ox, oy + 18, ox + 470, oy + 52), "BEFORE V1", fonts.mono_sm, (254, 205, 211, 255))
-        _center_text(ad, (ox, oy + 48, ox + 470, oy + 126), "ASDA", fonts.hero_xl, (255, 255, 255, 255))
-        _center_text(ad, (ox, oy + 128, ox + 470, oy + 168), "STOPWAY · ABORT", fonts.mono_sm, (255, 228, 230, 255))
+        _center_text(ad, (ox, oy + 18, ox + 470, oy + 52), pills["left_top"], fonts.mono_sm, (254, 205, 211, 255))
+        _center_text(ad, (ox, oy + 48, ox + 470, oy + 126), pills["left_hero"], fonts.hero_xl, (255, 255, 255, 255))
+        _center_text(ad, (ox, oy + 128, ox + 470, oy + 168), pills["left_sub"], fonts.mono_sm, (255, 228, 230, 255))
         self.tag_asda = np.array(asda_img)
 
         toda_img, td, (ox, oy) = _draw_pill_stamp(
             470, 186, 24, (6, 78, 59, 238), (52, 211, 153, 255), border_w=4
         )
-        _center_text(td, (ox, oy + 18, ox + 470, oy + 52), "PAST V1", fonts.mono_sm, (167, 243, 208, 255))
-        _center_text(td, (ox, oy + 48, ox + 470, oy + 126), "TODA", fonts.hero_xl, (255, 255, 255, 255))
-        _center_text(td, (ox, oy + 128, ox + 470, oy + 168), "CLEARWAY · CLIMB", fonts.mono_sm, (209, 250, 229, 255))
+        _center_text(td, (ox, oy + 18, ox + 470, oy + 52), pills["right_top"], fonts.mono_sm, (167, 243, 208, 255))
+        _center_text(td, (ox, oy + 48, ox + 470, oy + 126), pills["right_hero"], fonts.hero_xl, (255, 255, 255, 255))
+        _center_text(td, (ox, oy + 128, ox + 470, oy + 168), pills["right_sub"], fonts.mono_sm, (209, 250, 229, 255))
         self.tag_toda = np.array(toda_img)
 
         # Tilt-shift alpha masks (top & bottom bands)
@@ -320,21 +339,21 @@ class PrebuiltAssets:
 
         # 5. Act 3 Static Blueprint Desk & Tilted FCOM Window
         self.act3_desk = self._build_act3_desk()
-        self.act3_fcom_win = self._build_fcom_window(fonts)
-        self.act3_bfl_pill = self._build_bfl_pill(fonts)
+        self.act3_fcom_win = self._build_fcom_window(fonts, board["fcom_file"], board["fcom_tag"])
+        self.act3_bfl_pill = self._build_bfl_pill(fonts, board["bfl_pill"])
         self.cursor_rgba = self._build_cursor()
 
         # 6. Act 4/5 Elements (Spotlight + Headline + Option Cards + Verdict + 3 Rules)
         self.beam_amber = self._build_spotlight_beam((245, 158, 11), (234, 88, 12))
         self.beam_emerald = self._build_spotlight_beam((16, 185, 129), (5, 150, 105))
-        self.quiz_header = self._build_quiz_header(fonts)
-        self.opt_a_idle, self.opt_a_win, self.opt_b_idle = self._build_option_cards(fonts)
-        self.verdict_badge = self._build_verdict_badge(fonts)
+        self.quiz_header = self._build_quiz_header(fonts, quiz["headline_1"], quiz["headline_2"])
+        self.opt_a_idle, self.opt_a_win, self.opt_b_idle, self.opt_b_win = self._build_option_cards(fonts, quiz)
+        self.verdict_badge = self._build_verdict_badge(fonts, quiz["verdict_banner"])
         self.comment_cta = self._build_comment_cta(fonts)
-        self.rule_cards = self._build_rule_cards(fonts)
+        self.rule_cards = self._build_rule_cards(fonts, quiz["rules"])
 
         # 7. Act 6 Outro Background + Crest Block
-        self.act6_bg, self.act6_crest = self._build_outro_assets(fonts)
+        self.act6_bg, self.act6_crest = self._build_outro_assets(fonts, spec["outro_sub"])
 
     def _build_act3_desk(self) -> np.ndarray:
         yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
@@ -349,7 +368,7 @@ class PrebuiltAssets:
         bg[:, ::64, :] = np.clip(bg[:, ::64, :].astype(np.int16) + [4, 14, 24], 0, 255).astype(np.uint8)
         return bg
 
-    def _build_fcom_window(self, fonts: FontBank) -> np.ndarray:
+    def _build_fcom_window(self, fonts: FontBank, fcom_file: str, fcom_tag: str) -> np.ndarray:
         w, h = 720, 310
         img, d, (ox, oy) = _draw_pill_stamp(
             w, h, 24, (245, 243, 238, 255), (255, 255, 255, 190), border_w=2, shadow_pad=24
@@ -361,10 +380,12 @@ class PrebuiltAssets:
         for ci, col in enumerate(((239, 68, 68, 255), (245, 158, 11, 255), (16, 185, 129, 255))):
             cx = ox + 28 + ci * 28
             d.ellipse([cx - 8, oy + 21, cx + 8, oy + 37], fill=col)
-        d.text((ox + 124, oy + 16), "EASA_FCOM_032.DOC", font=fonts.mono_md, fill=(51, 65, 85, 255))
-        # Highlighted yellow CS-25 rule pill (zero filler text!)
-        d.rounded_rectangle([ox + 34, oy + 84, ox + 390, oy + 138], radius=12, fill=(254, 240, 138, 255))
-        d.text((ox + 50, oy + 94), "CS-25.107 · V1", font=fonts.mono_lg, fill=(15, 23, 42, 255))
+        d.text((ox + 124, oy + 16), fcom_file, font=fonts.mono_md, fill=(51, 65, 85, 255))
+        # Highlighted yellow CS-25 rule pill (auto-sized to fit tag cleanly)
+        bb = d.textbbox((0, 0), fcom_tag, font=fonts.mono_lg)
+        tag_w = min(w - 68, max(320, (bb[2] - bb[0]) + 36))
+        d.rounded_rectangle([ox + 34, oy + 84, ox + 34 + tag_w, oy + 138], radius=12, fill=(254, 240, 138, 255))
+        _center_text(d, (ox + 34, oy + 84, ox + 34 + tag_w, oy + 138), fcom_tag, fonts.mono_lg, (15, 23, 42, 255), pad_x=16)
         # Soft grey body paper lines (read as paper, not filler words)
         for li, bw in enumerate((620, 560, 600, 440)):
             ly = oy + 162 + li * 30
@@ -372,14 +393,14 @@ class PrebuiltAssets:
         rotated = img.rotate(2.2, resample=Image.Resampling.BICUBIC, expand=True)
         return np.array(rotated)
 
-    def _build_bfl_pill(self, fonts: FontBank) -> np.ndarray:
+    def _build_bfl_pill(self, fonts: FontBank, pill_text: str) -> np.ndarray:
         img, d, (ox, oy) = _draw_pill_stamp(
-            740, 96, 20, (15, 23, 42, 245), (245, 158, 11, 255), border_w=4
+            840, 96, 20, (15, 23, 42, 245), (245, 158, 11, 255), border_w=4
         )
         _center_text(
             d,
-            (ox, oy, ox + 740, oy + 96),
-            "BALANCED FIELD · ASDR = TODR",
+            (ox, oy, ox + 840, oy + 96),
+            pill_text,
             fonts.pill,
             (253, 230, 138, 255),
         )
@@ -409,19 +430,19 @@ class PrebuiltAssets:
         mixed = base * (1.0 - core) + beam_col * core + beam_col * glow * (1.0 - core * 0.5)
         return np.clip(mixed, 0, 255).astype(np.uint8)
 
-    def _build_quiz_header(self, fonts: FontBank) -> np.ndarray:
+    def _build_quiz_header(self, fonts: FontBank, line1: str, line2: str) -> np.ndarray:
         box = Image.new("RGBA", (980, 310), (0, 0, 0, 0))
         d = ImageDraw.Draw(box)
-        # Badge pill
         d.rounded_rectangle([200, 10, 780, 68], radius=29, fill=(15, 23, 42, 238), outline=(251, 191, 36, 200), width=3)
         _center_text(d, (200, 10, 780, 68), "PILOT CALL // EASA EXAM TRAP", fonts.mono_md, (251, 191, 36, 255))
-        # Dark backing strip behind headline so it stays super crisp over the amber beam
-        d.rounded_rectangle([90, 96, 890, 286], radius=24, fill=(10, 15, 24, 228), outline=(148, 163, 184, 70), width=2)
-        _center_text(d, (90, 110, 890, 192), "ENGINE FAILS", fonts.headline, (255, 255, 255, 255))
-        _center_text(d, (90, 188, 890, 272), "2 KT BEFORE V1", fonts.headline, (251, 191, 36, 255))
+        d.rounded_rectangle([70, 96, 910, 286], radius=24, fill=(10, 15, 24, 228), outline=(148, 163, 184, 70), width=2)
+        _center_text(d, (70, 110, 910, 192), line1, fonts.headline, (255, 255, 255, 255))
+        _center_text(d, (70, 188, 910, 272), line2, fonts.headline, (251, 191, 36, 255))
         return np.array(box)
 
-    def _build_option_cards(self, fonts: FontBank) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    def _build_option_cards(
+        self, fonts: FontBank, quiz: dict
+    ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         def card(key_txt: str, val_txt: str, sub_txt: str, fill, border, key_c, val_c, bw=4):
             im, d, (ox, oy) = _draw_pill_stamp(460, 230, 26, fill, border, border_w=bw)
             _center_text(d, (ox, oy + 26, ox + 460, oy + 64), key_txt, fonts.mono_md, key_c)
@@ -430,31 +451,35 @@ class PrebuiltAssets:
             return np.array(im)
 
         a_idle = card(
-            "OPTION A", "STOP", "REJECT TAKEOFF",
+            "OPTION A", quiz["opt_a_val"], quiz["opt_a_sub"],
             (15, 23, 42, 242), (148, 163, 184, 130), (148, 163, 184, 255), (255, 255, 255, 255),
         )
         a_win = card(
-            "OPTION A · CORRECT", "STOP", "RTO IMMEDIATELY",
+            "OPTION A · CORRECT", quiz["opt_a_val"], quiz["opt_a_sub"],
             (6, 78, 59, 250), (52, 211, 153, 255), (167, 243, 208, 255), (255, 255, 255, 255), bw=5,
         )
         b_idle = card(
-            "OPTION B", "GO", "CONTINUE FLYING",
+            "OPTION B", quiz["opt_b_val"], quiz["opt_b_sub"],
             (15, 23, 42, 242), (148, 163, 184, 130), (148, 163, 184, 255), (255, 255, 255, 255),
         )
-        return a_idle, a_win, b_idle
+        b_win = card(
+            "OPTION B · CORRECT", quiz["opt_b_val"], quiz["opt_b_sub"],
+            (6, 78, 59, 250), (52, 211, 153, 255), (167, 243, 208, 255), (255, 255, 255, 255), bw=5,
+        )
+        return a_idle, a_win, b_idle, b_win
 
-    def _build_verdict_badge(self, fonts: FontBank) -> np.ndarray:
+    def _build_verdict_badge(self, fonts: FontBank, verdict_txt: str) -> np.ndarray:
         im, d, (ox, oy) = _draw_pill_stamp(
-            820, 96, 22, (6, 78, 59, 248), (52, 211, 153, 255), border_w=4
+            880, 96, 22, (6, 78, 59, 248), (52, 211, 153, 255), border_w=4
         )
         # Draw vector checkmark icon (avoids missing Unicode glyphs across fonts)
-        cx, cy = ox + 78, oy + 48
+        cx, cy = ox + 74, oy + 48
         d.ellipse([cx - 22, cy - 22, cx + 22, cy + 22], fill=(52, 211, 153, 255))
         d.line([(cx - 11, cy + 1), (cx - 2, cy + 10), (cx + 13, cy - 8)], fill=(6, 78, 59, 255), width=6)
         _center_text(
             d,
-            (ox + 92, oy, ox + 800, oy + 96),
-            "REJECT TAKEOFF IMMEDIATELY",
+            (ox + 96, oy, ox + 860, oy + 96),
+            verdict_txt,
             fonts.pill,
             (255, 255, 255, 255),
         )
@@ -467,25 +492,31 @@ class PrebuiltAssets:
         _center_text(d, (ox, oy, ox + 520, oy + 68), "COMMENT A OR B NOW", fonts.mono_md, (253, 230, 138, 255))
         return np.array(im)
 
-    def _build_rule_cards(self, fonts: FontBank) -> list[np.ndarray]:
-        specs = [
-            ("1. V1 ≥ VMCG", "MIN CONTROL GROUND"),
-            ("2. V1 ≤ VR", "ROTATION SPEED"),
-            ("3. V1 ≤ VMBE", "MAX BRAKE ENERGY"),
-        ]
+    def _build_rule_cards(self, fonts: FontBank, specs: list[tuple[str, str]]) -> list[np.ndarray]:
         cards = []
         for main_t, sub_t in specs:
             im, d, (ox, oy) = _draw_pill_stamp(
                 940, 132, 24, (6, 78, 59, 245), (52, 211, 153, 255), border_w=4
             )
-            d.text((ox + 42, oy + 36), main_t, font=fonts.card_big, fill=(255, 255, 255, 255))
-            bb = d.textbbox((0, 0), sub_t, font=fonts.mono_sm)
-            tw = bb[2] - bb[0]
-            d.text((ox + 940 - 38 - tw, oy + 52), sub_t, font=fonts.mono_sm, fill=(167, 243, 208, 255))
+            bb_sub = d.textbbox((0, 0), sub_t, font=fonts.mono_sm)
+            tw_sub = bb_sub[2] - bb_sub[0]
+            sub_x = ox + 940 - 38 - tw_sub
+            d.text((sub_x, oy + 52), sub_t, font=fonts.mono_sm, fill=(167, 243, 208, 255))
+            # Auto-fit main rule text into available left region so it never collides with sub_t
+            max_main_w = max(220, sub_x - (ox + 42) - 24)
+            f_main = fonts.card_big
+            bb_m = d.textbbox((0, 0), main_t, font=f_main)
+            if (bb_m[2] - bb_m[0]) > max_main_w and getattr(f_main, "path", None):
+                sz = max(24, int(f_main.size * (max_main_w / max(bb_m[2] - bb_m[0], 1))))
+                f_main = ImageFont.truetype(f_main.path, sz)
+                bb_m = d.textbbox((0, 0), main_t, font=f_main)
+            mh = bb_m[3] - bb_m[1]
+            ty = oy + (132 - mh) // 2 - bb_m[1]
+            d.text((ox + 42, ty), main_t, font=f_main, fill=(255, 255, 255, 255))
             cards.append(np.array(im))
         return cards
 
-    def _build_outro_assets(self, fonts: FontBank) -> tuple[np.ndarray, np.ndarray]:
+    def _build_outro_assets(self, fonts: FontBank, outro_sub: str) -> tuple[np.ndarray, np.ndarray]:
         yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
         dist = np.sqrt(((xx - W * 0.5) / 560.0) ** 2 + ((yy - H * 0.44) / 760.0) ** 2)
         f = np.clip(1.0 - dist, 0.0, 1.0) ** 1.4
@@ -508,7 +539,7 @@ class PrebuiltAssets:
         _center_text(
             cd,
             (0, 480, 960, 540),
-            "032 PERFORMANCE · MASTER EVERY EASA TOPIC",
+            outro_sub,
             fonts.mono_md,
             (56, 189, 248, 255),
         )
@@ -521,12 +552,14 @@ class ReelRenderer:
     def __init__(
         self,
         timeline: dict,
+        spec: dict,
         act1_frames: list[np.ndarray],
         act2_frames: list[np.ndarray],
         fonts: FontBank,
         assets: PrebuiltAssets,
     ) -> None:
         self.tl = timeline
+        self.spec = spec
         self.acts = timeline["acts"]
         self.cues = timeline["cues"]
         self.act1_frames = act1_frames
@@ -540,6 +573,7 @@ class ReelRenderer:
         self.chart_base = self._build_act3_chart_base()
 
     def _build_act3_chart_base(self) -> np.ndarray:
+        board = self.spec["act3_board"]
         w, h = self.chart_w, self.chart_h
         im, d, (ox, oy) = _draw_pill_stamp(
             w, h, 26, (248, 246, 241, 255), (255, 255, 255, 200), border_w=2, shadow_pad=24
@@ -551,7 +585,7 @@ class ReelRenderer:
         for ci, col in enumerate(((239, 68, 68, 255), (245, 158, 11, 255), (16, 185, 129, 255))):
             cx = ox + 28 + ci * 28
             d.ellipse([cx - 8, oy + 21, cx + 8, oy + 37], fill=col)
-        d.text((ox + 124, oy + 16), "CS25_BALANCED_FIELD.PDF", font=self.fonts.mono_md, fill=(51, 65, 85, 255))
+        d.text((ox + 124, oy + 16), board["chart_file"], font=self.fonts.mono_md, fill=(51, 65, 85, 255))
 
         # Plot area inside window
         px0, py0 = ox + 90, oy + 100
@@ -562,8 +596,8 @@ class ReelRenderer:
             d.line([(px0, gy), (px1, gy)], fill=(228, 224, 214, 255), width=2)
         # Axes
         d.line([(px0, py0), (px0, py1), (px1, py1)], fill=(71, 85, 105, 255), width=4)
-        _center_text(d, (px0, py1 + 18, px1, py1 + 60), "DECISION SPEED (V1) →", self.fonts.mono_md, (51, 65, 85, 255))
-        d.text((ox + 22, py0 + 24), "DIST", font=self.fonts.mono_sm, fill=(51, 65, 85, 255))
+        _center_text(d, (px0, py1 + 18, px1, py1 + 60), board["x_label"], self.fonts.mono_md, (51, 65, 85, 255))
+        d.text((ox + 18, py0 + 24), board["y_label"], font=self.fonts.mono_sm, fill=(51, 65, 85, 255))
         self.plot_box = (px0, py0, px1, py1)
         self.chart_ox_oy = (ox, oy)
         return np.array(im)
@@ -572,7 +606,8 @@ class ReelRenderer:
         a = self.acts["1"]
         dur = max(1.0, a["end"] - a["start"])
         prog = clamp01((t - a["start"]) / dur)
-        # Dramatic shake right after engine fail cue
+        hud = self.spec["act1_hud"]
+
         t_fail = t - self.cues["eng_fail"]
         shake_dx, shake_dy = 0.0, 0.0
         if 0.0 <= t_fail <= 0.50:
@@ -586,31 +621,30 @@ class ReelRenderer:
         )
         frame = _alpha_composite_rgba(frame, self.assets.act1_scrim)
 
-        # Crimson warning pulse flash on engine failure
         if 0.0 <= t_fail <= 1.1:
             flash = 0.28 * math.exp(-t_fail * 2.5) * (0.55 + 0.45 * math.sin(t_fail * 18.0))
             red = np.zeros_like(frame)
             red[:, :, 0] = 220
             frame = cv2.addWeighted(frame, 1.0 - flash, red, flash, 0.0)
 
-        # HUD Airspeed card (PIL dynamic readout)
+        # HUD numeric telemetry card
         kts_prog = clamp01(t / max(0.8, self.cues["eng_fail"]))
-        kts = int(round(98 + 42 * ease_out_cubic(kts_prog)))
+        val = hud["start_val"] + (hud["end_val"] - hud["start_val"]) * ease_out_cubic(kts_prog)
+        decs = hud.get("decimals", 0)
+        val_txt = f"{val:.{decs}f}" if decs > 0 else f"{int(round(val))}"
         hud_col = (248, 113, 113, 255) if t_fail >= 0 else (255, 255, 255, 255)
         hud_border = (244, 63, 94, 210) if t_fail >= 0 else (34, 211, 238, 180)
-        him, hd, (ox, oy) = _draw_pill_stamp(360, 152, 22, (6, 14, 28, 232), hud_border, border_w=3)
-        hd.text((ox + 26, oy + 16), "IAS // WET RWY", font=self.fonts.mono_sm, fill=(103, 232, 249, 255))
-        hd.text((ox + 24, oy + 46), f"{kts} KT", font=self.fonts.hud_speed, fill=hud_col)
+        him, hd, (ox, oy) = _draw_pill_stamp(400, 152, 22, (6, 14, 28, 232), hud_border, border_w=3)
+        hd.text((ox + 26, oy + 16), hud["label"], font=self.fonts.mono_sm, fill=(103, 232, 249, 255))
+        hd.text((ox + 24, oy + 46), f"{val_txt} {hud['unit']}", font=self.fonts.hud_speed, fill=hud_col)
         _paste_rgba_roi(frame, np.array(him), 40, 210)
 
-        # MASTER WARN banner
         if t_fail >= 0.0:
             en = ease_out_cubic(clamp01(t_fail / 0.25))
             bx = (W - self.assets.eng_fail_banner.shape[1]) // 2
             by = int(420 - (1.0 - en) * 28)
             _paste_rgba_roi(frame, self.assets.eng_fail_banner, bx, by, alpha_scale=en)
 
-        # "FLY — OR SLAM THE BRAKES?" hero pill
         t_q = t - self.cues["fly_or_stop"]
         if t_q >= 0.0:
             en = ease_out_cubic(clamp01(t_q / 0.28))
@@ -630,23 +664,19 @@ class ReelRenderer:
         dx = math.sin(prog * math.pi) * -14.0
         frame = _sample_clip_slowmo(self.act2_frames, prog, zoom=zoom, dx=dx)
 
-        # Tilt-shift miniature blur at top and bottom bands
         blurred = cv2.GaussianBlur(frame, (0, 0), sigmaX=7.5, sigmaY=7.5)
         m = self.assets.tilt_shift_mask
         frame = np.clip(frame.astype(np.float32) * (1.0 - m) + blurred.astype(np.float32) * m, 0, 255).astype(np.uint8)
 
-        # V1 Decision Gate top pill
         en_v1 = ease_out_cubic(clamp01(t_loc / 0.35))
         vx = (W - self.assets.tag_v1.shape[1]) // 2
         _paste_rgba_roi(frame, self.assets.tag_v1, vx, int(230 - (1.0 - en_v1) * 24), alpha_scale=en_v1)
 
-        # ASDA bottom-left pill
         t_asda = t - self.cues["asda_reveal"]
         if t_asda >= 0.0:
             en = ease_out_cubic(clamp01(t_asda / 0.30))
             _paste_rgba_roi(frame, self.assets.tag_asda, 34, int(1340 + (1.0 - en) * 45), alpha_scale=en)
 
-        # TODA bottom-right pill
         t_toda = t - self.cues["toda_reveal"]
         if t_toda >= 0.0:
             en = ease_out_cubic(clamp01(t_toda / 0.30))
@@ -660,6 +690,153 @@ class ReelRenderer:
 
         return frame
 
+    def _draw_chart_content(self, d: ImageDraw.ImageDraw, t: float) -> tuple[float, float, str]:
+        """Draw the topic's engineering chart & return cursor click (ix, iy, marker_label)."""
+        board = self.spec["act3_board"]
+        ctype = board["chart_type"]
+        px0, py0, px1, py1 = self.plot_box
+        pw, ph = px1 - px0, py1 - py0
+
+        u1 = clamp01((t - self.cues["asdr_draw"]) / 1.45)
+        u2 = clamp01((t - self.cues["todr_draw"]) / 1.45)
+        t_col = t - self.cues["v1_collide"]
+
+        def pt(ux: float, ny: float) -> tuple[float, float]:
+            return px0 + ux * pw, py1 - ny * ph
+
+        if ctype == "bars_compare":
+            bars = board["bars"]
+            max_v = max(b[1] for b in bars) * 1.12
+            bx_start = px0 + 195
+            bar_max_w = px1 - 36 - bx_start
+            n_b = len(bars)
+            row_h = (ph - 82) / max(n_b, 1)
+            prog_all = clamp01((t - self.acts["3"]["start"] - 0.3) / max(1.8, (self.cues["v1_collide"] - self.acts["3"]["start"])))
+            target_xy = (bx_start + bar_max_w * (bars[-1][1] / max_v), py0 + 12 + (n_b - 0.5) * row_h)
+            for idx, (lbl, val, col) in enumerate(bars):
+                b_u = ease_out_cubic(clamp01((prog_all * n_b) - idx * 0.55))
+                cy = int(py0 + 12 + (idx + 0.5) * row_h)
+                bh = 52
+                d.text((px0 + 14, cy - 14), lbl, font=self.fonts.mono_sm, fill=(30, 41, 59, 255))
+                d.rounded_rectangle([bx_start, cy - bh // 2, bx_start + bar_max_w, cy + bh // 2], radius=12, fill=(228, 224, 214, 255))
+                bw_now = max(14, int(bar_max_w * (val / max_v) * b_u))
+                d.rounded_rectangle([bx_start, cy - bh // 2, bx_start + bw_now, cy + bh // 2], radius=12, fill=(*col, 255))
+                if idx == n_b - 1:
+                    target_xy = (float(bx_start + bw_now), float(cy))
+            return target_xy[0], target_xy[1], bars[-1][0]
+
+        if ctype == "crossing":
+            f1 = lambda u: 0.14 + 0.72 * (u ** 1.35)
+            f2 = lambda u: 0.84 - 0.68 * (u ** 0.85)
+            best_u = min((k / 199.0 for k in range(200)), key=lambda uu: abs(f1(uu) - f2(uu)))
+            ix, iy = pt(best_u, f1(best_u))
+            if u1 > 0.02:
+                pts = [pt(u1 * (i / 60.0), f1(u1 * (i / 60.0))) for i in range(61)]
+                d.line(pts, fill=(225, 29, 72, 255), width=9, joint="curve")
+                d.text((min(px1 - 210, pts[-1][0] - 30), max(py0 + 10, pts[-1][1] - 42)), board["curve1_label"], font=self.fonts.mono_md, fill=(225, 29, 72, 255))
+            if u2 > 0.02:
+                pts = [pt(u2 * (i / 60.0), f2(u2 * (i / 60.0))) for i in range(61)]
+                d.line(pts, fill=(5, 150, 105, 255), width=9, joint="curve")
+                d.text((max(px0 + 16, min(px1 - 190, pts[-1][0] - 40)), min(py1 - 44, pts[-1][1] + 14)), board["curve2_label"], font=self.fonts.mono_md, fill=(5, 150, 105, 255))
+            return ix, iy, board["marker_label"]
+
+        if ctype == "dual_diverge":
+            f1 = lambda u: 0.84 - 0.64 * (u ** 0.90)
+            f2 = lambda u: 0.22 + 0.60 * (u ** 1.08)
+            ix, iy = pt(0.76, f2(0.76))
+            if u1 > 0.02:
+                pts = [pt(u1 * (i / 60.0), f1(u1 * (i / 60.0))) for i in range(61)]
+                d.line(pts, fill=(225, 29, 72, 255), width=9, joint="curve")
+                d.text((px0 + 24, max(py0 + 14, pts[4][1] - 46)), board["curve1_label"], font=self.fonts.mono_md, fill=(225, 29, 72, 255))
+            if u2 > 0.02:
+                pts = [pt(u2 * (i / 60.0), f2(u2 * (i / 60.0))) for i in range(61)]
+                d.line(pts, fill=(5, 150, 105, 255), width=9, joint="curve")
+                d.text((min(px1 - 240, pts[-1][0] - 120), max(py0 + 16, pts[-1][1] - 42)), board["curve2_label"], font=self.fonts.mono_md, fill=(5, 150, 105, 255))
+            return ix, iy, board["marker_label"]
+
+        if ctype == "climb_thrust":
+            f1 = lambda u: 0.22 + 0.54 * (((u - 0.42) / 0.58) ** 2)
+            f2 = lambda u: 0.82 - 0.09 * u
+            ix, iy = pt(0.42, (f1(0.42) + f2(0.42)) * 0.5)
+            if u1 > 0.02:
+                pts2 = [pt(u1 * (i / 60.0), f2(u1 * (i / 60.0))) for i in range(61)]
+                d.line(pts2, fill=(5, 150, 105, 255), width=9, joint="curve")
+                d.text((px0 + 20, py0 + 26), board["curve2_label"], font=self.fonts.mono_md, fill=(5, 150, 105, 255))
+            if u2 > 0.02:
+                pts1 = [pt(u2 * (i / 60.0), f1(u2 * (i / 60.0))) for i in range(61)]
+                d.line(pts1, fill=(225, 29, 72, 255), width=9, joint="curve")
+                d.text((px0 + 24, py1 - 92), board["curve1_label"], font=self.fonts.mono_md, fill=(225, 29, 72, 255))
+            if t_col >= 0.0:
+                p_top = pt(0.42, f2(0.42))
+                p_bot = pt(0.42, f1(0.42))
+                d.line([p_top, p_bot], fill=(245, 158, 11, 255), width=7)
+            return ix, iy, board["marker_label"]
+
+        if ctype == "sar_arch":
+            f_heavy = lambda u: max(0.08, 0.60 - 0.50 * (((u - 0.46) / 0.54) ** 2))
+            f_light = lambda u: max(0.10, 0.84 - 0.56 * (((u - 0.48) / 0.52) ** 2))
+            ix, iy = pt(0.56, f_light(0.56))
+            if u1 > 0.02:
+                pts1 = [pt(u1 * (i / 60.0), f_heavy(u1 * (i / 60.0))) for i in range(61)]
+                d.line(pts1, fill=(225, 29, 72, 255), width=8, joint="curve")
+                d.text((px0 + 24, py1 - 150), "HEAVY (FL340)", font=self.fonts.mono_sm, fill=(225, 29, 72, 255))
+            if u2 > 0.02:
+                pts2 = [pt(u2 * (i / 60.0), f_light(u2 * (i / 60.0))) for i in range(61)]
+                d.line(pts2, fill=(5, 150, 105, 255), width=9, joint="curve")
+                d.text((px0 + 24, py0 + 22), "LIGHT (FL360)", font=self.fonts.mono_md, fill=(5, 150, 105, 255))
+            return ix, iy, board["marker_label"]
+
+        if ctype == "coffin_corner":
+            apex_u, apex_y = 0.52, 0.86
+            ix, iy = pt(apex_u, apex_y)
+            if u1 > 0.02:
+                pts1 = [pt(0.08 + (apex_u - 0.08) * u1 * (i / 50.0), 0.14 + (apex_y - 0.14) * ((u1 * (i / 50.0)) ** 0.85)) for i in range(51)]
+                d.line(pts1, fill=(225, 29, 72, 255), width=9, joint="curve")
+                d.text((px0 + 20, py0 + 28), board["curve1_label"], font=self.fonts.mono_md, fill=(225, 29, 72, 255))
+            if u2 > 0.02:
+                pts2 = [pt(0.92 - (0.92 - apex_u) * u2 * (i / 50.0), 0.14 + (apex_y - 0.14) * ((u2 * (i / 50.0)) ** 1.10)) for i in range(51)]
+                d.line(pts2, fill=(5, 150, 105, 255), width=9, joint="curve")
+                d.text((px1 - 210, py0 + 28), board["curve2_label"], font=self.fonts.mono_md, fill=(5, 150, 105, 255))
+            return ix, iy, board["marker_label"]
+
+        if ctype == "lift_stall":
+            def f_cl(u: float) -> float:
+                if u <= 0.70:
+                    return 0.14 + 0.70 * (u / 0.70)
+                return max(0.28, 0.84 - 0.54 * (((u - 0.70) / 0.28) ** 1.25))
+
+            ix, iy = pt(0.70, 0.84)
+            if u1 > 0.02:
+                u_pre = min(0.70, u1 * 0.96)
+                pts1 = [pt(u_pre * (i / 50.0), f_cl(u_pre * (i / 50.0))) for i in range(51)]
+                d.line(pts1, fill=(5, 150, 105, 255), width=9, joint="curve")
+                d.text((px0 + 26, py1 - 250), board["curve1_label"], font=self.fonts.mono_md, fill=(5, 150, 105, 255))
+            if u2 > 0.02:
+                u_span = 0.25 * u2
+                pts2 = [pt(0.70 + u_span * (i / 30.0), f_cl(0.70 + u_span * (i / 30.0))) for i in range(31)]
+                d.line(pts2, fill=(225, 29, 72, 255), width=9, joint="curve")
+                d.text((px1 - 220, py0 + 180), board["curve2_label"], font=self.fonts.mono_md, fill=(225, 29, 72, 255))
+            return ix, iy, board["marker_label"]
+
+        # Default fallback & "drag_curve"
+        fi = lambda u: min(0.84, 0.09 + 0.56 * ((0.30 / (u + 0.16)) ** 1.55))
+        fp = lambda u: min(0.84, 0.08 + 0.54 * ((u / 0.94) ** 1.95))
+        ftot = lambda u: min(0.92, fi(u) * 0.55 + fp(u) * 0.55 + 0.22)
+        best_u = min((0.15 + 0.70 * (k / 199.0) for k in range(200)), key=ftot)
+        ix, iy = pt(best_u, ftot(best_u))
+        if u1 > 0.02:
+            pts_i = [pt(0.08 + 0.84 * u1 * (i / 60.0), fi(0.08 + 0.84 * u1 * (i / 60.0))) for i in range(61)]
+            pts_p = [pt(0.08 + 0.84 * u1 * (i / 60.0), fp(0.08 + 0.84 * u1 * (i / 60.0))) for i in range(61)]
+            d.line(pts_i, fill=(225, 29, 72, 255), width=7, joint="curve")
+            d.line(pts_p, fill=(5, 150, 105, 255), width=7, joint="curve")
+            d.text((px0 + 18, py0 + 26), board["curve1_label"], font=self.fonts.mono_sm, fill=(225, 29, 72, 255))
+            d.text((px1 - 245, py1 - 165), board["curve2_label"], font=self.fonts.mono_sm, fill=(5, 150, 105, 255))
+        if u2 > 0.02:
+            pts_t = [pt(0.08 + 0.84 * u2 * (i / 60.0), ftot(0.08 + 0.84 * u2 * (i / 60.0))) for i in range(61)]
+            d.line(pts_t, fill=(30, 41, 59, 255), width=10, joint="curve")
+            d.text((ix - 75, max(py0 + 18, iy - 130)), "TOTAL DRAG", font=self.fonts.mono_md, fill=(30, 41, 59, 255))
+        return ix, iy, board["marker_label"]
+
     def _render_act3(self, t: float) -> np.ndarray:
         a = self.acts["3"]
         dur = max(1.0, a["end"] - a["start"])
@@ -667,71 +844,33 @@ class ReelRenderer:
         prog = clamp01(t_loc / dur)
 
         frame = self.assets.act3_desk.copy()
-        # Subtle camera drift over evidence board
         drift_y = int(round((prog - 0.5) * -18))
 
-        # Top FCOM window
         en_f = ease_out_cubic(clamp01(t_loc / 0.32))
         _paste_rgba_roi(frame, self.assets.act3_fcom_win, 44, 218 + drift_y - int((1 - en_f) * 30), alpha_scale=en_f)
 
-        # Dynamic CS-25 Chart window rendered cleanly with Pillow for razor-sharp AA curves
         ch_rgba = self.chart_base.copy()
         im = Image.fromarray(ch_rgba, "RGBA")
         d = ImageDraw.Draw(im)
         px0, py0, px1, py1 = self.plot_box
-        pw, ph = px1 - px0, py1 - py0
 
-        def asdr_pt(u: float) -> tuple[float, float]:
-            # ASDR rises steeply with V1
-            return px0 + u * pw, py1 - (0.14 + 0.72 * (u ** 1.35)) * ph
+        ix, iy, m_label = self._draw_chart_content(d, t)
 
-        def todr_pt(u: float) -> tuple[float, float]:
-            # TODR drops as V1 increases
-            return px0 + u * pw, py1 - (0.84 - 0.68 * (u ** 0.85)) * ph
-
-        # Find exact intersection u*
-        best_u, best_diff = 0.5, 1e9
-        for k in range(200):
-            uu = k / 199.0
-            diff = abs(asdr_pt(uu)[1] - todr_pt(uu)[1])
-            if diff < best_diff:
-                best_diff = diff
-                best_u = uu
-        ix, iy = asdr_pt(best_u)
-
-        asdr_u = clamp01((t - self.cues["asdr_draw"]) / 1.45)
-        todr_u = clamp01((t - self.cues["todr_draw"]) / 1.45)
-
-        if asdr_u > 0.02:
-            pts = [asdr_pt(asdr_u * (i / 60.0)) for i in range(61)]
-            d.line(pts, fill=(225, 29, 72, 255), width=9, joint="curve")
-            tx, ty = pts[-1]
-            d.text((min(px1 - 210, tx - 30), max(py0 + 10, ty - 42)), "ASDR (STOP)", font=self.fonts.mono_md, fill=(225, 29, 72, 255))
-
-        if todr_u > 0.02:
-            pts = [todr_pt(todr_u * (i / 60.0)) for i in range(61)]
-            d.line(pts, fill=(5, 150, 105, 255), width=9, joint="curve")
-            tx, ty = pts[-1]
-            d.text((max(px0 + 16, min(px1 - 190, tx - 40)), min(py1 - 44, ty + 14)), "TODR (GO)", font=self.fonts.mono_md, fill=(5, 150, 105, 255))
-
-        # Intersection + balanced field gate on v1_collide
         t_col = t - self.cues["v1_collide"]
         if t_col >= 0.0:
             en_c = ease_out_cubic(clamp01(t_col / 0.25))
-            # Vertical dashed V1 marker
             for sy in range(int(iy), py1, 22):
                 d.line([(ix, sy), (ix, min(py1, sy + 12))], fill=(245, 158, 11, int(230 * en_c)), width=4)
-            # Expanding ripple
             if t_col < 1.1:
                 ru = t_col / 1.1
                 rr = int(14 + ru * 76)
                 ra = int((1.0 - ru) * 230)
                 d.ellipse([ix - rr, iy - rr, ix + rr, iy + rr], outline=(245, 158, 11, ra), width=5)
             d.ellipse([ix - 14, iy - 14, ix + 14, iy + 14], fill=(245, 158, 11, 255), outline=(15, 23, 42, 255), width=4)
-            d.rounded_rectangle([int(ix - 90), py1 - 54, int(ix + 90), py1 - 10], radius=10, fill=(245, 158, 11, 255))
-            _center_text(d, (int(ix - 90), py1 - 54, int(ix + 90), py1 - 10), "BALANCED V1", self.fonts.mono_sm, (15, 23, 42, 255))
+            mx0 = int(max(px0 + 10, min(px1 - 210, ix - 105)))
+            d.rounded_rectangle([mx0, py1 - 54, mx0 + 210, py1 - 10], radius=10, fill=(245, 158, 11, 255))
+            _center_text(d, (mx0, py1 - 54, mx0 + 210, py1 - 10), m_label, self.fonts.mono_sm, (15, 23, 42, 255), pad_x=10)
 
-        # MacOS Cursor glides smoothly into intersection before v1_collide
         cur_prog = ease_in_out_cubic(clamp01((t - (self.cues["v1_collide"] - 0.9)) / 0.9))
         cx = int(px1 - 120 + (ix - (px1 - 120)) * cur_prog)
         cy = int(py1 - 140 + (iy - (py1 - 140)) * cur_prog)
@@ -749,11 +888,10 @@ class ReelRenderer:
 
     def _render_act45(self, t: float, act_id: int) -> np.ndarray:
         a4 = self.acts["4"]
-        is_act5 = act_id == 5
         t_v = t - self.cues["verdict_stop"]
         morph = ease_out_cubic(clamp01(t_v / 0.45)) if t_v >= 0.0 else 0.0
+        win_opt = self.spec["act45_quiz"]["correct_opt"]
 
-        # Spotlight backdrop morphs cleanly amber -> emerald on verdict_stop
         if morph <= 0.005:
             frame = self.assets.beam_amber.copy()
         elif morph >= 0.995:
@@ -761,14 +899,19 @@ class ReelRenderer:
         else:
             frame = cv2.addWeighted(self.assets.beam_amber, 1.0 - morph, self.assets.beam_emerald, morph, 0.0)
 
-        # Header & headline
         _paste_rgba_roi(frame, self.assets.quiz_header, (W - self.assets.quiz_header.shape[1]) // 2, 225)
 
-        # Option Cards A & B side-by-side
-        card_a = self.assets.opt_a_win if morph > 0.35 else self.assets.opt_a_idle
-        _paste_rgba_roi(frame, card_a, 46, 590, alpha_scale=1.0)
-        b_alpha = 1.0 - 0.72 * morph
-        _paste_rgba_roi(frame, self.assets.opt_b_idle, W - 46 - self.assets.opt_b_idle.shape[1], 590, alpha_scale=b_alpha)
+        if win_opt == "A":
+            card_a = self.assets.opt_a_win if morph > 0.35 else self.assets.opt_a_idle
+            card_b = self.assets.opt_b_idle
+            a_alpha, b_alpha = 1.0, 1.0 - 0.72 * morph
+        else:
+            card_a = self.assets.opt_a_idle
+            card_b = self.assets.opt_b_win if morph > 0.35 else self.assets.opt_b_idle
+            a_alpha, b_alpha = 1.0 - 0.72 * morph, 1.0
+
+        _paste_rgba_roi(frame, card_a, 46, 590, alpha_scale=a_alpha)
+        _paste_rgba_roi(frame, card_b, W - 46 - card_b.shape[1], 590, alpha_scale=b_alpha)
 
         if t_v < 0.0:
             # Countdown ring 3 -> 2 -> 1 (holds on 1 cleanly right up to "Stop.")
@@ -932,7 +1075,11 @@ def render_mp4(renderer: ReelRenderer, master_audio: Path, out_mp4: Path, log_pa
         "-i", str(master_audio),
         "-c:v", "h264_nvenc",
         "-preset", "p5",
-        "-cq", "19",
+        "-rc", "vbr",
+        "-cq", "23",
+        "-b:v", "4.5M",
+        "-maxrate", "6.5M",
+        "-bufsize", "13M",
         "-pix_fmt", "yuv420p",
         "-c:a", "aac",
         "-b:a", "192k",
@@ -959,31 +1106,41 @@ def render_mp4(renderer: ReelRenderer, master_audio: Path, out_mp4: Path, log_pa
     print(f"[Render] DONE! {out_mp4} ({mb:.2f} MB)", flush=True)
 
 
+def _find_clip(work_dir: Path, names: tuple[str, ...]) -> Path:
+    for n in names:
+        p = work_dir / n
+        if p.exists():
+            return p
+    raise FileNotFoundError(f"Missing AI clip in {work_dir} (checked {names})")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--topic", default="PERF_TAKEOFF")
     parser.add_argument("--work", default=r"G:\ATPLVECTOR_Videos\v3_AI\_work")
     parser.add_argument("--out", default=r"G:\ATPLVECTOR_Videos\v3_AI\PERF_TAKEOFF_v3_AI.mp4")
     parser.add_argument("--preview-only", action="store_true")
     args = parser.parse_args()
 
+    spec = get_topic_spec(args.topic)
     work_dir = Path(args.work)
     out_mp4 = Path(args.out)
     out_mp4.parent.mkdir(parents=True, exist_ok=True)
-    preview_png = out_mp4.parent / "PERF_TAKEOFF_v3_preview.png"
+    preview_png = out_mp4.parent / f"{out_mp4.stem}_preview.png"
 
     tl_path = work_dir / "timeline.json"
     if not tl_path.exists():
         raise FileNotFoundError(f"Missing {tl_path} — run gemini_voice_engine.py first.")
     timeline = json.loads(tl_path.read_text(encoding="utf-8"))
 
-    act1_path = work_dir / "act1_runway.mp4"
-    act2_path = work_dir / "act2_diorama.mp4"
+    act1_path = _find_clip(work_dir, ("act1_clip.mp4", "act1_runway.mp4"))
+    act2_path = _find_clip(work_dir, ("act2_clip.mp4", "act2_diorama.mp4"))
     act1_frames = _load_clip_frames(act1_path)
     act2_frames = _load_clip_frames(act2_path)
 
     fonts = FontBank()
-    assets = PrebuiltAssets(fonts)
-    renderer = ReelRenderer(timeline, act1_frames, act2_frames, fonts, assets)
+    assets = PrebuiltAssets(fonts, spec)
+    renderer = ReelRenderer(timeline, spec, act1_frames, act2_frames, fonts, assets)
 
     write_preview_sheet(renderer, preview_png)
     if args.preview_only:

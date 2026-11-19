@@ -30,53 +30,68 @@ import numpy as np
 import soundfile as sf
 
 # Reuse copyright-safe score + SFX synthesizer from v2 without duplicating math
-V2_DIR = Path(__file__).resolve().parent.parent / "v2_netflix"
-if str(V2_DIR) not in sys.path:
-    sys.path.insert(0, str(V2_DIR))
+THIS_DIR = Path(__file__).resolve().parent
+V2_DIR = THIS_DIR.parent / "v2_netflix"
+for _p in (THIS_DIR, V2_DIR):
+    if str(_p) not in sys.path:
+        sys.path.insert(0, str(_p))
 from audio_engine import synthesize_music_and_sfx  # noqa: E402
+from v3_topic_specs import get_topic_spec  # noqa: E402
 
 SR = 48000
 DEFAULT_MODEL = "gemini-3.1-flash-tts-preview"
 DEFAULT_VOICE = "Charon"
-
-TRANSCRIPT_BODY = (
-    "One hundred and forty knots down a wet runway. "
-    "One engine just failed. "
-    "You have less than one second: fly, or slam the brakes. "
-    "At V1, the runway splits in two. "
-    "Before it, you stop inside the paved stopway — that is ASDA. "
-    "Past it, you rotate and climb through the clearway — that is TODA. "
-    "Push V1 higher, and stopping takes longer. "
-    "Drop V1 lower, and flying on one engine takes longer. "
-    "Where those two curves collide is your Balanced Field Length. "
-    "Pilot call. EASA exam trap. "
-    "Engine fails two knots before V1 — stop, or go? "
-    "Three... Two... One. "
-    "Stop. Reject the takeoff immediately. "
-    "Save this rule: V1 is never below VMCG, "
-    "never above VR, and never above brake energy VMBE."
-)
-
-DIRECTOR_PROMPT = (
-    "Speak with gripping, brisk Netflix aviation documentary narration in around 50 seconds: "
-    "warm, deep human baritone authority, crisp airline-captain enunciation "
-    "(V1 as vee-one, ASDA as az-dah, TODA as toe-dah, EASA as ee-ah-sah, "
-    "VMCG as vee-M-C-G, VR as vee-R, VMBE as vee-M-B-E), natural human breaths, "
-    "tight momentum, never dragging and never robotic:\n\n"
-    f"{TRANSCRIPT_BODY}"
-)
-
-# Stripped ultra-safe backup prompt if safety filter or header leakage occurs
-CONCISE_PROMPT = (
-    "Speak clearly and briskly like a calm Netflix documentary narrator:\n\n"
-    f"{TRANSCRIPT_BODY}"
+MODEL_CASCADE = (
+    "gemini-3.1-flash-tts-preview",
+    "gemini-2.5-flash-preview-tts",
+    "gemini-3.8-flash-tts",
 )
 
 FORBIDDEN_HEADER_WORDS = {
     "profile", "narrator", "pronunciation", "transcript", "director",
     "az-dah", "toe-dah", "ee-ah-sah", "robotic", "speak", "gripping",
     "brisk", "briskly", "netflix", "authority", "enunciation", "dragging",
+    "read", "aloud",
 }
+
+
+def build_model_attempts(spec: dict, primary_model: str) -> list[tuple[str, str, str]]:
+    """Build ordered (model, label, prompt) attempts across the 3 Gemini TTS models."""
+    hints = spec.get("pronunciation_hints") or "EASA as ee-ah-sah"
+    body = spec["transcript"]
+
+    prompts_by_model = {
+        "gemini-3.1-flash-tts-preview": [
+            (
+                "director_profile",
+                "Speak with gripping, brisk Netflix aviation documentary narration in around 50 seconds: "
+                f"warm, deep human baritone authority, crisp airline-captain enunciation ({hints}), "
+                "natural human breaths, tight momentum, never dragging and never robotic:\n\n"
+                f"{body}",
+            ),
+            ("concise_fallback", f"Speak clearly and briskly like a calm Netflix documentary narrator:\n\n{body}"),
+        ],
+        "gemini-2.5-flash-tts": [],
+        "gemini-2.5-flash-preview-tts": [
+            (
+                "read_aloud_style",
+                f"Read aloud in a gripping, brisk Netflix aviation documentary voice (~50 seconds, crisp airline-captain pronunciation: {hints}):\n\n{body}",
+            ),
+            ("read_aloud_concise", f"Read aloud in a calm, authoritative Netflix documentary voice:\n\n{body}"),
+        ],
+        "gemini-3.8-flash-tts": [
+            # Strictly bare transcript for 3.8 so headers/instructions are never spoken aloud
+            ("bare_transcript", body),
+        ],
+    }
+
+    order = [primary_model] + [m for m in MODEL_CASCADE if m != primary_model]
+    attempts: list[tuple[str, str, str]] = []
+    for mdl in order:
+        pairs = prompts_by_model.get(mdl) or [("bare_transcript", body)]
+        for lbl, txt in pairs:
+            attempts.append((mdl, lbl, txt))
+    return attempts
 
 
 def _resample_audio(y: np.ndarray, orig_sr: int, target_sr: int) -> np.ndarray:
@@ -184,7 +199,7 @@ def _generate_gemini_tts(prompt: str, model: str, voice: str) -> tuple[np.ndarra
     return _decode_inline_audio(audio_part)
 
 
-def _transcribe_words(y48: np.ndarray) -> list[dict]:
+def _transcribe_words(y48: np.ndarray, initial_prompt: str) -> list[dict]:
     from faster_whisper import WhisperModel
 
     y16 = _resample_audio(y48, SR, 16000)
@@ -192,10 +207,7 @@ def _transcribe_words(y48: np.ndarray) -> list[dict]:
     segments, _ = wm.transcribe(
         y16,
         word_timestamps=True,
-        initial_prompt=(
-            "One hundred and forty knots down a wet runway. V1, ASDA, TODA, "
-            "stopway, clearway, Balanced Field Length, EASA, VMCG, VR, VMBE."
-        ),
+        initial_prompt=initial_prompt,
     )
     words = []
     for seg in segments:
@@ -227,92 +239,98 @@ def _find_word(words: list[dict], targets: tuple[str, ...], min_idx: int = 0) ->
     return None
 
 
-def _build_monotonic_timeline(words: list[dict], speech_end: float) -> dict:
+def _build_monotonic_timeline(words: list[dict], speech_end: float, anchors: dict) -> dict:
     """Locate every Act boundary & visual cue monotonically from Whisper alignment."""
     if not words:
         raise RuntimeError("Whisper returned zero aligned words.")
 
-    # Sequential monotonic anchor lookup matching TRANSCRIPT_BODY order
     cursor = 0
 
-    def take(targets: tuple[str, ...], fallback_frac: float, min_idx_offset: int = 1) -> tuple[float, float]:
+    def take(targets: tuple[str, ...], fallback_frac: float, advance: int = 1) -> tuple[float, float]:
         nonlocal cursor
         found = _find_word(words, targets, cursor)
         if found:
             idx, w = found
-            cursor = idx + min_idx_offset
+            cursor = idx + advance
             return float(w["start"]), float(w["end"])
         est = max(0.4, min(speech_end - 0.5, 0.4 + fallback_frac * (speech_end - 0.4)))
         return round(est, 3), round(est + 0.25, 3)
 
-    w_140 = _find_word(words, ("140", "one", "hundred", "knots"), 0)
-    t_open_start = float(w_140[1]["start"]) if w_140 else float(words[0]["start"])
+    t_open_start = float(words[0]["start"])
 
-    eng_s, eng_e = take(("engine",), 0.09)
-    fly_s, fly_e = take(("fly",), 0.16)
-    brakes_s, brakes_e = take(("brakes", "brake"), 0.20)
+    # Act 1 cues
+    eng_s, _ = take(anchors["eng_fail"], 0.08)
+    fly_s, fly_e = take(anchors["fly_or_stop"], 0.14)
+    if anchors["act1_end"] == anchors["fly_or_stop"]:
+        act1_e_t = fly_e
+    else:
+        _, act1_e_t = take(anchors["act1_end"], 0.19)
 
-    # Act 2
-    at_s, _ = take(("at", "runway"), 0.22)
-    splits_s, splits_e = take(("splits", "split"), 0.25)
-    before_s, before_e = take(("before",), 0.28)
-    stopway_s, stopway_e = take(("stopway", "stop"), 0.34)
-    past_s, past_e = take(("past", "passed"), 0.39)
-    clearway_s, clearway_e = take(("clearway",), 0.45)
+    # Act 2 cues
+    act2_s_t, _ = take(anchors["act2_start"], 0.22)
+    asda_s, _ = take(anchors["asda_reveal"], 0.27)
+    toda_s, toda_e = take(anchors["toda_reveal"], 0.35)
+    if anchors["act2_end"] == anchors["toda_reveal"]:
+        act2_e_t = toda_e
+    else:
+        _, act2_e_t = take(anchors["act2_end"], 0.43)
 
-    # Act 3
-    push_s, _ = take(("push",), 0.49)
-    drop_s, _ = take(("drop",), 0.55)
-    collide_s, collide_e = take(("collide", "intersect", "meet"), 0.62)
-    length_s, length_e = take(("length",), 0.65)
+    # Act 3 cues
+    act3_s_t, _ = take(anchors["act3_start"], 0.46, advance=0)
+    asdr_s, _ = take(anchors["asdr_draw"], 0.49)
+    todr_s, _ = take(anchors["todr_draw"], 0.56)
+    col_s, col_e = take(anchors["v1_collide"], 0.62)
+    if anchors["act3_end"] == anchors["v1_collide"]:
+        act3_e_t = col_e
+    else:
+        _, act3_e_t = take(anchors["act3_end"], 0.65)
 
-    # Act 4
-    pilot_s, _ = take(("pilot",), 0.68)
-    go_s, go_e = take(("go",), 0.74)
-    q3_s, q3_e = take(("three", "3"), 0.77)
-    q2_s, q2_e = take(("two", "2"), 0.80)
-    q1_s, q1_e = take(("one", "1"), 0.83)
+    # Act 4 cues
+    act4_s_t, _ = take(anchors["act4_start"], 0.68)
+    _ = take(anchors["quiz_go"], 0.74)
+    q3_s, _ = take(anchors["quiz_3"], 0.77)
+    q2_s, _ = take(anchors["quiz_2"], 0.80)
+    q1_s, q1_e = take(anchors["quiz_1"], 0.83)
 
-    # Act 5
-    stop_v_s, stop_v_e = take(("stop",), 0.86)
-    below_s, below_e = take(("below",), 0.91)
-    above_vr_s, above_vr_e = take(("above",), 0.94)
-    brake_e_s, brake_e_e = take(("brake", "energy"), 0.97)
+    # Act 5 cues
+    verdict_s, verdict_e = take(anchors["verdict_stop"], 0.86)
+    r1_s, r1_e = take(anchors["rule_1"], 0.90)
+    r2_s, r2_e = take(anchors["rule_2"], 0.94)
+    r3_s, _ = take(anchors["rule_3"], 0.97)
 
     def mid(t_prev_end: float, t_next_start: float) -> float:
         if t_next_start > t_prev_end:
             return round((t_prev_end + t_next_start) * 0.5, 3)
-        return round(t_prev_end + 0.15, 3)
+        return round(t_prev_end + 0.12, 3)
 
-    act1_end = mid(brakes_e, min(at_s, splits_s))
+    act1_end = max(fly_s + 0.6, mid(act1_e_t, act2_s_t))
     act2_start = act1_end
-    act2_end = mid(max(clearway_e, past_e + 1.2), push_s)
+    act2_end = max(toda_s + 0.8, mid(max(act2_e_t, toda_e + 0.8), act3_s_t))
     act3_start = act2_end
-    act3_end = mid(length_e, pilot_s)
+    act3_end = max(col_s + 0.6, mid(act3_e_t, act4_s_t))
     act4_start = act3_end
-    act4_end = mid(q1_e, stop_v_s)
+    act4_end = max(q1_s + 0.35, mid(q1_e, verdict_s))
     act5_start = act4_end
     act6_start = round(max(speech_end, words[-1]["end"]) + 0.55, 3)
     outro_dur = 2.20
     total_dur = round(act6_start + outro_dur, 3)
 
-    # Enforce strict monotonic cue safety
     cues = {
         "open": round(t_open_start, 3),
         "eng_fail": round(max(0.8, eng_s - 0.15), 3),
-        "fly_or_stop": round(fly_s, 3),
-        "asda_reveal": round(before_s, 3),
-        "toda_reveal": round(past_s, 3),
-        "asdr_draw": round(push_s, 3),
-        "todr_draw": round(drop_s, 3),
-        "v1_collide": round(collide_s, 3),
+        "fly_or_stop": round(min(act1_end - 0.6, fly_s), 3),
+        "asda_reveal": round(max(act2_start + 0.25, asda_s), 3),
+        "toda_reveal": round(min(act2_end - 0.6, max(act2_start + 1.1, toda_s)), 3),
+        "asdr_draw": round(max(act3_start + 0.25, asdr_s), 3),
+        "todr_draw": round(max(act3_start + 1.0, todr_s), 3),
+        "v1_collide": round(min(act3_end - 0.6, max(act3_start + 2.0, col_s)), 3),
         "quiz_3": round(q3_s, 3),
         "quiz_2": round(max(q3_s + 0.35, q2_s), 3),
         "quiz_1": round(max(q2_s + 0.35, q1_s), 3),
-        "verdict_stop": round(stop_v_s, 3),
-        "rule_1": round(max(stop_v_e + 0.4, below_s - 0.25), 3),
-        "rule_2": round(max(below_e + 0.3, above_vr_s - 0.15), 3),
-        "rule_3": round(max(above_vr_e + 0.3, brake_e_s - 0.15), 3),
+        "verdict_stop": round(verdict_s, 3),
+        "rule_1": round(max(verdict_e + 0.35, r1_s - 0.20), 3),
+        "rule_2": round(max(r1_e + 0.25, r2_s - 0.15), 3),
+        "rule_3": round(max(r2_e + 0.25, r3_s - 0.15), 3),
         "outro": act6_start,
     }
 
@@ -325,7 +343,6 @@ def _build_monotonic_timeline(words: list[dict], speech_end: float) -> dict:
         "6": {"start": act6_start, "end": total_dur},
     }
 
-    # Validate sanity
     for k, seg in acts.items():
         if seg["end"] <= seg["start"] + 1.0:
             raise RuntimeError(f"Invalid Act {k} duration: {seg}")
@@ -386,12 +403,14 @@ def _mix_final_audio(
 
 def main() -> None:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--topic", default="PERF_TAKEOFF")
     parser.add_argument("--out", default=r"G:\ATPLVECTOR_Videos\v3_AI\_work")
     parser.add_argument("--voice", default=DEFAULT_VOICE)
     parser.add_argument("--model", default=DEFAULT_MODEL)
     parser.add_argument("--force", action="store_true")
     args = parser.parse_args()
 
+    spec = get_topic_spec(args.topic)
     work_dir = Path(args.out)
     work_dir.mkdir(parents=True, exist_ok=True)
     top_dir = work_dir.parent
@@ -403,27 +422,33 @@ def main() -> None:
         return
 
     raw_voice_path = work_dir / "voice_raw.wav"
-    voice_sample_out = top_dir / "PERF_TAKEOFF_v3_voice.wav"
+    voice_sample_out = top_dir / f"{spec['view']}_v3_voice.wav"
     master_voice_path = work_dir / "voice_mastered.wav"
     log_path = work_dir / "ffmpeg_audio.log"
     if log_path.exists():
         log_path.unlink()
 
-    prompts_to_try = [
-        ("director_profile", DIRECTOR_PROMPT),
-        ("concise_fallback", CONCISE_PROMPT),
-    ]
+    attempts = build_model_attempts(spec, args.model)
 
     words: list[dict] = []
     padded_y = None
     speech_dur = 0.0
+    active_model = args.model
+    exhausted_models: set[str] = set()
 
-    for label, prompt_txt in prompts_to_try:
-        print(f"[Voice] Requesting {args.model} (voice={args.voice}, mode={label})...", flush=True)
+    for mdl, label, prompt_txt in attempts:
+        if mdl in exhausted_models:
+            continue
+        print(f"[Voice] [{spec['view']}] Requesting {mdl} (voice={args.voice}, mode={label})...", flush=True)
         try:
-            y_src, src_sr = _generate_gemini_tts(prompt_txt, args.model, args.voice)
-        except RuntimeError as exc:
-            print(f"[Warn] Prompt mode {label} returned error ({exc}); trying fallback...", flush=True)
+            y_src, src_sr = _generate_gemini_tts(prompt_txt, mdl, args.voice)
+        except Exception as exc:
+            err_s = str(exc)
+            if "429" in err_s or "RESOURCE_EXHAUSTED" in err_s or "quota" in err_s.lower():
+                print(f"[Warn] Model {mdl} quota exhausted (429); advancing to next Gemini TTS model...", flush=True)
+                exhausted_models.add(mdl)
+            else:
+                print(f"[Warn] {mdl} ({label}) failed ({err_s[:160]}); trying next fallback...", flush=True)
             continue
         y_trim = _trim_silence(y_src, src_sr, thresh_db=-42.0)
         y_trim = _clamp_long_pauses(y_trim, src_sr, max_gap_s=0.62, target_gap_s=0.45)
@@ -435,15 +460,16 @@ def main() -> None:
         speech_dur = 0.40 + len(y48) / SR
 
         print(f"[Align] Running faster_whisper word alignment on {len(y48)/SR:.2f}s narration...", flush=True)
-        words = _transcribe_words(padded_y)
+        words = _transcribe_words(padded_y, spec.get("whisper_prompt") or spec["title"])
         leaked = _has_prompt_leakage(words)
         if leaked:
-            print(f"[Warn] Detected leaked prompt tokens {leaked} under {label}; retrying concise prompt...", flush=True)
+            print(f"[Warn] Detected leaked prompt tokens {leaked} on {mdl} ({label}); trying next fallback...", flush=True)
             continue
+        active_model = mdl
         break
     else:
         raise RuntimeError(
-            "Gemini TTS failed or leaked prompt headers even after concise retry; aborting."
+            "All Gemini TTS cascade models failed, exhausted quota, or leaked headers; aborting."
         )
 
     assert padded_y is not None
@@ -451,8 +477,9 @@ def main() -> None:
     # Save a standalone preview copy of the pure narration for easy user review
     sf.write(str(voice_sample_out), padded_y[:int((speech_dur + 0.35) * SR)], SR, subtype="PCM_16")
 
-    timeline = _build_monotonic_timeline(words, speech_dur)
-    timeline["voice_engine"] = f"{args.model}:{args.voice}"
+    timeline = _build_monotonic_timeline(words, speech_dur, spec["anchors"])
+    timeline["topic"] = spec["view"]
+    timeline["voice_engine"] = f"{active_model}:{args.voice}"
     timeline["speech_duration"] = round(speech_dur, 3)
 
     _master_voice(raw_voice_path, master_voice_path, log_path)

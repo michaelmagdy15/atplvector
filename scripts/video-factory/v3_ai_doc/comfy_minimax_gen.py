@@ -22,42 +22,33 @@ from pathlib import Path
 import cv2
 import numpy as np
 
+THIS_DIR = Path(__file__).resolve().parent
+if str(THIS_DIR) not in sys.path:
+    sys.path.insert(0, str(THIS_DIR))
+from v3_topic_specs import get_topic_spec  # noqa: E402
+
 DEFAULT_URL = "http://127.0.0.1:8188"
 
-CLIPS = [
-    {
-        "name": "act1_runway",
-        "filename": "act1_runway.mp4",
-        "check_png": "act1_check.png",
-        "seed": 3201,
-        "prompt": (
-            "Photorealistic cinematic vertical aerial chase shot behind a commercial "
-            "twin-engine widebody jetliner accelerating rapidly down a dark rain-slicked "
-            "asphalt airport runway at dramatic crimson-orange sunset, glowing blue "
-            "taxiway edge lights and bright white centerline strobe lights streaking past "
-            "into the horizon, wet specular reflections on the runway, dramatic orange "
-            "sparks and dark exhaust plume suddenly bursting from the right wing engine "
-            "nacelle, gripping Netflix aviation documentary cinematography, 35mm film "
-            "grain, smooth dynamic forward tracking camera, no text, no logos, no subtitles"
-        ),
-    },
-    {
-        "name": "act2_diorama",
-        "filename": "act2_diorama.mp4",
-        "check_png": "act2_check.png",
-        "seed": 3202,
-        "prompt": (
-            "Minimalist stylized 3D matte pastel clay isometric miniature airport diorama "
-            "on a warm terracotta peach matte studio table, sleek dark teal asphalt "
-            "runway and parallel taxiway, three cream rounded arched airport hangars, "
-            "a small miniature control tower casting soft warm directional studio shadows, "
-            "a tiny matte white twin-engine airliner rolling smoothly along the runway "
-            "and lifting off gently, tilt-shift miniature shallow depth of field lens "
-            "blur, slow smooth overhead camera glide, clean architectural clay model look, "
-            "no text, no numbers, no letters"
-        ),
-    },
-]
+
+def build_clip_specs(topic_spec: dict) -> list[dict]:
+    return [
+        {
+            "name": "act1",
+            "filename": "act1_clip.mp4",
+            "alt_filename": "act1_runway.mp4",
+            "check_png": "act1_check.png",
+            "seed": int(topic_spec["seed_1"]),
+            "prompt": topic_spec["act1_prompt"],
+        },
+        {
+            "name": "act2",
+            "filename": "act2_clip.mp4",
+            "alt_filename": "act2_diorama.mp4",
+            "check_png": "act2_check.png",
+            "seed": int(topic_spec["seed_2"]),
+            "prompt": topic_spec["act2_prompt"],
+        },
+    ]
 
 
 def _http_json(url: str, body: dict | None = None, timeout: int = 120) -> dict:
@@ -212,14 +203,18 @@ def _write_check_strip(video_path: Path, out_png: Path) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--topic", default="PERF_TAKEOFF")
     parser.add_argument("--url", default=DEFAULT_URL)
     parser.add_argument("--out", default=r"G:\ATPLVECTOR_Videos\v3_AI\_work")
-    parser.add_argument("--quality", default="good", choices=["draft", "medium", "good"])
+    parser.add_argument("--quality", default="medium", choices=["draft", "medium", "good"])
     parser.add_argument("--short-edge", type=int, default=576)
-    parser.add_argument("--seconds", type=float, default=6.0)
+    parser.add_argument("--seconds", type=float, default=5.0)
     parser.add_argument("--force", action="store_true")
-    parser.add_argument("--only", choices=[c["name"] for c in CLIPS], default=None)
+    parser.add_argument("--only", choices=["act1", "act2"], default=None)
     args = parser.parse_args()
+
+    spec = get_topic_spec(args.topic)
+    clips = build_clip_specs(spec)
 
     base_url = args.url.rstrip("/")
     work_dir = Path(args.out)
@@ -228,14 +223,16 @@ def main() -> None:
     check_comfy_h3_ready(base_url)
 
     manifest = {}
-    targets = [c for c in CLIPS if not args.only or c["name"] == args.only]
+    targets = [c for c in clips if not args.only or c["name"] == args.only]
 
     for clip in targets:
         mp4_path = work_dir / clip["filename"]
+        alt_path = work_dir / clip["alt_filename"]
         check_path = work_dir / clip["check_png"]
-        if mp4_path.exists() and check_path.exists() and not args.force:
-            print(f"[ComfyUI] Reusing existing {mp4_path}", flush=True)
-            manifest[clip["name"]] = _write_check_strip(mp4_path, check_path)
+        existing = mp4_path if mp4_path.exists() else (alt_path if alt_path.exists() else None)
+        if existing and check_path.exists() and not args.force:
+            print(f"[ComfyUI] [{spec['view']}] Reusing existing {existing}", flush=True)
+            manifest[clip["name"]] = _write_check_strip(existing, check_path)
             continue
 
         try:
@@ -272,7 +269,7 @@ def main() -> None:
         meta["bytes"] = len(raw_bytes)
         manifest[clip["name"]] = meta
         print(
-            f"[ComfyUI] Saved {mp4_path} ({len(raw_bytes)/1e6:.2f} MB, {took:.1f}s, "
+            f"[ComfyUI] [{spec['view']}] Saved {mp4_path} ({len(raw_bytes)/1e6:.2f} MB, {took:.1f}s, "
             f"{meta['width']}x{meta['height']}, {meta['frames']}f) | preview={check_path}",
             flush=True,
         )
