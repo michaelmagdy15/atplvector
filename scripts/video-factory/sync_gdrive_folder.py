@@ -5,8 +5,9 @@ Syncs ATPLVECTOR videos from the public Google Drive folder
 
 Supports:
   1. Direct scraping of public Google Drive folder HTML (zero API key needed, up to ~50 files per folder).
-  2. Optional Google Drive v3 API (--api-key <KEY>) for unlimited files & nested subject subfolders.
-  3. Optional TSV/CSV file (--links-file <path>) with `VIEW_KEY.mp4<tab>URL_OR_ID` pairs.
+  2. Google Drive CLI plugin (`--gdrive-cli`, uses authenticated `gdrive readonly ls` recursively).
+  3. Optional Google Drive v3 API (--api-key <KEY>) for unlimited files & nested subject subfolders.
+  4. Optional TSV/CSV file (--links-file <path>) with `VIEW_KEY.mp4<tab>URL_OR_ID` pairs.
 
 Files should be named `<VIEW_KEY>.mp4` (e.g. `POF_HIGH_SPEED.mp4`, `PERF_TAKEOFF.mp4`).
 """
@@ -15,14 +16,27 @@ import argparse
 import html
 import json
 import re
+import shutil
+import subprocess
 import urllib.request
 from pathlib import Path
 
 FOLDER_ID = "1CTzK5RtHsvJtqTNyysjLByYCibqiRS8Z"
 ROOT = Path(__file__).resolve().parents[2]
 TOPIC_VIDEOS_TS = ROOT / "data" / "topicVideos.ts"
+TYPES_TS = ROOT / "types.ts"
 QUEUE_PATH = Path(__file__).resolve().parent / "syllabus_queue.json"
 SPECS_FILE = Path(__file__).resolve().parent / "day1_specs.py"
+
+
+def load_valid_views() -> set[str]:
+    if not TYPES_TS.exists():
+        return set()
+    src = TYPES_TS.read_text(encoding="utf-8")
+    m = re.search(r"export enum View\s*\{(.*?)\n\}", src, flags=re.S)
+    if not m:
+        return set()
+    return set(re.findall(r"^\s+([A-Z0-9_]+)\s*=", m.group(1), flags=re.M))
 
 
 def extract_id_from_url(val: str) -> str:
@@ -87,6 +101,26 @@ def fetch_via_api_key(folder_id: str, api_key: str) -> dict[str, str]:
     return found
 
 
+def fetch_via_gdrive_cli(folder_id: str) -> dict[str, str]:
+    gdrive_exe = shutil.which("gdrive") or shutil.which("gdrive.cmd") or shutil.which("gdrive.exe")
+    if not gdrive_exe:
+        raise FileNotFoundError("Google Drive CLI (`gdrive`) not found on PATH.")
+    found: dict[str, str] = {}
+
+    def walk(fid: str) -> None:
+        raw = subprocess.check_output([gdrive_exe, "readonly", "ls", fid, "--json"], text=True)
+        for f in json.loads(raw):
+            name = f.get("name", "")
+            mime = f.get("mimeType", "")
+            if mime == "application/vnd.google-apps.folder":
+                walk(f["id"])
+            elif name.upper().endswith(".MP4"):
+                found[name[:-4].upper()] = f["id"]
+
+    walk(folder_id)
+    return found
+
+
 def load_links_file(path: Path) -> dict[str, str]:
     found: dict[str, str] = {}
     for line in path.read_text(encoding="utf-8").splitlines():
@@ -100,38 +134,50 @@ def load_links_file(path: Path) -> dict[str, str]:
     return found
 
 
+def _load_queue_map() -> dict[str, dict]:
+    if not QUEUE_PATH.exists():
+        return {}
+    qdata = json.loads(QUEUE_PATH.read_text(encoding="utf-8"))
+    return {item["view"]: item for item in qdata.get("queue", []) if "view" in item}
+
+
 def update_topic_videos_ts(mapping: dict[str, str]) -> int:
     src = TOPIC_VIDEOS_TS.read_text(encoding="utf-8")
+    valid_views = load_valid_views()
+    qmap = _load_queue_map()
     updated = 0
     for view_key, file_id in mapping.items():
-        # Update existing entry's driveFileId if present
+        if valid_views and view_key not in valid_views:
+            print(f"  [skip] {view_key}.mp4 does not match a View enum in types.ts")
+            continue
+
+        qmeta = qmap.get(view_key, {})
+        dur_sec = int(round(float(qmeta["durationSec"]))) if qmeta.get("durationSec") else None
+
+        # Update existing entry's driveFileId (and durationSec if available)
         pat = re.compile(
             rf"(\[View\.{re.escape(view_key)}\]:\s*\{{[^}}]*?driveFileId:\s*')([^']*)(')"
         )
         if pat.search(src):
             src, n = pat.subn(rf"\g<1>{file_id}\g<3>", src, count=1)
+            if dur_sec:
+                d_pat = re.compile(
+                    rf"(\[View\.{re.escape(view_key)}\]:\s*\{{[^}}]*?durationSec:\s*)(\d+)"
+                )
+                src, _ = d_pat.subn(rf"\g<1>{dur_sec}", src, count=1)
             updated += n
         else:
             # Append new entry using metadata from syllabus_queue.json if available
-            subj = view_key.split("_")[0]
-            title = view_key.replace("_", " ").title()
-            desc = f"Bite-sized EASA ATPL breakdown for {title}."
-            day_batch = 2
-            if QUEUE_PATH.exists():
-                qdata = json.loads(QUEUE_PATH.read_text(encoding="utf-8"))
-                for item in qdata.get("queue", []):
-                    if item["view"] == view_key:
-                        subj = item["subjectCode"]
-                        title = item["label"]
-                        desc = item.get("desc") or desc
-                        day_batch = item.get("dayBatch", 2)
-                        break
+            subj = qmeta.get("subjectCode") or view_key.split("_")[0]
+            title = qmeta.get("label") or view_key.replace("_", " ").title()
+            desc = qmeta.get("desc") or f"Bite-sized EASA ATPL breakdown for {title}."
+            day_batch = qmeta.get("dayBatch", 2)
             block = (
                 f"  [View.{view_key}]: {{\n"
                 f"    view: View.{view_key},\n"
                 f"    subjectCode: '{subj}',\n"
                 f"    title: {json.dumps(title)},\n"
-                f"    durationSec: 36,\n"
+                f"    durationSec: {dur_sec or 56},\n"
                 f"    examTakeaway: {json.dumps(desc)},\n"
                 f"    driveFileId: '{file_id}',\n"
                 f"    dayBatch: {day_batch},\n"
@@ -149,6 +195,7 @@ def update_topic_videos_ts(mapping: dict[str, str]) -> int:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--folder-id", default=FOLDER_ID)
+    parser.add_argument("--gdrive-cli", action="store_true", help="Use authenticated gdrive CLI plugin")
     parser.add_argument("--api-key", default="")
     parser.add_argument("--links-file", default="")
     parser.add_argument("--dry-run", action="store_true")
@@ -156,6 +203,8 @@ def main():
 
     if args.links_file:
         mapping = load_links_file(Path(args.links_file))
+    elif args.gdrive_cli:
+        mapping = fetch_via_gdrive_cli(args.folder_id)
     elif args.api_key:
         mapping = fetch_via_api_key(args.folder_id, args.api_key)
     else:
