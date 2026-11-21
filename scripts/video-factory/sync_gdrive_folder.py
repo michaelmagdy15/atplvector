@@ -18,6 +18,8 @@ import json
 import re
 import shutil
 import subprocess
+import sys
+import time
 import urllib.request
 from pathlib import Path
 
@@ -27,6 +29,14 @@ TOPIC_VIDEOS_TS = ROOT / "data" / "topicVideos.ts"
 TYPES_TS = ROOT / "types.ts"
 QUEUE_PATH = Path(__file__).resolve().parent / "syllabus_queue.json"
 SPECS_FILE = Path(__file__).resolve().parent / "day1_specs.py"
+V3_DIR = Path(__file__).resolve().parent / "v3_ai_doc"
+
+try:
+    if str(V3_DIR) not in sys.path:
+        sys.path.insert(0, str(V3_DIR))
+    from v3_topic_specs import TOPIC_SPECS as V3_TOPIC_SPECS  # type: ignore
+except Exception:
+    V3_TOPIC_SPECS = {}
 
 
 def load_valid_views() -> set[str]:
@@ -108,7 +118,23 @@ def fetch_via_gdrive_cli(folder_id: str) -> dict[str, str]:
     found: dict[str, str] = {}
 
     def walk(fid: str) -> None:
-        raw = subprocess.check_output([gdrive_exe, "readonly", "ls", fid, "--json"], text=True)
+        raw = ""
+        for attempt in range(4):
+            try:
+                raw = subprocess.check_output(
+                    [gdrive_exe, "readonly", "ls", fid, "--max", "0", "--json"],
+                    text=True,
+                    stderr=subprocess.PIPE,
+                )
+                break
+            except subprocess.CalledProcessError as exc:
+                err = (exc.stderr or "") + (exc.stdout or "")
+                if attempt < 3 and any(k in err.lower() for k in ("ratelimit", "rate_limit", "403", "429")):
+                    wait_s = 65 + attempt * 30
+                    print(f"[Drive] Rate limited listing folder; sleeping {wait_s}s before retry...", flush=True)
+                    time.sleep(wait_s)
+                    continue
+                raise
         for f in json.loads(raw):
             name = f.get("name", "")
             mime = f.get("mimeType", "")
@@ -167,10 +193,15 @@ def update_topic_videos_ts(mapping: dict[str, str]) -> int:
                 src, _ = d_pat.subn(rf"\g<1>{dur_sec}", src, count=1)
             updated += n
         else:
-            # Append new entry using metadata from syllabus_queue.json if available
-            subj = qmeta.get("subjectCode") or view_key.split("_")[0]
-            title = qmeta.get("label") or view_key.replace("_", " ").title()
-            desc = qmeta.get("desc") or f"Bite-sized EASA ATPL breakdown for {title}."
+            # Append new entry using rich v3 spec metadata when available, falling back to queue metadata
+            v3_spec = V3_TOPIC_SPECS.get(view_key, {})
+            subj = v3_spec.get("subject_code") or qmeta.get("subjectCode") or view_key.split("_")[0]
+            title = v3_spec.get("title") or qmeta.get("label") or view_key.replace("_", " ").title()
+            desc = (
+                v3_spec.get("exam_takeaway")
+                or qmeta.get("desc")
+                or f"Bite-sized EASA ATPL breakdown for {title}."
+            )
             day_batch = qmeta.get("dayBatch", 2)
             block = (
                 f"  [View.{view_key}]: {{\n"

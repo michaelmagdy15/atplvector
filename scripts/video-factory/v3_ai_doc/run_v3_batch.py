@@ -16,6 +16,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
+import shutil
 import subprocess
 import sys
 import time
@@ -28,10 +30,11 @@ THIS_DIR = Path(__file__).resolve().parent
 FACTORY_DIR = THIS_DIR.parent
 QUEUE_PATH = FACTORY_DIR / "syllabus_queue.json"
 LEGACY_V3_TAKEOFF_WORK = Path(r"G:\ATPLVECTOR_Videos\v3_AI\_work")
+GDRIVE_FOLDER_ID = "1CTzK5RtHsvJtqTNyysjLByYCibqiRS8Z"
 
 if str(THIS_DIR) not in sys.path:
     sys.path.insert(0, str(THIS_DIR))
-from v3_topic_specs import DAY1_ORDER, get_topic_spec  # noqa: E402
+from v3_topic_specs import DAY_BATCHES, get_topic_spec  # noqa: E402
 
 
 def _run_step(cmd: list[str], label: str) -> None:
@@ -87,7 +90,75 @@ def _update_queue(view: str, mp4_path: Path, meta: dict) -> None:
     QUEUE_PATH.write_text(json.dumps(qdata, indent=2), encoding="utf-8")
 
 
-def _stitch_master_sheet(views: list[str], out_dir: Path) -> Path | None:
+def _find_gdrive_exe() -> str:
+    exe = shutil.which("gdrive") or shutil.which("gdrive.cmd") or shutil.which("gdrive.exe")
+    if not exe:
+        raise FileNotFoundError("Google Drive CLI (`gdrive`) not found on PATH.")
+    return exe
+
+
+def _fetch_drive_map(gdrive_exe: str) -> dict[str, str]:
+    for attempt in range(4):
+        try:
+            raw = subprocess.check_output(
+                [gdrive_exe, "readonly", "ls", GDRIVE_FOLDER_ID, "--max", "0", "--json"],
+                text=True,
+                stderr=subprocess.PIPE,
+            )
+            out: dict[str, str] = {}
+            for item in json.loads(raw):
+                name = item.get("name", "")
+                if name.upper().endswith(".MP4") and item.get("id"):
+                    out[name[:-4].upper()] = item["id"]
+            return out
+        except subprocess.CalledProcessError as exc:
+            err = (exc.stderr or "") + (exc.stdout or "")
+            if attempt < 3 and any(k in err.lower() for k in ("ratelimit", "rate_limit", "403", "429")):
+                wait_s = 65 + attempt * 30
+                print(f"[Drive] Rate limited listing folder; sleeping {wait_s}s before retry...", flush=True)
+                time.sleep(wait_s)
+                continue
+            raise
+    return {}
+
+
+def _upload_to_gdrive(gdrive_exe: str, view: str, mp4_path: Path, drive_map: dict[str, str]) -> None:
+    cmd = (
+        [gdrive_exe, "mutate", "update", drive_map[view], str(mp4_path)]
+        if view in drive_map
+        else [
+            gdrive_exe,
+            "mutate",
+            "upload",
+            str(mp4_path),
+            "--parent",
+            GDRIVE_FOLDER_ID,
+            "--mime-type",
+            "video/mp4",
+        ]
+    )
+    action = f"update {view}.mp4 ({drive_map[view]})" if view in drive_map else f"upload {view}.mp4"
+    for attempt in range(4):
+        print(f"  -> Google Drive {action}" + (f" (retry {attempt})" if attempt else ""), flush=True)
+        res = subprocess.run(cmd, check=False, text=True, capture_output=True)
+        if res.returncode == 0:
+            m = re.search(r"ID:\s*([a-zA-Z0-9_-]{20,})", res.stdout or "")
+            if m:
+                drive_map[view] = m.group(1)
+            if res.stdout:
+                print(f"     {res.stdout.strip()}", flush=True)
+            return
+        err = (res.stderr or res.stdout or "").strip()
+        err_l = err.lower()
+        if attempt < 3 and any(k in err_l for k in ("ratelimit", "rate_limit", "403", "429", "500", "503", "timeout")):
+            wait_s = 65 + attempt * 30
+            print(f"  [Warn] Drive rate limit / transient error ({err[:140]}); sleeping {wait_s}s...", flush=True)
+            time.sleep(wait_s)
+            continue
+        raise RuntimeError(f"gdrive mutate failed (exit {res.returncode}) for {view}: {err}")
+
+
+def _stitch_master_sheet(views: list[str], out_dir: Path, sheet_name: str) -> Path | None:
     thumbs = []
     for v in views:
         p = out_dir / f"{v}_preview.png"
@@ -95,9 +166,9 @@ def _stitch_master_sheet(views: list[str], out_dir: Path) -> Path | None:
             im = cv2.imread(str(p))
             if im is not None:
                 thumb = cv2.resize(im, (960, 1138), interpolation=cv2.INTER_AREA)
-                cv2.rectangle(thumb, (0, 0), (360, 48), (15, 23, 42), -1)
+                cv2.rectangle(thumb, (0, 0), (420, 48), (15, 23, 42), -1)
                 cv2.putText(
-                    thumb, v, (14, 34), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (251, 191, 36), 2, cv2.LINE_AA
+                    thumb, v, (14, 34), cv2.FONT_HERSHEY_SIMPLEX, 0.85, (251, 191, 36), 2, cv2.LINE_AA
                 )
                 thumbs.append(thumb)
     if not thumbs:
@@ -109,7 +180,7 @@ def _stitch_master_sheet(views: list[str], out_dir: Path) -> Path | None:
             pair.append(np.zeros_like(pair[0]))
         rows.append(np.hstack(pair))
     sheet = np.vstack(rows)
-    out_sheet = out_dir / "day1_v3_master_sheet.png"
+    out_sheet = out_dir / sheet_name
     cv2.imwrite(str(out_sheet), sheet)
     return out_sheet
 
@@ -121,27 +192,36 @@ def _can_reuse_legacy_takeoff() -> bool:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--out", default=r"G:\ATPLVECTOR_Videos\Day_01_v3")
+    parser.add_argument("--day", type=int, default=1, choices=sorted(DAY_BATCHES))
+    parser.add_argument("--out", default="", help="Defaults to G:\\ATPLVECTOR_Videos\\Day_0<day>_v3")
     parser.add_argument("--only", default="", help="Comma-separated VIEW keys to render")
     parser.add_argument("--quality", default="medium", choices=["draft", "medium", "good"])
     parser.add_argument("--seconds", type=float, default=5.0)
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--preview-only", action="store_true")
+    parser.add_argument("--upload", action="store_true", help="Upload each finished MP4 to Google Drive")
+    parser.add_argument("--sync", action="store_true", help="Run sync_gdrive_folder.py --gdrive-cli after batch")
     args = parser.parse_args()
 
-    out_dir = Path(args.out)
+    out_dir = Path(args.out) if args.out else Path(rf"G:\ATPLVECTOR_Videos\Day_{args.day:02d}_v3")
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    day_order = DAY_BATCHES[args.day]
     targets = (
         [x.strip().upper() for x in args.only.split(",") if x.strip()]
         if args.only
-        else list(DAY1_ORDER)
+        else list(day_order)
     )
     for v in targets:
         get_topic_spec(v)
 
+    gdrive_exe = _find_gdrive_exe() if args.upload else ""
+    drive_map = _fetch_drive_map(gdrive_exe) if (args.upload and not args.preview_only) else {}
+    if args.upload and not args.preview_only:
+        print(f"[Drive] Indexed {len(drive_map)} existing MP4(s) in folder {GDRIVE_FOLDER_ID}", flush=True)
+
     print(
-        f"=== ATPLVECTOR v3 AI REELS BATCH ({len(targets)} topics, quality={args.quality}, "
+        f"=== ATPLVECTOR Day {args.day} v3 AI REELS BATCH ({len(targets)} topics, quality={args.quality}, "
         f"clip_sec={args.seconds}) -> {out_dir} ===",
         flush=True,
     )
@@ -162,11 +242,14 @@ def main() -> None:
             and preview_png.exists()
         ):
             meta = _ffprobe_verify(mp4_path)
+            _update_queue(view, mp4_path, meta)
             print(
                 f"[{idx}/{len(targets)}] [SKIP] {view}.mp4 already verified "
                 f"({meta['duration']}s, {meta['size_mb']} MB)",
                 flush=True,
             )
+            if args.upload and view not in drive_map:
+                _upload_to_gdrive(gdrive_exe, view, mp4_path, drive_map)
             summary.append({"view": view, **meta, "path": str(mp4_path)})
             continue
 
@@ -222,6 +305,8 @@ def main() -> None:
         if not args.preview_only:
             meta = _ffprobe_verify(mp4_path)
             _update_queue(view, mp4_path, meta)
+            if args.upload:
+                _upload_to_gdrive(gdrive_exe, view, mp4_path, drive_map)
             elapsed = round(time.time() - t0, 1)
             print(
                 f"  [OK] {view}.mp4 ({meta['duration']}s, {meta['size_mb']} MB, {elapsed}s total)",
@@ -229,9 +314,14 @@ def main() -> None:
             )
             summary.append({"view": view, **meta, "path": str(mp4_path)})
 
-    sheet = _stitch_master_sheet(DAY1_ORDER, out_dir)
+    sheet = _stitch_master_sheet(day_order, out_dir, f"day{args.day}_v3_master_sheet.png")
     if sheet:
         print(f"\n[Batch] Master preview sheet -> {sheet}", flush=True)
+    if args.sync and not args.preview_only:
+        _run_step(
+            [py, "-u", str(FACTORY_DIR / "sync_gdrive_folder.py"), "--gdrive-cli"],
+            "Sync Google Drive folder -> data/topicVideos.ts",
+        )
     print(f"[Batch] Finished {len(summary)}/{len(targets)} requested videos cleanly.", flush=True)
 
 

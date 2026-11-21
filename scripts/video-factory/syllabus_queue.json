@@ -156,9 +156,12 @@
       "subjectName": "Air Law",
       "label": "Accident Invest.",
       "desc": "",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 2,
-      "indexInBatch": 1
+      "indexInBatch": 1,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_02_v3\\AIR_LAW_ACCIDENT.mp4",
+      "durationSec": 58.67,
+      "sizeMb": 46.82
     },
     {
       "view": "AIR_LAW_AERODROME_VIS",
@@ -166,9 +169,12 @@
       "subjectName": "Air Law",
       "label": "Visual Aids",
       "desc": "",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 2,
-      "indexInBatch": 2
+      "indexInBatch": 2,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_02_v3\\AIR_LAW_AERODROME_VIS.mp4",
+      "durationSec": 59.97,
+      "sizeMb": 47.74
     },
     {
       "view": "AIR_LAW_AIRWORTHINESS",
@@ -176,9 +182,12 @@
       "subjectName": "Air Law",
       "label": "Airworthiness",
       "desc": "C of A and technical requirements.",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 2,
-      "indexInBatch": 3
+      "indexInBatch": 3,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_02_v3\\AIR_LAW_AIRWORTHINESS.mp4",
+      "durationSec": 61.33,
+      "sizeMb": 48.93
     },
     {
       "view": "AIR_LAW_AIS_DEEP_DIVE",
@@ -186,9 +195,12 @@
       "subjectName": "Air Law",
       "label": "AIS Deep Dive",
       "desc": "NOTAMs and 56-day cycles.",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 2,
-      "indexInBatch": 4
+      "indexInBatch": 4,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_02_v3\\AIR_LAW_AIS_DEEP_DIVE.mp4",
+      "durationSec": 65.83,
+      "sizeMb": 52.36
     },
     {
       "view": "AIR_LAW_ALTIMETER",
@@ -196,9 +208,12 @@
       "subjectName": "Air Law",
       "label": "Altimetry",
       "desc": "",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 2,
-      "indexInBatch": 5
+      "indexInBatch": 5,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_02_v3\\AIR_LAW_ALTIMETER.mp4",
+      "durationSec": 63.53,
+      "sizeMb": 50.58
     },
     {
       "view": "AIR_LAW_ANNEXES",
@@ -206,9 +221,12 @@
       "subjectName": "Air Law",
       "label": "The 19 Annexes",
       "desc": "Overview of all ICAO Annexes.",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 2,
-      "indexInBatch": 6
+      "indexInBatch": 6,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_02_v3\\AIR_LAW_ANNEXES.mp4",
+      "durationSec": 62.43,
+      "sizeMb": 49.74
     },
     {
       "view": "AIR_LAW_CONVENTIONS",
@@ -216,9 +234,12 @@
       "subjectName": "Air Law",
       "label": "Montreal/Warsaw",
       "desc": "",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 2,
-      "indexInBatch": 7
+      "indexInBatch": 7,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_02_v3\\AIR_LAW_CONVENTIONS.mp4",
+      "durationSec": 67.63,
+      "sizeMb": 53.88
     },
     {
       "view": "AIR_LAW_CRUISING",
@@ -226,9 +247,12 @@
       "subjectName": "Air Law",
       "label": "Cruising Levels",
       "desc": "Semi-circular rule calculator.",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 2,
-      "indexInBatch": 8
+      "indexInBatch": 8,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_02_v3\\AIR_LAW_CRUISING.mp4",
+      "durationSec": 66.43,
+      "sizeMb": 52.92
     },
     {
       "view": "AIR_LAW_DECLARED_DIST",
@@ -236,9 +260,12 @@
       "subjectName": "Air Law",
       "label": "Declared Dist.",
       "desc": "",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 2,
-      "indexInBatch": 9
+      "indexInBatch": 9,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_02_v3\\AIR_LAW_DECLARED_DIST.mp4",
+      "durationSec": 60.97,
+      "sizeMb": 48.58
     },
     {
       "view": "AIR_LAW_DOCS",
@@ -246,9 +273,12 @@
       "subjectName": "Air Law",
       "label": "Docs Onboard",
       "desc": "Mandatory ship papers.",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 2,
-      "indexInBatch": 10
+      "indexInBatch": 10,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_02_v3\\AIR_LAW_DOCS.mp4",
+      "durationSec": 61.57,
+      "sizeMb": 49.01
     },
     {
       "view": "AIR_LAW_EMERGENCY",
@@ -256,9 +286,12 @@
       "subjectName": "Air Law",
       "label": "Emergency Proc.",
       "desc": "",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 3,
-      "indexInBatch": 1
+      "indexInBatch": 1,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_03_v3\\AIR_LAW_EMERGENCY.mp4",
+      "durationSec": 71.27,
+      "sizeMb": 56.8
     },
     {
       "view": "AIR_LAW_FACILITATION",
@@ -266,9 +299,12 @@
       "subjectName": "Air Law",
       "label": "Facilitation (Annex 9)",
       "desc": "",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 3,
-      "indexInBatch": 2
+      "indexInBatch": 2,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_03_v3\\AIR_LAW_FACILITATION.mp4",
+      "durationSec": 63.2,
+      "sizeMb": 50.42
     },
     {
       "view": "AIR_LAW_GROUND_OPS",
@@ -276,9 +312,12 @@
       "subjectName": "Air Law",
       "label": "Ground Ops",
       "desc": "Marshalling & Safety.",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 3,
-      "indexInBatch": 3
+      "indexInBatch": 3,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_03_v3\\AIR_LAW_GROUND_OPS.mp4",
+      "durationSec": 54.4,
+      "sizeMb": 43.29
     },
     {
       "view": "AIR_LAW_HOLDING",
@@ -286,9 +325,12 @@
       "subjectName": "Air Law",
       "label": "Holding Patterns",
       "desc": "",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 3,
-      "indexInBatch": 4
+      "indexInBatch": 4,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_03_v3\\AIR_LAW_HOLDING.mp4",
+      "durationSec": 57.73,
+      "sizeMb": 45.94
     },
     {
       "view": "AIR_LAW_IFR_VFR",
@@ -296,9 +338,12 @@
       "subjectName": "Air Law",
       "label": "IFR/VFR Explorer",
       "desc": "",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 3,
-      "indexInBatch": 5
+      "indexInBatch": 5,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_03_v3\\AIR_LAW_IFR_VFR.mp4",
+      "durationSec": 68.5,
+      "sizeMb": 54.6
     },
     {
       "view": "AIR_LAW_INSTRUMENT",
@@ -306,9 +351,12 @@
       "subjectName": "Air Law",
       "label": "Instrument Appr.",
       "desc": "5 segments of an approach.",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 3,
-      "indexInBatch": 6
+      "indexInBatch": 6,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_03_v3\\AIR_LAW_INSTRUMENT.mp4",
+      "durationSec": 60.47,
+      "sizeMb": 48.21
     },
     {
       "view": "AIR_LAW_INTERCEPT",
@@ -316,9 +364,12 @@
       "subjectName": "Air Law",
       "label": "Interception",
       "desc": "",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 3,
-      "indexInBatch": 7
+      "indexInBatch": 7,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_03_v3\\AIR_LAW_INTERCEPT.mp4",
+      "durationSec": 64.77,
+      "sizeMb": 51.53
     },
     {
       "view": "AIR_LAW_INT_LAW",
@@ -326,9 +377,12 @@
       "subjectName": "Air Law",
       "label": "International Law",
       "desc": "Chicago Convention and freedoms of the air.",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 3,
-      "indexInBatch": 8
+      "indexInBatch": 8,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_03_v3\\AIR_LAW_INT_LAW.mp4",
+      "durationSec": 74.57,
+      "sizeMb": 59.35
     },
     {
       "view": "AIR_LAW_LAYERS",
@@ -336,9 +390,12 @@
       "subjectName": "Air Law",
       "label": "Airspace Classes",
       "desc": "3D airspace classifications A-G.",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 3,
-      "indexInBatch": 9
+      "indexInBatch": 9,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_03_v3\\AIR_LAW_LAYERS.mp4",
+      "durationSec": 65.1,
+      "sizeMb": 51.83
     },
     {
       "view": "AIR_LAW_LIABILITY",
@@ -346,9 +403,12 @@
       "subjectName": "Air Law",
       "label": "Liability & Rights",
       "desc": "EC 261/2004 and Montreal Convention.",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 3,
-      "indexInBatch": 10
+      "indexInBatch": 10,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_03_v3\\AIR_LAW_LIABILITY.mp4",
+      "durationSec": 62.93,
+      "sizeMb": 50.16
     },
     {
       "view": "AIR_LAW_LIGHTGUN",
@@ -356,9 +416,12 @@
       "subjectName": "Air Law",
       "label": "Light Gun Signals",
       "desc": "",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 4,
-      "indexInBatch": 1
+      "indexInBatch": 1,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_04_v3\\AIR_LAW_LIGHTGUN.mp4",
+      "durationSec": 60.27,
+      "sizeMb": 48.05
     },
     {
       "view": "AIR_LAW_LIGHTING",
@@ -366,9 +429,12 @@
       "subjectName": "Air Law",
       "label": "Lighting Systems",
       "desc": "",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 4,
-      "indexInBatch": 2
+      "indexInBatch": 2,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_04_v3\\AIR_LAW_LIGHTING.mp4",
+      "durationSec": 68.53,
+      "sizeMb": 54.6
     },
     {
       "view": "AIR_LAW_OPS_INFO",
@@ -376,9 +442,12 @@
       "subjectName": "Air Law",
       "label": "Ops Info (AIS)",
       "desc": "",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 4,
-      "indexInBatch": 3
+      "indexInBatch": 3,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_04_v3\\AIR_LAW_OPS_INFO.mp4",
+      "durationSec": 69.0,
+      "sizeMb": 55.08
     },
     {
       "view": "AIR_LAW_ORG",
@@ -386,9 +455,12 @@
       "subjectName": "Air Law",
       "label": "Organisations",
       "desc": "ICAO, EASA, and Eurocontrol structure.",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 4,
-      "indexInBatch": 4
+      "indexInBatch": 4,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_04_v3\\AIR_LAW_ORG.mp4",
+      "durationSec": 68.77,
+      "sizeMb": 54.8
     },
     {
       "view": "AIR_LAW_PANS_OPS",
@@ -396,9 +468,12 @@
       "subjectName": "Air Law",
       "label": "PANS-OPS",
       "desc": "Departures and arrival criteria.",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 4,
-      "indexInBatch": 5
+      "indexInBatch": 5,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_04_v3\\AIR_LAW_PANS_OPS.mp4",
+      "durationSec": 60.87,
+      "sizeMb": 48.49
     },
     {
       "view": "AIR_LAW_PARALLEL_RWY",
@@ -406,9 +481,12 @@
       "subjectName": "Air Law",
       "label": "Parallel Runway Ops",
       "desc": "Independent and dependent ops.",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 4,
-      "indexInBatch": 6
+      "indexInBatch": 6,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_04_v3\\AIR_LAW_PARALLEL_RWY.mp4",
+      "durationSec": 60.0,
+      "sizeMb": 47.82
     },
     {
       "view": "AIR_LAW_PERSONNEL",
@@ -416,9 +494,12 @@
       "subjectName": "Air Law",
       "label": "Personnel Licensing",
       "desc": "Medical and experience requirements.",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 4,
-      "indexInBatch": 7
+      "indexInBatch": 7,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_04_v3\\AIR_LAW_PERSONNEL.mp4",
+      "durationSec": 61.93,
+      "sizeMb": 49.33
     },
     {
       "view": "AIR_LAW_REF_CODE",
@@ -426,9 +507,12 @@
       "subjectName": "Air Law",
       "label": "Aerodrome Codes",
       "desc": "",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 4,
-      "indexInBatch": 8
+      "indexInBatch": 8,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_04_v3\\AIR_LAW_REF_CODE.mp4",
+      "durationSec": 60.03,
+      "sizeMb": 47.84
     },
     {
       "view": "AIR_LAW_REGISTRATION",
@@ -436,9 +520,12 @@
       "subjectName": "Air Law",
       "label": "Registration",
       "desc": "Nationality and common marks.",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 4,
-      "indexInBatch": 9
+      "indexInBatch": 9,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_04_v3\\AIR_LAW_REGISTRATION.mp4",
+      "durationSec": 66.37,
+      "sizeMb": 52.85
     },
     {
       "view": "AIR_LAW_RULES_DETAILS",
@@ -446,9 +533,12 @@
       "subjectName": "Air Law",
       "label": "Rules of the Air",
       "desc": "Right of way and minimum heights.",
-      "status": "pending",
+      "status": "rendered_v3",
       "dayBatch": 4,
-      "indexInBatch": 10
+      "indexInBatch": 10,
+      "outputPath": "G:\\ATPLVECTOR_Videos\\Day_04_v3\\AIR_LAW_RULES_DETAILS.mp4",
+      "durationSec": 63.73,
+      "sizeMb": 50.79
     },
     {
       "view": "AIR_LAW_RULES_OF_AIR",

@@ -24,6 +24,7 @@ import re
 import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import numpy as np
@@ -222,9 +223,14 @@ def _transcribe_words(y48: np.ndarray, initial_prompt: str) -> list[dict]:
     return words
 
 
-def _has_prompt_leakage(words: list[dict]) -> list[str]:
+def _has_prompt_leakage(words: list[dict], transcript: str = "") -> list[str]:
+    script_head = set(re.findall(r"[a-z0-9\-]+", transcript.lower())[:20])
     head = words[:12]
-    leaked = [w["norm"] for w in head if w["norm"] in FORBIDDEN_HEADER_WORDS]
+    leaked = [
+        w["norm"]
+        for w in head
+        if w["norm"] in FORBIDDEN_HEADER_WORDS and w["norm"] not in script_head
+    ]
     # Also guard if Whisper hears "audio profile" right at start
     norms = [w["norm"] for w in head]
     if "audio" in norms[:4] and ("profile" in norms[:6] or "narrator" in norms[:8]):
@@ -436,41 +442,73 @@ def main() -> None:
     active_model = args.model
     exhausted_models: set[str] = set()
 
-    for mdl, label, prompt_txt in attempts:
-        if mdl in exhausted_models:
-            continue
-        print(f"[Voice] [{spec['view']}] Requesting {mdl} (voice={args.voice}, mode={label})...", flush=True)
-        try:
-            y_src, src_sr = _generate_gemini_tts(prompt_txt, mdl, args.voice)
-        except Exception as exc:
-            err_s = str(exc)
-            if "429" in err_s or "RESOURCE_EXHAUSTED" in err_s or "quota" in err_s.lower():
-                print(f"[Warn] Model {mdl} quota exhausted (429); advancing to next Gemini TTS model...", flush=True)
-                exhausted_models.add(mdl)
-            else:
-                print(f"[Warn] {mdl} ({label}) failed ({err_s[:160]}); trying next fallback...", flush=True)
-            continue
-        y_trim = _trim_silence(y_src, src_sr, thresh_db=-42.0)
-        y_trim = _clamp_long_pauses(y_trim, src_sr, max_gap_s=0.62, target_gap_s=0.45)
-        y48 = _resample_audio(y_trim, src_sr, SR)
-
-        lead_in = np.zeros(int(0.40 * SR), dtype=np.float32)
-        tail_pad = np.zeros(int(3.20 * SR), dtype=np.float32)
-        padded_y = np.concatenate([lead_in, y48, tail_pad]).astype(np.float32)
-        speech_dur = 0.40 + len(y48) / SR
-
-        print(f"[Align] Running faster_whisper word alignment on {len(y48)/SR:.2f}s narration...", flush=True)
-        words = _transcribe_words(padded_y, spec.get("whisper_prompt") or spec["title"])
-        leaked = _has_prompt_leakage(words)
-        if leaked:
-            print(f"[Warn] Detected leaked prompt tokens {leaked} on {mdl} ({label}); trying next fallback...", flush=True)
-            continue
-        active_model = mdl
-        break
+    if raw_voice_path.exists() and raw_voice_path.stat().st_size > 16000 and not args.force:
+        print(f"[Audio] Reusing saved narration {raw_voice_path} for local Whisper alignment...", flush=True)
+        padded_y, src_sr = sf.read(str(raw_voice_path), dtype="float32")
+        if src_sr != SR:
+            padded_y = _resample_audio(padded_y, src_sr, SR)
+        thresh = 10.0 ** (-42.0 / 20.0)
+        nz = np.where(np.abs(padded_y) > thresh)[0]
+        speech_dur = ((int(nz[-1]) + int(0.06 * SR)) / SR) if len(nz) else max(1.0, len(padded_y) / SR - 3.20)
+        clip_end = min(len(padded_y), int((speech_dur + 0.25) * SR))
+        words = _transcribe_words(padded_y[:clip_end], spec.get("whisper_prompt") or spec["title"])
+        active_model = "cached_raw_wav"
     else:
-        raise RuntimeError(
-            "All Gemini TTS cascade models failed, exhausted quota, or leaked headers; aborting."
-        )
+        for mdl, label, prompt_txt in attempts:
+            if mdl in exhausted_models:
+                continue
+            print(f"[Voice] [{spec['view']}] Requesting {mdl} (voice={args.voice}, mode={label})...", flush=True)
+            try:
+                y_src, src_sr = _generate_gemini_tts(prompt_txt, mdl, args.voice)
+            except Exception as exc:
+                err_s = str(exc)
+                err_l = err_s.lower()
+                is_quota = "429" in err_s or "RESOURCE_EXHAUSTED" in err_s or "quota" in err_l
+                is_rpm = is_quota and (
+                    "perminute" in err_l or "rpm" in err_l or "retry in" in err_l
+                ) and ("perday" not in err_l and "daily" not in err_l)
+                if is_rpm:
+                    print(f"[Warn] Model {mdl} hit RPM limit; sleeping 22s before retrying once...", flush=True)
+                    time.sleep(22)
+                    try:
+                        y_src, src_sr = _generate_gemini_tts(prompt_txt, mdl, args.voice)
+                    except Exception as exc2:
+                        err_s2 = str(exc2)
+                        if "429" in err_s2 or "RESOURCE_EXHAUSTED" in err_s2 or "quota" in err_s2.lower():
+                            print(f"[Warn] Model {mdl} quota exhausted after retry; advancing to next Gemini TTS model...", flush=True)
+                            exhausted_models.add(mdl)
+                        else:
+                            print(f"[Warn] {mdl} ({label}) failed on retry ({err_s2[:160]}); trying next fallback...", flush=True)
+                        continue
+                elif is_quota:
+                    print(f"[Warn] Model {mdl} quota exhausted (429); advancing to next Gemini TTS model...", flush=True)
+                    exhausted_models.add(mdl)
+                    continue
+                else:
+                    print(f"[Warn] {mdl} ({label}) failed ({err_s[:160]}); trying next fallback...", flush=True)
+                    continue
+            y_trim = _trim_silence(y_src, src_sr, thresh_db=-42.0)
+            y_trim = _clamp_long_pauses(y_trim, src_sr, max_gap_s=0.62, target_gap_s=0.45)
+            y48 = _resample_audio(y_trim, src_sr, SR)
+
+            lead_in = np.zeros(int(0.40 * SR), dtype=np.float32)
+            tail_pad = np.zeros(int(3.20 * SR), dtype=np.float32)
+            padded_y = np.concatenate([lead_in, y48, tail_pad]).astype(np.float32)
+            speech_dur = 0.40 + len(y48) / SR
+
+            print(f"[Align] Running faster_whisper word alignment on {len(y48)/SR:.2f}s narration...", flush=True)
+            clip_end = min(len(padded_y), int((speech_dur + 0.25) * SR))
+            words = _transcribe_words(padded_y[:clip_end], spec.get("whisper_prompt") or spec["title"])
+            leaked = _has_prompt_leakage(words, spec["transcript"])
+            if leaked:
+                print(f"[Warn] Detected leaked prompt tokens {leaked} on {mdl} ({label}); trying next fallback...", flush=True)
+                continue
+            active_model = mdl
+            break
+        else:
+            raise RuntimeError(
+                "All Gemini TTS cascade models failed, exhausted quota, or leaked headers; aborting."
+            )
 
     assert padded_y is not None
     sf.write(str(raw_voice_path), padded_y, SR, subtype="PCM_16")

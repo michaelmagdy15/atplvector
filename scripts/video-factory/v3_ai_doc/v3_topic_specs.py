@@ -1092,9 +1092,27 @@ TOPIC_SPECS: dict[str, dict] = {
     },
 }
 
+from specs_days2_4 import (  # noqa: E402
+    DAY2_ORDER,
+    DAY3_ORDER,
+    DAY4_ORDER,
+    DAYS2_4_SPECS,
+)
+
+TOPIC_SPECS.update(DAYS2_4_SPECS)
+
+DAY_BATCHES: dict[int, list[str]] = {
+    1: DAY1_ORDER,
+    2: DAY2_ORDER,
+    3: DAY3_ORDER,
+    4: DAY4_ORDER,
+}
+
 
 def get_topic_spec(view: str) -> dict:
     key = view.strip().upper()
     if key not in TOPIC_SPECS:
-        raise KeyError(f"Unknown Day 1 v3 topic {view!r}. Available: {', '.join(DAY1_ORDER)}")
+        raise KeyError(
+            f"Unknown v3 topic {view!r}. Total registered: {len(TOPIC_SPECS)} ({', '.join(sorted(TOPIC_SPECS)[:8])}...)"
+        )
     return TOPIC_SPECS[key]

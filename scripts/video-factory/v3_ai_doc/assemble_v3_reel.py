@@ -241,6 +241,27 @@ def _center_text(
     draw.text((tx, ty), text, font=active_font, fill=fill)
 
 
+def _left_fit_text(
+    draw: ImageDraw.ImageDraw,
+    box: tuple[int, int, int, int],
+    text: str,
+    font: ImageFont.FreeTypeFont,
+    fill: tuple[int, int, int, int],
+) -> None:
+    x0, y0, x1, y1 = box
+    max_w = max(40, x1 - x0)
+    active_font = font
+    bb = draw.textbbox((0, 0), text, font=active_font)
+    tw = bb[2] - bb[0]
+    if tw > max_w and getattr(font, "path", None):
+        scaled = max(14, int(font.size * (max_w / max(tw, 1))))
+        active_font = ImageFont.truetype(font.path, scaled)
+        bb = draw.textbbox((0, 0), text, font=active_font)
+    th = bb[3] - bb[1]
+    ty = y0 + (y1 - y0 - th) // 2 - bb[1]
+    draw.text((x0 - bb[0], ty), text, font=active_font, fill=fill)
+
+
 class PrebuiltAssets:
     """Pre-renders all vector/typography cards cleanly once for fast frame compositing."""
 
@@ -270,17 +291,25 @@ class PrebuiltAssets:
         self.vig_lut = np.repeat((vig[:, :, None] * 255.0).astype(np.uint8), 3, axis=2)
 
         rng = np.random.default_rng(77)
-        self.grain_frames = [
-            rng.integers(-6, 7, size=(H // 2, W // 2, 1), dtype=np.int16) for _ in range(8)
-        ]
+        self.grain_pairs: list[tuple[np.ndarray, np.ndarray]] = []
+        for _ in range(8):
+            g_small = rng.integers(-6, 7, size=(H // 2, W // 2, 1), dtype=np.int16)
+            g_pos_s = np.clip(g_small, 0, 6).astype(np.uint8)
+            g_neg_s = np.clip(-g_small, 0, 6).astype(np.uint8)
+            gp = np.repeat(cv2.resize(g_pos_s, (W, H), interpolation=cv2.INTER_NEAREST)[:, :, None], 3, axis=2)
+            gn = np.repeat(cv2.resize(g_neg_s, (W, H), interpolation=cv2.INTER_NEAREST)[:, :, None], 3, axis=2)
+            self.grain_pairs.append((gp, gn))
 
-        # 3. Act 1 Overlays
-        scrim = np.zeros((H, W, 4), dtype=np.uint8)
-        for row in range(H):
-            t = max(0.0, (row - 1250) / (H - 1250)) ** 1.4
-            top_t = max(0.0, (280 - row) / 280.0) ** 1.5
-            scrim[row, :, 3] = int(min(220, (t * 195 + top_t * 145)))
-        self.act1_scrim = scrim
+        # 3. Act 1 Overlays (pre-computed SIMD darkening LUTs for top 0..280 & bottom 1250..1920)
+        top_rows = np.arange(280, dtype=np.float32)
+        top_alpha = np.clip(((280.0 - top_rows) / 280.0) ** 1.5 * 145.0, 0.0, 220.0)
+        top_mul_1d = np.clip(np.round(255.0 * (1.0 - top_alpha / 255.0)), 0, 255).astype(np.uint8)
+        self.act1_top_mul = np.broadcast_to(top_mul_1d[:, None, None], (280, W, 3)).copy()
+
+        bot_rows = np.arange(1250, H, dtype=np.float32)
+        bot_alpha = np.clip(((bot_rows - 1250.0) / (H - 1250.0)) ** 1.4 * 195.0, 0.0, 220.0)
+        bot_mul_1d = np.clip(np.round(255.0 * (1.0 - bot_alpha / 255.0)), 0, 255).astype(np.uint8)
+        self.act1_bot_mul = np.broadcast_to(bot_mul_1d[:, None, None], (H - 1250, W, 3)).copy()
 
         warn_img, wd, (ox, oy) = _draw_pill_stamp(
             840, 92, 18, (200, 18, 58, 238), (253, 164, 175, 255), border_w=4
@@ -567,13 +596,16 @@ class ReelRenderer:
         self.fonts = fonts
         self.assets = assets
 
-        # Curve points for Act 3 chart in window-relative coordinates
+        # Curve / ladder caches
+        self._hud_cache: dict[tuple[str, bool], np.ndarray] = {}
+        self._act3_done_chart: np.ndarray | None = None
         self.chart_w = 940
         self.chart_h = 840
         self.chart_base = self._build_act3_chart_base()
 
     def _build_act3_chart_base(self) -> np.ndarray:
         board = self.spec["act3_board"]
+        ctype = board["chart_type"]
         w, h = self.chart_w, self.chart_h
         im, d, (ox, oy) = _draw_pill_stamp(
             w, h, 26, (248, 246, 241, 255), (255, 255, 255, 200), border_w=2, shadow_pad=24
@@ -586,6 +618,21 @@ class ReelRenderer:
             cx = ox + 28 + ci * 28
             d.ellipse([cx - 8, oy + 21, cx + 8, oy + 37], fill=col)
         d.text((ox + 124, oy + 16), board["chart_file"], font=self.fonts.mono_md, fill=(51, 65, 85, 255))
+
+        if ctype == "rules_ladder":
+            sub_hdr = board.get("x_label", "")
+            if sub_hdr:
+                _left_fit_text(
+                    d,
+                    (ox + 42, oy + 68, ox + w - 42, oy + 112),
+                    sub_hdr,
+                    self.fonts.mono_md,
+                    (71, 85, 105, 255),
+                )
+                d.line([(ox + 42, oy + 116), (ox + w - 42, oy + 116)], fill=(226, 222, 212, 255), width=2)
+            self.plot_box = (ox + 42, oy + 128, ox + w - 42, oy + h - 76)
+            self.chart_ox_oy = (ox, oy)
+            return np.array(im)
 
         # Plot area inside window
         px0, py0 = ox + 90, oy + 100
@@ -619,7 +666,8 @@ class ReelRenderer:
         frame = _sample_clip_slowmo(
             self.act1_frames, prog, zoom=zoom, dx=shake_dx, dy=shake_dy
         )
-        frame = _alpha_composite_rgba(frame, self.assets.act1_scrim)
+        cv2.multiply(frame[:280], self.assets.act1_top_mul, dst=frame[:280], scale=1.0 / 255.0)
+        cv2.multiply(frame[1250:], self.assets.act1_bot_mul, dst=frame[1250:], scale=1.0 / 255.0)
 
         if 0.0 <= t_fail <= 1.1:
             flash = 0.28 * math.exp(-t_fail * 2.5) * (0.55 + 0.45 * math.sin(t_fail * 18.0))
@@ -627,17 +675,24 @@ class ReelRenderer:
             red[:, :, 0] = 220
             frame = cv2.addWeighted(frame, 1.0 - flash, red, flash, 0.0)
 
-        # HUD numeric telemetry card
+        # HUD numeric telemetry card (cached by formatted text + alert state)
         kts_prog = clamp01(t / max(0.8, self.cues["eng_fail"]))
         val = hud["start_val"] + (hud["end_val"] - hud["start_val"]) * ease_out_cubic(kts_prog)
         decs = hud.get("decimals", 0)
         val_txt = f"{val:.{decs}f}" if decs > 0 else f"{int(round(val))}"
-        hud_col = (248, 113, 113, 255) if t_fail >= 0 else (255, 255, 255, 255)
-        hud_border = (244, 63, 94, 210) if t_fail >= 0 else (34, 211, 238, 180)
-        him, hd, (ox, oy) = _draw_pill_stamp(400, 152, 22, (6, 14, 28, 232), hud_border, border_w=3)
-        hd.text((ox + 26, oy + 16), hud["label"], font=self.fonts.mono_sm, fill=(103, 232, 249, 255))
-        hd.text((ox + 24, oy + 46), f"{val_txt} {hud['unit']}", font=self.fonts.hud_speed, fill=hud_col)
-        _paste_rgba_roi(frame, np.array(him), 40, 210)
+        prefix = hud.get("prefix", "")
+        disp_txt = f"{prefix}{val_txt} {hud['unit']}".strip()
+        is_fail = t_fail >= 0.0
+        hud_rgba = self._hud_cache.get((disp_txt, is_fail))
+        if hud_rgba is None:
+            hud_col = (248, 113, 113, 255) if is_fail else (255, 255, 255, 255)
+            hud_border = (244, 63, 94, 210) if is_fail else (34, 211, 238, 180)
+            him, hd, (ox, oy) = _draw_pill_stamp(400, 152, 22, (6, 14, 28, 232), hud_border, border_w=3)
+            _left_fit_text(hd, (ox + 26, oy + 14, ox + 376, oy + 44), hud["label"], self.fonts.mono_sm, (103, 232, 249, 255))
+            _left_fit_text(hd, (ox + 24, oy + 46, ox + 376, oy + 140), disp_txt, self.fonts.hud_speed, hud_col)
+            hud_rgba = np.array(him)
+            self._hud_cache[(disp_txt, is_fail)] = hud_rgba
+        _paste_rgba_roi(frame, hud_rgba, 40, 210)
 
         if t_fail >= 0.0:
             en = ease_out_cubic(clamp01(t_fail / 0.25))
@@ -664,9 +719,19 @@ class ReelRenderer:
         dx = math.sin(prog * math.pi) * -14.0
         frame = _sample_clip_slowmo(self.act2_frames, prog, zoom=zoom, dx=dx)
 
-        blurred = cv2.GaussianBlur(frame, (0, 0), sigmaX=7.5, sigmaY=7.5)
-        m = self.assets.tilt_shift_mask
-        frame = np.clip(frame.astype(np.float32) * (1.0 - m) + blurred.astype(np.float32) * m, 0, 255).astype(np.uint8)
+        # Fast strip-only half-res tilt-shift blur on top and bottom vignette bands
+        for sl_y0, sl_y1 in ((0, 310), (H - 340, H)):
+            strip = frame[sl_y0:sl_y1]
+            sh, sw = strip.shape[:2]
+            small = cv2.resize(strip, (sw // 2, sh // 2), interpolation=cv2.INTER_AREA)
+            small_b = cv2.GaussianBlur(small, (0, 0), sigmaX=3.75, sigmaY=3.75)
+            blurred = cv2.resize(small_b, (sw, sh), interpolation=cv2.INTER_LINEAR)
+            m = self.assets.tilt_shift_mask[sl_y0:sl_y1]
+            frame[sl_y0:sl_y1] = np.clip(
+                strip.astype(np.float32) * (1.0 - m) + blurred.astype(np.float32) * m,
+                0,
+                255,
+            ).astype(np.uint8)
 
         en_v1 = ease_out_cubic(clamp01(t_loc / 0.35))
         vx = (W - self.assets.tag_v1.shape[1]) // 2
@@ -707,23 +772,79 @@ class ReelRenderer:
         if ctype == "bars_compare":
             bars = board["bars"]
             max_v = max(b[1] for b in bars) * 1.12
-            bx_start = px0 + 195
-            bar_max_w = px1 - 36 - bx_start
+            bx_start = px0 + 215
+            bar_max_w = px1 - 30 - bx_start
             n_b = len(bars)
             row_h = (ph - 82) / max(n_b, 1)
             prog_all = clamp01((t - self.acts["3"]["start"] - 0.3) / max(1.8, (self.cues["v1_collide"] - self.acts["3"]["start"])))
-            target_xy = (bx_start + bar_max_w * (bars[-1][1] / max_v), py0 + 12 + (n_b - 0.5) * row_h)
-            for idx, (lbl, val, col) in enumerate(bars):
-                b_u = ease_out_cubic(clamp01((prog_all * n_b) - idx * 0.55))
+            hi_idx = int(board.get("highlight_row", n_b - 1)) % max(1, n_b)
+            target_xy = (
+                bx_start + bar_max_w * (bars[hi_idx][1] / max_v),
+                py0 + 12 + (hi_idx + 0.5) * row_h,
+            )
+            for idx, item in enumerate(bars):
+                lbl, val, col = item[0], item[1], item[2]
+                val_str = item[3] if len(item) > 3 else ""
+                b_u = ease_out_cubic(clamp01((prog_all * n_b) - idx * 0.50))
                 cy = int(py0 + 12 + (idx + 0.5) * row_h)
-                bh = 52
-                d.text((px0 + 14, cy - 14), lbl, font=self.fonts.mono_sm, fill=(30, 41, 59, 255))
+                bh = min(56, max(38, int(row_h * 0.58)))
+                _left_fit_text(d, (px0 + 10, cy - 26, bx_start - 14, cy + 26), lbl, self.fonts.mono_sm, (30, 41, 59, 255))
                 d.rounded_rectangle([bx_start, cy - bh // 2, bx_start + bar_max_w, cy + bh // 2], radius=12, fill=(228, 224, 214, 255))
                 bw_now = max(14, int(bar_max_w * (val / max_v) * b_u))
                 d.rounded_rectangle([bx_start, cy - bh // 2, bx_start + bw_now, cy + bh // 2], radius=12, fill=(*col, 255))
-                if idx == n_b - 1:
+                if val_str and b_u > 0.35:
+                    bb_vs = d.textbbox((0, 0), val_str, font=self.fonts.mono_sm)
+                    vw_vs = bb_vs[2] - bb_vs[0]
+                    vh_vs = bb_vs[3] - bb_vs[1]
+                    vy_vs = cy - vh_vs // 2 - bb_vs[1]
+                    if bw_now >= vw_vs + 24:
+                        d.text((bx_start + bw_now - 12 - vw_vs, vy_vs), val_str, font=self.fonts.mono_sm, fill=(255, 255, 255, 255))
+                    else:
+                        tx_vs = min(bx_start + bar_max_w - vw_vs - 8, bx_start + bw_now + 10)
+                        d.text((tx_vs, vy_vs), val_str, font=self.fonts.mono_sm, fill=(30, 41, 59, 255))
+                if idx == hi_idx:
                     target_xy = (float(bx_start + bw_now), float(cy))
-            return target_xy[0], target_xy[1], bars[-1][0]
+            return target_xy[0], target_xy[1], board.get("marker_label", bars[hi_idx][0])
+
+        if ctype == "rules_ladder":
+            rows = board["rows"]
+            n_r = len(rows)
+            hi_idx = int(board.get("highlight_row", n_r - 1)) % max(1, n_r)
+            avail_h = py1 - py0
+            gap = 16 if n_r <= 4 else 12
+            card_h = int((avail_h - gap * max(0, n_r - 1)) / max(1, n_r))
+            prog_all = clamp01(
+                (t - self.acts["3"]["start"] - 0.25)
+                / max(1.6, (self.cues["v1_collide"] - self.acts["3"]["start"]))
+            )
+            hi_cy = py0 + (hi_idx + 0.5) * card_h + hi_idx * gap
+            target_xy = (float(px1 - 44), float(hi_cy))
+            for idx, item in enumerate(rows):
+                badge, title_t, detail_t, col = item[0], item[1], item[2], item[3]
+                ru = ease_out_cubic(clamp01((prog_all * n_r) - idx * 0.48))
+                if ru <= 0.01:
+                    continue
+                slide_x = int((1.0 - ru) * 42)
+                ry0 = int(py0 + idx * (card_h + gap))
+                ry1 = ry0 + card_h
+                rx0 = px0 + slide_x
+                rx1 = px1 + slide_x
+                is_hi = t_col >= 0.0 and idx == hi_idx
+                bg_col = (254, 249, 231, 255) if is_hi else (255, 255, 255, 255)
+                bd_col = (245, 158, 11, 255) if is_hi else (218, 214, 204, 255)
+                bd_w = 5 if is_hi else 2
+                d.rounded_rectangle([rx0, ry0, rx1, ry1], radius=16, fill=bg_col, outline=bd_col, width=bd_w)
+
+                bw = min(215, max(135, int(len(badge) * 18 + 38)))
+                bx0, by0, bx1, by1 = rx0 + 14, ry0 + 12, rx0 + 14 + bw, ry1 - 12
+                d.rounded_rectangle([bx0, by0, bx1, by1], radius=12, fill=(*col, 255))
+                _center_text(d, (bx0, by0, bx1, by1), badge, self.fonts.mono_md, (255, 255, 255, 255), pad_x=14)
+
+                tx0, tx1 = bx1 + 18, rx1 - 18
+                mid_y = (ry0 + ry1) // 2
+                _left_fit_text(d, (tx0, ry0 + 10, tx1, mid_y + 2), title_t, self.fonts.sub, (15, 23, 42, 255))
+                _left_fit_text(d, (tx0, mid_y + 2, tx1, ry1 - 10), detail_t, self.fonts.mono_sm, (71, 85, 105, 255))
+            return target_xy[0], target_xy[1], board["marker_label"]
 
         if ctype == "crossing":
             f1 = lambda u: 0.14 + 0.72 * (u ** 1.35)
@@ -849,34 +970,57 @@ class ReelRenderer:
         en_f = ease_out_cubic(clamp01(t_loc / 0.32))
         _paste_rgba_roi(frame, self.assets.act3_fcom_win, 44, 218 + drift_y - int((1 - en_f) * 30), alpha_scale=en_f)
 
-        ch_rgba = self.chart_base.copy()
-        im = Image.fromarray(ch_rgba, "RGBA")
-        d = ImageDraw.Draw(im)
         px0, py0, px1, py1 = self.plot_box
-
-        ix, iy, m_label = self._draw_chart_content(d, t)
-
         t_col = t - self.cues["v1_collide"]
-        if t_col >= 0.0:
-            en_c = ease_out_cubic(clamp01(t_col / 0.25))
-            for sy in range(int(iy), py1, 22):
-                d.line([(ix, sy), (ix, min(py1, sy + 12))], fill=(245, 158, 11, int(230 * en_c)), width=4)
-            if t_col < 1.1:
-                ru = t_col / 1.1
-                rr = int(14 + ru * 76)
-                ra = int((1.0 - ru) * 230)
-                d.ellipse([ix - rr, iy - rr, ix + rr, iy + rr], outline=(245, 158, 11, ra), width=5)
-            d.ellipse([ix - 14, iy - 14, ix + 14, iy + 14], fill=(245, 158, 11, 255), outline=(15, 23, 42, 255), width=4)
-            mx0 = int(max(px0 + 10, min(px1 - 210, ix - 105)))
-            d.rounded_rectangle([mx0, py1 - 54, mx0 + 210, py1 - 10], radius=10, fill=(245, 158, 11, 255))
-            _center_text(d, (mx0, py1 - 54, mx0 + 210, py1 - 10), m_label, self.fonts.mono_sm, (15, 23, 42, 255), pad_x=10)
+        ctype = self.spec["act3_board"]["chart_type"]
+
+        if self._act3_done_chart is not None:
+            ch_arr = self._act3_done_chart
+            ix, iy = self._act3_done_target
+        else:
+            ch_rgba = self.chart_base.copy()
+            im = Image.fromarray(ch_rgba, "RGBA")
+            d = ImageDraw.Draw(im)
+            ix, iy, m_label = self._draw_chart_content(d, t)
+
+            if t_col >= 0.0:
+                en_c = ease_out_cubic(clamp01(t_col / 0.25))
+                if ctype != "rules_ladder":
+                    for sy in range(int(iy), py1, 22):
+                        d.line([(ix, sy), (ix, min(py1, sy + 12))], fill=(245, 158, 11, int(230 * en_c)), width=4)
+                if t_col < 1.1:
+                    ru = t_col / 1.1
+                    rr = int(14 + ru * 76)
+                    ra = int((1.0 - ru) * 230)
+                    d.ellipse([ix - rr, iy - rr, ix + rr, iy + rr], outline=(245, 158, 11, ra), width=5)
+                d.ellipse([ix - 14, iy - 14, ix + 14, iy + 14], fill=(245, 158, 11, 255), outline=(15, 23, 42, 255), width=4)
+                if ctype == "rules_ladder":
+                    mw = 280
+                    mx0 = int(max(px0, min(px1 - mw, ix - mw // 2)))
+                    d.rounded_rectangle([mx0, py1 + 12, mx0 + mw, py1 + 56], radius=10, fill=(245, 158, 11, 255))
+                    _center_text(d, (mx0, py1 + 12, mx0 + mw, py1 + 56), m_label, self.fonts.mono_sm, (15, 23, 42, 255), pad_x=12)
+                else:
+                    mx0 = int(max(px0 + 10, min(px1 - 210, ix - 105)))
+                    d.rounded_rectangle([mx0, py1 - 54, mx0 + 210, py1 - 10], radius=10, fill=(245, 158, 11, 255))
+                    _center_text(d, (mx0, py1 - 54, mx0 + 210, py1 - 10), m_label, self.fonts.mono_sm, (15, 23, 42, 255), pad_x=10)
+
+            ch_arr = np.array(im)
+            done_draw = (
+                t >= self.cues["asdr_draw"] + 1.48
+                and t >= self.cues["todr_draw"] + 1.48
+                and t >= self.acts["3"]["start"] + 2.25
+                and t_col >= 1.15
+            )
+            if done_draw:
+                self._act3_done_chart = ch_arr
+                self._act3_done_target = (ix, iy)
 
         cur_prog = ease_in_out_cubic(clamp01((t - (self.cues["v1_collide"] - 0.9)) / 0.9))
         cx = int(px1 - 120 + (ix - (px1 - 120)) * cur_prog)
         cy = int(py1 - 140 + (iy - (py1 - 140)) * cur_prog)
 
         chart_x, chart_y = 46, 540 + drift_y
-        _paste_rgba_roi(frame, np.array(im), chart_x, chart_y)
+        _paste_rgba_roi(frame, ch_arr, chart_x, chart_y)
         _paste_rgba_roi(frame, self.assets.cursor_rgba, chart_x + cx - 12, chart_y + cy - 8)
 
         if t_col >= 0.08:
@@ -1021,9 +1165,9 @@ class ReelRenderer:
 
         # Fast C++ SIMD Cinema Vignette + subtle 35mm film grain
         frame = cv2.multiply(frame, self.assets.vig_lut, scale=1.0 / 255.0)
-        g_small = self.assets.grain_frames[frame_idx % len(self.assets.grain_frames)]
-        g_full = cv2.resize(g_small, (W, H), interpolation=cv2.INTER_NEAREST)
-        frame = np.clip(frame.astype(np.int16) + g_full[:, :, None], 0, 255).astype(np.uint8)
+        g_pos, g_neg = self.assets.grain_pairs[frame_idx % len(self.assets.grain_pairs)]
+        cv2.add(frame, g_pos, dst=frame)
+        cv2.subtract(frame, g_neg, dst=frame)
         return frame
 
 
