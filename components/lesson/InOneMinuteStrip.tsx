@@ -47,7 +47,7 @@ export const InOneMinuteStrip: React.FC<InOneMinuteStripProps> = ({
           return (
             <div
               key={item.num}
-              className="border border-line bg-bg p-4 flex flex-col justify-between transition-colors hover:border-line-strong"
+              className="rounded-xl border border-line bg-bg p-4 flex flex-col justify-between transition-colors hover:border-line-strong"
               style={{ borderTopWidth: '3px', borderTopColor: cardAccent }}
             >
               <div>

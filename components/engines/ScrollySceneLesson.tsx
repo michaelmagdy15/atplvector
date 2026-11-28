@@ -646,11 +646,11 @@ export const ScrollySceneLesson: React.FC<ScrollySceneLessonProps> = ({
             <figure
               ref={stageBoxRef}
               aria-hidden="true"
-              className="relative h-[38vh] min-h-[280px] lg:h-[calc(100vh-9.5rem)] w-full select-none overflow-hidden border border-line lg:border-0 bg-bg/40 lg:bg-transparent"
+              className="relative h-[38vh] min-h-[280px] lg:h-[calc(100vh-9.5rem)] w-full select-none overflow-hidden border border-line lg:border-0 bg-transparent"
             >
               {/* Aviation Loader */}
               {!stageReady && (
-                <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-bg/90 font-mono text-xs text-cad-accent gap-2">
+                <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-bg/95 font-mono text-xs text-cad-accent gap-2" style={{ backgroundColor: 'var(--bg)' }}>
                   <span className="w-2.5 h-2.5 rounded-full bg-cad-accent animate-ping" />
                   <span>{loaderText}</span>
                 </div>
@@ -708,9 +708,10 @@ export const ScrollySceneLesson: React.FC<ScrollySceneLessonProps> = ({
                     key={lp.id}
                     style={{
                       transform: `translate3d(${lp.x.toFixed(0)}px, ${lp.y.toFixed(0)}px, 0)`,
-                      maxWidth: '165px',
+                      maxWidth: '175px',
+                      backgroundColor: 'var(--bg-raised)',
                     }}
-                    className="absolute top-0 left-0 px-2.5 py-1 border border-line-strong bg-bg/95 text-[11px] font-mono font-bold text-ink shadow"
+                    className="absolute top-0 left-0 px-2.5 py-1 rounded-lg border border-line-strong text-[11px] font-mono font-bold text-ink shadow-md"
                   >
                     {lp.label}
                   </div>
@@ -722,18 +723,20 @@ export const ScrollySceneLesson: React.FC<ScrollySceneLessonProps> = ({
                 type="button"
                 onClick={resetOrbit}
                 title="Re-center 3D camera"
-                className="pointer-events-auto absolute top-3 right-3 z-20 inline-flex items-center gap-1 px-2 py-1 border border-line bg-bg/85 text-[10px] font-mono uppercase text-muted hover:text-ink cursor-pointer"
+                style={{ backgroundColor: 'var(--bg-raised)' }}
+                className="pointer-events-auto absolute top-3 right-3 z-20 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-line text-[10px] font-mono uppercase text-muted hover:text-ink cursor-pointer"
               >
                 <RotateCcw className="w-3 h-3" /> Reset view
               </button>
 
-              {/* Live Telemetry HUD Strip */}
+              {/* Sticky Telemetry HUD Strip */}
               {telemetry.length > 0 && (
                 <div className="pointer-events-none absolute bottom-3 left-3 right-3 z-20 grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {telemetry.map((t, idx) => (
                     <div
                       key={idx}
-                      className="border border-line-strong bg-bg/90 backdrop-blur-sm px-2.5 py-1.5"
+                      style={{ backgroundColor: 'var(--bg-raised)' }}
+                      className="rounded-xl border border-line-strong px-3 py-2 shadow-sm"
                     >
                       <div className="font-mono text-[9px] uppercase tracking-wider text-muted">
                         {t.label}
@@ -750,19 +753,23 @@ export const ScrollySceneLesson: React.FC<ScrollySceneLessonProps> = ({
                   ))}
                 </div>
               )}
+
+              <div className="pointer-events-none hidden lg:block absolute bottom-16 right-2 z-10 font-mono text-[10px] text-muted/60">
+                Airbus A320 · amvlab (CC BY 4.0, adapted)
+              </div>
             </figure>
           </div>
 
-          {/* Left Scrollable Narrative Beats Column */}
-          <article className="lg:col-span-5 lg:order-1 space-y-6 pb-8">
+          {/* Left Scrollable Editorial Narrative Column (Airy Typography Directly Over Dot-Grid) */}
+          <article className="lg:col-span-5 lg:order-1 space-y-10 pb-8 pt-2">
             {visibleBeats.map((beat, idx) => {
               const isActive = idx === activeBeatIdx;
               return (
                 <section
                   key={beat.id}
                   ref={setBeatRef(idx)}
-                  className={`dx-card p-5 sm:p-6 transition-opacity duration-300 ${
-                    isActive ? 'opacity-100 border-line-strong' : 'opacity-70 hover:opacity-95'
+                  className={`transition-opacity duration-300 ${
+                    isActive ? 'opacity-100' : 'opacity-45 hover:opacity-85'
                   }`}
                 >
                   {beat.questionTitle && beat.examRule && beat.memoryHook && (
@@ -781,43 +788,43 @@ export const ScrollySceneLesson: React.FC<ScrollySceneLessonProps> = ({
                   )}
 
                   {!beat.questionTitle && beat.actTitle && (
-                    <h3 className="font-display text-xl font-bold text-ink mb-2">
+                    <h3 className="font-display text-2xl sm:text-3xl font-black text-ink mb-3">
                       {beat.actTitle}
                     </h3>
                   )}
 
-                  <p className="text-sm sm:text-base text-ink leading-relaxed font-medium">
+                  <p className="text-xl sm:text-[26px] font-extrabold tracking-[-0.02em] text-ink leading-[1.32]">
                     <RichText text={beat.say} />
                   </p>
 
                   {beat.sub && (
-                    <p className="text-xs sm:text-sm text-muted leading-relaxed mt-2.5">
+                    <p className="text-sm sm:text-base text-muted leading-relaxed mt-3">
                       <RichText text={beat.sub} />
                     </p>
                   )}
 
                   {beat.formula && (
-                    <div className="mt-4 border border-line bg-bg p-3.5">
+                    <div className="mt-4 dx-card p-4">
                       <div className="font-mono text-[10px] font-bold uppercase tracking-wider text-cad-accent mb-1">
                         {beat.formula.name}
                       </div>
-                      <div className="font-mono text-sm font-bold text-ink">
+                      <div className="font-mono text-sm sm:text-base font-bold text-ink">
                         <RichText text={beat.formula.expr} />
                       </div>
                       {beat.formula.note && (
-                        <p className="text-[11px] text-muted mt-1">{beat.formula.note}</p>
+                        <p className="text-xs text-muted mt-1">{beat.formula.note}</p>
                       )}
                     </div>
                   )}
 
                   {beat.note && (
-                    <p className="mt-3 text-xs text-muted italic border-l-2 border-line-strong pl-3">
+                    <p className="mt-3 text-xs sm:text-sm text-muted italic border-l-2 border-line-strong pl-3">
                       <RichText text={beat.note} />
                     </p>
                   )}
 
                   {beat.remember && (
-                    <div className="mt-3 border border-amber-500/40 bg-amber-500/10 p-3 text-xs text-amber-100">
+                    <div className="mt-3 rounded-2xl border border-amber-500/40 bg-amber-500/10 p-3.5 text-xs sm:text-sm text-amber-100">
                       <span className="font-mono font-bold uppercase tracking-wider text-amber-400 mr-1.5">
                         Keep this:
                       </span>
@@ -826,14 +833,16 @@ export const ScrollySceneLesson: React.FC<ScrollySceneLessonProps> = ({
                   )}
 
                   {beat.gate && (
-                    <HoldShortGate
-                      gate={beat.gate}
-                      onSceneOverride={handleSceneOverride}
-                      onScenePlay={handleScenePlay}
-                      onCleared={(gateId) =>
-                        setClearedGates((prev) => ({ ...prev, [gateId]: true }))
-                      }
-                    />
+                    <div className="mt-5">
+                      <HoldShortGate
+                        gate={beat.gate}
+                        onSceneOverride={handleSceneOverride}
+                        onScenePlay={handleScenePlay}
+                        onCleared={(gateId) =>
+                          setClearedGates((prev) => ({ ...prev, [gateId]: true }))
+                        }
+                      />
+                    </div>
                   )}
                 </section>
               );

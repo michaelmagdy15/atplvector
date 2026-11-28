@@ -202,51 +202,14 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
   );
 
   return (
-    <div className="mx-auto max-w-[1280px] border-x border-line px-4 md:px-10 py-8 md:py-12">
-      {/* Primary CAD Flight Plan Hero Banner */}
-      <section className="relative border border-line bg-bg-raised p-6 md:p-10 mb-10">
-        <span className="tick tick-half absolute -top-[5px] -left-[6px] z-20 pointer-events-none" />
-        <span className="tick tick-half absolute -top-[5px] -right-[5px] z-20 pointer-events-none" />
+    <div className="mx-auto max-w-[1320px] px-4 md:px-10 py-8 md:py-10">
+      {/* Primary Only70-Grade Spatial HSI Subject Compass Hero */}
+      <section className="relative mb-10 space-y-6">
+        <HsiSubjectCompass onNavigate={onChangeView} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-          <div className="lg:col-span-7">
-            <div className="mb-4 inline-flex items-center gap-2 border border-line bg-bg px-2.5 py-1">
-              <Navigation size={12} className="text-cad-accent" />
-              <span className="hud-label text-ink">FLIGHT PLAN // ACTIVE DISPATCH</span>
-            </div>
-            <h1 className="font-display text-3xl md:text-5xl font-medium tracking-[-0.035em] leading-[1.02] text-ink">
-              Your next training vector{' '}
-              <Accent className="text-cad-accent">starts here</Accent>.
-            </h1>
-            <p className="mt-4 max-w-xl text-sm md:text-base leading-relaxed text-muted">
-              Build EASA exam readiness one focused simulator session at a time. Select a subject module below or inspect your telemetry analytics.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-2.5">
-              <CadButton
-                variant="accent"
-                onClick={() => onChangeView(View.AIR_LAW_HOME)}
-              >
-                <span>Start Studying (010 Air Law)</span>
-                <ChevronRight size={15} />
-              </CadButton>
-              <CadButton
-                variant="ghost"
-                onClick={() => onChangeView(View.PROGRESS_DASHBOARD)}
-              >
-                <span>View Telemetry Progress</span>
-              </CadButton>
-            </div>
-          </div>
-
-          {/* Interactive Spatial HSI Compass Subject Selector */}
-          <div className="lg:col-span-5">
-            <HsiSubjectCompass onNavigate={onChangeView} />
-          </div>
-        </div>
-
-        {/* 4-Cell Gapless Telemetry Readout */}
-        <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
-            <div className="bg-bg p-4">
+        {/* 4-Cell Rounded Tactile Telemetry Strip */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="dx-card p-4">
               <div className="flex items-center justify-between mb-1.5">
                 <span className="hud-label text-emerald-400">DAILY GOAL</span>
                 <Target size={14} className="text-emerald-400" />
@@ -254,7 +217,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
               <div className="font-display text-2xl font-medium text-ink">
                 {goalProgressPercent}%
               </div>
-              <div className="h-1 w-full bg-line mt-2 mb-1 overflow-hidden">
+              <div className="h-1.5 w-full bg-line rounded-full mt-2 mb-1 overflow-hidden">
                 <div
                   className="h-full bg-emerald-400 transition-all duration-700"
                   style={{ width: `${goalProgressPercent}%` }}
@@ -265,7 +228,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
               </div>
             </div>
 
-            <div className="bg-bg p-4">
+            <div className="dx-card p-4">
               <div className="flex items-center justify-between mb-1.5">
                 <span className="hud-label text-cad-accent">STREAK</span>
                 <Flame size={14} className="text-cad-accent" />
@@ -278,7 +241,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
               </div>
             </div>
 
-            <div className="bg-bg p-4">
+            <div className="dx-card p-4">
               <div className="flex items-center justify-between mb-1.5">
                 <span className="hud-label text-sky-400">FLIGHT TIME</span>
                 <Clock size={14} className="text-sky-400" />
@@ -291,14 +254,26 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
               </div>
             </div>
 
-            <div className="bg-bg p-4">
+            <div className="dx-card p-4 flex flex-col justify-between">
               <div className="flex items-center justify-between mb-1.5">
-                <span className="hud-label text-amber-400">RANK</span>
+                <span className="hud-label text-amber-400">DISPATCH ACTIONS</span>
                 <Trophy size={14} className="text-amber-400" />
               </div>
-              <div className="font-display text-2xl font-medium text-ink">Cadet</div>
-              <div className="font-mono text-[10px] text-muted mt-1">
-                EASA ATPL TRACK
+              <div className="flex flex-wrap gap-2 mt-1">
+                <button
+                  type="button"
+                  onClick={() => onChangeView(View.AIR_LAW_HOME)}
+                  className="px-2.5 py-1.5 rounded-xl bg-cad-accent text-white font-mono text-[10px] font-bold uppercase cursor-pointer"
+                >
+                  Start 010 →
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onChangeView(View.PROGRESS_DASHBOARD)}
+                  className="px-2.5 py-1.5 rounded-xl border border-line bg-bg text-ink font-mono text-[10px] font-bold uppercase cursor-pointer hover:border-line-strong"
+                >
+                  Analytics
+                </button>
               </div>
             </div>
         </div>

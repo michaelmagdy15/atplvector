@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 export const D2R = Math.PI / 180;
 
@@ -16,54 +17,54 @@ export function smoothstep(t: number): number {
 }
 
 export const AVIATION_LOADER_PRESETS = {
-  runway: 'Taxiing aircraft onto RWY 27L…',
-  windtunnel: 'Pressurizing subsonic wind tunnel…',
+  runway: 'Taxiing Airbus A320 onto RWY 27L…',
+  windtunnel: 'Calibrating subsonic wind tunnel…',
   irs: 'IRS [NAV] ALIGNED · HDG 270 · Over to you.',
   cloudbreak: 'BREAK OUT · VISUAL · Clear of cloud. Over to you.',
 } as const;
 
 export const PALETTE_LIGHT = {
   white: 0xf7f5f0,
-  shade: 0xdad4c8,
-  grey: 0x9aa09a,
+  shade: 0xcbd5e1,
+  grey: 0x8f98a6,
   ink: 0x1c1e26,
-  glass: 0x26323e,
+  glass: 0x1e293b,
   metal: 0xb5bcc4,
-  tyre: 0x22252b,
+  tyre: 0x1e2024,
   gold: 0xf59e0b,
   mag: 0xec4899,
   teal: 0x0d9488,
   red: 0xe11d48,
   sky: 0x0284c7,
   fuel: 0x06b6d4,
-  asphalt: 0x3a3f46,
+  asphalt: 0x333842,
   mark: 0xf8fafc,
   grass: 0x86efac,
   emerald: 0x10b981,
   amber: 0xd97706,
-  haze: 0xcbd5e1,
+  haze: 0xf8fafc,
 } as const;
 
 export const PALETTE_DARK = {
-  white: 0xe2e8f0,
+  white: 0xf8fafc,
   shade: 0x94a3b8,
   grey: 0x64748b,
   ink: 0xf1f5f9,
   glass: 0x0f172a,
-  metal: 0x9aa5b4,
-  tyre: 0x171a21,
+  metal: 0xaab4c2,
+  tyre: 0x181b20,
   gold: 0xfbbf24,
   mag: 0xf472b6,
   teal: 0x2dd4bf,
   red: 0xfb7185,
   sky: 0x38bdf8,
   fuel: 0x22d3ee,
-  asphalt: 0x293241,
-  mark: 0xe2e8f0,
+  asphalt: 0x262d38,
+  mark: 0xf1f5f9,
   grass: 0x1e3a2f,
   emerald: 0x34d399,
   amber: 0xf59e0b,
-  haze: 0x475569,
+  haze: 0xe2e8f0,
 } as const;
 
 export type PaletteKey = keyof typeof PALETTE_DARK;
@@ -121,33 +122,37 @@ export function createAviationStudio(
   renderer.setClearColor(0x000000, 0);
   renderer.localClippingEnabled = true;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.toneMapping = THREE.NoToneMapping;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.shadowMap.autoUpdate = false;
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(28, 1, 0.5, 950);
+  const camera = new THREE.PerspectiveCamera(27, 1, 0.5, 950);
 
   const hemi = new THREE.HemisphereLight(
     0xffffff,
-    isDarkInit ? 0x1e293b : 0xd8d0c4,
-    isDarkInit ? 1.25 : 1.75
+    isDarkInit ? 0x242c3d : 0xd8d0c4,
+    isDarkInit ? 1.45 : 1.85
   );
-  const sun = new THREE.DirectionalLight(0xfff7ed, isDarkInit ? 1.8 : 2.25);
-  sun.position.set(-16, 36, 26);
+  const sun = new THREE.DirectionalLight(0xfff9f0, isDarkInit ? 2.15 : 2.35);
+  sun.position.set(-16, 38, 24);
   sun.castShadow = true;
   sun.shadow.mapSize.setScalar(opts.lowPower ? 1024 : 2048);
   sun.shadow.radius = opts.lowPower ? 3 : 4.5;
-  sun.shadow.bias = -0.0004;
-  sun.shadow.normalBias = 0.025;
+  sun.shadow.bias = -0.00035;
+  sun.shadow.normalBias = 0.022;
 
-  const fill = new THREE.DirectionalLight(0xe0e7ff, 0.45);
-  fill.position.set(22, 12, -18);
+  const fill = new THREE.DirectionalLight(0xdbeafe, 0.62);
+  fill.position.set(22, 14, -20);
 
-  scene.add(hemi, sun, sun.target, fill);
+  const rim = new THREE.DirectionalLight(0x93c5fd, 0.35);
+  rim.position.set(16, -6, 22);
 
-  // Zero-HDRI procedural PMREM studio reflections
+  scene.add(hemi, sun, sun.target, fill, rim);
+
+  // Zero-HDRI procedural PMREM studio dome + dual softboxes
   let envRT: THREE.WebGLRenderTarget | null = null;
   try {
     const envScene = new THREE.Scene();
@@ -156,8 +161,8 @@ export function createAviationStudio(
     const cols: number[] = [];
     for (let i = 0; i < posAttr.count; i++) {
       const ny = posAttr.getY(i) / 12;
-      const t = 0.5 + 0.5 * smoothstep((ny + 0.35) / 1.2);
-      cols.push(t, t, t * 0.985);
+      const t = 0.55 + 0.45 * smoothstep((ny + 0.35) / 1.2);
+      cols.push(t, t, t * 0.99);
     }
     domeGeo.setAttribute('color', new THREE.Float32BufferAttribute(cols, 3));
     const domeMat = new THREE.MeshBasicMaterial({
@@ -167,14 +172,14 @@ export function createAviationStudio(
     const dome = new THREE.Mesh(domeGeo, domeMat);
     envScene.add(dome);
 
-    const cardGeo = new THREE.PlaneGeometry(8, 4.5);
+    const cardGeo = new THREE.PlaneGeometry(9, 5);
     const cardMat = new THREE.MeshBasicMaterial({
       color: 0xffffff,
       side: THREE.DoubleSide,
     });
     [
-      [-7, 7, 5],
-      [8, 5, -5],
+      [-7, 8, 5],
+      [8, 6, -5],
     ].forEach(([x, y, z]) => {
       const m = new THREE.Mesh(cardGeo, cardMat);
       m.position.set(x, y, z);
@@ -185,20 +190,20 @@ export function createAviationStudio(
     const pmrem = new THREE.PMREMGenerator(renderer);
     envRT = pmrem.fromScene(envScene, 0.03);
     scene.environment = envRT.texture;
-    scene.environmentIntensity = 0.42;
+    scene.environmentIntensity = 0.56;
     pmrem.dispose();
     domeGeo.dispose();
     domeMat.dispose();
     cardGeo.dispose();
     cardMat.dispose();
   } catch {
-    // Non-fatal fallback if headless software GL skips PMREM
+    // Non-fatal fallback for software WebGL contexts
   }
 
   // Transparent shadow-catcher floor blended onto dot-grid page
   const floorGeo = new THREE.PlaneGeometry(4000, 4000);
   const floorMat = new THREE.ShadowMaterial({
-    opacity: isDarkInit ? 0.5 : 0.28,
+    opacity: isDarkInit ? 0.58 : 0.25,
     color: isDarkInit ? 0x020617 : 0x1e293b,
     polygonOffset: true,
     polygonOffsetFactor: -1,
@@ -254,8 +259,8 @@ export function createAviationStudio(
 
       const mat = new THREE.MeshStandardMaterial({
         color: hex,
-        roughness: mOpts.roughness ?? 0.56,
-        metalness: mOpts.metalness ?? 0.08,
+        roughness: mOpts.roughness ?? 0.5,
+        metalness: mOpts.metalness ?? 0.1,
         transparent: mOpts.opacity !== undefined && mOpts.opacity < 1,
         opacity: mOpts.opacity ?? 1,
         side: mOpts.side ?? THREE.FrontSide,
@@ -296,11 +301,11 @@ export function createAviationStudio(
         if (colorKey) mat.color.setHex(palette[colorKey]);
         if (emissiveKey) mat.emissive.setHex(palette[emissiveKey]);
       });
-      floorMat.opacity = dark ? 0.5 : 0.28;
+      floorMat.opacity = dark ? 0.58 : 0.25;
       floorMat.color.setHex(dark ? 0x020617 : 0x1e293b);
-      hemi.groundColor.setHex(dark ? 0x1e293b : 0xd8d0c4);
-      hemi.intensity = dark ? 1.25 : 1.75;
-      sun.intensity = dark ? 1.8 : 2.25;
+      hemi.groundColor.setHex(dark ? 0x242c3d : 0xd8d0c4);
+      hemi.intensity = dark ? 1.45 : 1.85;
+      sun.intensity = dark ? 2.15 : 2.35;
       renderer.shadowMap.needsUpdate = true;
     },
     focusShadow(x: number, z: number, radius = 32) {
@@ -316,7 +321,7 @@ export function createAviationStudio(
         sc.updateProjectionMatrix();
       }
       sun.target.position.set(x, 0, z);
-      sun.position.set(x - (16 * radius) / 32, 36 * Math.max(1, radius / 32), z + (26 * radius) / 32);
+      sun.position.set(x - (16 * radius) / 32, 38 * Math.max(1, radius / 32), z + (24 * radius) / 32);
       renderer.shadowMap.needsUpdate = true;
     },
     resize(width: number, height: number) {
@@ -380,6 +385,7 @@ export interface A320RigState {
 
 export interface A320Rig {
   root: THREE.Group;
+  ready: Promise<void>;
   setState: (state: A320RigState) => void;
   tick: (dt: number, elapsed: number) => void;
   reclip: () => void;
@@ -397,6 +403,77 @@ export interface A320Rig {
   };
 }
 
+interface NormalizedA320Template {
+  geometry: THREE.BufferGeometry;
+  map: THREE.Texture | null;
+}
+
+let cachedA320Promise: Promise<NormalizedA320Template> | null = null;
+
+/**
+ * Loads `/models/a320-atplvector.glb` once and bakes normalization into a shared
+ * BufferGeometry matching AviationKit coordinates:
+ * nose at -X (-9.6), tail at +X (+9.6), wingspan along Z (-9.04..+9.04), belly at y=+0.89.
+ */
+function loadNormalizedA320Template(): Promise<NormalizedA320Template> {
+  if (!cachedA320Promise) {
+    cachedA320Promise = new Promise((resolve, reject) => {
+      const loader = new GLTFLoader();
+      loader.load(
+        '/models/a320-atplvector.glb',
+        (gltf) => {
+          gltf.scene.updateMatrixWorld(true);
+          let foundGeo: THREE.BufferGeometry | null = null;
+          let foundMap: THREE.Texture | null = null;
+
+          gltf.scene.traverse((obj) => {
+            if (foundGeo) return;
+            const mesh = obj as THREE.Mesh;
+            if (mesh.isMesh && mesh.geometry) {
+              const baked = mesh.geometry.clone();
+              baked.applyMatrix4(mesh.matrixWorld);
+              baked.computeBoundingBox();
+              const bb = baked.boundingBox!;
+              const sizeX = bb.max.x - bb.min.x;
+              const centerX = (bb.min.x + bb.max.x) / 2;
+              const centerZ = (bb.min.z + bb.max.z) / 2;
+              const uniformScale = 19.2 / Math.max(0.001, sizeX);
+
+              // Raw GLB faces +X; rotate PI around Y so nose faces -X, tail at +X, belly lifted to y=+0.89
+              const normMatrix = new THREE.Matrix4()
+                .makeTranslation(0, 1.73, 0)
+                .multiply(new THREE.Matrix4().makeRotationY(Math.PI))
+                .multiply(new THREE.Matrix4().makeScale(uniformScale, uniformScale, uniformScale))
+                .multiply(new THREE.Matrix4().makeTranslation(-centerX, 0, -centerZ));
+
+              baked.applyMatrix4(normMatrix);
+              baked.computeBoundingBox();
+              baked.computeBoundingSphere();
+
+              const mat = Array.isArray(mesh.material) ? mesh.material[0] : mesh.material;
+              if (mat && 'map' in mat && (mat as THREE.MeshStandardMaterial).map) {
+                foundMap = (mat as THREE.MeshStandardMaterial).map!;
+                foundMap.colorSpace = THREE.SRGBColorSpace;
+                foundMap.anisotropy = 4;
+              }
+              foundGeo = baked;
+            }
+          });
+
+          if (foundGeo) {
+            resolve({ geometry: foundGeo, map: foundMap });
+          } else {
+            reject(new Error('No mesh geometry found in a320-atplvector.glb'));
+          }
+        },
+        undefined,
+        (err) => reject(err)
+      );
+    });
+  }
+  return cachedA320Promise;
+}
+
 function attachWingFlexShader(
   mat: THREE.MeshStandardMaterial,
   bendUniform: { value: number }
@@ -408,25 +485,12 @@ function attachWingFlexShader(
       shader.vertexShader.replace(
         '#include <begin_vertex>',
         `#include <begin_vertex>
-        float wingSpan = max(abs(transformed.z) - 0.9, 0.0);
+        float wingSpan = max(abs(transformed.z) - 1.05, 0.0);
         transformed.y += uBend * wingSpan * wingSpan;`
       );
   };
-  mat.customProgramCacheKey = () => 'a320-wing-flex';
+  mat.customProgramCacheKey = () => 'a320-wing-flex-v2';
   return mat;
-}
-
-function createAirfoilExtrude(chord: number, thickness: number, span: number): THREE.ExtrudeGeometry {
-  const s = new THREE.Shape();
-  s.moveTo(0, 0);
-  s.bezierCurveTo(chord * 0.12, thickness * 0.95, chord * 0.45, thickness * 0.85, chord, 0.01);
-  s.bezierCurveTo(chord * 0.55, -thickness * 0.35, chord * 0.14, -thickness * 0.42, 0, 0);
-  const geo = new THREE.ExtrudeGeometry(s, {
-    depth: span,
-    bevelEnabled: false,
-    curveSegments: 10,
-  });
-  return geo;
 }
 
 function createBeaconTexture(studio: AviationStudio, hexColor: string): THREE.CanvasTexture {
@@ -436,7 +500,7 @@ function createBeaconTexture(studio: AviationStudio, hexColor: string): THREE.Ca
   const ctx = c.getContext('2d')!;
   const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
   g.addColorStop(0, '#ffffff');
-  g.addColorStop(0.22, hexColor);
+  g.addColorStop(0.24, hexColor);
   g.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, 64, 64);
@@ -446,8 +510,9 @@ function createBeaconTexture(studio: AviationStudio, hexColor: string): THREE.Ca
 }
 
 /**
- * Parametric Airbus A320-200 articulated rig.
- * Coordinate frame: aircraft faces -X (nose at -8.8, tail at +9.6), +Y up, +Z right wing / -Z left wing.
+ * Airbus A320 articulated rig backed by the open-source CC BY 4.0 GLB airframe
+ * (`amvlab/aircraft-models`, studio white & matte slate livery) plus GLSL wing-flex,
+ * cutaway clipping plane, retractable landing gear, hinged flaps, and nav strobes.
  */
 export function createA320Rig(
   studio: AviationStudio,
@@ -460,228 +525,75 @@ export function createA320Rig(
   const clipPlane = new THREE.Plane(new THREE.Vector3(0, 0, -1), 1000);
   const clipPlanes = isGhost ? undefined : [clipPlane];
 
-  const mkMat = (
-    key: PaletteKey,
-    mOpts: { roughness?: number; metalness?: number; side?: THREE.Side; bendable?: boolean } = {}
-  ) => {
-    const m = studio.createMaterial(key, {
-      roughness: mOpts.roughness ?? 0.42,
-      metalness: mOpts.metalness ?? 0.12,
-      opacity: isGhost ? ghostOp : undefined,
-      side: mOpts.side ?? THREE.FrontSide,
-      clippingPlanes: clipPlanes,
-    });
-    return mOpts.bendable ? attachWingFlexShader(m, bendUniform) : m;
-  };
+  const metalMat = studio.createMaterial('metal', {
+    roughness: 0.28,
+    metalness: 0.72,
+    opacity: isGhost ? ghostOp : undefined,
+    clippingPlanes: clipPlanes,
+  });
+  const tyreMat = studio.createMaterial('tyre', {
+    roughness: 0.88,
+    metalness: 0.04,
+    opacity: isGhost ? ghostOp : undefined,
+    clippingPlanes: clipPlanes,
+  });
+  const flapMat = studio.createMaterial('shade', {
+    roughness: 0.45,
+    metalness: 0.14,
+    opacity: isGhost ? ghostOp : undefined,
+    clippingPlanes: clipPlanes,
+  });
+  attachWingFlexShader(flapMat, bendUniform);
 
-  const bodyMat = mkMat(opts.tint ?? 'white', { roughness: 0.38 });
-  const innerMat = mkMat('shade', { roughness: 0.8, side: THREE.BackSide });
-  const wingMat = mkMat(opts.tint ?? 'white', { roughness: 0.42, bendable: true });
-  const trimMat = mkMat('shade', { roughness: 0.55 });
-  const glassMat = mkMat('glass', { roughness: 0.15, metalness: 0.65 });
-  const metalMat = mkMat('metal', { roughness: 0.28, metalness: 0.72, bendable: true });
-  const tyreMat = mkMat('tyre', { roughness: 0.88, metalness: 0.02 });
-  const fuelMat = studio.createMaterial('fuel', { opacity: 0.82 });
+  const cabinFloorMat = studio.createMaterial('shade', { roughness: 0.65 });
+  const fuelMat = studio.createMaterial('fuel', { opacity: 0.85 });
   const cargoFwdMat = studio.createMaterial('gold', { roughness: 0.5 });
   const cargoAftMat = studio.createMaterial('teal', { roughness: 0.5 });
 
-  // 1. Fuselage via LatheGeometry (aligned along X axis: nose -8.8, tail +9.6)
-  const fuseProfile = [
-    new THREE.Vector2(0.01, -9.1),
-    new THREE.Vector2(0.28, -8.85),
-    new THREE.Vector2(0.62, -8.3),
-    new THREE.Vector2(0.92, -7.2),
-    new THREE.Vector2(1.06, -5.6),
-    new THREE.Vector2(1.06, 3.6),
-    new THREE.Vector2(0.92, 5.8),
-    new THREE.Vector2(0.62, 7.8),
-    new THREE.Vector2(0.22, 9.4),
-    new THREE.Vector2(0.09, 9.75),
-    new THREE.Vector2(0.01, 9.8),
-  ];
-  const fuseGeo = studio.trackGeometry(new THREE.LatheGeometry(fuseProfile, 28));
-  fuseGeo.rotateZ(-Math.PI / 2);
-  const fuselage = new THREE.Mesh(fuseGeo, bodyMat);
-  fuselage.position.y = 2.05;
-  fuselage.castShadow = !isGhost;
-  fuselage.receiveShadow = !isGhost;
-  root.add(fuselage);
-
-  if (!isGhost) {
-    const innerHull = new THREE.Mesh(fuseGeo, innerMat);
-    innerHull.position.y = 2.05;
-    root.add(innerHull);
-  }
-
-  // Interior Cabin Floor, Center Fuel Tank & Cargo Holds (visible during cutaway)
-  const cabinFloorGeo = studio.trackGeometry(new THREE.BoxGeometry(12.2, 0.08, 1.78));
-  const cabinFloor = new THREE.Mesh(cabinFloorGeo, trimMat);
-  cabinFloor.position.set(-0.9, 1.98, 0);
-  root.add(cabinFloor);
-
-  const fuelTankGeo = studio.trackGeometry(new THREE.BoxGeometry(2.4, 0.42, 1.7));
-  const fuelTank = new THREE.Mesh(fuelTankGeo, fuelMat);
-  fuelTank.position.set(-0.2, 1.56, 0);
-  root.add(fuelTank);
-
-  const cargoHoldGeo = studio.trackGeometry(new THREE.BoxGeometry(3.2, 0.48, 1.35));
-  const cargoFwd = new THREE.Mesh(cargoHoldGeo, cargoFwdMat);
-  cargoFwd.position.set(-4.0, 1.55, 0);
-  root.add(cargoFwd);
-
-  const cargoAft = new THREE.Mesh(cargoHoldGeo, cargoAftMat);
-  cargoAft.position.set(2.9, 1.55, 0);
-  root.add(cargoAft);
-
-  // Cockpit Windshield Wrap
-  const windshieldGeo = studio.trackGeometry(
-    new THREE.CylinderGeometry(0.95, 1.03, 1.05, 18, 1, false, -0.82, 1.64)
+  // Cutaway interior structure (visible only when longitudinal cutaway `cut > 0.04` opens!)
+  const interiorGrp = new THREE.Group();
+  interiorGrp.visible = false;
+  const cabinFloor = new THREE.Mesh(
+    studio.trackGeometry(new THREE.BoxGeometry(11.4, 0.07, 1.55)),
+    cabinFloorMat
   );
-  windshieldGeo.rotateZ(-Math.PI / 2);
-  const windshield = new THREE.Mesh(windshieldGeo, glassMat);
-  windshield.position.set(-7.35, 2.2, 0);
-  windshield.rotation.z = 0.22;
-  root.add(windshield);
-
-  // Tailcone vertical fin + horizontal stabilizers
-  const vFinShape = new THREE.Shape();
-  vFinShape.moveTo(0, 0);
-  vFinShape.lineTo(2.9, 0);
-  vFinShape.lineTo(3.55, 3.15);
-  vFinShape.lineTo(2.45, 3.15);
-  vFinShape.lineTo(0.45, 0.7);
-  vFinShape.closePath();
-  const vFinGeo = studio.trackGeometry(
-    new THREE.ExtrudeGeometry(vFinShape, { depth: 0.14, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.02, bevelSegments: 2 })
+  cabinFloor.position.set(-0.7, 1.86, 0);
+  const fuelTank = new THREE.Mesh(
+    studio.trackGeometry(new THREE.BoxGeometry(2.3, 0.4, 1.5)),
+    fuelMat
   );
-  vFinGeo.translate(0, 0, -0.07);
-  const vFin = new THREE.Mesh(vFinGeo, bodyMat);
-  vFin.position.set(6.0, 2.65, 0);
-  vFin.castShadow = !isGhost;
-  root.add(vFin);
+  fuelTank.position.set(-0.2, 1.44, 0);
+  const cargoFwd = new THREE.Mesh(
+    studio.trackGeometry(new THREE.BoxGeometry(2.8, 0.44, 1.2)),
+    cargoFwdMat
+  );
+  cargoFwd.position.set(-3.9, 1.42, 0);
+  const cargoAft = new THREE.Mesh(
+    studio.trackGeometry(new THREE.BoxGeometry(2.8, 0.44, 1.2)),
+    cargoAftMat
+  );
+  cargoAft.position.set(2.8, 1.42, 0);
+  interiorGrp.add(cabinFloor, fuelTank, cargoFwd, cargoAft);
+  root.add(interiorGrp);
 
-  const mkHStab = (sign: 1 | -1) => {
-    const g = studio.trackGeometry(createAirfoilExtrude(1.45, 0.12, 3.3));
-    const m = new THREE.Mesh(g, bodyMat);
-    if (sign < 0) g.scale(1, 1, -1);
-    m.position.set(7.2, 2.45, sign * 0.25);
-    m.rotation.y = sign * -0.45;
-    m.rotation.x = sign * 0.07;
-    m.castShadow = !isGhost;
-    return m;
-  };
-  root.add(mkHStab(1), mkHStab(-1));
-
-  // Main Swept Wings + Sharklets + Hinged Flaps + Underwing CFM56 Nacelles
-  const wingBuild = (sign: 1 | -1) => {
-    const wingGrp = new THREE.Group();
-    const span = 8.4;
-
-    // Tapered swept wing loft via Box/Shape transform with airfoil cross-section
-    const wShape = new THREE.Shape();
-    wShape.moveTo(0, 0);
-    wShape.lineTo(2.4, 0.36);
-    wShape.lineTo(1.1, 0.14);
-    wShape.lineTo(0, 0);
-
-    const wGeo = studio.trackGeometry(createAirfoilExtrude(2.55, 0.24, span));
-    // Taper and sweep vertices directly in local coordinates so bend shader applies cleanly
-    const pos = wGeo.attributes.position;
-    for (let i = 0; i < pos.count; i++) {
-      const zRaw = pos.getZ(i); // 0 .. span
-      const frac = clamp(zRaw / span, 0, 1);
-      const chordScale = lerp(1.0, 0.36, frac);
-      const sweepX = frac * 2.95;
-      const dihedralY = frac * 0.44;
-      const xNew = pos.getX(i) * chordScale + sweepX;
-      const yNew = pos.getY(i) * chordScale + dihedralY;
-      const zNew = sign * (0.9 + zRaw);
-      pos.setXYZ(i, xNew, yNew, zNew);
-    }
-    wGeo.computeVertexNormals();
-
-    const wingMesh = new THREE.Mesh(wGeo, wingMat);
-    wingMesh.position.set(-1.35, 1.52, 0);
-    wingMesh.castShadow = !isGhost;
-    wingMesh.receiveShadow = !isGhost;
-    wingGrp.add(wingMesh);
-
-    // Wingtip Sharklet
-    const sharkGeo = studio.trackGeometry(new THREE.BoxGeometry(0.62, 0.92, 0.08));
-    const shark = new THREE.Mesh(sharkGeo, wingMat);
-    shark.position.set(1.9, 2.38, sign * (0.9 + span));
-    shark.rotation.z = -0.35;
-    shark.rotation.x = sign * 0.28;
-    shark.castShadow = !isGhost;
-    wingGrp.add(shark);
-
-    // Trailing-edge Flap (hinged around spanwise axis)
+  // Subtle hinged trailing-edge flaps aligned with real swept A320 inner wing
+  const makeFlap = (sign: 1 | -1) => {
     const flapPivot = new THREE.Group();
-    flapPivot.position.set(1.15, 1.56, sign * 2.65);
-    const flapGeo = studio.trackGeometry(new THREE.BoxGeometry(0.55, 0.09, 3.6));
-    const flapMesh = new THREE.Mesh(flapGeo, trimMat);
-    flapMesh.position.set(0.24, 0, 0);
-    flapMesh.rotation.y = sign * -0.24;
+    flapPivot.position.set(1.15, 1.38, sign * 2.55);
+    const flapGeo = studio.trackGeometry(new THREE.BoxGeometry(0.42, 0.06, 2.8));
+    const flapMesh = new THREE.Mesh(flapGeo, flapMat);
+    flapMesh.position.set(0.2, 0, 0);
+    flapMesh.rotation.y = sign * -0.26;
     flapPivot.add(flapMesh);
-    wingGrp.add(flapPivot);
-
-    // Underwing Turbofan Nacelle + Pylon + 18-blade Spinning Fan
-    const engX = -1.65;
-    const engY = 1.04;
-    const engZ = sign * 3.15;
-
-    const pylonGeo = studio.trackGeometry(new THREE.BoxGeometry(1.5, 0.55, 0.16));
-    const pylon = new THREE.Mesh(pylonGeo, trimMat);
-    pylon.position.set(engX + 0.55, engY + 0.48, engZ);
-    wingGrp.add(pylon);
-
-    const cowlGeo = studio.trackGeometry(new THREE.CylinderGeometry(0.56, 0.5, 2.1, 24, 1, true));
-    cowlGeo.rotateZ(Math.PI / 2);
-    const cowl = new THREE.Mesh(cowlGeo, wingMat);
-    cowl.position.set(engX, engY, engZ);
-    cowl.castShadow = !isGhost;
-    wingGrp.add(cowl);
-
-    const lipGeo = studio.trackGeometry(new THREE.TorusGeometry(0.54, 0.065, 12, 24));
-    lipGeo.rotateY(Math.PI / 2);
-    const lip = new THREE.Mesh(lipGeo, metalMat);
-    lip.position.set(engX - 1.03, engY, engZ);
-    wingGrp.add(lip);
-
-    const exhaustGeo = studio.trackGeometry(new THREE.ConeGeometry(0.32, 0.85, 18));
-    exhaustGeo.rotateZ(-Math.PI / 2);
-    const exhaust = new THREE.Mesh(exhaustGeo, metalMat);
-    exhaust.position.set(engX + 1.25, engY, engZ);
-    wingGrp.add(exhaust);
-
-    // Spinning Fan Assembly
-    const fanGrp = new THREE.Group();
-    fanGrp.position.set(engX - 0.85, engY, engZ);
-    const spinnerGeo = studio.trackGeometry(new THREE.ConeGeometry(0.16, 0.42, 16));
-    spinnerGeo.rotateZ(Math.PI / 2);
-    const spinner = new THREE.Mesh(spinnerGeo, glassMat);
-    spinner.position.x = -0.15;
-    fanGrp.add(spinner);
-
-    const bladeGeo = studio.trackGeometry(new THREE.BoxGeometry(0.05, 0.34, 0.08));
-    for (let b = 0; b < 14; b++) {
-      const ang = (b / 14) * Math.PI * 2;
-      const blade = new THREE.Mesh(bladeGeo, metalMat);
-      blade.position.set(0, Math.cos(ang) * 0.28, Math.sin(ang) * 0.28);
-      blade.rotation.x = ang;
-      blade.rotation.y = 0.45;
-      fanGrp.add(blade);
-    }
-    wingGrp.add(fanGrp);
-
-    return { wingGrp, flapPivot, fanGrp };
+    return flapPivot;
   };
+  const flapR = makeFlap(1);
+  const flapL = makeFlap(-1);
+  flapR.visible = false;
+  flapL.visible = false;
+  root.add(flapR, flapL);
 
-  const rightWing = wingBuild(1);
-  const leftWing = wingBuild(-1);
-  root.add(rightWing.wingGrp, leftWing.wingGrp);
-
-  // Landing Gear Assemblies (Nose + Left Main + Right Main)
+  // Articulated Nose & Main Landing Gear (tyres touch y=0 cleanly below +0.89 belly)
   const makeWheel = (r: number, w: number) => {
     const g = studio.trackGeometry(new THREE.CylinderGeometry(r, r, w, 18));
     g.rotateX(Math.PI / 2);
@@ -691,27 +603,31 @@ export function createA320Rig(
   };
 
   const gearN = new THREE.Group();
-  gearN.position.set(-6.4, 1.15, 0);
-  const nStrutGeo = studio.trackGeometry(new THREE.CylinderGeometry(0.08, 0.07, 1.05, 10));
-  const nStrut = new THREE.Mesh(nStrutGeo, metalMat);
-  nStrut.position.y = -0.45;
-  const nW1 = makeWheel(0.24, 0.14);
-  nW1.position.set(0, -0.95, 0.13);
-  const nW2 = makeWheel(0.24, 0.14);
-  nW2.position.set(0, -0.95, -0.13);
+  gearN.position.set(-6.5, 0.96, 0);
+  const nStrut = new THREE.Mesh(
+    studio.trackGeometry(new THREE.CylinderGeometry(0.06, 0.055, 0.85, 10)),
+    metalMat
+  );
+  nStrut.position.y = -0.38;
+  const nW1 = makeWheel(0.2, 0.12);
+  nW1.position.set(0, -0.76, 0.12);
+  const nW2 = makeWheel(0.2, 0.12);
+  nW2.position.set(0, -0.76, -0.12);
   gearN.add(nStrut, nW1, nW2);
   root.add(gearN);
 
   const makeMainGear = (sign: 1 | -1) => {
     const g = new THREE.Group();
-    g.position.set(-0.05, 1.48, sign * 1.9);
-    const sGeo = studio.trackGeometry(new THREE.CylinderGeometry(0.11, 0.09, 1.25, 12));
-    const strut = new THREE.Mesh(sGeo, metalMat);
-    strut.position.y = -0.58;
-    const w1 = makeWheel(0.35, 0.18);
-    w1.position.set(0, -1.14, 0.19);
-    const w2 = makeWheel(0.35, 0.18);
-    w2.position.set(0, -1.14, -0.19);
+    g.position.set(0.15, 1.15, sign * 1.9);
+    const strut = new THREE.Mesh(
+      studio.trackGeometry(new THREE.CylinderGeometry(0.085, 0.075, 0.95, 12)),
+      metalMat
+    );
+    strut.position.y = -0.45;
+    const w1 = makeWheel(0.29, 0.16);
+    w1.position.set(0, -0.86, 0.16);
+    const w2 = makeWheel(0.29, 0.16);
+    w2.position.set(0, -0.86, -0.16);
     g.add(strut, w1, w2);
     return g;
   };
@@ -719,7 +635,7 @@ export function createA320Rig(
   const gearR = makeMainGear(1);
   root.add(gearL, gearR);
 
-  // Navigation Lights & Red Anti-Collision Beacons (non-ghost only)
+  // Subtle Anti-Collision Strobe & Wingtip Navigation Beacons
   let beaconTopMat: THREE.SpriteMaterial | null = null;
   let beaconBellyMat: THREE.SpriteMaterial | null = null;
   let navLMat: THREE.SpriteMaterial | null = null;
@@ -747,13 +663,13 @@ export function createA320Rig(
       sp.scale.setScalar(scale);
       root.add(sp);
     };
-    mkSprite(beaconTopMat, -0.8, 3.16, 0, 1.15);
-    mkSprite(beaconBellyMat, -0.4, 0.96, 0, 0.85);
-    mkSprite(navLMat, 1.8, 2.02, -9.35, 0.95);
-    mkSprite(navRMat, 1.8, 2.02, 9.35, 0.95);
+    mkSprite(beaconTopMat, -0.6, 3.16, 0, 0.72);
+    mkSprite(beaconBellyMat, -0.4, 0.85, 0, 0.58);
+    mkSprite(navLMat, 2.35, 2.32, -8.98, 0.62);
+    mkSprite(navRMat, 2.35, 2.32, 8.98, 0.62);
   }
 
-  // Named 3D anchor objects for leader callouts
+  // Named 3D Anchor Points synced to GLB geometry coordinates
   const mkAnchor = (x: number, y: number, z: number) => {
     const o = new THREE.Object3D();
     o.position.set(x, y, z);
@@ -762,53 +678,95 @@ export function createA320Rig(
   };
 
   const anchors = {
-    nose: mkAnchor(-8.9, 2.1, 0),
-    cg: mkAnchor(-0.4, 2.1, 0),
-    wingTipL: mkAnchor(1.9, 2.2, -9.3),
-    wingTipR: mkAnchor(1.9, 2.2, 9.3),
-    engineL: mkAnchor(-1.65, 1.05, -3.15),
-    tail: mkAnchor(8.5, 5.1, 0),
-    gearMain: mkAnchor(-0.05, 0.35, 1.9),
-    cargoFwd: mkAnchor(-4.0, 1.55, 0),
-    cargoAft: mkAnchor(2.9, 1.55, 0),
-    fuelTank: mkAnchor(-0.2, 1.56, 0),
+    nose: mkAnchor(-9.5, 1.9, 0),
+    cg: mkAnchor(-0.2, 2.0, 0),
+    wingTipL: mkAnchor(2.35, 2.32, -8.95),
+    wingTipR: mkAnchor(2.35, 2.32, 8.95),
+    engineL: mkAnchor(-2.0, 0.9, -3.2),
+    tail: mkAnchor(7.6, 3.8, 0),
+    gearMain: mkAnchor(0.15, 0.3, 1.9),
+    cargoFwd: mkAnchor(-3.9, 1.45, 0),
+    cargoAft: mkAnchor(2.8, 1.45, 0),
+    fuelTank: mkAnchor(-0.2, 1.44, 0),
   };
 
-  let curFanSpeed = 2.8;
   let curCut = 0;
+
+  // Load real open-source CC BY 4.0 Airbus A320 GLB & wire wing-flex + cutaway
+  const ready = loadNormalizedA320Template()
+    .then(({ geometry, map }) => {
+      const airframeMat = studio.trackMaterial(
+        new THREE.MeshStandardMaterial({
+          color: isGhost
+            ? studio.getTokenColor(opts.tint ?? 'sky')
+            : 0xffffff,
+          map: isGhost ? null : map,
+          roughness: isGhost ? 0.5 : 0.34,
+          metalness: isGhost ? 0.1 : 0.14,
+          transparent: isGhost,
+          opacity: isGhost ? ghostOp : 1,
+          depthWrite: !isGhost,
+          clippingPlanes: clipPlanes,
+          clipShadows: true,
+        })
+      );
+      attachWingFlexShader(airframeMat, bendUniform);
+
+      const airframe = new THREE.Mesh(geometry, airframeMat);
+      airframe.castShadow = !isGhost;
+      airframe.receiveShadow = !isGhost;
+      root.add(airframe);
+
+      if (!isGhost) {
+        const innerMat = studio.createMaterial('shade', {
+          roughness: 0.85,
+          metalness: 0.05,
+          side: THREE.BackSide,
+          clippingPlanes: clipPlanes,
+        });
+        const innerHull = new THREE.Mesh(geometry, innerMat);
+        root.add(innerHull);
+      }
+
+      studio.renderer.shadowMap.needsUpdate = true;
+    })
+    .catch((err) => {
+      console.warn('AviationKit A320 GLB load error:', err);
+    });
 
   const reclip = () => {
     if (isGhost) return;
-    if (curCut <= 0.01) {
+    if (curCut <= 0.02) {
       clipPlane.normal.set(0, 0, -1);
       clipPlane.constant = 1000;
+      interiorGrp.visible = false;
       return;
     }
+    interiorGrp.visible = true;
     root.updateWorldMatrix(true, false);
     clipPlane.normal.set(0, 0, -1);
-    clipPlane.constant = lerp(3.0, 0.0, clamp(curCut, 0, 1));
+    clipPlane.constant = lerp(2.8, 0.0, clamp(curCut, 0, 1));
     clipPlane.applyMatrix4(root.matrixWorld);
   };
 
   const setState = (st: A320RigState) => {
     if (st.gear !== undefined) {
       const retract = 1 - clamp(st.gear, 0, 1);
-      gearN.rotation.z = -retract * 1.6;
+      gearN.rotation.z = -retract * 1.55;
       gearL.rotation.x = -retract * 1.45;
       gearR.rotation.x = retract * 1.45;
-      const show = retract < 0.96;
+      const show = retract < 0.94;
       gearN.visible = gearL.visible = gearR.visible = show;
     }
     if (st.flapDeg !== undefined) {
-      const rad = clamp(st.flapDeg, 0, 40) * D2R;
-      rightWing.flapPivot.rotation.z = -rad;
-      leftWing.flapPivot.rotation.z = -rad;
+      const deg = clamp(st.flapDeg, 0, 40);
+      const rad = deg * D2R;
+      flapR.rotation.z = -rad;
+      flapL.rotation.z = -rad;
+      flapR.visible = flapL.visible = deg > 1;
     }
     if (st.bend !== undefined) {
       bendUniform.value = st.bend * 0.0065;
-    }
-    if (st.fanSpeed !== undefined) {
-      curFanSpeed = st.fanSpeed;
     }
     if (st.cargoRatio !== undefined) {
       const c = clamp(st.cargoRatio, 0, 1);
@@ -827,11 +785,7 @@ export function createA320Rig(
     }
   };
 
-  const tick = (dt: number, elapsed: number) => {
-    const spin = (curFanSpeed || 1.2) * dt * 3.5;
-    rightWing.fanGrp.rotation.x -= spin;
-    leftWing.fanGrp.rotation.x += spin;
-
+  const tick = (_dt: number, elapsed: number) => {
     if (!isGhost && beaconTopMat && beaconBellyMat && navLMat && navRMat) {
       const cycle = elapsed % 1.3;
       const pulse =
@@ -844,10 +798,9 @@ export function createA320Rig(
     }
   };
 
-  // Default: gear down, subtle 1G wing flex, closed skin, fuel & partial cargo ready
-  setState({ gear: 1, flapDeg: 0, bend: 0.4, cut: 0, cargoRatio: 0.75, fuelRatio: 0.8 });
+  setState({ gear: 1, flapDeg: 0, bend: 0.35, cut: 0, cargoRatio: 0.75, fuelRatio: 0.8 });
 
-  return { root, setState, tick, reclip, anchors };
+  return { root, ready, setState, tick, reclip, anchors };
 }
 
 export interface ForceArrowHandle {
@@ -858,11 +811,16 @@ export interface ForceArrowHandle {
 export function createForceArrow(
   studio: AviationStudio,
   colorKey: PaletteKey,
-  radius = 0.14
+  radius = 0.13
 ): ForceArrowHandle {
-  const mat = studio.createMaterial(colorKey, { roughness: 0.35, metalness: 0.15 });
+  const mat = studio.createMaterial(colorKey, {
+    roughness: 0.32,
+    metalness: 0.15,
+    emissiveKey: colorKey,
+    emissiveIntensity: 0.25,
+  });
   const shaftGeo = studio.trackGeometry(new THREE.CylinderGeometry(radius, radius, 1, 16));
-  const headGeo = studio.trackGeometry(new THREE.ConeGeometry(radius * 2.6, radius * 5.6, 20));
+  const headGeo = studio.trackGeometry(new THREE.ConeGeometry(radius * 2.5, radius * 5.2, 20));
   const shaft = new THREE.Mesh(shaftGeo, mat);
   const head = new THREE.Mesh(headGeo, mat);
   const group = new THREE.Group();
@@ -880,11 +838,11 @@ export function createForceArrow(
       group.position.copy(origin);
       dir.copy(vec).normalize();
       group.quaternion.setFromUnitVectors(up, dir);
-      const headLen = Math.min(radius * 5.6, len * 0.5);
+      const headLen = Math.min(radius * 5.2, len * 0.5);
       const shaftLen = Math.max(0.01, len - headLen);
       shaft.scale.y = shaftLen;
       shaft.position.y = shaftLen / 2;
-      head.scale.y = headLen / (radius * 5.6);
+      head.scale.y = headLen / (radius * 5.2);
       head.position.y = shaftLen + headLen / 2;
     },
   };
@@ -899,17 +857,17 @@ export function createAirflowStreamlines(
   studio: AviationStudio,
   opts: { count?: number; spanZ?: number; lengthX?: number } = {}
 ): StreamlinesHandle {
-  const count = opts.count ?? 48;
+  const count = opts.count ?? 54;
   const spanZ = opts.spanZ ?? 18;
-  const lengthX = opts.lengthX ?? 22;
+  const lengthX = opts.lengthX ?? 24;
 
-  const cylGeo = studio.trackGeometry(new THREE.CylinderGeometry(0.045, 0.045, 1, 6));
+  const cylGeo = studio.trackGeometry(new THREE.CylinderGeometry(0.02, 0.02, 1, 6));
   cylGeo.rotateZ(Math.PI / 2);
   const mat = studio.trackMaterial(
     new THREE.MeshBasicMaterial({
       color: studio.getTokenColor('sky'),
       transparent: true,
-      opacity: 0.62,
+      opacity: 0.65,
       depthWrite: false,
     })
   );
@@ -919,9 +877,9 @@ export function createAirflowStreamlines(
 
   const particles = Array.from({ length: count }, (_, i) => ({
     phase: (i / count + Math.random() * 0.15) % 1,
-    yOff: -1.5 + Math.random() * 4.5,
-    zOff: ((i % 12) / 11 - 0.5) * spanZ,
-    len: 1.4 + Math.random() * 1.4,
+    yOff: -1.4 + Math.random() * 4.2,
+    zOff: ((i % 14) / 13 - 0.5) * spanZ,
+    len: 1.5 + Math.random() * 1.5,
     wobbleSeed: Math.random() * Math.PI * 2,
   }));
 
@@ -939,14 +897,13 @@ export function createAirflowStreamlines(
         const xNorm = (p.phase + (elapsed * flowVel) / lengthX) % 1;
         const x = lerp(-lengthX / 2, lengthX / 2, xNorm);
 
-        // Downwash deflection behind wing + turbulent curling when stalled
         const wakeMask = smoothstep((x + 1) / 5);
-        const downwashY = -wakeMask * clamp(aoaDeg / 18, -0.3, 1.2) * 1.1;
+        const downwashY = -wakeMask * clamp(aoaDeg / 18, -0.3, 1.2) * 1.05;
         const stallJitterY = stalled
           ? wakeMask * Math.sin(elapsed * 14 + p.wobbleSeed + x * 0.9) * 0.85
           : 0;
 
-        dummy.position.set(x, 1.7 + p.yOff + downwashY + stallJitterY, p.zOff);
+        dummy.position.set(x, 1.85 + p.yOff + downwashY + stallJitterY, p.zOff);
         dummy.rotation.set(
           0,
           0,
@@ -961,31 +918,44 @@ export function createAirflowStreamlines(
   };
 }
 
+/**
+ * Dimensional cumulus cloud deck (bright white cloud tops + cool slate bases + soft ground shadow puffs).
+ */
 export function createCloudDeck(
   studio: AviationStudio,
   opts: { count?: number; xMin?: number; xMax?: number; yMin?: number; yMax?: number; zSpan?: number } = {}
 ) {
-  const count = opts.count ?? 8;
-  const xMin = opts.xMin ?? -42;
-  const xMax = opts.xMax ?? 42;
+  const count = opts.count ?? 7;
+  const xMin = opts.xMin ?? -44;
+  const xMax = opts.xMax ?? 44;
   const span = xMax - xMin;
-  const yMin = opts.yMin ?? 4;
-  const yMax = opts.yMax ?? 10;
-  const zSpan = opts.zSpan ?? 26;
+  const yMin = opts.yMin ?? 2.2;
+  const yMax = opts.yMax ?? 7.8;
+  const zSpan = opts.zSpan ?? 24;
 
+  // Multi-lobed painterly cumulus sprite
   const c = document.createElement('canvas');
   c.width = 256;
-  c.height = 128;
+  c.height = 144;
   const ctx = c.getContext('2d')!;
-  for (let i = 0; i < 20; i++) {
-    const cx = 42 + Math.random() * 172;
-    const cy = 64 + (Math.random() - 0.5) * 38;
-    const r = 16 + Math.random() * 26;
-    const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-    grd.addColorStop(0, 'rgba(255,255,255,0.28)');
+  const lobes = [
+    [128, 62, 46, 'rgba(255,255,255,0.92)'],
+    [86, 80, 38, 'rgba(255,255,255,0.88)'],
+    [168, 78, 40, 'rgba(255,255,255,0.88)'],
+    [54, 96, 28, 'rgba(241,245,249,0.78)'],
+    [200, 96, 28, 'rgba(241,245,249,0.78)'],
+    [126, 98, 42, 'rgba(203,213,225,0.72)'],
+  ] as const;
+
+  for (const [cx, cy, r, col] of lobes) {
+    const grd = ctx.createRadialGradient(cx, cy - r * 0.15, r * 0.15, cx, cy, r);
+    grd.addColorStop(0, col);
+    grd.addColorStop(0.62, col);
     grd.addColorStop(1, 'rgba(255,255,255,0)');
     ctx.fillStyle = grd;
-    ctx.fillRect(cx - r, cy - r, r * 2, r * 2);
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.fill();
   }
   const tex = studio.trackTexture(new THREE.CanvasTexture(c));
   tex.colorSpace = THREE.SRGBColorSpace;
@@ -993,31 +963,32 @@ export function createCloudDeck(
   const mat = studio.trackMaterial(
     new THREE.SpriteMaterial({
       map: tex,
-      color: studio.getTokenColor('haze'),
+      color: 0xffffff,
       transparent: true,
       depthWrite: false,
-      opacity: 0.45,
+      opacity: 0.9,
     })
   );
 
   const group = new THREE.Group();
   const clouds = Array.from({ length: count }, (_, i) => {
     const sp = new THREE.Sprite(mat);
-    const sz = 4.5 + Math.random() * 4.5;
-    sp.position.set(0, lerp(yMin, yMax, Math.random()), (Math.random() - 0.5) * zSpan * 2);
+    const sz = 4.6 + (i % 3) * 1.4;
+    sp.position.set(0, lerp(yMin, yMax, ((i * 0.618) % 1)), (((i * 0.37) % 1) - 0.5) * zSpan * 1.6);
+    sp.renderOrder = -2;
     group.add(sp);
     return { sp, phase: i / count, sz };
   });
 
   return {
     group,
-    tick(elapsed: number, speed = 2.4) {
-      mat.color.setHex(studio.getTokenColor('haze'));
+    tick(elapsed: number, speed = 2.6) {
+      mat.opacity = studio.isDark ? 0.86 : 0.94;
       clouds.forEach((cl) => {
         const x = ((cl.phase * span + elapsed * speed) % span + span) % span;
         const fade = smoothstep(Math.min(x, span - x) / (span * 0.14));
         cl.sp.position.x = xMin + x;
-        cl.sp.scale.set(cl.sz * 2.1 * fade + 0.01, cl.sz * fade + 0.01, 1);
+        cl.sp.scale.set(cl.sz * 2.05 * fade + 0.01, cl.sz * 1.15 * fade + 0.01, 1);
       });
     },
   };
@@ -1053,7 +1024,7 @@ export function createGroundText(
     new THREE.MeshBasicMaterial({
       map: tex,
       transparent: true,
-      opacity: opts.opacity ?? 0.9,
+      opacity: opts.opacity ?? 0.92,
       depthWrite: false,
       side: THREE.DoubleSide,
     })
@@ -1067,6 +1038,7 @@ export function createGroundText(
 
 export interface RunwayRigHandle {
   group: THREE.Group;
+  tick?: (elapsed: number) => void;
   setConfig: (cfg: {
     showStopway?: boolean;
     showClearway?: boolean;
@@ -1083,26 +1055,51 @@ export interface RunwayRigHandle {
 }
 
 /**
- * Procedural Runway 27L Strip with TORA pavement, threshold piano keys,
- * Stopway yellow chevrons, Clearway obstacle-free plane, and 35 ft Screen Gate.
- * Runs along X axis: +X threshold (+32) to -X liftoff end (-58).
+ * Architectural Runway 27L Diorama with TORA asphalt, white edge stripes,
+ * glowing amber edge lights, threshold piano keys, Stopway chevrons, Clearway
+ * corridor, 35 ft Screen Gate, animated windsock, and minimalist ATC tower.
  */
 export function createRunwayRig(studio: AviationStudio): RunwayRigHandle {
   const group = new THREE.Group();
 
-  const asphaltMat = studio.createMaterial('asphalt', { roughness: 0.78, metalness: 0.05 });
-  const markMat = studio.createMaterial('mark', { roughness: 0.55 });
-  const amberMat = studio.createMaterial('amber', { roughness: 0.5 });
-  const clearwayMat = studio.createMaterial('emerald', { opacity: 0.22, side: THREE.DoubleSide });
-  const screenMat = studio.createMaterial('teal', { opacity: 0.26, side: THREE.DoubleSide });
-  const barMat = studio.createMaterial('mag', { opacity: 0.88 });
+  const asphaltMat = studio.createMaterial('asphalt', { roughness: 0.78, metalness: 0.06 });
+  const markMat = studio.createMaterial('mark', { roughness: 0.45 });
+  const amberMat = studio.createMaterial('amber', {
+    roughness: 0.35,
+    emissiveKey: 'amber',
+    emissiveIntensity: 0.45,
+  });
+  const towerBodyMat = studio.createMaterial('white', { roughness: 0.42, metalness: 0.08 });
+  const towerCabMat = studio.createMaterial('glass', { roughness: 0.16, metalness: 0.65 });
+  const sockOrangeMat = studio.createMaterial('red', { roughness: 0.48 });
+  const clearwayMat = studio.createMaterial('emerald', { opacity: 0.2, side: THREE.DoubleSide });
+  const screenMat = studio.createMaterial('teal', { opacity: 0.24, side: THREE.DoubleSide });
+  const barMat = studio.createMaterial('mag', { opacity: 0.9 });
 
-  // Main TORA Pavement (length 90 units, width 14 units, x from -50 to +40)
-  const rwyGeo = studio.trackGeometry(new THREE.BoxGeometry(90, 0.14, 14));
-  const rwy = new THREE.Mesh(rwyGeo, asphaltMat);
+  // Main TORA Pavement (-50 to +40, width 14)
+  const rwy = new THREE.Mesh(studio.trackGeometry(new THREE.BoxGeometry(90, 0.14, 14)), asphaltMat);
   rwy.position.set(-5, 0.02, 0);
   rwy.receiveShadow = true;
   group.add(rwy);
+
+  // Crisp White Shoulder Edge Stripes
+  const edgeStripeGeo = studio.trackGeometry(new THREE.PlaneGeometry(90, 0.22));
+  [-6.65, 6.65].forEach((zPos) => {
+    const stripe = new THREE.Mesh(edgeStripeGeo, markMat);
+    stripe.rotation.x = -Math.PI / 2;
+    stripe.position.set(-5, 0.1, zPos);
+    group.add(stripe);
+  });
+
+  // Runway Edge Lights (amber pearls along both sides)
+  const lightGeo = studio.trackGeometry(new THREE.SphereGeometry(0.18, 10, 8));
+  for (let x = 38; x >= -48; x -= 9.5) {
+    [-7.1, 7.1].forEach((zPos) => {
+      const bulb = new THREE.Mesh(lightGeo, amberMat);
+      bulb.position.set(x, 0.2, zPos);
+      group.add(bulb);
+    });
+  }
 
   // Threshold Piano Keys (+37)
   const keyGeo = studio.trackGeometry(new THREE.PlaneGeometry(3.4, 0.72));
@@ -1129,10 +1126,63 @@ export function createRunwayRig(studio: AviationStudio): RunwayRigHandle {
     group.add(dash);
   }
 
+  // Sculpted Minimalist ATC Tower (set back off right shoulder for skyline parallax)
+  const towerGrp = new THREE.Group();
+  towerGrp.position.set(8, 0, -24);
+  const shaft = new THREE.Mesh(
+    studio.trackGeometry(new THREE.CylinderGeometry(1.05, 1.55, 11.5, 18)),
+    towerBodyMat
+  );
+  shaft.position.y = 5.75;
+  shaft.castShadow = true;
+  const cab = new THREE.Mesh(
+    studio.trackGeometry(new THREE.CylinderGeometry(2.6, 1.9, 1.9, 18)),
+    towerCabMat
+  );
+  cab.position.y = 12.2;
+  cab.castShadow = true;
+  const roof = new THREE.Mesh(
+    studio.trackGeometry(new THREE.CylinderGeometry(2.85, 2.75, 0.4, 18)),
+    towerBodyMat
+  );
+  roof.position.y = 13.3;
+  const radarBar = new THREE.Mesh(
+    studio.trackGeometry(new THREE.BoxGeometry(2.8, 0.32, 0.45)),
+    towerBodyMat
+  );
+  radarBar.position.y = 14.2;
+  towerGrp.add(shaft, cab, roof, radarBar);
+  group.add(towerGrp);
+
+  // Animated Orange/White Windsock near RWY 27L Threshold
+  const sockPoleGrp = new THREE.Group();
+  sockPoleGrp.position.set(33, 0, 10.5);
+  const pole = new THREE.Mesh(
+    studio.trackGeometry(new THREE.CylinderGeometry(0.08, 0.1, 4.6, 10)),
+    towerBodyMat
+  );
+  pole.position.y = 2.3;
+  pole.castShadow = true;
+  const sockArm = new THREE.Group();
+  sockArm.position.y = 4.45;
+  for (let seg = 0; seg < 4; seg++) {
+    const r0 = 0.42 - seg * 0.06;
+    const r1 = 0.36 - seg * 0.06;
+    const cSeg = new THREE.Mesh(
+      studio.trackGeometry(new THREE.CylinderGeometry(r1, r0, 0.62, 12)),
+      seg % 2 === 0 ? sockOrangeMat : towerBodyMat
+    );
+    cSeg.rotation.z = -Math.PI / 2;
+    cSeg.position.x = -0.35 - seg * 0.6;
+    cSeg.castShadow = true;
+    sockArm.add(cSeg);
+  }
+  sockPoleGrp.add(pole, sockArm);
+  group.add(sockPoleGrp);
+
   // Stopway Zone (beyond DER: -50 to -64) with Amber Chevrons
   const stopwayGroup = new THREE.Group();
-  const stopGeo = studio.trackGeometry(new THREE.BoxGeometry(14, 0.12, 14));
-  const stopPad = new THREE.Mesh(stopGeo, asphaltMat);
+  const stopPad = new THREE.Mesh(studio.trackGeometry(new THREE.BoxGeometry(14, 0.12, 14)), asphaltMat);
   stopPad.position.set(-57, 0.01, 0);
   stopPad.receiveShadow = true;
   stopwayGroup.add(stopPad);
@@ -1151,23 +1201,20 @@ export function createRunwayRig(studio: AviationStudio): RunwayRigHandle {
 
   // Clearway Zone (-50 to -74) obstacle-free corridor
   const clearwayGroup = new THREE.Group();
-  const cwGeo = studio.trackGeometry(new THREE.PlaneGeometry(24, 20));
-  const cwPlane = new THREE.Mesh(cwGeo, clearwayMat);
+  const cwPlane = new THREE.Mesh(studio.trackGeometry(new THREE.PlaneGeometry(24, 20)), clearwayMat);
   cwPlane.rotation.x = -Math.PI / 2;
   cwPlane.position.set(-62, 0.12, 0);
   clearwayGroup.add(cwPlane);
   group.add(clearwayGroup);
 
   // 35 ft Screen Height Gate at -58
-  const screenGateGeo = studio.trackGeometry(new THREE.PlaneGeometry(18, 4.2));
-  const screenGate = new THREE.Mesh(screenGateGeo, screenMat);
+  const screenGate = new THREE.Mesh(studio.trackGeometry(new THREE.PlaneGeometry(18, 4.2)), screenMat);
   screenGate.rotation.y = Math.PI / 2;
   screenGate.position.set(-58, 2.2, 0);
   group.add(screenGate);
 
   // Highlight Ground Distance Strip along shoulder
-  const distBarGeo = studio.trackGeometry(new THREE.BoxGeometry(1, 0.08, 0.85));
-  const distBar = new THREE.Mesh(distBarGeo, barMat);
+  const distBar = new THREE.Mesh(studio.trackGeometry(new THREE.BoxGeometry(1, 0.08, 0.85)), barMat);
   distBar.position.set(40, 0.11, -8.2);
   group.add(distBar);
 
@@ -1180,11 +1227,16 @@ export function createRunwayRig(studio: AviationStudio): RunwayRigHandle {
 
   return {
     group,
+    tick(elapsed: number) {
+      radarBar.rotation.y = elapsed * 1.6;
+      sockArm.rotation.z = Math.sin(elapsed * 3.1) * 0.06;
+      sockArm.rotation.y = Math.cos(elapsed * 1.8) * 0.1;
+    },
     setConfig({ showStopway = true, showClearway = true, wet = false, highlightDistFrac = 0.72 }) {
       stopwayGroup.visible = showStopway;
       clearwayGroup.visible = showClearway;
-      asphaltMat.roughness = wet ? 0.18 : 0.78;
-      asphaltMat.metalness = wet ? 0.42 : 0.05;
+      asphaltMat.roughness = wet ? 0.16 : 0.78;
+      asphaltMat.metalness = wet ? 0.45 : 0.06;
       const clampedFrac = clamp(highlightDistFrac, 0.1, 1);
       const len = 90 * clampedFrac;
       distBar.scale.x = len;

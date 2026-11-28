@@ -32,7 +32,7 @@ export const FlightPlanProgressBar: React.FC<FlightPlanProgressBarProps> = ({
   return (
     <nav
       aria-label="Chapter flight plan waypoints"
-      className="sticky top-[56px] sm:top-[64px] z-30 border-y border-line bg-bg/95 backdrop-blur-md px-3 sm:px-5 py-2.5"
+      className="sticky top-[56px] sm:top-[64px] z-30 border-y border-line bg-bg px-3 sm:px-5 py-2.5"
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
         {/* Left: Chapter Code & Current Leg */}

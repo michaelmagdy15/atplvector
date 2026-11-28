@@ -77,9 +77,9 @@ const BEATS: ScrollyBeatSpec[] = [
     scaleNote: 'A320 scaled 1.6× relative to RWY 27L width for crisp visual cues.',
     say: 'On **RWY 27L at Heathrow**, brake release starts at the threshold piano keys. Concrete stops at **TORA** — yet dispatch credit can reach slightly farther into the Stopway chevrons and obstacle-free Clearway.',
     sub: 'Notice the magenta shoulder distance bar stretching past TORA end to the teal 35 ft obstacle screen gate.',
-    camera: [32, 16, 46, -12, 1.5, 0],
+    camera: [46, 18, 62, 14, 1.8, 0],
     sceneState: {
-      acX: 32,
+      acX: 19,
       acY: 0,
       pitchDeg: 0,
       gear: 1,
@@ -134,7 +134,7 @@ const BEATS: ScrollyBeatSpec[] = [
     analogy: 'You cannot decide to stay on the runway (V1) after your nosewheel is already lifting off the concrete (VR).',
     say: 'Watch the A320 accelerate past **VMCG** — the speed where rudder airflow finally overpowers an asymmetric dead engine on the ground. Only above VMCG can you safely continue on one engine.',
     sub: 'As flaps sit at 1+F (10°), wing lift bends the tips gently upward via the **uBend** load shader as speed climbs toward VR and liftoff.',
-    camera: [-38, 12, 26, -6, 2.2, 0],
+    camera: [-40, 14, 33, -4, 2.0, 0],
     sceneState: {
       acX: -4,
       acY: 0.4,
@@ -484,6 +484,7 @@ export const TakeoffPerf: React.FC<TakeoffPerfProps> = ({ onChangeView }) => {
       },
       tick(elapsed, _state, dt) {
         a320.tick(dt, elapsed);
+        runway.tick?.(elapsed);
       },
       getAnchors() {
         a320.root.updateMatrixWorld(true);

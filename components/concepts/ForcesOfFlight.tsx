@@ -64,7 +64,7 @@ const BEATS: ScrollyBeatSpec[] = [
     analogy: 'Hold your flat palm out a car window at 100 km/h: tilt it slightly up and the rushing air shoves your hand skyward while pushing it backward.',
     say: 'Around **350,000 Newtons** of Airbus A320 rides invisibly on moving air over RWY 27L. Emerald **Lift** cancels Weight vertically, while sky-blue **Thrust** answers rose **Drag**.',
     sub: 'All four arrows pivot around the Center of Gravity & Center of Pressure — watch them rebalance whenever AoA or airspeed moves.',
-    camera: [-38, 12, 24, 0, 1.9, 0],
+    camera: [-42, 14, 44, 0.8, 2.0, 0],
     sceneState: { tasKts: 220, aoaDeg: 4, loadG: 1.0, flapDeg: 0, gear: 0, cut: 0, tipStall: 0 },
     tags: [
       { anchor: 'cg', label: 'Lift vs Weight Couple', tone: 'emerald' },
@@ -95,7 +95,7 @@ const BEATS: ScrollyBeatSpec[] = [
       expr: 'Lift = {{1 // 2}} · ρ · V_{{TAS}}² · S · C_L(α)',
       note: 'CL grows linearly with Angle of Attack α until airflow detaches near critical α (~15°).',
     },
-    camera: [22, 8, 22, -1, 2.0, 0],
+    camera: [26, 10, 38, -0.5, 2.0, 0],
     sceneState: { tasKts: 175, aoaDeg: 8, loadG: 1.45, flapDeg: 0, gear: 0, cut: 0, tipStall: 0 },
     tags: [
       { anchor: 'nose', label: 'Chord vs Relative Airflow (AoA)', tone: 'sky' },
@@ -122,7 +122,7 @@ const BEATS: ScrollyBeatSpec[] = [
     memoryHook: '**15° breaks the airflow at ANY airspeed.** Pull 4G at cruise speed and your stall speed **doubles** (`√4 = 2`).',
     askedInEasa: true,
     say: 'Push AoA to **16°**: notice the wind-tunnel streamlines snap from smooth sky-blue ribbons into **churning red separation vortices**, Lift collapses, Drag spikes, and the wings relax downward.',
-    camera: [-48, 14, 21, 0, 2.1, 0],
+    camera: [-46, 14, 38, 0, 2.1, 0],
     sceneState: { tasKts: 130, aoaDeg: 16.5, loadG: 0.85, flapDeg: 0, gear: 0, cut: 0, tipStall: 1 },
     tags: [
       { anchor: 'wingTipL', label: 'Red Boundary Separation (>15° AoA)', tone: 'rose' },
@@ -572,8 +572,8 @@ const ForcesOfFlight: React.FC<Props> = ({ onBack }) => {
 
   const createScene = useCallback((studio: AviationStudio): ScrollySceneInstance => {
     const a320 = createA320Rig(studio);
-    const clouds = createCloudDeck(studio, { count: 7, yMin: -5, yMax: 8 });
-    const streams = createAirflowStreamlines(studio, { count: 48 });
+    const clouds = createCloudDeck(studio, { count: 6, yMin: -3.5, yMax: 6.5 });
+    const streams = createAirflowStreamlines(studio, { count: 54 });
     const vLift = createForceArrow(studio, 'emerald', 0.14);
     const vWeight = createForceArrow(studio, 'gold', 0.14);
     const vThrust = createForceArrow(studio, 'sky', 0.14);
@@ -600,14 +600,13 @@ const ForcesOfFlight: React.FC<Props> = ({ onBack }) => {
         });
 
         const stalled = aoa >= 15 || (state.tipStall ?? 0) > 0.5;
-        const liftVecLen = clamp(loadG * 2.8 * (stalled ? 0.65 : 1), 0.8, 5.4);
-        const dragVecLen = clamp((tas / 220) ** 2 * 1.6 + (stalled ? 2.1 : 0.4), 0.8, 5.2);
+        const liftVecLen = clamp(loadG * 2.9 * (stalled ? 0.65 : 1), 0.9, 5.2);
+        const dragVecLen = clamp((tas / 220) ** 2 * 1.9 + (stalled ? 2.2 : 0.6), 1.0, 5.2);
 
-        const cg = new THREE.Vector3(-0.4, 2.0, 0);
-        vLift.setVector(cg, new THREE.Vector3(0, liftVecLen, 0));
-        vWeight.setVector(cg, new THREE.Vector3(0, -2.8, 0));
-        vThrust.setVector(new THREE.Vector3(-2.4, 1.3, 0), new THREE.Vector3(-dragVecLen, 0, 0));
-        vDrag.setVector(new THREE.Vector3(0.4, 2.0, 0), new THREE.Vector3(dragVecLen, 0, 0));
+        vLift.setVector(new THREE.Vector3(-0.3, 3.15, 0), new THREE.Vector3(0, liftVecLen, 0));
+        vWeight.setVector(new THREE.Vector3(-0.3, 0.85, 0), new THREE.Vector3(0, -2.9, 0));
+        vThrust.setVector(new THREE.Vector3(-4.2, 0.95, 3.2), new THREE.Vector3(-dragVecLen, 0, 0));
+        vDrag.setVector(new THREE.Vector3(8.0, 2.25, 0), new THREE.Vector3(dragVecLen, 0, 0));
 
         studio.focusShadow(0, 0, 28);
       },
