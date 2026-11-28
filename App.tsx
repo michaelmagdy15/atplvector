@@ -8,6 +8,7 @@ import { getDoc, setDoc, updateDoc, getDocs, increment, onSnapshot, query, where
 import { AnimatePresence } from 'framer-motion';
 import AnimatedPageWrapper from './components/AnimatedPageWrapper';
 import { CourseModeProvider } from './context/CourseModeContext';
+import { StudyDepthProvider } from './context/StudyDepthContext';
 
 // Define global constant for commit hash
 declare const __COMMIT_HASH__: string;
@@ -28,9 +29,11 @@ import SubjectSidebar from './components/SubjectSidebar';
 import TopicVideoBanner from './components/ui/TopicVideoBanner';
 import { getSubjectConfig } from './data/sidebarNavigation';
 import LoadingScreen from './components/LoadingScreen';
-const SplineVisualizer = React.lazy(() => import('./components/visual/SplineVisualizer'));
 import CommandPalette from './components/CommandPalette';
 import CourseModeToggle from './components/CourseModeToggle';
+import { ThemeToggleButton } from './components/artcraft/SectionShell';
+import { StudyDepthToggle, UniversalTopicEnhancer } from './components/lesson';
+import { AutopilotTour } from './components/hubs';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { ToastProvider } from './components/ui/ToastContext';
 import FocusTimer from './components/study/FocusTimer';
@@ -892,9 +895,9 @@ const App: React.FC = () => {
 
     const appContent = (
         <ContentProtection userId={user.id} userEmail={user.email}>
-            <div className="min-h-screen min-h-[100dvh] font-sans text-slate-100 selection:bg-blue-500/30 selection:text-white bg-slate-950 flex flex-col">
+            <div className="min-h-screen min-h-[100dvh] font-sans text-ink selection:bg-blue-500/30 selection:text-white bg-dot-grid flex flex-col">
                 {/* Fixed Top Header: Compact on mobile with calibrated Dynamic Island safe-area padding */}
-                <div className="fixed top-0 left-0 right-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-white/10 [padding-top:calc(max(env(safe-area-inset-top,0px),var(--sat,0px))+4px)] [padding-left:max(env(safe-area-inset-left,0px),var(--sal,0px))] [padding-right:max(env(safe-area-inset-right,0px),var(--sar,0px))]">
+                <div className="fixed top-0 left-0 right-0 z-50 bg-bg/92 backdrop-blur-md border-b border-line [padding-top:calc(max(env(safe-area-inset-top,0px),var(--sat,0px))+4px)] [padding-left:max(env(safe-area-inset-left,0px),var(--sal,0px))] [padding-right:max(env(safe-area-inset-right,0px),var(--sar,0px))]">
                     <WebPreviewBanner onUnlockClick={() => setUnlockModalOpen(true)} user={user} />
                     <nav className="max-w-7xl mx-auto">
                         <div className="px-3 sm:px-6 h-13 sm:h-16 flex items-center justify-between relative">
@@ -968,8 +971,12 @@ const App: React.FC = () => {
                                     </span>
                                 </div>
 
-                                <div className="hidden sm:flex items-center ml-2">
+                                <div className="hidden sm:flex items-center gap-2 ml-2">
                                     <CourseModeToggle />
+                                    <div className="hidden xl:block">
+                                        <StudyDepthToggle />
+                                    </div>
+                                    <ThemeToggleButton />
                                 </div>
                                 <div className="hidden md:block">
                                     <NavigationBar
@@ -1082,21 +1089,23 @@ const App: React.FC = () => {
                         <div key={currentView} className="flex-1 min-w-0 animate-in fade-in duration-200">
                             <ErrorBoundary>
                                 <TopicVideoBanner currentView={currentView} onNavigate={navigateTo} />
-                                <React.Suspense fallback={<LoadingScreen />}>
-                                    <Router
-                                        currentView={currentView}
-                                        user={user}
-                                        studyTime={studyTime}
-                                        navigateTo={navigateTo}
-                                        handleLogout={handleLogout}
-                                        handleUserUpdate={handleUserUpdate}
-                                        handleOpenSyllabus={handleOpenSyllabus}
-                                        isSubjectAllowed={isSubjectAllowed}
-                                        goBack={goBack}
-                                        goForward={goForward}
-                                        selectedSubjectId={selectedSubjectId}
-                                    />
-                                </React.Suspense>
+                                <UniversalTopicEnhancer currentView={currentView} onNavigate={navigateTo}>
+                                    <React.Suspense fallback={<LoadingScreen />}>
+                                        <Router
+                                            currentView={currentView}
+                                            user={user}
+                                            studyTime={studyTime}
+                                            navigateTo={navigateTo}
+                                            handleLogout={handleLogout}
+                                            handleUserUpdate={handleUserUpdate}
+                                            handleOpenSyllabus={handleOpenSyllabus}
+                                            isSubjectAllowed={isSubjectAllowed}
+                                            goBack={goBack}
+                                            goForward={goForward}
+                                            selectedSubjectId={selectedSubjectId}
+                                        />
+                                    </React.Suspense>
+                                </UniversalTopicEnhancer>
                             </ErrorBoundary>
                         </div>
                     </div>
@@ -1242,34 +1251,37 @@ const App: React.FC = () => {
 
     return (
         <CourseModeProvider initialTrack={user?.licenceTrack}>
-            <ToastProvider>
-                <GamificationProvider>
-                    {appContent}
-                    {user && (
-                        <>
-                            <FocusTimer />
-                            <Scratchpad />
-                            {cheatsheetOpen && (
-                                <React.Suspense fallback={null}>
-                                    <PilotCheatsheetModal
-                                        isOpen={cheatsheetOpen}
-                                        onClose={() => setCheatsheetOpen(false)}
-                                    />
-                                </React.Suspense>
-                            )}
-                            <CommandPalette
-                                isOpen={commandPaletteOpen}
-                                onClose={() => setCommandPaletteOpen(false)}
-                                onNavigate={navigateTo}
-                            />
-                        </>
-                    )}
-                    <NativeAppUnlockModal 
-                        isOpen={unlockModalOpen} 
-                        onClose={() => setUnlockModalOpen(false)} 
-                    />
-                </GamificationProvider>
-            </ToastProvider>
+            <StudyDepthProvider>
+                <ToastProvider>
+                    <GamificationProvider>
+                        {appContent}
+                        {user && (
+                            <>
+                                <FocusTimer />
+                                <Scratchpad />
+                                {cheatsheetOpen && (
+                                    <React.Suspense fallback={null}>
+                                        <PilotCheatsheetModal
+                                            isOpen={cheatsheetOpen}
+                                            onClose={() => setCheatsheetOpen(false)}
+                                        />
+                                    </React.Suspense>
+                                )}
+                                <CommandPalette
+                                    isOpen={commandPaletteOpen}
+                                    onClose={() => setCommandPaletteOpen(false)}
+                                    onNavigate={navigateTo}
+                                />
+                            </>
+                        )}
+                        <NativeAppUnlockModal 
+                            isOpen={unlockModalOpen} 
+                            onClose={() => setUnlockModalOpen(false)} 
+                        />
+                        <AutopilotTour currentView={currentView} />
+                    </GamificationProvider>
+                </ToastProvider>
+            </StudyDepthProvider>
         </CourseModeProvider>
     );
 };

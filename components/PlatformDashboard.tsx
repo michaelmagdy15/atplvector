@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, User } from '../types';
 import {
   Plane,
@@ -28,6 +28,9 @@ import {
   BookMarked,
 } from 'lucide-react';
 import { Accent, CadButton } from './artcraft/SectionShell';
+import { HsiSubjectCompass } from './hubs';
+import { NAV_MAP } from '../data/sidebarNavigation';
+import { PROGRESS_EVENT, readLessonMeta } from '../lib/lessonProgress';
 
 interface Props {
   onChangeView: (view: View) => void;
@@ -36,6 +39,23 @@ interface Props {
 }
 
 const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) => {
+  const [doneIds, setDoneIds] = useState<string[]>(() => readLessonMeta().doneIds);
+
+  useEffect(() => {
+    const sync = () => setDoneIds(readLessonMeta().doneIds);
+    window.addEventListener(PROGRESS_EVENT, sync);
+    return () => window.removeEventListener(PROGRESS_EVENT, sync);
+  }, []);
+
+  const getSubjectMasteryPct = (subjectCode: string) => {
+    const cfg = NAV_MAP.find((sub) => sub.id === subjectCode);
+    if (!cfg) return undefined;
+    const topics = cfg.items.filter((i) => i.view !== cfg.dashboardView);
+    if (!topics.length) return undefined;
+    const done = topics.filter((t) => doneIds.includes(`topic-${t.view}`)).length;
+    return Math.round((done / topics.length) * 100);
+  };
+
   const formatTime = (seconds: number) => {
     const h = Math.floor(seconds / 3600);
     const m = Math.floor((seconds % 3600) / 60);
@@ -81,6 +101,7 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
   }: any) => {
     const locked = isLocked(code) || isComingSoon;
     const accentHex = getAccentHex(color);
+    const liveProgress = progress !== undefined ? progress : getSubjectMasteryPct(code);
 
     return (
       <div
@@ -141,18 +162,18 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
         </div>
 
         <div>
-          {!locked && progress !== undefined && (
+          {!locked && liveProgress !== undefined && (
             <div className="mb-5">
               <div className="flex justify-between font-mono text-[10px] uppercase tracking-wider text-muted mb-1.5">
                 <span>Mastery</span>
-                <span>{progress}%</span>
+                <span>{liveProgress}%</span>
               </div>
               <div className="h-1 w-full bg-line overflow-hidden">
                 <div
                   className="h-full transition-transform duration-700 origin-left"
                   style={{
                     backgroundColor: accentHex,
-                    transform: `scaleX(${progress / 100})`,
+                    transform: `scaleX(${liveProgress / 100})`,
                   }}
                 />
               </div>
@@ -217,8 +238,14 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
             </div>
           </div>
 
-          {/* 4-Cell Gapless Telemetry Readout */}
-          <div className="lg:col-span-5 grid grid-cols-2 gap-px bg-line border border-line">
+          {/* Interactive Spatial HSI Compass Subject Selector */}
+          <div className="lg:col-span-5">
+            <HsiSubjectCompass onNavigate={onChangeView} />
+          </div>
+        </div>
+
+        {/* 4-Cell Gapless Telemetry Readout */}
+        <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
             <div className="bg-bg p-4">
               <div className="flex items-center justify-between mb-1.5">
                 <span className="hud-label text-emerald-400">DAILY GOAL</span>
@@ -274,9 +301,45 @@ const PlatformDashboard: React.FC<Props> = ({ onChangeView, studyTime, user }) =
                 EASA ATPL TRACK
               </div>
             </div>
-          </div>
         </div>
       </section>
+
+      {/* Flagship v2 Interactive 3D & Active Recall Labs */}
+      <div className="mb-10">
+        <div className="flex items-end justify-between gap-4 mb-3">
+          <div>
+            <div className="hud-label text-amber-400">00 // FLAGSHIP INTERACTIVE 3D &amp; ACTIVE RECALL LABS</div>
+            <p className="text-xs text-muted mt-0.5">
+              Drawn, not dumped: scroll-synchronized A320 3D rigs, kinetic gas molecules, and tactile treaty stamp simulators.
+            </p>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {[
+            { code: '032', title: 'Take-Off Perf 3D Story', sub: 'RWY 27L · V1 Wet · RTOM Cols', view: View.PERF_TAKEOFF, color: '#ec4899' },
+            { code: '081', title: 'Forces of Flight 3D Rig', sub: 'A320 Wing Flex · Stall Vortices', view: View.CONCEPT_FORCES_OF_FLIGHT, color: '#14b8a6' },
+            { code: '050', title: 'Atmosphere Chain Lab', sub: '100-Molecule Sandbox · PA/DA', view: View.FOUNDATION_ATM_PERF_CHAIN, color: '#38bdf8' },
+            { code: '010', title: 'Air Law & Freedoms Lab', sub: 'Swimlanes · Case Stamp Desk', view: View.AIR_LAW_INT_LAW, color: '#f43f5e' },
+          ].map((lab) => (
+            <button
+              key={lab.view}
+              type="button"
+              onClick={() => onChangeView(lab.view)}
+              style={{ borderTopWidth: '3px', borderTopColor: lab.color }}
+              className="dx-card p-4 text-left hover:border-line-strong hover:bg-bg transition-colors cursor-pointer group"
+            >
+              <div className="flex items-center justify-between font-mono text-[10px] font-bold mb-1.5" style={{ color: lab.color }}>
+                <span>LAB // SUBJ {lab.code}</span>
+                <span>v2 3D</span>
+              </div>
+              <div className="font-display text-base font-bold text-ink group-hover:text-cad-accent transition-colors">
+                {lab.title}
+              </div>
+              <div className="text-[11px] text-muted mt-1">{lab.sub}</div>
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/* Section Eyebrow for EASA Subjects */}
       <div className="flex items-end justify-between gap-4 mb-5 pb-3 border-b border-line">

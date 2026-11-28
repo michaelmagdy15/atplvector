@@ -1,7 +1,9 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
 import { View } from '../types';
-import { LucideIcon, BookOpen, ChevronRight, Lock, ArrowRight } from 'lucide-react';
+import { LucideIcon, BookOpen, Lock, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { CockpitSixPackHub } from './hubs';
+import { getSubjectRecallSpec } from '../data/subjectRecallLibrary';
+import { PROGRESS_EVENT, readLessonMeta } from '../lib/lessonProgress';
 
 interface ModuleItem {
     title: string;
@@ -26,134 +28,95 @@ const GenericSubjectDashboard: React.FC<Props> = ({
     subjectName,
     description,
     icon: Icon,
-    color,
     modules,
     onChangeView,
     onOpenSyllabus
 }) => {
+    const spec = getSubjectRecallSpec(subjectCode);
+    const [doneIds, setDoneIds] = useState<string[]>(() => readLessonMeta().doneIds);
 
-    const getColorClasses = (c: string) => {
-        const map: Record<string, string> = {
-            red: 'bg-red-500',
-            orange: 'bg-orange-500',
-            amber: 'bg-amber-500',
-            yellow: 'bg-yellow-500',
-            lime: 'bg-lime-500',
-            green: 'bg-green-500',
-            emerald: 'bg-emerald-500',
-            teal: 'bg-teal-500',
-            cyan: 'bg-cyan-500',
-            sky: 'bg-sky-500',
-            blue: 'bg-blue-500',
-            indigo: 'bg-indigo-500',
-            violet: 'bg-violet-500',
-            purple: 'bg-purple-500',
-            pink: 'bg-pink-500',
-            rose: 'bg-rose-500',
-        };
-        return map[color] || 'bg-blue-500';
-    };
-
-    const bgClass = getColorClasses(color);
+    useEffect(() => {
+        const sync = () => setDoneIds(readLessonMeta().doneIds);
+        window.addEventListener(PROGRESS_EVENT, sync);
+        return () => window.removeEventListener(PROGRESS_EVENT, sync);
+    }, []);
 
     return (
         <div className="max-w-7xl mx-auto p-4 md:p-6">
-            {/* Header section matching MetDashboard style */}
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mb-12"
-            >
-                <div className="flex items-center justify-between mb-4">
-                    <h1 className="text-4xl md:text-5xl font-black text-white flex items-center gap-4">
-                        <Icon className={`w-12 h-12 ${color === 'yellow' || color === 'amber' ? 'text-yellow-400' : 'text-white'} animate-pulse`} />
-                        {subjectName}
+            {/* Subject Header */}
+            <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                <div>
+                    <div className="hud-label mb-1" style={{ color: spec.accentColor }}>
+                        SUBJECT {subjectCode} // EASA GROUND SCHOOL
+                    </div>
+                    <h1 className="font-display text-3xl md:text-4xl font-black text-ink flex items-center gap-3 tracking-tight">
+                        <Icon className="w-8 h-8 shrink-0" style={{ color: spec.accentColor }} />
+                        <span>{subjectName}</span>
                     </h1>
-
-                    {onOpenSyllabus && (
-                        <button
-                            onClick={() => onOpenSyllabus(subjectCode)}
-                            className="hidden md:flex items-center gap-2 text-slate-400 hover:text-white transition-colors border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg"
-                        >
-                            <BookOpen size={16} />
-                            <span className="font-bold text-sm">Syllabus</span>
-                        </button>
-                    )}
+                    <p className="text-sm md:text-base text-muted max-w-2xl mt-1.5 leading-relaxed">
+                        {description}
+                    </p>
                 </div>
-
-                <p className="text-lg text-slate-400 max-w-2xl leading-relaxed">
-                    {description}
-                </p>
 
                 {onOpenSyllabus && (
                     <button
+                        type="button"
                         onClick={() => onOpenSyllabus(subjectCode)}
-                        className="md:hidden mt-4 flex items-center gap-2 text-slate-400 hover:text-white transition-colors border border-slate-700 px-4 py-2 rounded-lg w-full justify-center"
+                        className="inline-flex items-center gap-2 border border-line-strong bg-bg-raised hover:bg-bg-sunken text-ink px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider shrink-0 cursor-pointer"
                     >
-                        <BookOpen size={16} />
-                        <span className="font-bold text-sm">View Syllabus</span>
+                        <BookOpen size={15} />
+                        <span>View Syllabus</span>
                     </button>
                 )}
-            </motion.div>
+            </div>
 
-            {/* Modules Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {modules.map((mod, idx) => (
-                    <motion.button
-                        key={mod.view || mod.title}
-                        disabled={mod.isLocked}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: idx * 0.05 }}
-                        onClick={() => !mod.isLocked && mod.view && onChangeView(mod.view)}
-                        whileHover={!mod.isLocked ? { scale: 1.02, y: -5 } : {}}
-                        whileTap={!mod.isLocked ? { scale: 0.98 } : {}}
-                        className={`group relative overflow-hidden bg-slate-900 border border-slate-800 rounded-3xl p-8 text-left transition-all 
-                            ${mod.isLocked
-                                ? 'opacity-60 cursor-not-allowed grayscale'
-                                : 'hover:border-slate-600 hover:shadow-2xl hover:shadow-blue-900/10 cursor-pointer'
-                            }
-                        `}
-                    >
-                        {/* Background Splash */}
-                        <div className={`absolute top-0 right-0 w-32 h-32 ${bgClass} opacity-5 rounded-bl-full md:group-hover:opacity-10 transition-opacity`} />
+            {/* Spatial Cockpit / 3D A320 Hub + In-One-Minute Briefing */}
+            <CockpitSixPackHub subjectCode={subjectCode} onNavigate={onChangeView} />
 
-                        {/* Icon Box */}
-                        <div className={`w-14 h-14 rounded-2xl ${bgClass} flex items-center justify-center mb-6 shadow-lg relative`}>
-                            {mod.isLocked ? <Lock className="text-white/70" size={24} /> : <BookOpen className="text-white" size={24} />}
-                        </div>
+            {/* Tactile Module Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {modules.map((mod) => {
+                    const isDone = mod.view ? doneIds.includes(`topic-${mod.view}`) : false;
+                    return (
+                        <button
+                            key={mod.view || mod.title}
+                            type="button"
+                            disabled={mod.isLocked}
+                            onClick={() => !mod.isLocked && mod.view && onChangeView(mod.view)}
+                            style={{ borderTopWidth: '3px', borderTopColor: isDone ? '#34d399' : spec.accentColor }}
+                            className={`dx-card p-6 text-left flex flex-col justify-between transition-colors ${
+                                mod.isLocked
+                                    ? 'opacity-55 cursor-not-allowed grayscale'
+                                    : 'hover:border-line-strong hover:bg-bg cursor-pointer group'
+                            }`}
+                        >
+                            <div>
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="w-10 h-10 border border-line bg-bg-sunken flex items-center justify-center" style={{ color: spec.accentColor }}>
+                                        {mod.isLocked ? <Lock size={18} /> : <BookOpen size={18} />}
+                                    </div>
+                                    {isDone && (
+                                        <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-mono font-bold uppercase border border-emerald-500/40 bg-emerald-500/15 text-emerald-300">
+                                            <CheckCircle2 size={11} /> Done
+                                        </span>
+                                    )}
+                                </div>
 
-                        {/* Title & Desc */}
-                        <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors">
-                            {mod.title}
-                        </h3>
-                        <p className="text-slate-400 text-sm leading-relaxed mb-8 min-h-[40px]">
-                            {mod.desc}
-                        </p>
+                                <h3 className="font-display text-xl font-bold text-ink mb-2 group-hover:text-cad-accent transition-colors">
+                                    {mod.title}
+                                </h3>
+                                <p className="text-muted text-xs leading-relaxed mb-6">
+                                    {mod.desc}
+                                </p>
+                            </div>
 
-                        {/* Action Link */}
-                        <div className={`flex items-center gap-2 text-sm font-bold ${mod.isLocked ? 'text-slate-600' : 'text-white/50 group-hover:text-white'} transition-colors`}>
-                            <span>{mod.isLocked ? 'Locked' : 'Launch Module'}</span>
-                            {!mod.isLocked && <ArrowRight size={16} />}
-                        </div>
-                    </motion.button>
-                ))}
-
-                {/* Coming Soon Placeholder */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                    className="bg-slate-900/30 border border-slate-800/50 border-dashed rounded-3xl p-8 flex flex-col items-center justify-center text-center group"
-                >
-                    <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center mb-4 group-hover:bg-slate-700 transition-colors">
-                        <Icon className="text-slate-600" size={20} />
-                    </div>
-                    <h3 className="text-lg font-bold text-slate-500 mb-2">More Content Coming</h3>
-                    <p className="text-sm text-slate-600 max-w-xs">
-                        We are continuously adding new modules to {subjectName}.
-                    </p>
-                </motion.div>
+                            <div className="flex items-center justify-between pt-3 border-t border-line font-mono text-[11px] uppercase tracking-wider text-muted group-hover:text-ink">
+                                <span>{mod.isLocked ? 'Locked' : 'Launch Module'}</span>
+                                {!mod.isLocked && <ArrowRight size={14} />}
+                            </div>
+                        </button>
+                    );
+                })}
             </div>
         </div>
     );

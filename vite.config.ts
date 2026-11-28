@@ -58,9 +58,20 @@ export default defineConfig(({ mode }) => {
           // which precached all 374 route chunks (12.3 MB) on first visit — for a
           // mobile-first study app on patchy connectivity that is unusable. Route
           // chunks are now cached on demand via runtimeCaching below instead.
-          globPatterns: ['**/*.{html,css,ico,png,svg,webmanifest}'],
+          // NOTE: On Cloudflare Pages, `/index.html` returns a 308 redirect to `/`,
+          // which causes browsers to throw "Response served by service worker has
+          // redirections" when Workbox serves precached `index.html` after OAuth
+          // redirects. Precache `/` directly instead so `response.redirected === false`.
+          globPatterns: ['**/*.{css,ico,png,svg,webmanifest}'],
+          additionalManifestEntries: [
+            { url: '/', revision: buildStamp.replace(/[^a-zA-Z0-9]/g, '') },
+          ],
+          cleanupOutdatedCaches: true,
+          skipWaiting: true,
+          clientsClaim: true,
           maximumFileSizeToCacheInBytes: 2 * 1024 * 1024,
-          navigateFallback: 'index.html',
+          navigateFallback: '/',
+          navigateFallbackDenylist: [/^\/__\/auth/, /^\/api\//, /\/[^/?]+\.[a-z0-9]+$/i],
           runtimeCaching: [
             {
               // Route chunks + the vendor graph they pull in. Stale-while-revalidate

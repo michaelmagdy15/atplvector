@@ -3,7 +3,7 @@ import { View } from '../../types';
 import {
   Layers, ArrowLeft, ArrowRight, CheckCircle2, AlertTriangle, AlertCircle,
   Gauge, Cloud, Wind, Plane, Brain, RotateCcw, Compass, HelpCircle, Shield,
-  TrendingDown, TrendingUp, ChevronRight, Activity, Calendar
+  TrendingDown, TrendingUp, ChevronRight, Activity, Calendar, Clock
 } from 'lucide-react';
 import RegulatoryBadge from '../ui/RegulatoryBadge';
 import AccessibleSlider from '../ui/AccessibleSlider';
@@ -25,6 +25,18 @@ import {
   TransparentRationale,
   StudentEvidenceRecord
 } from '../../services/foundationRecommendationEngine';
+import {
+  ACARSDebriefSlip,
+  ChapterKneeboardDrawer,
+  ConfusionBusterGrid,
+  InOneMinuteStrip,
+} from '../lesson';
+import {
+  HoldShortGate,
+  KineticAtmosphereSandbox,
+  SteppedInteractiveLab,
+  SteppedLabStep,
+} from '../engines';
 
 interface Props {
   onChangeView: (view: View) => void;
@@ -80,7 +92,7 @@ export const AtmosphericPerformanceChain: React.FC<Props> = ({
   // Speeds & Performance
   const vRotationIAS = 85; // kts
   const vRotationTAS = calculateTAS(vRotationIAS, sigma);
-  const enginePowerPct = Math.round(calculateEngineDegradation('PISTON_NATURAL', sigma, deltaIsa) * 100);
+  const enginePowerPct = Math.round(calculateEngineDegradation('PISTON_NA', sigma, da, deltaIsa).availablePowerOrThrustFraction * 100);
   const baseRollMeters = 450 * Math.pow(massKg / 2500, 2);
   const groundRollMeters = baseRollMeters / Math.pow(sigma, 1.85);
 
@@ -144,11 +156,31 @@ export const AtmosphericPerformanceChain: React.FC<Props> = ({
     if (q1Correct && q2Correct) {
       setStudentMasteryStatus('MASTERED');
       // Record mastery in learning system
-      const state = foundationRecommendationEngine.recordAssessmentOutcome(
-        'FND_ALTIMETER_TEMP_ERR',
-        'eval-vertical-slice-1',
-        true,
-        false
+      foundationEngine.processEvidence(
+        {
+          studentId: 'student-demo',
+          conceptId: 'FND_ALTIMETER_TEMP_ERR',
+          status: 'learning',
+          consecutiveIndependentCorrect: 1,
+          consecutiveFailures: 0,
+          totalAttempts: 1,
+          totalSuccesses: 1,
+          lastEvidenceTimestamp: new Date().toISOString(),
+          stabilityDays: 1,
+          bypassGranted: false,
+          detectedMisconceptions: [],
+          history: [],
+        },
+        {
+          studentId: 'student-demo',
+          questionId: 'eval-vertical-slice-1',
+          selectedOptionIndex: 0,
+          isCorrect: true,
+          timeSpentSeconds: 20,
+          helpRequested: false,
+          attemptNumber: 1,
+          timestamp: new Date().toISOString(),
+        }
       );
       const scheduledDate = new Date();
       scheduledDate.setDate(scheduledDate.getDate() + 3);
@@ -159,17 +191,17 @@ export const AtmosphericPerformanceChain: React.FC<Props> = ({
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-dot-grid text-ink flex flex-col font-sans">
       {/* ── TOP MISSION CONTROL HEADER ───────────────────────────── */}
-      <header className="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-40 px-4 md:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <header className="border-b border-line bg-bg-raised/95 backdrop-blur sticky top-0 z-40 px-4 md:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <button
             onClick={() => onChangeView(returnView)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-all border border-slate-700"
+            className="flex items-center gap-2 px-3 py-1.5 bg-bg hover:bg-bg-sunken text-ink text-xs font-mono font-bold transition-all border border-line cursor-pointer"
           >
             <ArrowLeft size={14} /> Return to {returnTitle}
           </button>
-          <div className="h-5 w-[1px] bg-slate-800 hidden sm:block" />
+          <div className="h-5 w-[1px] bg-line hidden sm:block" />
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider">
@@ -177,27 +209,48 @@ export const AtmosphericPerformanceChain: React.FC<Props> = ({
               </span>
               <RegulatoryBadge jurisdiction="EASA" />
             </div>
-            <h1 className="text-base md:text-lg font-bold text-white tracking-tight flex items-center gap-2">
-              Atmospheric Pressure <ChevronRight size={14} className="text-slate-500" /> Altimetry <ChevronRight size={14} className="text-slate-500" /> Density Altitude <ChevronRight size={14} className="text-slate-500" /> Performance
+            <h1 className="text-base md:text-lg font-bold text-ink tracking-tight flex items-center gap-2">
+              Atmospheric Pressure <ChevronRight size={14} className="text-muted" /> Altimetry <ChevronRight size={14} className="text-muted" /> Density Altitude <ChevronRight size={14} className="text-muted" /> Performance
             </h1>
           </div>
         </div>
 
-        {/* Dual Tracking Metrics (Platform Coverage vs Student Demonstrated Mastery) */}
-        <div className="flex items-center gap-3">
-          <div className="bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 flex items-center gap-2.5">
-            <Layers size={14} className="text-cyan-400" />
-            <div className="text-right">
-              <div className="text-[10px] uppercase font-bold text-slate-400">Platform Coverage</div>
-              <div className="text-xs font-bold text-white">100% ECQB Mapped</div>
-            </div>
-          </div>
-          <div className="bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 flex items-center gap-2.5">
+        {/* Dual Tracking Metrics + Guided Chain Quick Jump + Kneeboard */}
+        <div className="flex flex-wrap items-center gap-2.5">
+          <button
+            type="button"
+            onClick={() => {
+              setPredictionSubmitted(true);
+              setCurrentStage('ATPL_LESSON');
+            }}
+            className="px-3 py-1.5 text-xs font-mono font-bold uppercase border border-cyan-400/60 bg-cyan-500/15 text-cyan-300 hover:bg-cyan-600 hover:text-white transition-colors cursor-pointer"
+          >
+            Guided Chain Lab →
+          </button>
+          <ChapterKneeboardDrawer
+            chapterCode="050 // 032"
+            chapterTitle="Atmosphere-to-Performance Chain Kneeboard"
+            formulas={[
+              { name: 'Pressure Altitude (EASA)', formula: 'PA = Elevation + (1013.25 − QNH) × 27 {{ft // hPa}}' },
+              { name: 'Density Altitude', formula: 'DA = PA + 120 × ΔISA   (ISA = 15 − 2 × {{PA // 1,000}})' },
+              { name: 'Cold Temperature Error', formula: 'Δh ≈ 4 ft per 1,000 ft per °C below ISA' },
+            ]}
+            keyNumbers={[
+              { label: 'ISA Sea Level', value: '1013.25 hPa · 15°C · 1.225 kg/m³' },
+              { label: 'Dry Air vs Water Vapour', value: '28.96 vs 18.02 g/mol', note: 'Moist air is LESS dense!' },
+              { label: 'Tropopause ISA', value: '36,090 ft (11 km) · −56.5°C' },
+            ]}
+            memoryHooks={[
+              '**High to Low, Look Out Below** — cold air or lower QNH leaves true altitude lower than indicated.',
+              '**Moist air feels hotter** — lighter H₂O molecules raise Virtual Temperature and Density Altitude.',
+            ]}
+          />
+          <div className="dx-card px-3 py-1.5 flex items-center gap-2">
             <CheckCircle2 size={14} className={studentMasteryStatus === 'MASTERED' ? 'text-emerald-400' : 'text-amber-400'} />
             <div className="text-right">
-              <div className="text-[10px] uppercase font-bold text-slate-400">Demonstrated Mastery</div>
-              <div className="text-xs font-bold text-white">
-                {studentMasteryStatus === 'MASTERED' ? 'Verified Independent' : 'In Progress'}
+              <div className="text-[10px] uppercase font-bold text-muted">Mastery</div>
+              <div className="text-xs font-bold text-ink">
+                {studentMasteryStatus === 'MASTERED' ? 'Verified' : 'In Progress'}
               </div>
             </div>
           </div>
@@ -236,6 +289,15 @@ export const AtmosphericPerformanceChain: React.FC<Props> = ({
 
       {/* ── MAIN CONTENT WORKSPACE ───────────────────────────────── */}
       <main className="flex-1 max-w-6xl w-full mx-auto p-4 md:p-8">
+        <InOneMinuteStrip
+          subjectColor="var(--subj-met)"
+          items={[
+            { num: '01', headline: 'Pressure Altitude', body: 'Elevation corrected for non-standard **QNH** (`27 ft/hPa` vs 1013.25).' },
+            { num: '02', headline: 'Density Altitude', body: '**PA + 120 × ΔISA**. Hot, high, OR **humid** air shrinks **σ**.' },
+            { num: '03', headline: 'Cold Altimetry Trap', body: '**High to Low, Look Out Below** — cold column compresses true height.' },
+            { num: '04', headline: 'Takeoff Roll Impact', body: 'Low **σ** raises **TAS** (`IAS/√σ`) and starves engine thrust (`S ∝ 1/σ²`).' },
+          ]}
+        />
 
         {/* ───────────────────────────────────────────────────────────
             STAGE 1: CHAPTER READINESS CHECK (Pre-Flight Diagnostic)
@@ -757,6 +819,127 @@ export const AtmosphericPerformanceChain: React.FC<Props> = ({
                     </div>
                   </div>
                 </div>
+
+                {/* Kinetic 100-Molecule Atmosphere Sandbox */}
+                <KineticAtmosphereSandbox pressureAltFt={Math.round(pa)} initialTempC={oat} />
+
+                {/* Just-in-Time Stepped Chain Lab (1 Slider Per Step) */}
+                <SteppedInteractiveLab
+                  title="STEP-BY-STEP CHAIN LAB // ONE VARIABLE AT A TIME"
+                  subtitle="Step through Elevation → QNH → OAT → Mass with one focused control per card + final micro-checks."
+                  values={{ elevation, qnh, oat, massKg }}
+                  onChangeValue={(key, val) => {
+                    if (key === 'elevation') setElevation(val);
+                    else if (key === 'qnh') setQnh(val);
+                    else if (key === 'oat') setOat(val);
+                    else if (key === 'massKg') setMassKg(val);
+                  }}
+                  steps={[
+                    {
+                      id: 'step-elev',
+                      title: '1. Start with Aerodrome Elevation',
+                      body: 'Lift the runway from sea level toward the Swiss Engadin Alps (`5,660 ft`). Static air pressure drops automatically — before temperature even enters the picture.',
+                      control: { key: 'elevation', label: 'Field Elevation', unit: 'ft', min: 0, max: 9000, step: 100 },
+                    },
+                    {
+                      id: 'step-qnh',
+                      title: '2. Pressure Datum Offset (QNH)',
+                      body: 'Pressure Altitude sets the **1013.25 hPa** barometric datum. Lower local **QNH** means the 1013 isobar sits further underground — raising **PA** by `27 ft/hPa`.',
+                      memoryHook: 'Low QNH = Higher PA (27 ft per hPa).',
+                      control: { key: 'qnh', label: 'Local QNH', unit: 'hPa', min: 960, max: 1040, step: 1 },
+                    },
+                    {
+                      id: 'step-oat',
+                      title: '3. Hot Day Heat Expansion (OAT → DA)',
+                      body: 'Raise OAT: hotter air expands, molecules spread out, and **Density Altitude** shoots up **`120 ft` per `+1°C` above ISA**. Watch Engine Power drop and TAS rise.',
+                      control: { key: 'oat', label: 'Ambient OAT', unit: '°C', min: -20, max: 45, step: 1 },
+                    },
+                    {
+                      id: 'step-mass',
+                      title: '4. Compound with Gross Mass',
+                      body: 'Heavier mass requires a higher liftoff **CL** or speed squared — multiplying the thin-air ground roll penalty.',
+                      control: { key: 'massKg', label: 'Aircraft Mass', unit: 'kg', min: 1500, max: 3000, step: 50 },
+                    },
+                    {
+                      id: 'step-check-1',
+                      title: '5. Micro-Check: Moist Air Trap',
+                      body: 'Check the molecule box above — what happens when dry air absorbs water vapour (`H₂O`, `18 g/mol`) at constant temperature & pressure?',
+                      check: {
+                        question: 'Compared to dry air at the same T & P, humid air has:',
+                        options: [
+                          'LOWER density because H₂O is lighter than N₂/O₂',
+                          'HIGHER density because water feels heavier',
+                          'Identical density altitude',
+                        ],
+                        answerIndex: 0,
+                        why: '**H₂O (`18 g/mol`) displaces N₂ (`28`) and O₂ (`32`)**, reducing total mass per cubic metre and **increasing Density Altitude**!',
+                      },
+                    },
+                    {
+                      id: 'step-check-2',
+                      title: '6. Micro-Check: Indicated vs True Rotation Speed',
+                      body: 'At 5,660 ft, +28°C in summer, look at your Airspeed Indicator vs Ground Roll:',
+                      check: {
+                        question: 'What happens to rotation IAS (`85 kt`) vs required TAS?',
+                        options: [
+                          'IAS stays 85 kt; TAS rises because σ < 1',
+                          'IAS increases to 98 kt; TAS stays 85 kt',
+                          'Both IAS and TAS decrease at high altitude',
+                        ],
+                        answerIndex: 0,
+                        why: 'Pitot dynamic pressure `q = ½ρTAS² = ½ρ₀IAS²` — wings lift off at the **same IAS**, which corresponds to a much **higher TAS** across the runway.',
+                      },
+                    },
+                  ] as SteppedLabStep[]}
+                  renderCanvas={() => (
+                    <div className="w-full space-y-4">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 font-mono">
+                        <div className="border border-line bg-bg-raised p-3">
+                          <div className="text-[10px] text-muted uppercase">Pressure Alt</div>
+                          <div className="text-lg font-bold text-ink">{Math.round(pa).toLocaleString()} ft</div>
+                        </div>
+                        <div className="border border-line bg-bg-raised p-3">
+                          <div className="text-[10px] text-amber-400 uppercase">Density Alt</div>
+                          <div className="text-lg font-bold text-amber-300">{Math.round(da).toLocaleString()} ft</div>
+                        </div>
+                        <div className="border border-line bg-bg-raised p-3">
+                          <div className="text-[10px] text-sky-400 uppercase">σ Ratio</div>
+                          <div className="text-lg font-bold text-sky-300">{sigma.toFixed(3)}</div>
+                        </div>
+                        <div className="border border-line bg-bg-raised p-3">
+                          <div className="text-[10px] text-muted uppercase">VR TAS (85 IAS)</div>
+                          <div className="text-lg font-bold text-ink">{vRotationTAS.toFixed(1)} kt</div>
+                        </div>
+                        <div className="border border-line bg-bg-raised p-3">
+                          <div className="text-[10px] text-muted uppercase">Engine Power</div>
+                          <div className="text-lg font-bold text-rose-400">{enginePowerPct}%</div>
+                        </div>
+                        <div className="border border-line bg-bg-raised p-3">
+                          <div className="text-[10px] text-muted uppercase">Ground Roll</div>
+                          <div className="text-lg font-bold text-emerald-400">{Math.round(groundRollMeters)} m</div>
+                        </div>
+                      </div>
+                      <div className="h-3 w-full bg-bg-sunken border border-line overflow-hidden">
+                        <div
+                          className="h-full bg-gradient-to-r from-emerald-500 via-amber-400 to-rose-500 transition-all duration-300"
+                          style={{ width: `${Math.min(100, (groundRollMeters / 1600) * 100)}%` }}
+                        />
+                      </div>
+                      <p className="text-[11px] font-mono text-muted">
+                        Ground roll bar relative to 1,600 m alpine runway limit ({Math.round((groundRollMeters / 1600) * 100)}% used before 1.25× CS-23 safety factor).
+                      </p>
+                    </div>
+                  )}
+                />
+
+                <HoldShortGate
+                  gate={{
+                    id: 'gate-atm-da-num',
+                    kind: 'num',
+                    askedInEasa: true,
+                    generator: 'densityAltitude',
+                  }}
+                />
               </div>
             )}
           </div>
@@ -1020,6 +1203,38 @@ export const AtmosphericPerformanceChain: React.FC<Props> = ({
           </div>
         )}
 
+        <ConfusionBusterGrid
+          pairs={[
+            {
+              leftTitle: 'Pressure Altitude (PA)',
+              leftBody: 'Elevation corrected for **1013.25 hPa** barometric datum (`27 ft/hPa`). Independent of temperature.',
+              leftColor: '#38bdf8',
+              rightTitle: 'Density Altitude (DA)',
+              rightBody: 'Pressure Altitude corrected for **non-standard OAT & humidity** (`PA + 120 × ΔISA`). Governs engines & lift.',
+              rightColor: '#f59e0b',
+              tellApart: 'Climb on QNH/QNE cockpit dial = **PA**. How the wings & engine *feel* = **DA**.',
+            },
+            {
+              leftTitle: 'Dry Cold Air',
+              leftBody: 'Dense (`High σ`), higher engine power & shorter takeoff roll — BUT compresses isobars (**True Alt < Indicated**).',
+              leftColor: '#14b8a6',
+              rightTitle: 'Hot Humid Air',
+              rightBody: 'Thin (`Low σ`) because light **H₂O** (`18 g/mol`) displaces **N₂/O₂** — stretches ground roll sharply.',
+              rightColor: '#fb7185',
+              tellApart: 'Cold compresses your **altimeter margin**; Heat + Humidity stretch your **runway margin**.',
+            },
+          ]}
+        />
+
+        <ACARSDebriefSlip
+          chapterLabel="050/032 // ATMOS CHAIN"
+          headline="ATMOSPHERE TO PERFORMANCE CHAIN — **VERIFIED**"
+          rows={[
+            { label: 'Barometric datum', value: 'PA = Elev + (1013.25 − QNH) × 27 ft/hPa' },
+            { label: 'Density Altitude rule', value: 'DA = PA + 120 × ΔISA (humid raises Virtual T)' },
+            { label: 'Altimetry safety rule', value: 'High to Low, Look Out Below (4 ft/1k ft/°C)' },
+          ]}
+        />
       </main>
     </div>
   );

@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { View } from '../../types';
+import { CockpitSixPackHub } from '../hubs';
 import {
     Radio, MessageSquare, AlertCircle, Cloud,
     Navigation, Activity, Phone, Wifi, Book,
@@ -91,6 +92,8 @@ const CommsDashboard: React.FC<Props> = ({ onChangeView, onOpenSyllabus }) => {
                 </div>
                 <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20 mix-blend-overlay"></div>
             </div>
+
+            <CockpitSixPackHub subjectCode="090" onNavigate={onChangeView} />
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 

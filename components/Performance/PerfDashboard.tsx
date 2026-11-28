@@ -1,6 +1,8 @@
-import React from 'react';
-import { PlaneTakeoff, Plane, PlaneLanding, TrendingUp, BookOpen, Layers, Target, Scale, Wind } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { PlaneTakeoff, Plane, PlaneLanding, TrendingUp, BookOpen, Layers, Target, CheckCircle2, ArrowRight } from 'lucide-react';
 import { View } from '../../types';
+import { CockpitSixPackHub } from '../hubs';
+import { PROGRESS_EVENT, readLessonMeta } from '../../lib/lessonProgress';
 
 interface Props {
     currentView?: View;
@@ -15,97 +17,121 @@ export const PerfDashboard: React.FC<Props> = ({ setCurrentView, onChangeView, o
         if (setCurrentView) return setCurrentView(view);
         if (onNavigate) return onNavigate(view);
     };
+
+    const [doneIds, setDoneIds] = useState<string[]>(() => readLessonMeta().doneIds);
+    useEffect(() => {
+        const sync = () => setDoneIds(readLessonMeta().doneIds);
+        window.addEventListener(PROGRESS_EVENT, sync);
+        return () => window.removeEventListener(PROGRESS_EVENT, sync);
+    }, []);
+
     const categories = [
         {
             title: "Introduction to Performance",
             description: "Basic concepts, definitions, speeds (V1, Vr, V2, etc.), and atmospheric effects.",
-            icon: <BookOpen className="text-blue-500" size={24} />,
+            icon: <BookOpen className="text-sky-400" size={20} />,
             view: View.PERF_INTRO,
-            stats: "0/5 Topics",
+            badge: "CORE DEFINITIONS",
         },
         {
-            title: "Take-off Performance",
-            description: "Field length requirements, unbalanced fields, stopways, clearways, and obstacle clearance.",
-            icon: <PlaneTakeoff className="text-emerald-500" size={24} />,
+            title: "Take-off Performance (3D Story)",
+            description: "Interactive 3D A320 RWY 27L roll, Stopway/Clearway limits, Balanced V1 & 3-Column RTOM.",
+            icon: <PlaneTakeoff className="text-pink-400" size={20} />,
             view: View.PERF_TAKEOFF,
-            stats: "0/8 Topics",
+            badge: "v2 3D ENGINE",
         },
         {
             title: "Climb Performance",
             description: "Climb gradients, Vx vs Vy, engine-out climb segments, and obstacle clearance planes.",
-            icon: <TrendingUp className="text-indigo-500" size={24} />,
+            icon: <TrendingUp className="text-indigo-400" size={20} />,
             view: View.PERF_CLIMB,
-            stats: "0/6 Topics",
+            badge: "SEGMENTS 1–4",
         },
         {
             title: "Cruise Performance",
             description: "Maximum range vs endurance speeds, step climbs, drift down procedures.",
-            icon: <Plane className="text-sky-500" size={24} />,
+            icon: <Plane className="text-cyan-400" size={20} />,
             view: View.PERF_CRUISE,
-            stats: "0/6 Topics",
+            badge: "VMD / LRC / MRC",
         },
         {
             title: "Landing Performance",
-            description: "LDA, LDR, factoring, contaminated runways, and approach climb requirements.",
-            icon: <PlaneLanding className="text-amber-500" size={24} />,
+            description: "LDA, LDR factoring (1.67× / 1.92×), contaminated runways, and approach climb.",
+            icon: <PlaneLanding className="text-amber-400" size={20} />,
             view: View.PERF_LANDING,
-            stats: "0/5 Topics",
+            badge: "DRY & WET LDR",
         },
         {
             title: "Class A (Multi-Engine Jets)",
             description: "CS-25 requirements, net flight paths, gross flight paths, and engine-out operations.",
-            icon: <Layers className="text-rose-500" size={24} />,
+            icon: <Layers className="text-rose-400" size={20} />,
             view: View.PERF_CLASS_A,
-            stats: "0/7 Topics",
+            badge: "CS-25",
         },
         {
             title: "Class B (Single/Multi-Engine Props)",
             description: "CS-23 requirements, short field operations, and unpaved runway corrections.",
-            icon: <Target className="text-emerald-600" size={24} />,
+            icon: <Target className="text-emerald-400" size={20} />,
             view: View.PERF_CLASS_B,
-            stats: "0/4 Topics",
+            badge: "CS-23",
         }
     ];
 
     return (
-        <div className="p-6 max-w-6xl mx-auto space-y-8">
-            <div className="flex items-center gap-4">
-                <div className="bg-lime-100 dark:bg-lime-900/50 p-4 rounded-full">
-                    <TrendingUp className="text-lime-600 dark:text-lime-400" size={40} />
-                </div>
-                <div>
-                    <h1 className="text-4xl font-bold text-slate-900 dark:text-white">Aircraft Performance</h1>
-                    <p className="text-slate-600 dark:text-slate-400 text-lg mt-1">032 - Calculate and optimize standard flight phases</p>
-                </div>
+        <div className="p-4 md:p-6 max-w-7xl mx-auto space-y-6">
+            <div>
+                <div className="hud-label text-pink-400 mb-1">SUBJECT 032 // CS-23 & CS-25</div>
+                <h1 className="font-display text-3xl md:text-4xl font-black text-ink tracking-tight">
+                    Aircraft Performance
+                </h1>
+                <p className="text-muted text-sm md:text-base mt-1">
+                    Calculate and visualize take-off margins, climb segments, balanced V1, and landing factors.
+                </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {categories.map((category, index) => (
-                    <button
-                        key={index}
-                        onClick={() => handleSelectView(category.view)}
-                        className="flex flex-col text-left p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-lime-400 dark:hover:border-lime-500 transition-all group relative overflow-hidden cursor-pointer"
-                    >
-                        <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity transform group-hover:scale-110">
-                            {category.icon}
-                        </div>
-                        <div className="bg-slate-50 dark:bg-slate-800 w-12 h-12 rounded-lg flex items-center justify-center mb-4 border border-slate-100 dark:border-slate-700">
-                            {category.icon}
-                        </div>
-                        <h3 className="font-bold text-lg text-slate-800 dark:text-white mb-2">{category.title}</h3>
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 flex-grow">
-                            {category.description}
-                        </p>
-                        <div className="flex items-center justify-between w-full mt-auto">
-                            <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
-                                {category.stats}
-                            </span>
-                            <span className="text-lime-600 dark:text-lime-400 text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-                                Explore <TrendingUp size={14} />
-                            </span>
-                        </div>
-                    </button>
-                ))}
+            <CockpitSixPackHub subjectCode="032" onNavigate={handleSelectView} />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {categories.map((category, index) => {
+                    const isDone = doneIds.includes(`topic-${category.view}`);
+                    return (
+                        <button
+                            key={index}
+                            type="button"
+                            onClick={() => handleSelectView(category.view)}
+                            style={{ borderTopWidth: '3px', borderTopColor: isDone ? '#34d399' : 'var(--subj-perf)' }}
+                            className="dx-card flex flex-col justify-between text-left p-6 hover:border-line-strong hover:bg-bg transition-colors group cursor-pointer"
+                        >
+                            <div>
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="w-10 h-10 border border-line bg-bg-sunken flex items-center justify-center">
+                                        {category.icon}
+                                    </div>
+                                    <div className="flex items-center gap-1.5">
+                                        {isDone && (
+                                            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-mono font-bold uppercase border border-emerald-500/40 bg-emerald-500/15 text-emerald-300">
+                                                <CheckCircle2 size={11} /> Done
+                                            </span>
+                                        )}
+                                        <span className="font-mono text-[10px] px-2 py-0.5 border border-line bg-bg text-muted">
+                                            {category.badge}
+                                        </span>
+                                    </div>
+                                </div>
+                                <h3 className="font-display font-bold text-lg text-ink mb-2 group-hover:text-cad-accent transition-colors">
+                                    {category.title}
+                                </h3>
+                                <p className="text-xs text-muted mb-6 leading-relaxed">
+                                    {category.description}
+                                </p>
+                            </div>
+                            <div className="flex items-center justify-between pt-3 border-t border-line font-mono text-[11px] uppercase tracking-wider text-muted group-hover:text-ink">
+                                <span>Launch Simulator</span>
+                                <ArrowRight size={14} />
+                            </div>
+                        </button>
+                    );
+                })}
             </div>
         </div>
     );

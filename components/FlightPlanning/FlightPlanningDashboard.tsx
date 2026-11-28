@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from '../../types';
 import { ChevronLeft, Compass, Droplets, FormInput, LineChart, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { CockpitSixPackHub } from '../hubs';
 
 interface Props {
   onChangeView: (view: View) => void;
@@ -87,6 +88,8 @@ const FlightPlanningDashboard: React.FC<Props> = ({ onChangeView, onOpenSyllabus
           )}
         </div>
       </div>
+
+      <CockpitSixPackHub subjectCode="033" onNavigate={onChangeView} />
 
       {/* Modules Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

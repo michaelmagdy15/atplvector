@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CloudRain, Wind, Thermometer, Layers, ArrowRight, Droplets, Sun, Activity, Globe, CloudLightning, Gauge, Zap, Map, FileText, Waves, AlertTriangle, Radio, Eye } from 'lucide-react';
 import { View } from '../../types';
+import { CockpitSixPackHub } from '../hubs';
 
 interface Props {
     onChangeView?: (view: View) => void;
@@ -202,15 +203,20 @@ const MetDashboard: React.FC<Props> = ({ onChangeView }) => {
     ];
 
     return (
-        <div className="p-8 max-w-7xl mx-auto">
-            <div className="mb-12">
-                <h1 className="text-4xl font-black text-white mb-4 tracking-tight">Meteorology (050)</h1>
-                <p className="text-slate-400 text-lg max-w-2xl leading-relaxed">
+        <div className="p-4 md:p-8 max-w-7xl mx-auto">
+            <div className="mb-8">
+                <div className="hud-label text-sky-400 mb-1">SUBJECT 050 // ATMOSPHERIC PHYSICS</div>
+                <h1 className="font-display text-3xl md:text-4xl font-black text-ink mb-2 tracking-tight">Meteorology (050)</h1>
+                <p className="text-muted text-sm md:text-base max-w-2xl leading-relaxed">
                     A comprehensive visual curriculum for the EASA ATPL Meteorology syllabus.
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            {onChangeView && (
+                <CockpitSixPackHub subjectCode="050" onNavigate={onChangeView} />
+            )}
+
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {modules.map((module, index) => {
                     const Icon = module.icon;
                     return (

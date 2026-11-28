@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { View } from '../types';
+import { CockpitSixPackHub } from './hubs';
 import { Scale, Plane, AlertTriangle, Layout, Map, Tag, BookOpen, Layers, Settings, Compass, ArrowRight, Globe, UserCheck, Shield, Siren, AlertOctagon, Lightbulb, ThermometerSnowflake, Signpost, Cloud, Briefcase, Radio, PlaneLanding, RotateCcw, Crosshair, PenTool, Mountain, Gavel, Truck, GitMerge, Database, UserPlus } from 'lucide-react';
 
 interface Props {
@@ -37,6 +38,8 @@ const AirLawDashboard: React.FC<Props> = ({ onChangeView, isLocked = false, onOp
                     </button>
                 )}
             </div>
+
+            <CockpitSixPackHub subjectCode="010" onNavigate={onChangeView} />
 
             {/* SECTION: International Law & Organization */}
             <div className={`mb-10 ${isLocked ? 'opacity-50 pointer-events-none blur-[1px] grayscale-[0.5] select-none' : ''}`}>

@@ -39,6 +39,18 @@
     --invert-fg: #ffffff;
     --danger: #ff6259;
     --scanline: rgba(59, 130, 246, 0.03);
+
+    /* Subject Color Tokens & Tactile Surface Highlights */
+    --subj-law: #f43f5e;
+    --subj-met: #38bdf8;
+    --subj-nav: #f59e0b;
+    --subj-perf: #ec4899;
+    --subj-pof: #14b8a6;
+    --subj-agk: #818cf8;
+    --subj-ops: #22c55e;
+    --dot-color: rgba(148, 163, 184, 0.14);
+    --mark-bg: rgba(245, 158, 11, 0.22);
+    --mark-ink: #fde68a;
   }
 
   :root[data-theme="light"] {
@@ -58,6 +70,18 @@
     --invert-fg: #ffffff;
     --danger: #b3261e;
     --scanline: rgba(37, 99, 235, 0.03);
+
+    /* Subject Color Tokens & Tactile Surface Highlights */
+    --subj-law: #be123c;
+    --subj-met: #0284c7;
+    --subj-nav: #b45309;
+    --subj-perf: #be185d;
+    --subj-pof: #0f766e;
+    --subj-agk: #4338ca;
+    --subj-ops: #15803d;
+    --dot-color: rgba(15, 23, 42, 0.11);
+    --mark-bg: rgba(245, 158, 11, 0.24);
+    --mark-ink: #78350f;
   }
 
   *, *::before, *::after { box-sizing: border-box; }
@@ -160,6 +184,60 @@
     -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
     mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
   }
+  .bg-dot-grid {
+    background-color: var(--bg);
+    background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  .dx-card {
+    background: var(--bg-raised);
+    border: 1.5px solid var(--line);
+    box-shadow: 0 1px 0 var(--line);
+  }
+  .dx-mark {
+    background: var(--mark-bg);
+    color: var(--mark-ink);
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+  .dx-frac {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    line-height: 1.05;
+    margin: 0 0.25em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+  }
+  .dx-frac > span:first-child {
+    border-bottom: 1.5px solid currentColor;
+    padding: 0 0.25em 0.1em;
+  }
+  .dx-frac > span:last-child {
+    padding: 0.1em 0.25em 0;
+  }
+  .acars-slip {
+    transform-origin: top center;
+    transform: perspective(700px) rotateX(-16deg) scaleY(0.92);
+    opacity: 0.25;
+    transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1), opacity 500ms ease;
+  }
+  .acars-slip.printed {
+    transform: perspective(700px) rotateX(0deg) scaleY(1);
+    opacity: 1;
+  }
+  .dx-shake {
+    animation: dx-shake 320ms ease-in-out;
+  }
+}
+
+@keyframes dx-shake {
+  0%, 100% { transform: translateX(0); }
+  22% { transform: translateX(-6px); }
+  45% { transform: translateX(6px); }
+  70% { transform: translateX(-4px); }
 }
 
 @keyframes marquee-scroll {

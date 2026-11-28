@@ -1,828 +1,821 @@
 import React, { useState } from 'react';
-import { FREEDOMS_OF_THE_AIR_DATA, ICAO_ANNEXES_DATA } from '../data/courseData';
-import { 
-  Globe, Plane, Gavel, FileText, ArrowRight, Shield, 
-  Info, CheckCircle2, AlertCircle, BookOpen, Scale,
-  User, Building2, Layers, Landmark
+import { FREEDOMS_OF_THE_AIR_DATA } from '../data/courseData';
+import {
+  AlertCircle,
+  ArrowRight,
+  BookOpen,
+  Building2,
+  CheckCircle2,
+  Eye,
+  EyeOff,
+  FileText,
+  Gavel,
+  Globe,
+  Info,
+  Landmark,
+  Layers,
+  Plane,
+  Scale,
+  Shield,
+  Stamp,
+  User,
 } from 'lucide-react';
+import {
+  ACARSDebriefSlip,
+  ChapterKneeboardDrawer,
+  ConfusionBusterGrid,
+  ConfusionPair,
+  InOneMinuteStrip,
+  LessonHeaderDeck,
+  OneMinuteItem,
+} from './lesson';
+import {
+  CaseFileStampSimulator,
+  CheckrideCall,
+  CheckrideDeck,
+  HoldShortGate,
+  StampCaseFile,
+  TreatyStampOption,
+} from './engines';
+
+const ONE_MINUTE_ITEMS: OneMinuteItem[] = [
+  {
+    num: '01',
+    headline: 'Complete Sovereignty (Art 1)',
+    body: 'Every State holds **complete & exclusive** airspace sovereignty over land + **12 NM** territorial waters.',
+    accent: 'var(--subj-law)',
+  },
+  {
+    num: '02',
+    headline: '19 Annexes & Art 38',
+    body: 'ICAO Standards (**"Shall"**) + Recommended Practices (**"Should"**). States notify differences via **Art 38**.',
+    accent: '#38bdf8',
+  },
+  {
+    num: '03',
+    headline: 'Freedoms & Art 7 Cabotage',
+    body: '1–2 are **technical transit**; 3–5 are **commercial**; 8–9 are **Cabotage** (domestic foreign-carrier legs).',
+    accent: '#f59e0b',
+  },
+  {
+    num: '04',
+    headline: 'Criminal & Liability Treaties',
+    body: '**Chicago** (rules), **Montreal 1999** (pax/cargo liability), **Tokyo** (PIC restraint), **Hague** (hijack), **Montreal 1971** (sabotage).',
+    accent: '#34d399',
+  },
+];
+
+const STAMP_OPTIONS: TreatyStampOption[] = [
+  { id: 'chicago', label: 'CHICAGO 1944', sublabel: 'Sovereignty & SARPs' },
+  { id: 'montreal99', label: 'MONTREAL 1999', sublabel: 'Pax & Cargo SDR' },
+  { id: 'tokyo', label: 'TOKYO 1963', sublabel: 'PIC Restraint & Immunity' },
+  { id: 'hague', label: 'HAGUE 1970', sublabel: 'Hijacking / Seizure' },
+  { id: 'montreal71', label: 'MONTREAL 1971', sublabel: 'Sabotage & Facilities' },
+  { id: 'rome', label: 'ROME 1952', sublabel: 'Ground 3rd-Party' },
+];
+
+const CASE_FILES: StampCaseFile[] = [
+  {
+    id: 'c1',
+    docketCode: 'AL-01 // UNRULY PAX',
+    scenario:
+      'Over international waters, an intoxicated passenger tries to force the cockpit door open. The **Commander orders cabin crew and two passengers to restrain him** with plastic cuffs.',
+    correctStampId: 'tokyo',
+    why: '**Tokyo Convention (1963)** grants the PIC authority (Art 6) to impose reasonable restraint and grants civil/criminal immunity to crew and assisting passengers.',
+  },
+  {
+    id: 'c2',
+    docketCode: 'AL-02 // CHECKED BAG & INJURY',
+    scenario:
+      'During severe clear-air turbulence over France, a passenger breaks her wrist and her checked suitcase vanishes. She files a strict-liability claim calibrated in **Special Drawing Rights (128,821 / 1,288 SDR)**.',
+    correctStampId: 'montreal99',
+    why: '**Montreal Convention (1999)** sets uniform strict-liability tiers for bodily injury (up to 128,821 SDR), baggage (~1,288 SDR), and cargo (**22 SDR/kg**).',
+  },
+  {
+    id: 'c3',
+    docketCode: 'AL-03 // ARMED COCKPIT TAKEOVER',
+    scenario:
+      'A passenger produces a weapon in flight and forces the crew to divert to another State (**unlawful seizure of an aircraft in flight**). Which convention obliges States to impose severe penalties or extradite?',
+    correctStampId: 'hague',
+    why: '**Hague Convention (1970)** specifically targets **unlawful seizure (hijacking)** and enforces aut dedere aut judicare (prosecute or extradite).',
+  },
+  {
+    id: 'c4',
+    docketCode: 'AL-04 // OVERFLIGHT & DIFFERENCE FILING',
+    scenario:
+      'A Contracting State adopts national separation minima below ICAO Annex 11 SARPs and must **notify ICAO immediately of differences** under **Article 38**.',
+    correctStampId: 'chicago',
+    why: '**Chicago Convention (1944)** establishes sovereign airspace, the 19 Annexes (SARPs), and **Article 38** mandatory notification of differences.',
+  },
+  {
+    id: 'c5',
+    docketCode: 'AL-05 //ILS ANTENNA SABOTAGE',
+    scenario:
+      'An individual destroys an airport **ILS localizer shelter** and phones in a **false bomb threat** causing emergency evacuations.',
+    correctStampId: 'montreal71',
+    why: '**Montreal Convention (1971)** suppresses **sabotage, destruction of air navigation facilities, and false bomb/safety information**.',
+  },
+  {
+    id: 'c6',
+    docketCode: 'AL-06 // FARM DAMAGE ON SURFACE',
+    scenario:
+      'A foreign-registered freighter sheds a cowling panel mid-cruise, damaging a greenhouse and barn on the surface below. Which treaty governs **damage caused by foreign aircraft to third parties on the surface**?',
+    correctStampId: 'rome',
+    why: '**Rome Convention (1952)** covers strict liability for **third-party damage on the surface** caused by foreign aircraft in flight.',
+  },
+  {
+    id: 'c7',
+    docketCode: 'AL-07 // CABOTAGE REFUSAL',
+    scenario:
+      'A non-EU carrier requests permission to carry paid domestic passengers **between Munich and Frankfurt** on a standalone leg. Germany refuses under **Article 7**.',
+    correctStampId: 'chicago',
+    why: '**Chicago Convention Article 7 (Cabotage)** lets any State refuse foreign carriers from uplifting domestic commercial traffic inside its territory.',
+  },
+  {
+    id: 'c8',
+    docketCode: 'AL-08 // CARGO LOSS PER KG',
+    scenario:
+      'An airfreight shipment weighing 500 kg of electronics is destroyed in transit with no declared value excess; compensation defaults to **22 SDR per kilogram**.',
+    correctStampId: 'montreal99',
+    why: '**Montreal Convention (1999)** caps un-declared air cargo liability at **22 SDR/kg**.',
+  },
+];
+
+const CONFUSION_PAIRS: ConfusionPair[] = [
+  {
+    leftTitle: 'Standard (SARP)',
+    leftBody: 'Uses **"SHALL"**. Uniform compliance recognized as **necessary** for safety/regularity. Non-compliance requires **Art 38 notification**.',
+    leftColor: '#34d399',
+    rightTitle: 'Recommended Practice',
+    rightBody: 'Uses **"SHOULD"**. Uniform application recognized as **desirable**; States *endeavour* to conform without Art 38 legal duty.',
+    rightColor: '#f59e0b',
+    tellApart: '**SHALL + Notify (Art 38)** = Standard. **SHOULD + Desirable** = Recommended Practice.',
+  },
+  {
+    leftTitle: 'Hague Convention (1970)',
+    leftBody: 'Suppresses **Unlawful Seizure** of aircraft in flight (**Hijacking**).',
+    leftColor: '#fb7185',
+    rightTitle: 'Montreal Convention (1971)',
+    rightBody: 'Suppresses **Unlawful Acts** against civil aviation safety (**Sabotage, bombs, nav-aid destruction, false threats**).',
+    rightColor: '#38bdf8',
+    tellApart: '**Hague = Hijack** (taking the cockpit). **Montreal ’71 = Malice/Sabotage** (bombs, radar destruction, hoax calls).',
+  },
+  {
+    leftTitle: '8th Freedom (Consecutive Cabotage)',
+    leftBody: 'Foreign airline operates domestic sector (e.g. **London → Manchester**) **as a continuation** of a flight starting/ending in its Home State.',
+    leftColor: '#a855f7',
+    rightTitle: '9th Freedom (Standalone Cabotage)',
+    rightBody: 'Foreign airline operates domestic sector (**London ↔ Manchester**) **entirely independent** of its Home State.',
+    rightColor: '#ec4899',
+    tellApart: '**8 = tethered back Home**; **9 = pure standalone** foreign domestic operation.',
+  },
+  {
+    leftTitle: 'Hard Law (EASA IR)',
+    leftBody: '**Basic Regulation (2018/1139)** and **Implementing Rules** (Part-FCL, Part-OPS, SERA) — legally binding in EU law.',
+    leftColor: '#818cf8',
+    rightTitle: 'Soft Law (AMC / GM / CS)',
+    rightBody: '**Certification Specs (CS-25)**, **Acceptable Means of Compliance**, and **Guidance Material** — presumed compliance, not strictly statute.',
+    rightColor: '#14b8a6',
+    tellApart: '**Binding** = Basic Reg + IRs. **Non-binding executive EASA specs** = CS, AMC, GM.',
+  },
+];
+
+const CHECKRIDE_CALLS: CheckrideCall[] = [
+  {
+    id: 'al-cr-1',
+    question: 'Under **Chicago Convention Article 38**, when must a Contracting State notify ICAO of differences?',
+    options: [
+      'Immediately when it cannot comply with an ICAO Standard',
+      'Only once every 5 years for Recommended Practices',
+      'Never, if EASA has issued an AMC',
+      'Only after an accident investigation under Annex 13',
+    ],
+    answerIndex: 0,
+    why: 'Article 38 makes **immediate notification of differences** mandatory whenever national rules depart from an ICAO **Standard**.',
+  },
+  {
+    id: 'al-cr-2',
+    question: 'A carrier registered in **State A** flies **State A → State B → State C**, picking up passengers in B to fly to C. Which Freedom of the Air is this?',
+    options: ['5th Freedom (Beyond Rights)', '2nd Freedom (Technical Stop)', '8th Freedom (Cabotage)', '3rd Freedom'],
+    answerIndex: 0,
+    why: 'Carrying revenue traffic between two foreign countries (**B → C**) on a service originating/terminating in **Home State A** is the **5th Freedom**.',
+  },
+  {
+    id: 'al-cr-3',
+    question: 'Which document is **NOT** listed under Chicago Convention **Article 29** as mandatory to carry on board every international flight?',
+    options: [
+      'Certificate of Airline Insurance Policy',
+      'Journey Logbook',
+      'Certificate of Airworthiness & Certificate of Registration',
+      'Aircraft Radio Station Licence',
+    ],
+    answerIndex: 0,
+    why: 'Art 29 lists **C of R, C of A, Crew Licences, Journey Logbook, Radio Licence, Pax list & Cargo manifest** — insurance certificates come from EU Reg 785/2004, not Art 29.',
+  },
+  {
+    id: 'al-cr-4',
+    question: 'Over the **High Seas** (outside any State’s 12 NM territorial waters), which rules apply without exception under **Chicago Article 12**?',
+    options: [
+      'ICAO Annex 2 (Rules of the Air)',
+      'Only the local airline’s Operations Manual',
+      'EU 261/2004 passenger compensation exclusively',
+      'Chicago Article 7 Cabotage prohibitions',
+    ],
+    answerIndex: 0,
+    why: 'Article 12 dictates that **over the High Seas, Rules of the Air (Annex 2)** in force shall be those established under the Chicago Convention without exception.',
+  },
+];
+
+/**
+ * 3-Column Swimlane Diagram visualising Freedoms 1..9 in 3 seconds:
+ * [HOME STATE A] | [FOREIGN STATE B] | [FOREIGN STATE C]
+ */
+const FreedomSwimlaneDiagram: React.FC<{ freedomId: number }> = ({ freedomId }) => {
+  const isTech = freedomId === 1 || freedomId === 2;
+  const isCabotage = freedomId === 8 || freedomId === 9;
+
+  // Describe simplified arc segments across x=100 (Home A), x=300 (State B), x=500 (State C)
+  const routeText: Record<number, { caption: string; segs: Array<{ x1: number; x2: number; dash?: boolean; stopB?: boolean; blocked?: boolean }> }> = {
+    1: { caption: 'Overfly Foreign State B airspace without landing (Technical).', segs: [{ x1: 90, x2: 510, dash: true }] },
+    2: { caption: 'Land in Foreign State B strictly for fuel / maintenance — NO traffic uplift (Technical).', segs: [{ x1: 90, x2: 300, dash: true, stopB: true }, { x1: 300, x2: 510, dash: true }] },
+    3: { caption: 'Carry commercial traffic FROM Home State A TO Foreign State B.', segs: [{ x1: 90, x2: 300 }] },
+    4: { caption: 'Pick up commercial traffic FROM Foreign State B back TO Home State A.', segs: [{ x1: 300, x2: 90 }] },
+    5: { caption: 'Home A → State B → State C, uplifting revenue pax/cargo between B and C.', segs: [{ x1: 90, x2: 300, dash: true, stopB: true }, { x1: 300, x2: 510 }] },
+    6: { caption: 'Carry traffic between Foreign B and Foreign C via a hub stop in Home State A.', segs: [{ x1: 300, x2: 90 }, { x1: 90, x2: 510 }] },
+    7: { caption: 'Operate commercially directly between Foreign B and Foreign C without touching Home A.', segs: [{ x1: 300, x2: 510 }] },
+    8: { caption: 'Consecutive Cabotage: Home A → B1 → B2 inside Foreign State B (Art 7 consent required).', segs: [{ x1: 90, x2: 265, dash: true }, { x1: 265, x2: 355, blocked: true }] },
+    9: { caption: 'Standalone Cabotage: Foreign carrier operates domestic B1 ↔ B2 inside State B only.', segs: [{ x1: 255, x2: 355, blocked: true }] },
+  };
+
+  const cfg = routeText[freedomId] || routeText[1];
+
+  return (
+    <div className="border-[1.5px] border-line-strong bg-bg p-4 mb-5">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+        <span className="hud-label text-sky-400">
+          SWIMLANE AIRSPACE MAP · {freedomId <= 2 ? 'TECHNICAL (TRANSIT)' : isCabotage ? 'CABOTAGE (ART 7 PROTECTED)' : 'COMMERCIAL TRAFFIC RIGHT'}
+        </span>
+        <div className="flex items-center gap-3 text-[10px] font-mono text-muted">
+          <span className="flex items-center gap-1"><span className="w-4 border-t-2 border-dashed border-sky-400 inline-block" /> Technical</span>
+          <span className="flex items-center gap-1"><span className="w-4 border-t-2 border-emerald-400 inline-block" /> Commercial</span>
+          <span className="flex items-center gap-1"><span className="w-4 border-t-2 border-rose-400 inline-block" /> Sovereignty Gate</span>
+        </div>
+      </div>
+
+      <svg viewBox="0 0 600 135" className="w-full h-32 block">
+        {/* 3 Sovereign Columns */}
+        <rect x="12" y="10" width="176" height="114" fill="rgba(56,189,248,0.08)" stroke="rgba(56,189,248,0.35)" />
+        <text x="100" y="28" fill="#38bdf8" fontSize="10" fontWeight="bold" textAnchor="middle" fontFamily="monospace">HOME STATE A</text>
+
+        <rect x="212" y="10" width="176" height="114" fill="rgba(245,158,11,0.08)" stroke={isCabotage ? '#fb7185' : 'rgba(245,158,11,0.35)'} />
+        <text x="300" y="28" fill={isCabotage ? '#fb7185' : '#fbbf24'} fontSize="10" fontWeight="bold" textAnchor="middle" fontFamily="monospace">FOREIGN STATE B</text>
+
+        <rect x="412" y="10" width="176" height="114" fill="rgba(168,85,247,0.08)" stroke="rgba(168,85,247,0.35)" />
+        <text x="500" y="28" fill="#c084fc" fontSize="10" fontWeight="bold" textAnchor="middle" fontFamily="monospace">FOREIGN STATE C</text>
+
+        {/* Ground runway dots */}
+        <circle cx="90" cy="95" r="5" fill="#38bdf8" />
+        <circle cx="265" cy="95" r="4" fill="#fbbf24" />
+        <circle cx="345" cy="95" r="4" fill={isCabotage ? '#fb7185' : '#fbbf24'} />
+        <circle cx="510" cy="95" r="5" fill="#c084fc" />
+
+        {/* Arcs */}
+        {cfg.segs.map((seg, idx) => {
+          const midX = (seg.x1 + seg.x2) / 2;
+          const arcY = seg.blocked ? 48 : seg.dash ? 40 : 44;
+          const stroke = seg.blocked ? '#fb7185' : seg.dash ? '#38bdf8' : '#34d399';
+          const yStart = seg.dash && !seg.stopB && seg.x2 === 510 ? 52 : 92;
+          const yEnd = seg.dash && !seg.stopB && seg.x2 === 510 ? 52 : 92;
+          return (
+            <g key={idx}>
+              <path
+                d={`M ${seg.x1} ${yStart} Q ${midX} ${arcY} ${seg.x2} ${yEnd}`}
+                fill="none"
+                stroke={stroke}
+                strokeWidth="2.8"
+                strokeDasharray={seg.dash ? '6 5' : undefined}
+              />
+              {seg.stopB && (
+                <text x="300" y="114" fill="#fbbf24" fontSize="9" textAnchor="middle" fontFamily="monospace">
+                  {isTech ? 'FUEL ONLY' : 'TRANSIT STOP'}
+                </text>
+              )}
+            </g>
+          );
+        })}
+      </svg>
+
+      <p className="text-xs font-mono text-muted mt-1">{cfg.caption}</p>
+    </div>
+  );
+};
 
 const InternationalLaw: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('principles');
+  const [activeTab, setActiveTab] = useState<
+    'principles' | 'orgs' | 'freedoms' | 'liability' | 'easa' | 'documents' | 'recall'
+  >('principles');
   const [freedom, setFreedom] = useState(1);
   const [selectedAnnex, setSelectedAnnex] = useState<number | null>(null);
+  const [guessAnnexMode, setGuessAnnexMode] = useState(false);
+  const [revealedAnnexes, setRevealedAnnexes] = useState<Record<number, boolean>>({});
   const [showAllObjectives, setShowAllObjectives] = useState(false);
 
   const tabs = [
-    { id: 'principles', label: 'Principles', icon: Globe },
-    { id: 'orgs', label: 'Global Orgs', icon: Landmark },
+    { id: 'principles', label: 'Principles & Annexes', icon: Globe },
     { id: 'freedoms', label: 'Air Freedoms', icon: Plane },
+    { id: 'recall', label: 'Case Stamp & Drills', icon: Stamp },
+    { id: 'orgs', label: 'Global Orgs', icon: Landmark },
     { id: 'liability', label: 'Liability & Rights', icon: Scale },
     { id: 'easa', label: 'EASA Framework', icon: Building2 },
     { id: 'documents', label: 'On-Board Docs', icon: FileText },
-  ];
+  ] as const;
 
   const icaoObjectives = [
-    "Ensure the safe and orderly growth of international civil aviation throughout the world.",
-    "Encourage the arts of aircraft design and operation for peaceful purposes.",
-    "Encourage the development of airways, airports, and air navigation facilities.",
-    "Meet the needs of the peoples of the world for safe, regular, efficient and economical air transport.",
-    "Prevent economic waste caused by unreasonable competition.",
-    "Ensure that the rights of contracting States are fully respected.",
-    "Avoid discrimination between contracting States.",
-    "Promote safety of flight in international air navigation.",
-    "Promote generally the development of all aspects of international civil aeronautics."
+    'Ensure the safe and orderly growth of international civil aviation throughout the world.',
+    'Encourage the arts of aircraft design and operation for peaceful purposes.',
+    'Encourage the development of airways, airports, and air navigation facilities.',
+    'Meet the needs of the peoples of the world for safe, regular, efficient and economical air transport.',
+    'Prevent economic waste caused by unreasonable competition.',
+    'Ensure that the rights of contracting States are fully respected.',
+    'Avoid discrimination between contracting States.',
+    'Promote safety of flight in international air navigation.',
+    'Promote generally the development of all aspects of international civil aeronautics.',
   ];
-
-  const historicalContext = {
-    title: "The Chicago Convention (1944)",
-    circumstances: "Convened during WWII (Dec 1944) by 54 nations to plan for the post-war era. The collapse of the 1919 Paris Convention's effectiveness and the rapid technological leap during the war necessitated a new, global framework for safe and orderly air travel.",
-    article38: "Article 38 (Notification of Differences): If a state cannot comply with an ICAO Standard, it MUST immediately notify ICAO of the differences between its own practice and that established by the international standard."
-  };
 
   const iataObjectives = [
-    "To promote safe, regular and economical air transport for the benefit of the peoples of the world.",
-    "To foster air commerce and to study the problems connected therewith.",
-    "To provide means for collaboration among air transport enterprises.",
-    "To cooperate with ICAO and other international organizations."
+    'Promote safe, regular and economical air transport for the benefit of the peoples of the world.',
+    'Foster air commerce and study problems connected therewith.',
+    'Provide means for collaboration among air transport enterprises.',
+    'Cooperate with ICAO and other international organizations.',
   ];
 
-  const freedoms = FREEDOMS_OF_THE_AIR_DATA;
-
   const icaoAnnexes = [
-    { nr: 1, title: 'Personnel Licensing', focus: 'Licenses for flight crew, ATC, and maintenance.' },
-    { nr: 2, title: 'Rules of the Air', focus: 'General rules, visual rules, and instrument flight rules.' },
+    { nr: 1, title: 'Personnel Licensing', focus: 'Licences for flight crew, ATC, and maintenance.' },
+    { nr: 2, title: 'Rules of the Air', focus: 'General rules, VFR, and IFR (applies without exception over High Seas).' },
     { nr: 3, title: 'Meteorological Service', focus: 'Provision of weather info for international navigation.' },
-    { nr: 4, title: 'Aeronautical Charts', focus: 'Standards for maps used in aviation.' },
-    { nr: 5, title: 'Units of Measurement', focus: 'Dimensional units for air and ground operations.' },
-    { nr: 6, title: 'Operation of Aircraft', focus: 'Safety and efficiency in commercial and general aviation.' },
-    { nr: 7, title: 'Aircraft Nationality/Marks', focus: 'Registration and marking of aircraft.' },
-    { nr: 8, title: 'Airworthiness of Aircraft', focus: 'Certification and inspection standards.' },
-    { nr: 9, title: 'Facilitation', focus: 'Simplifying border-crossing for people and cargo.' },
-    { nr: 10, title: 'Aeronautical Comms', focus: 'Radio frequency and digital data standards.' },
-    { nr: 11, title: 'Air Traffic Services', focus: 'Establishment of ATC, flight info, and alerting services.' },
-    { nr: 12, title: 'Search and Rescue', focus: 'Org and operation of SAR services.' },
-    { nr: 13, title: 'Aircraft Accident Invest.', focus: 'Procedures for investigating incidents/accidents.' },
-    { nr: 14, title: 'Aerodromes', focus: 'Design and operations of airports.' },
-    { nr: 15, title: 'Aeronautical Info Services', focus: 'Methods for collecting and disseminating data (NOTAMs).' },
-    { nr: 16, title: 'Environmental Protection', focus: 'Aircraft noise and engine emissions.' },
-    { nr: 17, title: 'Security', focus: 'Safeguarding civil aviation against unlawful acts.' },
+    { nr: 4, title: 'Aeronautical Charts', focus: 'Standards for maps & charts used in aviation.' },
+    { nr: 5, title: 'Units of Measurement', focus: 'SI / non-SI dimensional units for air & ground operations.' },
+    { nr: 6, title: 'Operation of Aircraft', focus: 'Commercial, GA, and Helicopter operational safety.' },
+    { nr: 7, title: 'Nationality & Reg. Marks', focus: 'Registration, marks placement, and fireproof plate.' },
+    { nr: 8, title: 'Airworthiness', focus: 'Certification, C of A, and continuing inspection standards.' },
+    { nr: 9, title: 'Facilitation', focus: 'Border crossing, customs, crew member certificates.' },
+    { nr: 10, title: 'Aeronautical Telecoms', focus: 'Radio frequency, navaids, and digital datalink.' },
+    { nr: 11, title: 'Air Traffic Services', focus: 'ATC, flight information, and alerting services.' },
+    { nr: 12, title: 'Search & Rescue', focus: 'SAR regions, phases (INCERFA/ALERFA/DETRESFA).' },
+    { nr: 13, title: 'Accident Investigation', focus: 'Objective: prevention, NOT apportioning blame.' },
+    { nr: 14, title: 'Aerodromes', focus: 'Physical design, Declared Distances, lighting, RFF.' },
+    { nr: 15, title: 'AIS', focus: 'AIP, AIC, NOTAMs, SNOWTAM, and AIRAC 28/56-day cycle.' },
+    { nr: 16, title: 'Environmental Protection', focus: 'Aircraft noise chapters and engine emissions.' },
+    { nr: 17, title: 'Security', focus: 'Safeguarding civil aviation against unlawful interference.' },
     { nr: 18, title: 'Dangerous Goods', focus: 'Safe transport of hazardous materials by air.' },
-    { nr: 19, title: 'Safety Management', focus: 'State safety programs and SMS for operators.' },
+    { nr: 19, title: 'Safety Management', focus: 'State Safety Programmes (SSP) & operator SMS.' },
   ];
 
   const documents = [
-    { id: 'cofr', title: 'Cert. of Registration', ref: 'Art 17-21', desc: 'Proves nationality. One state only.' },
-    { id: 'cofa', title: 'Cert. of Airworthiness', ref: 'Art 31', desc: 'Issued by State of Registry. Validates safety.' },
-    { id: 'lic', title: 'Personnel Licences', ref: 'Art 32', desc: 'For every crew member. Validated by registry.' },
-    { id: 'radio', title: 'Radio Station Licence', ref: 'Art 30', desc: 'Required for all aircraft with radio.' },
+    { id: 'cofr', title: 'Cert. of Registration', ref: 'Art 17–21', desc: 'Proves nationality. One State only (Art 18).' },
+    { id: 'cofa', title: 'Cert. of Airworthiness', ref: 'Art 31', desc: 'Issued/validated by State of Registry.' },
+    { id: 'lic', title: 'Personnel Licences', ref: 'Art 32', desc: 'For every operating flight crew member.' },
+    { id: 'radio', title: 'Radio Station Licence', ref: 'Art 30', desc: 'Required for transmitting equipment installed.' },
     { id: 'pax', title: 'Passenger List', ref: 'Art 29', desc: 'Names and places of embarkation/destination.' },
-    { id: 'cargo', title: 'Cargo Manifest', ref: 'Art 29', desc: 'Declaration of the cargo carried.' },
-    { id: 'log', title: 'Journey Logbook', ref: 'Art 34', desc: 'Details of every flight performed.' },
-    { id: 'photog', title: 'Photographic Apparatus', ref: 'Art 36', desc: 'States may prohibit/regulate use over territory.' },
-    { id: 'restr', title: 'Cargo Restrictions', ref: 'Art 35', desc: 'Munitions/war material require state permission.' },
+    { id: 'cargo', title: 'Cargo Manifest', ref: 'Art 29', desc: 'Detailed declaration of cargo carried.' },
+    { id: 'log', title: 'Journey Logbook', ref: 'Art 34', desc: 'Details of every international flight performed.' },
+    { id: 'photog', title: 'Photo Apparatus', ref: 'Art 36', desc: 'States may prohibit or regulate cameras in airspace.' },
+    { id: 'restr', title: 'Munitions / Cargo (Art 35)', ref: 'Art 35', desc: 'War munitions require prior State permission.' },
   ];
 
+  const freedoms = FREEDOMS_OF_THE_AIR_DATA;
+  const selFreedom = freedoms.find((f) => f.id === freedom) || freedoms[0];
+
   return (
-    <div className="min-h-[600px] bg-slate-900 rounded-2xl border border-slate-800 shadow-2xl overflow-hidden flex flex-col">
-      {/* Header */}
-      <div className="p-8 bg-gradient-to-r from-slate-900 to-slate-800 border-b border-slate-800">
-        <div className="flex items-center gap-4 mb-4">
-          <div className="p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20">
-            <Gavel className="text-indigo-400 w-8 h-8" />
+    <div className="bg-dot-grid min-h-screen pb-16 text-ink">
+      <div className="max-w-7xl mx-auto p-4 md:p-6 space-y-6">
+        {/* Top Universal Scaffolds */}
+        <InOneMinuteStrip items={ONE_MINUTE_ITEMS} subjectColor="var(--subj-law)" />
+
+        <div className="dx-card p-6 md:p-8" style={{ borderTopWidth: '3px', borderTopColor: 'var(--subj-law)' }}>
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+            <div>
+              <span className="hud-label text-rose-400">EASA ATPL 010.01 // AIR LAW</span>
+              <h1 className="font-display text-3xl md:text-4xl font-black text-ink tracking-tight mt-1">
+                International Law, Freedoms &amp; Conventions
+              </h1>
+            </div>
+            <ChapterKneeboardDrawer
+              chapterCode="010.01"
+              chapterTitle="Air Law Treaties & Freedoms Kneeboard"
+              formulas={[
+                { name: 'Territorial Airspace Span', formula: 'State Airspace = Land Mass + {{12 NM // Territorial Sea}}   (Art 1 & 2)' },
+                { name: 'Standard Compliance Rule', formula: 'Standard (SHALL) + Deviation = Immediate Art 38 Notify' },
+              ]}
+              keyNumbers={[
+                { label: 'Chicago Convention Signed', value: '7 Dec 1944 · 19 Annexes', note: 'Headquarters: Montreal' },
+                { label: 'ICAO Council / ANC', value: '36 States / 19 Experts', note: 'Assembly meets every 3 years' },
+                { label: 'Montreal 1999 Injury Tier', value: '128,821 SDR Strict', note: 'Cargo: 22 SDR/kg · Bag: 1,288 SDR' },
+                { label: 'EU 261/2004 Compensation', value: '€250 / €400 / €600', note: '<1500 / 1500–3500 / >3500 km' },
+              ]}
+              memoryHooks={[
+                '**1–2 Technical** (overfly/fuel) · **3–5 Commercial** (to/from/beyond) · **8–9 Cabotage**.',
+                '**Tokyo 63** = PIC handcuffs & immunity · **Hague 70** = Hijack · **Montreal 71** = Sabotage · **Montreal 99** = Liability Money.',
+              ]}
+            />
           </div>
-          <div>
-            <h2 className="text-3xl font-bold text-white tracking-tight">International Law</h2>
-            <p className="text-slate-400 text-sm font-medium">Prefix 010.01 • Chicago Convention & Regulatory Frameworks</p>
+
+          <LessonHeaderDeck
+            id="al-main-header"
+            questionTitle="Who owns the sky, who pays when things break, and what can a foreign airline carry?"
+            examRule="Chicago Convention (1944) governs **sovereignty, Annexes 1–19, and Cabotage (Art 7)**; **Montreal 1999** sets airline liability; **Tokyo/Hague/Montreal ’71** prosecute unlawful acts."
+            memoryHook="**1–2 Technical** (fly/fuel) · **3–5 Commercial** (out/back/beyond) · **6–9 Hub & Cabotage**."
+            askedInEasa
+            subjectColor="var(--subj-law)"
+          />
+
+          {/* Tactile Tab Bar */}
+          <div className="flex flex-wrap gap-1.5 pt-2 border-t border-line">
+            {tabs.map((tab) => {
+              const Icon = tab.icon;
+              const active = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center gap-2 px-3.5 py-2 text-xs font-mono font-bold uppercase tracking-wider border transition-colors cursor-pointer ${
+                    active
+                      ? 'border-rose-400 bg-rose-500/20 text-ink'
+                      : 'border-line bg-bg text-muted hover:text-ink hover:border-line-strong'
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5 text-rose-400" />
+                  {tab.label}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-          {tabs.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all whitespace-nowrap
-                ${activeTab === tab.id 
-                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' 
-                  : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'}`}
-            >
-              <tab.icon className="w-4 h-4" />
-              {tab.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Content Area */}
-      <div className="flex-1 p-8 overflow-y-auto custom-scrollbar bg-slate-900/50">
-        
-        {/* Principles Tab */}
+        {/* PRINCIPLES & GUESS-FIRST ANNEXES */}
         {activeTab === 'principles' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {/* Timeline */}
-            <div className="bg-slate-800/40 p-6 rounded-2xl border border-slate-700/50 backdrop-blur-sm">
-              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                <BookOpen className="text-indigo-400" /> Evolution of Air Law
-              </h3>
-              <div className="relative flex justify-between items-start max-w-2xl mx-auto mb-4">
-                <div className="absolute top-4 left-0 right-0 h-0.5 bg-slate-700 z-0"></div>
-                <div className="relative z-10 flex flex-col items-center text-center w-24">
-                  <div className="w-8 h-8 rounded-full bg-slate-800 border-2 border-slate-600 flex items-center justify-center mb-2">
-                    <span className="text-[10px] font-bold text-slate-400">1919</span>
-                  </div>
-                  <span className="text-white font-bold text-[10px]">Paris</span>
-                  <span className="text-slate-500 text-[8px]">Sovereignty Defined</span>
+          <div className="space-y-6">
+            <div className="dx-card p-6 space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="border border-line bg-bg p-5 space-y-3">
+                  <h3 className="font-bold text-ink flex items-center gap-2">
+                    <Shield className="text-sky-400 w-5 h-5" /> Sovereignty &amp; High Seas (Art 1 &amp; 12)
+                  </h3>
+                  <p className="text-xs text-muted leading-relaxed">
+                    <strong className="text-ink">Article 1:</strong> Every State has <strong className="text-ink">complete and exclusive sovereignty</strong> over airspace above land and <strong className="text-ink">12 NM</strong> territorial waters.
+                  </p>
+                  <p className="text-xs text-muted leading-relaxed">
+                    <strong className="text-ink">Article 12:</strong> Over the High Seas, ICAO <strong className="text-ink">Annex 2 (Rules of the Air)</strong> applies without exception.
+                  </p>
                 </div>
-                <div className="relative z-10 flex flex-col items-center text-center w-24">
-                  <div className="w-8 h-8 rounded-full bg-slate-800 border-2 border-slate-600 flex items-center justify-center mb-2">
-                    <span className="text-[10px] font-bold text-slate-400">1928</span>
-                  </div>
-                  <span className="text-white font-bold text-[10px]">Havana</span>
-                  <span className="text-slate-500 text-[8px]">Pan-American Rules</span>
-                </div>
-                <div className="relative z-10 flex flex-col items-center text-center w-24">
-                  <div className="w-10 h-10 -mt-1 rounded-full bg-indigo-600 border-2 border-indigo-400 flex items-center justify-center mb-2 shadow-lg shadow-indigo-600/30">
-                    <span className="text-[10px] font-bold text-white">1944</span>
-                  </div>
-                  <span className="text-indigo-400 font-bold text-[10px]">Chicago</span>
-                  <span className="text-indigo-300 text-[8px]">Modern Framework</span>
-                </div>
-              </div>
-              <p className="text-slate-400 text-xs text-center italic mb-4">The Chicago Convention superseded Paris and Havana to establish a global standard.</p>
-              
-              <div className="p-4 bg-indigo-500/10 rounded-xl border border-indigo-500/20 mt-4">
-                <h4 className="text-indigo-400 font-bold text-xs uppercase tracking-widest mb-1 flex items-center gap-1">
-                  <Info className="w-3 h-3" /> Historical Context (Art. 43)
-                </h4>
-                <p className="text-slate-300 text-xs leading-relaxed">
-                  {historicalContext.circumstances}
-                </p>
-              </div>
-            </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-slate-800/40 p-6 rounded-2xl border border-slate-700/50 backdrop-blur-sm">
-                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <Shield className="text-sky-400" /> Sovereignty & Territory
-                </h3>
-                <div className="space-y-4">
-                  <div className="p-4 bg-slate-900/60 rounded-xl border border-slate-700">
-                    <span className="text-sky-400 font-bold text-xs uppercase tracking-widest block mb-1">Article 1</span>
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      Every state has <strong className="text-white">complete and exclusive sovereignty</strong> over the airspace above its territory.
-                    </p>
-                  </div>
-                  <div className="p-4 bg-slate-900/60 rounded-xl border border-slate-700">
-                    <span className="text-sky-400 font-bold text-xs uppercase tracking-widest block mb-1">Territory Definition</span>
-                    <p className="text-slate-300 text-sm leading-relaxed mb-2">
-                      Land areas and <strong className="text-white">territorial waters</strong> adjacent thereto.
-                    </p>
-                    <div className="flex items-center gap-2 bg-slate-800 p-2 rounded-lg border border-slate-700">
-                      <div className="w-12 h-6 bg-emerald-600 rounded flex items-center justify-center text-[8px] font-bold text-white">LAND</div>
-                      <div className="h-0.5 flex-1 bg-slate-600 relative">
-                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-[8px] text-slate-500">12 NM</div>
-                      </div>
-                      <div className="w-12 h-6 bg-blue-600 rounded flex items-center justify-center text-[8px] font-bold text-white">HIGH SEAS</div>
-                    </div>
-                  </div>
-                  <div className="p-4 bg-slate-900/60 rounded-xl border border-slate-700">
-                    <span className="text-sky-400 font-bold text-xs uppercase tracking-widest block mb-1">High Seas</span>
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      Airspace over high seas is <strong className="text-white">international</strong>. Rules of the Air (Annex 2) apply without exception as per Article 12.
-                    </p>
-                  </div>
+                <div className="border border-line bg-bg p-5 space-y-3">
+                  <h3 className="font-bold text-ink flex items-center gap-2">
+                    <Layers className="text-amber-400 w-5 h-5" /> Registration, Art 5/6 &amp; Art 38
+                  </h3>
+                  <p className="text-xs text-muted leading-relaxed">
+                    Aircraft carry the nationality of one State (<strong className="text-ink">Art 17 &amp; 18</strong>). Scheduled services require special permission (<strong className="text-ink">Art 6</strong>), whereas non-scheduled flights enjoy Art 5 overflight subject to State regulations.
+                  </p>
+                  <p className="text-xs text-amber-300 leading-relaxed">
+                    <strong>Art 38:</strong> States unable to comply with an ICAO Standard MUST notify ICAO immediately.
+                  </p>
                 </div>
               </div>
 
-              <div className="bg-slate-800/40 p-6 rounded-2xl border border-slate-700/50 backdrop-blur-sm">
-                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <Layers className="text-amber-400" /> Traffic Rights & Controls
-                </h3>
-                <div className="grid grid-cols-1 gap-4">
-                  <div className="group cursor-help relative p-4 bg-slate-900/60 rounded-xl border border-slate-700 hover:border-amber-500/50 transition-colors">
-                    <h4 className="text-amber-400 font-bold text-sm mb-1">Cabotage (Art 7)</h4>
-                    <p className="text-slate-300 text-xs leading-relaxed">
-                      The right of an airline from one country to fly between two points within a foreign country. States may refuse this right.
+              {/* 19 ICAO Annexes with GUESS-FIRST Active Recall Toggle */}
+              <div>
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+                  <div>
+                    <h3 className="font-display text-xl font-bold text-ink flex items-center gap-2">
+                      <BookOpen className="text-emerald-400 w-5 h-5" /> ICAO Annexes 1–19 (SARPs)
+                    </h3>
+                    <p className="text-xs text-muted">
+                      {guessAnnexMode
+                        ? 'Guess-First Mode ACTIVE: name the Annex mentally, then click a tile to reveal & test yourself!'
+                        : 'Click any Annex tile to inspect its exam focus.'}
                     </p>
                   </div>
-                  <div className="group cursor-help relative p-4 bg-slate-900/60 rounded-xl border border-slate-700 hover:border-amber-500/50 transition-colors">
-                    <h4 className="text-amber-400 font-bold text-sm mb-1">Nationality of Aircraft</h4>
-                    <p className="text-slate-300 text-xs leading-relaxed">
-                      Aircraft have the nationality of the <strong className="text-white">State in which they are registered</strong> (Article 17). Dual registration is prohibited (Art 18).
-                    </p>
-                  </div>
-                  <div className="group cursor-help relative p-4 bg-slate-900/60 rounded-xl border border-slate-700 hover:border-amber-500/50 transition-colors">
-                    <h4 className="text-amber-400 font-bold text-sm mb-1">Scheduled vs Non-Scheduled</h4>
-                    <p className="text-slate-300 text-xs leading-relaxed">
-                      <strong className="text-white">Article 5:</strong> Non-scheduled flight rights. <br/>
-                      <strong className="text-white">Article 6:</strong> Scheduled air services require <strong className="text-white">special permission</strong> or authorization.
-                    </p>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setGuessAnnexMode((m) => !m);
+                        setRevealedAnnexes({});
+                      }}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-bold uppercase border cursor-pointer ${
+                        guessAnnexMode
+                          ? 'border-amber-400 bg-amber-500/20 text-amber-300'
+                          : 'border-line bg-bg text-muted hover:text-ink'
+                      }`}
+                    >
+                      {guessAnnexMode ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                      {guessAnnexMode ? 'Exit Guess-First' : 'Guess-First Mode'}
+                    </button>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <div className="bg-indigo-500/5 p-6 rounded-2xl border border-indigo-500/20">
-              <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                <Info className="text-indigo-400 w-5 h-5" /> Chicago Convention Summary
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed mb-4">
-                Signed on 7 December 1944. Its primary aim is to ensure that international civil aviation is developed in a <strong className="text-white">safe and orderly manner</strong> and that services are established on the basis of equality of opportunity.
-              </p>
-              <div className="flex gap-4">
-                <div className="flex-1 bg-slate-800/80 p-3 rounded-xl border border-slate-700 text-center">
-                  <span className="block text-indigo-400 font-bold text-lg">96</span>
-                  <span className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">Articles</span>
-                </div>
-                <div className="flex-1 bg-slate-800/80 p-3 rounded-xl border border-slate-700 text-center">
-                  <span className="block text-indigo-400 font-bold text-lg">19</span>
-                  <span className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">Annexes</span>
-                </div>
-                <div className="flex-1 bg-slate-800/80 p-3 rounded-xl border border-slate-700 text-center">
-                  <span className="block text-indigo-400 font-bold text-lg">Montreal</span>
-                  <span className="text-[10px] text-slate-500 uppercase font-bold tracking-tighter">Permanent Seat</span>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5">
+                  {icaoAnnexes.map((annex) => {
+                    const isSelected = selectedAnnex === annex.nr;
+                    const isRevealed = !guessAnnexMode || !!revealedAnnexes[annex.nr];
+                    return (
+                      <button
+                        key={annex.nr}
+                        type="button"
+                        onClick={() => {
+                          if (guessAnnexMode) {
+                            setRevealedAnnexes((prev) => ({ ...prev, [annex.nr]: !prev[annex.nr] }));
+                          }
+                          setSelectedAnnex(isSelected ? null : annex.nr);
+                        }}
+                        className={`p-3 border text-left transition-all relative cursor-pointer ${
+                          isSelected
+                            ? 'border-emerald-400 bg-emerald-500/15'
+                            : 'border-line bg-bg hover:border-line-strong'
+                        }`}
+                      >
+                        <span className="font-mono text-[10px] font-bold text-emerald-400 block">
+                          ANNEX {annex.nr}
+                        </span>
+                        <span className="text-xs font-bold text-ink block leading-snug mt-0.5">
+                          {isRevealed ? annex.title : 'Tap to reveal title…'}
+                        </span>
+                        {isRevealed && isSelected && (
+                          <p className="text-[11px] text-muted mt-2 pt-1.5 border-t border-line leading-snug">
+                            {annex.focus}
+                          </p>
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* Global Organizations Tab */}
-        {activeTab === 'orgs' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {/* Top Comparison */}
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-slate-800/40 p-6 rounded-2xl border border-indigo-500/30 shadow-lg shadow-indigo-500/5">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 bg-indigo-500/20 rounded-lg">
-                    <Landmark className="text-indigo-400 w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-white font-bold">ICAO</h3>
-                    <p className="text-[10px] text-indigo-400 uppercase tracking-widest font-bold">Intergovernmental (UN)</p>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <div className="p-4 bg-slate-900/60 rounded-xl border border-slate-700">
-                    <h4 className="text-xs font-bold text-slate-300 uppercase mb-2">Objectives (Art 44)</h4>
-                    <ul className="space-y-2">
-                      {(showAllObjectives ? icaoObjectives : icaoObjectives.slice(0, 4)).map((obj, i) => (
-                        <li key={i} className="flex gap-2 text-[11px] text-slate-400 leading-tight">
-                          <CheckCircle2 className="w-3 h-3 text-emerald-500 flex-shrink-0 mt-0.5" />
-                          {obj}
-                        </li>
-                      ))}
-                      <li 
-                        onClick={() => setShowAllObjectives(!showAllObjectives)}
-                        className="text-[10px] text-indigo-400 font-bold italic cursor-pointer hover:text-indigo-300 transition-colors"
-                      >
-                        {showAllObjectives ? 'Show less' : `+ ${icaoObjectives.length - 4} more key objectives`}
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="p-3 bg-slate-900/40 rounded-xl border border-slate-800">
-                      <span className="text-[10px] font-bold text-slate-500 uppercase block mb-1">Assembly</span>
-                      <p className="text-[10px] text-slate-300">All members. Meets <span className="text-white font-bold">triennially</span>.</p>
-                    </div>
-                    <div className="p-3 bg-slate-900/40 rounded-xl border border-slate-800">
-                      <span className="text-[10px] font-bold text-slate-500 uppercase block mb-1">Council</span>
-                      <p className="text-[10px] text-slate-300"><span className="text-white font-bold">36 States</span>. Adopts SARPs.</p>
-                    </div>
-                  </div>
-                </div>
+        {/* AIR FREEDOMS + SWIMLANE VISUALIZER */}
+        {activeTab === 'freedoms' && (
+          <div className="dx-card p-6 space-y-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div>
+                <h2 className="font-display text-2xl font-bold text-ink flex items-center gap-2">
+                  <Plane className="text-sky-400" /> Freedoms of the Air &amp; Cabotage (Art 7)
+                </h2>
+                <p className="text-xs text-muted mt-1">
+                  Select any Freedom on the left to watch how its route maps cleanly across sovereign airspace columns.
+                </p>
               </div>
-
-              <div className="bg-slate-800/40 p-6 rounded-2xl border border-sky-500/30 shadow-lg shadow-sky-500/5">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 bg-sky-500/20 rounded-lg">
-                    <Building2 className="text-sky-400 w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-white font-bold">IATA</h3>
-                    <p className="text-[10px] text-sky-400 uppercase tracking-widest font-bold">Airlines Trade Association</p>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <div className="p-4 bg-slate-900/60 rounded-xl border border-slate-700">
-                    <h4 className="text-xs font-bold text-slate-300 uppercase mb-2">Objectives</h4>
-                    <div className="grid gap-2">
-                      {iataObjectives.map((obj, i) => (
-                        <div key={i} className="flex gap-2 p-2 bg-slate-800/50 rounded-lg border border-slate-700/50">
-                          <div className="w-1.5 h-1.5 rounded-full bg-sky-500 mt-1.5 flex-shrink-0" />
-                          <p className="text-[10px] text-slate-400 leading-tight">{obj}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="p-4 bg-amber-500/10 rounded-xl border border-amber-500/20">
-                    <h4 className="text-amber-400 font-bold text-[10px] uppercase mb-1">Art. 38: Notification of Differences</h4>
-                    <p className="text-[10px] text-slate-400 leading-relaxed">
-                      States must notify ICAO if they cannot comply with a Standard. This is critical for the <span className="text-amber-200">Validity of Endorsed Licences</span> and certificates.
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <span className="font-mono text-xs px-2.5 py-1 border border-sky-400/50 bg-sky-500/10 text-sky-300">
+                Chicago Art 5, 6 &amp; 7
+              </span>
             </div>
 
-            {/* Annexes Section */}
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                  <BookOpen className="text-emerald-400" /> ICAO Annexes (SARPs)
-                </h3>
-                <div className="flex gap-4">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                    <span className="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Standards</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-amber-500" />
-                    <span className="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Recommended Practices</span>
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                {icaoAnnexes.map(annex => (
+            <FreedomSwimlaneDiagram freedomId={freedom} />
+
+            <div className="flex flex-col lg:flex-row gap-6">
+              <div className="w-full lg:w-1/3 space-y-2 max-h-[460px] overflow-y-auto pr-1">
+                {freedoms.map((f) => (
                   <button
-                    key={annex.nr}
-                    onClick={() => setSelectedAnnex(annex.nr === selectedAnnex ? null : annex.nr)}
-                    className={`p-3 rounded-xl border text-left transition-all relative overflow-hidden group
-                      ${selectedAnnex === annex.nr 
-                        ? 'bg-emerald-600 border-emerald-400 shadow-lg shadow-emerald-600/20' 
-                        : 'bg-slate-800/40 border-slate-700 hover:border-emerald-500/50 hover:bg-slate-800'}`}
+                    key={f.id}
+                    type="button"
+                    onClick={() => setFreedom(f.id)}
+                    className={`w-full p-3 border text-left flex items-center justify-between transition-colors cursor-pointer ${
+                      freedom === f.id
+                        ? 'border-sky-400 bg-sky-500/15 text-ink'
+                        : 'border-line bg-bg text-muted hover:text-ink hover:border-line-strong'
+                    }`}
                   >
-                    <div className="text-lg font-black mb-0.5 opacity-20 group-hover:opacity-40 transition-opacity absolute -right-1 -bottom-1">
-                      {annex.nr}
+                    <div>
+                      <span className="font-mono text-[10px] font-bold uppercase text-sky-400">
+                        {f.type} · {f.title}
+                      </span>
+                      <div className="text-xs font-bold text-ink mt-0.5">{f.name}</div>
                     </div>
-                    <span className={`text-[10px] font-bold block transition-colors ${selectedAnnex === annex.nr ? 'text-emerald-200' : 'text-slate-500'}`}>
-                      ANNEX {annex.nr}
-                    </span>
-                    <span className={`text-[11px] font-bold block leading-tight ${selectedAnnex === annex.nr ? 'text-white' : 'text-slate-300'}`}>
-                      {annex.title}
-                    </span>
-                    {selectedAnnex === annex.nr && (
-                      <div className="mt-2 pt-2 border-t border-emerald-400/30 animate-in fade-in zoom-in-95 duration-200">
-                        <p className="text-[10px] text-emerald-50 text-leading-tight font-medium">
-                          {annex.focus}
-                        </p>
-                      </div>
-                    )}
+                    <ArrowRight className="w-4 h-4 shrink-0" />
                   </button>
                 ))}
               </div>
-            </div>
-          </div>
-        )}
 
-        {/* Freedoms Tab */}
-        {activeTab === 'freedoms' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {/* Header info */}
-            <div className="bg-gradient-to-r from-sky-950/40 via-slate-900 to-indigo-950/40 p-6 rounded-2xl border border-sky-500/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-              <div>
-                <h3 className="text-xl font-black text-white flex items-center gap-2">
-                  <Plane className="text-sky-400" />
-                  Chicago Freedoms of the Air & Cabotage
-                </h3>
-                <p className="text-xs text-slate-400 mt-1 max-w-2xl">
-                  Formulated at the 1944 Chicago Convention. 1st & 2nd are technical transit rights; 3rd through 5th are commercial beyond rights; 8th & 9th are cabotage (strictly protected by national sovereignty).
-                </p>
-              </div>
-              <div className="px-3 py-1.5 rounded-lg bg-sky-900/30 border border-sky-500/30 text-sky-300 text-xs font-bold font-mono">
-                Chicago Art. 1 & 7
-              </div>
-            </div>
+              <div className="flex-1 border border-line-strong bg-bg p-6 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-line">
+                  <span className="font-mono text-xs font-bold uppercase text-sky-400">
+                    {selFreedom.title} · {selFreedom.type}
+                  </span>
+                  <span className="font-mono text-[11px] px-2.5 py-0.5 border border-line bg-bg-sunken text-ink">
+                    {selFreedom.trafficRights}
+                  </span>
+                </div>
+                <h3 className="font-display text-2xl font-bold text-ink">{selFreedom.name}</h3>
+                <p className="text-sm text-muted leading-relaxed">{selFreedom.desc}</p>
 
-            <div className="bg-slate-800/40 p-6 md:p-8 rounded-2xl border border-slate-700/50">
-              <div className="flex flex-col lg:flex-row gap-8">
-                {/* Freedoms List Buttons */}
-                <div className="w-full lg:w-1/3 space-y-2.5 max-h-[600px] overflow-y-auto pr-1">
-                  {freedoms.map(f => (
-                    <button
-                      key={f.id}
-                      onClick={() => setFreedom(f.id)}
-                      className={`w-full p-3.5 rounded-xl border text-left transition-all flex items-center justify-between group ${
-                        freedom === f.id
-                          ? 'bg-sky-600 border-sky-400 shadow-xl shadow-sky-600/20 scale-[1.02] text-white'
-                          : 'bg-slate-900/70 border-slate-700 hover:border-sky-500/50 text-slate-300 hover:text-white'
-                      }`}
-                    >
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <span className={`text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded ${
-                            freedom === f.id ? 'bg-sky-700 text-white' : 'bg-slate-800 text-slate-400'
-                          }`}>
-                            {f.type}
-                          </span>
-                          <span className="text-xs font-mono font-bold text-sky-400">
-                            {f.id <= 5 ? `${f.id}th Freedom` : f.title}
-                          </span>
-                        </div>
-                        <h4 className="font-bold text-sm mt-1 leading-snug">
-                          {f.name}
-                        </h4>
-                      </div>
-                      <ArrowRight className={`w-4 h-4 shrink-0 transition-transform ${freedom === f.id ? 'translate-x-1 text-white' : 'text-slate-600 group-hover:text-slate-400'}`} />
-                    </button>
-                  ))}
+                <div className="border border-line bg-bg-raised p-4">
+                  <div className="hud-label text-muted mb-1">REAL AIRLINE ROUTE EXAMPLE</div>
+                  <p className="text-xs font-mono text-sky-300 leading-relaxed">{selFreedom.example}</p>
                 </div>
 
-                {/* Selected Freedom Detail & Scenario */}
-                {(() => {
-                  const selFreedom = freedoms.find(f => f.id === freedom) || freedoms[0];
-                  return (
-                    <div className="flex-1 bg-slate-900/90 rounded-2xl border border-slate-700 p-6 md:p-8 space-y-6">
-                      <div className="border-b border-slate-800 pb-4">
-                        <div className="flex flex-wrap items-center justify-between gap-2">
-                          <span className="text-xs font-bold text-sky-400 uppercase tracking-widest">
-                            {selFreedom.title} • {selFreedom.type}
-                          </span>
-                          <span className="text-xs bg-slate-800 text-slate-300 px-2.5 py-0.5 rounded-full font-bold">
-                            {selFreedom.trafficRights}
-                          </span>
-                        </div>
-                        <h3 className="text-2xl font-black text-white mt-1">
-                          {selFreedom.name}
-                        </h3>
-                        <p className="text-slate-300 text-sm mt-2 leading-relaxed">
-                          {selFreedom.desc}
-                        </p>
-                      </div>
-
-                      {/* Real-world Operational Example */}
-                      <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                          Real-World Airline Route Example:
-                        </span>
-                        <p className="text-xs text-sky-200 font-medium leading-relaxed">
-                          {selFreedom.example}
-                        </p>
-                      </div>
-
-                      {/* RTFQ Exam Trap */}
-                      <div className="p-4 bg-red-950/20 rounded-xl border border-red-500/30 space-y-1">
-                        <span className="text-[10px] font-bold text-red-400 uppercase tracking-wider block">
-                          Air Law RTFQ Defense Tip:
-                        </span>
-                        <p className="text-xs text-red-200 leading-relaxed">
-                          {selFreedom.rtfqTrap}
-                        </p>
-                      </div>
-
-                      {/* Chicago Art 7 Cabotage Protection Note */}
-                      {(selFreedom.id === 8 || selFreedom.id === 9) && (
-                        <div className="p-4 bg-amber-950/20 rounded-xl border border-amber-500/30 text-xs text-amber-200">
-                          <strong>Chicago Convention Article 7 (Cabotage):</strong> Each contracting State has the absolute right to refuse permission to foreign aircraft to take on passengers, cargo, and mail destined for another point within its territory. Furthermore, no State shall grant cabotage privileges on an exclusive basis to any other State!
-                        </div>
-                      )}
-                    </div>
-                  );
-                })()}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Liability Tab */}
-        {activeTab === 'liability' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-slate-800/40 p-6 rounded-2xl border border-slate-700">
-                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <Scale className="text-indigo-400" /> Carrier Liability
-                </h3>
-                <div className="space-y-4">
-                  <div className="p-4 bg-slate-900/60 rounded-xl border-l-4 border-amber-500">
-                    <h4 className="text-white font-bold text-sm mb-1">Montreal Convention (1999)</h4>
-                    <p className="text-slate-400 text-xs leading-relaxed">
-                      Established <strong className="text-slate-200">Strict Liability</strong> for death or injury up to 128,821 SDR. Beyond this, liability is unlimited unless the carrier proves it was not negligent.
-                    </p>
-                  </div>
-                  <div className="p-4 bg-slate-900/60 rounded-xl border-l-4 border-indigo-500">
-                    <h4 className="text-white font-bold text-sm mb-1">Documents of Carriage</h4>
-                    <p className="text-slate-400 text-xs leading-relaxed">
-                      Individual or collective document of carriage is required. Non-compliance does <strong className="text-slate-200">not</strong> affect the validity of the contract.
-                    </p>
-                  </div>
-                  <div className="p-4 bg-slate-900/60 rounded-xl border-l-4 border-sky-500">
-                    <h4 className="text-white font-bold text-sm mb-1">SDR Liability Limits</h4>
-                    <p className="text-slate-400 text-xs leading-relaxed">
-                      <strong className="text-slate-200">Baggage:</strong> ~1,288 SDR per pax (destruction, loss, damage or delay). <br/>
-                      <strong className="text-slate-200">Cargo:</strong> 22 SDR per kg.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-slate-800/40 p-6 rounded-2xl border border-slate-700">
-                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <User className="text-purple-400" /> Passenger Rights (EU 261/2004)
-                </h3>
-                <div className="space-y-4">
-                  {/* Visual Compensation Table */}
-                  <div className="bg-slate-900/80 rounded-xl border border-slate-700 overflow-hidden">
-                    <table className="w-full text-[10px] text-left">
-                      <thead className="bg-slate-800 text-slate-400 uppercase font-bold">
-                        <tr>
-                          <th className="px-3 py-2">Distance</th>
-                          <th className="px-3 py-2">Delay</th>
-                          <th className="px-3 py-2">Comp.</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-800">
-                        <tr className="hover:bg-slate-800/50 transition-colors">
-                          <td className="px-3 py-2 text-slate-300">Up to 1500km</td>
-                          <td className="px-3 py-2 text-slate-400">2 hours</td>
-                          <td className="px-3 py-2 font-bold text-emerald-400">€250</td>
-                        </tr>
-                        <tr className="hover:bg-slate-800/50 transition-colors">
-                          <td className="px-3 py-2 text-slate-300">1500 - 3500km</td>
-                          <td className="px-3 py-2 text-slate-400">3 hours</td>
-                          <td className="px-3 py-2 font-bold text-emerald-400">€400</td>
-                        </tr>
-                        <tr className="hover:bg-slate-800/50 transition-colors">
-                          <td className="px-3 py-2 text-slate-300">Over 3500km</td>
-                          <td className="px-3 py-2 text-slate-400">4 hours</td>
-                          <td className="px-3 py-2 font-bold text-emerald-400">€600</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  
-                  <div className="p-3 bg-amber-500/5 rounded-xl border border-amber-500/20">
-                    <p className="text-[10px] text-slate-400 leading-relaxed">
-                      <strong className="text-amber-400">Right to Care:</strong> Meals, refreshments, 2 phone calls, and hotel accommodation if an overnight stay is required.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-red-500/5 p-6 rounded-2xl border border-red-500/20">
-              <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                <Shield className="text-red-400 w-5 h-5" /> PIC Powers & Unlawful Acts
-              </h3>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="space-y-2 p-4 bg-slate-900/40 rounded-xl border border-slate-800">
-                  <h4 className="text-[10px] font-bold text-red-400 uppercase tracking-widest">Tokyo (1963)</h4>
-                  <p className="text-slate-300 text-xs leading-relaxed">
-                    <strong className="text-white">Art 6:</strong> PIC may impose <span className="text-red-200">restraint</span> on any person who has committed (or is about to commit) an act jeopardizing safety. 
-                  </p>
-                  <p className="text-[10px] text-slate-500 italic">Immunity granted to crew/passengers for actions taken.</p>
-                </div>
-                <div className="space-y-2 p-4 bg-slate-900/40 rounded-xl border border-slate-800">
-                  <h4 className="text-[10px] font-bold text-red-400 uppercase tracking-widest">Hague (1970)</h4>
-                  <p className="text-slate-300 text-xs leading-relaxed">
-                    Deals with <strong className="text-white">Unlawful Seizure</strong> of aircraft (Hijacking). States must make hijacking a "punishable by severe penalties" offence.
-                  </p>
-                </div>
-                <div className="space-y-2 p-4 bg-slate-900/40 rounded-xl border border-slate-800">
-                  <h4 className="text-[10px] font-bold text-red-400 uppercase tracking-widest">Montreal (1971)</h4>
-                  <p className="text-slate-300 text-xs leading-relaxed">
-                    Suppression of <strong className="text-white">Unlawful Acts</strong> against safety (Sabotage, false info, damaging facilities). 
-                  </p>
+                <div className="border border-rose-500/40 bg-rose-500/10 p-4">
+                  <div className="hud-label text-rose-400 mb-1">EASA RTFQ TRAP DEFENSE</div>
+                  <p className="text-xs text-rose-100 leading-relaxed">{selFreedom.rtfqTrap}</p>
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* EASA Tab */}
-        {activeTab === 'easa' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="bg-slate-800/40 p-6 rounded-2xl border border-slate-700">
-              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                <Building2 className="text-indigo-400" /> EASA Objectives (Reg. 2018/1139)
-              </h3>
-              
-              <div className="grid md:grid-cols-2 gap-6 mb-8">
-                <div className="p-5 bg-indigo-500/10 rounded-2xl border border-indigo-500/20">
-                  <h4 className="text-indigo-400 font-bold text-xs uppercase tracking-widest mb-2">Principal Objective</h4>
-                  <p className="text-white text-sm font-bold leading-relaxed">
-                    Establish and maintain a <span className="text-indigo-300">high uniform level</span> of civil aviation safety in the Union.
-                  </p>
-                </div>
-                <div className="p-5 bg-slate-900/60 rounded-2xl border border-slate-700">
-                  <h4 className="text-slate-500 font-bold text-xs uppercase tracking-widest mb-2">Additional Objectives</h4>
-                  <ul className="space-y-2">
-                    {['Environmental protection', 'Level playing field', 'Free movement of goods/persons', 'Promotion of EU views globally'].map((item, i) => (
-                      <li key={i} className="flex items-center gap-2 text-[11px] text-slate-400">
-                        <div className="w-1 h-1 rounded-full bg-indigo-500" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+        {/* ACTIVE RECALL LAB: CASE STAMP SIMULATOR + HOLD SHORT GATES */}
+        {activeTab === 'recall' && (
+          <div className="space-y-6">
+            <CaseFileStampSimulator stamps={STAMP_OPTIONS} cases={CASE_FILES} />
 
-              <div className="grid md:grid-cols-2 gap-12 relative">
-                <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-slate-700 -translate-x-1/2"></div>
-                
-                <div className="space-y-6">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="bg-indigo-600 p-1.5 rounded text-white font-bold text-[10px]">HARD LAW</div>
-                    <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">Binding Regulations</span>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="p-4 bg-slate-900/60 rounded-xl border border-indigo-500/20 group hover:border-indigo-500/50 transition-colors">
-                      <h4 className="text-white font-bold text-sm mb-1">Basic Regulation</h4>
-                      <p className="text-slate-400 text-xs">Council/Parliament Level. Establishes EASA & Principles.</p>
-                    </div>
-                    <div className="p-4 bg-slate-900/60 rounded-xl border border-indigo-500/20 group hover:border-indigo-500/50 transition-colors">
-                      <h4 className="text-white font-bold text-sm mb-1">Implementing Rules (IR)</h4>
-                      <p className="text-slate-400 text-xs">Commission Level. Detailed technical requirements (e.g. Part-FCL, Part-OPS).</p>
-                    </div>
-                  </div>
-                </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <HoldShortGate
+                gate={{
+                  id: 'gate-art29-docs',
+                  kind: 'redpen',
+                  askedInEasa: true,
+                  ask: 'Ramp inspection check under **Chicago Article 29**: one document listed is NOT required by Art 29 (or violates Art 18). **Tap the wrong line**:',
+                  rows: [
+                    { label: 'Art 29(a)', value: 'Certificate of Registration (1 State only)', note: 'Mandatory ship paper.' },
+                    { label: 'Art 29(b)', value: 'Certificate of Airworthiness (State of Registry)', note: 'Mandatory ship paper.' },
+                    {
+                      label: 'Art 18 Registration',
+                      value: 'Dual State registration (G-ABCD & F-WXYZ simultaneously)',
+                      fix: 'PROHIBITED — Single State of Registry only',
+                    },
+                    { label: 'Art 29(c)/(e)', value: 'Appropriate Crew Licences & Radio Station Licence', note: 'Mandatory ship paper.' },
+                  ],
+                  yes: 'Correct — dual registration is strictly forbidden under Article 18!',
+                  why: 'An aircraft cannot be validly registered in more than one State (**Art 18**), though registration may be transferred between States.',
+                }}
+              />
 
-                <div className="space-y-6">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="bg-emerald-600 p-1.5 rounded text-white font-bold text-[10px]">SOFT LAW</div>
-                    <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">EASA Executive Decisions</span>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="p-4 bg-slate-900/60 rounded-xl border border-emerald-500/20 group hover:border-emerald-500/50 transition-colors">
-                      <h4 className="text-white font-bold text-sm mb-1">CS (Certification Specs)</h4>
-                      <p className="text-slate-400 text-xs">Standards used for the certification of products (e.g. CS-25 for large planes).</p>
-                    </div>
-                    <div className="p-4 bg-slate-900/60 rounded-xl border border-emerald-500/20 group hover:border-emerald-500/50 transition-colors">
-                      <h4 className="text-white font-bold text-sm mb-1">AMC / GM</h4>
-                      <p className="text-slate-400 text-xs">Acceptable Means of Compliance and Guidance Material.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-slate-800/40 p-6 rounded-2xl border border-slate-700">
-              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                <Plane className="text-sky-400 w-5 h-5" /> Single European Sky (SES)
-              </h3>
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="space-y-2">
-                  <p className="text-slate-400 text-sm leading-relaxed">
-                    Reform of European airspace management to reduce fragmentation.
-                  </p>
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-700 text-center">
-                      <span className="text-[10px] font-bold text-sky-400 uppercase tracking-tighter">FAB</span>
-                      <p className="text-[9px] text-slate-500 mt-1">Functional Airspace Blocks</p>
-                    </div>
-                    <div className="bg-slate-900/60 p-3 rounded-xl border border-slate-700 text-center">
-                      <span className="text-[10px] font-bold text-sky-400 uppercase tracking-tighter">SESAR</span>
-                      <p className="text-[9px] text-slate-500 mt-1">Tech R&D Program</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-sky-500/5 p-4 rounded-xl border border-sky-500/20">
-                  <h4 className="text-[10px] font-bold text-sky-400 uppercase tracking-widest mb-2">Performance Scheme Targets</h4>
-                  <div className="space-y-2">
-                    {['Safety', 'Environment (Fuel/CO2)', 'Capacity (Delay reduction)', 'Cost-efficiency'].map((target, i) => (
-                      <div key={i} className="flex justify-between items-center text-[11px]">
-                        <span className="text-slate-300">{target}</span>
-                        <CheckCircle2 className="w-3 h-3 text-sky-500" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <HoldShortGate
+                gate={{
+                  id: 'gate-icao-order',
+                  kind: 'tiles',
+                  askedInEasa: true,
+                  ask: 'Build the correct **Annex 7 Registration Mark** sequence (Nationality Mark, Hyphen when letters follow letters, Registration Mark) for a German jet registered **ABCE**:',
+                  answerTiles: ['D', '-', 'A', 'B', 'C', 'E'],
+                  extraTiles: ['_', 'N'],
+                  yes: 'Accepted — D-ABCE follows ICAO Annex 7 formatting.',
+                  why: 'Per Annex 7, when letters follow a letter nationality mark (`D`), a **hyphen (`-`)** separates Nationality from Registration (`D-ABCE`). No hyphen is used only if numbers follow letters.',
+                }}
+              />
             </div>
           </div>
         )}
 
-        {/* Documents Tab */}
-        {activeTab === 'documents' && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="bg-slate-800/40 p-6 rounded-2xl border border-slate-700">
-              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                <FileText className="text-emerald-400" /> Mandatory Documents on Board (Art 29)
-              </h3>
-              
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {documents.map(doc => (
-                  <div 
-                    key={doc.id}
-                    className="p-5 bg-slate-900/60 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition-all hover:shadow-lg hover:shadow-emerald-500/5 group"
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="text-white font-bold text-sm group-hover:text-emerald-400 transition-colors">{doc.title}</h4>
-                      <CheckCircle2 className="text-emerald-500 w-4 h-4" />
-                    </div>
-                    <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block mb-2">{doc.ref}</span>
-                    <p className="text-slate-400 text-xs leading-relaxed">
-                      {doc.desc}
-                    </p>
-                  </div>
+        {/* GLOBAL ORGS */}
+        {activeTab === 'orgs' && (
+          <div className="dx-card p-6 grid md:grid-cols-2 gap-6">
+            <div className="border border-line bg-bg p-5 space-y-4">
+              <div className="flex items-center gap-3">
+                <Landmark className="text-indigo-400 w-6 h-6" />
+                <div>
+                  <h3 className="font-bold text-ink">ICAO (UN Specialized Agency)</h3>
+                  <p className="text-[11px] font-mono text-indigo-400">Assembly (3 yrs) · Council (36 States) · ANC (19 Experts)</p>
+                </div>
+              </div>
+              <ul className="space-y-2">
+                {(showAllObjectives ? icaoObjectives : icaoObjectives.slice(0, 5)).map((obj, i) => (
+                  <li key={i} className="flex gap-2 text-xs text-muted">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                    <span>{obj}</span>
+                  </li>
                 ))}
-                
-                <div className="p-5 bg-emerald-500/5 rounded-2xl border border-emerald-500/20 flex items-center justify-center text-center">
-                  <div>
-                    <h4 className="text-emerald-400 font-bold text-xs uppercase tracking-widest mb-1">Art. 10 & 16: Searches</h4>
-                    <p className="text-slate-400 text-[10px] leading-relaxed">
-                      Aircraft must land at designated <strong className="text-white">Customs Airports</strong>. States have the right <strong className="text-white">to search aircraft</strong> on landing/departure (Art 16).
-                    </p>
-                  </div>
+              </ul>
+              <button
+                type="button"
+                onClick={() => setShowAllObjectives(!showAllObjectives)}
+                className="text-xs font-mono font-bold text-indigo-400 cursor-pointer"
+              >
+                {showAllObjectives ? 'Show fewer' : `+ Show all ${icaoObjectives.length} Art 44 objectives`}
+              </button>
+            </div>
+
+            <div className="border border-line bg-bg p-5 space-y-4">
+              <div className="flex items-center gap-3">
+                <Building2 className="text-sky-400 w-6 h-6" />
+                <div>
+                  <h3 className="font-bold text-ink">IATA (Airlines Trade Body)</h3>
+                  <p className="text-[11px] font-mono text-sky-400">Commercial &amp; Safety Audit Standardization</p>
                 </div>
               </div>
-            </div>
-            
-            <div className="bg-slate-800/40 p-6 rounded-2xl border border-slate-700 flex items-center gap-6">
-              <div className="hidden sm:flex w-16 h-16 bg-amber-500/10 rounded-2xl items-center justify-center border border-amber-500/20 flex-shrink-0">
-                <AlertCircle className="text-amber-400 w-8 h-8" />
-              </div>
-              <div>
-                <h4 className="text-white font-bold text-sm mb-1 uppercase tracking-tight">Recognition of Certificates</h4>
-                <p className="text-slate-400 text-xs leading-relaxed">
-                  States <strong className="text-slate-200">must recognize</strong> CofA and licences issued by other Contracting States, provided the requirements for such certificates are <strong className="text-slate-200">equal to or above</strong> ICAO standards (Art 33).
-                </p>
-              </div>
+              <ul className="space-y-2">
+                {iataObjectives.map((obj, i) => (
+                  <li key={i} className="flex gap-2 text-xs text-muted">
+                    <Info className="w-3.5 h-3.5 text-sky-400 shrink-0 mt-0.5" />
+                    <span>{obj}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         )}
 
-        {/* Exam Fast Track */}
-        <div className="mt-8 pt-8 border-t border-slate-800/60 mx-8">
-          <div className="flex items-center gap-2 mb-6">
-            <CheckCircle2 className="text-emerald-500 w-5 h-5" />
-            <h3 className="text-lg font-bold text-white uppercase tracking-tight">Exam Fast-Track: 010.01 High-Yield Facts</h3>
+        {/* LIABILITY */}
+        {activeTab === 'liability' && (
+          <div className="space-y-6">
+            <div className="dx-card p-6 grid md:grid-cols-2 gap-6">
+              <div className="border border-line bg-bg p-5 space-y-3">
+                <h3 className="font-bold text-ink flex items-center gap-2">
+                  <Scale className="text-indigo-400 w-5 h-5" /> Montreal Convention (1999)
+                </h3>
+                <p className="text-xs text-muted leading-relaxed">
+                  <strong className="text-ink">Death / Injury:</strong> Strict liability up to **128,821 SDR**; unlimited above unless carrier proves non-negligence.
+                </p>
+                <p className="text-xs text-muted leading-relaxed">
+                  <strong className="text-ink">Baggage:</strong> ~1,288 SDR/pax · <strong className="text-ink">Cargo:</strong> 22 SDR/kg. Missing ticket does NOT void the contract.
+                </p>
+              </div>
+
+              <div className="border border-line bg-bg p-5 space-y-3">
+                <h3 className="font-bold text-ink flex items-center gap-2">
+                  <User className="text-amber-400 w-5 h-5" /> Passenger Rights (EU 261/2004)
+                </h3>
+                <div className="grid grid-cols-3 gap-2 font-mono text-xs text-center">
+                  <div className="border border-line p-2 bg-bg-sunken">
+                    <div className="text-muted">≤ 1,500 km (2h)</div>
+                    <div className="text-emerald-400 font-bold text-base">€250</div>
+                  </div>
+                  <div className="border border-line p-2 bg-bg-sunken">
+                    <div className="text-muted">1500–3500 km (3h)</div>
+                    <div className="text-emerald-400 font-bold text-base">€400</div>
+                  </div>
+                  <div className="border border-line p-2 bg-bg-sunken">
+                    <div className="text-muted">&gt; 3,500 km (4h)</div>
+                    <div className="text-emerald-400 font-bold text-base">€600</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <CaseFileStampSimulator stamps={STAMP_OPTIONS} cases={CASE_FILES} />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <div className="p-4 bg-slate-900/40 rounded-xl border border-slate-800 hover:border-indigo-500/30 transition-colors">
-              <span className="text-[9px] font-bold text-slate-500 uppercase block mb-1">Standard vs RP</span>
-              <p className="text-[11px] text-slate-300">
-                <strong className="text-indigo-400">Standard:</strong> "Shall" - Necessary. <br/>
-                <strong className="text-amber-400">Recommended:</strong> "Should" - Desirable.
+        )}
+
+        {/* EASA FRAMEWORK */}
+        {activeTab === 'easa' && (
+          <div className="dx-card p-6 grid md:grid-cols-2 gap-6">
+            <div className="border border-line bg-bg p-5 space-y-3">
+              <span className="hud-label text-indigo-400">HARD LAW (BINDING)</span>
+              <h3 className="font-bold text-ink">Basic Reg (2018/1139) &amp; Implementing Rules</h3>
+              <p className="text-xs text-muted leading-relaxed">
+                EU Parliament/Council Basic Regulation establishes EASA; European Commission adopts mandatory Parts (**Part-FCL**, **Part-MED**, **Part-OPS**, **SERA**).
               </p>
             </div>
-            <div className="p-4 bg-slate-900/40 rounded-xl border border-slate-800 hover:border-indigo-500/30 transition-colors">
-              <span className="text-[9px] font-bold text-slate-500 uppercase block mb-1">ICAO Numbers</span>
-              <p className="text-[11px] text-slate-300">
-                <strong className="text-white">Council:</strong> 36 States. <br/>
-                <strong className="text-white">ANC:</strong> 19 Experts.
+            <div className="border border-line bg-bg p-5 space-y-3">
+              <span className="hud-label text-emerald-400">SOFT LAW (EASA EXECUTIVE)</span>
+              <h3 className="font-bold text-ink">Certification Specs (CS), AMC &amp; GM</h3>
+              <p className="text-xs text-muted leading-relaxed">
+                **CS-23/25** define airworthiness standards; **AMC** illustrates compliant methods (AltMoC permitted with NAA approval).
               </p>
             </div>
-            <div className="p-4 bg-slate-900/40 rounded-xl border border-slate-800 hover:border-indigo-500/30 transition-colors">
-              <span className="text-[9px] font-bold text-slate-500 uppercase block mb-1">Cabotage (Art 7)</span>
-              <p className="text-[11px] text-slate-300">States have the right to <strong className="text-white">refuse permission</strong> to other states to take on/discharge traffic for profit. </p>
+          </div>
+        )}
+
+        {/* ON-BOARD DOCS */}
+        {activeTab === 'documents' && (
+          <div className="dx-card p-6 space-y-4">
+            <h3 className="font-bold text-ink flex items-center gap-2">
+              <FileText className="text-emerald-400" /> Mandatory On-Board Documents (Chicago Art 29–36)
+            </h3>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {documents.map((doc) => (
+                <div key={doc.id} className="border border-line bg-bg p-4">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="font-bold text-sm text-ink">{doc.title}</span>
+                    <span className="font-mono text-[10px] text-emerald-400">{doc.ref}</span>
+                  </div>
+                  <p className="text-xs text-muted">{doc.desc}</p>
+                </div>
+              ))}
             </div>
-            <div className="p-4 bg-slate-900/40 rounded-xl border border-slate-800 hover:border-indigo-500/30 transition-colors">
-              <span className="text-[9px] font-bold text-slate-500 uppercase block mb-1">Sovereignty (Art 1)</span>
-              <p className="text-[11px] text-slate-300">Every state has <strong className="text-white">complete and exclusive</strong> sovereignty over the airspace above its territory.</p>
+            <div className="border border-amber-500/40 bg-amber-500/10 p-4 flex items-center gap-3 text-xs text-amber-100">
+              <AlertCircle className="text-amber-400 w-5 h-5 shrink-0" />
+              <span>
+                <strong>Art 33 Recognition:</strong> Contracting States MUST recognize foreign C of A &amp; crew licences provided issuing standards equal or exceed ICAO minimums.
+              </span>
             </div>
           </div>
-        </div>
+        )}
 
+        {/* Universal Confusion Buster + Checkride + ACARS Debrief */}
+        <ConfusionBusterGrid pairs={CONFUSION_PAIRS} />
+        <CheckrideDeck calls={CHECKRIDE_CALLS} subjectLabel="AIR LAW 010.01" />
+        <ACARSDebriefSlip
+          chapterLabel="010.01 // INT LAW"
+          headline="AIR LAW & TREATY DISPATCH SUMMARY — **CLEARED**"
+          rows={[
+            { label: 'Sovereignty & High Seas', value: 'Art 1 (12 NM) · Art 12 Annex 2' },
+            { label: 'Art 38 Differences', value: 'Standards ("Shall") notify immediately' },
+            { label: 'Cabotage (Art 7)', value: 'State may refuse 8th/9th domestic traffic' },
+            { label: 'Liability vs Crime', value: 'Montreal ’99 (SDR) · Tokyo/Hague/Montreal ’71' },
+          ]}
+        />
       </div>
-
-      {/* Footer */}
-      <div className="px-8 py-4 bg-slate-900 border-t border-slate-800 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Syllabus Coverage: 100% (Prefix 010.01)</span>
-        </div>
-        <div className="flex items-center gap-4">
-          <span className="text-[10px] text-slate-600 font-medium">ATPL Vector • Interactive Learning Module</span>
-        </div>
-      </div>
-
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes fly-through {
-          0% { left: 0%; opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { left: 100%; opacity: 0; }
-        }
-        @keyframes stop-at-b {
-          0% { left: 0%; opacity: 0; }
-          10% { opacity: 1; }
-          50% { left: 50%; transform: translate(-50%, -50%); }
-          90% { opacity: 1; }
-          100% { left: 100%; opacity: 0; }
-        }
-        @keyframes home-to-b {
-          0% { left: 0%; opacity: 0; }
-          10% { opacity: 1; }
-          100% { left: 50%; opacity: 1; transform: translate(-50%, -50%); }
-        }
-        @keyframes b-to-home {
-          0% { left: 50%; opacity: 0; transform: translate(-50%, -50%) rotate(180deg); }
-          10% { opacity: 1; }
-          100% { left: 0%; opacity: 1; transform: translate(-50%, -50%) rotate(180deg); }
-        }
-        @keyframes home-to-c {
-          0% { left: 0%; opacity: 0; }
-          10% { opacity: 1; }
-          50% { left: 50%; opacity: 1; transform: translate(-50%, -50%); }
-          100% { left: 100%; opacity: 1; transform: translate(-50%, -50%); }
-        }
-        .animate-fly-through { animation: fly-through 3s infinite linear; }
-        .animate-stop-at-b { animation: stop-at-b 4s infinite ease-in-out; }
-        .animate-home-to-b { animation: home-to-b 2s infinite ease-out; }
-        .animate-b-to-home { animation: b-to-home 2s infinite ease-out; }
-        .animate-home-to-c { animation: home-to-c 4s infinite linear; }
-      `}} />
     </div>
   );
 };
